@@ -5,7 +5,13 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World"); /* initial code */
-            /* TODO - Branch off this branch and add a hello world to this file with your name or something */
+            /*  TODO 
+             *  Clone main
+                Create a branch using branch -b branch-name
+                Add some code to this file (make sure it compiles)
+                add, commit and push the file
+                then create a pull request so we can merge
+            */
         }
     }
 }
