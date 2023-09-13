@@ -475,3 +475,11 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# The template above was created by dotnet
+# Add anything below this line to be ignored 
+
+# We want to ignore the user specific files created by visual studio code 
+.vs/ 
+bin/
+obj/
