@@ -482,4 +482,5 @@ $RECYCLE.BIN/
 # We want to ignore the user specific files created by visual studio code 
 .vs/ 
 bin/
-obj/
+obj
+HelloWorld/
