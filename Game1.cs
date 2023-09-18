@@ -57,7 +57,6 @@ namespace SprintZero1
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            // spriteSheet = this.Content.Load<Texture2D>("SoraSprites1");
             blockFactory.LoadTextures(this.Content);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
         }
@@ -79,8 +78,6 @@ namespace SprintZero1
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            // credits.Draw(_spriteBatch, spriteSheet);
-            // soraSprite.Draw(_spriteBatch, spriteSheet);
             nonMovingOnScreenBlock.Draw(_spriteBatch);
             base.Draw(gameTime);
         }

@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Content;
 using SprintZero1.Sprites;
 
 namespace SprintZero1.Factories
