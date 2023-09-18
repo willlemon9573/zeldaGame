@@ -5,10 +5,12 @@
  */
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
+using SprintZero1.Controllers;
+using SprintZero1.Factories;
+using SprintZero1.Sprites;
 
 namespace SprintZero1
-{   
+{
     public class Game1 : Game
     {   
         /* Commented out code has been deprecated */

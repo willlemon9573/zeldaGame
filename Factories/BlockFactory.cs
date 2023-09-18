@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Sprites;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace SprintZero1
+namespace SprintZero1.Factories
 {
     public class BlockFactory : IBlockFactory
     {

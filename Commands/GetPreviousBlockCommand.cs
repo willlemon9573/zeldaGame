@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SprintZero1.Factories;
 
-namespace SprintZero1
+namespace SprintZero1.Commands
 {
-    public class GetNextBlockCommand : ICommand
+    public class GetPreviousBlockCommand : ICommand
     {
         private readonly string[] blockNames;
         private readonly Game1 myGame;
         private readonly IBlockFactory myBlockFactory;
-        public GetNextBlockCommand(Game1 game) {
+        private readonly int totalBlocks;
+
+        public GetPreviousBlockCommand(Game1 game)
+        {
             myGame = game;
             blockNames = new string[] { "flat", "pyramid", "stairs", "greybrick" };
             myBlockFactory = BlockFactory.Instance;
+            totalBlocks = 4;
         }
-
         public void Execute()
         {
-            myGame.OnScreenBlockIndex = (myGame.OnScreenBlockIndex + 1) % 4;
+            myGame.OnScreenBlockIndex = (myGame.OnScreenBlockIndex - 1 + totalBlocks) % totalBlocks;
             myGame.NonMovingBlock = myBlockFactory.CreateNonMovingBlockSprite(blockNames[myGame.OnScreenBlockIndex]);
         }
     }

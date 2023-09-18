@@ -2,11 +2,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SprintZero1
+namespace SprintZero1.Sprites
 {
     public class NonMovingBlockSprite : ISprite
     {
-        
+
         private Rectangle sourceRectangle; // source of rectangle to pull from the block sprite sheet
         private Vector2 location; // the location to display the block
         private readonly Texture2D spriteSheet; // the source file to draw from

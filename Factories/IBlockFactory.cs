@@ -1,7 +1,8 @@
 ﻿
 using Microsoft.Xna.Framework.Content;
+using SprintZero1.Sprites;
 
-namespace SprintZero1
+namespace SprintZero1.Factories
 {
     internal interface IBlockFactory
     {
