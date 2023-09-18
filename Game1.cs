@@ -16,7 +16,7 @@ namespace SprintZero1
         private SpriteBatch _spriteBatch;
         private IController keyboardController;
         private IBlockFactory blockFactory;
-        private ISprite nonMovingBlock;
+        private ISprite nonMovingOnScreenBlock;
         private int onScreenBlockIndex;
 
         public int OnScreenBlockIndex
@@ -26,7 +26,7 @@ namespace SprintZero1
         }
         public ISprite NonMovingBlock
         {
-            set { nonMovingBlock = value; }
+            set { nonMovingOnScreenBlock = value; }
         }
         
         public Game1()
@@ -57,7 +57,7 @@ namespace SprintZero1
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             // spriteSheet = this.Content.Load<Texture2D>("SoraSprites1");
             blockFactory.LoadTextures(this.Content);
-            nonMovingBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
+            nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace SprintZero1
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // credits.Draw(_spriteBatch, spriteSheet);
             // soraSprite.Draw(_spriteBatch, spriteSheet);
-            nonMovingBlock.Draw(_spriteBatch);
+            nonMovingOnScreenBlock.Draw(_spriteBatch);
             base.Draw(gameTime);
         }
     }
