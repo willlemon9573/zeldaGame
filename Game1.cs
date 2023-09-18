@@ -17,12 +17,12 @@ namespace SprintZero1
         private IController keyboardController, mouseController;
         private IBlockFactory blockFactory;
         private ISprite nonMovingBlock;
-        private int onScreenBlockPos;
+        private int onScreenBlockIndex;
 
         public int OnScreenBlockPos
         {
-            get { return onScreenBlockPos; }
-            set { onScreenBlockPos = value; }
+            get { return onScreenBlockIndex; }
+            set { onScreenBlockIndex = value; }
         }
         public ISprite NonMovingBlock
         {
