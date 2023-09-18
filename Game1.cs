@@ -5,16 +5,29 @@
  */
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace SprintZero1
 {   
     public class Game1 : Game
-    {
+    {   
+        /* Commented out code has been deprecated */
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private ISprite credits, soraSprite;
         private IController keyboardController, mouseController;
-        private Texture2D spriteSheet;
+        private IBlockFactory blockFactory;
+        private ISprite nonMovingBlock;
+        private int onScreenBlockPos;
+
+        public int OnScreenBlockPos
+        {
+            get { return onScreenBlockPos; }
+            set { onScreenBlockPos = value; }
+        }
+        public ISprite NonMovingBlock
+        {
+            set { nonMovingBlock = value; }
+        }
         
         public Game1()
         {
@@ -29,11 +42,14 @@ namespace SprintZero1
         protected override void Initialize()
         {
             keyboardController = new KeyboardController();
-            mouseController = new MouseController();
-            credits = new CreditsSprite();
-            soraSprite = new StandingInPlaceSora();
+            // mouseController = new MouseController();
+            // credits = new CreditsSprite();
+            //soraSprite = new StandingInPlaceSora();
             keyboardController.LoadDefaultCommands(this);
-            mouseController.LoadDefaultCommands(this);
+            // mouseController.LoadDefaultCommands(this);
+            blockFactory = BlockFactory.Instance;
+            blockFactory.Initialize();
+            OnScreenBlockPos = 0;
             base.Initialize();
         }
 
@@ -43,7 +59,9 @@ namespace SprintZero1
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            spriteSheet = this.Content.Load<Texture2D>("SoraSprites1");
+            // spriteSheet = this.Content.Load<Texture2D>("SoraSprites1");
+            blockFactory.LoadTextures(this.Content);
+            nonMovingBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
         }
 
         /// <summary>
@@ -53,8 +71,8 @@ namespace SprintZero1
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
-            mouseController.Update();
-            soraSprite.Update(gameTime);
+            // mouseController.Update();
+            // soraSprite.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -65,18 +83,10 @@ namespace SprintZero1
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            credits.Draw(_spriteBatch, spriteSheet);
-            soraSprite.Draw(_spriteBatch, spriteSheet);
+            // credits.Draw(_spriteBatch, spriteSheet);
+            // soraSprite.Draw(_spriteBatch, spriteSheet);
+            nonMovingBlock.Draw(_spriteBatch);
             base.Draw(gameTime);
-        }
-
-        /// <summary>
-        /// Updates the current sprite to the new sprite
-        /// </summary>
-        /// <param name="sprite">the new sprite to be displayed on screen</param>
-        public void SetSprite(ISprite sprite)
-        {
-            soraSprite = sprite;
         }
     }
 }
