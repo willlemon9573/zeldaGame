@@ -68,7 +68,7 @@ namespace SprintZero1
 
         public void LoadDefaultCommands(Game1 game)
         {
-            
+            // unused - but not deleted in case we want to use this again
         }
 
         public void Update()
