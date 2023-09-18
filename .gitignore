@@ -484,7 +484,6 @@ $RECYCLE.BIN/
 bin/
 obj
 HelloWorld/
-.config/
 .mgstats
 Content/bin
 Content/obj
