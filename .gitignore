@@ -485,3 +485,4 @@ bin/
 obj
 HelloWorld/
 .config/
+.mgstats
