@@ -68,11 +68,7 @@ namespace SprintZero1
 
         public void LoadDefaultCommands(Game1 game)
         {
-            commands[0] = new ExitCommand(game);
-            commands[1] = new StandingInPlaceSoraCommand(game);
-            commands[2] = new MovingInPlaceSoraAnimatedCommand(game);
-            commands[3] = new VerticalMovingNonAnimatedSoraCommand(game);
-            commands[4] = new HorizontalMovingAnimatedSoraCommand(game);
+            
         }
 
         public void Update()

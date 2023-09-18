@@ -20,8 +20,8 @@ namespace SprintZero1
 
         public void Execute()
         {
-            myGame.OnScreenBlockPos = (myGame.OnScreenBlockPos + 1) % 4;
-            myGame.NonMovingBlock = myBlockFactory.CreateNonMovingBlockSprite(blockNames[myGame.OnScreenBlockPos]);
+            myGame.OnScreenBlockIndex = (myGame.OnScreenBlockIndex + 1) % 4;
+            myGame.NonMovingBlock = myBlockFactory.CreateNonMovingBlockSprite(blockNames[myGame.OnScreenBlockIndex]);
         }
     }
 }

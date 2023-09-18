@@ -14,12 +14,12 @@ namespace SprintZero1
         /* Commented out code has been deprecated */
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private IController keyboardController, mouseController;
+        private IController keyboardController;
         private IBlockFactory blockFactory;
         private ISprite nonMovingBlock;
         private int onScreenBlockIndex;
 
-        public int OnScreenBlockPos
+        public int OnScreenBlockIndex
         {
             get { return onScreenBlockIndex; }
             set { onScreenBlockIndex = value; }
@@ -42,14 +42,10 @@ namespace SprintZero1
         protected override void Initialize()
         {
             keyboardController = new KeyboardController();
-            // mouseController = new MouseController();
-            // credits = new CreditsSprite();
-            //soraSprite = new StandingInPlaceSora();
             keyboardController.LoadDefaultCommands(this);
-            // mouseController.LoadDefaultCommands(this);
             blockFactory = BlockFactory.Instance;
             blockFactory.Initialize();
-            OnScreenBlockPos = 0;
+            OnScreenBlockIndex = 0;
             base.Initialize();
         }
 
@@ -71,8 +67,6 @@ namespace SprintZero1
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
-            // mouseController.Update();
-            // soraSprite.Update(gameTime);
             base.Update(gameTime);
         }
 
