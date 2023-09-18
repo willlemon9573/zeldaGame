@@ -486,3 +486,5 @@ obj
 HelloWorld/
 .config/
 .mgstats
+Content/bin
+Content/obj
