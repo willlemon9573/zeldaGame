@@ -11,7 +11,7 @@ namespace SprintZero1.Factories
         /// </summary>
         List<string> BlockNamesList { get; }
         /// <summary>
-        /// Initialize the members of this class
+        /// Loads any and all textures required
         /// </summary>
         void LoadTextures(ContentManager manager);
         /// <summary>
