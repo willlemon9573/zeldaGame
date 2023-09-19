@@ -32,7 +32,7 @@ namespace SprintZero1.Factories
         /// <summary>
         /// Creates a dictionary where each key is related to a block name
         /// and each value is the source rectangle ([x,y] pixel locations) related to the key 
-        /// found on the title sheet
+        /// found on the tile sheet
         /// </summary>
         private void CreateBlockDictionary()
         {
