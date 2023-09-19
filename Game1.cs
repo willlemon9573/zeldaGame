@@ -43,10 +43,9 @@ namespace SprintZero1
         /// </summary>
         protected override void Initialize()
         {
+            blockFactory = BlockFactory.Instance;
             keyboardController = new KeyboardController();
             keyboardController.LoadDefaultCommands(this);
-            blockFactory = BlockFactory.Instance;
-            blockFactory.Initialize();
             OnScreenBlockIndex = 0;
             base.Initialize();
         }
