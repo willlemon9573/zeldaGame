@@ -1,20 +1,19 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using SprintZero1.Sprites;
+using System.Collections.Generic;
 
 namespace SprintZero1.Factories
 {
     internal interface IBlockFactory
     {
         /// <summary>
+        /// BlockNameList property to return a list of all the current block names
+        /// </summary>
+        List<string> BlockNamesList { get; }
+        /// <summary>
         /// Initialize the members of this class
         /// </summary>
-        void Initialize();
-        /// <summary>
-        /// Loads the texture files for the Block Factory object to cycle through
-        /// </summary>
-        /// <param name="manager">Content Manager helper</param>
         void LoadTextures(ContentManager manager);
-
         /// <summary>
         /// Creates and returns a new NonMovingBlock sprite
         /// </summary>

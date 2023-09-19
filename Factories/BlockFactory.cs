@@ -10,14 +10,9 @@ namespace SprintZero1.Factories
     public class BlockFactory : IBlockFactory
     {
         private Texture2D blockSpriteSheet;
-        /// <summary>
-        /// SourceRectangles will contain the name of the block alongside the following values for the rectangle
-        /// (x, y, width, height) where (x, y) is the origin of the block on the sprite sheet, width is the width of the sprite
-        /// and height is the height of the sprite
-        /// </summary>
-        private Dictionary<string, Rectangle> sourceRectangles;
+        private readonly Dictionary<string, Rectangle> sourceRectangles; 
         private static readonly BlockFactory instance = new BlockFactory();
-
+        private readonly List<string> blockNamesList;
 
         /// <summary>
         /// BlockFactory is a singleton allowing access to call the Block Factory whenever needed without creating a new concrete object
@@ -26,21 +21,47 @@ namespace SprintZero1.Factories
         {
             get { return instance; }
         }
+        /// <summary>
+        /// Block Factory Property to get the current block list
+        /// </summary>
+        public List<string> BlockNamesList
+        {
+            get { return blockNamesList; }
+        }
+
+        /// <summary>
+        /// Creates a dictionary where each key is related to a block name
+        /// and each value is the source rectangle ([x,y] pixel locations) related to the key 
+        /// found on the title sheet
+        /// </summary>
+        private void CreateBlockDictionary()
+        {
+            int[] columns = new int[] { 984, 1001, 1018, 1035 };
+            int[] rows = new int[] { 11, 28, 45 }; 
+            const int WIDTH = 16, HEIGHT = 16, ROWCOUNT = 4;
+            int columnIndex = 0, rowIndex = 0; 
+
+            foreach (string blockName in BlockNamesList) 
+            {
+                sourceRectangles.Add(blockName, new Rectangle(columns[columnIndex], rows[rowIndex], WIDTH, HEIGHT));
+                columnIndex = (columnIndex + 1) % ROWCOUNT; // 4 blocks per row excluding the last row which has 2
+                // 4 blocks per row, move to the next row when the final block of a row is added
+                if (columnIndex == 0) { rowIndex++; }
+            }
+        }
 
         /// <summary>
         /// Private constructor to prevent instation of a new block factory
         /// </summary>
-        private BlockFactory() { }
-
-        public void Initialize()
-        {
-            sourceRectangles = new Dictionary<string, Rectangle>
+        private BlockFactory() {
+            blockNamesList = new List<string>()
             {
-                { "flat", new Rectangle(984, 11, 16, 16) },
-                { "pyramid", new Rectangle(1001, 11, 16, 16) },
-                { "stairs", new Rectangle(1035, 28, 16, 16) },
-                { "greybrick", new Rectangle(984, 45, 16, 16) }
+                "flat", "pyramid", "statue1", "statue2",
+                "hole", "spackled", "blueflat", "stairs",
+                "greybrick", "greystriped"
             };
+            sourceRectangles = new Dictionary<string, Rectangle>();
+            CreateBlockDictionary();
         }
 
         public void LoadTextures(ContentManager manager)
