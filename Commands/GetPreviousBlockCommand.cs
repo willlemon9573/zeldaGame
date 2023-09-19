@@ -1,20 +1,20 @@
 ﻿using SprintZero1.Factories;
+using System.Collections.Generic;
 
 namespace SprintZero1.Commands
 {
     public class GetPreviousBlockCommand : ICommand
     {
-        private readonly string[] blockNames;
+        private readonly List<string> blockNames;
         private readonly Game1 myGame;
         private readonly IBlockFactory myBlockFactory;
         private readonly int totalBlocks;
-
         public GetPreviousBlockCommand(Game1 game)
         {
             myGame = game;
-            blockNames = new string[] { "flat", "pyramid", "stairs", "greybrick" };
             myBlockFactory = BlockFactory.Instance;
-            totalBlocks = 4;
+            blockNames = myBlockFactory.BlockNamesList;
+            totalBlocks = blockNames.Count;
         }
         public void Execute()
         {
