@@ -30,23 +30,25 @@ namespace SprintZero1.Factories
         }
 
         /// <summary>
-        /// Creates a dictionary where each key is related to a block name
-        /// and each value is the source rectangle ([x,y] pixel locations) related to the key 
+        /// Creates a dictionary where the keys are related to the block names
+        /// and each value is related to the source rectangle (coordinates and dimensions)
         /// found on the tile sheet
         /// </summary>
-        private void CreateBlockDictionary()
+        private void CreateSourceRectanglesDictionary()
         {
-            int[] columns = new int[] { 984, 1001, 1018, 1035 };
-            int[] rows = new int[] { 11, 28, 45 }; 
-            const int WIDTH = 16, HEIGHT = 16, ROWCOUNT = 4;
-            int columnIndex = 0, rowIndex = 0; 
-
-            foreach (string blockName in BlockNamesList) 
+            int x_pixels = 984, y_pixels = 11; // starting coordiantes of the tiles
+            const int WIDTH = 16, HEIGHT = 16; // dimmension of each tile
+            foreach (string blockName in BlockNamesList)
             {
-                sourceRectangles.Add(blockName, new Rectangle(columns[columnIndex], rows[rowIndex], WIDTH, HEIGHT));
-                columnIndex = (columnIndex + 1) % ROWCOUNT; // 4 blocks per row excluding the last row which has 2
-                // 4 blocks per row, move to the next row when the final block of a row is added
-                if (columnIndex == 0) { rowIndex++; }
+                // Add tile name with coordinates and dimensions to the dictionary
+                sourceRectangles.Add(blockName, new Rectangle(x_pixels, y_pixels, WIDTH, HEIGHT));
+                x_pixels += 17; // move to next column in the current row of tiles
+                // when x_pixels exceed 1035, reset the x_pixels and increment y_pixels to access the next row
+                if (x_pixels > 1035) 
+                {
+                    x_pixels = 984;
+                    y_pixels += 17;
+                }
             }
         }
 
@@ -61,7 +63,7 @@ namespace SprintZero1.Factories
                 "greybrick", "greystriped"
             };
             sourceRectangles = new Dictionary<string, Rectangle>();
-            CreateBlockDictionary();
+            CreateSourceRectanglesDictionary();
         }
 
         public void LoadTextures(ContentManager manager)
