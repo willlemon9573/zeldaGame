@@ -9,7 +9,6 @@ namespace SprintZero1
         private int currentFrame, speed;
         private double timeElapsed, timeToUpdate;
         private Vector2 location; // Implementing the Location property from the interface
-        private bool moveOnce = true;
 
 
         /// <summary>
@@ -24,9 +23,16 @@ namespace SprintZero1
         /// Update the frames based on how much time has passed since the last frame has been updated
         /// </summary>
         /// <param name="timeInSeconds">snapshot of game time in seconds</param>
-        private void UpdateFrames(double timeInSeconds)
+        /// 
+
+        public void MoveAndChangeFrame(double timeInSeconds)
         {
-            
+            location.Y += speed * timeInSeconds;
+            if (location.Y <= boundaries[0] || location.Y >= boundaries[1])
+            {
+                speed *= -1;
+            }
+
             timeElapsed += timeInSeconds;
             if (timeElapsed > timeToUpdate)
             {
@@ -38,23 +44,6 @@ namespace SprintZero1
                 }
             }
         }
-
-        /// <summary>
-        /// Handles moving the sprite. When the sprite reaches a specific boundary, change directions
-        /// </summary>
-        /// <param name="timeInSeconds">Snapshot of game time in seconds</param>
-        private void MoveSprite(float timeInSeconds)
-        {
-            if (moveOnce)
-            {
-                location.Y += speed * timeInSeconds;
-                if (location.Y <= boundaries[0] || location.Y >= boundaries[1])
-                {
-                    speed *= -1;
-                }
-                moveOnce = false;
-            }
-            }
 
         public UpMovingSprite()
         {
@@ -84,6 +73,7 @@ namespace SprintZero1
             UpdateFrames(deltaTime);
             MoveSprite(deltaTime);
         }
+
         public int Direction { get; set; } = 1;
         public Vector2 Location
         {
