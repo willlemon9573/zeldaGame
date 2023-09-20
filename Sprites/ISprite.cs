@@ -5,17 +5,31 @@ namespace SprintZero1.Sprites
 {
     public interface ISprite
     {
+        /// <summary>
+        /// Indicates if the sprite is in an attack state.
+        /// </summary>
+        bool attack { get; set; }
 
         /// <summary>
-        /// Draw the specified texture onto the game
+        /// Indicates the direction the sprite is facing.
         /// </summary>
-        /// <param name="spriteBatch">Helper for drawing sprites in batches</param>
+        int direction { get; set; }
+
+        /// <summary>
+        /// Represents the location of the sprite.
+        /// </summary>
+        Vector2 location { get; set; }
+
+        /// <summary>
+        /// Draws the sprite onto the game.
+        /// </summary>
+        /// <param name="spriteBatch">Helper for drawing sprites in batches.</param>
         void Draw(SpriteBatch spriteBatch);
 
         /// <summary>
-        /// Update the specifi sprite based on gameTIme
+        /// Updates the sprite based on the game time.
         /// </summary>
-        /// <param name="gameTime">The snapshot of the current game time/param>
+        /// <param name="gameTime">The snapshot of the current game time.</param>
         void Update(GameTime gameTime);
     }
 }
