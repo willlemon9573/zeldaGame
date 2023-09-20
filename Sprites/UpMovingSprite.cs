@@ -9,6 +9,7 @@ namespace SprintZero1
         private int currentFrame, speed;
         private double timeElapsed, timeToUpdate;
         private Vector2 location; // Implementing the Location property from the interface
+        private bool moveOnce = true;
 
 
         /// <summary>
@@ -44,12 +45,16 @@ namespace SprintZero1
         /// <param name="timeInSeconds">Snapshot of game time in seconds</param>
         private void MoveSprite(float timeInSeconds)
         {
-            location.Y += speed * timeInSeconds;
-            if (location.Y <= boundaries[0] || location.Y >= boundaries[1])
+            if (moveOnce)
             {
-                speed *= -1;
+                location.Y += speed * timeInSeconds;
+                if (location.Y <= boundaries[0] || location.Y >= boundaries[1])
+                {
+                    speed *= -1;
+                }
+                moveOnce = false;
             }
-        }
+            }
 
         public UpMovingSprite()
         {
