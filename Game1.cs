@@ -26,6 +26,7 @@ namespace SprintZero1
             get { return onScreenBlockIndex; }
             set { onScreenBlockIndex = value; }
         }
+
         public ISprite NonMovingBlock
         {
             set { nonMovingOnScreenBlock = value; }

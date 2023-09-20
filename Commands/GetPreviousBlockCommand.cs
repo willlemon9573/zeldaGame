@@ -16,6 +16,7 @@ namespace SprintZero1.Commands
             blockNames = myBlockFactory.BlockNamesList;
             totalBlocks = blockNames.Count;
         }
+
         public void Execute()
         {
             myGame.OnScreenBlockIndex = (myGame.OnScreenBlockIndex - 1 + totalBlocks) % totalBlocks;
