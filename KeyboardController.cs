@@ -21,10 +21,8 @@ namespace SprintZero1
         public void LoadDefaultCommands(Game1 game)
         {
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
-            keyboardMap.Add(Keys.D1, new StandingInPlaceSoraCommand(game));
-            keyboardMap.Add(Keys.D2, new MovingInPlaceSoraAnimatedCommand(game));
-            keyboardMap.Add(Keys.D3, new VerticalMovingNonAnimatedSoraCommand(game));
-            keyboardMap.Add(Keys.D4, new HorizontalMovingAnimatedSoraCommand(game));
+            keyboardMap.Add(Keys.U, new ExitCommand(game));
+            keyboardMap.Add(Keys.I, new ExitCommand(game));
         }
 
         public void Update()
