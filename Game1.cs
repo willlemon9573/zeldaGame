@@ -12,7 +12,7 @@ using SprintZero1.Sprites;
 namespace SprintZero1
 {
     public class Game1 : Game
-    {   
+    {
         /* Commented out code has been deprecated */
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -31,7 +31,7 @@ namespace SprintZero1
         {
             set { nonMovingOnScreenBlock = value; }
         }
-        
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);

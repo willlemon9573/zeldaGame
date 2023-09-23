@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
 using SprintZero1.Commands;
+using System.Collections.Generic;
 namespace SprintZero1.Controllers
 {
     public class KeyboardController : IController

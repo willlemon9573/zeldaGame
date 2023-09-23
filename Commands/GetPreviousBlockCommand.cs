@@ -1,6 +1,6 @@
-﻿using SprintZero1.Factories;
+﻿using Microsoft.Xna.Framework;
+using SprintZero1.Factories;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 
 namespace SprintZero1.Commands
 {

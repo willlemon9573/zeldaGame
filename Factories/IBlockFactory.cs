@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using SprintZero1.Sprites;
 using System.Collections.Generic;
 

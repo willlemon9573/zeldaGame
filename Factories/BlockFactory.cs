@@ -10,7 +10,7 @@ namespace SprintZero1.Factories
     public class BlockFactory : IBlockFactory
     {
         private Texture2D blockSpriteSheet;
-        private readonly Dictionary<string, Rectangle> sourceRectangles; 
+        private readonly Dictionary<string, Rectangle> sourceRectangles;
         private static readonly BlockFactory instance = new BlockFactory();
         private readonly List<string> blockNamesList;
 
@@ -44,7 +44,7 @@ namespace SprintZero1.Factories
                 sourceRectangles.Add(blockName, new Rectangle(x_pixels, y_pixels, WIDTH, HEIGHT));
                 x_pixels += 17; // move to next column in the current row of tiles
                 // when x_pixels exceed 1035, reset the x_pixels and increment y_pixels to access the next row
-                if (x_pixels > 1035) 
+                if (x_pixels > 1035)
                 {
                     x_pixels = 984;
                     y_pixels += 17;
@@ -55,7 +55,8 @@ namespace SprintZero1.Factories
         /// <summary>
         /// Private constructor to prevent instation of a new block factory
         /// </summary>
-        private BlockFactory() {
+        private BlockFactory()
+        {
             blockNamesList = new List<string>()
             {
                 "flat", "pyramid", "statue1", "statue2",
