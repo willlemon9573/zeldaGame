@@ -19,7 +19,11 @@ namespace SprintZero1
         private IController keyboardController;
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
+        private ILinkFactory linkFactory;
         private int onScreenBlockIndex;
+
+        private Vector2 position = new Vector2(100, 100);
+        private ISprite Link;
 
         public int OnScreenBlockIndex
         {
@@ -45,6 +49,7 @@ namespace SprintZero1
         protected override void Initialize()
         {
             blockFactory = BlockFactory.Instance;
+            linkFactory = new LinkFactory();
             keyboardController = new KeyboardController();
             keyboardController.LoadDefaultCommands(this);
             OnScreenBlockIndex = 0;
@@ -59,6 +64,8 @@ namespace SprintZero1
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             blockFactory.LoadTextures(this.Content);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
+            linkFactory.LoadTextures(this.Content);
+            Link = linkFactory.createNewLink(1, position);
         }
 
         /// <summary>
@@ -79,6 +86,7 @@ namespace SprintZero1
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             nonMovingOnScreenBlock.Draw(_spriteBatch);
+            Link.Draw(_spriteBatch);
             base.Draw(gameTime);
         }
     }

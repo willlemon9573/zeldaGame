@@ -21,7 +21,7 @@ namespace SprintZero1.Controllers
         {
             keyboardMap.Add(Keys.Y, new GetNextBlockCommand(game));
             keyboardMap.Add(Keys.T, new GetPreviousBlockCommand(game));
-            keyboardMap.Add(Keys.W, new MoveSpriteUpCommand(sprite));
+            //keyboardMap.Add(Keys.W, new ChangeLinkDirectionCommand(game，0));
         }
 
         public void Update()

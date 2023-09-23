@@ -1,74 +1,82 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Sprites;
+using System.Collections.Generic;
+using System.Diagnostics;
 
-namespace SprintZero1
+namespace SprintZero1.Factories
 {
-    public class MovingInPlaceSoraAnimated : ISprite
+    public class BlockFactory : IBlockFactory
     {
-        /// <summary>
-        /// Private members of ISprite
-        /// </summary>
-        private readonly int rows, columns, width, height, totalFrames;
-        private int currentFrame;
-        private Vector2 location;
-        private float timeElapsed, timeToUpdate;
+        private Texture2D blockSpriteSheet;
+        private readonly Dictionary<string, Rectangle> sourceRectangles;
+        private static readonly BlockFactory instance = new BlockFactory();
+        private readonly List<string> blockNamesList;
 
         /// <summary>
-        /// Sets the time to update to the next frame
+        /// BlockFactory is a singleton allowing access to call the Block Factory whenever needed without creating a new concrete object
         /// </summary>
-        private int FramesPerSecond
+        public static BlockFactory Instance
         {
-            set { timeToUpdate = (1f / value); }
+            get { return instance; }
+        }
+        /// <summary>
+        /// Block Factory Property to get the current block list
+        /// </summary>
+        public List<string> BlockNamesList
+        {
+            get { return blockNamesList; }
         }
 
-
         /// <summary>
-        /// Update the frames based on how much time has passed since the last frame has been updated
+        /// Creates a dictionary where the keys are related to the block names
+        /// and each value is related to the source rectangle (coordinates and dimensions)
+        /// found on the tile sheet
         /// </summary>
-        /// <param name="timeInSeconds">snapshot of game time in seconds</param>
-        private void UpdateFrames(float timeInSeconds)
+        private void CreateSourceRectanglesDictionary()
         {
-            timeElapsed += timeInSeconds;
-            if (timeElapsed > timeToUpdate)
+            int x_pixels = 984, y_pixels = 11; // starting coordiantes of the tiles
+            const int WIDTH = 16, HEIGHT = 16; // dimmension of each tile
+            foreach (string blockName in BlockNamesList)
             {
-                timeElapsed -= timeToUpdate;
-                currentFrame++;
-                if (currentFrame >= totalFrames)
+                // Add tile name with coordinates and dimensions to the dictionary
+                sourceRectangles.Add(blockName, new Rectangle(x_pixels, y_pixels, WIDTH, HEIGHT));
+                x_pixels += 17; // move to next column in the current row of tiles
+                // when x_pixels exceed 1035, reset the x_pixels and increment y_pixels to access the next row
+                if (x_pixels > 1035)
                 {
-                    currentFrame = 1;
+                    x_pixels = 984;
+                    y_pixels += 17;
                 }
             }
         }
 
         /// <summary>
-        /// Construct an object of a non moving animated sora
+        /// Private constructor to prevent instation of a new block factory
         /// </summary>
-        public MovingInPlaceSoraAnimated()
+        private BlockFactory()
         {
-            rows = 1;
-            columns = 8;
-            totalFrames = rows * columns;
-            width = 45;
-            height = 77;
-            location = new Vector2(400, 240);
-            FramesPerSecond = 10;
+            blockNamesList = new List<string>()
+            {
+                "flat", "pyramid", "statue1", "statue2",
+                "hole", "spackled", "blueflat", "stairs",
+                "greybrick", "greystriped"
+            };
+            sourceRectangles = new Dictionary<string, Rectangle>();
+            CreateSourceRectanglesDictionary();
         }
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture)
+        public void LoadTextures(ContentManager manager)
         {
-            int currCol = currentFrame % columns;
-            Rectangle sourceRectangle = new(width * currCol, height, width, height);
-            Rectangle destinationRectangle = new((int)location.X, (int)location.Y, width, height);
-            spriteBatch.Begin();
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
-            spriteBatch.End();
+            blockSpriteSheet = manager.Load<Texture2D>("TileSheet");
         }
 
-        public void Update(GameTime gameTime)
+        public ISprite CreateNonMovingBlockSprite(string blockName)
         {
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            UpdateFrames(deltaTime);
+            Debug.Assert(blockName != null, "blockName is null");
+            Debug.Assert(sourceRectangles.ContainsKey(blockName), "Source Rectangle does not contain the block named: " + blockName);
+            return new NonMovingBlockSprite(sourceRectangles[blockName], blockSpriteSheet);
         }
     }
 }
