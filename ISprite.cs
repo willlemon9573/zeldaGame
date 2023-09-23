@@ -11,7 +11,7 @@ namespace SprintZero1
         /// </summary>
         /// <param name="spriteBatch">Helper for drawing sprites in batches</param>
         /// <param name="texture">The texture to be drawn</param>
-        void Draw(SpriteBatch spriteBatch, Texture2D texture);
+        void Draw(SpriteBatch spriteBatch);
 
         /// <summary>
         /// Update the specifi sprite based on gameTIme

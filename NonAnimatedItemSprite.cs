@@ -1,12 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace SprintZero1
+namespace SprintZero1.Sprites
 {
-    internal class NonAnimatedItemSprite
+    public class NonAnimatedItemSprite : ISprite
     {
+
+        private Rectangle sourceRectangle; 
+        private Vector2 location; 
+        private readonly Texture2D spriteSheet; 
+
+        
+       
+        public NonAnimatedItemSprite(Rectangle sourceRectangle, Texture2D spriteSheet)
+        {
+            this.sourceRectangle = sourceRectangle;
+            this.spriteSheet = spriteSheet;
+            location = new Vector2(200, 230);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 49, 49);
+            spriteBatch.Begin();
+            spriteBatch.Draw(spriteSheet, destinationRectangle, sourceRectangle, Color.White);
+            spriteBatch.End();
+        }
+
+        public void Update(GameTime gameTime)
+        {
+           
+        }
     }
 }
