@@ -17,7 +17,7 @@ namespace SprintZero1.Sprites
         {
             this.sourceRectangle = sourceRectangle;
             this.spriteSheet = spriteSheet;
-            location = new Vector2(200, 230);
+            location = new Vector2(600, 130);
         }
 
         public void Draw(SpriteBatch spriteBatch)

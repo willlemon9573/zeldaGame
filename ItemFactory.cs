@@ -42,7 +42,7 @@ namespace SprintZero1
                     x_pixels += 17;
                 }
                                 
-                if (x_pixels > 285)
+                if (x_pixels > 313)
                 {
                     x_pixels = 23;
                 }
@@ -56,7 +56,7 @@ namespace SprintZero1
             {
                 "rubyStatic", "heartAnimated", "heartStatic", "fairyAnimated",
                 "clock", "rubyAnimated", "boomerang", "bomb",
-                "bow", "key", "scroll", "compass", "triforceAnimated"
+                "bow", "key", "scroll", "compass", "triforceAnimated", "fireAnimated"
             };
             sourceRectangles = new Dictionary<string, Rectangle>();
             CreateSourceRectanglesDictionary();
