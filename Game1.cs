@@ -52,6 +52,7 @@ namespace SprintZero1
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
+            onScreenItem.Update(gameTime);
             base.Update(gameTime);
         }
 
