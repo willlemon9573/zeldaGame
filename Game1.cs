@@ -23,11 +23,20 @@ namespace SprintZero1
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
         private int onScreenBlockIndex;
-        private Vector2 _position;
-        internal ILinkFactory linkFactory { get; set; }
+        public int OnScreenBlockIndex
+        {
+            get { return onScreenBlockIndex; }
+            set { onScreenBlockIndex = value; }
+        }
+        public ISprite NonMovingBlock
+        {
+            set { nonMovingOnScreenBlock = value; }
+        }
 
+        //ALL the variables needs for create a LinkSprite
         public ISprite Link { get; set; }
-
+        internal ILinkFactory linkFactory { get; set; }
+        private Vector2 _position;
         public Vector2 position
         {
             get { return _position; }
@@ -36,29 +45,19 @@ namespace SprintZero1
         public int CurrentDirection { get; set; }
         public int CurrentFrame { get; set; } = 0;
 
-
-
-        public int OnScreenBlockIndex
+        public void SetLink(ISprite newLink)
         {
-            get { return onScreenBlockIndex; }
-            set { onScreenBlockIndex = value; }
+            Link = newLink;
         }
 
-        public ISprite NonMovingBlock
-        {
-            set { nonMovingOnScreenBlock = value; }
-        }
+
+
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-        }
-
-        public void SetLink(ISprite newLink)
-        {
-            Link = newLink;
         }
 
 
@@ -85,7 +84,7 @@ namespace SprintZero1
             blockFactory.LoadTextures(this.Content);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
             linkFactory.LoadTextures(this.Content);
-            Link = linkFactory.createNewLink(2, position, 0) as ISprite;
+            Link = linkFactory.createNewLink(1, position, 0);
 
         }
 
