@@ -86,11 +86,16 @@ namespace SprintZero1.Factories
             LinkSpriteSheet = manager.Load<Texture2D>("8366");
         }
 
-        public ISprite createNewLink(int direction, Vector2 position)
+        public ISprite createNewLink(int direction, Vector2 position, int frameIndex)
         {
-            Debug.Assert(direction != null, "direction is null");
             Debug.Assert(spritePositions.ContainsKey(direction), "Direction does not exist");
-            return new CreateMovingLinkSprite(spritePositions[direction], LinkSpriteSheet, position);
+
+
+            // Get the appropriate rectangle based on direction and frame
+            List<Rectangle> spriteRectangle = spritePositions[direction];
+
+            return new CreateMovingLinkSprite(spriteRectangle, LinkSpriteSheet, position, frameIndex);
         }
+
     }
 }

@@ -8,22 +8,35 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
+using SprintZero1.Commands;
+
+
 
 namespace SprintZero1
 {
     public class Game1 : Game
-    {   
+    {
         /* Commented out code has been deprecated */
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private IController keyboardController;
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
-        private ILinkFactory linkFactory;
         private int onScreenBlockIndex;
+        private Vector2 _position;
+        internal ILinkFactory linkFactory { get; set; }
 
-        private Vector2 position = new Vector2(100, 100);
-        private ISprite Link;
+        public ISprite Link { get; set; }
+
+        public Vector2 position
+        {
+            get { return _position; }
+            set { _position = value; }
+        }
+        public int CurrentDirection { get; set; }
+        public int CurrentFrame { get; set; } = 0;
+
+
 
         public int OnScreenBlockIndex
         {
@@ -35,7 +48,7 @@ namespace SprintZero1
         {
             set { nonMovingOnScreenBlock = value; }
         }
-        
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -43,11 +56,18 @@ namespace SprintZero1
             IsMouseVisible = true;
         }
 
+        public void SetLink(ISprite newLink)
+        {
+            Link = newLink;
+        }
+
+
         /// <summary>
         /// Initialize all components required to run the game
         /// </summary>
         protected override void Initialize()
         {
+            _position = new Vector2(100, 100);
             blockFactory = BlockFactory.Instance;
             linkFactory = new LinkFactory();
             keyboardController = new KeyboardController();
@@ -65,7 +85,8 @@ namespace SprintZero1
             blockFactory.LoadTextures(this.Content);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
             linkFactory.LoadTextures(this.Content);
-            Link = linkFactory.createNewLink(1, position);
+            Link = linkFactory.createNewLink(1, position, 0) as ISprite;
+
         }
 
         /// <summary>
