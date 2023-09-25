@@ -11,31 +11,36 @@ namespace SprintZero1.Sprites
         private readonly List<Rectangle> sourceRectangles;  // Storing all the rectangles for animation
         private readonly Vector2 location;
         private readonly Texture2D spriteSheet;
+        private readonly int _direction;
 
         // To track which frame/rectangle to use
         private int currentFrameIndex;
 
-        public CreateMovingLinkSprite(List<Rectangle> spritePositions, Texture2D LinkSpriteSheet, Vector2 position, int frameIndex)
+        public CreateMovingLinkSprite(List<Rectangle> spritePositions, Texture2D LinkSpriteSheet, Vector2 position, int frameIndex, int direction)
         {
             this.sourceRectangles = spritePositions;
             this.spriteSheet = LinkSpriteSheet;
             this.location = position;
-            this.currentFrameIndex = frameIndex;  // Set the starting frame
+            this.currentFrameIndex = frameIndex;  
+            this._direction = direction;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle destinationRectangle1 = new Rectangle((int)location.X, (int)location.Y, 49, 49);
+
+            // If _direction is 2, flip the sprite; otherwise, use the original orientation.
+            SpriteEffects effect = (_direction == 2) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteSheet, destinationRectangle1, sourceRectangles[currentFrameIndex], Color.White);
+            spriteBatch.Draw(spriteSheet, destinationRectangle1, sourceRectangles[currentFrameIndex], Color.White, 0f, Vector2.Zero, effect, 0f);
             spriteBatch.End();
         }
 
-        // If you want to implement some kind of animation in the future, 
-        // you can increase the currentFrameIndex here
+
         public void Update(GameTime gameTime)
         {
-            // example: currentFrameIndex = (currentFrameIndex + 1) % sourceRectangles.Count;
+        
         }
     }
 

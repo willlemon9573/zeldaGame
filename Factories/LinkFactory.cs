@@ -94,7 +94,7 @@ namespace SprintZero1.Factories
             // Get the appropriate rectangle based on direction and frame
             List<Rectangle> spriteRectangle = spritePositions[direction];
 
-            return new CreateMovingLinkSprite(spriteRectangle, LinkSpriteSheet, position, frameIndex);
+            return new CreateMovingLinkSprite(spriteRectangle, LinkSpriteSheet, position, frameIndex, direction );
         }
 
     }

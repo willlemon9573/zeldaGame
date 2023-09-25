@@ -85,7 +85,7 @@ namespace SprintZero1
             blockFactory.LoadTextures(this.Content);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
             linkFactory.LoadTextures(this.Content);
-            Link = linkFactory.createNewLink(1, position, 0) as ISprite;
+            Link = linkFactory.createNewLink(2, position, 0) as ISprite;
 
         }
 
