@@ -43,7 +43,8 @@ namespace SprintZero1
             set { _position = value; }
         }
         public int CurrentDirection { get; set; }
-        public int CurrentFrame { get; set; } = 0;
+        //0 is facingUp. 1 is facingDown. 2 is facingLeft. 3 is facingRight
+        public int CurrentFrame { get; set; }
 
         public void SetLink(ISprite newLink)
         {
@@ -68,10 +69,15 @@ namespace SprintZero1
         {
             _position = new Vector2(100, 100);
             blockFactory = BlockFactory.Instance;
+            OnScreenBlockIndex = 0;
+
             linkFactory = new LinkFactory();
+            CurrentDirection = 1;
+            CurrentFrame = 0;
+
+
             keyboardController = new KeyboardController();
             keyboardController.LoadDefaultCommands(this);
-            OnScreenBlockIndex = 0;
             base.Initialize();
         }
 
@@ -84,7 +90,7 @@ namespace SprintZero1
             blockFactory.LoadTextures(this.Content);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
             linkFactory.LoadTextures(this.Content);
-            Link = linkFactory.createNewLink(1, position, 0);
+            Link = linkFactory.createNewLink(CurrentDirection, position, CurrentFrame);
 
         }
 
