@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Data.Common;
 
 namespace SprintZero1.Sprites
 {
@@ -12,6 +13,7 @@ namespace SprintZero1.Sprites
         private readonly Texture2D priteSheet;
         private int currentFrame;
         private int totalFrames;
+        private float timeElapsed, timeToUpdate;
 
 
 
@@ -20,19 +22,19 @@ namespace SprintZero1.Sprites
 
             this.sourceRectangle = sourceRectangle;
             this.spriteSheet = spriteSheet;
-            location = new Vector2(600, 130); 
+            location = new Vector2(600, 130);
             currentFrame = 0;
             totalFrames = 2;
+            timeToUpdate = 1f / 10;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             int width = spriteSheet.Width / 2;
             int height = spriteSheet.Height;
-            int row = 1;
-            int column = 2;
-
-            Rectangle newRectangle = new Rectangle((int)(sourceRectangle.X + currentFrame),sourceRectangle.Y, 16, 16 );
+            
+            
+            Rectangle newRectangle = new Rectangle(((int)(sourceRectangle.X))+(17*currentFrame),sourceRectangle.Y, 16, 16 );
             Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 49, 49);
             spriteBatch.Begin();
             spriteBatch.Draw(spriteSheet, destinationRectangle, newRectangle, Color.White);
@@ -41,10 +43,20 @@ namespace SprintZero1.Sprites
 
         public void Update(GameTime gameTime)
         {
-            currentFrame += 17;
-            if (currentFrame >= 17) {
-                currentFrame = 0;
+            timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (timeElapsed > timeToUpdate) {
+                timeElapsed -= timeToUpdate;
+                //timeToUpdate = 1f / 2;
+                currentFrame++;
+                if (currentFrame >= totalFrames)
+                {
+                    currentFrame = 0;
+                }
             }
+           // timeToUpdate = 60;
+
+           
+           
         }
     }
 }
