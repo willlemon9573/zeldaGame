@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using SprintZero1.Factories;
 
-namespace SprintZero1
+namespace SprintZero1.Commands
 {
     public class NextItemCommand : ICommand
     {

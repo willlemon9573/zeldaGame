@@ -5,7 +5,7 @@ using SprintZero1.Sprites;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace SprintZero1
+namespace SprintZero1.Factories
 {
     internal class ItemFactory
     {
@@ -19,29 +19,30 @@ namespace SprintZero1
         {
             get { return instance; }
         }
-       
+
         public List<string> ItemNamesList
         {
             get { return itemNamesList; }
         }
 
-        
+
         private void CreateSourceRectanglesDictionary()
         {
             int x_pixels = 23, y_pixels = 704; // starting coordiantes of the tiles
             const int WIDTH = 16, HEIGHT = 16; // dimmension of each tile
             foreach (string itemName in ItemNamesList)
             {
-                
+
                 sourceRectangles.Add(itemName, new Rectangle(x_pixels, y_pixels, WIDTH, HEIGHT));
                 if (itemName.Contains("Animated"))
                 {
                     x_pixels += 34;
                 }
-                else {
+                else
+                {
                     x_pixels += 17;
                 }
-                                
+
                 if (x_pixels > 313)
                 {
                     x_pixels = 23;
@@ -49,7 +50,7 @@ namespace SprintZero1
             }
         }
 
-       
+
         private ItemFactory()
         {
             itemNamesList = new List<string>()
@@ -69,12 +70,13 @@ namespace SprintZero1
 
         public ISprite CreateItemSprite(string itemName)
         {
-            
+
             if (itemName.Contains("Animated"))
             {
                 return new AnimatedItemSprite(sourceRectangles[itemName], itemSpriteSheet);
             }
-            else {
+            else
+            {
                 return new NonAnimatedItemSprite(sourceRectangles[itemName], itemSpriteSheet);
             }
         }
