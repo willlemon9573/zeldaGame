@@ -11,7 +11,7 @@ namespace SprintZero1.Factories
     {
         private Texture2D LinkSpriteSheet;
         private readonly Dictionary<int, List<Rectangle>> spritePositions;
-        const int WIDTH = 15, HEIGHT = 15;
+        const int WIDTH = 16, HEIGHT = 16;
 
         private void CreateLinkDictionary()
         {
@@ -86,7 +86,7 @@ namespace SprintZero1.Factories
             LinkSpriteSheet = manager.Load<Texture2D>("8366");
         }
 
-        public ISprite createNewLink(int direction, Vector2 position, int frameIndex)
+        public ISprite createNewLink(int direction, Vector2 position, int frameIndex,bool isAttacking)
         {
             Debug.Assert(spritePositions.ContainsKey(direction), "Direction does not exist");
 
@@ -94,7 +94,7 @@ namespace SprintZero1.Factories
             // Get the appropriate rectangle based on direction and frame
             List<Rectangle> spriteRectangle = spritePositions[direction];
 
-            return new CreateMovingLinkSprite(spriteRectangle, LinkSpriteSheet, position, frameIndex, direction );
+            return new CreateMovingLinkSprite(spriteRectangle, LinkSpriteSheet, position, frameIndex, direction, isAttacking);
         }
 
     }

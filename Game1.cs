@@ -32,7 +32,7 @@ namespace SprintZero1
         {
             set { nonMovingOnScreenBlock = value; }
         }
-
+        
         //ALL the variables needs for create a LinkSprite
         public ISprite Link { get; set; }
         internal ILinkFactory linkFactory { get; set; }
@@ -45,13 +45,13 @@ namespace SprintZero1
         public int CurrentDirection { get; set; }
         //0 is facingUp. 1 is facingDown. 2 is facingLeft. 3 is facingRight
         public int CurrentFrame { get; set; }
+        public bool isAttacking { get; set; }
+
 
         public void SetLink(ISprite newLink)
         {
             Link = newLink;
         }
-
-
 
 
         public Game1()
@@ -74,6 +74,7 @@ namespace SprintZero1
             linkFactory = new LinkFactory();
             CurrentDirection = 1;
             CurrentFrame = 0;
+            isAttacking = false;
 
 
             keyboardController = new KeyboardController();
@@ -90,7 +91,7 @@ namespace SprintZero1
             blockFactory.LoadTextures(this.Content);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
             linkFactory.LoadTextures(this.Content);
-            Link = linkFactory.createNewLink(CurrentDirection, position, CurrentFrame);
+            Link = linkFactory.createNewLink(CurrentDirection, position, CurrentFrame, isAttacking);
 
         }
 
@@ -101,6 +102,7 @@ namespace SprintZero1
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
+            Link.Update(gameTime);
             base.Update(gameTime);
         }
 

@@ -8,6 +8,7 @@ namespace SprintZero1.Controllers
         private readonly Dictionary<Keys, ICommand> keyboardMap;
         private HashSet<Keys> previouslyPressedKeys;
 
+
         /// <summary>
         /// Construct an object to control the keyboard
         /// </summary>
@@ -30,6 +31,7 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.S, new ChangeLinkDirectionCommand(game, 1));
             keyboardMap.Add(Keys.A, new ChangeLinkDirectionCommand(game, 2));
             keyboardMap.Add(Keys.D, new ChangeLinkDirectionCommand(game, 3));
+            keyboardMap.Add(Keys.Z, new LinkAttackCommand(game));
         }
 
         public void Update()
@@ -45,5 +47,6 @@ namespace SprintZero1.Controllers
             }
             previouslyPressedKeys = new HashSet<Keys>(pressedkeys);
         }
+
     }
 }
