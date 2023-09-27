@@ -42,19 +42,13 @@ namespace SprintZero1.Factories
             // Attack Down
             spritePositions[1].AddRange(new List<Rectangle>
             {
-                new Rectangle(1, 47, WIDTH, HEIGHT),
-                new Rectangle(18, 47, WIDTH, HEIGHT+10),
-                new Rectangle(35, 47, WIDTH, HEIGHT+6),
-                new Rectangle(52, 47, WIDTH, HEIGHT+2)
+                new Rectangle(107, 11, WIDTH, HEIGHT)
             });
 
             // Attack Right
             spritePositions[3].AddRange(new List<Rectangle>
             {
-                new Rectangle(1, 77, WIDTH, HEIGHT),
-                new Rectangle(18, 77, WIDTH+11, HEIGHT),
-                new Rectangle(46, 77, WIDTH+7, HEIGHT),
-                new Rectangle(70, 77, WIDTH+3, HEIGHT)
+                new Rectangle(124, 11, WIDTH, HEIGHT)
             });
 
             // Attack Left
@@ -63,10 +57,7 @@ namespace SprintZero1.Factories
             // Attack Up
             spritePositions[0].AddRange(new List<Rectangle>
             {
-                new Rectangle(1, 109, WIDTH, HEIGHT),
-                new Rectangle(18, 97, WIDTH, HEIGHT+12),
-                new Rectangle(35, 98, WIDTH, HEIGHT+11),
-                new Rectangle(52, 106, WIDTH, HEIGHT+3)
+                new Rectangle(141, 11, WIDTH, HEIGHT)
             });
         }
 

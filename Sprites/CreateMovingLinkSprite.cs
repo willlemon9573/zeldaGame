@@ -13,7 +13,6 @@ namespace SprintZero1.Sprites
         private readonly Texture2D spriteSheet;
         private readonly int _direction;
         private bool _isAttacking;
-        private const int endAttackFrame = 5;
         private double elapsedTime;
         private const double timePerFrame = 500;
         private Rectangle destinationRectangle1;
@@ -51,15 +50,10 @@ namespace SprintZero1.Sprites
 
                 if (elapsedTime > timePerFrame)
                 {
-                    currentFrameIndex++;
-                    
-                    elapsedTime = 0;
+                    currentFrameIndex = 1;  // Reset to the first frame after the attack animation is done
+                    _isAttacking = false;
 
-                    if (currentFrameIndex > endAttackFrame)
-                    {
-                        currentFrameIndex = 1;  // Reset to the first frame after the attack animation is done
-                        _isAttacking = false;
-                    }
+                    
                 }
             }
         }
