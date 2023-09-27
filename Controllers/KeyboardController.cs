@@ -40,7 +40,7 @@ namespace SprintZero1.Controllers
 
             foreach (Keys key in pressedkeys)
             {
-                if (!previouslyPressedKeys.Contains(key) && keyboardMap.ContainsKey(key))
+                if (/*!previouslyPressedKeys.Contains(key) &&*/ keyboardMap.ContainsKey(key))
                 {
                     keyboardMap[key].Execute();
                 }

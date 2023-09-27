@@ -72,7 +72,7 @@ namespace SprintZero1
             OnScreenBlockIndex = 0;
 
             linkFactory = new LinkFactory();
-            CurrentDirection = 1;
+            CurrentDirection = 2;
             CurrentFrame = 0;
             isAttacking = false;
 
