@@ -14,7 +14,7 @@ namespace SprintZero1.Sprites
         /// <summary>
         /// NonMovingBlockSprite constructor
         /// </summary>
-        /// <param name="sourceRectangle">The position on the spriteSheet to pull the sprites from</param>
+        /// <param name="sourceRectangle">The position on the Sprite Sheet to pull the sprites from</param>
         /// <param name="spriteSheet">The specific sprite sheet containing the blocks</param>
         /// <param name="location">The location to draw the sprite</param>
         public NonMovingBlockSprite(Rectangle sourceRectangle, Texture2D spriteSheet, Vector2 location)

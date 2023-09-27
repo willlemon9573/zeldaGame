@@ -20,7 +20,7 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            myGame.OnScreenBlockIndex = (myGame.OnScreenBlockIndex + 1) % totalBlocks;
+            myGame.OnScreenBlockIndex = (myGame.OnScreenBlockIndex + 1) % totalBlocks; // clock arithmetic [0, totalBlocks]
             myGame.NonMovingBlock = myBlockFactory.CreateNonMovingBlockSprite(blockNames[myGame.OnScreenBlockIndex], new Vector2(200, 230));
         }
     }

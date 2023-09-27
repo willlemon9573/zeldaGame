@@ -26,7 +26,7 @@ namespace SprintZero1.Controllers
         public void Update()
         {
             Keys[] pressedkeys = Keyboard.GetState().GetPressedKeys();
-
+            // search through presseds keys and execute the given command
             foreach (Keys key in pressedkeys)
             {
                 if (!previouslyPressedKeys.Contains(key) && keyboardMap.ContainsKey(key))
