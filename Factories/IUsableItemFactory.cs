@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SprintZero1.Factories
 {
-    internal interface IItemFactory
+    internal interface IUsableItemFactory
     {
 
         List<string> ItemNamesList { get; }

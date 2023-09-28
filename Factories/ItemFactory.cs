@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace SprintZero1.Factories
 {
-    internal class ItemFactory
+    internal class ItemFactory : IUsableItemFactory
     {
         private Texture2D itemSpriteSheet;
         private readonly Dictionary<string, Rectangle> sourceRectangles;

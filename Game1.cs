@@ -27,7 +27,7 @@ namespace SprintZero1
             set { nonMovingOnScreenBlock = value; }
         }
 
-        private ItemFactory itemFactory;
+        private IUsableItemFactory itemFactory;
         private ISprite onScreenItem;
         private int onScreenItemIndex;
 
