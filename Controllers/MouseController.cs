@@ -40,7 +40,9 @@ namespace SprintZero1.Controllers
         {
             commands[0].Execute();
         }
-
+        
+        
+        /* Can remove this */
         /// <summary>
         /// Add the values relative to each quadrant into the quadrants array
         /// </summary>
@@ -68,6 +70,7 @@ namespace SprintZero1.Controllers
 
         public void LoadDefaultCommands(Game1 game)
         {
+            // unused - but not deleted in case we want to use this again
         }
 
         public void Update()

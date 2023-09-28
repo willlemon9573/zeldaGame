@@ -8,9 +8,25 @@ namespace SprintZero1
 {
     public class Game1 : Game
     {
+        /* Commented out code has been deprecated */
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private IController keyboardController;
+
+        private IBlockFactory blockFactory;
+        private ISprite nonMovingOnScreenBlock;
+        private int onScreenBlockIndex;
+
+        public int OnScreenBlockIndex
+        {
+            get { return onScreenBlockIndex; }
+            set { onScreenBlockIndex = value; }
+        }
+
+        public ISprite NonMovingBlock
+        {
+            set { nonMovingOnScreenBlock = value; }
+
         private ItemFactory itemFactory;
         private ISprite onScreenItem;
         private int onScreenItemIndex;
@@ -36,9 +52,11 @@ namespace SprintZero1
        
         protected override void Initialize()
         {
+            blockFactory = BlockFactory.Instance;
             itemFactory = ItemFactory.Instance;
             keyboardController = new KeyboardController();
             keyboardController.LoadDefaultCommands(this);
+            OnScreenBlockIndex = 0;
             OnScreenItemIndex = 0;
             base.Initialize();
         }
@@ -47,8 +65,10 @@ namespace SprintZero1
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            blockFactory.LoadTextures(this.Content);
+            nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
             itemFactory.LoadTextures(this.Content);
-            onScreenItem = itemFactory.CreateItemSprite("rubyStatic"); 
+            onScreenItem = itemFactory.CreateItemSprite("rubyStatic");
         }
 
         
@@ -62,8 +82,12 @@ namespace SprintZero1
        
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Gray);
+
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            _spriteBatch.Begin();
+            nonMovingOnScreenBlock.Draw(_spriteBatch);
             onScreenItem.Draw(_spriteBatch);
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
     }

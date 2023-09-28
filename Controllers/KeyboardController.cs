@@ -21,6 +21,8 @@ namespace SprintZero1.Controllers
 
         public void LoadDefaultCommands(Game1 game)
         {
+            keyboardMap.Add(Keys.Y, new GetNextBlockCommand(game));
+            keyboardMap.Add(Keys.T, new GetPreviousBlockCommand(game));
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
             keyboardMap.Add(Keys.U, new PreviousItemCommand(game));
             keyboardMap.Add(Keys.I, new NextItemCommand(game));
@@ -29,7 +31,7 @@ namespace SprintZero1.Controllers
         public void Update()
         {
             Keys[] pressedkeys = Keyboard.GetState().GetPressedKeys();
-
+            // search through presseds keys and execute the given command
             foreach (Keys key in pressedkeys)
             {
                 if (!previouslyPressedKeys.Contains(key) && keyboardMap.ContainsKey(key))
