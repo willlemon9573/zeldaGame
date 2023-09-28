@@ -6,28 +6,19 @@ namespace SprintZero1.Sprites
 {
     public class CreditsSprite : ISprite
     {
-        private Vector2 text_position;
-        private readonly int width, height, x_start, y_start;
+        /* Unused, but saved in case we want to use it */
 
         /// <summary>
         /// Constructs the credits sprite object
         /// </summary>
-        public CreditsSprite()
+        public CreditsSprite(Vector2 location, Texture2D spritesheet)
         {
-            text_position = new Vector2(250, 350);
-            width = 391;
-            height = 118;
-            x_start = 5;
-            y_start = 212;
+            
         }
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle sourceRectangle = new Rectangle(x_start, y_start, width, height);
-            Rectangle destinationRectangle = new Rectangle((int)text_position.X, (int)text_position.Y, width, height);
-            spriteBatch.Begin();
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
-            spriteBatch.End();
+           
         }
 
         void ISprite.Update(GameTime gameTime)

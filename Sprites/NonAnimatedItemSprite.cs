@@ -23,9 +23,7 @@ namespace SprintZero1.Sprites
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 49, 49);
-            spriteBatch.Begin();
             spriteBatch.Draw(spriteSheet, destinationRectangle, sourceRectangle, Color.White);
-            spriteBatch.End();
         }
 
         public void Update(GameTime gameTime)

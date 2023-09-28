@@ -1,27 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Data.Common;
 
 namespace SprintZero1.Sprites
 {
     public class AnimatedItemSprite : ISprite
     {
 
-        public  Texture2D spriteSheet { get; set; }
+        public  Texture2D SpriteSheet { get; set; }
         private Rectangle sourceRectangle;
         private Vector2 location;
-        private readonly Texture2D priteSheet;
         private int currentFrame;
         private int totalFrames;
         private float timeElapsed, timeToUpdate;
-
-
 
         public AnimatedItemSprite(Rectangle sourceRectangle, Texture2D spriteSheet)
         {
 
             this.sourceRectangle = sourceRectangle;
-            this.spriteSheet = spriteSheet;
+            this.SpriteSheet = spriteSheet;
             location = new Vector2(600, 130);
             currentFrame = 0;
             totalFrames = 2;
@@ -30,15 +26,9 @@ namespace SprintZero1.Sprites
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int width = spriteSheet.Width / 2;
-            int height = spriteSheet.Height;
-            
-            
             Rectangle newRectangle = new Rectangle(((int)(sourceRectangle.X))+(17*currentFrame),sourceRectangle.Y, 16, 16 );
             Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 49, 49);
-            spriteBatch.Begin();
-            spriteBatch.Draw(spriteSheet, destinationRectangle, newRectangle, Color.White);
-            spriteBatch.End();
+            spriteBatch.Draw(SpriteSheet, destinationRectangle, newRectangle, Color.White);
         }
 
         public void Update(GameTime gameTime)
@@ -54,9 +44,6 @@ namespace SprintZero1.Sprites
                 }
             }
            // timeToUpdate = 60;
-
-           
-           
         }
     }
 }

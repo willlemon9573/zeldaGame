@@ -8,11 +8,10 @@ namespace SprintZero1
 {
     public class Game1 : Game
     {
-        /* Commented out code has been deprecated */
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        /* Temporary assignment of code until managers are made */
         private IController keyboardController;
-
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
         private int onScreenBlockIndex;
@@ -26,6 +25,7 @@ namespace SprintZero1
         public ISprite NonMovingBlock
         {
             set { nonMovingOnScreenBlock = value; }
+        }
 
         private ItemFactory itemFactory;
         private ISprite onScreenItem;
@@ -41,7 +41,7 @@ namespace SprintZero1
         {
             set { onScreenItem = value; }
         }
-
+        /* end of temporary assignment of code */
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -49,7 +49,6 @@ namespace SprintZero1
             IsMouseVisible = true;
         }
 
-       
         protected override void Initialize()
         {
             blockFactory = BlockFactory.Instance;
@@ -61,7 +60,6 @@ namespace SprintZero1
             base.Initialize();
         }
 
-        
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -71,7 +69,6 @@ namespace SprintZero1
             onScreenItem = itemFactory.CreateItemSprite("rubyStatic");
         }
 
-        
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
@@ -79,7 +76,6 @@ namespace SprintZero1
             base.Update(gameTime);
         }
 
-       
         protected override void Draw(GameTime gameTime)
         {
 
