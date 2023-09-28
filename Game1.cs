@@ -1,8 +1,3 @@
-﻿/* 
- * Sprint zero game project
- * Aaron Heishman
- * CSE 3902 - Proj: Interact Sys
- */
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
@@ -17,6 +12,7 @@ namespace SprintZero1
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private IController keyboardController;
+
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
         private int onScreenBlockIndex;
@@ -30,6 +26,20 @@ namespace SprintZero1
         public ISprite NonMovingBlock
         {
             set { nonMovingOnScreenBlock = value; }
+
+        private ItemFactory itemFactory;
+        private ISprite onScreenItem;
+        private int onScreenItemIndex;
+
+        public int OnScreenItemIndex
+        {
+            get { return onScreenItemIndex; }
+            set { onScreenItemIndex = value; }
+        }
+
+        public ISprite Item
+        {
+            set { onScreenItem = value; }
         }
 
         public Game1()
@@ -39,47 +49,44 @@ namespace SprintZero1
             IsMouseVisible = true;
         }
 
-        /// <summary>
-        /// Initialize all components required to run the game
-        /// </summary>
+       
         protected override void Initialize()
         {
             blockFactory = BlockFactory.Instance;
+            itemFactory = ItemFactory.Instance;
             keyboardController = new KeyboardController();
             keyboardController.LoadDefaultCommands(this);
             OnScreenBlockIndex = 0;
+            OnScreenItemIndex = 0;
             base.Initialize();
         }
 
-        /// <summary>
-        /// Loads the content for the game
-        /// </summary>
+        
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             blockFactory.LoadTextures(this.Content);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
+            itemFactory.LoadTextures(this.Content);
+            onScreenItem = itemFactory.CreateItemSprite("rubyStatic");
         }
 
-        /// <summary>
-        /// Updates game logic
-        /// </summary>
-        /// <param name="gameTime">Provides snapshot of timing values</param>
+        
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
+            onScreenItem.Update(gameTime);
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// Draws game objects
-        /// </summary>
-        /// <param name="gameTime"></param>
+       
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
             nonMovingOnScreenBlock.Draw(_spriteBatch);
+            onScreenItem.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

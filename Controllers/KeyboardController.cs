@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using System.Collections.Generic;
+using System.Diagnostics;
+
 namespace SprintZero1.Controllers
 {
     public class KeyboardController : IController
@@ -21,6 +23,9 @@ namespace SprintZero1.Controllers
         {
             keyboardMap.Add(Keys.Y, new GetNextBlockCommand(game));
             keyboardMap.Add(Keys.T, new GetPreviousBlockCommand(game));
+            keyboardMap.Add(Keys.D0, new ExitCommand(game));
+            keyboardMap.Add(Keys.U, new PreviousItemCommand(game));
+            keyboardMap.Add(Keys.I, new NextItemCommand(game));
         }
 
         public void Update()
