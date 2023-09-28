@@ -1,5 +1,3 @@
-﻿
-
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using System.Diagnostics;
@@ -70,8 +68,6 @@ namespace SprintZero1.Controllers
 
         public void LoadDefaultCommands(Game1 game)
         {
-            commands[0] = new ExitCommand(game);
-
         }
 
         public void Update()

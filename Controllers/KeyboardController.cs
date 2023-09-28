@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using System.Collections.Generic;
 using System.Diagnostics;
