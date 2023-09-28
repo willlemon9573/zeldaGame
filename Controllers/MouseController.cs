@@ -1,5 +1,3 @@
-﻿
-
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using System.Diagnostics;

@@ -1,11 +1,7 @@
-﻿/* 
- * Sprint zero game project
- * Aaron Heishman
- * CSE 3902 - Proj: Interact Sys
- */
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
+using SprintZero1.Factories;
 using SprintZero1.Sprites;
 
 namespace SprintZero1
@@ -14,9 +10,22 @@ namespace SprintZero1
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private IController keyboardController, mouseController;
-        private Texture2D spriteSheet;
-        
+        private IController keyboardController;
+        private ItemFactory itemFactory;
+        private ISprite onScreenItem;
+        private int onScreenItemIndex;
+
+        public int OnScreenItemIndex
+        {
+            get { return onScreenItemIndex; }
+            set { onScreenItemIndex = value; }
+        }
+
+        public ISprite Item
+        {
+            set { onScreenItem = value; }
+        }
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -24,53 +33,38 @@ namespace SprintZero1
             IsMouseVisible = true;
         }
 
-        /// <summary>
-        /// Initialize all components required to run the game
-        /// </summary>
+       
         protected override void Initialize()
         {
+            itemFactory = ItemFactory.Instance;
             keyboardController = new KeyboardController();
-            mouseController = new MouseController();
             keyboardController.LoadDefaultCommands(this);
-            mouseController.LoadDefaultCommands(this);
+            OnScreenItemIndex = 0;
             base.Initialize();
         }
 
-        /// <summary>
-        /// Loads the content for the game
-        /// </summary>
+        
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            itemFactory.LoadTextures(this.Content);
+            onScreenItem = itemFactory.CreateItemSprite("rubyStatic"); 
         }
 
-        /// <summary>
-        /// Updates game logic
-        /// </summary>
-        /// <param name="gameTime">Provides snapshot of timing values</param>
+        
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
-            mouseController.Update();
+            onScreenItem.Update(gameTime);
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// Draws game objects
-        /// </summary>
-        /// <param name="gameTime"></param>
+       
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Gray);
+            onScreenItem.Draw(_spriteBatch);
             base.Draw(gameTime);
-        }
-
-        /// <summary>
-        /// Updates the current sprite to the new sprite
-        /// </summary>
-        /// <param name="sprite">the new sprite to be displayed on screen</param>
-        public void SetSprite(ISprite sprite)
-        {
         }
     }
 }

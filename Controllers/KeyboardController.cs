@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,6 +21,9 @@ namespace SprintZero1.Controllers
 
         public void LoadDefaultCommands(Game1 game)
         {
+            keyboardMap.Add(Keys.D0, new ExitCommand(game));
+            keyboardMap.Add(Keys.U, new PreviousItemCommand(game));
+            keyboardMap.Add(Keys.I, new NextItemCommand(game));
         }
 
         public void Update()
