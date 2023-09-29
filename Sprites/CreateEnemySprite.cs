@@ -10,19 +10,20 @@ namespace SprintZero1.Sprites
 {
     public class CreateEnemySprite : ISprite
     {
-        private List<Rectangle> sourceRectangle;
+        private List<Rectangle> sourceRectangles;
         private Vector2 location;
         private readonly Texture2D spriteSheet;
         private double timeElapsed, timeToUpdate;
         private int currentFrame;
         private int totalFrames;
+        
 
 
 
 
-        public CreateEnemySprite(List<Rectangle> sourceRectangle, Texture2D spriteSheet, Vector2 location)
+        public CreateEnemySprite(List<Rectangle> sourceRectangles, Texture2D spriteSheet, Vector2 location)
         {
-            this.sourceRectangle = sourceRectangle;
+            this.sourceRectangles = sourceRectangles;
             this.spriteSheet = spriteSheet;
             this.location = location;
             currentFrame = 0;
@@ -35,7 +36,7 @@ namespace SprintZero1.Sprites
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 49, 49);
-            spriteBatch.Draw(spriteSheet, destinationRectangle, sourceRectangle, Color.White);
+            spriteBatch.Draw(spriteSheet, destinationRectangle, sourceRectangles, Color.White);
         }
 
         public void Update(GameTime gameTime)

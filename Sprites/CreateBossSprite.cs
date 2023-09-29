@@ -16,7 +16,6 @@ namespace SprintZero1.Sprites
         private double timeElapsed, timeToUpdate;
         private int currentFrame;
         private int totalFrames;
-       
 
         
         
@@ -30,7 +29,6 @@ namespace SprintZero1.Sprites
             timeToUpdate = 1f / 10;
         }
 
-        
         
         public void Draw(SpriteBatch spriteBatch)
         {
