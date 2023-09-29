@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using SprintZero1.Commands;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -20,7 +21,8 @@ namespace SprintZero1
 
         public void LoadDefaultCommands(Game1 game)
         {
-           
+            keyboardMap.Add(Keys.O, new PreviousEnemyCommand(game));
+            keyboardMap.Add(Keys.P, new NextEnemyCommand(game));
         }
 
         public void Update()

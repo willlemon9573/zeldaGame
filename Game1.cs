@@ -1,10 +1,6 @@
-﻿/* 
- * Sprint zero game project
- * Aaron Heishman
- * CSE 3902 - Proj: Interact Sys
- */
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Factories;
 
 namespace SprintZero1
 {   
@@ -12,9 +8,24 @@ namespace SprintZero1
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private IController keyboardController, mouseController;
-        private Texture2D spriteSheet;
+        private IController keyboardController;
+
+        private IEnemyFactory enemyFactory;
+        private ISprite enemyOnScreen;
+        private int onScreenEnemyIndex;
         
+        public int OnScreenEnemyIndex
+        {
+            get { return onScreenEnemyIndex; }
+            set { onScreenEnemyIndex = value; }
+        }
+
+        public ISprite screenEnemy
+        {
+            set { enemyOnScreen = value;  }
+        }
+
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -27,10 +38,10 @@ namespace SprintZero1
         /// </summary>
         protected override void Initialize()
         {
+            enemyFactory = EnemyFactory.Instance;
             keyboardController = new KeyboardController();
-            mouseController = new MouseController();
             keyboardController.LoadDefaultCommands(this);
-            mouseController.LoadDefaultCommands(this);
+            OnScreenEnemyIndex = 0;
             base.Initialize();
         }
 
@@ -40,6 +51,8 @@ namespace SprintZero1
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            enemyFactory.LoadTextures(this.Content);
+            enemyOnScreen = enemyFactory.CreateEnemySprite("dungeon_gel", new Vector2(600, 300));
         }
 
         /// <summary>
@@ -49,7 +62,7 @@ namespace SprintZero1
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
-            mouseController.Update();
+            enemyOnScreen.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -60,15 +73,9 @@ namespace SprintZero1
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            _spriteBatch.Begin();
+            enemyOnScreen.Draw(_spriteBatch);
             base.Draw(gameTime);
-        }
-
-        /// <summary>
-        /// Updates the current sprite to the new sprite
-        /// </summary>
-        /// <param name="sprite">the new sprite to be displayed on screen</param>
-        public void SetSprite(ISprite sprite)
-        {
         }
     }
 }
