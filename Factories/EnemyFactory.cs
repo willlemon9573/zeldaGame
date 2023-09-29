@@ -28,7 +28,7 @@ namespace SprintZero1.Factories
 
         public List<string> EnemyNamesList
         {
-            get { return EnemyNamesList; }
+            get { return enemyNamesList; }
         }
         private void CreateEnemyDictionary()
         {
@@ -162,7 +162,7 @@ namespace SprintZero1.Factories
         {
             enemyNamesList = new List<string>()
             {
-                "dungeon_gel", "d_zol", "dungeon_keese", "dungeon_goriya", "dungeon_wallmaster",
+                "dungeon_gel", "dungeon_zol", "dungeon_keese", "dungeon_goriya", "dungeon_wallmaster",
                 "overworld_octorok_up", "overworld_octorok_side", "overworld_moblin_up", 
                 "overworld_moblin_side", "overworld_leever", "overworld_peahat", 
                 "overworld_armos_up", "overworld_armos_down", "overworld_tektite",
@@ -185,8 +185,10 @@ namespace SprintZero1.Factories
         public ISprite CreateEnemySprite(string enemyName, Vector2 location, int frameIndex)
         {
             Debug.Assert(enemyName != null, "enemyName is null");
+            
             Debug.Assert(sourceRectangles.ContainsKey(enemyName), "sourceRectangles does not contain" +
                 "an enemy named: " + enemyName);
+            Debug.WriteLine(enemyName);
             if(enemyName.Contains("dungeon"))
             {
                 return new CreateEnemySprite(sourceRectangles[enemyName], dungeonEnemySpritesheet, location, frameIndex);
