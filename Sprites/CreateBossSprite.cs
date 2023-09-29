@@ -26,13 +26,13 @@ namespace SprintZero1.Sprites
             this.location = location;
             this.currentFrameIndex = frameIndex;
             totalFrames = 2;
-            timeToUpdate = 1f / 10;
+            timeToUpdate = 1f / 1;
         }
 
         
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 49, 49);
+            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 150, 150);
             spriteBatch.Draw(spriteSheet, destinationRectangle, sourceRectangle[currentFrameIndex], Color.White);
         }
 
