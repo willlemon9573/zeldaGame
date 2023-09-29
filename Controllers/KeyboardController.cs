@@ -32,6 +32,7 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.A, new ChangeLinkDirectionCommand(game, 2));
             keyboardMap.Add(Keys.D, new ChangeLinkDirectionCommand(game, 3));
             keyboardMap.Add(Keys.Z, new LinkAttackCommand(game));
+            keyboardMap.Add(Keys.X, new LinkHurtCommand(game));
         }
 
         public void Update()

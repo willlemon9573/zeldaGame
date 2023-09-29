@@ -9,8 +9,8 @@ using SprintZero1.Controllers;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.Commands;
-
-
+using SprintZero1.Level;
+using SprintZero1.Players;
 
 namespace SprintZero1
 {
@@ -23,6 +23,8 @@ namespace SprintZero1
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
         private int onScreenBlockIndex;
+        public PlayableCharacter LinkPlayer = new Player1();
+        private LevelManager levelManager;
         public int OnScreenBlockIndex
         {
             get { return onScreenBlockIndex; }
@@ -75,6 +77,8 @@ namespace SprintZero1
             CurrentDirection = 2;
             CurrentFrame = 0;
             isAttacking = false;
+
+            levelManager = new LevelManager(LinkPlayer);
 
 
             keyboardController = new KeyboardController();
