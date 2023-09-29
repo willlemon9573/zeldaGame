@@ -11,21 +11,20 @@ namespace SprintZero1.Sprites
 {
     internal class EnemySprite : ISprite
     {
-        Vector2 pos;
-        SpriteBatch spriteBatch;
-        Texture2D texture;
-        Rectangle destinationRectangle;
-        EnemyFactory factory;
-
-        
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture,  }
+            throw new NotImplementedException();
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Texture2D texture, Vector2 position, Color color, Rectangle source, Rectangle destination) 
+        {
+            spriteBatch.Draw(texture, )
+            throw new NotImplementedException();
+        }
 
         public void Update(GameTime gameTime)
         {
-            destinationRectangle = new Rectangle(, );
-            Draw(spriteBatch);
+            throw new NotImplementedException();
         }
     }
 }
