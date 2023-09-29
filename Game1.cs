@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Controllers;
 using SprintZero1.Factories;
+using SprintZero1.Sprites;
 
 namespace SprintZero1
-{   
+{
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -24,6 +26,8 @@ namespace SprintZero1
         {
             set { enemyOnScreen = value;  }
         }
+
+        public int CurrentFrame { get; set; }
 
 
         public Game1()
@@ -52,7 +56,7 @@ namespace SprintZero1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             enemyFactory.LoadTextures(this.Content);
-            enemyOnScreen = enemyFactory.CreateEnemySprite("dungeon_gel", new Vector2(600, 300));
+            enemyOnScreen = enemyFactory.CreateEnemySprite("dungeon_gel", new Vector2(600, 300), CurrentFrame);
         }
 
         /// <summary>

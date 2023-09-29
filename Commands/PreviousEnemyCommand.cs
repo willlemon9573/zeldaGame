@@ -21,7 +21,7 @@ namespace SprintZero1.Commands
         public void Execute()
         {
             myGame.OnScreenEnemyIndex = (myGame.OnScreenEnemyIndex - 1) % totalEnemies; // clock arithmetic [0, totalBlocks]
-            myGame.screenEnemy = myEnemyFactory.CreateEnemySprite(enemyNames[myGame.OnScreenEnemyIndex], new Vector2(600, 300));
+            myGame.screenEnemy = myEnemyFactory.CreateEnemySprite(enemyNames[myGame.OnScreenEnemyIndex], new Vector2(600, 300), 0);
         }
     }
 }

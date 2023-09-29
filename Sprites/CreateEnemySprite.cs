@@ -14,19 +14,19 @@ namespace SprintZero1.Sprites
         private Vector2 location;
         private readonly Texture2D spriteSheet;
         private double timeElapsed, timeToUpdate;
-        private int currentFrame;
+        private int currentFrameIndex;
         private int totalFrames;
         
 
 
 
 
-        public CreateEnemySprite(List<Rectangle> sourceRectangles, Texture2D spriteSheet, Vector2 location)
+        public CreateEnemySprite(List<Rectangle> sourceRectangles, Texture2D spriteSheet, Vector2 location, int frameIndex)
         {
             this.sourceRectangles = sourceRectangles;
             this.spriteSheet = spriteSheet;
             this.location = location;
-            currentFrame = 0;
+            this.currentFrameIndex = frameIndex;
             totalFrames = 2;
             timeToUpdate = 1f / 10;
         }
@@ -36,7 +36,7 @@ namespace SprintZero1.Sprites
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 49, 49);
-            spriteBatch.Draw(spriteSheet, destinationRectangle, sourceRectangles, Color.White);
+            spriteBatch.Draw(spriteSheet, destinationRectangle, sourceRectangles[currentFrameIndex], Color.White);
         }
 
         public void Update(GameTime gameTime)
@@ -46,10 +46,10 @@ namespace SprintZero1.Sprites
             {
                 timeElapsed -= timeToUpdate;
                 //timeToUpdate = 1f / 2
-                currentFrame++;
-                if (currentFrame >= totalFrames)
+                currentFrameIndex++;
+                if (currentFrameIndex >= totalFrames)
                 {
-                    currentFrame = 0;
+                    currentFrameIndex = 0;
                 }
             }
             //timeToUpdate = 60

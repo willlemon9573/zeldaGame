@@ -8,23 +8,28 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SprintZero1.Sprites;
+using System.ComponentModel;
 
 namespace SprintZero1.Factories
 {
-    
+
     public class EnemyFactory : IEnemyFactory
     {
         private Texture2D dungeonEnemySpritesheet, overworldEnemySpritesheet, bossSpritesheet;
         private readonly List<string> enemyNamesList;
         private readonly Dictionary<string, List<Rectangle>> sourceRectangles;
+        private static readonly EnemyFactory instance = new EnemyFactory();
         const int HEIGHT = 16, WIDTH = 16;
-        
 
         public static EnemyFactory Instance
         {
-            get { return Instance; }
+            get { return instance; }
         }
 
+        public List<string> EnemyNamesList
+        {
+            get { return EnemyNamesList; }
+        }
         private void CreateEnemyDictionary()
         {
             //DUNGEON ENEMY SPRITESHEET
@@ -153,7 +158,7 @@ namespace SprintZero1.Factories
             };
         }
 
-        private EnemyFactory()
+        public EnemyFactory()
         {
             enemyNamesList = new List<string>()
             {
@@ -168,10 +173,7 @@ namespace SprintZero1.Factories
             CreateBossDictionary();
         }
 
-        public List<string> EnemyNamesList
-        {
-            get { return EnemyNamesList; }
-        }
+        
 
         public void LoadTextures(ContentManager manager)
         {
@@ -180,22 +182,22 @@ namespace SprintZero1.Factories
             bossSpritesheet = manager.Load<Texture2D>("BossSpritesheet");
         }
 
-        public ISprite CreateEnemySprite(string enemyName, Vector2 location)
+        public ISprite CreateEnemySprite(string enemyName, Vector2 location, int frameIndex)
         {
             Debug.Assert(enemyName != null, "enemyName is null");
             Debug.Assert(sourceRectangles.ContainsKey(enemyName), "sourceRectangles does not contain" +
                 "an enemy named: " + enemyName);
             if(enemyName.Contains("dungeon"))
             {
-                return new CreateEnemySprite(sourceRectangles[enemyName], dungeonEnemySpritesheet, location);
+                return new CreateEnemySprite(sourceRectangles[enemyName], dungeonEnemySpritesheet, location, frameIndex);
             } 
             else if(enemyName.Contains("overworld"))
             {
-                return new CreateEnemySprite(sourceRectangles[enemyName], overworldEnemySpritesheet, location);
+                return new CreateEnemySprite(sourceRectangles[enemyName], overworldEnemySpritesheet, location, frameIndex);
             } 
             else if(enemyName.Contains("boss"))
             {
-                return new CreateBossSprite(sourceRectangles[enemyName], bossSpritesheet, location);
+                return new CreateBossSprite(sourceRectangles[enemyName], bossSpritesheet, location, frameIndex);
             }
             //HMMMMMMMM
             return null;

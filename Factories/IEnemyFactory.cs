@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using System.Text;
 using System.Threading.Tasks;
+using SprintZero1.Sprites;
 
 namespace SprintZero1.Factories
 {
@@ -17,7 +18,7 @@ namespace SprintZero1.Factories
         
         void LoadTextures(ContentManager manager);
 
-        ISprite CreateEnemySprite(string enemyName, Vector2 location);
+        ISprite CreateEnemySprite(string enemyName, Vector2 locationm, int FrameIndex);
         
 
 
