@@ -9,7 +9,9 @@ namespace SprintZero1.Sprites
 
         private Rectangle sourceRectangle; 
         private Vector2 location; 
-        private readonly Texture2D spriteSheet; 
+        private readonly Texture2D spriteSheet;
+
+        public Vector2 Position { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
         public NonAnimatedItemSprite(Rectangle sourceRectangle, Texture2D spriteSheet)
         {

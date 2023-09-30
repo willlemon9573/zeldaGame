@@ -40,8 +40,6 @@ namespace SprintZero1.Controllers
         {
             commands[0].Execute();
         }
-        
-        
         /* Can remove this */
         /// <summary>
         /// Add the values relative to each quadrant into the quadrants array
@@ -85,6 +83,11 @@ namespace SprintZero1.Controllers
                 ExecuteRightMouseCommand();
             }
             oldState = newState;
+        }
+
+        public void AddCommand(Keys key, ICommand value)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 namespace SprintZero1.Sprites
 {
     public class WeaponSprite : ISprite
@@ -48,22 +46,18 @@ namespace SprintZero1.Sprites
                     effect = SpriteEffects.None;
                     rotation = MathHelper.ToRadians(90);
                     break;
-
                 case 1: // Down
                     effect = SpriteEffects.None;
                     rotation = MathHelper.ToRadians(-90);
                     break;
-
                 case 2: // Left
                     effect = SpriteEffects.None;
                     rotation = 0f;
                     break;
-
                 case 3: // Right
                     effect = SpriteEffects.FlipHorizontally;
                     rotation = 0f;
                     break;
-
                 default:
                     effect = SpriteEffects.None;
                     rotation = 0f;

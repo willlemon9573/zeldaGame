@@ -6,7 +6,9 @@ namespace SprintZero1.Sprites
     public class AnimatedItemSprite : ISprite
     {
 
-        public  Texture2D SpriteSheet { get; set; }
+        private  Texture2D SpriteSheet { get; set; }
+        public Vector2 Position { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
         private Rectangle sourceRectangle;
         private Vector2 location;
         private int currentFrame;
