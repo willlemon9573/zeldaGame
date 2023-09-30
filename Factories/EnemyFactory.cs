@@ -183,7 +183,6 @@ namespace SprintZero1.Factories
             
             Debug.Assert(sourceRectangles.ContainsKey(enemyName), "sourceRectangles does not contain" +
                 "an enemy named: " + enemyName);
-            Debug.WriteLine(enemyName);
             if(enemyName.Contains("dungeon"))
             {
                 return new CreateEnemySprite(sourceRectangles[enemyName], dungeonEnemySpritesheet, location, frameIndex);
