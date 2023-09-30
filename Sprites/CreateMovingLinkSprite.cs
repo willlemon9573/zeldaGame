@@ -44,10 +44,7 @@ namespace SprintZero1.Sprites
             destinationRectangle1 = new Rectangle((int)location.X, (int)location.Y, 49, 49);
             // If _direction is 2, flip the sprite; otherwise, use the original orientation.
             SpriteEffects effect = (_direction == 2) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-
-            spriteBatch.Begin();
             spriteBatch.Draw(spriteSheet, destinationRectangle1, sourceRectangles[currentFrameIndex], tint, 0f, Vector2.Zero, effect, 0f);
-            spriteBatch.End();
         }
 
         public void Hurt()
@@ -55,8 +52,8 @@ namespace SprintZero1.Sprites
             isHurt = true;
             tint = Color.Red;
         }
-
-
+            spriteBatch.Draw(spriteSheet, destinationRectangle1, sourceRectangles[currentFrameIndex], Color.White, 0f, Vector2.Zero, effect, 0f);  
+        }
         public void Update(GameTime gameTime)
         {
             if(Keyboard.GetState().IsKeyDown(Keys.X))

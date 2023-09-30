@@ -1,4 +1,5 @@
-﻿using SprintZero1.Factories;
+﻿using Microsoft.Xna.Framework;
+using SprintZero1.Factories;
 using System.Collections.Generic;
 
 namespace SprintZero1.Commands
@@ -19,8 +20,8 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            myGame.OnScreenBlockIndex = (myGame.OnScreenBlockIndex - 1 + totalBlocks) % totalBlocks;
-            myGame.NonMovingBlock = myBlockFactory.CreateNonMovingBlockSprite(blockNames[myGame.OnScreenBlockIndex]);
+            myGame.OnScreenBlockIndex = (myGame.OnScreenBlockIndex - 1 + totalBlocks) % totalBlocks; // clock arithmetic [0, totalBlocks]
+            myGame.NonMovingBlock = myBlockFactory.CreateNonMovingBlockSprite(blockNames[myGame.OnScreenBlockIndex], new Vector2(200, 230));
         }
     }
 }

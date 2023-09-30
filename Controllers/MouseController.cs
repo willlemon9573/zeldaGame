@@ -1,5 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
+using System.Diagnostics;
 using System.Drawing;
 using System.Numerics;
 
@@ -39,7 +40,7 @@ namespace SprintZero1.Controllers
         {
             commands[0].Execute();
         }
-
+        /* Can remove this */
         /// <summary>
         /// Add the values relative to each quadrant into the quadrants array
         /// </summary>

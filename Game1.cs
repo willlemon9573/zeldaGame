@@ -1,8 +1,3 @@
-﻿/* 
- * Sprint zero game project
- * Aaron Heishman
- * CSE 3902 - Proj: Interact Sys
- */
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
@@ -14,14 +9,31 @@ using SprintZero1.Players;
 using SprintZero1.Characters;
 using Microsoft.Xna.Framework.Input;
 
-
 namespace SprintZero1
 {
     public class Game1 : Game
     {
-        /* Commented out code has been deprecated */
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private IController keyboardController;
+
+        private IEnemyFactory enemyFactory;
+        private ISprite enemyOnScreen;
+        private int onScreenEnemyIndex;
+        
+        public int OnScreenEnemyIndex
+        {
+            get { return onScreenEnemyIndex; }
+            set { onScreenEnemyIndex = value; }
+        }
+
+        public ISprite screenEnemy
+        {
+            set { enemyOnScreen = value;  }
+        }
+
+        public int CurrentFrame { get; set; }
+        /* Temporary assignment of code until managers are made */
         private IController keyboardController;
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
@@ -62,7 +74,22 @@ namespace SprintZero1
             Link = newLink;
         }
 
+        private IUsableItemFactory itemFactory;
+        private ISprite onScreenItem;
+        private int onScreenItemIndex;
+        internal int direction;
 
+        public int OnScreenItemIndex
+        {
+            get { return onScreenItemIndex; }
+            set { onScreenItemIndex = value; }
+        }
+
+        public ISprite Item
+        {
+            set { onScreenItem = value; }
+        }
+        /* end of temporary assignment of code */
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -70,12 +97,15 @@ namespace SprintZero1
             IsMouseVisible = true;
         }
 
-
         /// <summary>
         /// Initialize all components required to run the game
         /// </summary>
         protected override void Initialize()
         {
+            enemyFactory = EnemyFactory.Instance;
+            keyboardController = new KeyboardController();
+            keyboardController.LoadDefaultCommands(this);
+            OnScreenEnemyIndex = 0;
             _position = new Vector2(100, 100);
             blockFactory = BlockFactory.Instance;
             OnScreenBlockIndex = 0;
@@ -84,47 +114,51 @@ namespace SprintZero1
             CurrentDirection = 2;
             CurrentFrame = 0;
             isAttacking = false;
-
             keyboardController = new KeyboardController();
             keyboardController.LoadDefaultCommands(this);
+            itemFactory = ItemFactory.Instance;
+            keyboardController = new KeyboardController();
+            keyboardController.LoadDefaultCommands(this);
+            OnScreenBlockIndex = 0;
+            OnScreenItemIndex = 0;
             base.Initialize();
         }
 
-        /// <summary>
-        /// Loads the content for the game
-        /// </summary>
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            enemyFactory.LoadTextures(this.Content);
+            enemyOnScreen = enemyFactory.CreateEnemySprite("dungeon_gel", new Vector2(600, 300), CurrentFrame);
             blockFactory.LoadTextures(this.Content);
             enemy = new Enemy(_spriteBatch, this.Content.Load<Texture2D>("Bosses"), this);
-            nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
             linkFactory.LoadTextures(this.Content);
             Link = linkFactory.createNewLink(CurrentDirection, position, CurrentFrame, isAttacking);
+            nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
+            itemFactory.LoadTextures(this.Content);
+            onScreenItem = itemFactory.CreateItemSprite("rubyStatic");
         }
 
-        /// <summary>
-        /// Updates game logic
-        /// </summary>
-        /// <param name="gameTime">Provides snapshot of timing values</param>
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
+            enemyOnScreen.Update(gameTime);
             Link.Update(gameTime);
             enemy.Update(gameTime);
+            onScreenItem.Update(gameTime);
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// Draws game objects
-        /// </summary>
-        /// <param name="gameTime"></param>
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            _spriteBatch.Begin();
+            enemyOnScreen.Draw(_spriteBatch);
             nonMovingOnScreenBlock.Draw(_spriteBatch);
             enemy.Draw();
             Link.Draw(_spriteBatch);
+            onScreenItem.Draw(_spriteBatch);
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
     }

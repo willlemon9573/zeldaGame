@@ -74,11 +74,11 @@ namespace SprintZero1.Factories
             blockSpriteSheet = manager.Load<Texture2D>("TileSheet");
         }
 
-        public ISprite CreateNonMovingBlockSprite(string blockName)
+        public ISprite CreateNonMovingBlockSprite(string blockName, Vector2 location)
         {
             Debug.Assert(blockName != null, "blockName is null");
             Debug.Assert(sourceRectangles.ContainsKey(blockName), "Source Rectangle does not contain the block named: " + blockName);
-            return new NonMovingBlockSprite(sourceRectangles[blockName], blockSpriteSheet);
+            return new NonMovingBlockSprite(sourceRectangles[blockName], blockSpriteSheet, location);
         }
     }
 }
