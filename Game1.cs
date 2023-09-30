@@ -15,10 +15,10 @@ namespace SprintZero1
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        /* Temporary assignment of code until managers are made */
         private IController keyboardController;
 
         private IEnemyFactory enemyFactory;
-        private ISprite enemyOnScreen;
         private int onScreenEnemyIndex;
         
         public int OnScreenEnemyIndex
@@ -27,13 +27,7 @@ namespace SprintZero1
             set { onScreenEnemyIndex = value; }
         }
 
-        public ISprite screenEnemy
-        {
-            set { enemyOnScreen = value;  }
-        }
-
         public int CurrentFrame { get; set; }
-        /* Temporary assignment of code until managers are made */
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
         private int onScreenBlockIndex;

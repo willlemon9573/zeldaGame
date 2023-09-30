@@ -14,7 +14,7 @@ namespace SprintZero1.weapon
 
         public arrowWeapon(Game1 game)
         {
-            // this.location = game.location;
+            this.location = game.position;
             this.direction = game.direction;
         }
 
