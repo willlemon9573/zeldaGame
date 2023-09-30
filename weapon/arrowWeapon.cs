@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 
 namespace SprintZero1.weapon
 {
@@ -14,7 +14,7 @@ namespace SprintZero1.weapon
 
         public arrowWeapon(Game1 game)
         {
-            this.location = game.location;
+            // this.location = game.location;
             this.direction = game.direction;
         }
 

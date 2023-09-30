@@ -9,21 +9,21 @@ namespace SprintZero1.Commands
         private Game1 game;
         private int Direction;
         private Vector2 location;
-        private WeaponSpriteFactory WeaponFactory;
+        //private WeaponSpriteFactory WeaponFactory;
         ISprite newSprite;
 
         public BombWeapon(Game1 game)
         {
             this.game = game;
-            this.WeaponFactory = WeaponSpriteFactory.Instance;
+            //this.WeaponFactory = WeaponSpriteFactory.Instance;
         }
 
         public void Execute()
         {
             location = game.position;
             Direction = game.CurrentDirection;
-            newSprite = WeaponFactory.CreateBombSprite(location, 4, -1);
-            game.Weapon = newSprite;
+            //newSprite = WeaponFactory.CreateBombSprite(location, 4, -1);
+            //game.Weapon = newSprite;
         }
 
     }

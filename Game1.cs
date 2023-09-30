@@ -51,6 +51,7 @@ namespace SprintZero1
         private IUsableItemFactory itemFactory;
         private ISprite onScreenItem;
         private int onScreenItemIndex;
+        internal int direction;
 
         public int OnScreenItemIndex
         {
@@ -97,7 +98,6 @@ namespace SprintZero1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             blockFactory.LoadTextures(this.Content);
-            nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
             linkFactory.LoadTextures(this.Content);
             Link = linkFactory.createNewLink(CurrentDirection, position, CurrentFrame, isAttacking);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat

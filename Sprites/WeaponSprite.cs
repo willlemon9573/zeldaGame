@@ -17,7 +17,7 @@ namespace SprintZero1.Sprites
         private double elapsedTime;
         private const double timePerFrame = 500;
         SpriteEffects effect;
-        float rotation
+        float rotation;
         
         public Vector2 Location { get { return location; } set { location = value; } }
         //vector2 location, Rectangle sourceRectangle, Texture2D spriteSheet, int maxFrame
@@ -78,23 +78,7 @@ namespace SprintZero1.Sprites
                 
                 elapsedTime = 0;
 
-                if (currentFrameIndex >= maxFrame)
-                {
-                    currentFrameIndex = 0;
-
-                    if (maxFrame == 3)
-                    {
-                        if(direction == -1)
-                        {
-                            direction = 2;
-                        }
-                        else
-                        {
-                            direction = -1;
-                        }
-                    }
-                    
-                }
+                
             }
         }
     }
