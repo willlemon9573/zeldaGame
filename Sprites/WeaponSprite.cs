@@ -18,8 +18,12 @@ namespace SprintZero1.Sprites
         private const double timePerFrame = 500;
         SpriteEffects effect;
         float rotation;
-        
-        public Vector2 Location { get { return location; } set { location = value; } }
+
+        public Vector2 Position {
+            get { return location; }
+            set { location = value; }
+        }
+
         //vector2 location, Rectangle sourceRectangle, Texture2D spriteSheet, int maxFrame
         public WeaponSprite(Vector2 location, Rectangle sourceRectangle, Texture2D spriteSheet, int maxFrame, int direction)
         {

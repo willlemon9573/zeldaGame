@@ -7,10 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+/* Will be used in the future, but not used currently */
 namespace SprintZero1.Sprites
 {
     internal class CharacterSprite : ISprite
     {
+        public Vector2 Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             // Not Needed

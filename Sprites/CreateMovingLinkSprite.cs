@@ -28,6 +28,8 @@ namespace SprintZero1.Sprites
         // To track which frame/rectangle to use
         private int currentFrameIndex;
 
+        public Vector2 Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public CreateMovingLinkSprite(List<Rectangle> spritePositions, Texture2D LinkSpriteSheet, Vector2 position, int frameIndex, int direction, bool isAttacking)
         {
             this.sourceRectangles = spritePositions;
@@ -52,11 +54,9 @@ namespace SprintZero1.Sprites
             isHurt = true;
             tint = Color.Red;
         }
-            spriteBatch.Draw(spriteSheet, destinationRectangle1, sourceRectangles[currentFrameIndex], Color.White, 0f, Vector2.Zero, effect, 0f);  
-        }
         public void Update(GameTime gameTime)
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.X))
+            if(Keyboard.GetState().IsKeyDown(Keys.E))
             {
                 Hurt();
             }

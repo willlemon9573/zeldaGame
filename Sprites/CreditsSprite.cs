@@ -6,6 +6,9 @@ namespace SprintZero1.Sprites
     {
         private Vector2 text_position;
         private readonly int width, height, x_start, y_start;
+
+        public Vector2 Position { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
         /* Unused, but saved in case we want to use it */
 
         /// <summary>

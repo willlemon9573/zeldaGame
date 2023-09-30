@@ -29,7 +29,6 @@ namespace SprintZero1.AI
                 Fire();
                 fireTimer = 0;
             }
-
         }
 
         public void Fire()

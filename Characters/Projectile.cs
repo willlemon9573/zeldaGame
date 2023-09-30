@@ -34,9 +34,7 @@ namespace SprintZero1.Characters
 
         public void Draw()
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(texture, destination, source, Color.White);
-            spriteBatch.End();
         }
 
         

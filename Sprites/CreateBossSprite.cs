@@ -17,8 +17,11 @@ namespace SprintZero1.Sprites
         private int currentFrameIndex;
         private int totalFrames;
 
-        
-        
+        public Vector2 Position {
+            get { return location; }
+            set { location = value; }
+        }
+
         public CreateBossSprite(List<Rectangle> sourceRectangle, Texture2D spriteSheet, Vector2 location, int frameIndex) 
         {
             this.sourceRectangle = sourceRectangle;

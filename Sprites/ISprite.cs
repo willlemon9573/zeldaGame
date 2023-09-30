@@ -5,6 +5,7 @@ namespace SprintZero1.Sprites
 {
     public interface ISprite
     {
+        Vector2 Position { get; set; }
         /// <summary>
         /// Draw the specified texture onto the game
         /// </summary>

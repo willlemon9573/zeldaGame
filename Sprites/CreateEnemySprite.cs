@@ -11,15 +11,17 @@ namespace SprintZero1.Sprites
     public class CreateEnemySprite : ISprite
     {
         private List<Rectangle> sourceRectangles;
-        private Vector2 location;
+        public Vector2 location;
         private readonly Texture2D spriteSheet;
         private double timeElapsed, timeToUpdate;
         private int currentFrameIndex;
         private int totalFrames;
-        
 
-
-
+        public Vector2 Position
+        {
+            get { return location; }
+            set { location = value; }
+        }
 
         public CreateEnemySprite(List<Rectangle> sourceRectangles, Texture2D spriteSheet, Vector2 location, int frameIndex)
         {
@@ -30,8 +32,6 @@ namespace SprintZero1.Sprites
             totalFrames = 2;
             timeToUpdate = 1f / 1;
         }
-
-
 
         public void Draw(SpriteBatch spriteBatch)
         {

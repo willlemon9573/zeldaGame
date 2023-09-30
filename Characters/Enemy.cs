@@ -8,15 +8,13 @@ using System;
 using System.Runtime.Intrinsics.X86;
 using System.Collections.Generic;
 using SprintZero1.AI;
-using System.Threading;
 using SprintZero1.Factories;
-using Microsoft.Xna.Framework.Input;
 
 namespace SprintZero1.Characters
 {
     public class Enemy : ICharacter
     {
-        CharacterSprite EnemySprite = new CharacterSprite();   
+        public ISprite EnemySprite;
         SpriteBatch spriteBatch;
         int health = 1;
         string name = "Enemy";
@@ -26,7 +24,6 @@ namespace SprintZero1.Characters
         public Vector2 pos = new Vector2(500, 200);
         EnemyAI ai;
         Game1 game;
-        EnemyFactory factory = EnemyFactory.Instance;
 
         List<Projectile> projectiles = new List<Projectile>();
 
@@ -37,21 +34,15 @@ namespace SprintZero1.Characters
             this.spriteBatch = spriteBatch;
             this.texture = texture;
             this.ai = new EnemyAI(this);
-            factory.createSpriteDictionary();
         }
-
 
         public void Update(GameTime timer)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.D1))
-            {
-                source = factory.Source(enemies[new Random().Next(1, 4)]);
-            }
 
             ai.Update(timer);
             destination.X = (int) pos.X;
             destination.Y = (int) pos.Y;
-            
+            EnemySprite.Position = pos;
             for(int i = 0; i < projectiles.Count; i++)
             {
                 Projectile projectile = projectiles[i];
@@ -62,6 +53,7 @@ namespace SprintZero1.Characters
                     i--;
                 }
             }
+            EnemySprite.Update(timer);
         }
 
         public void Draw()
@@ -71,7 +63,7 @@ namespace SprintZero1.Characters
             {
                 projectile.Draw();
             }
-            EnemySprite.Draw(spriteBatch, texture, Color.White, destination, source);
+            EnemySprite.Draw(spriteBatch);
         }
 
         public void Fire()

@@ -34,13 +34,11 @@ namespace SprintZero1
 
         public int CurrentFrame { get; set; }
         /* Temporary assignment of code until managers are made */
-        private IController keyboardController;
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
         private int onScreenBlockIndex;
         public Enemy enemy;
         private LevelManager levelManager;
-        private int onScreenEnemyIndex;
         
         
 
@@ -65,7 +63,6 @@ namespace SprintZero1
         }
         public int CurrentDirection { get; set; }
         //0 is facingUp. 1 is facingDown. 2 is facingLeft. 3 is facingRight
-        public int CurrentFrame { get; set; }
         public bool isAttacking { get; set; }
 
 
@@ -128,9 +125,9 @@ namespace SprintZero1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             enemyFactory.LoadTextures(this.Content);
-            enemyOnScreen = enemyFactory.CreateEnemySprite("dungeon_gel", new Vector2(600, 300), CurrentFrame);
             blockFactory.LoadTextures(this.Content);
             enemy = new Enemy(_spriteBatch, this.Content.Load<Texture2D>("Bosses"), this);
+            enemy.EnemySprite = enemyFactory.CreateEnemySprite("dungeon_gel", new Vector2(600, 300), 0);
             linkFactory.LoadTextures(this.Content);
             Link = linkFactory.createNewLink(CurrentDirection, position, CurrentFrame, isAttacking);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
@@ -141,7 +138,6 @@ namespace SprintZero1
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
-            enemyOnScreen.Update(gameTime);
             Link.Update(gameTime);
             enemy.Update(gameTime);
             onScreenItem.Update(gameTime);
@@ -153,7 +149,6 @@ namespace SprintZero1
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
-            enemyOnScreen.Draw(_spriteBatch);
             nonMovingOnScreenBlock.Draw(_spriteBatch);
             enemy.Draw();
             Link.Draw(_spriteBatch);

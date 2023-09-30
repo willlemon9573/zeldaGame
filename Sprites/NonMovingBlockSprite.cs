@@ -11,6 +11,8 @@ namespace SprintZero1.Sprites
         private Vector2 location; // the location to display the block
         private readonly Texture2D spriteSheet; // the source file to draw from
 
+        public Vector2 Position { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
         /// <summary>
         /// NonMovingBlockSprite constructor
         /// </summary>
