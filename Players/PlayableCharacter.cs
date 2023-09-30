@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 using Microsoft.Xna.Framework.Graphics;
-
+/* for sprint 3 */
 namespace SprintZero1.Players
 {
     public abstract class PlayableCharacter

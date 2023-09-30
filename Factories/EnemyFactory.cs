@@ -1,15 +1,9 @@
-
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SprintZero1.Sprites;
-using System.ComponentModel;
 
 namespace SprintZero1.Factories
 {

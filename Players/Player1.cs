@@ -1,11 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
+/* for sprint 3 */
 namespace SprintZero1.Players
 {
     internal class Player1 : PlayableCharacter

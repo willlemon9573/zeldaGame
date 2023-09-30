@@ -5,6 +5,10 @@ namespace SprintZero1.Sprites
 {
     public interface ISprite
     {
+        /* had to allow the sprite's location to be modifiable for outside controllers */
+        /// <summary>
+        /// Get and update the sprites position
+        /// </summary>
         Vector2 Position { get; set; }
         /// <summary>
         /// Draw the specified texture onto the game

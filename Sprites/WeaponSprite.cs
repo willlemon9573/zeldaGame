@@ -23,6 +23,11 @@ namespace SprintZero1.Sprites
         {
             set { timeToUpdate = (1f / value);  }
         }
+
+        public Vector2 Position { get { return location; }
+            set { location += value; }
+        }
+
         //vector2 location, Rectangle sourceRectangle, Texture2D spriteSheet, int maxFrame
         public WeaponSprite(Vector2 location, List<Rectangle> sourceRectangle, Texture2D spriteSheet, int maxFrame, int direction)
         {

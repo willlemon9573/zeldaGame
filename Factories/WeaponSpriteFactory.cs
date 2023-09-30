@@ -11,7 +11,6 @@ namespace SprintZero1.Factories
     {
         /* Temporary class for sprint2 requirements. This along with other factories will be refractored for sprint 3 */
         private Texture2D spriteSheet;
-        private Texture2D boomerangSheetTest;
         private readonly Dictionary<string, List<Rectangle>> weaponSourceRectangles;
         private static readonly WeaponSpriteFactory instance = new WeaponSpriteFactory();
 
