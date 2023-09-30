@@ -14,21 +14,20 @@ namespace SprintZero1.Sprites
         /// <summary>
         /// NonMovingBlockSprite constructor
         /// </summary>
-        /// <param name="sourceRectangle">The position on the spriteSheet to pull the sprites from</param>
+        /// <param name="sourceRectangle">The position on the Sprite Sheet to pull the sprites from</param>
         /// <param name="spriteSheet">The specific sprite sheet containing the blocks</param>
-        public NonMovingBlockSprite(Rectangle sourceRectangle, Texture2D spriteSheet)
+        /// <param name="location">The location to draw the sprite</param>
+        public NonMovingBlockSprite(Rectangle sourceRectangle, Texture2D spriteSheet, Vector2 location)
         {
             this.sourceRectangle = sourceRectangle;
             this.spriteSheet = spriteSheet;
-            location = new Vector2(200, 230); // start with the tile in the middle of the screen
+            this.location = location;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 49, 49);
-            spriteBatch.Begin();
             spriteBatch.Draw(spriteSheet, destinationRectangle, sourceRectangle, Color.White);
-            spriteBatch.End();
         }
 
         public void Update(GameTime gameTime)

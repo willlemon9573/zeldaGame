@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
+using System.Collections.Generic;
+using System.Diagnostics;
+
 namespace SprintZero1.Controllers
 {
     public class KeyboardController : IController
@@ -22,7 +24,6 @@ namespace SprintZero1.Controllers
         {
             keyboardMap.Add(Keys.Y, new GetNextBlockCommand(game));
             keyboardMap.Add(Keys.T, new GetPreviousBlockCommand(game));
-            //keyboardMap.Add(Keys.W, new ChangeLinkDirectionCommand(game，0));
             keyboardMap.Add(Keys.Up, new ChangeLinkDirectionCommand(game, 0));   
             keyboardMap.Add(Keys.Down, new ChangeLinkDirectionCommand(game, 1)); 
             keyboardMap.Add(Keys.Left, new ChangeLinkDirectionCommand(game, 2));  
@@ -32,12 +33,15 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.A, new ChangeLinkDirectionCommand(game, 2));
             keyboardMap.Add(Keys.D, new ChangeLinkDirectionCommand(game, 3));
             keyboardMap.Add(Keys.Z, new LinkAttackCommand(game));
+            keyboardMap.Add(Keys.D0, new ExitCommand(game));
+            keyboardMap.Add(Keys.U, new PreviousItemCommand(game));
+            keyboardMap.Add(Keys.I, new NextItemCommand(game));
         }
 
         public void Update()
         {
             Keys[] pressedkeys = Keyboard.GetState().GetPressedKeys();
-
+            // search through presseds keys and execute the given command
             foreach (Keys key in pressedkeys)
             {
                 if (/*!previouslyPressedKeys.Contains(key) &&*/ keyboardMap.ContainsKey(key))
