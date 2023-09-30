@@ -1,0 +1,7 @@
+EnemyFactory - Jarek
+
+Very good. Code is well partitioned and lean. Source rectangles are blocked well making their purpose clear. Very little to no "fluffy" code.
+
+BlockFactory - Aaron
+
+Also very well done. Code is partitioned with little coupling. No method has more than 10 lines of code. Well be very easy to use in the future.

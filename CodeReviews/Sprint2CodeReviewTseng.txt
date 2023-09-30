@@ -1,0 +1,7 @@
+Sprint 2 Code Review
+Chih-Hsiang Jarek Tseng
+Readability Review for NonMovingSpriteBlock for Aaron:
+The readability for the class NonMovingSpriteBlock is already very well. There are many comments, such as what each function is used for, and comments for each parameter that is used. There are also comments to specify what each variable that was initialized is for which is great practice. I think this class has great readability, if anything, I would add maybe a line of comment for each function including the Draw and Update just to keep the code consistent, even though it may seem repetitive between all the classes in ISprite. 
+
+Maintainability Review for EnemyAI class for Muhammad: 
+I think the overall maintainability of the EnemyAI class is pretty good, although there are some small things that can be changed to improve it. First, there are some magic numbers that I see for comparing values, if something were to change and those numbers were to be different for other enemies, the code would have to change a lot. So I think trying to make the code more data driven would be great to allow it to be more maintainable for future upgrades and use. Although not really in the realm of maintainability, comments and documentation could help a lot to allow other programmers using the code to understand the first developer so they can make changes and improve upon the code. 

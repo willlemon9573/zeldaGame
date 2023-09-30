@@ -1,0 +1,9 @@
+Aaron Heishman
+3902 Code Review
+
+Review of Link Factory by Zihe Herz Wang for readability
+
+Reading this code is relatively simple and straight forward. Contains proper use of named variables that explain what they are used for. The function names are easy to understand as they are also straight forward. There are also comments to explain what is being done. The only issues with the code could be the magic numbers for creating each of the sprite positions, but it's hard to say if this can be avoided. Then the case of using a picture named "8366" as the name doesn't imply what the sprite picture holds.
+
+Review of Muhammed's Enemy clas
+The first thing I notice is the use of an interface. I see this as a good practice for creating flexible and reusable code, and allowing objects to interact with each other. Also the use of update and draw to handle the sprite features separately makes this code pretty maintainable. Muhammed also includes a list to keep all the projectiles in one place, so the enemy knows what to fire and when. However, the lack of comments might make it harder for someone to understand if they needed to work on this class. Error handling could also be another feature added to handle maintainability for this code in the event a null value was somehow passed to this class. There is also unused code, but we've already discussed that this will be removed.
