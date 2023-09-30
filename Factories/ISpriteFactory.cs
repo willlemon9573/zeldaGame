@@ -11,8 +11,17 @@ namespace SprintZero1.Factories
 {
     internal interface ISpriteFactory
     {
+        /// <summary>
+        /// SpriteNamesList property to return a list of all the current Sprite names
+        /// </summary>
+        List<string> SpriteNamesList { get; }
+
+
+        /// <summary>
+        /// Loads any and all textures required
+        /// </summary>
         void LoadTextures(ContentManager manager);
-        //we are going to pass the direction that the link is going to face for the next frame
-        ISprite createNewSprite(Vector2 location, int frameIndex);
+
+        Rectangle Source(string name);
     }
 }

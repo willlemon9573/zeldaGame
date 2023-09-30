@@ -1,4 +1,5 @@
-﻿
+﻿using Microsoft.Xna.Framework.Input;
+using SprintZero1.Commands;
 namespace SprintZero1.Controllers
 {
     public interface IController

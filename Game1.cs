@@ -11,6 +11,9 @@ using SprintZero1.Sprites;
 using SprintZero1.Commands;
 using SprintZero1.Level;
 using SprintZero1.Players;
+using SprintZero1.Characters;
+using Microsoft.Xna.Framework.Input;
+
 
 namespace SprintZero1
 {
@@ -23,8 +26,12 @@ namespace SprintZero1
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
         private int onScreenBlockIndex;
-        public PlayableCharacter LinkPlayer = new Player1();
+        public Enemy enemy;
         private LevelManager levelManager;
+        private int onScreenEnemyIndex;
+        
+        
+
         public int OnScreenBlockIndex
         {
             get { return onScreenBlockIndex; }
@@ -78,9 +85,6 @@ namespace SprintZero1
             CurrentFrame = 0;
             isAttacking = false;
 
-            levelManager = new LevelManager(LinkPlayer);
-
-
             keyboardController = new KeyboardController();
             keyboardController.LoadDefaultCommands(this);
             base.Initialize();
@@ -93,10 +97,10 @@ namespace SprintZero1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             blockFactory.LoadTextures(this.Content);
+            enemy = new Enemy(_spriteBatch, this.Content.Load<Texture2D>("Bosses"), this);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat"); // default block shown is flat
             linkFactory.LoadTextures(this.Content);
             Link = linkFactory.createNewLink(CurrentDirection, position, CurrentFrame, isAttacking);
-
         }
 
         /// <summary>
@@ -107,6 +111,7 @@ namespace SprintZero1
         {
             keyboardController.Update();
             Link.Update(gameTime);
+            enemy.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -118,6 +123,7 @@ namespace SprintZero1
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             nonMovingOnScreenBlock.Draw(_spriteBatch);
+            enemy.Draw();
             Link.Draw(_spriteBatch);
             base.Draw(gameTime);
         }

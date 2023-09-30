@@ -10,18 +10,35 @@ using System.Threading.Tasks;
 
 namespace SprintZero1.Factories
 {
-    internal class EnemyFactory : ISpriteFactory
+    public class EnemyFactory : ISpriteFactory
     {
         private Texture2D enemyTexture;
-        public ISprite createNewSprite(Vector2 location, int frameIndex)
-        {
+        private static readonly EnemyFactory instance = new EnemyFactory();
+        public List<string> SpriteNamesList => throw new NotImplementedException();
+        private readonly Dictionary<string, Rectangle> sourceRectangles = new Dictionary<string, Rectangle>();
 
-            throw new NotImplementedException();
+
+        public static EnemyFactory Instance
+        {
+            get { return instance; }
+        }
+
+        public void createSpriteDictionary()
+        {
+            sourceRectangles.Add("enemy1", new Rectangle(230, 122, 16, 16));
+            sourceRectangles.Add("enemy2", new Rectangle(230, 105, 16, 16));
+            sourceRectangles.Add("enemy3", new Rectangle(262, 227, 24, 32));
+            sourceRectangles.Add("enemy4", new Rectangle(40, 154, 32, 32));
         }
 
         public void LoadTextures(ContentManager manager)
         {
             throw new NotImplementedException();
+        }
+
+        public Rectangle Source(string name)
+        {
+            return sourceRectangles[name];
         }
     }
 }

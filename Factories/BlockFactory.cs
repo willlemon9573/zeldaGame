@@ -21,6 +21,8 @@ namespace SprintZero1.Factories
         {
             get { return instance; }
         }
+
+
         /// <summary>
         /// Block Factory Property to get the current block list
         /// </summary>

@@ -9,22 +9,23 @@ using System.Threading.Tasks;
 
 namespace SprintZero1.Sprites
 {
-    internal class EnemySprite : ISprite
+    internal class CharacterSprite : ISprite
     {
         public void Draw(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            // Not Needed
         }
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture, Vector2 position, Color color, Rectangle source, Rectangle destination) 
+        public void Draw(SpriteBatch spriteBatch, Texture2D texture, Color color, Rectangle source, Rectangle destination) 
         {
-            spriteBatch.Draw(texture, )
-            throw new NotImplementedException();
+            spriteBatch.Begin();
+            spriteBatch.Draw(texture, source, destination, color);
+            spriteBatch.End();
         }
 
         public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            // Not Needed
         }
     }
 }

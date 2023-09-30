@@ -1,4 +1,5 @@
-﻿using SprintZero1.Characters;
+﻿using Microsoft.Xna.Framework;
+using SprintZero1.Characters;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,6 @@ namespace SprintZero1.AI
 {
     internal interface IAI
     {
-        public void Update();
+        public void Update(GameTime timer);
     }
 }
