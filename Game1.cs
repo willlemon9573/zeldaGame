@@ -71,7 +71,6 @@ namespace SprintZero1
             weaponFactoryTest.LoadTextures(this.Content);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
             onScreenItem = itemFactory.CreateItemSprite("rubyStatic");
-            weaponSpriteTest = weaponFactoryTest.CreateBoomerangSprite("x", new Vector2(400, 240), 3, 0);
         }
 
         protected override void Update(GameTime gameTime)
@@ -85,7 +84,7 @@ namespace SprintZero1
         protected override void Draw(GameTime gameTime)
         {
 
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Blue);
             _spriteBatch.Begin();
             nonMovingOnScreenBlock.Draw(_spriteBatch);
             onScreenItem.Draw(_spriteBatch);

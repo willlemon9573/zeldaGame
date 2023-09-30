@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,8 +14,7 @@ namespace SprintZero1.Sprites
         private readonly int direction;
         private int currentFrameIndex;
         private int maxFrame;
-        private double elapsedTime;
-        private const double timePerFrame = 500;
+        private float timeElapsed, timeToUpdate;
         private SpriteEffects effect;
         private float rotation;
         private int rotate;
@@ -23,18 +23,24 @@ namespace SprintZero1.Sprites
             get { return location; } 
             set { location += value; } 
         }
-
+        private int FramesPerSecond
+        {
+            set { timeToUpdate = (1f / value);  }
+        }
         //vector2 location, Rectangle sourceRectangle, Texture2D spriteSheet, int maxFrame
-        public WeaponSprite(Vector2 location, Rectangle sourceRectangle, Texture2D spriteSheet, int maxFrame, int direction)
+        public WeaponSprite(Vector2 location, List<Rectangle> sourceRectangle, Texture2D spriteSheet, int maxFrame, int direction)
         {
             currentFrameIndex = 0;
             sourceRectanglesList = new List<Rectangle>();
-            Rectangle tempSourceRectangle = sourceRectangle;
+
+            /* Rectangle tempSourceRectangle = sourceRectangle;
             for (int i = 0; i < maxFrame; i++)
             {
                 sourceRectanglesList.Add(tempSourceRectangle);
                 tempSourceRectangle = new Rectangle(tempSourceRectangle.X + tempSourceRectangle.Width, tempSourceRectangle.Y, tempSourceRectangle.Width, tempSourceRectangle.Height);
-            }
+            }*/
+            this.sourceRectanglesList = sourceRectangle;
+            FramesPerSecond = 10;
             this.location = location;
             this.spriteSheet = spriteSheet;
             this.maxFrame = maxFrame;
@@ -70,27 +76,27 @@ namespace SprintZero1.Sprites
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, 30, 30);
-            spriteBatch.Draw(spriteSheet, destinationRectangle, sourceRectanglesList[currentFrameIndex], Color.White, rotation, new Vector2(0, 0), effect, 0f);
+            int texture_width = sourceRectanglesList[currentFrameIndex].Width;
+            int texture_height = sourceRectanglesList[currentFrameIndex].Height;
+            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, texture_width * 3, texture_height * 3);
+            Debug.WriteLine("Destination rectangle: " + destinationRectangle);
+            Debug.WriteLine("Soruce Rectangle[" + currentFrameIndex + "]" + sourceRectanglesList[currentFrameIndex]);
+            spriteBatch.Draw(spriteSheet, destinationRectangle, sourceRectanglesList[currentFrameIndex], Color.White, rotation, new Vector2(texture_width/2, texture_height/2), effect, 0f);
             /* spriteBatch.Draw(spriteSheet, location, sourceRectanglesList[currentFrameIndex], Color.White, rotation, new Vector2(0, 0), 1.0f, effect, 0f); */
         }
 
         public void Update(GameTime gameTime)
         {
-            elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-            if (elapsedTime > timePerFrame)
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            timeElapsed += deltaTime;
+            if (timeElapsed > timeToUpdate)
             {
+                timeElapsed -= timeToUpdate;
                 currentFrameIndex++;
-
-                elapsedTime = 0;
-
                 if (currentFrameIndex >= maxFrame)
                 {
-
                     currentFrameIndex = 0;
                 }
-                
             }
         }
     }
