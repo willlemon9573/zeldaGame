@@ -11,10 +11,7 @@ namespace SprintZero1
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
-        private ISprite credits, soraSprite;
-        private IController keyboardController, mouseController;
-        private Texture2D spriteSheet;
+        
         
         public Game1()
         {
@@ -28,13 +25,7 @@ namespace SprintZero1
         /// </summary>
         protected override void Initialize()
         {
-            keyboardController = new KeyboardController();
-            mouseController = new MouseController();
-            credits = new CreditsSprite();
-            soraSprite = new StandingInPlaceSora();
-            keyboardController.LoadDefaultCommands(this);
-            mouseController.LoadDefaultCommands(this);
-            base.Initialize();
+           
         }
 
         /// <summary>
@@ -42,8 +33,7 @@ namespace SprintZero1
         /// </summary>
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            spriteSheet = this.Content.Load<Texture2D>("SoraSprites1");
+            
         }
 
         /// <summary>
@@ -52,9 +42,7 @@ namespace SprintZero1
         /// <param name="gameTime">Provides snapshot of timing values</param>
         protected override void Update(GameTime gameTime)
         {
-            keyboardController.Update();
-            mouseController.Update();
-            soraSprite.Update(gameTime);
+            
             base.Update(gameTime);
         }
 
@@ -65,18 +53,7 @@ namespace SprintZero1
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            credits.Draw(_spriteBatch, spriteSheet);
-            soraSprite.Draw(_spriteBatch, spriteSheet);
             base.Draw(gameTime);
-        }
-
-        /// <summary>
-        /// Updates the current sprite to the new sprite
-        /// </summary>
-        /// <param name="sprite">the new sprite to be displayed on screen</param>
-        public void SetSprite(ISprite sprite)
-        {
-            soraSprite = sprite;
         }
     }
 }
