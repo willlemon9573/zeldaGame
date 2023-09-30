@@ -82,7 +82,7 @@ namespace SprintZero1
         protected override void Draw(GameTime gameTime)
         {
 
-            GraphicsDevice.Clear(Color.Blue);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
             nonMovingOnScreenBlock.Draw(_spriteBatch);
             onScreenItem.Draw(_spriteBatch);
