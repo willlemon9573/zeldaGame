@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 namespace SprintZero1.Sprites
 {
     public interface ISprite
-    {
+    { 
+
         /// <summary>
         /// Draw the specified texture onto the game
         /// </summary>

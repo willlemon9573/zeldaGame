@@ -15,6 +15,8 @@ namespace SprintZero1
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
         private int onScreenBlockIndex;
+        private ISprite weaponSpriteTest;
+        private WeaponSpriteFactory weaponFactoryTest;
 
         public int OnScreenBlockIndex
         {
@@ -51,6 +53,7 @@ namespace SprintZero1
 
         protected override void Initialize()
         {
+            weaponFactoryTest = WeaponSpriteFactory.Instance;
             blockFactory = BlockFactory.Instance;
             itemFactory = ItemFactory.Instance;
             keyboardController = new KeyboardController();
@@ -64,15 +67,18 @@ namespace SprintZero1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             blockFactory.LoadTextures(this.Content);
-            nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
             itemFactory.LoadTextures(this.Content);
+            weaponFactoryTest.LoadTextures(this.Content);
+            nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
             onScreenItem = itemFactory.CreateItemSprite("rubyStatic");
+            weaponSpriteTest = weaponFactoryTest.CreateBoomerangSprite("x", new Vector2(400, 240), 3, 0);
         }
 
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
             onScreenItem.Update(gameTime);
+            weaponSpriteTest.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -83,6 +89,7 @@ namespace SprintZero1
             _spriteBatch.Begin();
             nonMovingOnScreenBlock.Draw(_spriteBatch);
             onScreenItem.Draw(_spriteBatch);
+            weaponSpriteTest.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
