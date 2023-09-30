@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+/* this class will be refractored into a single NonAnimatedSprite class */
 namespace SprintZero1.Sprites
 {
     public class NonAnimatedItemSprite : ISprite

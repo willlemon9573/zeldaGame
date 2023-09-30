@@ -37,10 +37,9 @@ namespace SprintZero1
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
         private int onScreenBlockIndex;
+        private WeaponSpriteFactory weaponFactory;
         public Enemy enemy;
         private LevelManager levelManager;
-        
-        
 
         public int OnScreenBlockIndex
         {
@@ -99,6 +98,7 @@ namespace SprintZero1
         /// </summary>
         protected override void Initialize()
         {
+            weaponFactory = WeaponSpriteFactory.Instance;
             enemyFactory = EnemyFactory.Instance;
             keyboardController = new KeyboardController();
             keyboardController.LoadDefaultCommands(this);
@@ -132,6 +132,8 @@ namespace SprintZero1
             Link = linkFactory.createNewLink(CurrentDirection, position, CurrentFrame, isAttacking);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
             itemFactory.LoadTextures(this.Content);
+            weaponFactory.LoadTextures(this.Content);
+            nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
             onScreenItem = itemFactory.CreateItemSprite("rubyStatic");
         }
 

@@ -17,7 +17,6 @@ namespace SprintZero1.Sprites
 
         public AnimatedItemSprite(Rectangle sourceRectangle, Texture2D spriteSheet)
         {
-
             this.sourceRectangle = sourceRectangle;
             this.SpriteSheet = spriteSheet;
             location = new Vector2(600, 130);
