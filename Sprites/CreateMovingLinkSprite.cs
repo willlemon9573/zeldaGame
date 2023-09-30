@@ -1,8 +1,12 @@
 
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Microsoft.Xna.Framework.Input;
+using SprintZero1.Commands;
+using SprintZero1.Controllers;
 
 namespace SprintZero1.Sprites
 {
@@ -17,6 +21,9 @@ namespace SprintZero1.Sprites
         private double elapsedTime;
         private const double timePerFrame = 500;
         private Rectangle destinationRectangle1;
+        private Color tint;
+        private float hurtTimer = 0;
+        private bool isHurt = false; 
 
         // To track which frame/rectangle to use
         private int currentFrameIndex;
@@ -29,6 +36,7 @@ namespace SprintZero1.Sprites
             this.currentFrameIndex = frameIndex;  
             this._direction = direction;
             this._isAttacking = isAttacking;
+            this.tint = Color.White;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -36,18 +44,44 @@ namespace SprintZero1.Sprites
             destinationRectangle1 = new Rectangle((int)location.X, (int)location.Y, 49, 49);
             // If _direction is 2, flip the sprite; otherwise, use the original orientation.
             SpriteEffects effect = (_direction == 2) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            spriteBatch.Draw(spriteSheet, destinationRectangle1, sourceRectangles[currentFrameIndex], Color.White, 0f, Vector2.Zero, effect, 0f);
-            
+            spriteBatch.Draw(spriteSheet, destinationRectangle1, sourceRectangles[currentFrameIndex], tint, 0f, Vector2.Zero, effect, 0f);
         }
 
+        public void Hurt()
+        {
+            isHurt = true;
+            tint = Color.Red;
+        }
+            spriteBatch.Draw(spriteSheet, destinationRectangle1, sourceRectangles[currentFrameIndex], Color.White, 0f, Vector2.Zero, effect, 0f);  
+        }
         public void Update(GameTime gameTime)
         {
+            if(Keyboard.GetState().IsKeyDown(Keys.X))
+            {
+                Hurt();
+            }
+            if (isHurt)
+            {
+                Debug.WriteLine("Hurting Link " + this);
+                hurtTimer += (float) gameTime.ElapsedGameTime.TotalSeconds;
+                Debug.WriteLine(hurtTimer);
+                if(hurtTimer > 0.7f)
+                {
+                    tint = Color.White;
+                    Debug.WriteLine("Done Hurting Link " + this);
+                    hurtTimer = 0;
+                    isHurt = false;
+                }
+            }
             if (_isAttacking)
             {
                 elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
 
+                Debug.WriteLine("Link Attacking");
+
                 if (elapsedTime > timePerFrame)
                 {
+                    Debug.WriteLine("Link Attacked " + this);
                     currentFrameIndex++;
                     
                     elapsedTime = 0;

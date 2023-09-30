@@ -84,5 +84,10 @@ namespace SprintZero1.Controllers
             }
             oldState = newState;
         }
+
+        public void AddCommand(Keys key, ICommand value)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

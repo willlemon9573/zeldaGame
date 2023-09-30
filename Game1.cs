@@ -4,6 +4,10 @@ using SprintZero1.Controllers;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.Commands;
+using SprintZero1.Level;
+using SprintZero1.Players;
+using SprintZero1.Characters;
+using Microsoft.Xna.Framework.Input;
 
 namespace SprintZero1
 {
@@ -34,6 +38,12 @@ namespace SprintZero1
         private IBlockFactory blockFactory;
         private ISprite nonMovingOnScreenBlock;
         private int onScreenBlockIndex;
+        public Enemy enemy;
+        private LevelManager levelManager;
+        private int onScreenEnemyIndex;
+        
+        
+
         public int OnScreenBlockIndex
         {
             get { return onScreenBlockIndex; }
@@ -120,6 +130,7 @@ namespace SprintZero1
             enemyFactory.LoadTextures(this.Content);
             enemyOnScreen = enemyFactory.CreateEnemySprite("dungeon_gel", new Vector2(600, 300), CurrentFrame);
             blockFactory.LoadTextures(this.Content);
+            enemy = new Enemy(_spriteBatch, this.Content.Load<Texture2D>("Bosses"), this);
             linkFactory.LoadTextures(this.Content);
             Link = linkFactory.createNewLink(CurrentDirection, position, CurrentFrame, isAttacking);
             nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
@@ -132,6 +143,7 @@ namespace SprintZero1
             keyboardController.Update();
             enemyOnScreen.Update(gameTime);
             Link.Update(gameTime);
+            enemy.Update(gameTime);
             onScreenItem.Update(gameTime);
             base.Update(gameTime);
         }
@@ -143,6 +155,7 @@ namespace SprintZero1
             _spriteBatch.Begin();
             enemyOnScreen.Draw(_spriteBatch);
             nonMovingOnScreenBlock.Draw(_spriteBatch);
+            enemy.Draw();
             Link.Draw(_spriteBatch);
             onScreenItem.Draw(_spriteBatch);
             _spriteBatch.End();
