@@ -9,8 +9,6 @@ namespace SprintZero1.Controllers
     {
         private readonly Dictionary<Keys, ICommand> keyboardMap;
         private HashSet<Keys> previouslyPressedKeys;
-
-
         /// <summary>
         /// Construct an object to control the keyboard
         /// </summary>
@@ -22,6 +20,8 @@ namespace SprintZero1.Controllers
 
         public void LoadDefaultCommands(Game1 game)
         {
+            keyboardMap.Add(Keys.O, new PreviousEnemyCommand(game));
+            keyboardMap.Add(Keys.P, new NextEnemyCommand(game));
             keyboardMap.Add(Keys.Y, new GetNextBlockCommand(game));
             keyboardMap.Add(Keys.T, new GetPreviousBlockCommand(game));
             keyboardMap.Add(Keys.Up, new ChangeLinkDirectionCommand(game, 0));   
@@ -41,7 +41,6 @@ namespace SprintZero1.Controllers
         public void Update()
         {
             Keys[] pressedkeys = Keyboard.GetState().GetPressedKeys();
-            // search through presseds keys and execute the given command
             foreach (Keys key in pressedkeys)
             {
                 if (/*!previouslyPressedKeys.Contains(key) &&*/ keyboardMap.ContainsKey(key))
@@ -51,6 +50,5 @@ namespace SprintZero1.Controllers
             }
             previouslyPressedKeys = new HashSet<Keys>(pressedkeys);
         }
-
     }
 }

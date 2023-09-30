@@ -5,14 +5,30 @@ using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.Commands;
 
-
-
 namespace SprintZero1
 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private IController keyboardController;
+
+        private IEnemyFactory enemyFactory;
+        private ISprite enemyOnScreen;
+        private int onScreenEnemyIndex;
+        
+        public int OnScreenEnemyIndex
+        {
+            get { return onScreenEnemyIndex; }
+            set { onScreenEnemyIndex = value; }
+        }
+
+        public ISprite screenEnemy
+        {
+            set { enemyOnScreen = value;  }
+        }
+
+        public int CurrentFrame { get; set; }
         /* Temporary assignment of code until managers are made */
         private IController keyboardController;
         private IBlockFactory blockFactory;
@@ -76,6 +92,10 @@ namespace SprintZero1
         /// </summary>
         protected override void Initialize()
         {
+            enemyFactory = EnemyFactory.Instance;
+            keyboardController = new KeyboardController();
+            keyboardController.LoadDefaultCommands(this);
+            OnScreenEnemyIndex = 0;
             _position = new Vector2(100, 100);
             blockFactory = BlockFactory.Instance;
             OnScreenBlockIndex = 0;
@@ -97,6 +117,8 @@ namespace SprintZero1
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            enemyFactory.LoadTextures(this.Content);
+            enemyOnScreen = enemyFactory.CreateEnemySprite("dungeon_gel", new Vector2(600, 300), CurrentFrame);
             blockFactory.LoadTextures(this.Content);
             linkFactory.LoadTextures(this.Content);
             Link = linkFactory.createNewLink(CurrentDirection, position, CurrentFrame, isAttacking);
@@ -108,6 +130,7 @@ namespace SprintZero1
         protected override void Update(GameTime gameTime)
         {
             keyboardController.Update();
+            enemyOnScreen.Update(gameTime);
             Link.Update(gameTime);
             onScreenItem.Update(gameTime);
             base.Update(gameTime);
@@ -118,6 +141,7 @@ namespace SprintZero1
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
+            enemyOnScreen.Draw(_spriteBatch);
             nonMovingOnScreenBlock.Draw(_spriteBatch);
             Link.Draw(_spriteBatch);
             onScreenItem.Draw(_spriteBatch);
