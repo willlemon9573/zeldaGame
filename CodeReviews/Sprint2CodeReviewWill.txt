@@ -1,0 +1,19 @@
+Author of code review: Will Lemon
+Date: 09/29/2023
+Sprint: 2
+Name of .cs file: CreateMovingLinkSprite:
+Author of .cs file: Herz
+Time reviewed: 25 minutes
+
+Comments:
+The code in general is very readable and easy to understand. The few suggestions that I have are very nitpicky. I would like to see some more comments, I would like to see more comments similar to the one about currentFrameIndex, especially for the variables initialized at the beginning. There are a lot of parameters being passed in the constructor, it makes it hard to keep track of everything that it does. 
+
+
+Author: Will Lemon
+Date: 09/29/2023
+Sprint: 2
+Name of .cs File: createEnemySprite
+Author of .cs File: Jerek
+
+Comments:
+Jerek’s code is very maintainable, I can see that he is thinking about how this will be used for the rest of the year.I have a few things that I would like to see updated though. totalFrames should be data driven, not all enemies will have exactly 2 frames of animation. I also think that getting variables for the size of the destinationRectangle would be more maintainable because not all enemies are the same size. I also wonder if timeToUpdate should change. At this point in time all enemies update their sprite at the same rate, would certain enemies move/update their sprites other than others?

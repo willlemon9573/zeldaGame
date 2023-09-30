@@ -1,0 +1,45 @@
+ItemFactory for readability (Author Will):
+The comments provide a brief understanding of the functionality, which is good for someone glancing at the code.
+
+Variable Names:
+Most variable names are self-explanatory. Good use of itemNamesList and sourceRectangles.
+
+Magic Numbers:
+Some numbers are hard-coded, like 23, 704, and 313. It might be helpful for others (and you, later on) if these have a named constant to represent their significance. However, within the context of the current class, they can be understood.
+
+Singleton Pattern:
+The Singleton pattern is used correctly, ensuring only one instance of the ItemFactory exists.
+
+Method Structure:
+Methods are appropriately separated based on their functionality. Each method does one clear thing which is great for maintainability.
+
+Spacing and Bracing:
+Consistent and makes the code readable.
+
+Texture Loading:
+It's clear how textures are being loaded into the factory.
+
+Animated vs. Non-Animated Items:
+The distinction between animated and non-animated items is clear thanks to the string check and the logic is straightforward.
+
+ 
+AnimatedItemSprite for maintainability (Author Will):
+Properties and Variables:
+The priteSheet field seems to be a typo and is redundant since you already have spriteSheet. This should be removed to avoid confusion.
+Keep variable access as restrictive as necessary. For instance, is there a reason for spriteSheet to be public? Consider changing it to private if not necessary.
+The fields timeElapsed and timeToUpdate are not immediately clear in terms of their unit (are they in seconds, milliseconds, etc.?). 
+Constructors:
+The constructor initializes the sprite's properties. It's clear and straightforward.
+Hardcoding values like new Vector2(600, 130) and 1f / 10 might make future changes harder. Consider parameterizing these or using constants.
+Draw Method:
+The method is clear in its purpose: It determines the frame to be drawn based on the current state of the animation and then draws it.
+The hardcoded values for the rectangle size (16, 16) and the scaling (49, 49) might be tied to the sprite's dimensions. These might be better as constants or computed values based on the sprite's original size.
+Update Method:
+The animation frame updating logic is clear. It advances the frame if the elapsed time exceeds the update threshold.
+There are some commented-out lines, such as //timeToUpdate = 1f / 2; and // timeToUpdate = 60;. Remove these if they're not necessary to avoid confusion.
+Magic Numbers:
+There are several hardcoded numbers, e.g., 2, 1f / 10, 49, 16, and 17. Using named constants or configuration values will make the code more maintainable.
+Consistency:
+The code structure and naming are consistent, which is great for maintainability.
+Unused References:
+The System.Data.Common namespace does not seem to be used in this class. It's a good idea to remove unnecessary using directives to reduce clutter.
