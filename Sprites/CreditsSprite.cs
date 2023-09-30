@@ -1,12 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 namespace SprintZero1.Sprites
 {
     public class CreditsSprite : ISprite
     {
         private Vector2 text_position;
         private readonly int width, height, x_start, y_start;
+        /* Unused, but saved in case we want to use it */
 
         /// <summary>
         /// Constructs the credits sprite object
@@ -19,10 +19,14 @@ namespace SprintZero1.Sprites
             x_start = 5;
             y_start = 212;
         }
+        public CreditsSprite(Vector2 location, Texture2D spritesheet)
+        {
+            
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            
+
         }
 
         void ISprite.Update(GameTime gameTime)
