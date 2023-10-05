@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using SprintZero1.Factories;
+﻿using SprintZero1.Factories;
+using System.Collections.Generic;
 
 namespace SprintZero1.Commands
 {
@@ -19,8 +19,8 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            myGame.OnScreenItemIndex = (myGame.OnScreenItemIndex + 1) % totalItems;
-            myGame.Item = myItemFactory.CreateItemSprite(itemNames[myGame.OnScreenItemIndex]);
+            /*myGame.OnScreenItemIndex = (myGame.OnScreenItemIndex + 1) % totalItems;
+            myGame.Item = myItemFactory.CreateItemSprite(itemNames[myGame.OnScreenItemIndex]);*/
         }
     }
 }

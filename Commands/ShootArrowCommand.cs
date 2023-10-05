@@ -1,8 +1,6 @@
-﻿using SprintZero1.Factories;
+﻿using Microsoft.Xna.Framework;
+using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.weapon;
 
 namespace SprintZero1.Commands
 {

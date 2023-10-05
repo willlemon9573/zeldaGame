@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using SprintZero1.Factories;
+﻿using SprintZero1.Factories;
 using System.Collections.Generic;
 
 namespace SprintZero1.Commands
@@ -20,8 +19,8 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            myGame.OnScreenEnemyIndex = (myGame.OnScreenEnemyIndex + 1) % totalEnemies; // clock arithmetic [0, totalBlocks]
-            myGame.enemy.EnemySprite = myEnemyFactory.CreateEnemySprite(enemyNames[myGame.OnScreenEnemyIndex], new Vector2(600, 300), 0);
+            /* myGame.OnScreenEnemyIndex = (myGame.OnScreenEnemyIndex + 1) % totalEnemies; // clock arithmetic [0, totalBlocks]
+             myGame.enemy.EnemySprite = myEnemyFactory.CreateEnemySprite(enemyNames[myGame.OnScreenEnemyIndex], new Vector2(600, 300), 0);*/
         }
     }
 }

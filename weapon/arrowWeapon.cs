@@ -14,8 +14,8 @@ namespace SprintZero1.weapon
 
         public arrowWeapon(Game1 game)
         {
-            this.location = game.position;
-            this.direction = game.direction;
+            /*this.location = game.position;
+            this.direction = game.direction;*/
         }
 
         public void Update(GameTime gameTime)
@@ -41,7 +41,7 @@ namespace SprintZero1.weapon
             }
             else if (distanceMoved >= 20 && returning)
             {
-                IsActive = false; 
+                IsActive = false;
             }
         }
 

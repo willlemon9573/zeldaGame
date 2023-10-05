@@ -1,10 +1,6 @@
-﻿using SprintZero1.Factories;
-using System;
+﻿using SprintZero1.Characters;
+using SprintZero1.Factories;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SprintZero1.Characters;
 
 namespace SprintZero1.Commands
 {
@@ -18,8 +14,8 @@ namespace SprintZero1.Commands
         Enemy character;
         public ChangeEnemyCommand(Game1 game)
         {
-            myGame = game;
-            character = game.enemy;
+            /*myGame = game;
+            character = game.enemy;*/
         }
 
         public void Execute()

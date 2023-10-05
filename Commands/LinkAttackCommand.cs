@@ -1,7 +1,6 @@
-﻿using SprintZero1.Factories;
+﻿using Microsoft.Xna.Framework;
+using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 namespace SprintZero1.Commands
 {
     public class LinkAttackCommand : ICommand
@@ -16,18 +15,18 @@ namespace SprintZero1.Commands
         public LinkAttackCommand(Game1 game)
         {
             this.game = game;
-            this._linkFactory = game.linkFactory;
+            /*this._linkFactory = game.linkFactory;*/
             isAttacking = true;
         }
 
         public void Execute()
         {
-            location = game.position;
-            Direction = game.CurrentDirection;
-            game.isAttacking = true;
-            newSprite = _linkFactory.createNewLink(Direction, location, 2, isAttacking);
-            game.SetLink(newSprite);
-            game.isAttacking = false;
+            /* location = game.position;
+             Direction = game.CurrentDirection;
+             game.isAttacking = true;
+             newSprite = _linkFactory.createNewLink(Direction, location, 2, isAttacking);
+             game.SetLink(newSprite);
+             game.isAttacking = false;*/
         }
 
     }

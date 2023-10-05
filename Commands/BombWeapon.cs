@@ -1,7 +1,5 @@
-﻿using SprintZero1.Factories;
+﻿using Microsoft.Xna.Framework;
 using SprintZero1.Sprites;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 namespace SprintZero1.Commands
 {
     public class BombWeapon : ICommand
@@ -20,8 +18,8 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            location = game.position;
-            Direction = game.CurrentDirection;
+            //location = game.position;
+            // Direction = game.CurrentDirection;
             //newSprite = WeaponFactory.CreateBombSprite(location, 4, -1);
             //game.Weapon = newSprite;
         }

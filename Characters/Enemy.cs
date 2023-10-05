@@ -1,14 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using SprintZero1.Sprites;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System;
-using System.Runtime.Intrinsics.X86;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.AI;
-using SprintZero1.Factories;
+using SprintZero1.Sprites;
+using System.Collections.Generic;
 
 namespace SprintZero1.Characters
 {
@@ -29,7 +23,7 @@ namespace SprintZero1.Characters
 
         List<string> enemies = new List<string>() { "enemy1", "enemy2", "enemy3", "enemy4" };
 
-        public Enemy(SpriteBatch spriteBatch, Texture2D texture, Game1 game) 
+        public Enemy(SpriteBatch spriteBatch, Texture2D texture, Game1 game)
         {
             this.spriteBatch = spriteBatch;
             this.texture = texture;
@@ -40,14 +34,14 @@ namespace SprintZero1.Characters
         {
 
             ai.Update(timer);
-            destination.X = (int) pos.X;
-            destination.Y = (int) pos.Y;
-            EnemySprite.Position = pos;
-            for(int i = 0; i < projectiles.Count; i++)
+            destination.X = (int)pos.X;
+            destination.Y = (int)pos.Y;
+            /* EnemySprite.Position = pos;*/
+            for (int i = 0; i < projectiles.Count; i++)
             {
                 Projectile projectile = projectiles[i];
                 projectile.Update(timer);
-                if(projectile.pos.X < 0)
+                if (projectile.pos.X < 0)
                 {
                     projectiles.RemoveAt(i);
                     i--;
@@ -58,8 +52,8 @@ namespace SprintZero1.Characters
 
         public void Draw()
         {
-            
-            foreach(Projectile projectile in projectiles)
+
+            foreach (Projectile projectile in projectiles)
             {
                 projectile.Draw();
             }
