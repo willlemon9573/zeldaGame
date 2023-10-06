@@ -78,7 +78,8 @@ namespace SprintZero1.Factories
         {
             Debug.Assert(blockName != null, "blockName is null");
             Debug.Assert(sourceRectangles.ContainsKey(blockName), "Source Rectangle does not contain the block named: " + blockName);
-            return new NonMovingBlockSprite(sourceRectangles[blockName], blockSpriteSheet, location);
+            /*return new NonMovingBlockSprite(sourceRectangles[blockName], blockSpriteSheet, location);*/
+            return null;
         }
     }
 }

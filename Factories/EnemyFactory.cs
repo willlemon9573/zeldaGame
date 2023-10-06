@@ -1,9 +1,9 @@
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Sprites;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.Xna.Framework;
-using SprintZero1.Sprites;
 
 namespace SprintZero1.Factories
 {
@@ -158,8 +158,8 @@ namespace SprintZero1.Factories
             enemyNamesList = new List<string>()
             {
                 "dungeon_gel", "dungeon_zol", "dungeon_keese", "dungeon_goriya", "dungeon_wallmaster",
-                "overworld_octorok_up", "overworld_octorok_side", "overworld_moblin_up", 
-                "overworld_moblin_side", "overworld_leever", "overworld_peahat", 
+                "overworld_octorok_up", "overworld_octorok_side", "overworld_moblin_up",
+                "overworld_moblin_side", "overworld_leever", "overworld_peahat",
                 "overworld_armos_up", "overworld_armos_down", "overworld_tektite",
                 "boss_aquamentus", "boss_digdogger", "boss_ganon"
             };
@@ -168,7 +168,7 @@ namespace SprintZero1.Factories
             CreateBossDictionary();
         }
 
-        
+
 
         public void LoadTextures(ContentManager manager)
         {
@@ -180,20 +180,20 @@ namespace SprintZero1.Factories
         public ISprite CreateEnemySprite(string enemyName, Vector2 location, int frameIndex)
         {
             Debug.Assert(enemyName != null, "enemyName is null");
-            
+
             Debug.Assert(sourceRectangles.ContainsKey(enemyName), "sourceRectangles does not contain" +
                 "an enemy named: " + enemyName);
-            if(enemyName.Contains("dungeon"))
+            if (enemyName.Contains("dungeon"))
             {
-                return new CreateEnemySprite(sourceRectangles[enemyName], dungeonEnemySpritesheet, location, frameIndex);
-            } 
-            else if(enemyName.Contains("overworld"))
+                /* return new CreateEnemySprite(sourceRectangles[enemyName], dungeonEnemySpritesheet, location, frameIndex);*/
+            }
+            else if (enemyName.Contains("overworld"))
             {
-                return new CreateEnemySprite(sourceRectangles[enemyName], overworldEnemySpritesheet, location, frameIndex);
-            } 
-            else if(enemyName.Contains("boss"))
+                /* return new CreateEnemySprite(sourceRectangles[enemyName], overworldEnemySpritesheet, location, frameIndex);*/
+            }
+            else if (enemyName.Contains("boss"))
             {
-                return new CreateBossSprite(sourceRectangles[enemyName], bossSpritesheet, location, frameIndex);
+                /*  return new CreateBossSprite(sourceRectangles[enemyName], bossSpritesheet, location, frameIndex);*/
             }
             //HMMMMMMMM
             return null;

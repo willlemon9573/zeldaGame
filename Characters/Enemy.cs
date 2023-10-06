@@ -57,7 +57,7 @@ namespace SprintZero1.Characters
             {
                 projectile.Draw();
             }
-            EnemySprite.Draw(spriteBatch);
+            /*  EnemySprite.Draw(spriteBatch);*/
         }
 
         public void Fire()

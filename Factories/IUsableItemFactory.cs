@@ -5,7 +5,6 @@ namespace SprintZero1.Factories
 {
     internal interface IUsableItemFactory
     {
-
         List<string> ItemNamesList { get; }
         void LoadTextures(ContentManager manager);
 

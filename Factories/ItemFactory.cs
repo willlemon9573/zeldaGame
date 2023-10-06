@@ -72,12 +72,13 @@ namespace SprintZero1.Factories
 
             if (itemName.Contains("Animated"))
             {
-                return new AnimatedItemSprite(sourceRectangles[itemName], itemSpriteSheet);
+                /*return new AnimatedItemSprite(sourceRectangles[itemName], itemSpriteSheet);*/
             }
             else
             {
-                return new NonAnimatedItemSprite(sourceRectangles[itemName], itemSpriteSheet);
+                /*  return new NonAnimatedItemSprite(sourceRectangles[itemName], itemSpriteSheet);*/
             }
+            return null;
         }
     }
 }

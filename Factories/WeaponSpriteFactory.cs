@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
@@ -82,7 +82,8 @@ namespace SprintZero1.Factories
             weaponSourceRectangles.Add("magicfire", fireFrames);
         }
 
-        private WeaponSpriteFactory() {
+        private WeaponSpriteFactory()
+        {
             weaponSourceRectangles = new Dictionary<string, List<Rectangle>>();
             CreateDictionary();
         }
@@ -99,7 +100,8 @@ namespace SprintZero1.Factories
             {
                 sourceRectangle = weaponSourceRectangles["betterboomerang"];
             }
-            return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);
+            /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
+            return null;
         }
 
         public ISprite CreateArrowSprite(String weaponType, Vector2 location, int maxFrames, int direction)
@@ -109,17 +111,20 @@ namespace SprintZero1.Factories
             {
                 sourceRectangle = weaponSourceRectangles["betterbowarrows"];
             }
-            return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);
+            /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
+            return null;
         }
 
         public ISprite CreateBombSprite(Vector2 location, int maxFrames, int direction)
         {
-            return new WeaponSprite(location, weaponSourceRectangles["bomb"], this.spriteSheet, maxFrames, direction);
+            /*   return new WeaponSprite(location, weaponSourceRectangles["bomb"], this.spriteSheet, maxFrames, direction);*/
+            return null;
         }
 
         public ISprite CreateMagicFireSprite(Vector2 location, int maxFrames, int direction)
         {
-            return new WeaponSprite(location, weaponSourceRectangles["magicfire"], this.spriteSheet, maxFrames, direction);
+            /* return new WeaponSprite(location, weaponSourceRectangles["magicfire"], this.spriteSheet, maxFrames, direction);*/
+            return null;
         }
     }
 }
