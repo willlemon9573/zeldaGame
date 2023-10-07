@@ -1,17 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SprintZero1.Entities;
-using SprintZero1.Sprites;
-using System.Runtime.CompilerServices;
-using SprintZero1.Controllers;
-using SprintZero1.Factories;
-using SprintZero1.Enums;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
+using SprintZero1.Entities;
+using System.Collections.Generic;
 
 namespace SprintZero1.src
 {
@@ -47,11 +38,11 @@ namespace SprintZero1.src
             ColliderManager.Update(gameTime);
         }
 
-        public static void Draw(GameTime gametime, SpriteBatch spriteBatch)
+        public static void Draw(SpriteBatch spriteBatch)
         {
             foreach (IEntity entity in onScreenEntities)
             {
-                entity.Draw(gametime, spriteBatch);
+                entity.Draw(spriteBatch);
             }
         }
     }

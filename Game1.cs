@@ -54,7 +54,7 @@ namespace SprintZero1
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
-            ProgramManager.Draw(gameTime, _spriteBatch);
+            ProgramManager.Draw(_spriteBatch);
             _spriteBatch.End();
 
             // Code for rescaling

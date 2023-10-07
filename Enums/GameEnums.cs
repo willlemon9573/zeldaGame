@@ -8,7 +8,7 @@
         East
     }
 
-    public enum MovementState
+    public enum State
     {
         Attacking,
         Moving,
