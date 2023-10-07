@@ -1,12 +1,12 @@
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
-using System.Diagnostics;
+using SprintZero1.Entities;
 using System.Drawing;
 using System.Numerics;
 
 namespace SprintZero1.Controllers
 {
-    public class MouseController : IController
+    internal class MouseController : IController
     {
         private readonly ICommand[] commands;
         private readonly Rectangle[] quadrants;
@@ -66,7 +66,7 @@ namespace SprintZero1.Controllers
             CreateQuadrantArray();
         }
 
-        public void LoadDefaultCommands(Game1 game)
+        public void LoadDefaultCommands(Game1 game, IEntity playerEntity)
         {
             // unused - but not deleted in case we want to use this again
         }

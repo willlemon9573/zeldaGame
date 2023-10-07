@@ -1,14 +1,14 @@
-using SprintZero1.Commands;
-using Microsoft.Xna.Framework.Input;
+using SprintZero1.Entities;
+
 namespace SprintZero1.Controllers
 {
-    public interface IController
+    internal interface IController
     {
         /// <summary>
         /// Loads the default command map for the controller
         /// </summary>
         /// <param name="game">Game1 object</param>
-        void LoadDefaultCommands(Game1 game);
+        void LoadDefaultCommands(Game1 game, IEntity playerEntity);
 
         /// <summary>
         /// Updates game based on which input is read
