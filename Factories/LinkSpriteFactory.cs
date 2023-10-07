@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
@@ -12,26 +11,32 @@ namespace SprintZero1.Factories
     public class LinkSpriteFactory
     {
         private Texture2D LinkSpriteSheet;
-        private readonly Dictionary<Direction, ISprite> spritePositions;
-        const int WIDTH = 16, HEIGHT = 16;
-        private static LinkSpriteFactory instance = new LinkSpriteFactory();
-        public static LinkSpriteFactory Instance { get { return instance; } }
-        private void CreateLinkDictionary()
+        private readonly Dictionary<Direction, ISprite> movementDictionary;
+        private static readonly LinkSpriteFactory instance = new();
+        public static LinkSpriteFactory Instance
+        {
+            get { return instance; }
+        }
+
+        /// <summary>
+        /// Create the Link Dictionary that will contain links Movement Sprites
+        /// </summary>
+        private void CreateMovementSpriteDictionary()
         {
             LinkSpriteSheet = Texture2DManager.GetLinkSpriteSheet();
-            const int MAX_FRAMES = 2;
+            const int MAX_FRAMES = 2, WIDTH = 16, HEIGHT = 16;
             const bool PAUSED = false;
             // Move Down
-            List<Rectangle> spriteRectangle = new List<Rectangle> { new Rectangle(1, 11, WIDTH, HEIGHT), new Rectangle(18, 11, WIDTH, HEIGHT) };
-            spritePositions.Add(Direction.South, new AnimatedSprite(spriteRectangle, LinkSpriteSheet, MAX_FRAMES, PAUSED));
+            List<Rectangle> spriteRectangle = new() { new Rectangle(1, 11, WIDTH, HEIGHT), new Rectangle(18, 11, WIDTH, HEIGHT) };
+            movementDictionary.Add(Direction.South, new AnimatedSprite(spriteRectangle, LinkSpriteSheet, MAX_FRAMES, PAUSED));
             // Move Right
-            spriteRectangle = new List<Rectangle> { new Rectangle(35, 11, WIDTH, HEIGHT), new Rectangle(52, 11, WIDTH, HEIGHT) };
-            spritePositions.Add(Direction.East, new AnimatedSprite(spriteRectangle, LinkSpriteSheet, MAX_FRAMES, PAUSED));
+            spriteRectangle = new() { new Rectangle(35, 11, WIDTH, HEIGHT), new Rectangle(52, 11, WIDTH, HEIGHT) };
+            movementDictionary.Add(Direction.East, new AnimatedSprite(spriteRectangle, LinkSpriteSheet, MAX_FRAMES, PAUSED));
             // Move Left - Uses the same price as east, but flipped horizontally
-            spritePositions.Add(Direction.West, new AnimatedSprite(spriteRectangle, LinkSpriteSheet, MAX_FRAMES, PAUSED));
+            movementDictionary.Add(Direction.West, new AnimatedSprite(spriteRectangle, LinkSpriteSheet, MAX_FRAMES, PAUSED));
             // Move Up
-            spriteRectangle = new List<Rectangle> { new Rectangle(69, 11, WIDTH, HEIGHT), new Rectangle(86, 11, WIDTH, HEIGHT) };
-            spritePositions.Add(Direction.North, new AnimatedSprite(spriteRectangle, LinkSpriteSheet, MAX_FRAMES, PAUSED));
+            spriteRectangle = new() { new Rectangle(69, 11, WIDTH, HEIGHT), new Rectangle(86, 11, WIDTH, HEIGHT) };
+            movementDictionary.Add(Direction.North, new AnimatedSprite(spriteRectangle, LinkSpriteSheet, MAX_FRAMES, PAUSED));
         }
 
         /// <summary>
@@ -39,21 +44,21 @@ namespace SprintZero1.Factories
         /// </summary>
         private LinkSpriteFactory()
         {
-            spritePositions = new Dictionary<Direction, ISprite>();
+            movementDictionary = new Dictionary<Direction, ISprite>();
         }
 
-        public void LoadTextures(ContentManager manager)
+        public void LoadTextures()
         {
-            CreateLinkDictionary();
-            LinkSpriteSheet = manager.Load<Texture2D>("8366");
+            CreateMovementSpriteDictionary();
+            LinkSpriteSheet = Texture2DManager.GetLinkSpriteSheet();
         }
 
-        public ISprite createNewLink(Direction direction, Vector2 position, int frameIndex, bool isAttacking)
+        public ISprite GetLinkSprite(Direction direction)
         {
-            Debug.Assert(spritePositions.ContainsKey(direction), "Direction does not exist");
+            Debug.Assert(movementDictionary.ContainsKey(direction), "Direction does not exist");
 
             /*return new CreateMovingLinkSprite(spriteRectangle, LinkSpriteSheet, position, frameIndex, direction, isAttacking);*/
-            return spritePositions[direction];
+            return movementDictionary[direction];
         }
 
     }

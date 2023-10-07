@@ -17,7 +17,7 @@ namespace SprintZero1.Factories
         /// </summary>
         void LoadTextures(ContentManager manager);
         /// <summary>
-        /// Creates and returns a new NonMovingBlock sprite
+        /// Creates and returns a new NonMovingBlock _sprite
         /// </summary>
         /// <param name="blockName">The name of the specific block/tile to be made</param>
         /// <param name="location">The location of where the block should be displayed</param>
