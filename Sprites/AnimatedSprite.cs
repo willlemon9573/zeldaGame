@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace SprintZero1.Sprites
 {
+    [Serializable]
     public class AnimatedSprite : ISprite
     {
         private readonly List<Rectangle> _sourceRectangles;

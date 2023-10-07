@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace SprintZero1.Factories
 {
-    public class LinkFactory
+    public class LinkSpriteFactory
     {
         private Texture2D LinkSpriteSheet;
         private readonly Dictionary<Direction, ISprite> spritePositions;
@@ -36,7 +36,7 @@ namespace SprintZero1.Factories
         /// <summary>
         /// Private constructor to prevent instation of a new block factory
         /// </summary>
-        public LinkFactory()
+        public LinkSpriteFactory()
         {
             spritePositions = new Dictionary<Direction, ISprite>();
         }
