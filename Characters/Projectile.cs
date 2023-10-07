@@ -1,10 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SprintZero1.Characters
 {
@@ -13,9 +8,9 @@ namespace SprintZero1.Characters
         public Vector2 pos;
         SpriteBatch spriteBatch;
         Rectangle source = new Rectangle(238, 154, 8, 16);
-        Rectangle destination = new Rectangle(0,0,20,40);
+        Rectangle destination = new Rectangle(0, 0, 20, 40);
         Texture2D texture;
-        
+
 
         public Projectile(SpriteBatch spriteBatch, Vector2 startPos, Texture2D texture)
         {
@@ -28,8 +23,8 @@ namespace SprintZero1.Characters
         public void Update(GameTime timer)
         {
             pos.X -= 6;
-            destination.X = (int) pos.X;
-            destination.Y = (int) pos.Y;    
+            destination.X = (int)pos.X;
+            destination.Y = (int)pos.Y;
         }
 
         public void Draw()
@@ -37,6 +32,6 @@ namespace SprintZero1.Characters
             spriteBatch.Draw(texture, destination, source, Color.White);
         }
 
-        
+
     }
 }
