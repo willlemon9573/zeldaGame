@@ -5,9 +5,9 @@ namespace SprintZero1.StateMachines
     public class PlayerStateMachine
     {
         private Direction _currentDirection = Direction.South;
-        private MovementState _currentMovementState = MovementState.Idle;
+        private State _currentMovementState = State.Idle;
 
-        public PlayerStateMachine(Direction direction, MovementState movementState)
+        public PlayerStateMachine(Direction direction, State movementState)
         {
             _currentDirection = direction;
             _currentMovementState = movementState;
@@ -17,7 +17,7 @@ namespace SprintZero1.StateMachines
             this._currentDirection = newDirection;
         }
 
-        public void ChangeMovementState(MovementState newMovementState)
+        public void ChangeMovementState(State newMovementState)
         {
             _currentMovementState = newMovementState;
         }
@@ -27,7 +27,7 @@ namespace SprintZero1.StateMachines
             return _currentDirection;
         }
 
-        public MovementState GetMovementState()
+        public State GetMovementState()
         {
             return _currentMovementState;
         }
