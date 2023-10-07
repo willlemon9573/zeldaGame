@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.src;
 using System;
 
 namespace SprintZero1
@@ -44,7 +45,7 @@ namespace SprintZero1
 
         protected override void Update(GameTime gameTime)
         {
-
+            ProgramManager.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -53,7 +54,7 @@ namespace SprintZero1
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
-            // drawing all sprites here
+            ProgramManager.Draw(gameTime, _spriteBatch);
             _spriteBatch.End();
 
             // Code for rescaling
