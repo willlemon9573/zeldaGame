@@ -27,7 +27,7 @@ namespace SprintZero1.Sprites
         }
 
         /// <summary>
-        /// Handles the animation for the sprite
+        /// Handles the animation for the _sprite
         /// </summary>
         /// <param name="deltaTime">Total time elapsed since the previous frame</param>
         private void Animate(float deltaTime)
@@ -42,11 +42,11 @@ namespace SprintZero1.Sprites
             }
         }
         /// <summary>
-        /// Constructor for creating an animated sprite
+        /// Constructor for creating an animated _sprite
         /// </summary>
-        /// <param name="sourceRectangles">The source rectangle list of frames for the animated sprite</param>
-        /// <param name="texture">the sprite sheet to use when drawing the sprite</param>
-        /// <param name="maxFrames">The maximum amount of frames for the sprite</param>
+        /// <param name="sourceRectangles">The source rectangle list of frames for the animated _sprite</param>
+        /// <param name="texture">the _sprite sheet to use when drawing the _sprite</param>
+        /// <param name="maxFrames">The maximum amount of frames for the _sprite</param>
         public AnimatedSprite(List<Rectangle> sourceRectangles, Texture2D spriteSheet, int maxFrames, bool paused)
         {
             /* May want to consider a fourth parameter for time to update */
