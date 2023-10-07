@@ -14,7 +14,8 @@ namespace SprintZero1.Factories
         private Texture2D LinkSpriteSheet;
         private readonly Dictionary<Direction, ISprite> spritePositions;
         const int WIDTH = 16, HEIGHT = 16;
-
+        private static LinkSpriteFactory instance = new LinkSpriteFactory();
+        public static LinkSpriteFactory Instance { get { return instance; } }
         private void CreateLinkDictionary()
         {
             LinkSpriteSheet = Texture2DManager.GetLinkSpriteSheet();
@@ -36,7 +37,7 @@ namespace SprintZero1.Factories
         /// <summary>
         /// Private constructor to prevent instation of a new block factory
         /// </summary>
-        public LinkSpriteFactory()
+        private LinkSpriteFactory()
         {
             spritePositions = new Dictionary<Direction, ISprite>();
         }
