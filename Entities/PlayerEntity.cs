@@ -1,103 +1,84 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using SprintZero1.StateMachines;
-using System;
-using System.Collections.Generic;
-using SprintZero1.Enums;
-using SprintZero1.Entities;
-using SprintZero1.Controllers;
-using SprintZero1.src;
-using SprintZero1.Colliders;
 
 namespace SprintZero1.Entities
 {
-    internal class PlayerEntity : IEntity
+    internal class PlayerEntity : Entity, IMovableEntity, IDamageableEntity
     {
-        private Vector2 _position;
-        public Vector2 Position { get { return _position; } set { _position = value; } }
+        /* Player Components */
+        private State _playerState;
+        private int _playerHealth;
         private ISprite _playerSprite;
-        private PlayerStateMachine _playerStateMachine;
-        private LinkSpriteFactory _playerFactory = LinkSpriteFactory.Instance;
-        private IController _keyboardController;
-        private IController _gamepadController;
-        private ICollider _collider;
-        private int _playerIndex;
-
-        public PlayerEntity(ISprite sprite, Vector2 position, IController keyboardController)
+        private Direction _playerDirection;
+        private Vector2 _playerPosition;
+        /* Player entity Properties */
+        public new Vector2 Position
         {
-            _playerSprite = sprite;
-            _position = position;
-            _playerStateMachine = new PlayerStateMachine(Direction.South, MovementState.Idle);
-            _keyboardController = keyboardController;
-            _collider = new PlayerCollider(this, new Rectangle((int) position.X, (int) position.Y, 16, 16));
+            get { return _playerPosition; }
+            set { _playerPosition = value; }
         }
-
-        public PlayerEntity(ISprite sprite, Vector2 position, Game1 game, int PlayerIndex = 0)
+        public Direction Direction
         {
-            _playerSprite = sprite;
-            _position = position;
-            _playerStateMachine = new PlayerStateMachine(Direction.South, MovementState.Idle);
-            _keyboardController = new KeyboardController();
-            _keyboardController.LoadDefaultCommands(game);
-            _collider = new PlayerCollider(this, new Rectangle((int)position.X, (int)position.Y, 16, 16));
+            get { return _playerDirection; }
         }
+        public State State
+        {
+            get { return _playerState; }
+            set { _playerState = value; }
+        }
+        public int Health
+        {
+            get { return _playerHealth; }
+            set { _playerHealth = value; }
+        }
+        /* End of Player Entity Properties */
 
         /// <summary>
-        /// Update Link to a new position
+        /// Construct a new player entity
         /// </summary>
-        /// <param name="units">the amount (in pixels) that link's new position will be</param>
-        public void Move(Vector2 units)
+        /// <param name="sprite">The sprite for the player entity </param>
+        /// <param name="position">The position of the player entity</param>
+        /// <param name="startingHealth">The starting health of the player entity</param>
+        /// <param name="startingDirection">The starting direction the player entity will be facing</param>
+        /// <param name="startingState">The starting state of the player entity</param>
+        public PlayerEntity(ISprite sprite, Vector2 position, int startingHealth, Direction startingDirection, State startingState) : base(sprite, position)
         {
-            if (_playerSprite is AnimatedSprite)
-            {
-                _position += units;
-            }
+            _playerSprite = sprite;
+            _playerDirection = startingDirection;
+            _playerHealth = startingHealth;
+            _playerPosition = position;
+            _playerState = startingState;
         }
 
-        public void ChangeMovementState(MovementState newMovementState)
+        public void TakeDamage(int damage)
         {
-
-            _playerStateMachine.ChangeMovementState(newMovementState);
+            _playerHealth -= damage;
         }
 
-        public void ChangeDirection(Direction newDirection)
+        public void ChangeDirection(Direction direction)
         {
-
-            if (newDirection != _playerStateMachine.GetDirection() || _playerSprite is NonAnimatedSprite)
-            {
-                _playerStateMachine.ChangeDirection(newDirection);
-            }
+            _playerDirection = direction;
+            _playerSprite = LinkSpriteFactory.Instance.GetLinkSprite(direction);
         }
 
-
-        public MovementState GetMovementState()
+        public new void Update(GameTime gameTime)
         {
-            return _playerStateMachine.GetMovementState();
-        }
-
-        public Direction GetDirection()
-        {
-            return _playerStateMachine.GetDirection();
-        }
-
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            SpriteEffects SE = SpriteEffects.None;
-            if (_playerStateMachine.GetDirection() == Direction.West)
-            {
-                SE = SpriteEffects.FlipHorizontally;
-            }
-            ((AnimatedSprite) _playerSprite).Draw(spriteBatch, _position, SE, 1);
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            _keyboardController.Update();
-            _gamepadController.Update();
             _playerSprite.Update(gameTime);
-            _collider.Update(gameTime);
         }
+
+        public new void Draw(SpriteBatch spriteBatch)
+        {
+            SpriteEffects spriteEffects = SpriteEffects.None;
+            if (_playerDirection == Direction.West)
+            {
+                spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+            _playerSprite.Draw(spriteBatch, _playerPosition, spriteEffects);
+        }
+
+
     }
 }

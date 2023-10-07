@@ -1,5 +1,4 @@
-﻿using SprintZero1.Characters;
-using SprintZero1.Factories;
+﻿using SprintZero1.Factories;
 using System.Collections.Generic;
 
 namespace SprintZero1.Commands
@@ -11,16 +10,14 @@ namespace SprintZero1.Commands
         private readonly ISpriteFactory enemySpriteFactory;
         private int totalEnemies;
         EnemyFactory enemyFactory;
-        Enemy character;
+        //Enemy character;
         public ChangeEnemyCommand(Game1 game)
         {
-            /*myGame = game;
-            character = game.enemy;*/
         }
 
         public void Execute()
         {
-            //
+
         }
     }
 }

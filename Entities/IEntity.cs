@@ -8,6 +8,6 @@ namespace SprintZero1.Entities
         public Vector2 Position { get; set; }
         public void Update(GameTime gameTime);
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        public void Draw(SpriteBatch spriteBatch);
     }
 }

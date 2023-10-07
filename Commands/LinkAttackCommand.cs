@@ -24,7 +24,7 @@ namespace SprintZero1.Commands
             /* location = game.position;
              Direction = game.CurrentDirection;
              game.isAttacking = true;
-             newSprite = _linkFactory.createNewLink(Direction, location, 2, isAttacking);
+             newSprite = _linkFactory.GetLinkSprite(Direction, location, 2, isAttacking);
              game.SetLink(newSprite);
              game.isAttacking = false;*/
         }

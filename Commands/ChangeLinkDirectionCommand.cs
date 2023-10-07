@@ -68,12 +68,11 @@ namespace SprintZero1.Commands
                  game.CurrentDirection = newDirection;
              }
 
-             // Create a new Link sprite using the new direction, location, and frame
-             ISprite newSprite = _linkFactory.createNewLink(newDirection, location, game.CurrentFrame, isAttacking);
+             // Create a new Link _sprite using the new direction, location, and frame
+             ISprite newSprite = _linkFactory.GetLinkSprite(newDirection, location, game.CurrentFrame, isAttacking);
 
-             // Set the new Link sprite in the game
+             // Set the new Link _sprite in the game
              game.SetLink(newSprite);*/
         }
     }
 }
-
