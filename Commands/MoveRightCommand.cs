@@ -1,38 +1,28 @@
-﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
+﻿using SprintZero1.Entities;
 using SprintZero1.Enums;
+using System.Numerics;
 
 namespace SprintZero1.Commands
 {
     internal class MoveRightCommand : ICommand
     {
         private readonly IMovableEntity _movableEntity;
+        private readonly Vector2 _distance;
 
         public MoveRightCommand(IEntity entity)
         {
+            /* Create a reference to the entity to access the move function */
             _movableEntity = (IMovableEntity)entity;
+            _distance = new Vector2(1, 0);
         }
 
         public void Execute()
         {
-            /* check the current state of the entity to see if they are able to move */
-            if (_movableEntity.State == State.Attacking)
-            {
-                return;
-            }
-            else if (_movableEntity.State != State.Moving)
-            {
-                _movableEntity.State = State.Moving;
-            }
-            /* Check current direction */
-            if (_movableEntity.Direction != Direction.East)
+            if (_movableEntity.Direction != Direction.West)
             {
                 _movableEntity.ChangeDirection(Direction.East);
             }
-            /* Update position of Entity */
-            Vector2 newPosition = _movableEntity.Position;
-            newPosition.X += 1;
-            _movableEntity.Position = newPosition;
+            _movableEntity.Move(_distance);
         }
     }
 }

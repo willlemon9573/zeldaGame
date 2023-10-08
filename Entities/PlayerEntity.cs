@@ -3,73 +3,82 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
+using SprintZero1.StateMachines;
 
 namespace SprintZero1.Entities
 {
-    internal class PlayerEntity : Entity, IMovableEntity, IDamageableEntity
+    internal class PlayerEntity : IEntity, IMovableEntity, ICombatEntity
     {
         /* Player Components */
-        private State _playerState;
         private int _playerHealth;
         private ISprite _playerSprite;
         private Direction _playerDirection;
         private Vector2 _playerPosition;
-        /* Player entity Properties */
-        public new Vector2 Position
-        {
-            get { return _playerPosition; }
-            set { _playerPosition = value; }
-        }
-        public Direction Direction
-        {
-            get { return _playerDirection; }
-        }
-        public State State
-        {
-            get { return _playerState; }
-            set { _playerState = value; }
-        }
-        public int Health
-        {
-            get { return _playerHealth; }
-            set { _playerHealth = value; }
-        }
-        /* End of Player Entity Properties */
+        private readonly PlayerStateMachine _playerStateMachine;
+        private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
+
+        public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
+
+        public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
+
+        public Direction Direction { get { return _playerDirection; } }
 
         /// <summary>
         /// Construct a new player entity
         /// </summary>
-        /// <param name="sprite">The sprite for the player entity </param>
         /// <param name="position">The position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        /// <param name="startingState">The starting state of the player entity</param>
-        public PlayerEntity(ISprite sprite, Vector2 position, int startingHealth, Direction startingDirection, State startingState) : base(sprite, position)
+        public PlayerEntity(Vector2 position, int startingHealth, Direction startingDirection)
         {
-            _playerSprite = sprite;
             _playerDirection = startingDirection;
             _playerHealth = startingHealth;
             _playerPosition = position;
-            _playerState = startingState;
+            _playerStateMachine = new PlayerStateMachine(State.Idle);
+            // since we are currently only using link I'm setting this sprite here
+            _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
+
         }
 
-        public void TakeDamage(int damage)
+        public void Move(Vector2 distance)
         {
-            _playerHealth -= damage;
+            if (_playerStateMachine.CanTransition())
+            {
+                _playerStateMachine.ChangeState(State.Moving);
+                _playerPosition += distance;
+            }
+        }
+
+        public void Attack()
+        {
+            // not implemented
+        }
+
+        public void TakeDamage()
+        {
+            // not implemented
+        }
+
+        public void Die()
+        {
+            // not implemented
         }
 
         public void ChangeDirection(Direction direction)
         {
-            _playerDirection = direction;
-            _playerSprite = LinkSpriteFactory.Instance.GetLinkSprite(direction);
+            if (_playerStateMachine.CanTransition())
+            {
+                _playerDirection = direction;
+                _playerSprite = _linkSpriteFactory.GetLinkSprite(direction);
+            }
         }
 
-        public new void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             _playerSprite.Update(gameTime);
         }
 
-        public new void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             SpriteEffects spriteEffects = SpriteEffects.None;
             if (_playerDirection == Direction.West)
@@ -78,7 +87,5 @@ namespace SprintZero1.Entities
             }
             _playerSprite.Draw(spriteBatch, _playerPosition, spriteEffects);
         }
-
-
     }
 }

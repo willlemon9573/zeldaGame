@@ -5,10 +5,15 @@ namespace SprintZero1.Entities
 {
     internal interface IMovableEntity
     {
-        State State { get; set; }
+        /// <summary>
+        /// Gets the Direction of the Entity
+        /// </summary>
         Direction Direction { get; }
-        Vector2 Position { get; set; }
-
-        void ChangeDirection(Direction direction);
+        /// <summary>
+        /// Changes the Direction of the Entity
+        /// </summary>
+        /// <param name="newDirection">The new direction the entity is facing</param>
+        void ChangeDirection(Direction newDirection);
+        void Move(Vector2 distance);
     }
 }

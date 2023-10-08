@@ -13,6 +13,7 @@
         Attacking,
         Moving,
         TakingDamage,
-        Idle
+        Idle,
+        Interacting
     }
 }

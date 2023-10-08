@@ -2,32 +2,44 @@
 
 namespace SprintZero1.StateMachines
 {
+    /// <summary>
+    /// Needs more states added to it. Might need to break up states? 
+    /// </summary>
     public class PlayerStateMachine
     {
-        private Direction _currentDirection = Direction.South;
-        private State _currentState = State.Idle;
+        private State _currentState;
+        private bool _transitionable;
 
-        public PlayerStateMachine(Direction direction, State movementState)
+        public PlayerStateMachine(State startingState)
         {
-            _currentDirection = direction;
-            _currentState = movementState;
-        }
-        public void ChangeDirection(Direction newDirection)
-        {
-            this._currentDirection = newDirection;
+            _currentState = startingState;
+            _transitionable = true;
         }
 
-        public void ChangeMovementState(State newMovementState)
+        public void BlockTransition()
         {
-            _currentState = newMovementState;
+            _transitionable = false;
         }
 
-        public Direction GetDirection()
+        public void UnblockTransition()
         {
-            return _currentDirection;
+            _transitionable = true;
         }
 
-        public State GetMovementState()
+        public bool CanTransition()
+        {
+            return _transitionable;
+        }
+
+        public void ChangeState(State newState)
+        {
+            if (_currentState != newState)
+            {
+                _currentState = newState;
+            }
+        }
+
+        public State GetCurrentState()
         {
             return _currentState;
         }

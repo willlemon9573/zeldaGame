@@ -55,7 +55,7 @@ namespace SprintZero1.Factories
 
         public ISprite GetLinkSprite(Direction direction)
         {
-            Debug.Assert(movementDictionary.ContainsKey(direction), "Direction does not exist");
+            Debug.Assert(movementDictionary.ContainsKey(direction), "Direction not found in dictionary");
 
             /*return new CreateMovingLinkSprite(spriteRectangle, LinkSpriteSheet, position, frameIndex, direction, isAttacking);*/
             return movementDictionary[direction];
