@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
-using SprintZero1.Entities;
+using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
@@ -12,8 +12,6 @@ namespace SprintZero1
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private IEntity playerEntity;
-        private IController controller;
 
         /* Variables for window rescaling */
         private const int WINDOW_SCALE = 4;
@@ -49,12 +47,19 @@ namespace SprintZero1
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2DManager.LoadAllTextures(this.Content);
             LinkSpriteFactory.Instance.LoadTextures();
-            ProgramManager.testPlayerEntity();
+            TileSpriteFactory.Instance.LoadTextures();
+            TestingManager.StartTest(this);
+            TestingManager.TestPlayerEntityWithKeyboard(new Vector2(176, 170), 1, Direction.South);
+            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(1), new Vector2(200, 100));
+            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(2), new Vector2(55, 100));
+            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(3), new Vector2(55, 205));
+            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(4), new Vector2(200, 205));
         }
 
         protected override void Update(GameTime gameTime)
         {
             ProgramManager.Update(gameTime);
+            TestingManager.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -65,6 +70,7 @@ namespace SprintZero1
 
             _spriteBatch.Begin();
             ProgramManager.Draw(_spriteBatch);
+            TestingManager.Draw(_spriteBatch);
             _spriteBatch.End();
 
             // Code for rescaling

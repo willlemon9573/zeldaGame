@@ -37,8 +37,8 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.I, new NextItemCommand(game));
             keyboardMap.Add(Keys.O, new PreviousEnemyCommand(game));
             keyboardMap.Add(Keys.P, new NextEnemyCommand(game));
-            keyboardMap.Add(Keys.Y, new GetNextBlockCommand(game));
-            keyboardMap.Add(Keys.T, new GetPreviousBlockCommand(game));
+            keyboardMap.Add(Keys.Y, new GetPreviousTileCommand(game));
+            keyboardMap.Add(Keys.T, new GetNextTileCommands(game));
         }
 
         public void Update()
