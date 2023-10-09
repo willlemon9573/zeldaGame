@@ -19,7 +19,7 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            /* myGame.OnScreenTileIndex = (myGame.OnScreenTileIndex + 1) % totalBlocks; // clock arithmetic [0, totalBlocks]
+            /* myGame.OnScreenTileIndex = (myGame.OnScreenTileIndex - 1 + totalBlocks) % totalBlocks; // clock arithmetic [0, totalBlocks]
              myGame.OnScreenTile = tileSpriteFactory.CreateNewTileSprite(blockNames[myGame.OnScreenTileIndex]);*/
         }
     }
