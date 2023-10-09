@@ -15,7 +15,6 @@ namespace SprintZero1.Factories
         private readonly Dictionary<string, List<Rectangle>> weaponSourceRectangles;
         private static readonly WeaponSpriteFactory instance = new WeaponSpriteFactory();
 
-
         public static WeaponSpriteFactory Instance
         {
             get { return instance; }
@@ -26,7 +25,8 @@ namespace SprintZero1.Factories
             /*weaponSourceRectangles.Add("arrow", new Rectangle(2, 190, 16, 5));
             weaponSourceRectangles.Add("boomerang", new Rectangle(57, 189, 8, 8));
             weaponSourceRectangles.Add("bomb", new Rectangle(130, 185, 70, 16));
-            weaponSourceRectangles.Add("magicfire", new Rectangle(202, 185, 70, 16));*/
+            weaponSourceRectangles.Add("magicfire", new Rectangle(202, 185, 70, 16));
+            */
 
             List<Rectangle> regBoomerangFrames = new List<Rectangle>
             {

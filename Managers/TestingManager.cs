@@ -17,12 +17,12 @@ namespace SprintZero1.Managers
         private static IController controller;
         private static Game1 myGame;
         private static bool startTesting = false;
-
         public static void StartTest(Game1 game)
         {
             myGame = game;
             startTesting = true;
             controller = new KeyboardController();
+            startTesting = true;
         }
 
         public static void TestPlayerEntityWithKeyboard(Vector2 position, int health, Direction direction)
@@ -44,27 +44,29 @@ namespace SprintZero1.Managers
 
         public static void Update(GameTime gameTime)
         {
-            foreach (IEntity entity in EntityList)
+            if (startTesting)
             {
-                entity.Update(gameTime);
+                foreach (IEntity entity in EntityList)
+                {
+                    entity.Update(gameTime);
+                }
+                controller.Update();
             }
-            controller.Update();
-
         }
 
         public static void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var spriteTuple in staticSpriteTestList)
+            if (startTesting)
             {
-                spriteTuple.Item1.Draw(spriteBatch, spriteTuple.Item2);
+                foreach (var spriteTuple in staticSpriteTestList)
+                {
+                    spriteTuple.Item1.Draw(spriteBatch, spriteTuple.Item2);
+                }
+                foreach (IEntity entity in EntityList)
+                {
+                    entity.Draw(spriteBatch);
+                }
             }
-            foreach (IEntity entity in EntityList)
-            {
-                entity.Draw(spriteBatch);
-            }
-
-
         }
-
     }
 }

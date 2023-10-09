@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SprintZero1.Entities;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace SprintZero1.Colliders
@@ -35,7 +31,7 @@ namespace SprintZero1.Colliders
             if (collidedEntity is PlayerEntity)
             {
                 PriorityQueue<Vector2, float> colliderDistances = new PriorityQueue<Vector2, float>();
-                colliderDistances.Enqueue(new Vector2(0, -1),  Vector2.Distance(new Vector2(collidedCollider.Collider.Center.X, collidedCollider.Collider.Center.Y), new Vector2( _collider.Left + (_collider.Width / 2), _collider.Top)));
+                colliderDistances.Enqueue(new Vector2(0, -1), Vector2.Distance(new Vector2(collidedCollider.Collider.Center.X, collidedCollider.Collider.Center.Y), new Vector2(_collider.Left + (_collider.Width / 2), _collider.Top)));
                 colliderDistances.Enqueue(new Vector2(0, 1), Vector2.Distance(new Vector2(collidedCollider.Collider.Center.X, collidedCollider.Collider.Center.Y), new Vector2(_collider.Left + (_collider.Width / 2), _collider.Bottom)));
                 colliderDistances.Enqueue(new Vector2(-1, 0), Vector2.Distance(new Vector2(collidedCollider.Collider.Center.X, collidedCollider.Collider.Center.Y), new Vector2(_collider.Left, _collider.Top + (_collider.Height / 2))));
                 colliderDistances.Enqueue(new Vector2(1, 0), Vector2.Distance(new Vector2(collidedCollider.Collider.Center.X, collidedCollider.Collider.Center.Y), new Vector2(_collider.Right, _collider.Top + (_collider.Height / 2))));

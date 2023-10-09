@@ -7,20 +7,20 @@ namespace SprintZero1.Commands
     {
         private readonly List<string> blockNames;
         private readonly Game1 myGame;
-        private readonly ITileSpriteFactory myBlockFactory;
+        private readonly TileSpriteFactory tileSpriteFactory;
         private readonly int totalBlocks;
         public GetNextTileCommands(Game1 game)
         {
             myGame = game;
-            /*myBlockFactory = TileSpriteFactory.Instance;*/
-            /*blockNames = myBlockFactory.BlockNamesList;*/
-            /*totalBlocks = blockNames.Count;*/
+            tileSpriteFactory = TileSpriteFactory.Instance;
+            blockNames = tileSpriteFactory.TileSourceRectangles;
+            totalBlocks = blockNames.Count;
         }
 
         public void Execute()
-        {
-            //   myGame.OnScreenBlockIndex = (myGame.OnScreenBlockIndex - 1 + totalBlocks) % totalBlocks; // clock arithmetic [0, totalBlocks]
-            // myGame.NonMovingBlock = myBlockFactory.CreateNewTileSprite(blockNames[myGame.OnScreenBlockIndex], new Vector2(200, 230));
+        {/*
+            myGame.OnScreenTileIndex = (myGame.OnScreenTileIndex + 1) % totalBlocks; // clock arithmetic [0, totalBlocks]
+            myGame.OnScreenTile = tileSpriteFactory.CreateNewTileSprite(blockNames[myGame.OnScreenTileIndex]);*/
         }
     }
 }
