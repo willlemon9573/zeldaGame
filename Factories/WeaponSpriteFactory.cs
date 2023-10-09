@@ -5,6 +5,7 @@ using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
 using SprintZero1.Enums;
+using SprintZero1.Managers;
 
 namespace SprintZero1.Factories
 {
@@ -14,6 +15,7 @@ namespace SprintZero1.Factories
         private Texture2D spriteSheet;
         private readonly Dictionary<string, List<Rectangle>> weaponSourceRectangles;
         private static readonly WeaponSpriteFactory instance = new WeaponSpriteFactory();
+        private readonly Dictionary<Direction, ISprite> movementDictionary;
 
         public static WeaponSpriteFactory Instance
         {
@@ -95,7 +97,7 @@ namespace SprintZero1.Factories
 
         public void LoadTextures(ContentManager manager)
         {
-            spriteSheet = manager.Load<Texture2D>("LinkSheet");
+            spriteSheet = Texture2DManager.GetLinkSpriteSheet();
         }
 
         public ISprite CreateBoomerangSprite(String weaponType, Vector2 location, int maxFrames, int direction)

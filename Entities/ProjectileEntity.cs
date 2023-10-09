@@ -24,14 +24,15 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-            //projectileSprite?.Update(gameTime);
+            projectileSprite?.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             if (projectileSprite != null)
             {
-                //projectileSprite.Draw(spriteBatch, _projectilePosition, spriteEffects);
+                SpriteEffects spriteEffects = SpriteEffects.None;
+                projectileSprite.Draw(spriteBatch, _projectilePosition, spriteEffects);
             }
         }
     }

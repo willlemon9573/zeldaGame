@@ -8,7 +8,7 @@ namespace SprintZero1.Controllers
         /// Loads the default command map for the controller
         /// </summary>
         /// <param name="game">Game1 object</param>
-        void LoadDefaultCommands(Game1 game, IEntity playerEntity);
+        void LoadDefaultCommands(Game1 game, IEntity playerEntity, ProjectileEntity ProjectileEntity);
 
         /// <summary>
         /// Updates game based on which input is read

@@ -18,7 +18,7 @@ namespace SprintZero1.Controllers
             previouslyPressedKeys = new HashSet<Keys>();
         }
 
-        public void LoadDefaultCommands(Game1 game, IEntity playerEntity)
+        public void LoadDefaultCommands(Game1 game, IEntity playerEntity, ProjectileEntity ProjectileEntity)
         {
             /* directional commands */
             keyboardMap.Add(Keys.Up, new MoveUpCommand(playerEntity));
@@ -39,6 +39,7 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.P, new NextEnemyCommand(game));
             keyboardMap.Add(Keys.Y, new GetPreviousTileCommand(game));
             keyboardMap.Add(Keys.T, new GetNextTileCommands(game));
+            keyboardMap.Add(Keys.H, new ArrowWeapon(playerEntity, ProjectileEntity));
         }
 
         public void Update()

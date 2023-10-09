@@ -17,6 +17,7 @@ namespace SprintZero1.Entities
         private readonly PlayerStateMachine _playerStateMachine;
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
 
+
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
 
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }

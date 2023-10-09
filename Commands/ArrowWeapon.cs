@@ -3,8 +3,9 @@ using SprintZero1.Sprites;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
+using System;
 
-namespace SprintZero1.Commands
+namespace SprintZero1.Commands 
 {
     internal class ArrowWeapon : ICommand
     {
@@ -27,6 +28,8 @@ namespace SprintZero1.Commands
         {
 
             newSprite = WeaponFactory.CreateArrowSprite("", location, Direction);
+            Console.WriteLine("projectileSprite changed");
+
             _Entity.projectileSprite = newSprite;
             // location = game.position;
             // Direction = game.CurrentDirection;

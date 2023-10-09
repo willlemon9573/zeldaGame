@@ -53,23 +53,23 @@ namespace SprintZero1.weapon
             Vector2 location = _projectile.Position; 
             switch (direction)
             {
-                case 0: // Moving Upwards
+                case Direction.North: // Moving Upwards
                     location.Y -= moveSpeed;
                     break;
-                case 1: // Moving Downwards
+                case Direction.South: // Moving Downwards
                     location.Y += moveSpeed;
                     break;
-                case 2: // Moving Left
+                case Direction.West: // Moving Left
                     location.X -= moveSpeed;
                     break;
-                case 3: // Moving Right
+                case Direction.East: // Moving Right
                     location.X += moveSpeed;
                     break;
                 default:
                     // Handle other directions if necessary
                     break;
             }
-            _projectile._projectilePosition = location;
+            _projectile.Position = location;
         }
     }
 
