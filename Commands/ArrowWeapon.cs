@@ -1,24 +1,31 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Sprites;
+using SprintZero1.Entities;
+using SprintZero1.Enums;
 
 namespace SprintZero1.Commands
 {
     public class ArrowWeapon : ICommand
     {
-        private Game1 game;
-        private int Direction;
+        private Direction Direction;
         private Vector2 location;
-        // private WeaponSpriteFactory WeaponFactory;
+        private WeaponSpriteFactory WeaponFactory;
         ISprite newSprite;
+        PlayerEntity _Entity;
 
-        public ArrowWeapon(Game1 game)
+        public ArrowWeapon(IEntity PlayerEntity, IEntity ProjectileEntity)
         {
-            this.game = game;
-            // this.WeaponFactory = WeaponSpriteFactory.Instance;
+            location = PlayerEntity.Position;
+            Direction = PlayerEntity.Direction;
+            _Entity = ProjectileEntity;
+            this.WeaponFactory = WeaponSpriteFactory.Instance;
         }
 
         public void Execute()
         {
+
+            newSprite = WeaponFactory.CreateArrowSprite("", location, Direction);
+            _Entity.projectileSprite = newSprite;
             // location = game.position;
             // Direction = game.CurrentDirection;
             // newSprite = WeaponFactory.CreateArrowSprite("", location, 3, Direction);

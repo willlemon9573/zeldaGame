@@ -51,15 +51,19 @@ namespace SprintZero1.Factories
 
             List<Rectangle> regArrowFrames = new List<Rectangle>
             {
-                new Rectangle(0, 185, 19, 20)
+                new Rectangle(3, 185, 5, 16),
+                new Rectangle(10, 190, 16, 5),
+                new Rectangle(53, 190, 8, 8)
             };
             List<Rectangle> betterArrowFrames = new List<Rectangle> {
-                new Rectangle(28, 185, 19, 15)
+                new Rectangle(29, 185, 5, 16),
+                new Rectangle(36, 190, 16, 5),
+                new Rectangle(53, 190, 8, 8)
             };
 
             List<Rectangle> bombFrames = new List<Rectangle>();
             List<Rectangle> fireFrames = new List<Rectangle>();
-            int bombX = 208, fireX = 278, y = 185, width = 16, height = 16;
+            int bombX = 128, fireX = 191, y = 185, width = 16, height = 16;
             for (int i = 0; i < 4; i++)
             {
                 bombFrames.Add(new Rectangle(bombX, y, width, height));
@@ -104,15 +108,20 @@ namespace SprintZero1.Factories
             return null;
         }
 
-        public ISprite CreateArrowSprite(String weaponType, Vector2 location, int maxFrames, int direction)
+        public ISprite CreateArrowSprite(String weaponType, Vector2 location, Direction direction)
         {
             List<Rectangle> sourceRectangle = weaponSourceRectangles["arrow"];
+            int index = 0;
+            if(direction == Direction.East || direction == Direction.West)
+            {
+                index = 1;
+            }
             if (weaponType.Equals("better"))
             {
                 sourceRectangle = weaponSourceRectangles["betterbowarrows"];
             }
             /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
-            return null;
+            return new NonAnimatedSprite(sourceRectangle[index],spriteSheet);
         }
 
         public ISprite CreateBombSprite(Vector2 location, int maxFrames, int direction)

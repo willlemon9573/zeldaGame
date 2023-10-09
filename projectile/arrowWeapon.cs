@@ -11,11 +11,11 @@ namespace SprintZero1.weapon
         private float distanceMoved = 0;
         private bool returning = false;
         public bool IsActive { get; private set; } = true;
+        IEntity _projectile;
 
-        public arrowWeapon(Game1 game)
+        public arrowWeapon(IEntity ProjectileEntity)
         {
-            /*this.location = game.position;
-            this.direction = game.direction;*/
+            _projectile = ProjectileEntity;
         }
 
         public void Update(GameTime gameTime)
@@ -45,8 +45,10 @@ namespace SprintZero1.weapon
             }
         }
 
-        private void MoveArrow(float moveSpeed)
+        private void MoveProjectile(float moveSpeed)
         {
+            Direction direction = _projectile._projectileDirection;
+            Vector2 location = _projectile._projectilePosition;
             switch (direction)
             {
                 case 0: // Moving Upwards
@@ -65,6 +67,7 @@ namespace SprintZero1.weapon
                     // Handle other directions if necessary
                     break;
             }
+            _projectile._projectilePosition = location;
         }
     }
 
