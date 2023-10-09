@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Rooms>
+	
+		
+		
+		<Blocks>
+			<Block>	
+				<Name>BLockName</Name>
+				<Position>100 100</Position>
+				<IsColideable>True</IsColideable>
+			</Block>
+
+			<Wall>
+				<Quad>1</Quad>
+				<Position>100 100</Position>	
+			</Wall>
+
+			<Door>
+				<Direction>DoorName</Direction>
+				<Type>Locked</Type>
+				<Location>100 100</Location>
+			</Door>
+			
+			
+		</Blocks>
+
+		<Enemies>
+			<Enemy>
+				<Name>EnemyName</Name>
+				<Position>100 100</Position>
+			</Enemy>
+			
+			
+		</Enemies>
+
+		<Items>
+			<Item>
+				<Name>ItemName</Name>
+				<Position>100 100</Position>
+			</Item>
+		</Items>
+		
+	
+</Rooms>
