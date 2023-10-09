@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Controllers;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
@@ -38,7 +37,6 @@ namespace SprintZero1
             // code for window rescaling
             _newRenderTarget = new RenderTarget2D(GraphicsDevice, 256, 240);
             _actualScreenRectangle = new Rectangle(0, 0, 256 * WINDOW_SCALE, 240 * WINDOW_SCALE);
-            controller = new KeyboardController();
             base.Initialize();
         }
 
