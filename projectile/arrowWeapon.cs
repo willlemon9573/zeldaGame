@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using SprintZero1.Entities;
+using SprintZero1.Enums;
 
 namespace SprintZero1.weapon
 {
 
-    public class arrowWeapon
+    internal class arrowWeapon
     {
         private Vector2 location;
         private int direction;
@@ -25,11 +27,11 @@ namespace SprintZero1.weapon
 
             if (returning)
             {
-                MoveArrow(-speed);
+                MoveProjectile(-speed);
             }
             else
             {
-                MoveArrow(speed);
+                MoveProjectile(speed);
             }
 
             distanceMoved += speed;

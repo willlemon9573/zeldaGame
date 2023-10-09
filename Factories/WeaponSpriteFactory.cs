@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
+using SprintZero1.Enums;
 
 namespace SprintZero1.Factories
 {

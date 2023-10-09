@@ -1,14 +1,12 @@
-﻿using System;
-namespace SprintZero1.weapon
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+namespace SprintZero1.projectile
 {
-	public class IProjectile
+    internal interface IProjectile
     {
-        internal interface IProjectile
-        {
 
-            public void Update(GameTime gameTime);
+        public void Update(GameTime gameTime);
 
-            private void MoveProjectile(float moveSpeed);
-        }
-	}
+        void MoveProjectile(float moveSpeed);
+    }
 }
