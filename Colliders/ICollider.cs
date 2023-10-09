@@ -19,11 +19,6 @@ namespace SprintZero1.Colliders
         // Update Collider
         public void Update(GameTime gameTime);
 
-
-        // Fires each frame a collision occurs with this collider
-        // Entity collided with passed through parameter
-        public void OnCollision(IEntity collidedEntity, ICollider collidedCollider);
-
         // Add Collider to Collision Manager
         public void AddCollider();
 

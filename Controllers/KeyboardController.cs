@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using SprintZero1.Entities;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SprintZero1.Controllers
 {

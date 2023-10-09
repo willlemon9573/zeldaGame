@@ -50,6 +50,7 @@ namespace SprintZero1
             Texture2DManager.LoadAllTextures(this.Content);
             LinkSpriteFactory.Instance.LoadTextures();
             ProgramManager.testPlayerEntity();
+            ProgramManager.Start(this);
         }
 
         protected override void Update(GameTime gameTime)

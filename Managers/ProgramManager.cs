@@ -5,6 +5,8 @@ using SprintZero1.Controllers;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 using System.Collections.Generic;
+using SprintZero1.Factories;
+using SprintSrc.Factories;
 
 namespace SprintZero1.Managers
 {
@@ -38,15 +40,15 @@ namespace SprintZero1.Managers
             IEntity playerEntity = new PlayerEntity(new Vector2(176, 170), 6, Direction.North);
             onScreenEntities.Add(playerEntity);
             controller.LoadDefaultCommands(game, playerEntity);
+            AddOnScreenEntity(new LevelBLockEntity(SimpleBlockFactory.instance.ReturnSimpleBlock(0), new Vector2(50, 50), true));
         }
         public static void Update(GameTime gameTime)
         {
-
+            controller.Update();
             foreach (IEntity entity in onScreenEntities)
             {
                 entity.Update(gameTime);
             }
-            controller.Update();
             ColliderManager.Update(gameTime);
         }
 
