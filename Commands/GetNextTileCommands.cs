@@ -13,7 +13,7 @@ namespace SprintZero1.Commands
         {
             myGame = game;
             /*myBlockFactory = TileSpriteFactory.Instance;*/
-            /*blockNames = myBlockFactory.BlockNamesList;*/
+            /*blockNames = myBlockFactory.TileSourceRectangles;*/
             /*totalBlocks = blockNames.Count;*/
         }
 
