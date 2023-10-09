@@ -13,9 +13,9 @@ namespace SprintZero1.weapon
         private float distanceMoved = 0;
         private bool returning = false;
         public bool IsActive { get; private set; } = true;
-        IEntity _projectile;
+        ProjectileEntity _projectile;
 
-        public arrowWeapon(IEntity ProjectileEntity)
+        public arrowWeapon(ProjectileEntity ProjectileEntity)
         {
             _projectile = ProjectileEntity;
         }
@@ -49,8 +49,8 @@ namespace SprintZero1.weapon
 
         private void MoveProjectile(float moveSpeed)
         {
-            Direction direction = _projectile._projectileDirection;
-            Vector2 location = _projectile._projectilePosition;
+            Direction direction = _projectile.Direction;
+            Vector2 location = _projectile.Position; 
             switch (direction)
             {
                 case 0: // Moving Upwards

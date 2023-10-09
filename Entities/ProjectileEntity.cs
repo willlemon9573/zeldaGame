@@ -11,7 +11,8 @@ namespace SprintZero1.Entities
         private Vector2 _projectilePosition;
         private readonly WeaponSpriteFactory _WeaponSpriteFactory = WeaponSpriteFactory.Instance;
         public Vector2 Position { get { return _projectilePosition; } set { _projectilePosition = value; } }
-        private ISprite projectileSprite;
+        public Direction Direction { get { return _projectileDirection; } set { _projectileDirection = value; } }
+        public ISprite projectileSprite;
 
         public ProjectileEntity(Vector2 position,Direction facingDirection)
 		{
@@ -23,14 +24,14 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-            projectileSprite?.Update(gameTime);
+            //projectileSprite?.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             if (projectileSprite != null)
             {
-                projectileSprite.Draw(spriteBatch, _projectilePosition, spriteEffects);
+                //projectileSprite.Draw(spriteBatch, _projectilePosition, spriteEffects);
             }
         }
     }
