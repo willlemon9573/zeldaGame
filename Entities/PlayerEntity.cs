@@ -50,7 +50,12 @@ namespace SprintZero1.Entities
 
         public void Attack()
         {
-            // not implemented
+            // check if link can transition
+            _playerStateMachine.BlockTransition();
+            // set state to attacking
+            // set time for link's attack animation
+            // change link to his attack animation
+            // checks
         }
 
         public void TakeDamage()
