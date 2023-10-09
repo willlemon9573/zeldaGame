@@ -9,6 +9,7 @@ namespace SprintZero1.Managers
     public static class Texture2DManager
     {
         private static Texture2D _linkSpriteSheet;
+        private static Texture2D _tileSheet;
 
         /// <summary>
         /// Loads all the textures required to create sprites
@@ -17,13 +18,18 @@ namespace SprintZero1.Managers
         public static void LoadAllTextures(ContentManager contentManager)
         {
             _linkSpriteSheet = contentManager.Load<Texture2D>("8366");
+            _tileSheet = contentManager.Load<Texture2D>("TileSheet");
         }
 
         public static Texture2D GetLinkSpriteSheet()
         {
             return _linkSpriteSheet;
         }
-
+        /// <summary>
+        /// Get the sprite sheet that holds the tile sheet
+        /// </summary>
+        /// <returns>Returns the Texture2D object containing tiles</returns>
+        public static Texture2D GetTileSheet() { return _tileSheet; }
 
     }
 }
