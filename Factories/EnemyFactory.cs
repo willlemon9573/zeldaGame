@@ -181,19 +181,19 @@ namespace SprintZero1.Factories
         {
             Debug.Assert(enemyName != null, "enemyName is null");
 
-            Debug.Assert(sourceRectangles.ContainsKey(enemyName), "sourceRectangles does not contain" +
+            Debug.Assert(sourceRectangles.ContainsKey(enemyName), "tileSourceRectangles does not contain" +
                 "an enemy named: " + enemyName);
             if (enemyName.Contains("dungeon"))
             {
-                /* return new CreateEnemySprite(sourceRectangles[enemyName], dungeonEnemySpritesheet, location, frameIndex);*/
+                /* return new CreateEnemySprite(tileSourceRectangles[enemyName], dungeonEnemySpritesheet, location, frameIndex);*/
             }
             else if (enemyName.Contains("overworld"))
             {
-                /* return new CreateEnemySprite(sourceRectangles[enemyName], overworldEnemySpritesheet, location, frameIndex);*/
+                /* return new CreateEnemySprite(tileSourceRectangles[enemyName], overworldEnemySpritesheet, location, frameIndex);*/
             }
             else if (enemyName.Contains("boss"))
             {
-                /*  return new CreateBossSprite(sourceRectangles[enemyName], bossSpritesheet, location, frameIndex);*/
+                /*  return new CreateBossSprite(tileSourceRectangles[enemyName], bossSpritesheet, location, frameIndex);*/
             }
             //HMMMMMMMM
             return null;
