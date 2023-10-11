@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Managers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,8 +39,8 @@ namespace SprintZero1.Colliders
                 {
                     if(collider1.Collider.Intersects(collider2.Collider))
                     {
-                        CollisionsResponseManager.CollisionResponse(collider1, collider2);
-                        CollisionsResponseManager.CollisionResponse(collider2, collider1);
+                        collider1.OnCollision(collider2.Parent, collider2);
+                        collider2.OnCollision(collider1.Parent, collider1);
                     }
                 }
             }
@@ -52,8 +51,8 @@ namespace SprintZero1.Colliders
                 {
                     if (collider1.Collider.Intersects(collider2.Collider))
                     {
-                        CollisionsResponseManager.CollisionResponse(collider1, collider2);
-                        CollisionsResponseManager.CollisionResponse(collider2, collider1);
+                        collider1.OnCollision(collider2.Parent, collider2);
+                        collider2.OnCollision(collider1.Parent, collider1);
                     }
                 }
             }

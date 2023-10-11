@@ -1,10 +1,8 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Entities;
 using System.Collections.Generic;
-using SprintZero1.Factories;
-using SprintSrc.Factories;
 
 namespace SprintZero1.Managers
 {
@@ -28,10 +26,10 @@ namespace SprintZero1.Managers
         {
             onScreenEntities.Remove(entity);
         }
-      
+
         public static void Update(GameTime gameTime)
         {
-            controller.Update();
+
             foreach (IEntity entity in onScreenEntities)
             {
                 entity.Update(gameTime);
