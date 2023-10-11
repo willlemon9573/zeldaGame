@@ -1,5 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SprintZero1.Colliders
 {
@@ -11,8 +18,8 @@ namespace SprintZero1.Colliders
         IEntity _parent;
         public IEntity Parent { get { return _parent; } set { _parent = value; } }
 
-        public DynamicCollider(IEntity parent, Rectangle _collider)
-        {
+        public DynamicCollider(IEntity parent, Rectangle _collider) 
+        { 
             _parent = parent;
             this._collider = _collider;
             AddCollider();
@@ -34,8 +41,8 @@ namespace SprintZero1.Colliders
 
         public void Update(GameTime gameTime)
         {
-            _collider.X = (int)Parent.Position.X;
-            _collider.Y = (int)Parent.Position.Y;
+            _collider.X = (int) Parent.Position.X;
+            _collider.Y = (int) Parent.Position.Y;
         }
     }
 }

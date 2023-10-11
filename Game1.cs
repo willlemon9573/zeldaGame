@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Enums;
+using SprintZero1.Controllers;
+using SprintZero1.Entities;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
@@ -11,12 +12,13 @@ namespace SprintZero1
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private IEntity playerEntity;
+        private IController controller;
 
         /* Variables for window rescaling */
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
-
 
         public Game1()
         {
@@ -24,7 +26,7 @@ namespace SprintZero1
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             // Code for Window rescaling
-            _graphics.PreferredBackBufferWidth = 255 * WINDOW_SCALE;
+            _graphics.PreferredBackBufferWidth = 256 * WINDOW_SCALE;
             _graphics.PreferredBackBufferHeight = 240 * WINDOW_SCALE;
             this.IsFixedTimeStep = true;//false;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
@@ -36,8 +38,9 @@ namespace SprintZero1
         protected override void Initialize()
         {
             // code for window rescaling
-            _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
-            _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
+            _newRenderTarget = new RenderTarget2D(GraphicsDevice, 256, 240);
+            _actualScreenRectangle = new Rectangle(0, 0, 256 * WINDOW_SCALE, 240 * WINDOW_SCALE);
+            controller = new KeyboardController();
             base.Initialize();
         }
 
@@ -46,28 +49,23 @@ namespace SprintZero1
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2DManager.LoadAllTextures(this.Content);
             LinkSpriteFactory.Instance.LoadTextures();
-            TileSpriteFactory.Instance.LoadTextures();
+            ProgramManager.testPlayerEntity();
             ProgramManager.Start(this);
-
         }
 
         protected override void Update(GameTime gameTime)
         {
             ProgramManager.Update(gameTime);
-            TestingManager.Update(gameTime);
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.SetRenderTarget(this._newRenderTarget);
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
             ProgramManager.Draw(_spriteBatch);
-            TestingManager.Draw(_spriteBatch);
-
             _spriteBatch.End();
 
             // Code for rescaling
