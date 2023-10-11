@@ -10,10 +10,5 @@ namespace SprintZero1.Colliders
         {
             this.Collider = Collider;
         }
-
-        public new void OnCollision(IEntity collision)
-        {
-            Debug.WriteLine("Link has Collided with an Entity!");
-        }
     }
 }
