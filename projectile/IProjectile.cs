@@ -5,8 +5,6 @@ namespace SprintZero1.projectile
     internal interface IProjectile
     {
 
-        public void Update(GameTime gameTime);
-
-        void MoveProjectile(float moveSpeed);
+        void Update(GameTime gameTime);
     }
 }

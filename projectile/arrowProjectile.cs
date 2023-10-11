@@ -2,10 +2,10 @@
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 
-namespace SprintZero1.weapon
+namespace SprintZero1.projectile
 {
 
-    internal class arrowWeapon
+    internal class arrowProjectile : IProjectile
     {
         private Vector2 location;
         private int direction;
@@ -15,7 +15,7 @@ namespace SprintZero1.weapon
         public bool IsActive { get; private set; } = true;
         ProjectileEntity _projectile;
 
-        public arrowWeapon(ProjectileEntity ProjectileEntity)
+        public arrowProjectile(ProjectileEntity ProjectileEntity)
         {
             _projectile = ProjectileEntity;
         }
@@ -23,8 +23,11 @@ namespace SprintZero1.weapon
         public void Update(GameTime gameTime)
         {
             if (!IsActive)
+            {
+                _projectile.projectileSprite = null;
+                _projectile.projectileUpdate = null;
                 return;
-
+            }
             if (returning)
             {
                 MoveProjectile(-speed);
@@ -53,23 +56,23 @@ namespace SprintZero1.weapon
             Vector2 location = _projectile.Position; 
             switch (direction)
             {
-                case 0: // Moving Upwards
+                case Direction.North: // Moving Upwards
                     location.Y -= moveSpeed;
                     break;
-                case 1: // Moving Downwards
+                case Direction.South: // Moving Downwards
                     location.Y += moveSpeed;
                     break;
-                case 2: // Moving Left
+                case Direction.West: // Moving Left
                     location.X -= moveSpeed;
                     break;
-                case 3: // Moving Right
+                case Direction.East: // Moving Right
                     location.X += moveSpeed;
                     break;
                 default:
                     // Handle other directions if necessary
                     break;
             }
-            _projectile._projectilePosition = location;
+            _projectile.Position = location;
         }
     }
 
