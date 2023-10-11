@@ -12,6 +12,7 @@ namespace SprintZero1.Managers
         private static Texture2D _tileSpriteSheet;
         private static Texture2D _enemySpriteSheet;
         private static Texture2D _bossSpriteSheet;
+        private static Texture2D _level1FloorSpriteSheet;
 
         /// <summary>
         /// Loads all the textures required to create sprites
@@ -23,6 +24,7 @@ namespace SprintZero1.Managers
             _tileSpriteSheet = contentManager.Load<Texture2D>("TileSheet");
             _enemySpriteSheet = contentManager.Load<Texture2D>("DungeonEnemySpritesheet");
             _bossSpriteSheet = contentManager.Load<Texture2D>("BossSpriteSheet");
+            _level1FloorSpriteSheet = contentManager.Load<Texture2D>("level1");
         }
 
         public static Texture2D GetLinkSpriteSheet()
@@ -47,5 +49,7 @@ namespace SprintZero1.Managers
         /// </summary>
         /// <returns></returns>
         public static Texture2D GetBossSpriteSheet() { return _bossSpriteSheet; }
+
+        public static Texture2D GetLevelOneSpriteSheet() { return _level1FloorSpriteSheet; }
     }
 }

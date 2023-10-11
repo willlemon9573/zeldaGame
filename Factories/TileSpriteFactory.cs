@@ -12,8 +12,10 @@ namespace SprintZero1.Factories
     public class TileSpriteFactory
     {
         private Texture2D tileSpriteSheet;
+        private Texture2D levelOneSpriteSheet;
         private readonly Dictionary<string, Rectangle> tileSourceRectangles;
         private readonly Dictionary<int, Rectangle> wallSourceRectangles;
+        private readonly Dictionary<String, Rectangle> levelOneSourceRectangles;
         private static readonly TileSpriteFactory instance = new TileSpriteFactory();
 
         /// <summary>
@@ -102,6 +104,12 @@ namespace SprintZero1.Factories
             }
         }
 
+        private void AddLevelOneSourceRectangles()
+        {
+            /*adding one simply for testing*/
+            levelOneSourceRectangles.Add("entrance", new Rectangle(535, 906, 216, 135));
+        }
+
         /// <summary>
         /// Private constructor to prevent instation of a new tile factory
         /// </summary>
@@ -109,9 +117,11 @@ namespace SprintZero1.Factories
         {
             tileSourceRectangles = new Dictionary<string, Rectangle>();
             wallSourceRectangles = new Dictionary<int, Rectangle>();
+            levelOneSourceRectangles = new Dictionary<string, Rectangle>();
             AddTileSourceRectangles();
             AddWallSourceRectangles();
             AddDoorSourceRectangles();
+            AddLevelOneSourceRectangles();
         }
         /// <summary>
         /// Load the textures required for the Tile Factory
@@ -119,6 +129,8 @@ namespace SprintZero1.Factories
         public void LoadTextures()
         {
             tileSpriteSheet = Texture2DManager.GetTileSheet();
+            levelOneSpriteSheet = Texture2DManager.GetLevelOneSpriteSheet();
+
         }
         /// <summary>
         /// Create and return a new tile sprite
@@ -150,6 +162,11 @@ namespace SprintZero1.Factories
             Debug.Assert(tileSourceRectangles.ContainsKey(door), "Source Rectangle does not contain the door: " + door);
             Debug.WriteLine(door + " values: " + tileSourceRectangles[door]);
             return new NonAnimatedSprite(tileSourceRectangles[door], tileSpriteSheet);
+        }
+
+        public ISprite CreateFloorSprite(string floor)
+        {
+            return new NonAnimatedSprite(levelOneSourceRectangles[floor], levelOneSpriteSheet);
         }
     }
 }

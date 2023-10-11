@@ -58,14 +58,18 @@ namespace SprintZero1.Managers
         {
             if (startTesting)
             {
+                int i = 0;
                 foreach (var spriteTuple in staticSpriteTestList)
                 {
                     spriteTuple.Item1.Draw(spriteBatch, spriteTuple.Item2);
+
+                    i++;
+                    if (i == 1)
+                    {
+                        EntityList[0].Draw(spriteBatch);
+                    }
                 }
-                foreach (IEntity entity in EntityList)
-                {
-                    entity.Draw(spriteBatch);
-                }
+
             }
         }
     }
