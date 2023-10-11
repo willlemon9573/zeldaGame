@@ -54,32 +54,10 @@ namespace SprintZero1.Sprites
             _spriteSheet = spriteSheet;
             _maxFrames = maxFrames;
             _currentFrame = 0;
-            FramesPerSecond = 5;
+            FramesPerSecond = 8;
             _paused = paused;
         }
-        /// <summary>
-        /// Start the animation
-        /// </summary>
-        public void Start()
-        {
-            _paused = true;
-        }
 
-        /// <summary>
-        /// Stop the animation
-        /// </summary>
-        public void Stop()
-        {
-            _paused = false;
-        }
-
-        /// <summary>
-        /// Resets animations
-        /// </summary>
-        public void Reset()
-        {
-            _currentFrame = 0;
-        }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f)
         {
             /* Build the source rectangle and destination rectangle to draw onto screen */
