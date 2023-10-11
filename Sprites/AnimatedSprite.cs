@@ -54,40 +54,18 @@ namespace SprintZero1.Sprites
             _spriteSheet = spriteSheet;
             _maxFrames = maxFrames;
             _currentFrame = 0;
-            FramesPerSecond = 5;
+            FramesPerSecond = 8;
             _paused = paused;
         }
-        /// <summary>
-        /// Start the animation
-        /// </summary>
-        public void Start()
-        {
-            _paused = true;
-        }
 
-        /// <summary>
-        /// Stop the animation
-        /// </summary>
-        public void Stop()
-        {
-            _paused = false;
-        }
-
-        /// <summary>
-        /// Resets animations
-        /// </summary>
-        public void Reset()
-        {
-            _currentFrame = 0;
-        }
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float scale = 1f, float rotation = 0f)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f)
         {
             /* Build the source rectangle and destination rectangle to draw onto screen */
             Rectangle sourceRectangle = _sourceRectangles[_currentFrame];
             int height = sourceRectangle.Height;
             int width = sourceRectangle.Width;
             Vector2 origin = new Vector2(width / 2, height / 2); /* origin of the drawing in the middle for rotation */
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, (int)(width * scale), (int)(height * scale));
+            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, (int)(width), (int)(height));
             spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White, rotation, origin, spriteEffects, 0f);
         }
 
