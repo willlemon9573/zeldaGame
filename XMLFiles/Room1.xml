@@ -1,44 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
-<Rooms>
-	
-		
-		
+<Rooms>	
 		<Blocks>
 			<Block>	
-				<Name>BLockName</Name>
-				<Position>100 100</Position>
-				<IsColideable>True</IsColideable>
+				<Name>BlockName</Name>
+				<X>100</X>
+				<Y>100</Y>
+				<IsCollideable>True</IsCollideable>
 			</Block>
-
 			<Wall>
-				<Quad>1</Quad>
-				<Position>100 100</Position>	
+				<Name>WallName</Name>
+				<X>100</X>
+				<Y>100</Y>
 			</Wall>
-
 			<Door>
-				<Direction>DoorName</Direction>
+				<Name>DoorName</Name>
+				<X>100</X>
+				<Y>100</Y>
 				<Type>Locked</Type>
-				<Location>100 100</Location>
 			</Door>
-			
-			
 		</Blocks>
-
 		<Enemies>
 			<Enemy>
 				<Name>EnemyName</Name>
-				<Position>100 100</Position>
+				<X>100</X>
+				<Y>100</Y>
 			</Enemy>
-			
-			
 		</Enemies>
-
 		<Items>
 			<Item>
 				<Name>ItemName</Name>
-				<Position>100 100</Position>
+				<X>100</X>
+				<Y>100</Y>
 			</Item>
 		</Items>
-		
-	
 </Rooms>
