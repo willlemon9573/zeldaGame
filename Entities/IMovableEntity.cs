@@ -14,10 +14,6 @@ namespace SprintZero1.Entities
         /// </summary>
         /// <param name="newDirection">The new direction the entity is facing</param>
         void ChangeDirection(Direction newDirection);
-        /// <summary>
-        /// Move The entity in its current direction
-        /// </summary>
-        /// <param name="distance">The distance the entity will go</param>
         void Move(Vector2 distance);
     }
 }

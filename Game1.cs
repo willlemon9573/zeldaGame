@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Enums;
+using SprintZero1.Controllers;
+using SprintZero1.Entities;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
@@ -11,12 +12,13 @@ namespace SprintZero1
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private IEntity playerEntity;
+        private IController controller;
 
         /* Variables for window rescaling */
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
-
 
         public Game1()
         {
@@ -24,7 +26,7 @@ namespace SprintZero1
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             // Code for Window rescaling
-            _graphics.PreferredBackBufferWidth = 255 * WINDOW_SCALE;
+            _graphics.PreferredBackBufferWidth = 256 * WINDOW_SCALE;
             _graphics.PreferredBackBufferHeight = 240 * WINDOW_SCALE;
             this.IsFixedTimeStep = true;//false;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
@@ -36,8 +38,9 @@ namespace SprintZero1
         protected override void Initialize()
         {
             // code for window rescaling
-            _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
-            _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
+            _newRenderTarget = new RenderTarget2D(GraphicsDevice, 256, 240);
+            _actualScreenRectangle = new Rectangle(0, 0, 256 * WINDOW_SCALE, 240 * WINDOW_SCALE);
+            controller = new KeyboardController();
             base.Initialize();
         }
 
@@ -47,38 +50,23 @@ namespace SprintZero1
             Texture2DManager.LoadAllTextures(this.Content);
             LinkSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();
-            /* FOR TESTING */
-            TestingManager.StartTest(this);
-            /* doors need to be drawn BEFORE walls because doors overlap them to make sure the "bricks" at the top match" */
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateFloorSprite("entrance"), new Vector2(127, 151));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_north"), new Vector2(127, 80));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_west"), new Vector2(15, 152));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_east"), new Vector2(239, 152));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_south"), new Vector2(127, 224));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(1), new Vector2(199, 100));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(2), new Vector2(55, 100));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(3), new Vector2(55, 204));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(4), new Vector2(199, 204));
-            TestingManager.TestPlayerEntityWithKeyboard(new Vector2(176, 170), 1, Direction.South);
+            ProgramManager.testPlayerEntity();
+            ProgramManager.Start(this);
         }
 
         protected override void Update(GameTime gameTime)
         {
             ProgramManager.Update(gameTime);
-            TestingManager.Update(gameTime);
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.SetRenderTarget(this._newRenderTarget);
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
             ProgramManager.Draw(_spriteBatch);
-            TestingManager.Draw(_spriteBatch);
-
             _spriteBatch.End();
 
             // Code for rescaling

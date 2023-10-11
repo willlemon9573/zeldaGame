@@ -12,6 +12,8 @@ namespace SprintZero1.Factories
         private readonly Dictionary<string, Rectangle> sourceRectangles;
         private static readonly ItemFactory instance = new ItemFactory();
         private readonly List<string> itemNamesList;
+
+
         public static ItemFactory Instance
         {
             get { return instance; }
@@ -21,6 +23,8 @@ namespace SprintZero1.Factories
         {
             get { return itemNamesList; }
         }
+
+
         private void CreateSourceRectanglesDictionary()
         {
             int x_pixels = 23, y_pixels = 704; // starting coordiantes of the tiles
@@ -68,11 +72,11 @@ namespace SprintZero1.Factories
 
             if (itemName.Contains("Animated"))
             {
-                /*return new AnimatedItemSprite(tileSourceRectangles[itemName], itemSpriteSheet);*/
+                /*return new AnimatedItemSprite(sourceRectangles[itemName], itemSpriteSheet);*/
             }
             else
             {
-                /*  return new NonAnimatedItemSprite(tileSourceRectangles[itemName], itemSpriteSheet);*/
+                /*  return new NonAnimatedItemSprite(sourceRectangles[itemName], itemSpriteSheet);*/
             }
             return null;
         }
