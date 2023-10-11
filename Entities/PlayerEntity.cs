@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
@@ -79,7 +80,15 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-            _playerSprite.Update(gameTime);
+            if (Keyboard.GetState().GetPressedKeyCount() == 0 && _playerStateMachine.CanTransition())
+            {
+                _playerStateMachine.ChangeState(State.Idle);
+            }
+            else if (_playerStateMachine.GetCurrentState() == State.Moving)
+            {
+                _playerSprite.Update(gameTime);
+            }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
