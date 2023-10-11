@@ -11,6 +11,7 @@ namespace SprintZero1.Sprites
         /// <param name="spriteBatch">Tool for handling drawing all sprites</param>
         /// <param name="position">the position for the _sprite to be draw</param>
         /// <param name="spriteEffects">Horizontal or vertical rotation(Optional)</param>
+        /// <param name="rotation">The angle in radians to rate the _sprite around the origin(Optional)</param>
         /// <param name="layerDepth">The layer depth the sprite should be drawn on</param>
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0f);
 

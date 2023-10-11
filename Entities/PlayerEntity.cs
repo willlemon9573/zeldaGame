@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
@@ -39,7 +38,6 @@ namespace SprintZero1.Entities
             _playerStateMachine = new PlayerStateMachine(State.Idle);
             // since we are currently only using link I'm setting this sprite here
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
-
         }
 
         public void Move(Vector2 distance)
@@ -53,7 +51,12 @@ namespace SprintZero1.Entities
 
         public void Attack()
         {
-            // not implemented
+            // check if link can transition
+            _playerStateMachine.BlockTransition();
+            // set state to attacking
+            // set time for link's attack animation
+            // change link to his attack animation
+            // checks
         }
 
         public void TakeDamage()

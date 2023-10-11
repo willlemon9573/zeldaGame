@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
-using SprintZero1.Controllers;
 using SprintZero1.Entities;
-using SprintZero1.Enums;
 using System.Collections.Generic;
 
 namespace SprintZero1.Managers
@@ -12,7 +10,6 @@ namespace SprintZero1.Managers
     {
         public static Game1 game;
         static List<IEntity> onScreenEntities = new List<IEntity>();
-        private static IController controller = new KeyboardController();
 
         // Runs on startup. Use it to add entity if you want to test things
         public static void Start(Game1 localGame)
