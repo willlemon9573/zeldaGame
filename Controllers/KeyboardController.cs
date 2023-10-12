@@ -8,7 +8,6 @@ namespace SprintZero1.Controllers
     internal class KeyboardController : IController
     {
         private readonly Dictionary<Keys, ICommand> keyboardMap;
-        private HashSet<Keys> previouslyPressedKeys;
         private Keys prevKey;
         /// <summary>
         /// Construct an object to control the keyboard
@@ -55,7 +54,7 @@ namespace SprintZero1.Controllers
                 }
             }
             /* Temporary fix to make sure player doesn't move at an angle */
-            if (pressedkeys.Length > 0)
+            if (pressedkeys.Length > 0 && prevKey != pressedkeys[0])
             {
                 prevKey = pressedkeys[0];
             }
