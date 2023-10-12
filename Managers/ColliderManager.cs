@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SprintZero1.Colliders
 {
@@ -26,7 +21,8 @@ namespace SprintZero1.Colliders
             dynamicColliders.Add(collider);
         }
 
-        public static void RemoveCollider(ICollider collider) { 
+        public static void RemoveCollider(ICollider collider)
+        {
             staticColliders.Remove(collider);
             dynamicColliders.Remove(collider);
         }
@@ -37,7 +33,7 @@ namespace SprintZero1.Colliders
             {
                 foreach (ICollider collider2 in dynamicColliders)
                 {
-                    if(collider1.Collider.Intersects(collider2.Collider))
+                    if (collider1.Collider.Intersects(collider2.Collider))
                     {
                         collider1.OnCollision(collider2.Parent, collider2);
                         collider2.OnCollision(collider1.Parent, collider1);

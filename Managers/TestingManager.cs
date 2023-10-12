@@ -62,9 +62,8 @@ namespace SprintZero1.Managers
                 foreach (var spriteTuple in staticSpriteTestList)
                 {
                     spriteTuple.Item1.Draw(spriteBatch, spriteTuple.Item2);
-
                     i++;
-                    if (i == 1)
+                    if (i == 5)
                     {
                         EntityList[0].Draw(spriteBatch);
                     }
