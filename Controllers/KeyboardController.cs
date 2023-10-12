@@ -9,6 +9,7 @@ namespace SprintZero1.Controllers
     {
         private readonly Dictionary<Keys, ICommand> keyboardMap;
         private HashSet<Keys> previouslyPressedKeys;
+        private Keys prevKey;
         /// <summary>
         /// Construct an object to control the keyboard
         /// </summary>
@@ -43,15 +44,21 @@ namespace SprintZero1.Controllers
 
         public void Update()
         {
+            // monogame updates too quickly for this
             Keys[] pressedkeys = Keyboard.GetState().GetPressedKeys();
+
             foreach (Keys key in pressedkeys)
             {
-                if (/*!previouslyPressedKeys.Contains(key) &&*/ keyboardMap.ContainsKey(key))
+                if (prevKey == key && keyboardMap.ContainsKey(key))
                 {
                     keyboardMap[key].Execute();
                 }
             }
-            previouslyPressedKeys = new HashSet<Keys>(pressedkeys);
+            /* Temporary fix to make sure player doesn't move at an angle */
+            if (pressedkeys.Length > 0)
+            {
+                prevKey = pressedkeys[0];
+            }
         }
     }
 }
