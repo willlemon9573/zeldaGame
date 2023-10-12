@@ -13,6 +13,7 @@ namespace SprintZero1.Managers
     internal static class TestingManager
     {
         private static List<IEntity> EntityList = new List<IEntity>();
+        private static IEntity _player;
         private static List<Tuple<ISprite, Vector2>> staticSpriteTestList = new List<Tuple<ISprite, Vector2>>();
         private static IController controller;
         private static Game1 myGame;
@@ -27,9 +28,9 @@ namespace SprintZero1.Managers
 
         public static void TestPlayerEntityWithKeyboard(Vector2 position, int health, Direction direction)
         {
-            IEntity player = new PlayerEntity(position, health, direction);
-            controller.LoadDefaultCommands(myGame, player);
-            EntityList.Add(player);
+            _player = new PlayerEntity(position, health, direction);
+            controller.LoadDefaultCommands(myGame, _player);
+
         }
 
         public static void AddEntity(IEntity entity)
@@ -46,10 +47,12 @@ namespace SprintZero1.Managers
         {
             if (startTesting)
             {
+
                 foreach (IEntity entity in EntityList)
                 {
                     entity.Update(gameTime);
                 }
+                _player.Update(gameTime);
                 controller.Update();
             }
         }
@@ -65,10 +68,13 @@ namespace SprintZero1.Managers
                     i++;
                     if (i == 5)
                     {
-                        EntityList[0].Draw(spriteBatch);
+                        _player.Draw(spriteBatch);
                     }
                 }
-
+                foreach (Entity entity in EntityList)
+                {
+                    entity.Draw(spriteBatch);
+                }
             }
         }
     }

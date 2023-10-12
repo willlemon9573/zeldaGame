@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
@@ -15,6 +16,7 @@ namespace SprintZero1.Entities
         private ISprite _playerSprite;
         private Direction _playerDirection;
         private Vector2 _playerPosition;
+        private PlayerCollider _playerCollider;
         private readonly PlayerStateMachine _playerStateMachine;
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
 
@@ -38,6 +40,7 @@ namespace SprintZero1.Entities
             _playerStateMachine = new PlayerStateMachine(State.Idle);
             // since we are currently only using link I'm setting this sprite here
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
+            _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16));
         }
 
         public void Move(Vector2 distance)
@@ -88,6 +91,7 @@ namespace SprintZero1.Entities
             {
                 _playerSprite.Update(gameTime);
             }
+            _playerCollider.Update(gameTime);
 
         }
 

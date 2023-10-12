@@ -15,7 +15,6 @@ namespace SprintZero1.Controllers
         public KeyboardController()
         {
             keyboardMap = new Dictionary<Keys, ICommand>();
-            previouslyPressedKeys = new HashSet<Keys>();
         }
 
         public void LoadDefaultCommands(Game1 game, IEntity playerEntity)
