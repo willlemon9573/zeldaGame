@@ -68,13 +68,12 @@ namespace SprintZero1.Managers
                     i++;
                     if (i == 5)
                     {
+                        /* testing block drawn before link, but after floor */
+                        EntityList[0].Draw(spriteBatch);
                         _player.Draw(spriteBatch);
                     }
                 }
-                foreach (Entity entity in EntityList)
-                {
-                    entity.Draw(spriteBatch);
-                }
+
             }
         }
     }
