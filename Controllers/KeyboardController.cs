@@ -22,12 +22,12 @@ namespace SprintZero1.Controllers
         /// <summary>
         /// Removes any key not being pressed from the priority key stack
         /// </summary>
-        private void flipAndClean(KeyboardState currentKeyboardState)
+        private void FlipAndClean(KeyboardState currentKeyboardState)
         {
             if (priorityKeyStack.Count > 0)
             {
                 Keys k = priorityKeyStack.Pop();
-                flipAndClean(currentKeyboardState);
+                FlipAndClean(currentKeyboardState);
                 if (Keyboard.GetState().IsKeyDown(k))
                 {
                     priorityKeyStack.Push(k);
@@ -40,7 +40,7 @@ namespace SprintZero1.Controllers
         /// </summary>
         /// <param name="movementKey">the current movement key that needs to be checked</param>
         /// <param name="currentKeyboardState">the current stay of the keyboard</param>
-        void handleMovementInput(Keys movementKey, KeyboardState currentKeyboardState)
+        void HandleMovementKey(Keys movementKey, KeyboardState currentKeyboardState)
         {
             /* Add key to stack if it's not in the stack already */
             if (!priorityKeyStack.Contains(movementKey))
@@ -66,9 +66,8 @@ namespace SprintZero1.Controllers
                 {
                     /* clean up priorty key stack as the current priority key was let go
                      * then push the priority key back onto the stack */
-                    flipAndClean(currentKeyboardState);
+                    FlipAndClean(currentKeyboardState);
                     priorityKeyStack.Push(priorityKey);
-
                     break;
                 }
             }
@@ -111,7 +110,7 @@ namespace SprintZero1.Controllers
                 bool hasBeenPressed = previouslyPressedKeys.Contains(key);
                 if (isMoveKey)
                 {
-                    handleMovementInput(key, currentKeyboardState);
+                    HandleMovementKey(key, currentKeyboardState);
                 }
                 else if (isCommandKey && !hasBeenPressed)
                 {
