@@ -40,7 +40,7 @@ namespace SprintZero1.Entities
             _playerStateMachine = new PlayerStateMachine(State.Idle);
             // since we are currently only using link I'm setting this sprite here
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
-            _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16));
+            _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -2);
         }
 
         public void Move(Vector2 distance)

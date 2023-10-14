@@ -67,8 +67,9 @@ namespace SprintZero1
 
         protected override void Update(GameTime gameTime)
         {
-            ProgramManager.Update(gameTime);
             TestingManager.Update(gameTime);
+            ProgramManager.Update(gameTime);
+            
 
             base.Update(gameTime);
         }
@@ -79,8 +80,9 @@ namespace SprintZero1
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-            ProgramManager.Draw(_spriteBatch);
             TestingManager.Draw(_spriteBatch);
+            ProgramManager.Draw(_spriteBatch);
+            
 
             _spriteBatch.End();
 
