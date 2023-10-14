@@ -52,25 +52,25 @@ namespace SprintZero1.Controllers
             }
             /* Key is in stack already, check if this key is the movement command that the
              * player wants to execute */
-            while (priorityKeyStack.Count > 0)
+
+
+            Keys priorityKey = priorityKeyStack.Pop();
+            /* execute priority key only when the key being checked matches. */
+            if (priorityKey == movementKey)
             {
-                Keys priorityKey = priorityKeyStack.Pop();
-                /* execute priority key only when the key being checked matches. */
-                if (priorityKey == movementKey)
-                {
-                    priorityKeyStack.Push(priorityKey);
-                    keyboardMap[priorityKey].Execute();
-                    break;
-                }
-                else if (currentKeyboardState.IsKeyDown(priorityKey))
-                {
-                    /* clean up priorty key stack as the current priority key was let go
-                     * then push the priority key back onto the stack */
-                    FlipAndClean(currentKeyboardState);
-                    priorityKeyStack.Push(priorityKey);
-                    break;
-                }
+                priorityKeyStack.Push(priorityKey);
+                keyboardMap[priorityKey].Execute();
+
             }
+            else if (currentKeyboardState.IsKeyDown(priorityKey))
+            {
+                /* clean up priorty key stack as the current priority key was let go
+                 * then push the priority key back onto the stack */
+                FlipAndClean(currentKeyboardState);
+                priorityKeyStack.Push(priorityKey);
+
+            }
+
 
         }
 
