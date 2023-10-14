@@ -104,20 +104,27 @@ namespace SprintZero1.Controllers
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
 
-
             foreach (Keys key in pressedKeys)
             {
-                Keys nextKey = key;
-                if (movementKeys.Contains(nextKey))
+                bool isMoveKey = movementKeys.Contains(key);
+                bool isCommandKey = keyboardMap.ContainsKey(key);
+                bool hasBeenPressed = previouslyPressedKeys.Contains(key);
+                if (isMoveKey)
                 {
-                    handleMovementInput(nextKey, currentKeyboardState);
+                    handleMovementInput(key, currentKeyboardState);
                 }
+                else if (isCommandKey && !hasBeenPressed)
+                {
+                    keyboardMap[key].Execute();
+                }
+
             }
             /* clean up priority key stack if no buttons are pressed */
             if (pressedKeys.Length == 0 && priorityKeyStack.Count > 0)
             {
                 priorityKeyStack.Clear();
             }
+
             previouslyPressedKeys = pressedKeys.ToList<Keys>();
         }
     }
