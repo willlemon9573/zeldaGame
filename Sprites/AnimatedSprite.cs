@@ -62,7 +62,7 @@ namespace SprintZero1.Sprites
             Rectangle sourceRectangle = _sourceRectangles[_currentFrame];
             int height = sourceRectangle.Height;
             int width = sourceRectangle.Width;
-            Vector2 origin = new Vector2(width, height); /* origin of the drawing in the middle for rotation */
+            Vector2 origin = new Vector2(width / 2, height / 2); /* origin of the drawing in the middle for rotation */
             Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, (int)(width), (int)(height));
             spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, Color.White, rotation, origin, spriteEffects, layerDepth);
         }

@@ -39,7 +39,7 @@ namespace SprintZero1.Factories
             movementSpriteDictionary.Add(Direction.North, new AnimatedSprite(spriteRectangle, LinkSpriteSheet, MAX_FRAMES));
         }
 
-        private void CreateAttackingFrameDictionary()
+        private void CreateUseItemWeaponSprite()
         {
             const int X_OFFSET = 17, Y_ORIGIN = 11, HEIGHT = 16, WIDTH = 16; /* 16 + 1*/
             int x_origin = 107;
@@ -72,7 +72,7 @@ namespace SprintZero1.Factories
         {
             LinkSpriteSheet = Texture2DManager.GetLinkSpriteSheet();
             CreateMovementSpriteDictionary();
-            CreateAttackingFrameDictionary();
+            CreateUseItemWeaponSprite();
         }
 
         public ISprite GetLinkSprite(Direction direction)
