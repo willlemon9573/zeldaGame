@@ -1,5 +1,4 @@
 ﻿using SprintZero1.Entities;
-using System.Diagnostics;
 
 namespace SprintZero1.Commands
 {
@@ -14,7 +13,6 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            Debug.WriteLine("Hello?");
             combatEntity.Attack();
         }
 

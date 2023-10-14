@@ -6,7 +6,6 @@ using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.StateMachines;
-using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {
@@ -70,7 +69,6 @@ namespace SprintZero1.Entities
             bool canTransition = _playerStateMachine.CanTransition();
             State state = _playerStateMachine.GetCurrentState();
             if (state == State.Attacking || !canTransition) { return; }
-            Debug.WriteLine("Player position: " + _playerPosition);
             // check if link can transition
             _playerStateMachine.BlockTransition();
             _playerStateMachine.ChangeState(State.Attacking);
