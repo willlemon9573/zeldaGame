@@ -9,9 +9,9 @@ namespace SprintZero1.Controllers
     internal class KeyboardController : IController
     {
         private readonly Dictionary<Keys, ICommand> keyboardMap;
-        readonly List<Keys> _movementKeyList;
-        List<Keys> _previouslyPressedKeys;
-        readonly Stack<Keys> movementKeyStack;
+        private List<Keys> _movementKeyList;
+        private List<Keys> _previouslyPressedKeys;
+        private Stack<Keys> movementKeyStack;
         /// <summary>
         /// Construct an object to control the keyboard
         /// </summary>
@@ -20,7 +20,7 @@ namespace SprintZero1.Controllers
             keyboardMap = new Dictionary<Keys, ICommand>();
             _previouslyPressedKeys = new List<Keys>();
             movementKeyStack = new Stack<Keys>();
-            new List<Keys>() { Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.W, Keys.S, Keys.A, Keys.D };
+            _movementKeyList = new List<Keys>() { Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.W, Keys.S, Keys.A, Keys.D };
         }
 
         /// <summary>
