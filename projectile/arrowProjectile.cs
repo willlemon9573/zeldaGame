@@ -9,7 +9,7 @@ namespace SprintZero1.projectile
     {
         private Vector2 location;
         private int direction;
-        private float speed;
+        private float speed = 3;
         private float distanceMoved = 0;
         private bool returning = false;
         public bool IsActive { get; private set; } = true;
@@ -39,12 +39,12 @@ namespace SprintZero1.projectile
 
             distanceMoved += speed;
 
-            if (distanceMoved >= 20 && !returning)
+            if (distanceMoved >= 50 && !returning)
             {
                 returning = true;
                 distanceMoved = 0;
             }
-            else if (distanceMoved >= 20 && returning)
+            else if (distanceMoved >= 50 && returning)
             {
                 IsActive = false;
             }

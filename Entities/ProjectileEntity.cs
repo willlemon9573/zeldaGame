@@ -29,7 +29,7 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-            if (projectileSprite != null && projectileUpdate != null)
+            if (projectileSprite != null )
             {
                 projectileSprite.Update(gameTime);
                 projectileUpdate.Update(gameTime);

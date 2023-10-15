@@ -89,15 +89,18 @@ namespace SprintZero1.Factories
             weaponSourceRectangles.Add("magicfire", fireFrames);
         }
 
+        
+
+        public void LoadTextures()
+        {
+            spriteSheet = Texture2DManager.GetLinkSpriteSheet();
+        }
+
         private WeaponSpriteFactory()
         {
             weaponSourceRectangles = new Dictionary<string, List<Rectangle>>();
             CreateDictionary();
-        }
-
-        public void LoadTextures(ContentManager manager)
-        {
-            spriteSheet = Texture2DManager.GetLinkSpriteSheet();
+            LoadTextures();
         }
 
         public ISprite CreateBoomerangSprite(String weaponType, Vector2 location, int maxFrames, int direction)
