@@ -9,71 +9,55 @@ namespace SprintZero1.Controllers
     internal class KeyboardController : IController
     {
         private readonly Dictionary<Keys, ICommand> keyboardMap;
-        List<Keys> movementKeys = new List<Keys>() { Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.W, Keys.S, Keys.A, Keys.D };
-        List<Keys> previouslyPressedKeys = new List<Keys>();
-        Stack<Keys> priorityKeyStack = new Stack<Keys>();
+        readonly List<Keys> _movementKeyList;
+        List<Keys> _previouslyPressedKeys;
+        readonly Stack<Keys> movementKeyStack;
         /// <summary>
         /// Construct an object to control the keyboard
         /// </summary>
         public KeyboardController()
         {
             keyboardMap = new Dictionary<Keys, ICommand>();
+            _previouslyPressedKeys = new List<Keys>();
+            movementKeyStack = new Stack<Keys>();
+            new List<Keys>() { Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.W, Keys.S, Keys.A, Keys.D };
         }
+
         /// <summary>
-        /// Removes any key not being pressed from the priority key stack
+        /// Recursively removes keys from stack that are not in the list of pressed keys
         /// </summary>
-        private void FlipAndClean(KeyboardState currentKeyboardState)
+        /// <param name="pressedKeys">collection of currently pressed keys</param>
+        private void FlipAndClean(Keys[] pressedKeys)
         {
-            if (priorityKeyStack.Count > 0)
+            if (movementKeyStack.Count > 0)
             {
-                Keys k = priorityKeyStack.Pop();
-                FlipAndClean(currentKeyboardState);
-                if (Keyboard.GetState().IsKeyDown(k))
+                Keys k = movementKeyStack.Pop();
+                FlipAndClean(pressedKeys);
+                if (pressedKeys.Contains(k))
                 {
-                    priorityKeyStack.Push(k);
+                    movementKeyStack.Push(k);
                 }
             }
         }
 
         /// <summary>
-        /// A function to allow multiple movement keys to be pressed at once
+        /// A function to allow multiple movement keys to be pressed at once while maintaining the most recent key command is executed
         /// </summary>
         /// <param name="movementKey">the current movement key that needs to be checked</param>
-        /// <param name="currentKeyboardState">the current stay of the keyboard</param>
-        void HandleMovementKey(Keys movementKey, KeyboardState currentKeyboardState)
+        void HandleMovementKey(Keys movementKey)
         {
             /* Add key to stack if it's not in the stack already */
-            if (!priorityKeyStack.Contains(movementKey))
+            if (!movementKeyStack.Contains(movementKey))
             {
-                priorityKeyStack.Push(movementKey);
-                /* don't execute key because it will push through colliders 
-                 * if the key is pressed more than once */
-                return;
+                movementKeyStack.Push(movementKey);
             }
-            /* Key is in stack already, check if this key is the movement command that the
-             * player wants to execute */
-
-
-            Keys priorityKey = priorityKeyStack.Pop();
-            /* execute priority key only when the key being checked matches. */
-            if (priorityKey == movementKey)
+            else if (movementKey == movementKeyStack.Peek())
             {
-                priorityKeyStack.Push(priorityKey);
-                keyboardMap[priorityKey].Execute();
-
+                Keys keyRef = movementKeyStack.Peek();
+                keyboardMap[keyRef].Execute();
             }
-            else if (currentKeyboardState.IsKeyDown(priorityKey))
-            {
-                /* clean up priorty key stack as the current priority key was let go
-                 * then push the priority key back onto the stack */
-                FlipAndClean(currentKeyboardState);
-                priorityKeyStack.Push(priorityKey);
-
-            }
-
 
         }
-
         public void LoadDefaultCommands(Game1 game, IEntity playerEntity)
         {
             /* directional commands */
@@ -86,7 +70,7 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.A, new MoveLeftCommand(playerEntity));
             keyboardMap.Add(Keys.D, new MoveRightCommand(playerEntity));
             /* Attack Commands */
-            keyboardMap.Add(Keys.Z, new LinkAttackCommand(playerEntity));
+            keyboardMap.Add(Keys.Z, new SwordAttackCommand(playerEntity));
             /* Other commands */
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
             keyboardMap.Add(Keys.U, new PreviousItemCommand(game));
@@ -102,29 +86,30 @@ namespace SprintZero1.Controllers
             /* handling movement? */
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
-
+            int movementKeyCount = 0;
+            /* iterate over pressed key collection executing only valid keys in the keyboard map 
+               keeping track of the amount of movement keys that are also currently being pressed
+            */
             foreach (Keys key in pressedKeys)
             {
-                bool isMoveKey = movementKeys.Contains(key);
-                bool isCommandKey = keyboardMap.ContainsKey(key);
-                bool hasBeenPressed = previouslyPressedKeys.Contains(key);
-                if (isMoveKey)
+                if (_movementKeyList.Contains(key))
                 {
-                    HandleMovementKey(key, currentKeyboardState);
+                    HandleMovementKey(key);
+                    movementKeyCount++;
                 }
-                else if (isCommandKey && !hasBeenPressed)
+                else if (keyboardMap.ContainsKey(key) && !_previouslyPressedKeys.Contains(key))
                 {
                     keyboardMap[key].Execute();
                 }
-
             }
-            /* clean up priority key stack if no buttons are pressed */
-            if (pressedKeys.Length == 0 && priorityKeyStack.Count > 0)
+            /* Check if movement key stack needs to be cleaned */
+            if (movementKeyCount < movementKeyStack.Count)
             {
-                priorityKeyStack.Clear();
+                FlipAndClean(pressedKeys);
             }
 
-            previouslyPressedKeys = pressedKeys.ToList<Keys>();
+            /* store pressed keys as previously pressed keys */
+            _previouslyPressedKeys = pressedKeys.ToList<Keys>();
         }
     }
 }
