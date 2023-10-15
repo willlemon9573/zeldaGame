@@ -14,6 +14,7 @@ namespace SprintZero1.Managers
     {
         private static List<IEntity> EntityList = new List<IEntity>();
         private static IEntity _player;
+        private static ProjectileEntity _Weapon;
         private static List<Tuple<ISprite, Vector2>> staticSpriteTestList = new List<Tuple<ISprite, Vector2>>();
         private static IController controller;
         private static Game1 myGame;
@@ -25,21 +26,23 @@ namespace SprintZero1.Managers
             controller = new KeyboardController();
             startTesting = true;
         }
-
+      
         public static void TestPlayerEntityWithKeyboard(Vector2 position, int health, Direction direction)
-<<<<<<< HEAD
-        { 
-            IEntity player = new PlayerEntity(position, health, direction);
-            ProjectileEntity _ProjectileEntity = new ProjectileEntity(position, direction);
-            controller.LoadDefaultCommands(myGame, player, _ProjectileEntity);
-            EntityList.Add(player);
-            EntityList.Add(_ProjectileEntity);
-=======
+        {
+            _player = new PlayerEntity(position, health, direction);//Game1 game, IEntity playerEntity, ProjectileEntity ProjectileEntity
+            _Weapon = new ProjectileEntity(position, direction);
+            controller.LoadDefaultCommands(myGame, _player, _Weapon);
+
+
+        }
+
+        public static void TestWeaponEntityWithKeyboard(Vector2 position, int health, Direction direction)
         {
             _player = new PlayerEntity(position, health, direction);
-            controller.LoadDefaultCommands(myGame, _player);
+            _Weapon = new ProjectileEntity(position, direction);
+            controller.LoadDefaultCommands(myGame, _player, _Weapon);
 
->>>>>>> 314e27a9c4774b14282bb3128bc59e4733a103f7
+
         }
 
         public static void AddEntity(IEntity entity, ProjectileEntity ProjectileEntity)

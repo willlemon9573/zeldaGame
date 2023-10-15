@@ -29,7 +29,7 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-            if (projectileSprite != null)
+            if (projectileSprite != null && projectileUpdate != null)
             {
                 projectileSprite.Update(gameTime);
                 projectileUpdate.Update(gameTime);
@@ -41,7 +41,7 @@ namespace SprintZero1.Entities
             SpriteEffects spriteEffects = SpriteEffects.None;
             if (projectileSprite != null)
             {
-                SpriteEffects spriteEffects = SpriteEffects.None;
+                
                 projectileSprite.Draw(spriteBatch, _projectilePosition, spriteEffects);
             }
         }

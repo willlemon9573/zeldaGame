@@ -27,11 +27,11 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            
+            location
             newSprite = WeaponFactory.CreateArrowSprite("", location, Direction);
             _Entity.Position = location;
             _Entity.Direction = Direction;
-            _Entity.projectileSprite = newSprite;git 
+            _Entity.projectileSprite = newSprite;
             _projectileType = new arrowProjectile(_Entity);
             _Entity.projectileUpdate = _projectileType;
             // location = game.position;

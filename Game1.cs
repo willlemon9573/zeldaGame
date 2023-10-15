@@ -61,8 +61,8 @@ namespace SprintZero1
             TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_east"), new Vector2(239, 152));
             TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_south"), new Vector2(127, 224));
             // collidable block
-            TestingManager.AddEntity(new LevelBLockEntity(TileSpriteFactory.Instance.CreateNewTileSprite("pyramid"), new Vector2(39, 104), true));
-            TestingManager.TestPlayerEntityWithKeyboard(new Vector2(176, 170), 1, Direction.South);
+            //TestingManager.AddEntity(new LevelBLockEntity(TileSpriteFactory.Instance.CreateNewTileSprite("pyramid"), new Vector2(39, 104), true));
+            //TestingManager.TestPlayerEntityWithKeyboard(new Vector2(176, 170), 1, Direction.South);
         }
 
         protected override void Update(GameTime gameTime)
