@@ -43,9 +43,9 @@ namespace SprintZero1.Entities
         public void UseWeapon(Direction direction, Vector2 position)
         {
             _weaponSprite = WeaponSpriteFactory.Instance.GetMeleeWeaponSprite(_weaponName, direction);
-            Tuple<SpriteEffects, Vector2> dos = _spriteEffectsDictionary[direction];
-            _currentSpriteEffect = dos.Item1;
-            _weaponPosition = position + dos.Item2;
+            Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];
+            _currentSpriteEffect = SpriteAdditions.Item1;
+            _weaponPosition = position + SpriteAdditions.Item2;
             _weaponUsed = true;
         }
 
