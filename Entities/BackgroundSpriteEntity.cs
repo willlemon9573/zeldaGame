@@ -4,7 +4,7 @@ using SprintZero1.Sprites;
 
 namespace SprintZero1.Entities
 {
-    internal abstract class BackgroundSpriteEntity : IEntity
+    internal class BackgroundSpriteEntity : IEntity
     {
         public ISprite _sprite;
         public Vector2 _position;

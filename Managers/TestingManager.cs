@@ -28,8 +28,7 @@ namespace SprintZero1.Managers
 
         public static void TestPlayerEntityWithKeyboard(Vector2 position, int health, Direction direction)
         {
-            _player = new PlayerEntity(position, health, direction);
-            controller.LoadDefaultCommands(myGame, _player);
+            
 
         }
 

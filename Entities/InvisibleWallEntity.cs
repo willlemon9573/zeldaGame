@@ -20,6 +20,7 @@ namespace SprintZero1.Entities
         {
             _position = position;
             _collider = new LevelBlockCollider(this, new Rectangle((int)position.X, (int)position.Y, (int)dimensions.X, (int)dimensions.Y));
+            ColliderManager.AddStaticCollider(_collider);
         }
 
         public void Draw(SpriteBatch spriteBatch)
