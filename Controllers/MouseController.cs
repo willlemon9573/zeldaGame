@@ -66,7 +66,7 @@ namespace SprintZero1.Controllers
             CreateQuadrantArray();
         }
 
-        public void LoadDefaultCommands(Game1 game, IEntity playerEntity)
+        public void LoadDefaultCommands(Game1 game, IEntity playerEntity , ProjectileEntity ProjectileEntity)
         {
             // unused - but not deleted in case we want to use this again
         }

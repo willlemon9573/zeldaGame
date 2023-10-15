@@ -15,6 +15,7 @@ namespace SprintZero1.Factories
         private Texture2D spriteSheet;
         private readonly Dictionary<string, List<Rectangle>> weaponSourceRectangles;
         private static readonly WeaponSpriteFactory instance = new WeaponSpriteFactory();
+        private readonly Dictionary<Direction, ISprite> movementDictionary;
 
         public static WeaponSpriteFactory Instance
         {

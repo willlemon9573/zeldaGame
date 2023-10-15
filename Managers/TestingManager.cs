@@ -26,15 +26,18 @@ namespace SprintZero1.Managers
         }
 
         public static void TestPlayerEntityWithKeyboard(Vector2 position, int health, Direction direction)
-        {
+        { 
             IEntity player = new PlayerEntity(position, health, direction);
-            controller.LoadDefaultCommands(myGame, player);
+            ProjectileEntity _ProjectileEntity = new ProjectileEntity(position, direction);
+            controller.LoadDefaultCommands(myGame, player, _ProjectileEntity);
             EntityList.Add(player);
+            EntityList.Add(_ProjectileEntity);
         }
 
-        public static void AddEntity(IEntity entity)
+        public static void AddEntity(IEntity entity, ProjectileEntity ProjectileEntity)
         {
             EntityList.Add(entity);
+            EntityList.Add(ProjectileEntity);
         }
 
         public static void AddStaticSprite(ISprite sprite, Vector2 Position)
