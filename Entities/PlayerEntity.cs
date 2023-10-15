@@ -19,12 +19,23 @@ namespace SprintZero1.Entities
         private PlayerCollider _playerCollider;
         private readonly PlayerStateMachine _playerStateMachine;
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
+        private float _timeElapsed;
+        private float _timeToReset = 1f / 8;
+        private State _oldState;
 
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
 
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
 
         public Direction Direction { get { return _playerDirection; } }
+
+        private void Reset()
+        {
+            _timeElapsed = 0f;
+            _playerSprite = _linkSpriteFactory.GetLinkSprite(_playerDirection);
+            _playerStateMachine.ChangeState(State.Idle);
+            _playerStateMachine.UnblockTransition();
+        }
 
         /// <summary>
         /// Construct a new player entity
@@ -40,7 +51,8 @@ namespace SprintZero1.Entities
             _playerStateMachine = new PlayerStateMachine(State.Idle);
             // since we are currently only using link I'm setting this sprite here
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
-            _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -2);
+            _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
+            _oldState = State.Idle;
         }
 
         public void Move(Vector2 distance)
@@ -54,12 +66,14 @@ namespace SprintZero1.Entities
 
         public void Attack()
         {
+            bool canTransition = _playerStateMachine.CanTransition();
+            State state = _playerStateMachine.GetCurrentState();
+            if (state == State.Attacking || !canTransition) { return; }
             // check if link can transition
             _playerStateMachine.BlockTransition();
-            // set state to attacking
-            // set time for link's attack animation
-            // change link to his attack animation
-            // checks
+            _playerStateMachine.ChangeState(State.Attacking);
+            _playerSprite = _linkSpriteFactory.GetAttackingSprite(_playerDirection);
+            _timeElapsed = 0f;
         }
 
         public void TakeDamage()
@@ -83,13 +97,22 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().GetPressedKeyCount() == 0 && _playerStateMachine.CanTransition())
+            int keyCount = Keyboard.GetState().GetPressedKeyCount();
+            bool canTransition = _playerStateMachine.CanTransition();
+            State currentState = _playerStateMachine.GetCurrentState();
+            _timeElapsed += (float)gameTime.TotalGameTime.TotalSeconds;
+            if (keyCount == 0 && currentState != State.Idle && canTransition)
             {
                 _playerStateMachine.ChangeState(State.Idle);
             }
-            else if (_playerStateMachine.GetCurrentState() == State.Moving)
+            else if ((currentState == State.Moving || currentState == State.Attacking) && canTransition)
             {
                 _playerSprite.Update(gameTime);
+            }
+
+            if (currentState == State.Attacking && _timeElapsed > (_timeToReset * 10))
+            {
+                Reset();
             }
             _playerCollider.Update(gameTime);
 
