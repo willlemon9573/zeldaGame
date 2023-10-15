@@ -12,8 +12,10 @@ namespace SprintZero1.Factories
     public class TileSpriteFactory
     {
         private Texture2D tileSpriteSheet;
+        private Texture2D levelOneSpriteSheet;
         private readonly Dictionary<string, Rectangle> tileSourceRectangles;
         private readonly Dictionary<int, Rectangle> wallSourceRectangles;
+        private readonly Dictionary<String, Rectangle> levelOneSourceRectangles;
         private static readonly TileSpriteFactory instance = new TileSpriteFactory();
 
         /// <summary>
@@ -60,7 +62,9 @@ namespace SprintZero1.Factories
                 }
             }
         }
-
+        /// <summary>
+        /// Adds the coordinates of the walls from the sprite sheet into the dictionary
+        /// </summary>
         private void AddWallSourceRectangles()
         {
             const int WIDTH = 112, LENGTH = 72;
@@ -77,7 +81,9 @@ namespace SprintZero1.Factories
             // Bottom Right Wall (Quadrant 4)
             wallSourceRectangles.Add(QUAD_FOUR, new Rectangle((int)spriteOrigin.X, (int)spriteOrigin.Y + Y_OFFSET, WIDTH, LENGTH));
         }
-
+        /// <summary>
+        /// Add the coordinates for each door into the dictionary
+        /// </summary>
         private void AddDoorSourceRectangles()
         {
             String[] direction = { "north", "west", "east", "south" };
@@ -98,6 +104,12 @@ namespace SprintZero1.Factories
             }
         }
 
+        private void AddLevelOneSourceRectangles()
+        {
+            /*adding one simply for testing*/
+            levelOneSourceRectangles.Add("entrance", new Rectangle(535, 906, 216, 135));
+        }
+
         /// <summary>
         /// Private constructor to prevent instation of a new tile factory
         /// </summary>
@@ -105,16 +117,26 @@ namespace SprintZero1.Factories
         {
             tileSourceRectangles = new Dictionary<string, Rectangle>();
             wallSourceRectangles = new Dictionary<int, Rectangle>();
+            levelOneSourceRectangles = new Dictionary<string, Rectangle>();
             AddTileSourceRectangles();
             AddWallSourceRectangles();
             AddDoorSourceRectangles();
+            AddLevelOneSourceRectangles();
         }
-
+        /// <summary>
+        /// Load the textures required for the Tile Factory
+        /// </summary>
         public void LoadTextures()
         {
             tileSpriteSheet = Texture2DManager.GetTileSheet();
-        }
+            levelOneSpriteSheet = Texture2DManager.GetLevelOneSpriteSheet();
 
+        }
+        /// <summary>
+        /// Create and return a new tile sprite
+        /// </summary>
+        /// <param name="tileName">The specific name of the tile to be created</param>
+        /// <returns></returns>
         public ISprite CreateNewTileSprite(string tileName)
         {
             Debug.Assert(tileName != null, "tile is null");
@@ -122,6 +144,11 @@ namespace SprintZero1.Factories
             return new NonAnimatedSprite(tileSourceRectangles[tileName], tileSpriteSheet);
         }
 
+        /// <summary>
+        /// Create and return a new wall sprite based on the desired qudrant [1, 2, 3, 4]
+        /// </summary>
+        /// <param name="quadrant">The quadrant related to where the wall will be placed</param>
+        /// <returns></returns>
         public ISprite CreateNewWallSprite(int quadrant)
         {
             Debug.Assert(wallSourceRectangles.ContainsKey(quadrant), "Incorrect Quadrant: " + quadrant);
@@ -135,6 +162,11 @@ namespace SprintZero1.Factories
             Debug.Assert(tileSourceRectangles.ContainsKey(door), "Source Rectangle does not contain the door: " + door);
             Debug.WriteLine(door + " values: " + tileSourceRectangles[door]);
             return new NonAnimatedSprite(tileSourceRectangles[door], tileSpriteSheet);
+        }
+
+        public ISprite CreateFloorSprite(string floor)
+        {
+            return new NonAnimatedSprite(levelOneSourceRectangles[floor], levelOneSpriteSheet);
         }
     }
 }

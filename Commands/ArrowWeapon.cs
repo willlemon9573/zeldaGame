@@ -3,11 +3,7 @@ using SprintZero1.Sprites;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
-<<<<<<< HEAD
 using SprintZero1.projectile;
-=======
-using System;
->>>>>>> 8681126206c6d2bb925a1e47157ad1834ba4b20a
 
 namespace SprintZero1.Commands 
 {
@@ -33,13 +29,8 @@ namespace SprintZero1.Commands
         {
             
             newSprite = WeaponFactory.CreateArrowSprite("", location, Direction);
-<<<<<<< HEAD
             _Entity.Position = location;
             _Entity.Direction = Direction;
-=======
-            Console.WriteLine("projectileSprite changed");
-
->>>>>>> 8681126206c6d2bb925a1e47157ad1834ba4b20a
             _Entity.projectileSprite = newSprite;
             _projectileType = new arrowProjectile(_Entity);
             _Entity.projectileUpdate = _projectileType;

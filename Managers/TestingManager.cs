@@ -13,6 +13,7 @@ namespace SprintZero1.Managers
     internal static class TestingManager
     {
         private static List<IEntity> EntityList = new List<IEntity>();
+        private static IEntity _player;
         private static List<Tuple<ISprite, Vector2>> staticSpriteTestList = new List<Tuple<ISprite, Vector2>>();
         private static IController controller;
         private static Game1 myGame;
@@ -26,12 +27,19 @@ namespace SprintZero1.Managers
         }
 
         public static void TestPlayerEntityWithKeyboard(Vector2 position, int health, Direction direction)
+<<<<<<< HEAD
         { 
             IEntity player = new PlayerEntity(position, health, direction);
             ProjectileEntity _ProjectileEntity = new ProjectileEntity(position, direction);
             controller.LoadDefaultCommands(myGame, player, _ProjectileEntity);
             EntityList.Add(player);
             EntityList.Add(_ProjectileEntity);
+=======
+        {
+            _player = new PlayerEntity(position, health, direction);
+            controller.LoadDefaultCommands(myGame, _player);
+
+>>>>>>> 314e27a9c4774b14282bb3128bc59e4733a103f7
         }
 
         public static void AddEntity(IEntity entity, ProjectileEntity ProjectileEntity)
@@ -49,10 +57,12 @@ namespace SprintZero1.Managers
         {
             if (startTesting)
             {
+
                 foreach (IEntity entity in EntityList)
                 {
                     entity.Update(gameTime);
                 }
+                _player.Update(gameTime);
                 controller.Update();
             }
         }
@@ -61,14 +71,19 @@ namespace SprintZero1.Managers
         {
             if (startTesting)
             {
+                int i = 0;
                 foreach (var spriteTuple in staticSpriteTestList)
                 {
                     spriteTuple.Item1.Draw(spriteBatch, spriteTuple.Item2);
+                    i++;
+                    if (i == 5)
+                    {
+                        /* testing block drawn before link, but after floor */
+                        EntityList[0].Draw(spriteBatch);
+                        _player.Draw(spriteBatch);
+                    }
                 }
-                foreach (IEntity entity in EntityList)
-                {
-                    entity.Draw(spriteBatch);
-                }
+
             }
         }
     }

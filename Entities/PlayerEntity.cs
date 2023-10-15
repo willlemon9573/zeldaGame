@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.StateMachines;
+using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {
@@ -14,8 +17,11 @@ namespace SprintZero1.Entities
         private ISprite _playerSprite;
         private Direction _playerDirection;
         private Vector2 _playerPosition;
+        private PlayerCollider _playerCollider;
         private readonly PlayerStateMachine _playerStateMachine;
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
+        private float _timeElapsed;
+        private readonly float _timeToReset = 1f / 7;
 
 
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
@@ -23,6 +29,18 @@ namespace SprintZero1.Entities
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
 
         public Direction Direction { get { return _playerDirection; } }
+
+        private void Reset(float deltaTime)
+        {
+            _timeElapsed += deltaTime;
+            if (_timeElapsed >= _timeToReset)
+            {
+                _playerSprite = _linkSpriteFactory.GetLinkSprite(_playerDirection);
+                _playerStateMachine.ChangeState(State.Idle);
+                _playerStateMachine.UnblockTransition();
+                _timeElapsed = 0f;
+            }
+        }
 
         /// <summary>
         /// Construct a new player entity
@@ -38,6 +56,7 @@ namespace SprintZero1.Entities
             _playerStateMachine = new PlayerStateMachine(State.Idle);
             // since we are currently only using link I'm setting this sprite here
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
+            _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16));
         }
 
         public void Move(Vector2 distance)
@@ -51,12 +70,13 @@ namespace SprintZero1.Entities
 
         public void Attack()
         {
-            // check if link can transition
-            _playerStateMachine.BlockTransition();
-            // set state to attacking
-            // set time for link's attack animation
-            // change link to his attack animation
-            // checks
+            if (_playerStateMachine.CanTransition())
+            {
+                // check if link can transition
+                _playerStateMachine.BlockTransition();
+                _playerStateMachine.ChangeState(State.Attacking);
+                _playerSprite = _linkSpriteFactory.GetAttackingSprite(_playerDirection);
+            }
         }
 
         public void TakeDamage()
@@ -80,7 +100,27 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-            _playerSprite.Update(gameTime);
+            int keyCount = Keyboard.GetState().GetPressedKeyCount();
+            bool canTransition = _playerStateMachine.CanTransition();
+            State currentState = _playerStateMachine.GetCurrentState();
+
+            if (keyCount == 0 && currentState != State.Idle && canTransition)
+            {
+                _playerStateMachine.ChangeState(State.Idle);
+            }
+            else if (currentState == State.Moving || currentState == State.Attacking)
+            {
+                _playerSprite.Update(gameTime);
+            }
+
+            if (currentState == State.Attacking)
+            {
+                Debug.WriteLine(gameTime.ElapsedGameTime.ToString());
+                Debug.WriteLine(_playerStateMachine.GetCurrentState());
+                Reset((float)gameTime.ElapsedGameTime.TotalSeconds);
+            }
+            _playerCollider.Update(gameTime);
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
