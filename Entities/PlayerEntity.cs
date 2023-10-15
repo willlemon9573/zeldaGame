@@ -6,7 +6,6 @@ using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.StateMachines;
-using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {
@@ -22,7 +21,6 @@ namespace SprintZero1.Entities
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
         private float _timeElapsed;
         private readonly float _timeToReset = 1f / 7;
-
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
 
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
@@ -67,7 +65,7 @@ namespace SprintZero1.Entities
             }
         }
 
-        public void Attack()
+        public void Attack(string weaponName)
         {
             if (_playerStateMachine.CanTransition())
             {
@@ -114,8 +112,6 @@ namespace SprintZero1.Entities
 
             if (currentState == State.Attacking)
             {
-                Debug.WriteLine(gameTime.ElapsedGameTime.ToString());
-                Debug.WriteLine(_playerStateMachine.GetCurrentState());
                 Reset((float)gameTime.ElapsedGameTime.TotalSeconds);
             }
             _playerCollider.Update(gameTime);
@@ -130,6 +126,7 @@ namespace SprintZero1.Entities
                 spriteEffects = SpriteEffects.FlipHorizontally;
             }
             _playerSprite.Draw(spriteBatch, _playerPosition, spriteEffects);
+
         }
     }
 }

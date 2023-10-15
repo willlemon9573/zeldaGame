@@ -48,6 +48,7 @@ namespace SprintZero1
             Texture2DManager.LoadAllTextures(this.Content);
             LinkSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();
+            ItemFactory.Instance.LoadTextures(this.Content);
             /* FOR TESTING */
             TestingManager.StartTest(this);
             /* doors need to be drawn BEFORE walls because doors overlap them to make sure the "bricks" at the top match" */
