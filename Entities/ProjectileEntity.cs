@@ -29,15 +29,11 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-<<<<<<< HEAD
             if (projectileSprite != null)
             {
                 projectileSprite.Update(gameTime);
                 projectileUpdate.Update(gameTime);
             }
-=======
-            projectileSprite?.Update(gameTime);
->>>>>>> 8681126206c6d2bb925a1e47157ad1834ba4b20a
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -45,10 +41,7 @@ namespace SprintZero1.Entities
             SpriteEffects spriteEffects = SpriteEffects.None;
             if (projectileSprite != null)
             {
-<<<<<<< HEAD
-=======
                 SpriteEffects spriteEffects = SpriteEffects.None;
->>>>>>> 8681126206c6d2bb925a1e47157ad1834ba4b20a
                 projectileSprite.Draw(spriteBatch, _projectilePosition, spriteEffects);
             }
         }
