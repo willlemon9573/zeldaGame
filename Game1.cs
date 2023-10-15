@@ -48,6 +48,7 @@ namespace SprintZero1
             Texture2DManager.LoadAllTextures(this.Content);
             LinkSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();
+            WeaponSpriteFactory.Instance.LoadTextures(this.Content);
             ItemFactory.Instance.LoadTextures(this.Content);
             /* FOR TESTING */
             TestingManager.StartTest(this);

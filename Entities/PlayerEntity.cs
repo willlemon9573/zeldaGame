@@ -19,8 +19,10 @@ namespace SprintZero1.Entities
         private PlayerCollider _playerCollider;
         private readonly PlayerStateMachine _playerStateMachine;
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
+        /* controls the attacking state */
         private float _timeElapsed;
         private readonly float _timeToReset = 1f / 7;
+        private IEntity _playerMainWeapon;
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
 
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
@@ -54,6 +56,7 @@ namespace SprintZero1.Entities
             // since we are currently only using link I'm setting this sprite here
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
             _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16));
+            _playerMainWeapon = new MeleeWeaponEntity("woodensword");
         }
 
         public void Move(Vector2 distance)
@@ -73,6 +76,8 @@ namespace SprintZero1.Entities
                 _playerStateMachine.BlockTransition();
                 _playerStateMachine.ChangeState(State.Attacking);
                 _playerSprite = _linkSpriteFactory.GetAttackingSprite(_playerDirection);
+                IWeaponEntity weaponRef = (IWeaponEntity)_playerMainWeapon;
+                weaponRef.UseWeapon(Direction, _playerPosition);
             }
         }
 
@@ -107,6 +112,7 @@ namespace SprintZero1.Entities
             }
             else if (currentState == State.Moving || currentState == State.Attacking)
             {
+                _playerMainWeapon.Update(gameTime);
                 _playerSprite.Update(gameTime);
             }
 
@@ -125,6 +131,7 @@ namespace SprintZero1.Entities
             {
                 spriteEffects = SpriteEffects.FlipHorizontally;
             }
+            _playerMainWeapon.Draw(spriteBatch);
             _playerSprite.Draw(spriteBatch, _playerPosition, spriteEffects);
 
         }
