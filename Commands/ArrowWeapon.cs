@@ -12,22 +12,23 @@ namespace SprintZero1.Commands
         private Direction Direction;
         private Vector2 location;
         private WeaponSpriteFactory WeaponFactory;
+        private IEntity _PlayerEntity;
         ISprite newSprite;
         ProjectileEntity _Entity;
         IProjectile _projectileType;
 
         public ArrowWeapon(IEntity PlayerEntity, ProjectileEntity ProjectileEntity)
         {
-            location = PlayerEntity.Position;
-            IMovableEntity _PlayerEntity = (IMovableEntity)PlayerEntity;
-            Direction = _PlayerEntity.Direction;
+            _PlayerEntity = PlayerEntity;
             _Entity = ProjectileEntity;
             this.WeaponFactory = WeaponSpriteFactory.Instance;
         }
 
         public void Execute()
         {
-            location
+            location = _PlayerEntity.Position;
+            IMovableEntity _PlayerEntityMoveable = (IMovableEntity)_PlayerEntity;
+            Direction = _PlayerEntityMoveable.Direction;
             newSprite = WeaponFactory.CreateArrowSprite("", location, Direction);
             _Entity.Position = location;
             _Entity.Direction = Direction;

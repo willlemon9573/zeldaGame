@@ -32,18 +32,11 @@ namespace SprintZero1.Managers
             _player = new PlayerEntity(position, health, direction);//Game1 game, IEntity playerEntity, ProjectileEntity ProjectileEntity
             _Weapon = new ProjectileEntity(position, direction);
             controller.LoadDefaultCommands(myGame, _player, _Weapon);
-
-
-        }
-
-        public static void TestWeaponEntityWithKeyboard(Vector2 position, int health, Direction direction)
-        {
-            _player = new PlayerEntity(position, health, direction);
-            _Weapon = new ProjectileEntity(position, direction);
-            controller.LoadDefaultCommands(myGame, _player, _Weapon);
-
+            EntityList.Add(_player);
+            EntityList.Add(_Weapon);
 
         }
+
 
         public static void AddEntity(IEntity entity, ProjectileEntity ProjectileEntity)
         {
@@ -83,6 +76,7 @@ namespace SprintZero1.Managers
                     {
                         /* testing block drawn before link, but after floor */
                         EntityList[0].Draw(spriteBatch);
+                        EntityList[1].Draw(spriteBatch);
                         _player.Draw(spriteBatch);
                     }
                 }
