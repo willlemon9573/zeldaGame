@@ -7,7 +7,7 @@ namespace SprintZero1.Commands
     {
         private readonly List<string> enemyNames;
         private readonly Game1 myGame;
-        private readonly IEnemyFactory myEnemyFactory;
+        private readonly EnemyFactory myEnemyFactory;
         private readonly int totalEnemies;
         public PreviousEnemyCommand(Game1 game)
         {
