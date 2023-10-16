@@ -59,7 +59,7 @@ namespace SprintZero1.Factories
                 new Rectangle(53, 190, 8, 8)
             };
             List<Rectangle> betterArrowFrames = new List<Rectangle> {
-                new Rectangle(29, 185, 5, 16),
+                new Rectangle(29, 182, 5, 16),
                 new Rectangle(36, 190, 16, 5),
                 new Rectangle(53, 190, 8, 8)
             };
