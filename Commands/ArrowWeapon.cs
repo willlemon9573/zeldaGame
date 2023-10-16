@@ -59,7 +59,7 @@ namespace SprintZero1.Commands
             _Entity.Position = location;
             _Entity.Direction = Direction;
             _Entity.projectileSprite = newSprite;
-            _projectileType = new arrowProjectile(_Entity, 50);
+            _projectileType = new NotcomingBackProjectile(_Entity, 50);
             _Entity.projectileUpdate = _projectileType;
             // location = game.position;
             // Direction = game.CurrentDirection;

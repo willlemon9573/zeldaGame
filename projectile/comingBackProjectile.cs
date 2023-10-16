@@ -5,7 +5,7 @@ using SprintZero1.Enums;
 namespace SprintZero1.projectile
 {
 
-    internal class arrowProjectile : IProjectile
+    internal class comingBackProjectile : IProjectile
     {
         private Vector2 location;
         private int direction;
@@ -16,7 +16,7 @@ namespace SprintZero1.projectile
         private int _maxDistance;
         ProjectileEntity _projectile;
 
-        public arrowProjectile(ProjectileEntity ProjectileEntity, int maxDistance)
+        public comingBackProjectile(ProjectileEntity ProjectileEntity, int maxDistance)
         {
             _projectile = ProjectileEntity;
             _maxDistance = maxDistance;
