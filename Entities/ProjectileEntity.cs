@@ -17,6 +17,8 @@ namespace SprintZero1.Entities
         public Direction Direction { get { return _projectileDirection; } set { _projectileDirection = value; } }
         public ISprite projectileSprite;
         public IProjectile projectileUpdate;
+        private SpriteEffects _SpriteEffects;
+        public SpriteEffects _ChangeSpriteEffects { get { return _SpriteEffects; } set { _SpriteEffects = value; } }
 
         public ProjectileEntity(Vector2 position,Direction facingDirection)
 		{
@@ -29,7 +31,7 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-            if (projectileSprite != null )
+            if (projectileSprite != null && projectileUpdate!= null)
             {
                 projectileSprite.Update(gameTime);
                 projectileUpdate.Update(gameTime);
@@ -38,11 +40,10 @@ namespace SprintZero1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            SpriteEffects spriteEffects = SpriteEffects.None;
             if (projectileSprite != null)
             {
                 
-                projectileSprite.Draw(spriteBatch, _projectilePosition, spriteEffects);
+                projectileSprite.Draw(spriteBatch, _projectilePosition, _ChangeSpriteEffects);
             }
         }
     }

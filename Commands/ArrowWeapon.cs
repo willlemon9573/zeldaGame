@@ -4,6 +4,7 @@ using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.projectile;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SprintZero1.Commands 
 {
@@ -17,6 +18,7 @@ namespace SprintZero1.Commands
         ISprite newSprite;
         ProjectileEntity _Entity;
         IProjectile _projectileType;
+        private SpriteEffects spriteEffect;
 
         public ArrowWeapon(IEntity PlayerEntity, ProjectileEntity ProjectileEntity)
         {
@@ -34,20 +36,25 @@ namespace SprintZero1.Commands
             {
                 case Direction.North: // Moving Upwards
                     location.Y -= moveSpeed;
+                    spriteEffect = SpriteEffects.None;
                     break;
                 case Direction.South: // Moving Downwards
                     location.Y += moveSpeed;
+                    spriteEffect = SpriteEffects.FlipVertically;
                     break;
                 case Direction.West: // Moving Left
                     location.X -= moveSpeed;
+                    spriteEffect = SpriteEffects.FlipHorizontally;
                     break;
                 case Direction.East: // Moving Right
                     location.X += moveSpeed;
+                    spriteEffect = SpriteEffects.None;
                     break;
                 default:
                     // Handle other directions if necessary
                     break;
             }
+            _Entity._ChangeSpriteEffects = spriteEffect;
             newSprite = WeaponFactory.CreateArrowSprite("", location, Direction);
             _Entity.Position = location;
             _Entity.Direction = Direction;
