@@ -13,11 +13,13 @@ namespace SprintZero1.projectile
         private float distanceMoved = 0;
         private bool returning = false;
         public bool IsActive { get; private set; } = true;
+        private int _maxDistance;
         ProjectileEntity _projectile;
 
-        public arrowProjectile(ProjectileEntity ProjectileEntity)
+        public arrowProjectile(ProjectileEntity ProjectileEntity, int maxDistance)
         {
             _projectile = ProjectileEntity;
+            _maxDistance = maxDistance;
         }
 
         public void Update(GameTime gameTime)
