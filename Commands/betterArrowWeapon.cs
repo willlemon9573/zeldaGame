@@ -56,6 +56,7 @@ namespace SprintZero1.Commands
             }
             _Entity._ChangeSpriteEffects = spriteEffect;
             newSprite = WeaponFactory.CreateArrowSprite("better", location, Direction);
+            _Entity.endingSprite = WeaponFactory.CreateEndSprite();
             _Entity.Position = location;
             _Entity.Direction = Direction;
             _Entity.projectileSprite = newSprite;
