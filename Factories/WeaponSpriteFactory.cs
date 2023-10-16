@@ -102,6 +102,7 @@ namespace SprintZero1.Factories
             CreateDictionary();
             LoadTextures();
         }
+        
 
         public ISprite CreateBoomerangSprite(String weaponType, Vector2 location, int maxFrames, int direction)
         {
@@ -113,7 +114,12 @@ namespace SprintZero1.Factories
             /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
             return null;
         }
-
+        public ISprite CreateEndSprite()
+        {
+            List<Rectangle> sourceRectangle = weaponSourceRectangles["arrow"];
+            int index = 2;
+            return new NonAnimatedSprite(sourceRectangle[index], spriteSheet);
+        }
         public ISprite CreateArrowSprite(String weaponType, Vector2 location, Direction direction)
         {
             List<Rectangle> sourceRectangle = weaponSourceRectangles["arrow"];

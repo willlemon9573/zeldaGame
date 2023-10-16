@@ -7,12 +7,15 @@ namespace SprintZero1.projectile
 
     internal class NotcomingBackProjectile : IProjectile
     {
+        private double timer = 0;
+        private double waitingTime = 200;
         private Vector2 location;
         private int direction;
         private float speed = 3;
         private float distanceMoved = 0;
-        public bool IsActive { get; private set; } = true;
+        public bool IsActive  = true;
         private int _maxDistance;
+        private bool shouldEnd = false;
         ProjectileEntity _projectile;
 
         public NotcomingBackProjectile(ProjectileEntity ProjectileEntity, int maxDistance)
@@ -25,10 +28,20 @@ namespace SprintZero1.projectile
         {
             if (!IsActive)
             {
-                _projectile.projectileSprite = null;
-                _projectile.projectileUpdate = null;
+                _projectile.projectileSprite = _projectile.endingSprite;
+                timer += gameTime.ElapsedGameTime.TotalMilliseconds;
+                
+                if (timer >= waitingTime)
+                {
+                    _projectile.projectileSprite = null;
+                    _projectile.projectileUpdate = null;
+                    timer = 0; 
+                }
                 return;
             }
+
+
+            
 
             MoveProjectile(speed);
             distanceMoved += speed;

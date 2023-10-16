@@ -17,6 +17,7 @@ namespace SprintZero1.Entities
         public Direction Direction { get { return _projectileDirection; } set { _projectileDirection = value; } }
         public ISprite projectileSprite;
         public IProjectile projectileUpdate;
+        public ISprite endingSprite;
         private SpriteEffects _SpriteEffects;
         public SpriteEffects _ChangeSpriteEffects { get { return _SpriteEffects; } set { _SpriteEffects = value; } }
 
