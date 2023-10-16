@@ -1,19 +1,19 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace SprintZero1.Factories
 {
 
-    public class EnemyFactory : IEnemyFactory
+    public class EnemyFactory
     {
-        private Texture2D dungeonEnemySpritesheet, overworldEnemySpritesheet, bossSpritesheet;
-        private readonly List<string> enemyNamesList;
-        private readonly Dictionary<string, List<Rectangle>> nonDirectionalEnemySprites;
+        private Texture2D dungeonEnemySpriteSheet, bossSpriteSheet;
+        private readonly Dictionary<string, List<Rectangle>> enemySpriteDictionary;
+        private readonly Dictionary<string, List<Rectangle>> bossEnemySpriteDictionary;
         private static readonly EnemyFactory instance = new EnemyFactory();
         const int HEIGHT = 16, WIDTH = 16;
 
@@ -21,46 +21,60 @@ namespace SprintZero1.Factories
         {
             get { return instance; }
         }
-
+        /// <summary>
+        /// Get the regular enemy names as a list 
+        /// </summary>
         public List<string> EnemyNamesList
         {
-            get { return enemyNamesList; }
+            get { return enemySpriteDictionary.Keys.ToList<string>(); }
         }
-        private void CreateNonDirectionalSpriteDictionary()
+        /// <summary>
+        /// Get the boss enemy names as a list 
+        /// </summary>
+        public List<string> BossNameList
+        {
+            get { return bossEnemySpriteDictionary.Keys.ToList<string>(); }
+        }
+        /// <summary>
+        /// Creates the rectangles required for each frame of each enemy and places in the proper dictionary
+        /// </summary>
+        private void CreateEnemySpriteDictionary()
         {
             //DUNGEON ENEMY SPRITESHEET
             //gel
-            nonDirectionalEnemySprites["dungeon_gel"] = new List<Rectangle>
+            enemySpriteDictionary["dungeon_gel"] = new List<Rectangle>
             {
                 new Rectangle(1, 11, 8, HEIGHT),
                 new Rectangle(10, 11, 8, HEIGHT)
             };
 
             //zol
-            nonDirectionalEnemySprites["dungeon_zol"] = new List<Rectangle>
+            enemySpriteDictionary["dungeon_zol"] = new List<Rectangle>
             {
                 new Rectangle(77, 11, WIDTH, HEIGHT),
                 new Rectangle(94, 11, WIDTH, HEIGHT)
             };
             //keese
 
-            nonDirectionalEnemySprites["dungeon_keese"] = new List<Rectangle>
+            enemySpriteDictionary["dungeon_keese"] = new List<Rectangle>
             {
                 new Rectangle(183, 11, WIDTH, HEIGHT),
                 new Rectangle(200, 11, WIDTH, HEIGHT)
             };
 
             //wallmaster
-            nonDirectionalEnemySprites["dungeon_wallmaster"] = new List<Rectangle>
+            enemySpriteDictionary["dungeon_wallmaster"] = new List<Rectangle>
             {
                 new Rectangle(393, 11, WIDTH, HEIGHT),
                 new Rectangle(410, 11, WIDTH, HEIGHT)
             };
         }
-
+        /// <summary>
+        /// Creates the rectangles required for each frame of each boss and places in the proper dictionary
+        /// </summary>
         private void CreateBossDictionary()
         {
-            nonDirectionalEnemySprites["boss_aquamentus"] = new List<Rectangle>
+            bossEnemySpriteDictionary["aquamentus"] = new List<Rectangle>
             {
                 new Rectangle(1, 11, 24, 32),
                 new Rectangle(26, 11, 24, 32),
@@ -68,7 +82,7 @@ namespace SprintZero1.Factories
                 new Rectangle(76, 11, 24, 32)
             };
 
-            nonDirectionalEnemySprites["boss_digdogger"] = new List<Rectangle>
+            bossEnemySpriteDictionary["digdogger"] = new List<Rectangle>
             {
                 new Rectangle(196, 58, 32, 32),
                 new Rectangle(229, 58, 32, 32),
@@ -77,7 +91,7 @@ namespace SprintZero1.Factories
                 new Rectangle(328, 58, 32, 32)
             };
 
-            nonDirectionalEnemySprites["boss_ganon"] = new List<Rectangle>
+            bossEnemySpriteDictionary["ganon"] = new List<Rectangle>
             {
                 new Rectangle(40, 154, 32, 32),
                 new Rectangle(73, 154, 32, 32),
@@ -88,49 +102,45 @@ namespace SprintZero1.Factories
             };
         }
 
-        public EnemyFactory()
+        /// <summary>
+        /// Private constructor to prevent instantiation of the singleton
+        /// </summary>
+        private EnemyFactory()
         {
-            enemyNamesList = new List<string>()
-            {
-                "dungeon_gel", "dungeon_zol", "dungeon_keese", "dungeon_goriya", "dungeon_wallmaster",
-                "overworld_octorok_up", "overworld_octorok_side", "overworld_moblin_up",
-                "overworld_moblin_side", "overworld_leever", "overworld_peahat",
-                "overworld_armos_up", "overworld_armos_down", "overworld_tektite",
-                "boss_aquamentus", "boss_digdogger", "boss_ganon"
-            };
-            nonDirectionalEnemySprites = new Dictionary<string, List<Rectangle>>();
-            CreateNonDirectionalSpriteDictionary();
+            CreateEnemySpriteDictionary();
             CreateBossDictionary();
         }
-
-
-
-        public void LoadTextures(ContentManager manager)
+        /// <summary>
+        /// Load the textures required for the enemy sprites
+        /// </summary>
+        public void LoadTextures()
         {
-            dungeonEnemySpritesheet = Texture2DManager.GetEnemySpriteSheet();
-            bossSpritesheet = Texture2DManager.GetBossSpriteSheet();
+            dungeonEnemySpriteSheet = Texture2DManager.GetEnemySpriteSheet();
+            bossSpriteSheet = Texture2DManager.GetBossSpriteSheet();
         }
-
-        public ISprite CreateEnemySprite(string enemyName, Vector2 location, int frameIndex)
+        /// <summary>
+        /// Creates the enemy sprite
+        /// </summary>
+        /// <param name="enemyName">The name of the enemy/param>
+        /// <param name="totalFrames">The maximum amount of frames for the sprite</param>
+        /// <returns>An animated sprite of the enemy</returns>
+        public ISprite CreateEnemySprite(string enemyName, int totalFrames)
         {
             Debug.Assert(enemyName != null, "enemyName is null");
 
-            Debug.Assert(nonDirectionalEnemySprites.ContainsKey(enemyName), "tileSourceRectangles does not contain" +
-                "an enemy named: " + enemyName);
-            if (enemyName.Contains("dungeon"))
-            {
-                /* return new CreateEnemySprite(tileSourceRectangles[enemyName], dungeonEnemySpritesheet, location, frameIndex);*/
-            }
-            else if (enemyName.Contains("overworld"))
-            {
-                /* return new CreateEnemySprite(tileSourceRectangles[enemyName], overworldEnemySpritesheet, location, frameIndex);*/
-            }
-            else if (enemyName.Contains("boss"))
-            {
-                /*  return new CreateBossSprite(tileSourceRectangles[enemyName], bossSpritesheet, location, frameIndex);*/
-            }
-            //HMMMMMMMM
-            return null;
+            Debug.Assert(enemySpriteDictionary.ContainsKey(enemyName), "Enemy not found: " + enemyName);
+            return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, totalFrames);
+        }
+        /// <summary>
+        /// Creates a boss sprite
+        /// </summary>
+        /// <param name="bossName">The name of the boss/param>
+        /// <param name="totalFrames">The maximum amount of frames for the sprite</param>
+        /// <returns>An animated sprite of the boss</returns>
+        public ISprite CreateBossSprite(string bossName, int totalFrames)
+        {
+            Debug.Assert(bossEnemySpriteDictionary.ContainsKey(bossName), "Boss not found: " + bossName);
+            return new AnimatedSprite(bossEnemySpriteDictionary[bossName], bossSpriteSheet, totalFrames);
         }
     }
 }
