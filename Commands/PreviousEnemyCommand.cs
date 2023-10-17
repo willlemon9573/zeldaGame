@@ -11,10 +11,6 @@ namespace SprintZero1.Commands
         private readonly int totalEnemies;
         public PreviousEnemyCommand(Game1 game)
         {
-            myGame = game;
-            myEnemyFactory = EnemyFactory.Instance;
-            enemyNames = myEnemyFactory.EnemyNamesList;
-            totalEnemies = enemyNames.Count;
         }
 
         public void Execute()

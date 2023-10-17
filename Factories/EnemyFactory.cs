@@ -107,6 +107,8 @@ namespace SprintZero1.Factories
         /// </summary>
         private EnemyFactory()
         {
+            enemySpriteDictionary = new Dictionary<string, List<Rectangle>>();
+            bossEnemySpriteDictionary = new Dictionary<string, List<Rectangle>>();
             CreateEnemySpriteDictionary();
             CreateBossDictionary();
         }

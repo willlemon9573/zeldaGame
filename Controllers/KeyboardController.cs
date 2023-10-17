@@ -87,6 +87,7 @@ namespace SprintZero1.Controllers
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
             int movementKeyCount = 0;
+
             /* iterate over pressed key collection executing only valid keys in the keyboard map 
                keeping track of the amount of movement keys that are also currently being pressed
             */
@@ -102,6 +103,7 @@ namespace SprintZero1.Controllers
                     keyboardMap[key].Execute();
                 }
             }
+
             /* Check if movement key stack needs to be cleaned */
             if (movementKeyCount < movementKeyStack.Count)
             {
