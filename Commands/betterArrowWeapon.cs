@@ -24,7 +24,6 @@ namespace SprintZero1.Commands
             _PlayerEntity = PlayerEntity;
             _Entity = ProjectileEntity;
             this.WeaponFactory = WeaponSpriteFactory.Instance;
-            //this.WeaponFactory = WeaponSpriteFactory.Instance;
         }
 
         public void Execute()
@@ -54,18 +53,16 @@ namespace SprintZero1.Commands
                     // Handle other directions if necessary
                     break;
             }
+            _Entity.Rotation = 0;
             _Entity._ChangeSpriteEffects = spriteEffect;
-            newSprite = WeaponFactory.CreateArrowSprite("better", location, Direction);
+            newSprite = WeaponFactory.CreateArrowSprite("better",  Direction);
             _Entity.endingSprite = WeaponFactory.CreateEndSprite();
             _Entity.Position = location;
             _Entity.Direction = Direction;
             _Entity.projectileSprite = newSprite;
             _projectileType = new NotcomingBackProjectile(_Entity, 50);
             _Entity.projectileUpdate = _projectileType;
-            //location = game.position;
-            //Direction = game.CurrentDirection;
-            //newSprite = WeaponFactory.CreateArrowSprite("better", location, 3, Direction);
-            //game.Weapon = newSprite;
+
         }
 
     }

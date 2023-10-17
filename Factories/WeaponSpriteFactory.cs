@@ -32,41 +32,27 @@ namespace SprintZero1.Factories
 
             List<Rectangle> regBoomerangFrames = new List<Rectangle>
             {
-                new Rectangle(57, 187, 7, 12),
-                new Rectangle(64, 187, 10, 12),
-                new Rectangle(74, 185, 10, 12),
-                new Rectangle(84, 187, 10, 12),
-                new Rectangle(94, 187, 7, 12),
-                new Rectangle(101, 187, 10, 12)
+                new Rectangle(63, 189, 8, 8)
             };
 
             List<Rectangle> betterBoomerangFrames = new List<Rectangle>
             {
-                new Rectangle(122, 187, 7, 11),
-                new Rectangle(129, 187, 10, 11),
-                new Rectangle(139, 187, 10, 11),
-                new Rectangle(149, 187, 10, 11),
-                new Rectangle(159, 187, 7, 11),
-                new Rectangle(166, 187, 10, 11),
-                new Rectangle(176, 187, 10, 11),
-                new Rectangle(186, 187, 10, 11)
+                new Rectangle(91, 189, 8, 8)
             };
 
             List<Rectangle> regArrowFrames = new List<Rectangle>
             {
                 new Rectangle(3, 185, 5, 16),
-                new Rectangle(10, 190, 16, 5),
-                new Rectangle(53, 190, 8, 8)
+                new Rectangle(10, 190, 16, 5)
             };
             List<Rectangle> betterArrowFrames = new List<Rectangle> {
                 new Rectangle(29, 182, 5, 16),
-                new Rectangle(36, 190, 16, 5),
-                new Rectangle(53, 190, 8, 8)
+                new Rectangle(36, 190, 16, 5)
             };
 
             List<Rectangle> bombFrames = new List<Rectangle>();
             List<Rectangle> fireFrames = new List<Rectangle>();
-            int bombX = 128, fireX = 191, y = 185, width = 16, height = 16;
+            int bombX = 126, fireX = 194, y = 185, width = 16, height = 16;
             for (int i = 0; i < 4; i++)
             {
                 bombFrames.Add(new Rectangle(bombX, y, width, height));
@@ -104,7 +90,7 @@ namespace SprintZero1.Factories
         }
         
 
-        public ISprite CreateBoomerangSprite(String weaponType, Vector2 location, int maxFrames, int direction)
+        public ISprite CreateBoomerangSprite(String weaponType,  Direction direction)
         {
             List<Rectangle> sourceRectangle = weaponSourceRectangles["boomerang"];
             if (weaponType.Equals("better"))
@@ -112,15 +98,13 @@ namespace SprintZero1.Factories
                 sourceRectangle = weaponSourceRectangles["betterboomerang"];
             }
             /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
-            return null;
+            return new NonAnimatedSprite(sourceRectangle[0], spriteSheet); ;
         }
         public ISprite CreateEndSprite()
         {
-            List<Rectangle> sourceRectangle = weaponSourceRectangles["arrow"];
-            int index = 2;
-            return new NonAnimatedSprite(sourceRectangle[index], spriteSheet);
+            return new NonAnimatedSprite(new Rectangle(53, 190, 8, 8), spriteSheet);
         }
-        public ISprite CreateArrowSprite(String weaponType, Vector2 location, Direction direction)
+        public ISprite CreateArrowSprite(String weaponType,  Direction direction)
         {
             List<Rectangle> sourceRectangle = weaponSourceRectangles["arrow"];
             int index = 0;
@@ -136,12 +120,21 @@ namespace SprintZero1.Factories
             return new NonAnimatedSprite(sourceRectangle[index],spriteSheet);
         }
 
-        public ISprite CreateBombSprite(Vector2 location, int maxFrames, int direction)
+        public ISprite CreateBombSprite()
         {
+            List<Rectangle> sourceRectangle = weaponSourceRectangles["bomb"];
             /*   return new WeaponSprite(location, weaponSourceRectangles["bomb"], this.spriteSheet, maxFrames, direction);*/
-            return null;
+            return new NonAnimatedSprite(sourceRectangle[0], spriteSheet);
         }
 
+        public ISprite CreateBombSpriteExplodes()
+        {
+            int maxFrame = 3;
+            List<Rectangle> sourceRectangle = weaponSourceRectangles["bomb"];
+            List<Rectangle> newRectangleList = sourceRectangle.GetRange(1, 3);
+            /*   return new WeaponSprite(location, weaponSourceRectangles["bomb"], this.spriteSheet, maxFrames, direction);*/
+            return new ControlledAnimation(new AnimatedSprite(newRectangleList, spriteSheet, maxFrame),maxFrame);
+        }
         public ISprite CreateMagicFireSprite(Vector2 location, int maxFrames, int direction)
         {
             /* return new WeaponSprite(location, weaponSourceRectangles["magicfire"], this.spriteSheet, maxFrames, direction);*/

@@ -14,6 +14,7 @@ namespace SprintZero1.projectile
         private bool returning = false;
         public bool IsActive { get; private set; } = true;
         private int _maxDistance;
+        private float RotationIncrement = MathHelper.ToRadians(10);
         ProjectileEntity _projectile;
 
         public comingBackProjectile(ProjectileEntity ProjectileEntity, int maxDistance)
@@ -24,6 +25,11 @@ namespace SprintZero1.projectile
 
         public void Update(GameTime gameTime)
         {
+
+            _projectile.Rotation += RotationIncrement;
+
+            if (_projectile.Rotation > MathHelper.TwoPi)
+                _projectile.Rotation -= MathHelper.TwoPi;
             if (!IsActive)
             {
                 _projectile.projectileSprite = null;

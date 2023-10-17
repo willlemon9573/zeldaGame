@@ -8,7 +8,7 @@ namespace SprintZero1.projectile
     internal class NotcomingBackProjectile : IProjectile
     {
         private double timer = 0;
-        private double waitingTime = 200;
+        private double waitingTime = 50;
         private Vector2 location;
         private int direction;
         private float speed = 3;
