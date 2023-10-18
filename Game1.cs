@@ -11,7 +11,7 @@ namespace SprintZero1
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
+        private LevelManager levelManager;
         /* Variables for window rescaling */
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
@@ -38,6 +38,7 @@ namespace SprintZero1
             // code for window rescaling
             _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
             _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
+            levelManager = new LevelManager(this);
             base.Initialize();
         }
 
@@ -45,27 +46,32 @@ namespace SprintZero1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2DManager.LoadAllTextures(this.Content);
-            LinkSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();
+            LinkSpriteFactory.Instance.LoadTextures();
+
+            
+            
+            levelManager.Initialize();
             /* FOR TESTING */
-            TestingManager.StartTest(this);
+            //TestingManager.StartTest(this);
             /* doors need to be drawn BEFORE walls because doors overlap them to make sure the "bricks" at the top match" */
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateFloorSprite("entrance"), new Vector2(127, 151));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_north"), new Vector2(127, 80));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_west"), new Vector2(15, 152));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_east"), new Vector2(239, 152));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_south"), new Vector2(127, 224));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(1), new Vector2(199, 100));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(2), new Vector2(55, 100));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(3), new Vector2(55, 204));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(4), new Vector2(199, 204));
-            TestingManager.TestPlayerEntityWithKeyboard(new Vector2(176, 170), 1, Direction.South);
+            //TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateFloorSprite("entrance"), new Vector2(127, 151));
+            //TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(1), new Vector2(199, 100));
+            //TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(2), new Vector2(55, 100));
+            //TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(3), new Vector2(55, 204));
+            //TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(4), new Vector2(199, 204));
+            //TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_north"), new Vector2(127, 80));
+            //TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_west"), new Vector2(15, 152));
+            //TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_east"), new Vector2(239, 152));
+            //TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_south"), new Vector2(127, 224));
+           
+            //TestingManager.TestPlayerEntityWithKeyboard(new Vector2(176, 170), 1, Direction.South);
         }
 
         protected override void Update(GameTime gameTime)
         {
             ProgramManager.Update(gameTime);
-            TestingManager.Update(gameTime);
+           // TestingManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -77,7 +83,7 @@ namespace SprintZero1
 
             _spriteBatch.Begin();
             ProgramManager.Draw(_spriteBatch);
-            TestingManager.Draw(_spriteBatch);
+           // TestingManager.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

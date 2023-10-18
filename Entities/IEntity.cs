@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SprintZero1.Entities
 {
-    internal interface IEntity
+    public interface IEntity
     {
         /// <summary>
         /// Set and Get the Entity Position

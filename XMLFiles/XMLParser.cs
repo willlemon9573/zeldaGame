@@ -10,23 +10,32 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using SprintZero1.Factories;
+using SprintZero1.Managers;
+using System.IO;
 
 namespace SprintZero1.XMLFiles
 {
     public class XMLParser
     {
+        public TileSpriteFactory tileSpriteFactory;
+        public EnemyFactory enemyFactory;
+        public ItemFactory itemFactory;
+        
+       
         public XMLParser(Game1 game)
         {
-
-
-
+            tileSpriteFactory = new TileSpriteFactory();
+            enemyFactory = new EnemyFactory();
+            itemFactory = new ItemFactory();
+           
         }
 
         public void Parse(String fileName)
         {
-            using (XmlReader reader = new XmlTextReader(fileName))
+            String workingDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+            using (XmlReader reader = new XmlTextReader(workingDirectory + "/" + fileName))
             {
-                while (reader.Read())
+                while (reader.Read()) //error here
                 {
                     if (reader.NodeType == XmlNodeType.Element)
                     {
@@ -55,7 +64,7 @@ namespace SprintZero1.XMLFiles
                 }
             }
 
-
+            
         }
 
         private void ParseBlock(XmlReader reader)
@@ -88,10 +97,18 @@ namespace SprintZero1.XMLFiles
                             //report error in xml file
                             break;
                     }
+                   
                 }
                 else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Block")
                 {
-                    //parse the data -> get the sprites draw the thing entity
+                    Vector2 pos = new Vector2(X, Y);
+                    ISprite newblockSprite = tileSpriteFactory.CreateNewTileSprite(name);
+                    Entity block = new LevelBLockEntity(newblockSprite, pos, isCollidable);
+                    if (block != null) {
+                        ProgramManager.AddOnScreenEntity(block);
+                    }
+                    
+
                 }
             }
 
@@ -99,7 +116,7 @@ namespace SprintZero1.XMLFiles
 
         private void ParseWall(XmlReader reader)
         {
-            string name = "";
+            int quad = 0;
             int X = 0;
             int Y = 0;
 
@@ -110,7 +127,7 @@ namespace SprintZero1.XMLFiles
                     switch (reader.Name)
                     {
                         case "Name":
-                            name = reader.ReadElementContentAsString();
+                            quad = reader.ReadElementContentAsInt();
                             break;
                         case "X":
                             X = reader.ReadElementContentAsInt();
@@ -127,6 +144,8 @@ namespace SprintZero1.XMLFiles
                 else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Wall")
                 {
                     //parse the data -> get the sprites draw the thing entity
+                    Vector2 pos = new Vector2(X, Y);
+                    ISprite newWallSprite = tileSpriteFactory.CreateNewWallSprite(quad);
                 }
             }
 
@@ -135,13 +154,14 @@ namespace SprintZero1.XMLFiles
         private void ParseDoor(XmlReader reader)
         {
             string name = "";
-            int X, Y = 0;
+            int X = 0, Y = 0;
             string type = "";
 
             while (reader.Read())
             {
                 if (reader.NodeType == XmlNodeType.Element)
                 {
+                    //Checks what entity is current
                     switch (reader.Name)
                     {
                         case "Name":
@@ -165,6 +185,8 @@ namespace SprintZero1.XMLFiles
                 else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Door")
                 {
                     //parse the data -> get the sprites draw the thing entity
+                    Vector2 pos = new Vector2(X, Y);
+                    ISprite newDoorSprite = tileSpriteFactory.CreateNewDoorSprite(name);
                 }
             }
 
@@ -173,7 +195,7 @@ namespace SprintZero1.XMLFiles
         private void ParseEnemy(XmlReader reader)
         {
             string name = "";
-            int X, Y = 0;
+            int X = 0, Y = 0;
 
             while (reader.Read())
             {
@@ -199,6 +221,13 @@ namespace SprintZero1.XMLFiles
                 else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Enemy")
                 {
                     //parse the data -> get the sprites draw the thing entity
+                   
+                    ISprite enemySprite = enemyFactory.CreateEnemySprite(name, new Vector2(X,Y), 0);
+                     Entity enemy = new LevelBLockEntity(enemySprite, new Vector2(X, Y), false);
+                    if (enemy != null)
+                    {
+                        ProgramManager.AddOnScreenEntity(enemy);
+                    }
                 }
             }
 
@@ -207,7 +236,7 @@ namespace SprintZero1.XMLFiles
         private void ParseItem(XmlReader reader)
         {
             string name = "";
-            int X, Y = 0;
+            int X = 0, Y = 0;
 
             while (reader.Read())
             {
@@ -233,6 +262,12 @@ namespace SprintZero1.XMLFiles
                 else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Item")
                 {
                     //parse the data -> get the sprites draw the thing entity
+                    ISprite itemSprite = itemFactory.CreateItemSprite(name);
+                    Entity item = new LevelBLockEntity(itemSprite, new Vector2(X,Y), false);
+                    if (item != null)
+                    {
+                        ProgramManager.AddOnScreenEntity(item);
+                    }
                 }
             }
 

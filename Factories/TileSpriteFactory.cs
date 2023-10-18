@@ -113,7 +113,7 @@ namespace SprintZero1.Factories
         /// <summary>
         /// Private constructor to prevent instation of a new tile factory
         /// </summary>
-        private TileSpriteFactory()
+        public TileSpriteFactory()
         {
             tileSourceRectangles = new Dictionary<string, Rectangle>();
             wallSourceRectangles = new Dictionary<int, Rectangle>();
@@ -130,6 +130,7 @@ namespace SprintZero1.Factories
         {
             tileSpriteSheet = Texture2DManager.GetTileSheet();
             levelOneSpriteSheet = Texture2DManager.GetLevelOneSpriteSheet();
+            
 
         }
         /// <summary>
@@ -142,6 +143,7 @@ namespace SprintZero1.Factories
             Debug.Assert(tileName != null, "tile is null");
             Debug.Assert(tileSourceRectangles.ContainsKey(tileName), "Source Rectangle does not contain the tile named: " + tileName);
             return new NonAnimatedSprite(tileSourceRectangles[tileName], tileSpriteSheet);
+            //return new NonAnimatedSprite(tileSourceRectangles[tileName], tileSpriteSheet);
         }
 
         /// <summary>

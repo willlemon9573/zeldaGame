@@ -2,35 +2,42 @@
 <Rooms>	
 		<Blocks>
 			<Block>	
-				<Name>BlockName</Name>
+				<Name>statue1</Name>
 				<X>100</X>
 				<Y>100</Y>
 				<IsCollideable>True</IsCollideable>
 			</Block>
-			<Wall>
-				<Name>WallName</Name>
-				<X>100</X>
+			<Block>
+				<Name>statue1</Name>
+				<X>200</X>
 				<Y>100</Y>
-			</Wall>
-			<Door>
-				<Name>DoorName</Name>
-				<X>100</X>
+				<IsCollideable>True</IsCollideable>
+			</Block>
+			<Block>
+				<Name>statue1</Name>
+				<X>300</X>
 				<Y>100</Y>
-				<Type>Locked</Type>
-			</Door>
+				<IsCollideable>True</IsCollideable>
+			</Block>
+			<Block>
+			<Name>statue2</Name>
+			<X>100</X>
+			<Y>300</Y>
+			<IsCollideable>True</IsCollideable>
+			</Block>
+			<Block>
+				<Name>statue2</Name>
+				<X>200</X>
+				<Y>300</Y>
+				<IsCollideable>True</IsCollideable>
+			</Block>
+			<Block>
+				<Name>statue2</Name>
+				<X>300</X>
+				<Y>300</Y>
+				<IsCollideable>True</IsCollideable>
+			</Block>
 		</Blocks>
-		<Enemies>
-			<Enemy>
-				<Name>EnemyName</Name>
-				<X>100</X>
-				<Y>100</Y>
-			</Enemy>
-		</Enemies>
-		<Items>
-			<Item>
-				<Name>ItemName</Name>
-				<X>100</X>
-				<Y>100</Y>
-			</Item>
-		</Items>
+
+	
 </Rooms>
