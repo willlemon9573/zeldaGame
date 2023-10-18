@@ -36,24 +36,21 @@ namespace SprintZero1.Commands
             {
                 case Direction.North: // Moving Upwards
                     location.Y -= moveSpeed;
-                    spriteEffect = SpriteEffects.None;
                     break;
                 case Direction.South: // Moving Downwards
                     location.Y += moveSpeed;
-                    spriteEffect = SpriteEffects.FlipVertically;
                     break;
                 case Direction.West: // Moving Left
                     location.X -= moveSpeed;
-                    spriteEffect = SpriteEffects.FlipHorizontally;
                     break;
                 case Direction.East: // Moving Right
                     location.X += moveSpeed;
-                    spriteEffect = SpriteEffects.None;
                     break;
                 default:
                     // Handle other directions if necessary
                     break;
             }
+            spriteEffect = SpriteEffects.None;
             _Entity._ChangeSpriteEffects = spriteEffect;
             newSprite = WeaponFactory.CreateBoomerangSprite("",  Direction);
             _Entity.Position = location;

@@ -32,12 +32,10 @@ namespace SprintZero1.Commands
             location = _PlayerEntity.Position;
             IMovableEntity _PlayerEntityMoveable = (IMovableEntity)_PlayerEntity;
             Direction = _PlayerEntityMoveable.Direction;
-            spriteEffect = SpriteEffects.None;
             switch (Direction)
             {
                 case Direction.North: // Moving Upwards
                     location.Y -= moveSpeed;
-                    
                     break;
                 case Direction.South: // Moving Downwards
                     location.Y += moveSpeed;
@@ -52,6 +50,8 @@ namespace SprintZero1.Commands
                     // Handle other directions if necessary
                     break;
             }
+            _Entity.Rotation = 0;
+            spriteEffect = SpriteEffects.None;
             _Entity._ChangeSpriteEffects = spriteEffect;
             newSprite = WeaponFactory.CreateBombSprite();
             _Entity.Position = location;
