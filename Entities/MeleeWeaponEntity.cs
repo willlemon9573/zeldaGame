@@ -10,6 +10,7 @@ namespace SprintZero1.Entities
 {
     /// <summary>
     /// Used for creating a melee weapon as melee weapons do not have a quanitity 
+    /// @Author - Aaron Heishman
     /// </summary>
     internal class MeleeWeaponEntity : IEntity, IWeaponEntity
     {
@@ -29,7 +30,7 @@ namespace SprintZero1.Entities
         {
             _weaponName = weaponName;
             _weaponUsed = false;
-            /* This might be able to be passed by the player */
+            /* This might be able to be passed by the player / xml / or mathematically */
             _spriteEffectsDictionary = new Dictionary<Direction, Tuple<SpriteEffects, Vector2>>()
             {
                 { Direction.North, Tuple.Create(SpriteEffects.None, new Vector2(0, -11)) },
