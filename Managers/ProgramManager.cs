@@ -12,9 +12,10 @@ namespace SprintZero1.Managers
 {
     internal static class ProgramManager
     {
-        public static Game1 myGame;
+       // public static Game1 myGame;
         static List<IEntity> onScreenEntities = new List<IEntity>();
         private static IController controller;
+        private static Game1 myGame;
         // Runs on startup. Use it to add entity if you want to test things
 
         
@@ -27,7 +28,7 @@ namespace SprintZero1.Managers
 
         public static void AddPlayer(Vector2 position, int health, Direction direction) {
             IEntity player = new PlayerEntity(position, health, direction);
-            controller.LoadDefaultCommands(myGame, player);
+            controller.LoadDefaultCommands(myGame, player); //error here
             ProgramManager.AddOnScreenEntity(player);
         }
 
@@ -49,13 +50,20 @@ namespace SprintZero1.Managers
                 entity.Update(gameTime);
             }
             ColliderManager.Update(gameTime);
+            controller.Update();
         }
 
         public static void Draw(SpriteBatch spriteBatch)
         {
+            int i = 1;
             foreach (IEntity entity in onScreenEntities)
             {
                 entity.Draw(spriteBatch);
+                i++;
+                if (i == 5)
+                {
+                    onScreenEntities[0].Draw(spriteBatch);
+                }
             }
         }
     }

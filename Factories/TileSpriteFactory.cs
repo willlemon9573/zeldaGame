@@ -143,7 +143,7 @@ namespace SprintZero1.Factories
             Debug.Assert(tileName != null, "tile is null");
             Debug.Assert(tileSourceRectangles.ContainsKey(tileName), "Source Rectangle does not contain the tile named: " + tileName);
             return new NonAnimatedSprite(tileSourceRectangles[tileName], tileSpriteSheet);
-            //return new NonAnimatedSprite(tileSourceRectangles[tileName], tileSpriteSheet);
+           
         }
 
         /// <summary>

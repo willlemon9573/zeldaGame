@@ -24,7 +24,7 @@ namespace SprintZero1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _sprite.Draw(spriteBatch, _position);
+            _sprite.Draw(spriteBatch, _position, SpriteEffects.None, 0f);
         }
     }
 }

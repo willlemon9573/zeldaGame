@@ -17,16 +17,10 @@ namespace SprintZero1.XMLFiles
 {
     public class XMLParser
     {
-        public TileSpriteFactory tileSpriteFactory;
-        public EnemyFactory enemyFactory;
-        public ItemFactory itemFactory;
         
        
         public XMLParser(Game1 game)
         {
-            tileSpriteFactory = new TileSpriteFactory();
-            enemyFactory = new EnemyFactory();
-            itemFactory = new ItemFactory();
            
         }
 
@@ -102,7 +96,7 @@ namespace SprintZero1.XMLFiles
                 else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Block")
                 {
                     Vector2 pos = new Vector2(X, Y);
-                    ISprite newblockSprite = tileSpriteFactory.CreateNewTileSprite(name);
+                    ISprite newblockSprite = TileSpriteFactory.Instance.CreateNewTileSprite(name);
                     Entity block = new LevelBLockEntity(newblockSprite, pos, isCollidable);
                     if (block != null) {
                         ProgramManager.AddOnScreenEntity(block);
@@ -145,7 +139,7 @@ namespace SprintZero1.XMLFiles
                 {
                     //parse the data -> get the sprites draw the thing entity
                     Vector2 pos = new Vector2(X, Y);
-                    ISprite newWallSprite = tileSpriteFactory.CreateNewWallSprite(quad);
+                    ISprite newWallSprite = TileSpriteFactory.Instance.CreateNewWallSprite(quad);
                 }
             }
 
@@ -186,7 +180,7 @@ namespace SprintZero1.XMLFiles
                 {
                     //parse the data -> get the sprites draw the thing entity
                     Vector2 pos = new Vector2(X, Y);
-                    ISprite newDoorSprite = tileSpriteFactory.CreateNewDoorSprite(name);
+                    ISprite newDoorSprite = TileSpriteFactory.Instance.CreateNewDoorSprite(name);
                 }
             }
 
@@ -222,7 +216,7 @@ namespace SprintZero1.XMLFiles
                 {
                     //parse the data -> get the sprites draw the thing entity
                    
-                    ISprite enemySprite = enemyFactory.CreateEnemySprite(name, new Vector2(X,Y), 0);
+                    ISprite enemySprite = EnemyFactory.Instance.CreateEnemySprite(name, new Vector2(X,Y), 0);
                      Entity enemy = new LevelBLockEntity(enemySprite, new Vector2(X, Y), false);
                     if (enemy != null)
                     {
@@ -262,7 +256,7 @@ namespace SprintZero1.XMLFiles
                 else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Item")
                 {
                     //parse the data -> get the sprites draw the thing entity
-                    ISprite itemSprite = itemFactory.CreateItemSprite(name);
+                    ISprite itemSprite = ItemFactory.Instance.CreateItemSprite(name);
                     Entity item = new LevelBLockEntity(itemSprite, new Vector2(X,Y), false);
                     if (item != null)
                     {

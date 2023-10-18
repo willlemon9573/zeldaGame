@@ -1,7 +1,9 @@
-﻿using SprintZero1.XMLFiles;
+﻿using SprintZero1.Enums;
+using SprintZero1.XMLFiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +20,11 @@ namespace SprintZero1.Managers
 
         public void Initialize() {
             String xmlFile = "XMLFiles/Room1.xml";
+            ProgramManager.Start(game);
+            Vector2 pos = new Vector2(176, 170);
+            ProgramManager.AddPlayer(pos, 1, Direction.South);
             xmlParser.Parse(xmlFile);
+
         }
 
         public void LoadRoom() { 
@@ -30,7 +36,7 @@ namespace SprintZero1.Managers
         }
 
         public void Draw() { 
-        
+            
         }
     }
 }
