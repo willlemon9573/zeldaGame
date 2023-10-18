@@ -51,12 +51,14 @@ namespace SprintZero1.Factories
             };
 
             List<Rectangle> bombFrames = new List<Rectangle>();
-            List<Rectangle> fireFrames = new List<Rectangle>();
-            int bombX = 126, fireX = 194, y = 185, width = 16, height = 16;
+            List<Rectangle> fireFrames = new List<Rectangle> {
+                new Rectangle(194,185,16,16),
+                new Rectangle(213,185,16,16)
+            };
+            int bombX = 126, y = 185, width = 16, height = 16;
             for (int i = 0; i < 4; i++)
             {
                 bombFrames.Add(new Rectangle(bombX, y, width, height));
-                fireFrames.Add(new Rectangle(fireX, y, width, height));
                 if (i >= 1)
                 {
                     bombX += width + 2;
@@ -65,7 +67,6 @@ namespace SprintZero1.Factories
                 {
                     bombX += width;
                 }
-                fireX += width + 2;
             }
             weaponSourceRectangles.Add("boomerang", regBoomerangFrames);
             weaponSourceRectangles.Add("betterboomerang", betterBoomerangFrames);
@@ -135,10 +136,12 @@ namespace SprintZero1.Factories
             /*   return new WeaponSprite(location, weaponSourceRectangles["bomb"], this.spriteSheet, maxFrames, direction);*/
             return new ControlledAnimation(new AnimatedSprite(newRectangleList, spriteSheet, maxFrame),maxFrame);
         }
-        public ISprite CreateMagicFireSprite(Vector2 location, int maxFrames, int direction)
+        public ISprite CreateMagicFireSprite()
         {
+            int maxFrame = 2;
+            List<Rectangle> sourceRectangle = weaponSourceRectangles["magicfire"];
             /* return new WeaponSprite(location, weaponSourceRectangles["magicfire"], this.spriteSheet, maxFrames, direction);*/
-            return null;
+            return new AnimatedSprite(sourceRectangle,spriteSheet, maxFrame);
         }
     }
 }

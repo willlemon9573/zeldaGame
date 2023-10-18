@@ -86,6 +86,7 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.D3, new BoomerangWeapon(playerEntity, ProjectileEntity));
             keyboardMap.Add(Keys.D4, new betterBoomerangWeapon(playerEntity, ProjectileEntity));
             keyboardMap.Add(Keys.D5, new BombWeapon(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D6, new MagicFireWeapon(playerEntity, ProjectileEntity));
 
 
 

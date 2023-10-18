@@ -10,15 +10,15 @@ namespace SprintZero1.Commands
 {
     internal class BombWeapon : ICommand
     {
-        private Direction Direction;
-        private Vector2 location;
-        private WeaponSpriteFactory WeaponFactory;
-        private IEntity _PlayerEntity;
-        private int howfarFront = 15;
-        ISprite newSprite;
-        ProjectileEntity _Entity;
-        IProjectile _projectileType;
-        private SpriteEffects spriteEffect;
+        private Direction Direction; // Direction in which the bomb will be thrown
+        private Vector2 location; // Starting location of the bomb
+        private WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
+        private IEntity _PlayerEntity; // The player entity who throws the bomb
+        private int howfarFront = 15; // Distance from the player's position to start the bomb
+        ISprite newSprite; // Sprite for the bomb
+        ProjectileEntity _Entity; // Entity representing the bomb
+        IProjectile _projectileType; // Type of projectile (e.g., bomb)
+        private SpriteEffects spriteEffect; // Sprite effects for rendering
 
         public BombWeapon(IEntity PlayerEntity, ProjectileEntity ProjectileEntity)
         {
@@ -32,6 +32,8 @@ namespace SprintZero1.Commands
             location = _PlayerEntity.Position;
             IMovableEntity _PlayerEntityMoveable = (IMovableEntity)_PlayerEntity;
             Direction = _PlayerEntityMoveable.Direction;
+
+            // Calculate the starting location of the bomb based on the player's direction
             switch (Direction)
             {
                 case Direction.North: // Moving Upwards
@@ -50,21 +52,24 @@ namespace SprintZero1.Commands
                     // Handle other directions if necessary
                     break;
             }
+
             _Entity.Rotation = 0;
             spriteEffect = SpriteEffects.None;
             _Entity._ChangeSpriteEffects = spriteEffect;
+
+            // Create a new bomb sprite
             newSprite = WeaponFactory.CreateBombSprite();
+
             _Entity.Position = location;
             _Entity.Direction = Direction;
             _Entity.projectileSprite = newSprite;
-            _Entity.endingSprite = WeaponFactory.CreateBombSpriteExplodes();
+
+            // Create a bomb projectile type and assign it to the entity
             _projectileType = new bombProjectile(_Entity);
             _Entity.projectileUpdate = _projectileType;
-            //location = game.position;
-            // Direction = game.CurrentDirection;
-            //newSprite = WeaponFactory.CreateBombSprite(location, 4, -1);
-            //game.Weapon = newSprite;
-        }
 
+            // Create an ending sprite for the bomb (e.g., explosion sprite)
+            _Entity.endingSprite = WeaponFactory.CreateBombSpriteExplodes();
+        }
     }
 }

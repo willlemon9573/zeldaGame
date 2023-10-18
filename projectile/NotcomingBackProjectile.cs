@@ -4,25 +4,24 @@ using SprintZero1.Enums;
 
 namespace SprintZero1.projectile
 {
-
     internal class NotcomingBackProjectile : IProjectile
     {
-        private double timer = 0;
-        private double waitingTime = 50;
-        private Vector2 location;
-        private int direction;
-        private float _speed ;
-        private float distanceMoved = 0;
-        public bool IsActive  = true;
-        private int _maxDistance;
-        private bool shouldEnd = false;
-        ProjectileEntity _projectile;
+        private double timer = 0; // Timer to track how long the projectile has been active
+        private double waitingTime = 50; // The time in milliseconds before the projectile ends
+        private Vector2 location; // Current location of the projectile
+        private int direction; // Direction in which the projectile is moving
+        private float _speed; // Speed at which the projectile moves
+        private float distanceMoved = 0; // Distance traveled by the projectile
+        public bool IsActive = true; // Flag to indicate if the projectile is active
+        private int _maxDistance; // Maximum distance the projectile can travel before becoming inactive
+        private bool shouldEnd = false; // Flag to indicate if the projectile should end
+        ProjectileEntity _projectile; // Reference to the projectile entity
 
         public NotcomingBackProjectile(ProjectileEntity ProjectileEntity, int maxDistance, float speed)
         {
-            _projectile = ProjectileEntity;
-            _maxDistance = maxDistance;
-            _speed = speed;
+            _projectile = ProjectileEntity; // Initialize the projectile with the provided entity
+            _maxDistance = maxDistance; // Set the maximum distance the projectile can travel
+            _speed = speed; // Set the speed of the projectile
         }
 
         public void Update(GameTime gameTime)
@@ -31,32 +30,31 @@ namespace SprintZero1.projectile
             {
                 _projectile.projectileSprite = _projectile.endingSprite;
                 timer += gameTime.ElapsedGameTime.TotalMilliseconds;
-                
+
                 if (timer >= waitingTime)
                 {
                     _projectile.projectileSprite = null;
                     _projectile.projectileUpdate = null;
-                    timer = 0; 
+                    timer = 0;
                 }
                 return;
             }
-
-
-            
 
             MoveProjectile(_speed);
             distanceMoved += _speed;
 
             if (distanceMoved >= _maxDistance)
             {
-                IsActive = false;
+                IsActive = false; // Deactivate the projectile when it reaches max distance
             }
         }
 
         private void MoveProjectile(float moveSpeed)
         {
             Direction direction = _projectile.Direction;
-            Vector2 location = _projectile.Position; 
+            Vector2 location = _projectile.Position;
+
+            // Calculate the new position of the projectile based on its direction and speed
             switch (direction)
             {
                 case Direction.North: // Moving Upwards
@@ -75,8 +73,8 @@ namespace SprintZero1.projectile
                     // Handle other directions if necessary
                     break;
             }
-            _projectile.Position = location;
+
+            _projectile.Position = location; // Update the position of the projectile
         }
     }
-
 }

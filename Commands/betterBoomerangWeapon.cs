@@ -15,7 +15,7 @@ namespace SprintZero1.Commands
         private WeaponSpriteFactory WeaponFactory;
         private IEntity _PlayerEntity;
         private int howfarFront = 15;
-        private float movingSpeed = 4;
+        private float movingSpeed = 3.5f;
         private int maxDistance = 70;
         ISprite newSprite;
         ProjectileEntity _Entity;
@@ -58,6 +58,7 @@ namespace SprintZero1.Commands
             _Entity.Position = location;
             _Entity.Direction = Direction;
             _Entity.projectileSprite = newSprite;
+            _Entity.endingSprite = null;
             _projectileType = new comingBackProjectile(_Entity, maxDistance, movingSpeed);
             _Entity.projectileUpdate = _projectileType;
             //location = game.position;
