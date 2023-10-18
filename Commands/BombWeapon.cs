@@ -14,7 +14,7 @@ namespace SprintZero1.Commands
         private Vector2 location;
         private WeaponSpriteFactory WeaponFactory;
         private IEntity _PlayerEntity;
-        private int moveSpeed = 15;
+        private int howfarFront = 15;
         ISprite newSprite;
         ProjectileEntity _Entity;
         IProjectile _projectileType;
@@ -35,16 +35,16 @@ namespace SprintZero1.Commands
             switch (Direction)
             {
                 case Direction.North: // Moving Upwards
-                    location.Y -= moveSpeed;
+                    location.Y -= howfarFront;
                     break;
                 case Direction.South: // Moving Downwards
-                    location.Y += moveSpeed;
+                    location.Y += howfarFront;
                     break;
                 case Direction.West: // Moving Left
-                    location.X -= moveSpeed;
+                    location.X -= howfarFront;
                     break;
                 case Direction.East: // Moving Right
-                    location.X += moveSpeed;
+                    location.X += howfarFront;
                     break;
                 default:
                     // Handle other directions if necessary

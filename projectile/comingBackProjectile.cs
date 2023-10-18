@@ -9,7 +9,7 @@ namespace SprintZero1.projectile
     {
         private Vector2 location;
         private int direction;
-        private float speed = 3;
+        private float _speed;
         private float distanceMoved = 0;
         private bool returning = false;
         public bool IsActive { get; private set; } = true;
@@ -17,10 +17,11 @@ namespace SprintZero1.projectile
         private float RotationIncrement = MathHelper.ToRadians(10);
         ProjectileEntity _projectile;
 
-        public comingBackProjectile(ProjectileEntity ProjectileEntity, int maxDistance)
+        public comingBackProjectile(ProjectileEntity ProjectileEntity, int maxDistance, float speed)
         {
             _projectile = ProjectileEntity;
             _maxDistance = maxDistance;
+            _speed = speed;
         }
 
         public void Update(GameTime gameTime)
@@ -38,21 +39,21 @@ namespace SprintZero1.projectile
             }
             if (returning)
             {
-                MoveProjectile(-speed);
+                MoveProjectile(-_speed);
             }
             else
             {
-                MoveProjectile(speed);
+                MoveProjectile(_speed);
             }
 
-            distanceMoved += speed;
+            distanceMoved += _speed;
 
-            if (distanceMoved >= 50 && !returning)
+            if (distanceMoved >= _maxDistance && !returning)
             {
                 returning = true;
                 distanceMoved = 0;
             }
-            else if (distanceMoved >= 50 && returning)
+            else if (distanceMoved >= _maxDistance && returning)
             {
                 IsActive = false;
             }

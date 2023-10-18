@@ -11,17 +11,18 @@ namespace SprintZero1.projectile
         private double waitingTime = 50;
         private Vector2 location;
         private int direction;
-        private float speed = 3;
+        private float _speed ;
         private float distanceMoved = 0;
         public bool IsActive  = true;
         private int _maxDistance;
         private bool shouldEnd = false;
         ProjectileEntity _projectile;
 
-        public NotcomingBackProjectile(ProjectileEntity ProjectileEntity, int maxDistance)
+        public NotcomingBackProjectile(ProjectileEntity ProjectileEntity, int maxDistance, float speed)
         {
             _projectile = ProjectileEntity;
             _maxDistance = maxDistance;
+            _speed = speed;
         }
 
         public void Update(GameTime gameTime)
@@ -43,10 +44,10 @@ namespace SprintZero1.projectile
 
             
 
-            MoveProjectile(speed);
-            distanceMoved += speed;
+            MoveProjectile(_speed);
+            distanceMoved += _speed;
 
-            if (distanceMoved >= 50)
+            if (distanceMoved >= _maxDistance)
             {
                 IsActive = false;
             }
