@@ -3,11 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SprintZero1.Sprites
 {
+    /// <summary>
+    /// Controls drawing of non-animated sprites
+    /// @Author Aaron Heishman
+    /// </summary>
     public class NonAnimatedSprite : ISprite
     {
         private readonly Rectangle _sourceRectangle;
         private readonly Texture2D _spriteSheet;
-
 
         public NonAnimatedSprite(Rectangle sourceRectangle, Texture2D spriteSheet)
         {

@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 namespace SprintZero1.Sprites
 {
-    [Serializable]
+    /// <summary>
+    /// Controls drawing and animating sprites
+    /// </summary>
     public class AnimatedSprite : ISprite
     {
         private readonly List<Rectangle> _sourceRectangles;
@@ -16,6 +17,7 @@ namespace SprintZero1.Sprites
 
         /// <summary>
         /// Update how many frames should display per second
+        /// @Author Aaron Heishman
         /// </summary>
         private int FramesPerSecond
         {
@@ -40,6 +42,7 @@ namespace SprintZero1.Sprites
                 _currentFrame = (_currentFrame + 1) % _maxFrames;
             }
         }
+
         /// <summary>
         /// Constructor for creating an animated _sprite
         /// </summary>
@@ -52,8 +55,8 @@ namespace SprintZero1.Sprites
             _sourceRectangles = sourceRectangles;
             _spriteSheet = spriteSheet;
             _maxFrames = maxFrames;
-            _currentFrame = 0;
-            FramesPerSecond = 8;
+            _currentFrame = 0; // The initial starting frame for the animated sprite
+            FramesPerSecond = 8; // to remove this magic number we will need to make sure all classes that have created Animated sprites will also add this parameter.
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0f)

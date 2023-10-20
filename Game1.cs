@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Entities;
-using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
@@ -44,49 +42,35 @@ namespace SprintZero1
 
         protected override void LoadContent()
         {
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2DManager.LoadAllTextures(this.Content);
+            /* Factories are missing a lot of comments. To be added in Sprint 4 
+                May also be loading textures specifically Program Manager rather than in game1.cs
+            */
             LinkSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();
-            WeaponSpriteFactory.Instance.LoadTextures(this.Content);
-            ItemFactory.Instance.LoadTextures(this.Content);
-            /* FOR TESTING */
-            TestingManager.StartTest(this);
-            /* doors need to be drawn BEFORE walls because doors overlap them to make sure the "bricks" at the top match" */
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateFloorSprite("entrance"), new Vector2(127, 151));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(1), new Vector2(199, 100));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(2), new Vector2(55, 100));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(3), new Vector2(55, 204));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewWallSprite(4), new Vector2(199, 204));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_north"), new Vector2(127, 80));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_west"), new Vector2(15, 152));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_east"), new Vector2(239, 152));
-            TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_south"), new Vector2(127, 224));
-            // collidable block
-            TestingManager.AddEntity(new LevelBLockEntity(TileSpriteFactory.Instance.CreateNewTileSprite("pyramid"), new Vector2(39, 104), true));
-            TestingManager.TestPlayerEntityWithKeyboard(new Vector2(176, 170), 1, Direction.South);
+            WeaponSpriteFactory.Instance.LoadTextures();
+            ItemSpriteFactory.Instance.LoadTextures();
         }
 
         protected override void Update(GameTime gameTime)
         {
             ProgramManager.Update(gameTime);
-            TestingManager.Update(gameTime);
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            /* Draw all sprites on a new render target */
             GraphicsDevice.SetRenderTarget(this._newRenderTarget);
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
             ProgramManager.Draw(_spriteBatch);
-            TestingManager.Draw(_spriteBatch);
-
             _spriteBatch.End();
 
-            // Code for rescaling
+            /* Rescale the window and draw sprite batch with new scale */
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(_newRenderTarget, _actualScreenRectangle, Color.White);

@@ -9,15 +9,15 @@ using System.Linq;
 namespace SprintZero1.Factories
 {
 
-    public class EnemyFactory
+    public class EnemySpriteFactory
     {
         private Texture2D dungeonEnemySpriteSheet, bossSpriteSheet;
         private readonly Dictionary<string, List<Rectangle>> enemySpriteDictionary;
         private readonly Dictionary<string, List<Rectangle>> bossEnemySpriteDictionary;
-        private static readonly EnemyFactory instance = new EnemyFactory();
+        private static readonly EnemySpriteFactory instance = new EnemySpriteFactory();
         const int HEIGHT = 16, WIDTH = 16;
 
-        public static EnemyFactory Instance
+        public static EnemySpriteFactory Instance
         {
             get { return instance; }
         }
@@ -105,7 +105,7 @@ namespace SprintZero1.Factories
         /// <summary>
         /// Private constructor to prevent instantiation of the singleton
         /// </summary>
-        private EnemyFactory()
+        private EnemySpriteFactory()
         {
             enemySpriteDictionary = new Dictionary<string, List<Rectangle>>();
             bossEnemySpriteDictionary = new Dictionary<string, List<Rectangle>>();
