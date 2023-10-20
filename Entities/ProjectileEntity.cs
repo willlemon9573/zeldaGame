@@ -60,7 +60,7 @@ namespace SprintZero1.Entities
         {
             if (projectileSprite != null)
             {
-                projectileSprite.Draw(spriteBatch, _projectilePosition, _ChangeSpriteEffects, _rotation);
+                projectileSprite.Draw(spriteBatch, _projectilePosition, _SpriteEffects, _rotation);
             }
         }
     }

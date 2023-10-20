@@ -30,8 +30,7 @@ namespace SprintZero1
             this.IsFixedTimeStep = true;//false;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
         }
-
-        /// <summary>
+           
         /// Initialize all components required to run the game
         /// </summary>
         protected override void Initialize()
