@@ -10,17 +10,18 @@ namespace SprintZero1.Commands
 {
     internal class FireBetterBoomerangCommand : ICommand
     {
-        private Direction Direction;
-        private Vector2 startLocation;
-        private WeaponSpriteFactory WeaponFactory;
-        private IEntity _PlayerEntity;
-        private float launchOffset = 15;
-        private float movingSpeed = 3.5f;
-        private int maxDistance = 70;
-        ISprite newSprite;
-        ProjectileEntity _Entity;
-        IProjectile _projectileType;
-        private SpriteEffects spriteEffect;
+        private Direction Direction; // Direction of the projectile
+        private Vector2 startLocation; // Starting location of the projectile
+        private WeaponSpriteFactory WeaponFactory; // Factory used to create weapon sprites
+        private IEntity _PlayerEntity; // Entity to which the projectile belongs
+        private float launchOffset = 15; // Offset from the entity's position where the projectile is launched
+        private float movingSpeed = 3.5f; // Speed at which the projectile moves
+        private int maxDistance = 70; // Maximum distance the projectile can travel
+        ISprite newSprite; // Newly created sprite
+        ProjectileEntity _Entity; // The projectile entity
+        IProjectile _projectileType; // Type of the projectile
+        private SpriteEffects spriteEffect; // Sprite effect
+
 
         /// <summary>
         /// Initializes a new instance of the FireBetterBoomerangCommand class.
