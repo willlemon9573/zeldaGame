@@ -4,17 +4,25 @@ using SprintZero1.Enums;
 
 namespace SprintZero1.projectile
 {
-    internal class bombProjectile : IProjectile
+    internal class BombProjectile : IProjectile
     {
         private double timer = 0; // Timer to track how long the bomb has been active
         private double waitingTime = 600; // The time in milliseconds before the bomb explodes
         ProjectileEntity _projectile; // Reference to the projectile entity representing the bomb
 
-        public bombProjectile(ProjectileEntity ProjectileEntity)
+        /// <summary>
+        /// Initializes a new instance of the BombProjectile class.
+        /// </summary>
+        /// <param name="ProjectileEntity">The projectile entity representing the bomb.</param>
+        public BombProjectile(ProjectileEntity ProjectileEntity)
         {
             _projectile = ProjectileEntity; // Initialize the bomb projectile with the provided entity
         }
 
+        /// <summary>
+        /// Updates the bomb projectile's state over time.
+        /// </summary>
+        /// <param name="gameTime">The game time information.</param>
         public void Update(GameTime gameTime)
         {
             timer += gameTime.ElapsedGameTime.TotalMilliseconds;

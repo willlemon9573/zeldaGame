@@ -4,7 +4,7 @@ using SprintZero1.Enums;
 
 namespace SprintZero1.projectile
 {
-    internal class comingBackProjectile : IProjectile
+    internal class BoomerangWeaponProjectile : IProjectile
     {
         private Vector2 location; // Current location of the projectile
         private int direction; // Direction in which the projectile is moving
@@ -16,13 +16,23 @@ namespace SprintZero1.projectile
         private float RotationIncrement = MathHelper.ToRadians(10); // Increment for projectile rotation
         ProjectileEntity _projectile; // Reference to the projectile entity
 
-        public comingBackProjectile(ProjectileEntity ProjectileEntity, int maxDistance, float speed)
+        /// <summary>
+        /// Initializes a new instance of the BoomerangWeaponProjectile class.
+        /// </summary>
+        /// <param name="ProjectileEntity">The projectile entity representing the boomerang.</param>
+        /// <param name="maxDistance">The maximum distance the boomerang can travel.</param>
+        /// <param name="speed">The speed at which the boomerang moves.</param>
+        public BoomerangWeaponProjectile(ProjectileEntity ProjectileEntity, int maxDistance, float speed)
         {
             _projectile = ProjectileEntity; // Initialize the projectile with the provided entity
             _maxDistance = maxDistance; // Set the maximum distance the projectile can travel
             _speed = speed; // Set the speed of the projectile
         }
 
+        /// <summary>
+        /// Updates the boomerang projectile's state over time.
+        /// </summary>
+        /// <param name="gameTime">The game time information.</param>
         public void Update(GameTime gameTime)
         {
             _projectile.Rotation += RotationIncrement;

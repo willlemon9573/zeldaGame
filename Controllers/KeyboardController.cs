@@ -81,12 +81,12 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.P, new NextEnemyCommand(game));
             keyboardMap.Add(Keys.Y, new GetPreviousTileCommand(game));
             keyboardMap.Add(Keys.T, new GetNextTileCommands(game));
-            keyboardMap.Add(Keys.D1, new ArrowWeapon(playerEntity, ProjectileEntity));
-            keyboardMap.Add(Keys.D2, new betterArrowWeapon(playerEntity, ProjectileEntity));
-            keyboardMap.Add(Keys.D3, new BoomerangWeapon(playerEntity, ProjectileEntity));
-            keyboardMap.Add(Keys.D4, new betterBoomerangWeapon(playerEntity, ProjectileEntity));
-            keyboardMap.Add(Keys.D5, new BombWeapon(playerEntity, ProjectileEntity));
-            keyboardMap.Add(Keys.D6, new MagicFireWeapon(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D1, new FireArrowCommand(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D2, new FireBetterArrowCommand(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D3, new FireBoomerangCommand(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D4, new FireBetterBoomerangCommand(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D5, new FireBombCommand(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D6, new FireMagicFireCommand(playerEntity, ProjectileEntity));
 
 
 

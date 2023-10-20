@@ -8,19 +8,24 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SprintZero1.Commands
 {
-    internal class BombWeapon : ICommand
+    internal class FireBombCommand : ICommand
     {
         private Direction Direction; // Direction in which the bomb will be thrown
-        private Vector2 location; // Starting location of the bomb
+        private Vector2 startLocation; // Starting location of the bomb
         private WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
         private IEntity _PlayerEntity; // The player entity who throws the bomb
-        private int howfarFront = 15; // Distance from the player's position to start the bomb
+        private float launchOffset = 15; // Offset distance from the player's position to start the bomb
         ISprite newSprite; // Sprite for the bomb
         ProjectileEntity _Entity; // Entity representing the bomb
         IProjectile _projectileType; // Type of projectile (e.g., bomb)
         private SpriteEffects spriteEffect; // Sprite effects for rendering
 
-        public BombWeapon(IEntity PlayerEntity, ProjectileEntity ProjectileEntity)
+        /// <summary>
+        /// Initializes a new instance of the FireBombCommand class.
+        /// </summary>
+        /// <param name="PlayerEntity">The player entity who throws the bomb.</param>
+        /// <param name="ProjectileEntity">The entity representing the bomb projectile.</param>
+        public FireBombCommand(IEntity PlayerEntity, ProjectileEntity ProjectileEntity)
         {
             _PlayerEntity = PlayerEntity;
             _Entity = ProjectileEntity;
@@ -29,24 +34,24 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            location = _PlayerEntity.Position;
+            startLocation = _PlayerEntity.Position;
             IMovableEntity _PlayerEntityMoveable = (IMovableEntity)_PlayerEntity;
             Direction = _PlayerEntityMoveable.Direction;
 
             // Calculate the starting location of the bomb based on the player's direction
             switch (Direction)
             {
-                case Direction.North: // Moving Upwards
-                    location.Y -= howfarFront;
+                case Direction.North:
+                    startLocation.Y -= launchOffset;
                     break;
-                case Direction.South: // Moving Downwards
-                    location.Y += howfarFront;
+                case Direction.South:
+                    startLocation.Y += launchOffset;
                     break;
-                case Direction.West: // Moving Left
-                    location.X -= howfarFront;
+                case Direction.West:
+                    startLocation.X -= launchOffset;
                     break;
-                case Direction.East: // Moving Right
-                    location.X += howfarFront;
+                case Direction.East:
+                    startLocation.X += launchOffset;
                     break;
                 default:
                     // Handle other directions if necessary
@@ -60,15 +65,14 @@ namespace SprintZero1.Commands
             // Create a new bomb sprite
             newSprite = WeaponFactory.CreateBombSprite();
 
-            _Entity.Position = location;
+            _Entity.Position = startLocation;
             _Entity.Direction = Direction;
             _Entity.projectileSprite = newSprite;
 
             // Create a bomb projectile type and assign it to the entity
-            _projectileType = new bombProjectile(_Entity);
+            _projectileType = new BombProjectile(_Entity);
             _Entity.projectileUpdate = _projectileType;
 
-            // Create an ending sprite for the bomb (e.g., explosion sprite)
             _Entity.endingSprite = WeaponFactory.CreateBombSpriteExplodes();
         }
     }

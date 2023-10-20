@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace SprintZero1.Entities
 {
-	internal class ProjectileEntity : IEntity
+    internal class ProjectileEntity : IEntity
     {
         private Direction _projectileDirection;
         private Vector2 _projectilePosition;
@@ -23,15 +23,23 @@ namespace SprintZero1.Entities
         public float Rotation { get { return _rotation; } set { _rotation = value; } }
         public SpriteEffects _ChangeSpriteEffects { get { return _SpriteEffects; } set { _SpriteEffects = value; } }
 
-        public ProjectileEntity(Vector2 position,Direction facingDirection)
-		{
+        /// <summary>
+        /// Initializes a new instance of the ProjectileEntity class.
+        /// </summary>
+        /// <param name="position">The initial position of the projectile.</param>
+        /// <param name="facingDirection">The direction in which the projectile is facing.</param>
+        public ProjectileEntity(Vector2 position, Direction facingDirection)
+        {
             _projectileDirection = facingDirection;
             _projectilePosition = position;
             projectileSprite = null;
-            projectileUpdate= null;
-
+            projectileUpdate = null;
         }
 
+        /// <summary>
+        /// Updates the projectile's state over time.
+        /// </summary>
+        /// <param name="gameTime">The game time information.</param>
         public void Update(GameTime gameTime)
         {
             if (projectileSprite != null)
@@ -44,6 +52,10 @@ namespace SprintZero1.Entities
             }
         }
 
+        /// <summary>
+        /// Draws the projectile on the screen.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used for rendering.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             if (projectileSprite != null)
