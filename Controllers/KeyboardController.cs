@@ -46,7 +46,10 @@ namespace SprintZero1.Controllers
         /// <param name="movementKey">the current movement key that needs to be checked</param>
         void HandleMovementKey(Keys movementKey)
         {
-            /* Add key to stack if it's not in the stack already */
+            /* 
+             * Add key to stack if it's not in the stack already and execute that key
+             * else execute the command of the movement key at the top of the stack
+             */
             if (!movementKeyStack.Contains(movementKey))
             {
                 movementKeyStack.Push(movementKey);
