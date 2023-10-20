@@ -131,7 +131,6 @@ namespace SprintZero1.Factories
         {
             tileSpriteSheet = Texture2DManager.GetTileSheet();
             levelOneSpriteSheet = Texture2DManager.GetLevelOneSpriteSheet();
-
         }
         /// <summary>
         /// Create and return a new tile sprite

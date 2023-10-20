@@ -1,18 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using System.Collections.Generic;
 
 namespace SprintZero1.Factories
 {
-    internal class ItemFactory : IUsableItemFactory
+    internal class ItemSpriteFactory
     {
         private Texture2D itemSpriteSheet;
         private readonly Dictionary<string, Rectangle> sourceRectangles;
-        private static readonly ItemFactory instance = new ItemFactory();
+        private static readonly ItemSpriteFactory instance = new ItemSpriteFactory();
         private readonly List<string> itemNamesList;
-        public static ItemFactory Instance
+        private Texture2D linkWeaponSpriteSheet;
+        public static ItemSpriteFactory Instance
         {
             get { return instance; }
         }
@@ -43,10 +44,13 @@ namespace SprintZero1.Factories
                     x_pixels = 23;
                 }
             }
+
+            Rectangle woodenSwordSource = new Rectangle(1, 154, 7, 16);
+            sourceRectangles.Add("woodsword", woodenSwordSource);
         }
 
 
-        private ItemFactory()
+        private ItemSpriteFactory()
         {
             itemNamesList = new List<string>()
             {
@@ -58,9 +62,10 @@ namespace SprintZero1.Factories
             CreateSourceRectanglesDictionary();
         }
 
-        public void LoadTextures(ContentManager manager)
+        public void LoadTextures()
         {
-            itemSpriteSheet = manager.Load<Texture2D>("itemSpriteSheet1");
+            linkWeaponSpriteSheet = Texture2DManager.GetLinkSpriteSheet();
+            itemSpriteSheet = Texture2DManager.GetItemSpriteSheet();
         }
 
         public ISprite CreateItemSprite(string itemName)
@@ -75,6 +80,11 @@ namespace SprintZero1.Factories
                 /*  return new NonAnimatedItemSprite(tileSourceRectangles[itemName], itemSpriteSheet);*/
             }
             return null;
+        }
+
+        public ISprite CreateNonAnimatedItemSprite(string itemName)
+        {
+            return new NonAnimatedSprite(sourceRectangles[itemName], linkWeaponSpriteSheet);
         }
     }
 }

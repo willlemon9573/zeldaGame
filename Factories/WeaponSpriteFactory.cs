@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Enums;
+using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SprintZero1.Factories
 {
@@ -13,7 +15,7 @@ namespace SprintZero1.Factories
         private Texture2D spriteSheet;
         private readonly Dictionary<string, List<Rectangle>> weaponSourceRectangles;
         private static readonly WeaponSpriteFactory instance = new WeaponSpriteFactory();
-
+        private readonly Dictionary<(String, Direction), Rectangle> _meleeWeaponSourceRectangle;
         public static WeaponSpriteFactory Instance
         {
             get { return instance; }
@@ -82,15 +84,42 @@ namespace SprintZero1.Factories
             weaponSourceRectangles.Add("magicfire", fireFrames);
         }
 
+        private void CreateMeleeWeaponDictionary()
+        {
+            List<Direction> directions = new List<Direction>() { Direction.North, Direction.South, Direction.East, Direction.West };
+            // woodensword
+            List<Rectangle> coordsList = new List<Rectangle>
+            {
+                new Rectangle( 1, 154, 7, 16),
+                new Rectangle(10, 159, 16, 7)
+            };
+            for (int i = 0; i < directions.Count; i++)
+            {
+                Rectangle r;
+                if (i < 2)
+                {
+                    r = coordsList[0];
+                }
+                else
+                {
+                    r = coordsList[1];
+                }
+                /* for testing - to be removed in the future */
+                _meleeWeaponSourceRectangle.Add(("woodensword", directions[i]), r);
+            }
+        }
+
         private WeaponSpriteFactory()
         {
             weaponSourceRectangles = new Dictionary<string, List<Rectangle>>();
+            _meleeWeaponSourceRectangle = new Dictionary<(string, Direction), Rectangle>();
             CreateDictionary();
+            CreateMeleeWeaponDictionary();
         }
 
-        public void LoadTextures(ContentManager manager)
+        public void LoadTextures()
         {
-            spriteSheet = manager.Load<Texture2D>("LinkSheet");
+            spriteSheet = Texture2DManager.GetWeaponSpriteSheet();
         }
 
         public ISprite CreateBoomerangSprite(String weaponType, Vector2 location, int maxFrames, int direction)
@@ -125,6 +154,12 @@ namespace SprintZero1.Factories
         {
             /* return new WeaponSprite(location, weaponSourceRectangles["magicfire"], this.spriteSheet, maxFrames, direction);*/
             return null;
+        }
+
+        public ISprite GetMeleeWeaponSprite(String weaponName, Direction direction)
+        {
+            Debug.Assert(_meleeWeaponSourceRectangle.ContainsKey((weaponName, direction)), "Meelee weapon not found: " + weaponName);
+            return new NonAnimatedSprite(_meleeWeaponSourceRectangle[(weaponName, direction)], spriteSheet);
         }
     }
 }

@@ -3,7 +3,10 @@
 namespace SprintZero1.StateMachines
 {
     /// <summary>
-    /// Needs more states added to it. Might need to break up states? 
+    /// A statemachine to control the states of the player
+    /// Currently written as PlayerStateMachine, but will be updated to be a general state machine uses for Entities with states
+    /// Looking into using the state pattern instead of state machine pattern
+    /// @Author Aaron Heishamn
     /// </summary>
     public class PlayerStateMachine
     {
