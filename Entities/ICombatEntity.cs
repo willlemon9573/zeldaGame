@@ -13,7 +13,7 @@
         /// <summary>
         /// Executes the attack action.
         /// </summary>
-        public void Attack();
+        public void Attack(string weaponName);
         /// <summary>
         /// Applies damage to the combat entity
         /// </summary>

@@ -2,19 +2,18 @@
 
 namespace SprintZero1.Commands
 {
-    internal class LinkAttackCommand : ICommand
+    internal class SwordAttackCommand : ICommand
     {
 
-        ICombatEntity combatEntity;
-        public LinkAttackCommand(IEntity entity)
+        readonly ICombatEntity combatEntity;
+        public SwordAttackCommand(IEntity entity)
         {
             combatEntity = (ICombatEntity)entity;
         }
 
         public void Execute()
         {
-            combatEntity.Attack();
+            combatEntity.Attack("sword");
         }
-
     }
 }

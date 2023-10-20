@@ -9,9 +9,9 @@ namespace SprintZero1.Controllers
     internal class KeyboardController : IController
     {
         private readonly Dictionary<Keys, ICommand> keyboardMap;
-        readonly List<Keys> _movementKeyList;
-        List<Keys> _previouslyPressedKeys;
-        readonly Stack<Keys> movementKeyStack;
+        private List<Keys> _movementKeyList;
+        private List<Keys> _previouslyPressedKeys;
+        private Stack<Keys> movementKeyStack;
         /// <summary>
         /// Construct an object to control the keyboard
         /// </summary>
@@ -75,19 +75,13 @@ namespace SprintZero1.Controllers
             //keyboardMap.Add(Keys.Z, new SwordAttackCommand(playerEntity));
             /* Other commands */
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
-            keyboardMap.Add(Keys.U, new PreviousItemCommand(game));
-            keyboardMap.Add(Keys.I, new NextItemCommand(game));
-            keyboardMap.Add(Keys.O, new PreviousEnemyCommand(game));
-            keyboardMap.Add(Keys.P, new NextEnemyCommand(game));
-            keyboardMap.Add(Keys.Y, new GetPreviousTileCommand(game));
-            keyboardMap.Add(Keys.T, new GetNextTileCommands(game));
+
             keyboardMap.Add(Keys.D1, new FireArrowCommand(playerEntity, ProjectileEntity));
             keyboardMap.Add(Keys.D2, new FireBetterArrowCommand(playerEntity, ProjectileEntity));
             keyboardMap.Add(Keys.D3, new FireBoomerangCommand(playerEntity, ProjectileEntity));
             keyboardMap.Add(Keys.D4, new FireBetterBoomerangCommand(playerEntity, ProjectileEntity));
             keyboardMap.Add(Keys.D5, new FireBombCommand(playerEntity, ProjectileEntity));
             keyboardMap.Add(Keys.D6, new FireMagicFireCommand(playerEntity, ProjectileEntity));
-
 
 
         }
@@ -98,6 +92,7 @@ namespace SprintZero1.Controllers
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
             int movementKeyCount = 0;
+
             /* iterate over pressed key collection executing only valid keys in the keyboard map 
                keeping track of the amount of movement keys that are also currently being pressed
             */
@@ -113,6 +108,7 @@ namespace SprintZero1.Controllers
                     keyboardMap[key].Execute();
                 }
             }
+
             /* Check if movement key stack needs to be cleaned */
             if (movementKeyCount < movementKeyStack.Count)
             {
