@@ -24,7 +24,7 @@ namespace SprintZero1.Controllers
         }
 
         /// <summary>
-        /// Recursively removes movement keys from stack that are not in the list of pressed keys
+        /// Recursively removes movement keys from the movement key stack that are not in the list of pressed keys
         /// </summary>
         /// <param name="pressedKeys">collection of currently pressed keys</param>
         private void FlipAndClean(Keys[] pressedKeys)
