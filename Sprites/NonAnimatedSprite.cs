@@ -23,8 +23,9 @@ namespace SprintZero1.Sprites
             int height = _sourceRectangle.Height;
             /* the center of origin for rotation */
             Vector2 origin = new(width / 2, height / 2);
-            /* this overload of draw requires a color mask. Color.White maintains the original sprite color. This can be used to apply a 'tint' to the sprite if desired
-             * May want to add a functionality to interface to allow to change color of sprite for things like entities taking damage 
+            /* 
+             * this overload of draw requires a color mask. Color.White maintains the original sprite color. This can be used to apply a 'tint' to the sprite if desired
+             * May want to add a functionality to interface to allow changing color of the sprite for things like entities taking damage 
              */
             Color colorMask = Color.White;
             Rectangle destinationRectangle = new((int)position.X, (int)position.Y, width, height);
