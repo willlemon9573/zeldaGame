@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Managers;
 using SprintZero1.Enums;
 using SprintZero1.Sprites;
 using System;
@@ -102,7 +103,10 @@ namespace SprintZero1.Factories
             }
 
         }
-
+        public void LoadTextures()
+        {
+            spriteSheet = Texture2DManager.GetLinkSpriteSheet();
+        }
         private WeaponSpriteFactory()
         {
             weaponSourceRectangles = new Dictionary<string, List<Rectangle>>();
