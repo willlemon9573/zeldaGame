@@ -73,12 +73,6 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.Z, new SwordAttackCommand(playerEntity));
             /* Other commands */
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
-            keyboardMap.Add(Keys.U, new PreviousItemCommand(game));
-            keyboardMap.Add(Keys.I, new NextItemCommand(game));
-            keyboardMap.Add(Keys.O, new PreviousEnemyCommand(game));
-            keyboardMap.Add(Keys.P, new NextEnemyCommand(game));
-            keyboardMap.Add(Keys.Y, new GetPreviousTileCommand(game));
-            keyboardMap.Add(Keys.T, new GetNextTileCommands(game));
         }
 
         public void Update()
