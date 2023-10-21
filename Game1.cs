@@ -4,6 +4,7 @@ using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
+using System.Collections.Generic;
 
 namespace SprintZero1
 {
@@ -16,7 +17,20 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
+        private readonly List<String> levelList = new List<String> { "Room1", "Room2", "Room3", "Room4",
+        "Room5", "Room6", "Room7", "Room8", "Room9", "Room10" };
+        private int levelListIndex;
 
+        public List<string> LevelList 
+        { 
+            get { return levelList; } 
+        }
+
+        public int LevelListIndex
+        {
+            get { return levelListIndex; }
+            set { levelListIndex = value; }
+        }
 
         public Game1()
         {
