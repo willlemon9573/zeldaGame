@@ -1,14 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Enums;
+using SprintZero1.StateMachines;
 
 namespace SprintZero1.Entities
 {
-    internal interface IMovableEntity
+    internal interface IMovableEntity : IEntity
     {
         /// <summary>
         /// Gets the Direction of the Entity
         /// </summary>
         Direction Direction { get; }
+
+        /// <summary>
+        /// Get and set the entity's state
+        /// </summary>
+        IEntityState State { get; set; }
         /// <summary>
         /// Changes the Direction of the Entity
         /// </summary>

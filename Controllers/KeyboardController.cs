@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using SprintZero1.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +9,7 @@ namespace SprintZero1.Controllers
 {
     internal class KeyboardController : IController
     {
+        private ICommand _idleCommand;
         private readonly Dictionary<Keys, ICommand> keyboardMap;
         private List<Keys> _movementKeyList;
         private List<Keys> _previouslyPressedKeys;
@@ -76,6 +78,7 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.Z, new SwordAttackCommand(playerEntity));
             /* Other commands */
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
+            _idleCommand = new ReturnToIdleCommand(playerEntity);
         }
 
         public void Update()
@@ -101,8 +104,13 @@ namespace SprintZero1.Controllers
                 }
             }
 
-            /* Check if movement key stack needs to be cleaned */
-            if (movementKeyCount < movementKeyStack.Count)
+            /* Set player to idle if no movement keys are being pressed and/or clean the keys */
+            if (movementKeyCount == 0) // set player to idle
+            {
+                _idleCommand.Execute();
+                FlipAndClean(pressedKeys);
+            }
+            else if (movementKeyCount < movementKeyStack.Count)
             {
                 FlipAndClean(pressedKeys);
             }
