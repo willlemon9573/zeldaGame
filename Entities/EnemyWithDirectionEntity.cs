@@ -13,7 +13,7 @@ namespace SprintZero1.Entities
     /// Player Entity class used to control and update player.
     /// @Author Zihe Wang
     /// </summary>
-    internal class EnemyWithDirectionEntity : IEntity, IMovableEntity, ICombatEntity, IDamageableEntity
+    internal abstract class EnemyWithDirectionEntity : IEntity, IMovableEntity, ICombatEntity, IDamageableEntity
     {
         /* Enemy Components */
         private string _enemyName;
@@ -58,7 +58,6 @@ namespace SprintZero1.Entities
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
         public EnemyWithDirectionEntity(Vector2 position, int startingHealth, string enemyName, int totalFrames)
         {
-            /* Default values for player upon game start */
             _enemyHealth = startingHealth;
             _enemyPosition = position;
             //_enemyStateMachine = new PlayerStateMachine(State.Idle);
@@ -93,7 +92,7 @@ namespace SprintZero1.Entities
          */
 
 
-        public void TakeDamage()
+        public virtual void TakeDamage()
         {
             /*_enemyHealth -= damage;
             if (_enemyHealth <= 0)
@@ -102,12 +101,12 @@ namespace SprintZero1.Entities
             }*/
         }
 
-        public void Die()
+        public virtual void Die()
         {
             // not implemented yet
         }
 
-        public void ChangeDirection(Direction direction)
+        public virtual void ChangeDirection(Direction direction)
         {
             //wait for state machine
         }
