@@ -10,7 +10,7 @@ namespace SprintZero1.StatePatterns.MovingStatePatterns
     internal abstract class BaseEntityMovingState : IEntityState
     {
 
-        private Dictionary<Direction, Func<IEntityState>> DirectionToStateMap; // invokes the specific state 
+        private Dictionary<Direction, Func<IEntityState>> DirectionToStateMap; // invokes the specific state
         protected IMovableEntity entity;
         protected Vector2 Velocity;
         protected Vector2 position;

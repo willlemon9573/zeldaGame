@@ -3,7 +3,7 @@
     /// <summary>
     /// An interface for entities who engage in combat
     /// </summary>
-    internal interface ICombatEntity
+    internal interface ICombatEntity : IMovableEntity
     {
         /// <summary>
         /// Get and set the combat entity's health
@@ -18,6 +18,7 @@
         /// Applies damage to the combat entity
         /// </summary>
         public void TakeDamage();
+
         /// <summary>
         /// Handles the death of the combat entity
         /// </summary>
