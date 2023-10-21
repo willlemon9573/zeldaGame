@@ -3,7 +3,7 @@ using SprintZero1.Entities;
 
 namespace SprintZero1.StatePatterns.MovingStatePatterns
 {
-    internal class EastMovingEntityState : BaseEntityState
+    internal class EastMovingEntityState : BaseEntityMovingState
     {
 
         public EastMovingEntityState(IMovableEntity entity) : base()

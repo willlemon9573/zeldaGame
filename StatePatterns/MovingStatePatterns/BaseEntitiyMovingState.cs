@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.MovingStatePatterns
 {
-    internal abstract class BaseEntityState : IEntityState
+    internal abstract class BaseEntityMovingState : IEntityState
     {
 
         private Dictionary<Direction, Func<IEntityState>> DirectionToStateMap; // invokes the specific state 
@@ -28,7 +28,7 @@ namespace SprintZero1.StatePatterns.MovingStatePatterns
             };
         }
 
-        public BaseEntityState()
+        public BaseEntityMovingState()
         {
             CreateDirectionToStateMap();
         }
