@@ -7,10 +7,10 @@ namespace SprintZero1.Commands
     {
         private readonly IMovableEntity _movableEntity;
 
-        public MoveUpCommand(IEntity entity)
+        public MoveUpCommand(IMovableEntity entity)
         {
             /* Create a reference to the entity to access the move function */
-            _movableEntity = (IMovableEntity)entity;
+            _movableEntity = entity;
         }
 
         public void Execute()

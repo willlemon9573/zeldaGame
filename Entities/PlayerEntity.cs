@@ -13,7 +13,7 @@ namespace SprintZero1.Entities
     /// Player Entity class used to control and update player.
     /// @Author Aaron Heishman
     /// </summary>
-    internal class PlayerEntity : IMovableEntity, ICombatEntity
+    internal class PlayerEntity : ICombatEntity
     {
         /* Player Components */
         private int _playerHealth;
