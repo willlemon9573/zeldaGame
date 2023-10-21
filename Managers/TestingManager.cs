@@ -30,7 +30,7 @@ namespace SprintZero1.Managers
         public static void TestPlayerEntityWithKeyboard(Vector2 position, int health, Direction direction)
         {
             _player = new PlayerEntity(position, health, direction);//Game1 game, IEntity playerEntity, ProjectileEntity ProjectileEntity
-            _Weapon = new ProjectileEntity(position, direction);
+            _Weapon = new ProjectileEntity();
             controller.LoadDefaultCommands(myGame, _player, _Weapon);
             EntityList.Add(_player);
             EntityList.Add(_Weapon);

@@ -8,6 +8,10 @@ using System.Runtime.CompilerServices;
 
 namespace SprintZero1.Entities
 {
+    /// <summary>
+    /// Represents a projectile entity. This class is designed with deferred property initialization in mind.
+    /// Properties are expected to be set externally before the first use in game logic.
+    /// </summary>
     internal class ProjectileEntity : IEntity
     {
         private Direction _projectileDirection;
@@ -24,16 +28,12 @@ namespace SprintZero1.Entities
         public SpriteEffects _ChangeSpriteEffects { get { return _SpriteEffects; } set { _SpriteEffects = value; } }
 
         /// <summary>
-        /// Initializes a new instance of the ProjectileEntity class.
+        /// Initializes a new instance of the <see cref="ProjectileEntity"/> class.
+        /// Note: Property values should be set externally before using this instance in game logic.
         /// </summary>
-        /// <param name="position">The initial position of the projectile.</param>
-        /// <param name="facingDirection">The direction in which the projectile is facing.</param>
-        public ProjectileEntity(Vector2 position, Direction facingDirection)
+        public ProjectileEntity()
         {
-            _projectileDirection = facingDirection;
-            _projectilePosition = position;
-            projectileSprite = null;
-            projectileUpdate = null;
+            // No initialization code needed
         }
 
         /// <summary>
