@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Enums;
-using SprintZero1.StateMachines;
+using SprintZero1.StatePatterns.StatePatternInterfaces;
 
 namespace SprintZero1.Entities
 {

@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
+using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System;
 using System.Collections.Generic;
 
-namespace SprintZero1.StateMachines
+namespace SprintZero1.StatePatterns.MovingStatePatterns
 {
     internal abstract class BaseEntityState : IEntityState
     {
@@ -12,7 +13,7 @@ namespace SprintZero1.StateMachines
         private Dictionary<Direction, Func<IEntityState>> DirectionToStateMap; // invokes the specific state 
         protected IMovableEntity entity;
         protected Vector2 Velocity;
-
+        protected Vector2 position;
         /// <summary>
         /// Create the Direction to State map
         /// </summary>
@@ -20,18 +21,18 @@ namespace SprintZero1.StateMachines
         {
             DirectionToStateMap = new Dictionary<Direction, Func<IEntityState>>()
             {
-                { Direction.North, () => new NorthMovingEntityState(this.entity) },
-                { Direction.South, () => new SouthMovingEntityState(this.entity) },
-                { Direction.West, () => new WestMovingEntityState(this.entity) },
-                { Direction.East, () => new EastMovingEntityState(this.entity) }
+                { Direction.North, () => new NorthMovingEntityState(entity) },
+                { Direction.South, () => new SouthMovingEntityState(entity) },
+                { Direction.West, () => new WestMovingEntityState(entity) },
+                { Direction.East, () => new EastMovingEntityState(entity) }
             };
         }
 
-        public BaseEntityState(IMovableEntity entity)
+        public BaseEntityState()
         {
-            this.entity = entity;
             CreateDirectionToStateMap();
         }
+
         public virtual void BePaused()
         {
             // pause not implemented yet

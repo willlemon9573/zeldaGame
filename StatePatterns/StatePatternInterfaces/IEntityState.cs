@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Enums;
 
-namespace SprintZero1.StateMachines
+namespace SprintZero1.StatePatterns.StatePatternInterfaces
 {
     internal interface IEntityState
     {

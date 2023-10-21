@@ -4,7 +4,8 @@ using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using SprintZero1.StateMachines;
+using SprintZero1.StatePatterns.MovingStatePatterns;
+using SprintZero1.StatePatterns.StatePatternInterfaces;
 
 namespace SprintZero1.Entities
 {

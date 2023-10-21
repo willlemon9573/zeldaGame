@@ -1,5 +1,5 @@
 ﻿using SprintZero1.Entities;
-using SprintZero1.StateMachines;
+using SprintZero1.StatePatterns.MovingStatePatterns;
 
 namespace SprintZero1.Commands
 {
