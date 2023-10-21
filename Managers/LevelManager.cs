@@ -19,7 +19,7 @@ namespace SprintZero1.Managers
         }
 
         public void Initialize() {
-            String xmlFile = "XMLFiles/Room5Right.xml";
+            String xmlFile = "XMLFiles/RoomSecret.xml";
             ProgramManager.Start(game);
             Vector2 pos = new Vector2(100, 100);
             ProgramManager.AddPlayer(pos, 1, Direction.South);
