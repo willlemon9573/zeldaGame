@@ -3,12 +3,12 @@ using SprintZero1.Entities;
 
 namespace SprintZero1.StatePatterns.MovingStatePatterns
 {
-    internal class SouthMovingEntityState : BaseEntityMovingState
+    internal class NorthMovingState : BaseEntityMovingState
     {
-        public SouthMovingEntityState(IMovableEntity entity) : base()
+        public NorthMovingState(IMovableEntity entity) : base()
         {
             this.entity = entity;
-            Velocity = new Vector2(0, 1);
+            Velocity = new Vector2(0, -1);
         }
 
         public override void Update(GameTime gameTime)

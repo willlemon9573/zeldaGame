@@ -7,10 +7,10 @@ using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.MovingStatePatterns
 {
-    internal abstract class BaseEntityMovingState : IEntityState
+    internal abstract class BaseEntityMovingState : IMovingEntityState
     {
 
-        private Dictionary<Direction, Func<IEntityState>> DirectionToStateMap; // invokes the specific state
+        private Dictionary<Direction, Func<IMovingEntityState>> DirectionToStateMap; // invokes the specific state
         protected IMovableEntity entity;
         protected Vector2 Velocity;
         protected Vector2 position;
@@ -19,7 +19,7 @@ namespace SprintZero1.StatePatterns.MovingStatePatterns
         /// </summary>
         private void CreateDirectionToStateMap()
         {
-            DirectionToStateMap = new Dictionary<Direction, Func<IEntityState>>()
+            DirectionToStateMap = new Dictionary<Direction, Func<IMovingEntityState>>()
             {
                 { Direction.North, () => new NorthMovingEntityState(entity) },
                 { Direction.South, () => new SouthMovingEntityState(entity) },

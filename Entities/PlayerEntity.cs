@@ -4,6 +4,7 @@ using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
+using SprintZero1.StatePatterns.CombatStatePatterns;
 using SprintZero1.StatePatterns.MovingStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 
@@ -23,14 +24,15 @@ namespace SprintZero1.Entities
         private PlayerCollider _playerCollider;
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
         private IEntity _playerMainWeapon;
-        private IEntityState _playerState;
+        private IMovingEntityState _playerMovingState;
+        private ICombatState _playerCombatState;
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
 
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
 
         public Direction Direction { get { return _playerDirection; } }
 
-        public IEntityState State { get { return _playerState; } set { _playerState = value; } }
+        public IMovingEntityState State { get { return _playerStates.Item1; } set {; } }
 
         /// <summary>
         /// Construct a new player entity
@@ -48,7 +50,8 @@ namespace SprintZero1.Entities
 
             _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
             _playerMainWeapon = new MeleeWeaponEntity("woodensword");
-            _playerState = new IdleEntityState(this);
+            _playerMovingState = new IdleEntityState(this);
+            _playerCombatState = new DisabledCombatState(this);
         }
 
         public void Move(Vector2 distance)
@@ -73,7 +76,7 @@ namespace SprintZero1.Entities
 
         public void ChangeDirection(Direction direction)
         {
-            _playerState.ChangeDirection(direction);
+            _playerMovingState.ChangeDirection(direction);
             _playerSprite = _linkSpriteFactory.GetLinkSprite(direction);
             _playerDirection = direction;
         }
@@ -81,8 +84,8 @@ namespace SprintZero1.Entities
         public void Update(GameTime gameTime)
         {
             /* Set player state to idle if no keys are pressed (will be changed for keyboard controller */
-            _playerState.Update(gameTime);
-            if (_playerState is not IdleEntityState)
+            _playerMovingState.Update(gameTime);
+            if (_playerMovingState is not IdleEntityState)
             {
                 _playerSprite.Update(gameTime);
             }

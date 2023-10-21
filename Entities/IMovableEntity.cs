@@ -14,7 +14,7 @@ namespace SprintZero1.Entities
         /// <summary>
         /// Get and set the entity's state
         /// </summary>
-        IEntityState State { get; set; }
+        IMovingEntityState State { get; set; }
         /// <summary>
         /// Changes the Direction of the Entity
         /// </summary>

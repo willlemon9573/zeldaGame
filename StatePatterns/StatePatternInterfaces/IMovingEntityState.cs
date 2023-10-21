@@ -3,7 +3,7 @@ using SprintZero1.Enums;
 
 namespace SprintZero1.StatePatterns.StatePatternInterfaces
 {
-    internal interface IEntityState
+    internal interface IMovingEntityState : IState
     {
 
         /// <summary>
@@ -12,7 +12,7 @@ namespace SprintZero1.StatePatterns.StatePatternInterfaces
         void ChangeDirection(Direction direction);
 
         /// <summary>
-        /// Controls when the player pauses the game
+        /// Controls when the player pauses the game / interacts with objects
         /// </summary>
         void BePaused();
 
