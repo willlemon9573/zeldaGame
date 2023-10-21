@@ -12,6 +12,8 @@ namespace SprintZero1.Colliders
         IEntity _parent;
         public IEntity Parent { get { return _parent; } set { _parent = value; } }
 
+        public int Delta { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
         public StaticCollider(IEntity entity, Rectangle _collider)
         {
             this.Collider = _collider;
