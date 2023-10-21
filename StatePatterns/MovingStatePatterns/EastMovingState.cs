@@ -3,10 +3,10 @@ using SprintZero1.Entities;
 
 namespace SprintZero1.StatePatterns.MovingStatePatterns
 {
-    internal class EastMovingEntityState : BaseEntityMovingState
+    internal class EastMovingState : BaseMovingState
     {
 
-        public EastMovingEntityState(IMovableEntity entity) : base()
+        public EastMovingState(IMovableEntity entity) : base()
         {
             this.entity = entity;
             Velocity = new Vector2(1, 0); // moving left

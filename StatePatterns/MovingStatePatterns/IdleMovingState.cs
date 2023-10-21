@@ -3,9 +3,9 @@ using SprintZero1.Entities;
 
 namespace SprintZero1.StatePatterns.MovingStatePatterns
 {
-    internal class IdleEntityState : BaseEntityMovingState
+    internal class IdleMovingState : BaseMovingState
     {
-        public IdleEntityState(IMovableEntity entity) : base()
+        public IdleMovingState(IMovableEntity entity) : base()
         {
             this.entity = entity;
         }

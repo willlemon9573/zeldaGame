@@ -13,7 +13,7 @@ namespace SprintZero1.Commands
         }
         public void Execute()
         {
-            _movableEntity.State = new IdleEntityState(_movableEntity);
+            _movableEntity.State = new IdleMovingState(_movableEntity);
         }
     }
 }

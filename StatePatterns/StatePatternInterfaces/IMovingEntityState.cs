@@ -3,8 +3,7 @@ using SprintZero1.Enums;
 
 namespace SprintZero1.StatePatterns.StatePatternInterfaces
 {
-    internal interface IMovingEntityState : IState
-    {
+    internal interface IMovingEntityState { 
 
         /// <summary>
         /// Handles update logic for changing entity direction

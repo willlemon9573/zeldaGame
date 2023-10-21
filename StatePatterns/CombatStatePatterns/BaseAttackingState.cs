@@ -1,25 +1,26 @@
 ﻿using SprintZero1.Enums;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
+using SprintZero1.StatePatterns.MovingStatePatterns;
 using System;
 using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.CombatStatePatterns
 {
-    internal abstract class BaseCombatState : ICombatState
+    internal abstract class BaseAttackingState : BaseMovingState, ICombatState
     {
         private Dictionary<Direction, Func<ICombatState>> DirectionToStateMap;
         private void CreateDirectionToStateMap()
         {
             DirectionToStateMap = new Dictionary<Direction, Func<ICombatState>>()
             {
-                { Direction.North, () => new NorthCombatState(entity) },
-                { Direction.South, () => new SouthCombatState(entity) },
-                { Direction.West, () => new WestCombatState(entity) },
-                { Direction.East, () => new EastCombatState(entity) }
+                { Direction.North, () => new NorthAttackingState(entity) },
+                { Direction.South, () => new SouthAttackingState(entity) },
+                { Direction.West, () => new WestAttackingState(entity) },
+                { Direction.East, () => new EastAttackingState(entity) }
             };
         }
 
-        public BaseCombatState()
+        public BaseAttackingState()
         {
             CreateDirectionToStateMap();
         }

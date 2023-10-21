@@ -32,7 +32,7 @@ namespace SprintZero1.Entities
 
         public Direction Direction { get { return _playerDirection; } }
 
-        public IMovingEntityState State { get { return _playerStates.Item1; } set {; } }
+        public IMovingEntityState State { get { return _playerMovingState; } set { _playerMovingState = value; } }
 
         /// <summary>
         /// Construct a new player entity
@@ -50,8 +50,8 @@ namespace SprintZero1.Entities
 
             _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
             _playerMainWeapon = new MeleeWeaponEntity("woodensword");
-            _playerMovingState = new IdleEntityState(this);
-            _playerCombatState = new DisabledCombatState(this);
+            _playerMovingState = new IdleMovingState(this);
+            _playerCombatState = new DisabledAttackingState(this);
         }
 
         public void Move(Vector2 distance)
@@ -85,7 +85,7 @@ namespace SprintZero1.Entities
         {
             /* Set player state to idle if no keys are pressed (will be changed for keyboard controller */
             _playerMovingState.Update(gameTime);
-            if (_playerMovingState is not IdleEntityState)
+            if (_playerMovingState is not IdleMovingState)
             {
                 _playerSprite.Update(gameTime);
             }
