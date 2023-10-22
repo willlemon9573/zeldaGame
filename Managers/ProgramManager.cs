@@ -2,10 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Controllers;
-using SprintZero1.Entities;
-using SprintZero1.Factories;
-using System.Collections.Generic;
 using SprintZero1.Controllers.EnemyControllers;
+using SprintZero1.Entities;
+using System.Collections.Generic;
 
 namespace SprintZero1.Managers
 {
@@ -29,28 +28,11 @@ namespace SprintZero1.Managers
         /// <param name="localGame">Game1 object</param>
         public static void Start(Game1 localGame)
         {
-            AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateFloorSprite("entrance"), new Vector2(128, 151)));
-            AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewWallSprite(1), new Vector2(200, 100)));
-            AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewWallSprite(2), new Vector2(56, 100)));
-            AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewWallSprite(3), new Vector2(56, 204)));
-            AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewWallSprite(4), new Vector2(200, 204)));
-            AddOnScreenEntity(new LevelBlockEntity(TileSpriteFactory.Instance.CreateNewTileSprite("pyramid"), new Vector2(40, 104), true));
             ICombatEntity link = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
-            ICombatEntity enemy = new EnemyEntityWithoutDirection(new Vector2(170, 176), 6, "dungeon_gel", 2);
             IEntity ProjectileEntity = new ProjectileEntity();
-            enemyMovementController = new RandomEnemyMovementController(enemy);
             controllers[0].LoadDefaultCommands(localGame, link, ProjectileEntity);
             AddOnScreenEntity(link);
-            AddOnScreenEntity(enemy);
             AddOnScreenEntity(ProjectileEntity);
-            AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewTileSprite("open_north"), new Vector2(128, 80)));
-            AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewTileSprite("open_west"), new Vector2(16, 152)));
-            AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewTileSprite("open_east"), new Vector2(240, 152)));
-            AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewTileSprite("open_south"), new Vector2(128, 224)));
-            AddOnScreenEntity(new InvisibleWallEntity(new Vector2(8, 72), new Vector2(112, 32)));
-            AddOnScreenEntity(new InvisibleWallEntity(new Vector2(8, 104), new Vector2(32, 40)));
-            AddOnScreenEntity(new InvisibleWallEntity(new Vector2(8, 176), new Vector2(32, 72)));
-            AddOnScreenEntity(new InvisibleWallEntity(new Vector2(40, 216), new Vector2(80, 32)));
         }
 
         /// <summary>
