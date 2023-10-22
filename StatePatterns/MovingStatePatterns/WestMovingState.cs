@@ -3,9 +3,9 @@ using SprintZero1.Entities;
 
 namespace SprintZero1.StatePatterns.MovingStatePatterns
 {
-    internal class WestMovingEntityState : BaseEntityMovingState
+    internal class WestMovingState : BaseMovingState
     {
-        public WestMovingEntityState(IMovableEntity entity) : base()
+        public WestMovingState(IMovableEntity entity) : base()
         {
             this.entity = entity;
             Velocity = new Vector2(-1, 0);

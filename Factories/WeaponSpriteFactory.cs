@@ -14,6 +14,7 @@ namespace SprintZero1.Factories
     {
         /* Temporary class for sprint2 requirements. This along with other factories will be refractored for sprint 3 */
         private Texture2D spriteSheet;
+        private Texture2D enemyProjectileSheet;
         private readonly Dictionary<string, List<Rectangle>> weaponSourceRectangles;
         private static readonly WeaponSpriteFactory instance = new WeaponSpriteFactory();
 
@@ -51,12 +52,27 @@ namespace SprintZero1.Factories
                 new Rectangle(29, 182, 5, 16),
                 new Rectangle(36, 190, 16, 5)
             };
-
-            List<Rectangle> bombFrames = new List<Rectangle>();
+            
+            
             List<Rectangle> fireFrames = new List<Rectangle> {
                 new Rectangle(194,185,16,16),
                 new Rectangle(213,185,16,16)
             };
+            int aquamentusWeaponX = 101, y = 11, width = 8, height = 16;
+            List<Rectangle> aquamentusWeaponFrame = new List<Rectangle>();
+            for (int i = 0; i < 4; i++)
+            {
+                aquamentusWeaponFrame.Add(new Rectangle(aquamentusWeaponX, y, width, height));
+                if (i >= 1)
+                {
+                    aquamentusWeaponX += width + 1;
+                }
+                else
+                {
+                    aquamentusWeaponX += width;
+                }
+            }
+
             int bombX = 126, y = 185, width = 16, height = 16;
             for (int i = 0; i < 4; i++)
             {
@@ -76,6 +92,7 @@ namespace SprintZero1.Factories
             weaponSourceRectangles.Add("betterbowarrows", betterArrowFrames);
             weaponSourceRectangles.Add("bomb", bombFrames);
             weaponSourceRectangles.Add("magicfire", fireFrames);
+            weaponSourceRectangles.Add("aquamentusWeapon", aquamentusWeaponFrame);
         }
 
 
@@ -107,6 +124,7 @@ namespace SprintZero1.Factories
         public void LoadTextures()
         {
             spriteSheet = Texture2DManager.GetLinkSpriteSheet();
+            enemyProjectileSheet = Texture2DManager.GetBossSpriteSheet()
         }
         private WeaponSpriteFactory()
         {
@@ -116,7 +134,13 @@ namespace SprintZero1.Factories
 
             CreateMeleeWeaponDictionary();
         }
-        
+
+        public ISprite CreateAquamentusWeaponSprite(int index)
+        {
+            List<Rectangle> sourceRectangle = weaponSourceRectangles["aquamentusWeapon"];
+            return new NonAnimatedSprite(sourceRectangle[index], enemyProjectileSheet); 
+        }
+
 
         public ISprite CreateBoomerangSprite(String weaponType,  Direction direction)
         {
@@ -126,7 +150,7 @@ namespace SprintZero1.Factories
                 sourceRectangle = weaponSourceRectangles["betterboomerang"];
             }
             /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
-            return new NonAnimatedSprite(sourceRectangle[0], spriteSheet); ;
+            return new NonAnimatedSprite(sourceRectangle[0], spriteSheet); 
         }
         public ISprite CreateEndSprite()
         {

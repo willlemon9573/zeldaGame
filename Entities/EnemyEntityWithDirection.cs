@@ -13,43 +13,81 @@ namespace SprintZero1.Entities
 {
 
 	internal class EnemyEntityWithDirection : EnemyBasedEntity
-	{ 
+	{
 
-		/// <summary>
-		/// Construct a new player entity
-		/// </summary>
-		/// <param name="position">The position of the player entity</param>
-		/// <param name="startingHealth">The starting health of the player entity</param>
-		/// <param name="startingDirection">The starting direction the player entity will be facing</param>
-		public EnemyEntityWithDirection(Vector2 position, int startingHealth, string enemyName, int totalFrames):base()
-		{
-			/* Default values for player upon game start */
-			_totalFrame = totalFrames;
-			_enemyHealth = startingHealth;
-			_enemyPosition = position;
-			//_enemyStateMachine = new PlayerStateMachine(State.Idle);
-			_enemySprite = _EnemyFactory.CreateEnemySprite(enemyName, totalFrames);
-			_enemyName = enemyName;
-			//_enemyCollider = new enemyCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16));
-		}
+        /// <summary>
+        /// Construct a new player entity
+        /// </summary>
+        /// <param name="position">The position of the player entity</param>
+        /// <param name="startingHealth">The starting health of the player entity</param>
+        /// <param name="startingDirection">The starting direction the player entity will be facing</param>
+        public EnemyEntityWithDirection(Vector2 position, int startingHealth, string enemyName, int totalFrames, bool isBoss = false)
+        : base(position, startingHealth, enemyName, totalFrames, isBoss)
+        {
+            //no special constructor thing
+        }
 
-		public override void ChangeDirection(Direction direction)
+        public override void ChangeDirection(Direction direction)
 		{
 			_enemyMovingState.ChangeDirection(direction);
 			_enemySprite = _EnemyFactory.CreateEnemySprite(_enemyName, _totalFrame);
 			_enemyDirection = direction;
 		}
+
+
 		public override void PerformAttack()
 		{
 			if (_enemyName.Equals("dungeon_zol"))
 			{
-				FireBoomerangCommand fireBoomerangCommand = new FireBoomerangCommand(this, projectileSprite);
+                ICommand fireBoomerangCommand = new FireBoomerangCommand(this, projectileSprite);
 				fireBoomerangCommand.Execute();
 			}
 			else if (_enemyName.Equals("aquamentus"))
 			{
-
-			}
+                ICommand FireAquamentusWeaponCommand = new FireAquamentusWeaponCommand(this, projectileSprite);
+                FireAquamentusWeaponCommand.Execute();
+            }
 		}
-	}
+        public override void Update(GameTime gameTime)
+        {
+            _enemyMovingState.Update(gameTime);
+            if (_enemyMovingState is not IdleMovingState)
+            {
+                projectileSprite.Update(gameTime);
+                _enemySprite.Update(gameTime);
+            }
+            //_playerCollider.Update(gameTime);
+            /*var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _attackCooldown -= deltaTime; 
+            bool canTransition = _enemyStateMachine.CanTransition();
+            State currentState = _enemyStateMachine.GetCurrentState();
+            
+            if (currentState == State.Moving || currentState == State.Attacking)
+            {
+                *//* Sprite only updates when player is moving / attacking *//*
+                _enemyMainWeapon?.Update(gameTime);
+                _enemySprite.Update(gameTime);
+            }
+
+            if (currentState == State.Attacking)
+            {
+                Reset((float)gameTime.ElapsedGameTime.TotalSeconds);
+            }*/
+            //_playerCollider.Update(gameTime);
+
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            SpriteEffects spriteEffects = SpriteEffects.None;
+
+            if (_enemyDirection == Direction.West)
+            {
+                /* Considering adding this as an option for creating a sprite so it doesn't have to be called each time */
+                spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+            projectileSprite.Draw(spriteBatch);
+            _enemySprite.Draw(spriteBatch, _enemyPosition, spriteEffects);
+        }
+    }
 }

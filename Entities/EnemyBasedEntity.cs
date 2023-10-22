@@ -19,7 +19,7 @@ namespace SprintZero1.Entities
     internal abstract class EnemyBasedEntity : ICombatEntity
     {
         /* Enemy Components */
-        protected ProjectileEntity projectileSprite;
+        protected IProjectileEntity projectileSprite;
         protected ISprite _enemySprite;
         protected int _totalFrame;
         protected string _enemyName;
@@ -32,7 +32,6 @@ namespace SprintZero1.Entities
         protected readonly string _weapon;
         protected readonly float _timeToReset = 1f / 7;
 
-        protected IMovableEntity _enemyMainWeapon ;
 
         protected Vector2 _enemyPosition;
         public Vector2 Position { get { return _enemyPosition; } set { _enemyPosition = value; } }
@@ -64,18 +63,16 @@ namespace SprintZero1.Entities
         /// <param name="position">The position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        public EnemyBasedEntity()
+        protected EnemyEntity(Vector2 position, int startingHealth, string enemyName, int totalFrames, bool isBoss = false)
         {
-            projectileSprite = new ProjectileEntity();
-        }
-        //Vector2 position, int startingHealth, string enemyName, int totalFrames
-        /*_enemyHealth = startingHealth;
+            _totalFrame = totalFrames;
+            _enemyHealth = startingHealth;
             _enemyPosition = position;
-            //_enemyStateMachine = new PlayerStateMachine(State.Idle);
-            _enemySprite = _linkSpriteFactory.GetLinkSprite(enemyName, totalFrames);
             _enemyName = enemyName;
-            //_enemyCollider = new enemyCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16));
-        */
+            projectileSprite = new ProjectileEntity();
+            _enemySprite = !isBoss ? _EnemyFactory.CreateEnemySprite(enemyName, totalFrames) : _EnemyFactory.CreateBossSprite(enemyName, totalFrames);
+        }
+        
 
         public virtual void Move(Vector2 distance)
         {
@@ -105,48 +102,11 @@ namespace SprintZero1.Entities
         }
 
         public abstract void ChangeDirection(Direction direction);
-        
-        
 
-        public void Update(GameTime gameTime)
-        {
-            _enemyMovingState.Update(gameTime);
-            if (_enemyMovingState is not IdleMovingState)
-            {
-                _enemySprite.Update(gameTime);
-            }
-            //_playerCollider.Update(gameTime);
-            /*var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            _attackCooldown -= deltaTime; 
-            bool canTransition = _enemyStateMachine.CanTransition();
-            State currentState = _enemyStateMachine.GetCurrentState();
-            
-            if (currentState == State.Moving || currentState == State.Attacking)
-            {
-                *//* Sprite only updates when player is moving / attacking *//*
-                _enemyMainWeapon?.Update(gameTime);
-                _enemySprite.Update(gameTime);
-            }
 
-            if (currentState == State.Attacking)
-            {
-                Reset((float)gameTime.ElapsedGameTime.TotalSeconds);
-            }*/
-            //_playerCollider.Update(gameTime);
 
-        }
+        public abstract void Update(GameTime gameTime);
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            SpriteEffects spriteEffects = SpriteEffects.None;
-            
-            if (_enemyDirection == Direction.West)
-            {
-                /* Considering adding this as an option for creating a sprite so it doesn't have to be called each time */
-                spriteEffects = SpriteEffects.FlipHorizontally;
-            }
-            projectileSprite?.Draw(spriteBatch);
-            _enemySprite.Draw(spriteBatch, _enemyPosition, spriteEffects);
-        }
+        public abstract void Draw(SpriteBatch spriteBatch);
     }
 }
