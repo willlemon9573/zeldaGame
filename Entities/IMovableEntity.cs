@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Enums;
-using SprintZero1.StatePatterns.StatePatternInterfaces;
 
 namespace SprintZero1.Entities
 {
@@ -9,12 +8,8 @@ namespace SprintZero1.Entities
         /// <summary>
         /// Gets the Direction of the Entity
         /// </summary>
-        Direction Direction { get; }
+        Direction Direction { get; set; }
 
-        /// <summary>
-        /// Get and set the entity's state
-        /// </summary>
-        IMovingEntityState State { get; set; }
         /// <summary>
         /// Changes the Direction of the Entity
         /// </summary>
@@ -23,7 +18,6 @@ namespace SprintZero1.Entities
         /// <summary>
         /// Move The entity in its current direction
         /// </summary>
-        /// <param name="distance">The distance the entity will go</param>
-        void Move(Vector2 distance);
+        void Move();
     }
 }
