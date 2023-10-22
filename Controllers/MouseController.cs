@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using SprintZero1.Entities;
+using SprintZero1.Managers;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 
@@ -11,6 +13,15 @@ namespace SprintZero1.Controllers
         private readonly ICommand[] commands;
         private readonly Rectangle[] quadrants;
         private MouseState oldState;
+        private LevelManager levelManager;
+        private GetPreviousLevelCommand getPreviousLevelCommand;
+        private GetNextLevelCommand getNextLevelCommand;
+        public MouseController(Game1 myGame)
+        {
+            levelManager = new LevelManager(myGame);
+            getNextLevelCommand = new GetNextLevelCommand(myGame);
+            getPreviousLevelCommand = new GetPreviousLevelCommand(myGame);
+        }
 
         /// <summary>
         /// Calls the specific command located at {@code commands[i]} and executes 
@@ -18,19 +29,9 @@ namespace SprintZero1.Controllers
         /// if the left mouse button is clicked and released
         /// </summary>
         /// <param name="mouseLocation">XY coordinates of the current mouse position</param>
-        private void ExecuteLeftMouseCommands(Vector2 mouseLocation)
+        private void ExecuteLeftMouseCommands()
         {
-            Point mousePoint = new Point((int)mouseLocation.X, (int)mouseLocation.Y);
-            int i = 1;
-            foreach (Rectangle quadrant in quadrants)
-            {
-                if (quadrant.Contains(mousePoint))
-                {
-                    commands[i].Execute();
-                    break;
-                }
-                i++;
-            }
+            getPreviousLevelCommand.Execute();
         }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace SprintZero1.Controllers
         /// </summary>
         private void ExecuteRightMouseCommand()
         {
-            commands[0].Execute();
+            getNextLevelCommand.Execute();
         }
         /* Can remove this */
         /// <summary>
@@ -68,7 +69,7 @@ namespace SprintZero1.Controllers
 
         public void LoadDefaultCommands(Game1 game, IEntity playerEntity)
         {
-            // unused - but not deleted in case we want to use this again
+            
         }
 
         public void Update()
@@ -76,7 +77,7 @@ namespace SprintZero1.Controllers
             MouseState newState = Mouse.GetState();
             if (oldState.LeftButton == ButtonState.Released && newState.LeftButton == ButtonState.Pressed)
             {
-                ExecuteLeftMouseCommands(new Vector2(newState.X, newState.Y));
+                ExecuteLeftMouseCommands();
             }
             else if (newState.RightButton == ButtonState.Pressed && oldState.LeftButton == ButtonState.Released)
             {

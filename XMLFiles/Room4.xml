@@ -6,31 +6,73 @@
 		<Y>151</Y>
 	</Floor>
 
-	<Block>
-		<Name>pyramid</Name>
-		<X>71</X>
-		<Y>120</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>71</X>
-		<Y>120</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>55</X>
-		<Y>120</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>55</X>
-		<Y>120</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
 	
+	<Wall>
+		<Quad>1</Quad>
+		<X>199</X>
+		<Y>100</Y>
+	</Wall>
+	<Wall>
+		<Quad>1</Quad>
+		<X>199</X>
+		<Y>100</Y>
+	</Wall>
+	<Wall>
+		<Quad>2</Quad>
+		<X>55</X>
+		<Y>100</Y>
+	</Wall>
+	<Wall>
+		<Quad>2</Quad>
+		<X>55</X>
+		<Y>100</Y>
+	</Wall>
+	<Wall>
+		<Quad>3</Quad>
+		<X>55</X>
+		<Y>204</Y>
+	</Wall>
+	<Wall>
+		<Quad>3</Quad>
+		<X>55</X>
+		<Y>204</Y>
+	</Wall>
+	<Wall>
+		<Quad>4</Quad>
+		<X>199</X>
+		<Y>204</Y>
+	</Wall>
+	<Wall>
+		<Quad>4</Quad>
+		<X>199</X>
+		<Y>204</Y>
+	</Wall>
+
+	<Block>
+		<Name>pyramid</Name>
+		<X>71</X>
+		<Y>120</Y>
+		<IsCollidable>true</IsCollidable>
+	</Block>
+	<Block>
+		<Name>pyramid</Name>
+		<X>71</X>
+		<Y>120</Y>
+		<IsCollidable>true</IsCollidable>
+	</Block>
+	<Block>
+		<Name>pyramid</Name>
+		<X>55</X>
+		<Y>120</Y>
+		<IsCollidable>true</IsCollidable>
+	</Block>
+	<Block>
+		<Name>pyramid</Name>
+		<X>55</X>
+		<Y>120</Y>
+		<IsCollidable>true</IsCollidable>
+	</Block>
+
 	<Block>
 		<Name>pyramid</Name>
 		<X>71</X>
@@ -55,7 +97,7 @@
 		<Y>184</Y>
 		<IsCollidable>true</IsCollidable>
 	</Block>
-	
+
 	<Block>
 		<Name>pyramid</Name>
 		<X>183</X>
@@ -131,47 +173,8 @@
 		<Y>152</Y>
 		<IsCollidable>true</IsCollidable>
 	</Block>
-	
-	<Wall>
-		<Quad>1</Quad>
-		<X>199</X>
-		<Y>100</Y>
-	</Wall>
-	<Wall>
-		<Quad>1</Quad>
-		<X>199</X>
-		<Y>100</Y>
-	</Wall>
-	<Wall>
-		<Quad>2</Quad>
-		<X>55</X>
-		<Y>100</Y>
-	</Wall>
-	<Wall>
-		<Quad>2</Quad>
-		<X>55</X>
-		<Y>100</Y>
-	</Wall>
-	<Wall>
-		<Quad>3</Quad>
-		<X>55</X>
-		<Y>204</Y>
-	</Wall>
-	<Wall>
-		<Quad>3</Quad>
-		<X>55</X>
-		<Y>204</Y>
-	</Wall>
-	<Wall>
-		<Quad>4</Quad>
-		<X>199</X>
-		<Y>204</Y>
-	</Wall>
-	<Wall>
-		<Quad>4</Quad>
-		<X>199</X>
-		<Y>204</Y>
-	</Wall>
+
+
 	<Door>
 		<Name>open_north</Name>
 		<X>127</X>

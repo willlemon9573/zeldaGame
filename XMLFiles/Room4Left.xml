@@ -6,18 +6,6 @@
 		<Y>151</Y>
 	</Floor>
 	
-	<Block>
-		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>152</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>152</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
 	
 	<Wall>
 		<Quad>1</Quad>
@@ -59,6 +47,21 @@
 		<X>199</X>
 		<Y>204</Y>
 	</Wall>
+
+	<Block>
+		<Name>pyramid</Name>
+		<X>119</X>
+		<Y>152</Y>
+		<IsCollidable>true</IsCollidable>
+	</Block>
+	<Block>
+		<Name>pyramid</Name>
+		<X>119</X>
+		<Y>152</Y>
+		<IsCollidable>true</IsCollidable>
+	</Block>
+
+
 	<Door>
 		<Name>doorless_north</Name>
 		<X>127</X>

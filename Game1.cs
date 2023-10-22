@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Controllers;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
@@ -11,23 +12,26 @@ namespace SprintZero1
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
+        private MouseController _mouseController;
         private SpriteBatch _spriteBatch;
         private LevelManager levelManager;
         /* Variables for window rescaling */
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
-        private readonly List<String> levelList = new List<String> { "Room1", "Room2", "Room3", "Room4",
-        "Room5", "Room6", "Room7", "Room8", "Room9", "Room10" };
+        List<String> levelList = new List<String> { "XMLFiles/Room1.xml", "XMLFiles/Room1Left.xml", "XMLFiles/Room1Right.xml", "XMLFiles/Room2.xml",
+        "XMLFiles/Room3.xml", "XMLFiles/Room3Left.xml", "XMLFiles/Room3Right.xml", "XMLFiles/Room4.xml", "XMLFiles/Room4Left.xml", "XMLFiles/Room4Leftest.xml",
+                "XMLFiles/Room4Right.xml", "XMLFiles/Room4Rightest.xml", "XMLFiles/Room5.xml", "XMLFiles/Room5Right.xml", "XMLFiles/Room5Rightest.xml",
+                "XMLFiles/Room6.xml","XMLFiles/Room6Left.xml","XMLFiles/RoomSecret.xml" , "XMLFiles/RoomDev.xml"};
         private int levelListIndex;
 
         public List<string> LevelList 
-        { 
-            get { return levelList; } 
-        }
+         { 
+             get { return levelList; } 
+         }
 
-        public int LevelListIndex
-        {
+         public int LevelListIndex
+         {
             get { return levelListIndex; }
             set { levelListIndex = value; }
         }
@@ -62,7 +66,7 @@ namespace SprintZero1
             Texture2DManager.LoadAllTextures(this.Content);
             TileSpriteFactory.Instance.LoadTextures();
             LinkSpriteFactory.Instance.LoadTextures();
-
+            _mouseController = new MouseController(this);
             
             
             levelManager.Initialize();
@@ -84,9 +88,9 @@ namespace SprintZero1
 
         protected override void Update(GameTime gameTime)
         {
-            ProgramManager.Update(gameTime);
-            TestingManager.Update(gameTime);
-
+            levelManager.Update(gameTime);
+            //TestingManager.Update(gameTime);
+            _mouseController.Update();
             base.Update(gameTime);
         }
 
@@ -96,8 +100,8 @@ namespace SprintZero1
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-            ProgramManager.Draw(_spriteBatch);
-            TestingManager.Draw(_spriteBatch);
+            levelManager.Draw(_spriteBatch);
+            //TestingManager.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

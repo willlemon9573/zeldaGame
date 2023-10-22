@@ -20,6 +20,7 @@ namespace SprintZero1.Commands
         public GetNextLevelCommand(Game1 game)
         {
             myGame = game;
+            levelManager = new LevelManager(game);
             levelList = game.LevelList;
             totalRooms = levelList.Count;
             index = game.LevelListIndex;
@@ -28,7 +29,7 @@ namespace SprintZero1.Commands
         {
             index = (index + 1) % totalRooms;
             myGame.LevelListIndex = index;
-            //levelManager.LoadRoom(levelList[index]);
+            levelManager.LoadNewRoom(levelList[index]);
         }
     }
 }

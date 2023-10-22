@@ -28,7 +28,7 @@ namespace SprintZero1.Managers
 
         public static void AddPlayer(Vector2 position, int health, Direction direction) {
             IEntity player = new PlayerEntity(position, health, direction);
-            controller.LoadDefaultCommands(myGame, player); //error here
+            controller.LoadDefaultCommands(myGame, player); 
             ProgramManager.AddOnScreenEntity(player);
         }
 
@@ -40,6 +40,16 @@ namespace SprintZero1.Managers
         public static void RemoveOnScreenEntity(IEntity entity)
         {
             onScreenEntities.Remove(entity);
+        }
+
+        public static void RemoveNonLinkEntities()
+        {
+            int i = 1;
+            while (i < onScreenEntities.Count) {
+
+                ProgramManager.RemoveOnScreenEntity(onScreenEntities[i]);
+               
+            }
         }
 
         public static void Update(GameTime gameTime)

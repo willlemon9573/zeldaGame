@@ -7,9 +7,6 @@
 		<Y>151</Y>
 	</Floor>
 	
-
-
-
 	<Wall>
 		<Quad>1</Quad>
 		<X>199</X>
@@ -50,6 +47,8 @@
 		<X>199</X>
 		<Y>204</Y>
 	</Wall>
+
+	
 	<Door>
 		<Name>doorless_north</Name>
 		<X>127</X>
