@@ -58,21 +58,21 @@ namespace SprintZero1.Factories
                 new Rectangle(194,185,16,16),
                 new Rectangle(213,185,16,16)
             };
-            int aquamentusWeaponX = 101, y = 11, width = 8, height = 16;
+            int aquamentusWeaponX = 101, aquamentusWeaponY = 11, aquamentusWeaponWidth = 8, aquamentusWeaponHeight = 16;
             List<Rectangle> aquamentusWeaponFrame = new List<Rectangle>();
             for (int i = 0; i < 4; i++)
             {
-                aquamentusWeaponFrame.Add(new Rectangle(aquamentusWeaponX, y, width, height));
+                aquamentusWeaponFrame.Add(new Rectangle(aquamentusWeaponX, aquamentusWeaponY, aquamentusWeaponWidth, aquamentusWeaponHeight));
                 if (i >= 1)
                 {
-                    aquamentusWeaponX += width + 1;
+                    aquamentusWeaponX += aquamentusWeaponWidth + 1;
                 }
                 else
                 {
-                    aquamentusWeaponX += width;
+                    aquamentusWeaponX += aquamentusWeaponWidth;
                 }
             }
-
+            List<Rectangle> bombFrames = new List<Rectangle>();
             int bombX = 126, y = 185, width = 16, height = 16;
             for (int i = 0; i < 4; i++)
             {
@@ -124,7 +124,7 @@ namespace SprintZero1.Factories
         public void LoadTextures()
         {
             spriteSheet = Texture2DManager.GetLinkSpriteSheet();
-            enemyProjectileSheet = Texture2DManager.GetBossSpriteSheet()
+            enemyProjectileSheet = Texture2DManager.GetBossSpriteSheet();
         }
         private WeaponSpriteFactory()
         {

@@ -12,8 +12,8 @@ using SprintZero1.StatePatterns.StatePatternInterfaces;
 namespace SprintZero1.Entities
 {
 
-	internal class EnemyEntityWithoutDirection : EnemyBasedEntity
-	{
+    internal class EnemyEntityWithoutDirection : EnemyBasedEntity
+    {
 
         /// <summary>
         /// Construct a new player entity
@@ -28,15 +28,14 @@ namespace SprintZero1.Entities
         }
 
         public override void ChangeDirection(Direction direction)
-		{
+        {
             //nothing need to be done
-            throw new NotSupportedException("ChangeDirection is not supported by this class.");
         }
 
-		public override void PerformAttack()
-		{
+        public override void PerformAttack()
+        {
             //do this later
-		}
+        }
         public override void Update(GameTime gameTime)
         {
             _enemyMovingState.Update(gameTime);

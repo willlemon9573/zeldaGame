@@ -34,9 +34,11 @@ namespace SprintZero1.Managers
             AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewWallSprite(3), new Vector2(56, 204)));
             AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewWallSprite(4), new Vector2(200, 204)));
             AddOnScreenEntity(new LevelBlockEntity(TileSpriteFactory.Instance.CreateNewTileSprite("pyramid"), new Vector2(40, 104), true));
-            PlayerEntity link = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
-            controllers[0].LoadDefaultCommands(localGame, link);
+            ICombatEntity link = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
+            IEntity ProjectileEntity = new ProjectileEntity();
+            controllers[0].LoadDefaultCommands(localGame, link, ProjectileEntity);
             AddOnScreenEntity(link);
+            AddOnScreenEntity(ProjectileEntity);
             AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewTileSprite("open_north"), new Vector2(128, 80)));
             AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewTileSprite("open_west"), new Vector2(16, 152)));
             AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewTileSprite("open_east"), new Vector2(240, 152)));

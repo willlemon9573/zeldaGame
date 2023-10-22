@@ -18,7 +18,7 @@ namespace SprintZero1.Entities
     /// </summary>
     internal abstract class EnemyBasedEntity : ICombatEntity
     {
-        /* Enemy Components */
+        Enemy Components
         protected IProjectileEntity projectileSprite;
         protected ISprite _enemySprite;
         protected int _totalFrame;
@@ -27,7 +27,7 @@ namespace SprintZero1.Entities
         //protected EnemyCollider _enemyCollider;
         protected readonly EnemyStateMachine _enemyStateMachine;
         protected readonly EnemySpriteFactory _EnemyFactory = EnemySpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
-        /* controls the attacking state */
+        controls the attacking state
         protected float _timeElapsed;
         protected readonly string _weapon;
         protected readonly float _timeToReset = 1f / 7;
@@ -45,7 +45,7 @@ namespace SprintZero1.Entities
         protected IMovingEntityState _enemyMovingState;
         public IMovingEntityState State { get { return _playerStates.Item1; } set {; } }
 
-        /*private void Reset(float deltaTime)
+        private void Reset(float deltaTime)
         {
             _timeElapsed += deltaTime;
             if (_timeElapsed >= _timeToReset)
@@ -55,7 +55,7 @@ namespace SprintZero1.Entities
                 _enemyStateMachine.UnblockTransition();
                 _timeElapsed = 0f;
             }
-        }*/
+        }
 
         /// <summary>
         /// Construct a new enemy entity
@@ -63,7 +63,7 @@ namespace SprintZero1.Entities
         /// <param name="position">The position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        protected EnemyEntity(Vector2 position, int startingHealth, string enemyName, int totalFrames, bool isBoss = false)
+        protected EnemyBasedEntity(Vector2 position, int startingHealth, string enemyName, int totalFrames, bool isBoss = false)
         {
             _totalFrame = totalFrames;
             _enemyHealth = startingHealth;
@@ -72,7 +72,7 @@ namespace SprintZero1.Entities
             projectileSprite = new ProjectileEntity();
             _enemySprite = !isBoss ? _EnemyFactory.CreateEnemySprite(enemyName, totalFrames) : _EnemyFactory.CreateBossSprite(enemyName, totalFrames);
         }
-        
+
 
         public virtual void Move(Vector2 distance)
         {
@@ -89,11 +89,11 @@ namespace SprintZero1.Entities
 
         public virtual void TakeDamage(int damage)
         {
-            /*_enemyHealth -= damage;
+            _enemyHealth -= damage;
             if (_enemyHealth <= 0)
             {
                 Die();
-            }*/
+            }
         }
 
         public virtual void Die()
