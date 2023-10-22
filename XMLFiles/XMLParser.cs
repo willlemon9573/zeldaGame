@@ -264,7 +264,8 @@ namespace SprintZero1.XMLFiles
         private void ParseEnemy(XmlReader reader)
         {
             string name = "";
-            int X = 0, Y = 0;
+            int X = 0, Y = 0, health = 0, frames = 0;
+            bool isBoss = false;
 
             while (reader.Read())
             {
@@ -281,6 +282,15 @@ namespace SprintZero1.XMLFiles
                         case "Y":
                             Y = reader.ReadElementContentAsInt();
                             break;
+                        case "Health":
+                            health = reader.ReadElementContentAsInt();
+                            break;
+                        case "Frames":
+                            frames = reader.ReadElementContentAsInt();
+                            break;
+                        case "IsBoss":
+                            isBoss = reader.ReadElementContentAsBoolean();
+                            break;
                         default:
                             //not needed really since we write the xml files
                             //report error in xml file
@@ -291,12 +301,24 @@ namespace SprintZero1.XMLFiles
                 {
                     //parse the data -> get the sprites draw the thing entity
                    
-                    ISprite enemySprite = EnemyFactory.Instance.CreateEnemySprite(name, new Vector2(X,Y), 0);
-                     Entity enemy = new LevelBLockEntity(enemySprite, new Vector2(X, Y), false);
-                    if (enemy != null)
-                    {
-                        ProgramManager.AddOnScreenEntity(enemy);
-                    }
+                    //ISprite enemySprite = EnemyFactory.Instance.CreateEnemySprite(name, new Vector2(X,Y), 0);
+                    //Entity enemy = new EnemyEntityWithDirection(new Vector2(X, Y), health, name, frames, isBoss);
+                    //if (enemy != null)
+                    //{
+                        //ProgramManager.AddOnScreenEntity(enemy);
+                    //}
+
+                    /* 
+                     * what to use for adding enemies in xml file skeleton
+                     * <Enemy>
+                     *  <Name></Name>
+                     *  <X></X>
+                     *  <Y></Y>
+                     *  <Health></Health>
+                     *  <Frames></Frames>
+                     *  <IsBoss></IsBoss>
+                     * </Enemy>
+                     */
                 }
             }
 
