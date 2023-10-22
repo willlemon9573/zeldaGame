@@ -64,7 +64,9 @@ namespace SprintZero1.Controllers
             }
 
         }
-        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity)
+
+        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity, IEntity ProjectileEntity)
+
         {
             /* directional commands */
             keyboardMap.Add(Keys.Up, new MoveUpCommand(playerEntity));
@@ -75,10 +77,20 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.S, new MoveDownCommand(playerEntity));
             keyboardMap.Add(Keys.A, new MoveLeftCommand(playerEntity));
             keyboardMap.Add(Keys.D, new MoveRightCommand(playerEntity));
+
             /* Attack Commands */
-            keyboardMap.Add(Keys.Z, new SwordAttackCommand(playerEntity));
+            //keyboardMap.Add(Keys.Z, new SwordAttackCommand(playerEntity));
             /* Other commands */
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
+
+            keyboardMap.Add(Keys.D1, new FireArrowCommand(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D2, new FireBetterArrowCommand(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D3, new FireBoomerangCommand(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D4, new FireBetterBoomerangCommand(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D5, new FireBombCommand(playerEntity, ProjectileEntity));
+            keyboardMap.Add(Keys.D6, new FireMagicFireCommand(playerEntity, ProjectileEntity));
+
+
             _idleCommand = new ReturnPlayerToIdleCommand(playerEntity);
         }
 

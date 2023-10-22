@@ -22,6 +22,9 @@ namespace SprintZero1.Entities
         private Vector2 _playerPosition;
         private PlayerCollider _playerCollider;
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
+
+        private float _timeElapsed;
+        private readonly float _timeToReset = 1f / 7;
         private IEntity _playerMainWeapon;
         private IPlayerState _playerState;
         /* Public properties to modify the player's private members */
@@ -48,6 +51,7 @@ namespace SprintZero1.Entities
             _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
             _playerMainWeapon = new SwordEntity("woodensword");
             _playerState = new PlayerIdleState(this);
+
         }
 
         public void Move()
@@ -69,7 +73,7 @@ namespace SprintZero1.Entities
             // updating 
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             // not implemented yet
         }
