@@ -49,8 +49,7 @@ namespace SprintZero1.Entities
             _playerPosition = position;
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
             _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
-            _playerMainWeapon = new MeleeWeaponEntity("woodensword");
-
+            _playerMainWeapon = new SwordEntity("woodensword");
             _playerState = new PlayerIdleState(this);
 
         }

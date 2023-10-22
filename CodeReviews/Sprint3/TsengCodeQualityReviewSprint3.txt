@@ -1,0 +1,11 @@
+Code Quality Review
+Author of the code review: Chih-Hsiang Jarek Tseng
+Date of the code review: 10/20/2023
+Sprint number: 3
+Name of the .cs file being reviewed: BoomerangWeaponProjectile.cs
+Author of the .cs file being reviewed: Zihe Wang
+Specific comments on code quality: Overall, I think the code quality is very good, the variables all have pretty descriptive names which is always good. There is a lot of documentation, explaining each variable and function in more details which is great coding practice. There does seem to be a confusing part where it states location += movespeed, which is hard to understand how location is adding speed, maybe there needs to be a variable name change to pixels or some sort. There also doesn't seem to be too many magic numbers, I see a couple magic numbers but most of it seems data-driven which is great practice and moving in the right direction. I don't see any problems with coupling, cohesion could be worked on, the switch case is a bit long to have very similar outcomes.
+
+A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change:
+
+If we were to add throwing diagonal boomerangs, the code could easily support that change since we can just add onto the switch case and add a direction so that is good. 
