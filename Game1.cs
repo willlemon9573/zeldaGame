@@ -45,6 +45,7 @@ namespace SprintZero1
             /* Factories are missing a lot of comments. To be added in Sprint 4 
                 May also be loading textures specifically Program Manager rather than in game1.cs
             */
+            EnemySpriteFactory.Instance.LoadTextures();
             LinkSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();
             WeaponSpriteFactory.Instance.LoadTextures();

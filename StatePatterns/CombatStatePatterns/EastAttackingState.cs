@@ -1,4 +1,4 @@
-
+/*
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
 
@@ -23,3 +23,4 @@ namespace SprintZero1.StatePatterns.CombatStatePatterns
         }
     }
 }
+*/

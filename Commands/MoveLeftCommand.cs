@@ -15,7 +15,11 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            _movableEntity.ChangeDirection(Direction.West);
+            if (_movableEntity.Direction != Direction.West)
+            {
+                _movableEntity.ChangeDirection(Direction.West);
+            }
+            _movableEntity.Move();
         }
     }
 }

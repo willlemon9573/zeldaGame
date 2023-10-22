@@ -4,9 +4,8 @@ using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using SprintZero1.StatePatterns.CombatStatePatterns;
-using SprintZero1.StatePatterns.MovingStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
+using SprintZero1.StatePatterns.PlayerStatePatterns;
 
 namespace SprintZero1.Entities
 {
@@ -27,16 +26,15 @@ namespace SprintZero1.Entities
         private float _timeElapsed;
         private readonly float _timeToReset = 1f / 7;
         private IEntity _playerMainWeapon;
-        private IMovingEntityState _playerMovingState;
-        private ICombatState _playerCombatState;
+        private IPlayerState _playerState;
+        /* Public properties to modify the player's private members */
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
-
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
+        public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
+        public ISprite PlayerSprite { get { return _playerSprite; } set { _playerSprite = value; } }
+        public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
 
-        public Direction Direction { get { return _playerDirection; } }
-
-        public IMovingEntityState State { get { return _playerMovingState; } set { _playerMovingState = value; } }
-
+        
         /// <summary>
         /// Construct a new player entity
         /// </summary>
@@ -50,17 +48,25 @@ namespace SprintZero1.Entities
             _playerHealth = startingHealth;
             _playerPosition = position;
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
-
             _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
             _playerMainWeapon = new MeleeWeaponEntity("woodensword");
-            _playerMovingState = new IdleMovingState(this);
-            _playerCombatState = new DisabledAttackingState(this);
+
+            _playerState = new PlayerIdleState(this);
 
         }
 
-        public void Move(Vector2 distance)
+        public void Move()
         {
-            _playerPosition += distance;
+            if (_playerState is not PlayerMovingState) { TransitionToState(State.Moving); }
+            _playerState.Request();
+        }
+        /// <summary>
+        /// Transition player to the new state
+        /// </summary>
+        /// <param name="newState">the new state the player will transition to</param>
+        public void TransitionToState(State newState)
+        {
+            _playerState.TransitionState(newState);
         }
 
         public void Attack(string weaponName)
@@ -80,32 +86,19 @@ namespace SprintZero1.Entities
 
         public void ChangeDirection(Direction direction)
         {
-            _playerMovingState.ChangeDirection(direction);
-            _playerSprite = _linkSpriteFactory.GetLinkSprite(direction);
-            _playerDirection = direction;
+            _playerState.ChangeDirection(direction);
         }
 
         public void Update(GameTime gameTime)
         {
-            /* Set player state to idle if no keys are pressed (will be changed for keyboard controller */
-            _playerMovingState.Update(gameTime);
-            if (_playerMovingState is not IdleMovingState)
-            {
-                _playerSprite.Update(gameTime);
-            }
+
+            _playerState.Update(gameTime);
             _playerCollider.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            SpriteEffects spriteEffects = SpriteEffects.None;
-            if (_playerDirection == Direction.West)
-            {
-                /* Considering adding this as an option for creating a sprite so it doesn't have to be called each time */
-                spriteEffects = SpriteEffects.FlipHorizontally;
-            }
-            _playerMainWeapon.Draw(spriteBatch);
-            _playerSprite.Draw(spriteBatch, _playerPosition, spriteEffects);
+            _playerState.Draw(spriteBatch);
         }
     }
 }

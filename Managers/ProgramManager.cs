@@ -5,6 +5,7 @@ using SprintZero1.Controllers;
 using SprintZero1.Entities;
 using SprintZero1.Factories;
 using System.Collections.Generic;
+using SprintZero1.Controllers.EnemyControllers;
 
 namespace SprintZero1.Managers
 {
@@ -12,9 +13,9 @@ namespace SprintZero1.Managers
     {
         public static Game1 game;
         static List<IEntity> onScreenEntities = new List<IEntity>();
-
+        static IEnemyMovementController enemyMovementController;
         // List of available Controllers
-        
+
         static IController[] controllers = new IController[] 
         #region
         {
@@ -35,10 +36,13 @@ namespace SprintZero1.Managers
             AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewWallSprite(4), new Vector2(200, 204)));
             AddOnScreenEntity(new LevelBlockEntity(TileSpriteFactory.Instance.CreateNewTileSprite("pyramid"), new Vector2(40, 104), true));
             ICombatEntity link = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
+            ICombatEntity enemy = new EnemyEntityWithoutDirection(new Vector2(170, 176), 6, "dungeon_gel", 2);
             IEntity ProjectileEntity = new ProjectileEntity();
-            controllers[0].LoadDefaultCommands(localGame, link, ProjectileEntity);
+            enemyMovementController = new RandomEnemyMovementController(enemy);
+            //controllers[0].LoadDefaultCommands(localGame, link, ProjectileEntity);
             AddOnScreenEntity(link);
-            AddOnScreenEntity(ProjectileEntity);
+            AddOnScreenEntity(enemy);
+/*            AddOnScreenEntity(ProjectileEntity);
             AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewTileSprite("open_north"), new Vector2(128, 80)));
             AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewTileSprite("open_west"), new Vector2(16, 152)));
             AddOnScreenEntity(new BackgroundSpriteEntity(TileSpriteFactory.Instance.CreateNewTileSprite("open_east"), new Vector2(240, 152)));
@@ -46,7 +50,7 @@ namespace SprintZero1.Managers
             AddOnScreenEntity(new InvisibleWallEntity(new Vector2(8, 72), new Vector2(112, 32)));
             AddOnScreenEntity(new InvisibleWallEntity(new Vector2(8, 104), new Vector2(32, 40)));
             AddOnScreenEntity(new InvisibleWallEntity(new Vector2(8, 176), new Vector2(32, 72)));
-            AddOnScreenEntity(new InvisibleWallEntity(new Vector2(40, 216), new Vector2(80, 32)));
+            AddOnScreenEntity(new InvisibleWallEntity(new Vector2(40, 216), new Vector2(80, 32)));*/
         }
 
         /// <summary>
@@ -82,6 +86,7 @@ namespace SprintZero1.Managers
                 entity.Update(gameTime);
             }
             ColliderManager.Update(gameTime);
+            enemyMovementController?.Update(gameTime);
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿/*using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
 
 namespace SprintZero1.StatePatterns.MovingStatePatterns
@@ -17,3 +17,4 @@ namespace SprintZero1.StatePatterns.MovingStatePatterns
         }
     }
 }
+*/

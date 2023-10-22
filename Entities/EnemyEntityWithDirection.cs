@@ -5,9 +5,10 @@ using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.Commands;
-using SprintZero1.StatePatterns.CombatStatePatterns;
-using SprintZero1.StatePatterns.MovingStatePatterns;
-using SprintZero1.StatePatterns.StatePatternInterfaces;
+//using SprintZero1.StatePatterns.CombatStatePatterns;
+//using SprintZero1.StatePatterns.MovingStatePatterns;
+//using SprintZero1.StatePatterns.StatePatternInterfaces;
+using SprintZero1.Controllers.EnemyControllers;
 
 namespace SprintZero1.Entities
 {
@@ -27,12 +28,6 @@ namespace SprintZero1.Entities
             //no special constructor thing
         }
 
-        public override void ChangeDirection(Direction direction)
-        {
-            _enemyMovingState.ChangeDirection(direction);
-            _enemySprite = _EnemyFactory.CreateEnemySprite(_enemyName, _totalFrame);
-            _enemyDirection = direction;
-        }
 
 
         public override void PerformAttack()
@@ -50,29 +45,31 @@ namespace SprintZero1.Entities
         }
         public override void Update(GameTime gameTime)
         {
-            _enemyMovingState.Update(gameTime);
-            if (_enemyMovingState is not IdleMovingState)
-            {
-                projectileSprite.Update(gameTime);
-                _enemySprite.Update(gameTime);
-            }
-            //_playerCollider.Update(gameTime);
-            var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            _attackCooldown -= deltaTime;
-            bool canTransition = _enemyStateMachine.CanTransition();
-            State currentState = _enemyStateMachine.GetCurrentState();
+            _enemySprite.Update(gameTime);
+            projectileSprite.Update(gameTime);
+            /* _enemyMovingState.Update(gameTime);
+             if (_enemyMovingState is not IdleMovingState)
+             {
+                 projectileSprite.Update(gameTime);
+                 _enemySprite.Update(gameTime);
+             }
+             //_playerCollider.Update(gameTime);
+             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+             _attackCooldown -= deltaTime;
+             bool canTransition = _enemyStateMachine.CanTransition();
+             State currentState = _enemyStateMachine.GetCurrentState();
 
-            if (currentState == State.Moving || currentState == State.Attacking)
-            {
-                Sprite only updates when player is moving / attacking
-                _enemyMainWeapon?.Update(gameTime);
-                _enemySprite.Update(gameTime);
-            }
+             if (currentState == State.Moving || currentState == State.Attacking)
+             {
+                 //Sprite only updates when player is moving / attacking
+                 _enemyMainWeapon?.Update(gameTime);
+                 _enemySprite.Update(gameTime);
+             }
 
-            if (currentState == State.Attacking)
-            {
-                Reset((float)gameTime.ElapsedGameTime.TotalSeconds);
-            }
+             if (currentState == State.Attacking)
+             {
+                 Reset((float)gameTime.ElapsedGameTime.TotalSeconds);
+             }*/
             //_playerCollider.Update(gameTime);
 
         }
@@ -83,7 +80,7 @@ namespace SprintZero1.Entities
 
             if (_enemyDirection == Direction.West)
             {
-                Considering adding this as an option for creating a sprite so it doesn't have to be called each time 
+                //Considering adding this as an option for creating a sprite so it doesn't have to be called each time 
 
                spriteEffects = SpriteEffects.FlipHorizontally;
             }

@@ -103,6 +103,15 @@ namespace SprintZero1.Factories
         }
 
         /// <summary>
+        /// Load the textures required for the enemy sprites
+        /// </summary>
+        public void LoadTextures()
+        {
+            dungeonEnemySpriteSheet = Texture2DManager.GetEnemySpriteSheet();
+            bossSpriteSheet = Texture2DManager.GetBossSpriteSheet();
+        }
+
+        /// <summary>
         /// Private constructor to prevent instantiation of the singleton
         /// </summary>
         private EnemySpriteFactory()
@@ -112,14 +121,7 @@ namespace SprintZero1.Factories
             CreateEnemySpriteDictionary();
             CreateBossDictionary();
         }
-        /// <summary>
-        /// Load the textures required for the enemy sprites
-        /// </summary>
-        public void LoadTextures()
-        {
-            dungeonEnemySpriteSheet = Texture2DManager.GetEnemySpriteSheet();
-            bossSpriteSheet = Texture2DManager.GetBossSpriteSheet();
-        }
+        
         /// <summary>
         /// Creates the enemy sprite
         /// </summary>

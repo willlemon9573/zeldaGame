@@ -3,6 +3,7 @@ using SprintZero1.Commands;
 using SprintZero1.Entities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SprintZero1.Controllers
@@ -90,7 +91,7 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.D6, new FireMagicFireCommand(playerEntity, ProjectileEntity));
 
 
-            _idleCommand = new ReturnToIdleCommand(playerEntity);
+            _idleCommand = new ReturnPlayerToIdleCommand(playerEntity);
         }
 
         public void Update()
@@ -109,6 +110,7 @@ namespace SprintZero1.Controllers
                 {
                     HandleMovementKey(key);
                     movementKeyCount++;
+                    
                 }
                 else if (keyboardMap.ContainsKey(key) && !_previouslyPressedKeys.Contains(key))
                 {
@@ -116,8 +118,11 @@ namespace SprintZero1.Controllers
                 }
             }
 
-            /* Set player to idle if no movement keys are being pressed and/or clean the keys */
-            if (movementKeyCount == 0) // set player to idle
+            /* Clean up movement key stack and/or set player to idle when 
+             * no keys are pressed. Checking both movement key count and previously pressed
+             * keys to prevent _idleCommand from executing more than once
+             */
+            if (movementKeyCount == 0 && _previouslyPressedKeys.Count > 0) 
             {
                 _idleCommand.Execute();
                 FlipAndClean(pressedKeys);
