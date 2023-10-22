@@ -15,9 +15,9 @@ namespace SprintZero1.Commands
         private WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
         private IEntity _PlayerEntity; // The player entity who throws the bomb
         private float launchOffset = 15; // Offset distance from the player's position to start the bomb
-        ISprite newSprite; // Sprite for the bomb
-        ProjectileEntity _Entity; // Entity representing the bomb
-        IProjectile _projectileType; // Type of projectile (e.g., bomb)
+        public ISprite newSprite; // Sprite for the arrow
+        public IProjectileEntity _Entity; // Entity representing the arrow
+        public IProjectile _projectileType; // Type of projectile (e.g., non-returning arrow)
         private SpriteEffects spriteEffect; // Sprite effects for rendering
 
         /// <summary>
@@ -25,18 +25,18 @@ namespace SprintZero1.Commands
         /// </summary>
         /// <param name="PlayerEntity">The player entity who throws the bomb.</param>
         /// <param name="ProjectileEntity">The entity representing the bomb projectile.</param>
-        public FireBombCommand(IEntity PlayerEntity, ProjectileEntity ProjectileEntity)
+        public FireBombCommand(IEntity PlayerEntity, IEntity ProjectileEntity)
         {
             _PlayerEntity = PlayerEntity;
-            _Entity = ProjectileEntity;
+            _Entity = (IProjectileEntity)ProjectileEntity;
             this.WeaponFactory = WeaponSpriteFactory.Instance;
         }
 
         public void Execute()
         {
             startLocation = _PlayerEntity.Position;
-            IMovableEntity _PlayerEntityMoveable = (IMovableEntity)_PlayerEntity;
-            Direction = _PlayerEntityMoveable.Direction;
+            IMovableEntity _PlayerMovableEntity = (IMovableEntity)_PlayerEntity;
+            Direction = _PlayerMovableEntity.Direction; // Get the direction the player is facing
 
             // Calculate the starting location of the bomb based on the player's direction
             switch (Direction)
@@ -67,13 +67,13 @@ namespace SprintZero1.Commands
 
             _Entity.Position = startLocation;
             _Entity.Direction = Direction;
-            _Entity.projectileSprite = newSprite;
+            _Entity.ProjectileSprite = newSprite;
 
             // Create a bomb projectile type and assign it to the entity
             _projectileType = new BombProjectile(_Entity);
-            _Entity.projectileUpdate = _projectileType;
+            _Entity.ProjectileUpdate = _projectileType;
 
-            _Entity.endingSprite = WeaponFactory.CreateBombSpriteExplodes();
+            _Entity.EndingSprite = WeaponFactory.CreateBombSpriteExplodes();
         }
     }
 }

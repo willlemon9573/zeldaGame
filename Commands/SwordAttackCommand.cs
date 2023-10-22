@@ -6,9 +6,9 @@ namespace SprintZero1.Commands
     {
 
         readonly ICombatEntity combatEntity;
-        public SwordAttackCommand(IEntity entity)
+        public SwordAttackCommand(ICombatEntity entity)
         {
-            combatEntity = (ICombatEntity)entity;
+            combatEntity = entity;
         }
 
         public void Execute()

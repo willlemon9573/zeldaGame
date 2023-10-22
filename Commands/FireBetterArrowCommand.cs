@@ -17,9 +17,9 @@ namespace SprintZero1.Commands
         private float launchOffset = 15; // Offset distance from the player's position to start the better arrow
         private float movingSpeed = 3; // Speed at which the better arrow moves
         private int maxDistance = 60; // Maximum distance the better arrow can travel before disappearing
-        ISprite newSprite; // Sprite for the better arrow
-        ProjectileEntity _Entity; // Entity representing the better arrow
-        IProjectile _projectileType; // Type of projectile (e.g., non-returning arrow)
+        public ISprite newSprite; // Sprite for the arrow
+        public IProjectileEntity _Entity; // Entity representing the arrow
+        public IProjectile _projectileType; // Type of projectile (e.g., non-returning arrow)
         private SpriteEffects spriteEffect; // Sprite effects for rendering
 
         /// <summary>
@@ -27,18 +27,18 @@ namespace SprintZero1.Commands
         /// </summary>
         /// <param name="PlayerEntity">The player entity who fires the better arrow.</param>
         /// <param name="ProjectileEntity">The entity representing the better arrow projectile.</param>
-        public FireBetterArrowCommand(IEntity PlayerEntity, ProjectileEntity ProjectileEntity)
+        public FireBetterArrowCommand(IEntity PlayerEntity, IEntity ProjectileEntity)
         {
             _PlayerEntity = PlayerEntity;
-            _Entity = ProjectileEntity;
+            _Entity = (IProjectileEntity)ProjectileEntity;
             this.WeaponFactory = WeaponSpriteFactory.Instance;
         }
 
         public void Execute()
         {
             startLocation = _PlayerEntity.Position;
-            IMovableEntity _PlayerEntityMoveable = (IMovableEntity)_PlayerEntity;
-            Direction = _PlayerEntityMoveable.Direction;
+            IMovableEntity _PlayerMovableEntity = (IMovableEntity)_PlayerEntity;
+            Direction = _PlayerMovableEntity.Direction; // Get the direction the player is facing
 
             // Calculate the starting location of the better arrow and set sprite effects based on direction
             switch (Direction)
@@ -71,15 +71,15 @@ namespace SprintZero1.Commands
             newSprite = WeaponFactory.CreateArrowSprite("better", Direction);
 
             // Create an ending sprite for the better arrow
-            _Entity.endingSprite = WeaponFactory.CreateEndSprite();
+            _Entity.EndingSprite = WeaponFactory.CreateEndSprite();
 
             _Entity.Position = startLocation;
             _Entity.Direction = Direction;
-            _Entity.projectileSprite = newSprite;
+            _Entity.ProjectileSprite = newSprite;
 
             // Create a non-returning better arrow projectile type and assign it to the entity
             _projectileType = new NonComingBackProjectile(_Entity, maxDistance, movingSpeed);
-            _Entity.projectileUpdate = _projectileType;
+            _Entity.ProjectileUpdate = _projectileType;
         }
     }
 }

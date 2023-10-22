@@ -14,7 +14,7 @@ namespace SprintZero1.projectile
         public bool IsActive { get; private set; } = true; // Flag to indicate if the projectile is active
         private int _maxDistance; // Maximum distance the projectile can travel before becoming inactive
         private float RotationIncrement = MathHelper.ToRadians(10); // Increment for projectile rotation
-        ProjectileEntity _projectile; // Reference to the projectile entity
+        private IProjectileEntity _projectile; // Reference to the projectile entity
 
         /// <summary>
         /// Initializes a new instance of the BoomerangWeaponProjectile class.
@@ -22,7 +22,7 @@ namespace SprintZero1.projectile
         /// <param name="ProjectileEntity">The projectile entity representing the boomerang.</param>
         /// <param name="maxDistance">The maximum distance the boomerang can travel.</param>
         /// <param name="speed">The speed at which the boomerang moves.</param>
-        public BoomerangWeaponProjectile(ProjectileEntity ProjectileEntity, int maxDistance, float speed)
+        public BoomerangWeaponProjectile(IProjectileEntity ProjectileEntity, int maxDistance, float speed)
         {
             _projectile = ProjectileEntity; // Initialize the projectile with the provided entity
             _maxDistance = maxDistance; // Set the maximum distance the projectile can travel
@@ -43,8 +43,8 @@ namespace SprintZero1.projectile
             if (!IsActive)
             {
                 // If the projectile is not active, set its sprite and update function to null
-                _projectile.projectileSprite = null;
-                _projectile.projectileUpdate = null;
+                _projectile.ProjectileSprite = null;
+                _projectile.ProjectileUpdate = null;
                 return;
             }
 

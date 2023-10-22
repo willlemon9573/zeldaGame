@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Entities;
-using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
@@ -17,15 +15,13 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
-
-
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             // Code for Window rescaling
-            _graphics.PreferredBackBufferWidth = 255 * WINDOW_SCALE;
+            _graphics.PreferredBackBufferWidth = 256 * WINDOW_SCALE;
             _graphics.PreferredBackBufferHeight = 240 * WINDOW_SCALE;
             this.IsFixedTimeStep = true;//false;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
@@ -36,19 +32,23 @@ namespace SprintZero1
         protected override void Initialize()
         {
             // code for window rescaling
-            _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
-            _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
+            _newRenderTarget = new RenderTarget2D(GraphicsDevice, 256, 240);
+            _actualScreenRectangle = new Rectangle(0, 0, 256 * WINDOW_SCALE, 240 * WINDOW_SCALE);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2DManager.LoadAllTextures(this.Content);
+            /* Factories are missing a lot of comments. To be added in Sprint 4 
+                May also be loading textures specifically Program Manager rather than in game1.cs
+            */
             LinkSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();
             WeaponSpriteFactory.Instance.LoadTextures();
-            ItemFactory.Instance.LoadTextures(this.Content);
+            ItemSpriteFactory.Instance.LoadTextures(this.Content);
             /* FOR TESTING */
             TestingManager.StartTest(this);
             /* doors need to be drawn BEFORE walls because doors overlap them to make sure the "bricks" at the top match" */
@@ -63,29 +63,30 @@ namespace SprintZero1
             TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_south"), new Vector2(127, 224));
             // collidable block
             //TestingManager.AddEntity(new LevelBLockEntity(TileSpriteFactory.Instance.CreateNewTileSprite("pyramid"), new Vector2(39, 104), true));
-            TestingManager.TestPlayerEntityWithKeyboard(new Vector2(176, 170), 1, Direction.South);
+
+            WeaponSpriteFactory.Instance.LoadTextures();
+            ItemSpriteFactory.Instance.LoadTextures();
+            ProgramManager.Start(this);
         }
 
         protected override void Update(GameTime gameTime)
         {
             ProgramManager.Update(gameTime);
-            TestingManager.Update(gameTime);
-
             base.Update(gameTime);
+
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            /* Draw all sprites on a new render target */
             GraphicsDevice.SetRenderTarget(this._newRenderTarget);
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
             ProgramManager.Draw(_spriteBatch);
-            TestingManager.Draw(_spriteBatch);
-
             _spriteBatch.End();
 
-            // Code for rescaling
+            /* Rescale the window and draw sprite batch with new scale */
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(_newRenderTarget, _actualScreenRectangle, Color.White);

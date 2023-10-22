@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using SprintZero1.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +9,7 @@ namespace SprintZero1.Controllers
 {
     internal class KeyboardController : IController
     {
+        private ICommand _idleCommand;
         private readonly Dictionary<Keys, ICommand> keyboardMap;
         private List<Keys> _movementKeyList;
         private List<Keys> _previouslyPressedKeys;
@@ -24,7 +26,7 @@ namespace SprintZero1.Controllers
         }
 
         /// <summary>
-        /// Recursively removes keys from stack that are not in the list of pressed keys
+        /// Recursively removes movement keys from the movement key stack that are not in the list of pressed keys
         /// </summary>
         /// <param name="pressedKeys">collection of currently pressed keys</param>
         private void FlipAndClean(Keys[] pressedKeys)
@@ -46,7 +48,10 @@ namespace SprintZero1.Controllers
         /// <param name="movementKey">the current movement key that needs to be checked</param>
         void HandleMovementKey(Keys movementKey)
         {
-            /* Add key to stack if it's not in the stack already */
+            /* 
+             * Add key to stack if it's not in the stack already and execute that key
+             * else execute the command of the movement key at the top of the stack
+             */
             if (!movementKeyStack.Contains(movementKey))
             {
                 movementKeyStack.Push(movementKey);
@@ -59,7 +64,8 @@ namespace SprintZero1.Controllers
 
         }
 
-        public void LoadDefaultCommands(Game1 game, IEntity playerEntity, ProjectileEntity ProjectileEntity)
+        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity, IEntity ProjectileEntity)
+
         {
             /* directional commands */
             keyboardMap.Add(Keys.Up, new MoveUpCommand(playerEntity));
@@ -84,6 +90,7 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.D6, new FireMagicFireCommand(playerEntity, ProjectileEntity));
 
 
+            _idleCommand = new ReturnToIdleCommand(playerEntity);
         }
 
         public void Update()
@@ -109,8 +116,13 @@ namespace SprintZero1.Controllers
                 }
             }
 
-            /* Check if movement key stack needs to be cleaned */
-            if (movementKeyCount < movementKeyStack.Count)
+            /* Set player to idle if no movement keys are being pressed and/or clean the keys */
+            if (movementKeyCount == 0) // set player to idle
+            {
+                _idleCommand.Execute();
+                FlipAndClean(pressedKeys);
+            }
+            else if (movementKeyCount < movementKeyStack.Count)
             {
                 FlipAndClean(pressedKeys);
             }

@@ -1,4 +1,6 @@
 ﻿using SprintZero1.Entities;
+using SprintZero1.StatePatterns.MovingStatePatterns;
+
 namespace SprintZero1.Commands
 {
 
@@ -13,7 +15,7 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-
+            _movableEntity.State = new IdleMovingState(_movableEntity);
         }
     }
 }

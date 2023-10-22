@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Managers;
 using SprintZero1.Enums;
+using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
@@ -99,6 +99,7 @@ namespace SprintZero1.Factories
                 {
                     r = coordsList[1];
                 }
+                /* for testing - to be removed in the future */
                 _meleeWeaponSourceRectangle.Add(("woodensword", directions[i]), r);
             }
 

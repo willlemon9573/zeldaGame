@@ -8,13 +8,13 @@ namespace SprintZero1.projectile
     {
         private double timer = 0; // Timer to track how long the bomb has been active
         private double waitingTime = 600; // The time in milliseconds before the bomb explodes
-        ProjectileEntity _projectile; // Reference to the projectile entity representing the bomb
+        private IProjectileEntity _projectile; // Reference to the projectile entity representing the bomb
 
         /// <summary>
         /// Initializes a new instance of the BombProjectile class.
         /// </summary>
         /// <param name="ProjectileEntity">The projectile entity representing the bomb.</param>
-        public BombProjectile(ProjectileEntity ProjectileEntity)
+        public BombProjectile(IProjectileEntity ProjectileEntity)
         {
             _projectile = ProjectileEntity; // Initialize the bomb projectile with the provided entity
         }
@@ -30,7 +30,7 @@ namespace SprintZero1.projectile
             if (timer >= waitingTime)
             {
                 // When the timer exceeds the waiting time, set the projectile sprite to the ending sprite
-                _projectile.projectileSprite = _projectile.endingSprite;
+                _projectile.ProjectileSprite = _projectile.EndingSprite;
             }
         }
     }

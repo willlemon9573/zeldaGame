@@ -13,7 +13,7 @@ namespace SprintZero1.Managers
     internal static class TestingManager
     {
         private static List<IEntity> EntityList = new List<IEntity>();
-        private static IEntity _player;
+        private static ICombatEntity _player;
         private static ProjectileEntity _Weapon;
         private static List<Tuple<ISprite, Vector2>> staticSpriteTestList = new List<Tuple<ISprite, Vector2>>();
         private static IController controller;
@@ -33,7 +33,8 @@ namespace SprintZero1.Managers
             _Weapon = new ProjectileEntity();
             controller.LoadDefaultCommands(myGame, _player, _Weapon);
             EntityList.Add(_player);
-            EntityList.Add(_Weapon);
+            EntityList.Add((IEntity)_Weapon);
+
 
         }
 

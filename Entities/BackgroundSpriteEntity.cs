@@ -4,14 +4,19 @@ using SprintZero1.Sprites;
 
 namespace SprintZero1.Entities
 {
-    internal abstract class Entity : IEntity
+    internal class BackgroundSpriteEntity : IEntity
     {
         public ISprite _sprite;
         public Vector2 _position;
 
         public Vector2 Position { get { return _position; } set { _position = value; } }
 
-        public Entity(ISprite sprite, Vector2 position)
+        /// <summary>
+        /// Constructor for Background Sprite Entity
+        /// </summary>
+        /// <param name="sprite">ISprite of Entity</param>
+        /// <param name="position">Position of Entity</param>
+        public BackgroundSpriteEntity(ISprite sprite, Vector2 position)
         {
             this._sprite = sprite;
             Position = position;

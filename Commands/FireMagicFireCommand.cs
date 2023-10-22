@@ -17,9 +17,9 @@ namespace SprintZero1.Commands
         private float launchOffset = 15; // Offset distance from the player's position to start the magic fire projectile
         private float movingSpeed = 1f; // Speed at which the magic fire projectile moves
         private int maxDistance = 30; // Maximum distance the magic fire projectile can travel before disappearing
-        ISprite newSprite; // Sprite for the magic fire projectile
-        ProjectileEntity _Entity; // Entity representing the magic fire projectile
-        IProjectile _projectileType; // Type of projectile 
+        public ISprite newSprite; // Sprite for the arrow
+        public IProjectileEntity _Entity; // Entity representing the arrow
+        public IProjectile _projectileType; // Type of projectile (e.g., non-returning arrow)
         private SpriteEffects spriteEffect; // Sprite effects for rendering
 
         /// <summary>
@@ -27,18 +27,18 @@ namespace SprintZero1.Commands
         /// </summary>
         /// <param name="PlayerEntity">The player entity who shoots the magic fire.</param>
         /// <param name="ProjectileEntity">The entity representing the magic fire projectile.</param>
-        public FireMagicFireCommand(IEntity PlayerEntity, ProjectileEntity ProjectileEntity)
+        public FireMagicFireCommand(IEntity PlayerEntity, IEntity ProjectileEntity)
         {
             _PlayerEntity = PlayerEntity;
-            _Entity = ProjectileEntity;
+            _Entity = (IProjectileEntity)ProjectileEntity;
             this.WeaponFactory = WeaponSpriteFactory.Instance;
         }
 
         public void Execute()
         {
             startLocation = _PlayerEntity.Position;
-            IMovableEntity _PlayerEntityMoveable = (IMovableEntity)_PlayerEntity;
-            Direction = _PlayerEntityMoveable.Direction;
+            IMovableEntity _PlayerMovableEntity = (IMovableEntity)_PlayerEntity;
+            Direction = _PlayerMovableEntity.Direction;
 
             // Calculate the starting location of the magic fire projectile based on the player's direction
             switch (Direction)
@@ -69,11 +69,11 @@ namespace SprintZero1.Commands
 
             _Entity.Position = startLocation;
             _Entity.Direction = Direction;
-            _Entity.endingSprite = null; // No specific ending sprite for magic fire
-            _Entity.projectileSprite = newSprite;
+            _Entity.EndingSprite = null; // No specific ending sprite for magic fire
+            _Entity.ProjectileSprite = newSprite;
 
             _projectileType = new NonComingBackProjectile(_Entity, maxDistance, movingSpeed);
-            _Entity.projectileUpdate = _projectileType;
+            _Entity.ProjectileUpdate = _projectileType;
         }
     }
 }

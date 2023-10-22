@@ -14,7 +14,7 @@ namespace SprintZero1.projectile
         private float distanceMoved = 0; // Distance traveled by the projectile
         public bool IsActive = true; // Flag to indicate if the projectile is active
         private int _maxDistance; // Maximum distance the projectile can travel before becoming inactive
-        ProjectileEntity _projectile; // Reference to the projectile entity
+        private IProjectileEntity _projectile; // Reference to the projectile entity
 
         /// <summary>
         /// Initializes a new instance of the NonComingBackProjectile class.
@@ -22,7 +22,7 @@ namespace SprintZero1.projectile
         /// <param name="ProjectileEntity">The projectile entity representing the non-returning projectile.</param>
         /// <param name="maxDistance">The maximum distance the projectile can travel.</param>
         /// <param name="speed">The speed at which the projectile moves.</param>
-        public NonComingBackProjectile(ProjectileEntity ProjectileEntity, int maxDistance, float speed)
+        public NonComingBackProjectile(IProjectileEntity ProjectileEntity, int maxDistance, float speed)
         {
             _projectile = ProjectileEntity; // Initialize the projectile with the provided entity
             _maxDistance = maxDistance; // Set the maximum distance the projectile can travel
@@ -37,13 +37,13 @@ namespace SprintZero1.projectile
         {
             if (!IsActive)
             {
-                _projectile.projectileSprite = _projectile.endingSprite;
+                _projectile.ProjectileSprite = _projectile.EndingSprite;
                 timer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
                 if (timer >= waitingTime)
                 {
-                    _projectile.projectileSprite = null;
-                    _projectile.projectileUpdate = null;
+                    _projectile.ProjectileSprite = null;
+                    _projectile.ProjectileUpdate = null;
                     timer = 0;
                 }
                 return;

@@ -17,9 +17,9 @@ namespace SprintZero1.Commands
         private float launchOffset = 15; // Offset from the entity's position where the projectile is launched
         private float movingSpeed = 3.5f; // Speed at which the projectile moves
         private int maxDistance = 70; // Maximum distance the projectile can travel
-        ISprite newSprite; // Newly created sprite
-        ProjectileEntity _Entity; // The projectile entity
-        IProjectile _projectileType; // Type of the projectile
+        public ISprite newSprite; // Sprite for the arrow
+        public IProjectileEntity _Entity; // Entity representing the arrow
+        public IProjectile _projectileType; // Type of projectile (e.g., non-returning arrow)
         private SpriteEffects spriteEffect; // Sprite effect
 
 
@@ -28,18 +28,18 @@ namespace SprintZero1.Commands
         /// </summary>
         /// <param name="PlayerEntity">The player entity who fires the better boomerang.</param>
         /// <param name="ProjectileEntity">The entity representing the better boomerang projectile.</param>
-        public FireBetterBoomerangCommand(IEntity PlayerEntity, ProjectileEntity ProjectileEntity)
+        public FireBetterBoomerangCommand(IEntity PlayerEntity, IEntity ProjectileEntity)
         {
             _PlayerEntity = PlayerEntity;
-            _Entity = ProjectileEntity;
+            _Entity = (IProjectileEntity)ProjectileEntity;
             this.WeaponFactory = WeaponSpriteFactory.Instance;
         }
 
         public void Execute()
         {
             startLocation = _PlayerEntity.Position;
-            IMovableEntity _PlayerEntityMoveable = (IMovableEntity)_PlayerEntity;
-            Direction = _PlayerEntityMoveable.Direction;
+            IMovableEntity _PlayerMovableEntity = (IMovableEntity)_PlayerEntity;
+            Direction = _PlayerMovableEntity.Direction; // Get the direction the player is facing
 
             // Calculate the starting location of the better boomerang and set sprite effects based on direction
             switch (Direction)
@@ -66,12 +66,12 @@ namespace SprintZero1.Commands
             newSprite = WeaponFactory.CreateBoomerangSprite("better", Direction);
             _Entity.Position = startLocation;
             _Entity.Direction = Direction;
-            _Entity.projectileSprite = newSprite;
-            _Entity.endingSprite = null;
+            _Entity.ProjectileSprite = newSprite;
+            _Entity.EndingSprite = null;
 
             // Create a better boomerang projectile type and assign it to the entity
             _projectileType = new BoomerangWeaponProjectile(_Entity, maxDistance, movingSpeed);
-            _Entity.projectileUpdate = _projectileType;
+            _Entity.ProjectileUpdate = _projectileType;
         }
     }
 }

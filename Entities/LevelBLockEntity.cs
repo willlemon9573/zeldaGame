@@ -4,10 +4,17 @@ using SprintZero1.Sprites;
 
 namespace SprintZero1.Entities
 {
-    internal class LevelBLockEntity : Entity
+    internal class LevelBlockEntity : BackgroundSpriteEntity
     {
         StaticCollider collider;
-        public LevelBLockEntity(ISprite sprite, Vector2 pos, bool collidable) : base(sprite, pos)
+
+        /// <summary>
+        /// Constructor for simple level tile
+        /// </summary>
+        /// <param name="sprite">Block ISprite</param>
+        /// <param name="pos">Block position</param>
+        /// <param name="collidable">Whether or not block is Collidable</param>
+        public LevelBlockEntity(ISprite sprite, Vector2 pos, bool collidable) : base(sprite, pos)
         {
             this._sprite = sprite;
             this._position = pos;
