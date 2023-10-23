@@ -21,7 +21,7 @@ namespace SprintZero1.XMLFiles
     {
         
        
-        public XMLParser(Game1 game)
+        public XMLParser()
         {
            
         }

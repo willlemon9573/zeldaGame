@@ -13,14 +13,12 @@ namespace SprintZero1.Controllers
         private readonly ICommand[] commands;
         private readonly Rectangle[] quadrants;
         private MouseState oldState;
-        private LevelManager levelManager;
         private GetPreviousLevelCommand getPreviousLevelCommand;
         private GetNextLevelCommand getNextLevelCommand;
         public MouseController(Game1 myGame)
         {
-            levelManager = new LevelManager(myGame);
-            getNextLevelCommand = new GetNextLevelCommand(myGame);
-            getPreviousLevelCommand = new GetPreviousLevelCommand(myGame);
+            getNextLevelCommand = new GetNextLevelCommand();
+            getPreviousLevelCommand = new GetPreviousLevelCommand();
         }
 
         /// <summary>

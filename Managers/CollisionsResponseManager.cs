@@ -11,7 +11,8 @@ namespace SprintZero1.Managers
 
         private static Dictionary<Tuple<Type, Type>, ICommand> collisionResponseDictionary = new Dictionary<Tuple<Type, Type>, ICommand>()
         {
-            { new Tuple<Type, Type>(typeof(PlayerCollider), typeof(LevelBlockCollider) ), new PushBackCommand(null, null) }
+            { new Tuple<Type, Type>(typeof(PlayerCollider), typeof(LevelBlockCollider) ), new PushBackCommand(null, null) },
+            {new Tuple<Type, Type>(typeof(PlayerCollider), typeof(LevelDoorCollider) ), new EnterNextLevelCommand(null, null) }
         };
 
         public static void CollisionResponse(ICollider c1, ICollider c2)

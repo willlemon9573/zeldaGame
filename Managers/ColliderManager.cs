@@ -28,14 +28,8 @@ namespace SprintZero1.Colliders
             int i = 0;
             while (i < staticColliders.Count)
             {
-
                 ColliderManager.RemoveCollider(staticColliders[i]);
-
             }
-
-           
-
-
         }
 
         public static void RemoveCollider(ICollider collider)
