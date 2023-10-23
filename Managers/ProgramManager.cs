@@ -70,7 +70,7 @@ namespace SprintZero1.Managers
             {
                 entity.Update(gameTime);
             }
-            ColliderManager.Update(gameTime);
+            ColliderManager.Update();
             enemyMovementController?.Update(gameTime);
         }
 
