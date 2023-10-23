@@ -1,0 +1,12 @@
+Muhammad Gheith
+
+Code Quality
+GetNextLevelCommand(Game1 game)
+	The next level command seems to be simple and clean. It cycles through the endless list of levels and overflows back to the start using a mod command.
+	The only issue I have is that this command linearly transitions through levels, and doesn't have a parameter for inputing *what* level the command transitions to. This is, however, probably because Execute is designated to have no parameters. We could probably using GetConstructor and pass an int into the constructor using Invoke.
+ 
+Code Readability
+EnemyEntityWithDirection
+	Class makes good use of Abstract class and inheritance, as well as interface implementation. EnemyEntityWithDirection inherits from EnemyBasedEntity and inherits Move() method, which uses a switch case to determine direction moved. I believe this could be replaced with a library to avoid switchcase, but its not a major problem (and also not really the implementation of EnemyEntityWithDirection.
+	Class overloads "PerformAttack", which nicely keeps the implementation of "Attack" clean and untouched. It may be redundent tho. The rest are standard implementations of Draw and Update. Good commenting, each method has a full signature. 
+	
