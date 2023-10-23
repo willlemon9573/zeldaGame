@@ -14,21 +14,18 @@ namespace SprintZero1.Commands
         private readonly Game1 myGame;
         private readonly int totalRooms;
         private int index;
-        private LevelManager levelManager;
 
-        public GetPreviousLevelCommand(Game1 game)
+        public GetPreviousLevelCommand()
         {
-            myGame = game;
-            levelManager = new LevelManager(game);
-            levelList = game.LevelList;
+            levelList = LevelManager.LevelList;
             totalRooms = levelList.Count;
-            index = game.LevelListIndex;
+            index = LevelManager.LevelListIndex;
         }
         public void Execute()
         {
-            index = ((index - 1) + totalRooms) % totalRooms;
-            myGame.LevelListIndex = index;
-             levelManager.LoadNewRoom(levelList[index]);
+            index = (index + 1) % totalRooms;
+            LevelManager.LevelListIndex = index;
+            LevelManager.LoadNewRoom(levelList[index]);
         }
     }
 }

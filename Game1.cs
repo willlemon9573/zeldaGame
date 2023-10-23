@@ -14,27 +14,11 @@ namespace SprintZero1
         private GraphicsDeviceManager _graphics;
         private MouseController _mouseController;
         private SpriteBatch _spriteBatch;
-        private LevelManager levelManager;
         /* Variables for window rescaling */
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
-        List<String> levelList = new List<String> { "XMLFiles/Room1.xml", "XMLFiles/Room1Left.xml", "XMLFiles/Room1Right.xml", "XMLFiles/Room2.xml",
-        "XMLFiles/Room3.xml", "XMLFiles/Room3Left.xml", "XMLFiles/Room3Right.xml", "XMLFiles/Room4.xml", "XMLFiles/Room4Left.xml", "XMLFiles/Room4Leftest.xml",
-                "XMLFiles/Room4Right.xml", "XMLFiles/Room4Rightest.xml", "XMLFiles/Room5.xml", "XMLFiles/Room5Right.xml", "XMLFiles/Room5Rightest.xml",
-                "XMLFiles/Room6.xml","XMLFiles/Room6Left.xml","XMLFiles/RoomSecret.xml" , "XMLFiles/RoomDev.xml"};
-        private int levelListIndex;
-
-        public List<string> LevelList 
-         { 
-             get { return levelList; } 
-         }
-
-         public int LevelListIndex
-         {
-            get { return levelListIndex; }
-            set { levelListIndex = value; }
-        }
+        
 
         public Game1()
         {
@@ -55,7 +39,6 @@ namespace SprintZero1
             // code for window rescaling
             _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
             _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
-            levelManager = new LevelManager(this);
             base.Initialize();
         }
 
@@ -75,7 +58,7 @@ namespace SprintZero1
             _mouseController = new MouseController(this);
             
             
-            levelManager.Initialize();
+            LevelManager.Initialize();
             /* FOR TESTING */
             TestingManager.StartTest(this);
             /* doors need to be drawn BEFORE walls because doors overlap them to make sure the "bricks" at the top match" */
@@ -98,7 +81,7 @@ namespace SprintZero1
 
         protected override void Update(GameTime gameTime)
         {
-            levelManager.Update(gameTime);
+            LevelManager.Update(gameTime);
             //TestingManager.Update(gameTime);
             _mouseController.Update();
             base.Update(gameTime);
@@ -111,9 +94,8 @@ namespace SprintZero1
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-            levelManager.Draw(_spriteBatch);
+            LevelManager.Draw(_spriteBatch);
             //TestingManager.Draw(_spriteBatch);
-
             _spriteBatch.End();
 
             /* Rescale the window and draw sprite batch with new scale */
