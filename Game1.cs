@@ -1,11 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
-using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
-using System.Collections.Generic;
 
 namespace SprintZero1
 {
@@ -18,7 +16,7 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
-        
+
 
         public Game1()
         {
@@ -58,7 +56,8 @@ namespace SprintZero1
             _mouseController = new MouseController(this);
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
-            ProgramManager.Start(this);
+            /*ProgramManager.Start(this);*/
+            LevelManager.Initialize(this);
         }
 
         protected override void Update(GameTime gameTime)

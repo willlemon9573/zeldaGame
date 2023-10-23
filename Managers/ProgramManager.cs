@@ -2,23 +2,20 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Controllers;
-using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
-using SprintZero1.Enums;
-using SprintZero1.Factories;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace SprintZero1.Managers
 {
     internal static class ProgramManager
     {
-        public static Game1 game;
+        public static Game1 _game;
 #pragma warning disable IDE0090 // Use 'new(...)'
         static readonly List<IEntity> onScreenEntities = new List<IEntity>();
 #pragma warning restore IDE0090 // Use 'new(...)'
+        private static ICombatEntity player;
         // List of available Controllers
-        static readonly IController[] controllers = new IController[] 
+        static readonly IController[] controllers = new IController[]
         #region
         {
             new KeyboardController()
@@ -27,13 +24,12 @@ namespace SprintZero1.Managers
 
         public static void Start(Game1 game)
         {
-            ICombatEntity player = new PlayerEntity(position, health, direction);
+            _game = game;
+            player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
             IEntity ProjectileEntity = new ProjectileEntity();
             ProgramManager.AddOnScreenEntity(player);
-            controllers[0].LoadDefaultCommands(localGame, player, ProjectileEntity);
-            AddOnScreenEntity(enemyEntity);
+            controllers[0].LoadDefaultCommands(game, player, ProjectileEntity);
             AddOnScreenEntity(ProjectileEntity);
-            game = localGame;
         }
 
         /// <summary>
@@ -51,34 +47,30 @@ namespace SprintZero1.Managers
         /// <param name="entity">Entity to remove</param>
         public static void RemoveOnScreenEntity(IEntity entity)
         {
-
             onScreenEntities.Remove(entity);
-            
         }
 
         public static void RemoveNonLinkEntities()
         {
             int i = 1;
             ColliderManager.RemoveAllExceptLink();
-            while (i < onScreenEntities.Count) {
-                ProgramManager.RemoveOnScreenEntity(onScreenEntities[i]);
-            }
+            onScreenEntities.Clear();
+            onScreenEntities.Add(player);
         }
 
         public static void Update(GameTime gameTime)
         {
-          
-            controller.Update();
-           
+
+            foreach (IController controller in controllers)
+            {
+                controller.Update();
+            }
             foreach (IEntity entity in onScreenEntities)
             {
                 entity.Update(gameTime);
-               
+
             }
-            ColliderManager.Update(gameTime);
             ColliderManager.Update();
-            enemyMovementController?.Update(gameTime);
-            enemyMovementController.Update(gameTime);
         }
 
         /// <summary>
@@ -87,16 +79,11 @@ namespace SprintZero1.Managers
         /// <param name="spriteBatch"></param>
         public static void Draw(SpriteBatch spriteBatch)
         {
-            int i = 1;
-            foreach (IEntity entity in onScreenEntities)
+            for (int i = 1; i < onScreenEntities.Count; i++)
             {
-                entity.Draw(spriteBatch);
-                i++;
-                if (i == 5)
-                {
-                    onScreenEntities[0].Draw(spriteBatch);
-                }
+                onScreenEntities[i].Draw(spriteBatch);
             }
+            player.Draw(spriteBatch);
         }
     }
 }

@@ -1,12 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Enums;
 using SprintZero1.XMLFiles;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SprintZero1.Managers
 {
@@ -33,30 +29,32 @@ namespace SprintZero1.Managers
             set { levelListIndex = value; }
         }
 
-        static LevelManager() 
+        static LevelManager()
         {
             totalRooms = levelList.Count;
             index = LevelListIndex;
             xmlParser = new XMLParser();
         }
 
-        public static void Initialize() {
+        public static void Initialize(Game1 game)
+        {
             ProgramManager.Start(game);
-            Vector2 pos = new Vector2(176, 170);
-            ProgramManager.AddPlayer(pos, 1, Direction.South);
             LoadNewRoom(levelList[1]);
         }
 
-        public static void LoadNewRoom(String xmlFile) {
+        public static void LoadNewRoom(String xmlFile)
+        {
             ProgramManager.RemoveNonLinkEntities();
             xmlParser.Parse(xmlFile);
         }
 
-        public static void Update(GameTime gameTime) {
+        public static void Update(GameTime gameTime)
+        {
             ProgramManager.Update(gameTime);
         }
 
-        public static void Draw(SpriteBatch spriteBatch) { 
+        public static void Draw(SpriteBatch spriteBatch)
+        {
             ProgramManager.Draw(spriteBatch);
         }
     }
