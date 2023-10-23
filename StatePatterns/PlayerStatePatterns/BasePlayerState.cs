@@ -9,6 +9,10 @@ using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.PlayerStatePatterns
 {
+    /// <summary>
+    /// Abstract parent player state. handles default implementations of the player states
+    /// @Author Aaron Heishman
+    /// </summary>
     internal abstract class BasePlayerState : IPlayerState
     {
         protected PlayerEntity _playerEntity;

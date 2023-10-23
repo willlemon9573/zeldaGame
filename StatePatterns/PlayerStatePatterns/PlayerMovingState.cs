@@ -5,10 +5,12 @@ using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.PlayerStatePatterns
 {
+    /// <summary>
+    /// Handles the player when they are in the moving state
+    /// @author Aaron Heishman
+    /// </summary>
     internal class PlayerMovingState : BasePlayerState
     {
-
-
         private Dictionary<Direction, Vector2> _velocityMap;
         /// <summary>
         /// Player moving state constructor

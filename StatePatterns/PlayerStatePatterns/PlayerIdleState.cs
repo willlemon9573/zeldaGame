@@ -6,11 +6,11 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
 {
     internal class PlayerIdleState : BasePlayerState
     {
-
-        public PlayerIdleState(PlayerEntity playerEntity) : base(playerEntity)
-        {
-            //
-        }
+        /// <summary>
+        /// Handles player when they are in the Idle State
+        /// </summary>
+        /// <param name="playerEntity">The player entering the idle state</param>
+        public PlayerIdleState(PlayerEntity playerEntity) : base(playerEntity) { }
 
         public override void ChangeDirection(Direction newDirection)
         {
@@ -24,7 +24,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
 
         public override void Update(GameTime gameTime)
         {
-            return;
+            // Idle player isn't updated
         }
     }
 }
