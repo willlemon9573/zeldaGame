@@ -14,7 +14,7 @@ namespace SprintZero1.Managers
 #pragma warning disable IDE0090 // Use 'new(...)'
         static readonly List<IEntity> onScreenEntities = new List<IEntity>();
 #pragma warning restore IDE0090 // Use 'new(...)'
-        static readonly IEnemyMovementController enemyMovementController;
+        static IEnemyMovementController enemyMovementController;
         // List of available Controllers
 
         static readonly IController[] controllers = new IController[] 
@@ -32,8 +32,11 @@ namespace SprintZero1.Managers
         {
             ICombatEntity link = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
             IEntity ProjectileEntity = new ProjectileEntity();
+            ICombatEntity enemyEntity = new EnemyEntityWithoutDirection(new Vector2(50, 50), 10, "dungeon_gel", 2);
+            enemyMovementController = new SmartEnemyMovementController(enemyEntity, link);
             controllers[0].LoadDefaultCommands(localGame, link, ProjectileEntity);
             AddOnScreenEntity(link);
+            AddOnScreenEntity(enemyEntity);
             AddOnScreenEntity(ProjectileEntity);
             game = localGame;
         }
@@ -72,6 +75,7 @@ namespace SprintZero1.Managers
             }
             ColliderManager.Update();
             enemyMovementController?.Update(gameTime);
+            enemyMovementController.Update(gameTime);
         }
 
         /// <summary>
