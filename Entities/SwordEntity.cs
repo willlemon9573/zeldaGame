@@ -12,7 +12,7 @@ namespace SprintZero1.Entities
     /// Used for creating a melee weapon as melee weapons do not have a quanitity 
     /// @Author - Aaron Heishman
     /// </summary>
-    internal class SwordEntity : IEntity, IWeaponEntity
+    internal class SwordEntity : IWeaponEntity
     {
         // TODO: Clean up code for modularity purposes
         private readonly String _weaponName;

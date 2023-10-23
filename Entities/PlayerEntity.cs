@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
@@ -66,17 +67,18 @@ namespace SprintZero1.Entities
 
         public void Attack(string weaponName)
         {
-            // updating 
+            if (_playerState is not PlayerAttackingState) { TransitionToState(State.Attacking); }
+            PlayerState.Request();
         }
 
         public void TakeDamage(int damage)
         {
-            // not implemented yet
+            // TODO: Implement in Sprint 4
         }
 
         public void Die()
         {
-            // not implemented yet
+            // TODO: Implement in Sprint 4
         }
 
         public void ChangeDirection(Direction direction)
@@ -86,9 +88,12 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-
             _playerState.Update(gameTime);
             _playerCollider.Update(gameTime);
+            if (_playerState is not PlayerIdleState && Keyboard.GetState().GetPressedKeyCount() == 0)
+            {
+                TransitionToState(State.Idle);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

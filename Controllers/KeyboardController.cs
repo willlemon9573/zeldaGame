@@ -3,7 +3,6 @@ using SprintZero1.Commands;
 using SprintZero1.Entities;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace SprintZero1.Controllers
@@ -79,7 +78,7 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.D, new MoveRightCommand(playerEntity));
 
             /* Attack Commands */
-            //keyboardMap.Add(Keys.Z, new SwordAttackCommand(playerEntity));
+            keyboardMap.Add(Keys.Z, new SwordAttackCommand(playerEntity));
             /* Other commands */
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
 
@@ -89,9 +88,6 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.D4, new FireBetterBoomerangCommand(playerEntity, ProjectileEntity));
             keyboardMap.Add(Keys.D5, new FireBombCommand(playerEntity, ProjectileEntity));
             keyboardMap.Add(Keys.D6, new FireMagicFireCommand(playerEntity, ProjectileEntity));
-
-
-            _idleCommand = new ReturnPlayerToIdleCommand(playerEntity);
         }
 
         public void Update()
@@ -99,8 +95,7 @@ namespace SprintZero1.Controllers
             /* handling movement? */
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
-            int movementKeyCount = 0;
-
+            int totalKeyCount = 0;
             /* iterate over pressed key collection executing only valid keys in the keyboard map 
                keeping track of the amount of movement keys that are also currently being pressed
             */
@@ -109,8 +104,7 @@ namespace SprintZero1.Controllers
                 if (_movementKeyList.Contains(key))
                 {
                     HandleMovementKey(key);
-                    movementKeyCount++;
-                    
+
                 }
                 else if (keyboardMap.ContainsKey(key) && !_previouslyPressedKeys.Contains(key))
                 {
@@ -122,12 +116,7 @@ namespace SprintZero1.Controllers
              * no keys are pressed. Checking both movement key count and previously pressed
              * keys to prevent _idleCommand from executing more than once
              */
-            if (movementKeyCount == 0 && _previouslyPressedKeys.Count > 0) 
-            {
-                _idleCommand.Execute();
-                FlipAndClean(pressedKeys);
-            }
-            else if (movementKeyCount < movementKeyStack.Count)
+            if (totalKeyCount < movementKeyStack.Count)
             {
                 FlipAndClean(pressedKeys);
             }

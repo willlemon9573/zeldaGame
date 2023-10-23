@@ -3,7 +3,7 @@ using SprintZero1.Enums;
 
 namespace SprintZero1.Entities
 {
-    internal interface IWeaponEntity
+    internal interface IWeaponEntity : IEntity
     {
         /// <summary>
         /// ALlows the entity to use the weapon 
