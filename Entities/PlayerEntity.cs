@@ -23,8 +23,9 @@ namespace SprintZero1.Entities
         private Vector2 _playerPosition;
         private PlayerCollider _playerCollider;
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
-        private IEntity _playerMainWeapon;
+        private IWeaponEntity _playerMainWeapon;
         private IPlayerState _playerState;
+        private bool _attackingWithSword = false;
         /* Public properties to modify the player's private members */
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
@@ -68,6 +69,11 @@ namespace SprintZero1.Entities
         public void Attack(string weaponName)
         {
             if (_playerState is not PlayerAttackingState) { TransitionToState(State.Attacking); }
+            if (weaponName == "sword")
+            {
+                _attackingWithSword = true;
+                _playerMainWeapon.UseWeapon(_playerDirection, _playerPosition);
+            }
             PlayerState.Request();
         }
 
@@ -98,7 +104,16 @@ namespace SprintZero1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (_playerState is PlayerAttackingState && _attackingWithSword)
+            {
+                _playerMainWeapon.Draw(spriteBatch);
+            }
+            else if (_playerState is not PlayerAttackingState && !_attackingWithSword)
+            {
+                _attackingWithSword = false;
+            }
             _playerState.Draw(spriteBatch);
+
         }
     }
 }

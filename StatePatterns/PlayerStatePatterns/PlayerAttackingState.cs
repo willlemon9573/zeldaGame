@@ -8,7 +8,6 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
     {
         private float _stateElapsedTime = 0f;
         private float _timeToResetState = 1 / 7f;
-        private State _playerPreviousBaseState;
 
         private void TrackStateTime(float deltaTime)
         {
