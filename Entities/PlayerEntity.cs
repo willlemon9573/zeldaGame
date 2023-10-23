@@ -1,28 +1,36 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using SprintZero1.StateMachines;
+using SprintZero1.StatePatterns.PlayerStatePatterns;
+using SprintZero1.StatePatterns.StatePatternInterfaces;
 
 namespace SprintZero1.Entities
 {
-    internal class PlayerEntity : IEntity, IMovableEntity, ICombatEntity
+    /// <summary>
+    /// Player Entity class used to control and update player.
+    /// @Author Aaron Heishman
+    /// </summary>
+    internal class PlayerEntity : ICombatEntity
     {
         /* Player Components */
         private int _playerHealth;
         private ISprite _playerSprite;
         private Direction _playerDirection;
         private Vector2 _playerPosition;
-        private readonly PlayerStateMachine _playerStateMachine;
-        private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
-
+        private PlayerCollider _playerCollider;
+        private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
+        private IEntity _playerMainWeapon;
+        private IPlayerState _playerState;
+        /* Public properties to modify the player's private members */
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
-
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
+        public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
+        public ISprite PlayerSprite { get { return _playerSprite; } set { _playerSprite = value; } }
+        public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
 
-        public Direction Direction { get { return _playerDirection; } }
 
         /// <summary>
         /// Construct a new player entity
@@ -32,73 +40,60 @@ namespace SprintZero1.Entities
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
         public PlayerEntity(Vector2 position, int startingHealth, Direction startingDirection)
         {
+            /* Default values for player upon game start */
             _playerDirection = startingDirection;
             _playerHealth = startingHealth;
             _playerPosition = position;
-            _playerStateMachine = new PlayerStateMachine(State.Idle);
-            // since we are currently only using link I'm setting this sprite here
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
+            _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
+            _playerMainWeapon = new SwordEntity("woodensword");
+            _playerState = new PlayerIdleState(this);
         }
 
-        public void Move(Vector2 distance)
+        public void Move()
         {
-            if (_playerStateMachine.CanTransition())
-            {
-                _playerStateMachine.ChangeState(State.Moving);
-                _playerPosition += distance;
-            }
+            if (_playerState is not PlayerMovingState) { TransitionToState(State.Moving); }
+            _playerState.Request();
+        }
+        /// <summary>
+        /// Transition player to the new state
+        /// </summary>
+        /// <param name="newState">the new state the player will transition to</param>
+        public void TransitionToState(State newState)
+        {
+            _playerState.TransitionState(newState);
         }
 
-        public void Attack()
+        public void Attack(string weaponName)
         {
-            // check if link can transition
-            _playerStateMachine.BlockTransition();
-            // set state to attacking
-            // set time for link's attack animation
-            // change link to his attack animation
-            // checks
+            // updating 
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
-            // not implemented
+            // not implemented yet
         }
 
         public void Die()
         {
-            // not implemented
+            // not implemented yet
         }
 
         public void ChangeDirection(Direction direction)
         {
-            if (_playerStateMachine.CanTransition())
-            {
-                _playerDirection = direction;
-                _playerSprite = _linkSpriteFactory.GetLinkSprite(direction);
-            }
+            _playerState.ChangeDirection(direction);
         }
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().GetPressedKeyCount() == 0 && _playerStateMachine.CanTransition())
-            {
-                _playerStateMachine.ChangeState(State.Idle);
-            }
-            else if (_playerStateMachine.GetCurrentState() == State.Moving)
-            {
-                _playerSprite.Update(gameTime);
-            }
 
+            _playerState.Update(gameTime);
+            _playerCollider.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            SpriteEffects spriteEffects = SpriteEffects.None;
-            if (_playerDirection == Direction.West)
-            {
-                spriteEffects = SpriteEffects.FlipHorizontally;
-            }
-            _playerSprite.Draw(spriteBatch, _playerPosition, spriteEffects);
+            _playerState.Draw(spriteBatch);
         }
     }
 }

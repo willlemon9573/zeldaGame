@@ -42,13 +42,12 @@ namespace SprintZero1
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             // Code for Window rescaling
-            _graphics.PreferredBackBufferWidth = 255 * WINDOW_SCALE;
+            _graphics.PreferredBackBufferWidth = 256 * WINDOW_SCALE;
             _graphics.PreferredBackBufferHeight = 240 * WINDOW_SCALE;
             this.IsFixedTimeStep = true;//false;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
         }
-
-        /// <summary>
+           
         /// Initialize all components required to run the game
         /// </summary>
         protected override void Initialize()
@@ -62,10 +61,17 @@ namespace SprintZero1
 
         protected override void LoadContent()
         {
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2DManager.LoadAllTextures(this.Content);
-            TileSpriteFactory.Instance.LoadTextures();
+            /* Factories are missing a lot of comments. To be added in Sprint 4 
+                May also be loading textures specifically Program Manager rather than in game1.cs
+            */
+            EnemySpriteFactory.Instance.LoadTextures();
             LinkSpriteFactory.Instance.LoadTextures();
+            TileSpriteFactory.Instance.LoadTextures();
+            WeaponSpriteFactory.Instance.LoadTextures();
+            ItemSpriteFactory.Instance.LoadTextures();
             _mouseController = new MouseController(this);
             
             
@@ -84,6 +90,12 @@ namespace SprintZero1
             TestingManager.AddStaticSprite(TileSpriteFactory.Instance.CreateNewTileSprite("open_south"), new Vector2(127, 224));
            
             TestingManager.TestPlayerEntityWithKeyboard(new Vector2(176, 170), 1, Direction.South); */
+            // collidable block
+            //TestingManager.AddEntity(new LevelBLockEntity(TileSpriteFactory.Instance.CreateNewTileSprite("pyramid"), new Vector2(39, 104), true));
+
+            WeaponSpriteFactory.Instance.LoadTextures();
+            ItemSpriteFactory.Instance.LoadTextures();
+            ProgramManager.Start(this);
         }
 
         protected override void Update(GameTime gameTime)
@@ -96,6 +108,7 @@ namespace SprintZero1
 
         protected override void Draw(GameTime gameTime)
         {
+            /* Draw all sprites on a new render target */
             GraphicsDevice.SetRenderTarget(this._newRenderTarget);
             GraphicsDevice.Clear(Color.Black);
 
@@ -105,7 +118,7 @@ namespace SprintZero1
 
             _spriteBatch.End();
 
-            // Code for rescaling
+            /* Rescale the window and draw sprite batch with new scale */
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(_newRenderTarget, _actualScreenRectangle, Color.White);

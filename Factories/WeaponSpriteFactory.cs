@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Managers;
+using SprintZero1.Enums;
+using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SprintZero1.Factories
 {
@@ -11,8 +14,11 @@ namespace SprintZero1.Factories
     {
         /* Temporary class for sprint2 requirements. This along with other factories will be refractored for sprint 3 */
         private Texture2D spriteSheet;
+        private Texture2D enemyProjectileSheet;
         private readonly Dictionary<string, List<Rectangle>> weaponSourceRectangles;
         private static readonly WeaponSpriteFactory instance = new WeaponSpriteFactory();
+
+        private readonly Dictionary<(String, Direction), Rectangle> _meleeWeaponSourceRectangle;
 
         public static WeaponSpriteFactory Instance
         {
@@ -29,41 +35,48 @@ namespace SprintZero1.Factories
 
             List<Rectangle> regBoomerangFrames = new List<Rectangle>
             {
-                new Rectangle(57, 187, 7, 12),
-                new Rectangle(64, 187, 10, 12),
-                new Rectangle(74, 185, 10, 12),
-                new Rectangle(84, 187, 10, 12),
-                new Rectangle(94, 187, 7, 12),
-                new Rectangle(101, 187, 10, 12)
+                new Rectangle(63, 189, 8, 8)
             };
 
             List<Rectangle> betterBoomerangFrames = new List<Rectangle>
             {
-                new Rectangle(122, 187, 7, 11),
-                new Rectangle(129, 187, 10, 11),
-                new Rectangle(139, 187, 10, 11),
-                new Rectangle(149, 187, 10, 11),
-                new Rectangle(159, 187, 7, 11),
-                new Rectangle(166, 187, 10, 11),
-                new Rectangle(176, 187, 10, 11),
-                new Rectangle(186, 187, 10, 11)
+                new Rectangle(91, 189, 8, 8)
             };
 
             List<Rectangle> regArrowFrames = new List<Rectangle>
             {
-                new Rectangle(0, 185, 19, 20)
+                new Rectangle(3, 185, 5, 16),
+                new Rectangle(10, 190, 16, 5)
             };
             List<Rectangle> betterArrowFrames = new List<Rectangle> {
-                new Rectangle(28, 185, 19, 15)
+                new Rectangle(29, 182, 5, 16),
+                new Rectangle(36, 190, 16, 5)
             };
-
+            
+            
+            List<Rectangle> fireFrames = new List<Rectangle> {
+                new Rectangle(194,185,16,16),
+                new Rectangle(213,185,16,16)
+            };
+            int aquamentusWeaponX = 101, aquamentusWeaponY = 11, aquamentusWeaponWidth = 8, aquamentusWeaponHeight = 16;
+            List<Rectangle> aquamentusWeaponFrame = new List<Rectangle>();
+            for (int i = 0; i < 4; i++)
+            {
+                aquamentusWeaponFrame.Add(new Rectangle(aquamentusWeaponX, aquamentusWeaponY, aquamentusWeaponWidth, aquamentusWeaponHeight));
+                if (i >= 1)
+                {
+                    aquamentusWeaponX += aquamentusWeaponWidth + 1;
+                }
+                else
+                {
+                    aquamentusWeaponX += aquamentusWeaponWidth;
+                }
+            }
             List<Rectangle> bombFrames = new List<Rectangle>();
-            List<Rectangle> fireFrames = new List<Rectangle>();
-            int bombX = 208, fireX = 278, y = 185, width = 16, height = 16;
+            int bombX = 126, y = 185, width = 16, height = 16;
             for (int i = 0; i < 4; i++)
             {
                 bombFrames.Add(new Rectangle(bombX, y, width, height));
-                fireFrames.Add(new Rectangle(fireX, y, width, height));
                 if (i >= 1)
                 {
                     bombX += width + 2;
@@ -72,7 +85,6 @@ namespace SprintZero1.Factories
                 {
                     bombX += width;
                 }
-                fireX += width + 2;
             }
             weaponSourceRectangles.Add("boomerang", regBoomerangFrames);
             weaponSourceRectangles.Add("betterboomerang", betterBoomerangFrames);
@@ -80,20 +92,57 @@ namespace SprintZero1.Factories
             weaponSourceRectangles.Add("betterbowarrows", betterArrowFrames);
             weaponSourceRectangles.Add("bomb", bombFrames);
             weaponSourceRectangles.Add("magicfire", fireFrames);
+            weaponSourceRectangles.Add("aquamentusWeapon", aquamentusWeaponFrame);
         }
 
+
+        private void CreateMeleeWeaponDictionary()
+        {
+            List<Direction> directions = new List<Direction>() { Direction.North, Direction.South, Direction.East, Direction.West };
+            // woodensword
+            List<Rectangle> coordsList = new List<Rectangle>
+            {
+                new Rectangle( 1, 154, 7, 16),
+                new Rectangle(10, 159, 16, 7)
+            };
+            for (int i = 0; i < directions.Count; i++)
+            {
+                Rectangle r;
+                if (i < 2)
+                {
+                    r = coordsList[0];
+                }
+                else
+                {
+                    r = coordsList[1];
+                }
+                /* for testing - to be removed in the future */
+                _meleeWeaponSourceRectangle.Add(("woodensword", directions[i]), r);
+            }
+
+        }
+        public void LoadTextures()
+        {
+            spriteSheet = Texture2DManager.GetLinkSpriteSheet();
+            enemyProjectileSheet = Texture2DManager.GetBossSpriteSheet();
+        }
         private WeaponSpriteFactory()
         {
             weaponSourceRectangles = new Dictionary<string, List<Rectangle>>();
+            _meleeWeaponSourceRectangle = new Dictionary<(string, Direction), Rectangle>();
             CreateDictionary();
+
+            CreateMeleeWeaponDictionary();
         }
 
-        public void LoadTextures(ContentManager manager)
+        public ISprite CreateAquamentusWeaponSprite(int index)
         {
-            spriteSheet = manager.Load<Texture2D>("LinkSheet");
+            List<Rectangle> sourceRectangle = weaponSourceRectangles["aquamentusWeapon"];
+            return new NonAnimatedSprite(sourceRectangle[index], enemyProjectileSheet); 
         }
 
-        public ISprite CreateBoomerangSprite(String weaponType, Vector2 location, int maxFrames, int direction)
+
+        public ISprite CreateBoomerangSprite(String weaponType,  Direction direction)
         {
             List<Rectangle> sourceRectangle = weaponSourceRectangles["boomerang"];
             if (weaponType.Equals("better"))
@@ -101,30 +150,55 @@ namespace SprintZero1.Factories
                 sourceRectangle = weaponSourceRectangles["betterboomerang"];
             }
             /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
-            return null;
+            return new NonAnimatedSprite(sourceRectangle[0], spriteSheet); 
         }
-
-        public ISprite CreateArrowSprite(String weaponType, Vector2 location, int maxFrames, int direction)
+        public ISprite CreateEndSprite()
+        {
+            return new NonAnimatedSprite(new Rectangle(53, 190, 8, 8), spriteSheet);
+        }
+        public ISprite CreateArrowSprite(String weaponType,  Direction direction)
         {
             List<Rectangle> sourceRectangle = weaponSourceRectangles["arrow"];
+            int index = 0;
+            if(direction == Direction.East || direction == Direction.West)
+            {
+                index = 1;
+            }
             if (weaponType.Equals("better"))
             {
                 sourceRectangle = weaponSourceRectangles["betterbowarrows"];
             }
             /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
-            return null;
+            return new NonAnimatedSprite(sourceRectangle[index],spriteSheet);
         }
 
-        public ISprite CreateBombSprite(Vector2 location, int maxFrames, int direction)
+        public ISprite CreateBombSprite()
         {
+            List<Rectangle> sourceRectangle = weaponSourceRectangles["bomb"];
             /*   return new WeaponSprite(location, weaponSourceRectangles["bomb"], this.spriteSheet, maxFrames, direction);*/
-            return null;
+            return new NonAnimatedSprite(sourceRectangle[0], spriteSheet);
         }
 
-        public ISprite CreateMagicFireSprite(Vector2 location, int maxFrames, int direction)
+        public ISprite CreateBombSpriteExplodes()
         {
+            int maxFrame = 3;
+            List<Rectangle> sourceRectangle = weaponSourceRectangles["bomb"];
+            List<Rectangle> newRectangleList = sourceRectangle.GetRange(1, 3);
+            /*   return new WeaponSprite(location, weaponSourceRectangles["bomb"], this.spriteSheet, maxFrames, direction);*/
+            return new ControlledAnimation(new AnimatedSprite(newRectangleList, spriteSheet, maxFrame),maxFrame);
+        }
+        public ISprite CreateMagicFireSprite()
+        {
+            int maxFrame = 2;
+            List<Rectangle> sourceRectangle = weaponSourceRectangles["magicfire"];
             /* return new WeaponSprite(location, weaponSourceRectangles["magicfire"], this.spriteSheet, maxFrames, direction);*/
-            return null;
+            return new AnimatedSprite(sourceRectangle,spriteSheet, maxFrame);
+        }
+
+        public ISprite GetMeleeWeaponSprite(String weaponName, Direction direction)
+        {
+            Debug.Assert(_meleeWeaponSourceRectangle.ContainsKey((weaponName, direction)), "Meelee weapon not found: " + weaponName);
+            return new NonAnimatedSprite(_meleeWeaponSourceRectangle[(weaponName, direction)], spriteSheet);
         }
     }
 }

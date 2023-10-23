@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
+﻿using SprintZero1.Entities;
 using SprintZero1.Enums;
 
 namespace SprintZero1.Commands
@@ -7,13 +6,11 @@ namespace SprintZero1.Commands
     internal class MoveDownCommand : ICommand
     {
         private readonly IMovableEntity _movableEntity;
-        private readonly Vector2 _distance;
 
-        public MoveDownCommand(IEntity entity)
+        public MoveDownCommand(IMovableEntity entity)
         {
             /* Create a reference to the entity to access the move function */
-            _movableEntity = (IMovableEntity)entity;
-            _distance = new Vector2(0, 1);
+            _movableEntity = entity;
         }
 
         public void Execute()
@@ -22,7 +19,7 @@ namespace SprintZero1.Commands
             {
                 _movableEntity.ChangeDirection(Direction.South);
             }
-            _movableEntity.Move(_distance);
+            _movableEntity.Move();
         }
     }
 }

@@ -140,6 +140,7 @@ namespace SprintZero1.Factories
             AddDoorSourceRectangles();
             AddLevelOneSourceRectangles();
         }
+
         /// <summary>
         /// Load the textures required for the Tile Factory
         /// </summary>

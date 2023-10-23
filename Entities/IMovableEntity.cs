@@ -3,12 +3,13 @@ using SprintZero1.Enums;
 
 namespace SprintZero1.Entities
 {
-    internal interface IMovableEntity
+    internal interface IMovableEntity : IEntity
     {
         /// <summary>
         /// Gets the Direction of the Entity
         /// </summary>
-        Direction Direction { get; }
+        Direction Direction { get; set; }
+
         /// <summary>
         /// Changes the Direction of the Entity
         /// </summary>
@@ -17,7 +18,6 @@ namespace SprintZero1.Entities
         /// <summary>
         /// Move The entity in its current direction
         /// </summary>
-        /// <param name="distance">The distance the entity will go</param>
-        void Move(Vector2 distance);
+        void Move();
     }
 }

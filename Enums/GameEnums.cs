@@ -16,4 +16,10 @@
         Idle,
         Interacting
     }
+
+    public enum AttackType
+    {
+        Melee,  
+        Ranged  
+    }
 }

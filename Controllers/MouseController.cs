@@ -61,11 +61,6 @@ namespace SprintZero1.Controllers
         /// </summary>
         public MouseController()
         {
-            commands = new ICommand[5];
-            oldState = Mouse.GetState();
-            quadrants = new Rectangle[4];
-            CreateQuadrantArray();
-        }
 
         public void LoadDefaultCommands(Game1 game, IEntity playerEntity)
         {
@@ -86,9 +81,6 @@ namespace SprintZero1.Controllers
             oldState = newState;
         }
 
-        public void AddCommand(Keys key, ICommand value)
-        {
-            throw new System.NotImplementedException();
-        }
+
     }
 }

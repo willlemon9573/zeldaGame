@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Controllers;
+using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
@@ -32,11 +33,19 @@ namespace SprintZero1.Managers
             ProgramManager.AddOnScreenEntity(player);
         }
 
+        /// <summary>
+        /// Add an entity to the screen
+        /// </summary>
+        /// <param name="entity">Entity to be added</param>
         public static void AddOnScreenEntity(IEntity entity)
         {
             onScreenEntities.Add(entity);
         }
 
+        /// <summary>
+        /// Remove Entity from the list
+        /// </summary>
+        /// <param name="entity">Entity to remove</param>
         public static void RemoveOnScreenEntity(IEntity entity)
         {
             onScreenEntities.Remove(entity);
@@ -54,15 +63,23 @@ namespace SprintZero1.Managers
 
         public static void Update(GameTime gameTime)
         {
-
+            foreach (IController controller in controllers)
+            {
+                controller.Update();
+            }
             foreach (IEntity entity in onScreenEntities)
             {
                 entity.Update(gameTime);
             }
             ColliderManager.Update(gameTime);
+            enemyMovementController?.Update(gameTime);
             controller.Update();
         }
 
+        /// <summary>
+        /// Run Draw on Program Manager
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public static void Draw(SpriteBatch spriteBatch)
         {
             int i = 1;
