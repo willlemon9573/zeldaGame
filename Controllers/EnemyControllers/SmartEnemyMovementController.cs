@@ -16,6 +16,11 @@ namespace SprintZero1.Controllers.EnemyControllers
         private Stack<Vector2> currentPath;
         private AStarPathfinder pathfinder;
         private bool isPathBeingCalculated;
+        private double _moveTime = 4.0; 
+        private double _stopTime = 1.0; //unite is s
+        private double _currentMoveTime = 0; 
+        private double _currentStopTime = 0; 
+        private bool _isMoving = true; 
 
         public SmartEnemyMovementController(ICombatEntity enemyEntity, IEntity playerEntity)
         {
@@ -42,6 +47,7 @@ namespace SprintZero1.Controllers.EnemyControllers
         {
             double elapsed = gameTime.ElapsedGameTime.TotalSeconds;
             _timeSinceLastPathCalculation += elapsed;
+            _currentMoveTime += elapsed; 
 
             if (_timeSinceLastPathCalculation >= _pathCalculationInterval && !isPathBeingCalculated)
             {
@@ -50,8 +56,7 @@ namespace SprintZero1.Controllers.EnemyControllers
                 _timeSinceLastPathCalculation = 0;
             }
 
-            
-            if (isPathBeingCalculated)
+            if (isPathBeingCalculated && _isMoving)
             {
                 Vector2 moveDirection = _playerEntity.Position - _enemyEntity.Position;
                 moveDirection.Normalize();
@@ -60,32 +65,53 @@ namespace SprintZero1.Controllers.EnemyControllers
                 _enemyEntity.Move(); 
             }
 
-            
             if (isPathBeingCalculated && pathfinder.Update())
             {
                 currentPath = pathfinder.GetPath();
                 isPathBeingCalculated = false;
             }
 
-           
-            if (currentPath != null && currentPath.Count > 0)
+            if (_isMoving)
             {
-                Vector2 nextStep = currentPath.Peek();
-                Vector2 moveDirection = nextStep - _enemyEntity.Position;
-
-                moveDirection.Normalize();
-
-                Direction direction = CalculateDirection(moveDirection);
-
-                _enemyEntity.ChangeDirection(direction);
-
-                _enemyEntity.Move(); 
-
-                if (Vector2.Distance(_enemyEntity.Position, nextStep) < 1.0f)
+                if (_currentMoveTime >= _moveTime)
                 {
-                    currentPath.Pop();
+                    _isMoving = false; 
+                    _currentMoveTime = 0; 
+                    _currentStopTime = elapsed; 
+                }
+                else if (currentPath != null && currentPath.Count > 0)
+                {
+                    Vector2 nextStep = currentPath.Peek();
+                    Vector2 moveDirection = nextStep - _enemyEntity.Position;
+
+                    moveDirection.Normalize();
+
+                    Direction direction = CalculateDirection(moveDirection);
+
+                    _enemyEntity.ChangeDirection(direction);
+
+                    _enemyEntity.Move(); 
+
+                    if (Vector2.Distance(_enemyEntity.Position, nextStep) < 1.0f)
+                    {
+                        currentPath.Pop();
+                    }
                 }
             }
+            else
+            {
+               
+                _currentStopTime += elapsed;
+
+                
+                if (_currentStopTime >= _stopTime)
+                {
+                    _isMoving = true; 
+                    _currentStopTime = 0; 
+                }
+                
+            }
         }
+
     }
 }
