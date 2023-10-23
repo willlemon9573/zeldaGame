@@ -1,4 +1,4 @@
-# Team Enter Game Legend of Zelda - Sprint 2
+# Team Enter Game Legend of Zelda - Sprint 3
 # Team Members: Aaron Heishman (heishman.5), Muhammed Gheith (gheith.11), Zihe Wang (wang.14629), Will Lemon (lemon.285), Chih-Hsiang Tseng (tseng.253)
 # Note: Code reviews will be under the CodeReviews folder in the project folder
   - Run SprintZero1.sln to play the game
@@ -6,6 +6,8 @@
   - W, A, S, D, Up, Down, Left, Right - Link Movement Controls
   - Z  - Attack
   - Numerical keys (1, 2,3) for using items
+  - Left Mouse Click: Move to previous room
+  - Right Mouse Click: Move to next room
  
 
 # Known bugs, unimplemented features and future updates
