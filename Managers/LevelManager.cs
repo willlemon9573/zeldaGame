@@ -44,7 +44,7 @@ namespace SprintZero1.Managers
             ProgramManager.Start(game);
             Vector2 pos = new Vector2(176, 170);
             ProgramManager.AddPlayer(pos, 1, Direction.South);
-            LoadNewRoom(levelList[0]);
+            LoadNewRoom(levelList[1]);
         }
 
         public static void LoadNewRoom(String xmlFile) {

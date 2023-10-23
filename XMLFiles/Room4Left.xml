@@ -62,6 +62,55 @@
 	</Block>
 
 
+	<Enemy>
+		<Name>dungeon_gel</Name>
+		<X>88</X>
+		<Y>151</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_gel</Name>
+		<X>88</X>
+		<Y>151</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_gel</Name>
+		<X>120</X>
+		<Y>182</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_gel</Name>
+		<X>120</X>
+		<Y>182</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_gel</Name>
+		<X>120</X>
+		<Y>119</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_gel</Name>
+		<X>120</X>
+		<Y>119</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+
 	<Door>
 		<Name>doorless_north</Name>
 		<X>127</X>

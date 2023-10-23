@@ -73,7 +73,17 @@ namespace SprintZero1.Factories
             enemySpriteDictionary["dungeon_stalfos"] = new List<Rectangle>
             {
                 new Rectangle(1, 59, WIDTH, HEIGHT),
-                new Rectangle(16, 74, WIDTH, HEIGHT)
+                 new Rectangle(1, 59, WIDTH, HEIGHT)
+            };
+            enemySpriteDictionary["dungeon_goriya"] = new List<Rectangle>
+            {
+                new Rectangle(256, 11, WIDTH, HEIGHT),
+                new Rectangle(273, 11, WIDTH, HEIGHT)
+            };
+            enemySpriteDictionary["dungeon_bladetrap"] = new List<Rectangle>
+            {
+                new Rectangle(164, 59, WIDTH, HEIGHT),
+                new Rectangle(164, 59, WIDTH, HEIGHT)
             };
         }
         /// <summary>

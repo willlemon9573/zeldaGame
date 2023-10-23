@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace SprintZero1.Factories
 {
@@ -11,7 +13,7 @@ namespace SprintZero1.Factories
         private Texture2D itemSpriteSheet;
         private readonly Dictionary<string, Rectangle> sourceRectangles;
         private static readonly ItemSpriteFactory instance = new ItemSpriteFactory();
-        private readonly List<string> itemNamesList;
+        private readonly Dictionary<string, List<Rectangle>> itemSpriteDictionary;
         private Texture2D linkWeaponSpriteSheet;
         public static ItemSpriteFactory Instance
         {
@@ -20,46 +22,47 @@ namespace SprintZero1.Factories
 
         public List<string> ItemNamesList
         {
-            get { return itemNamesList; }
+            get { return itemSpriteDictionary.Keys.ToList<string>(); }
         }
         private void CreateSourceRectanglesDictionary()
         {
-            int x_pixels = 23, y_pixels = 704; // starting coordiantes of the tiles
-            const int WIDTH = 16, HEIGHT = 16; // dimmension of each tile
-            foreach (string itemName in ItemNamesList)
-            {
-
-                sourceRectangles.Add(itemName, new Rectangle(x_pixels, y_pixels, WIDTH, HEIGHT));
-                if (itemName.Contains("Animated"))
-                {
-                    x_pixels += 34;
-                }
-                else
-                {
-                    x_pixels += 17;
-                }
-
-                if (x_pixels > 313)
-                {
-                    x_pixels = 23;
-                }
-            }
-
+           
             Rectangle woodenSwordSource = new Rectangle(1, 154, 7, 16);
             sourceRectangles.Add("woodsword", woodenSwordSource);
         }
-
-
-        private ItemSpriteFactory()
+        private void CreateItemSpriteDictionary()
         {
-            itemNamesList = new List<string>()
+            itemSpriteDictionary["key"] = new List<Rectangle>
             {
-                "rubyStatic", "heartAnimated", "heartStatic", "fairyAnimated",
-                "clock", "rubyAnimated", "boomerang", "bomb",
-                "bow", "key", "scroll", "compass", "triforceAnimated", "fireAnimated"
+                new Rectangle(228, 703, 11, 17),
+                new Rectangle(228, 703, 11, 17)
+
             };
-            sourceRectangles = new Dictionary<string, Rectangle>();
-            CreateSourceRectanglesDictionary();
+            itemSpriteDictionary["map"] = new List<Rectangle>
+            {
+                new Rectangle(245, 703, 11, 17),
+                new Rectangle(245, 703, 11, 17)
+
+            };
+            itemSpriteDictionary["compass"] = new List<Rectangle>
+            {
+                new Rectangle(260, 703, 14, 17),
+                new Rectangle(260, 703, 14, 17)
+
+            };
+            itemSpriteDictionary["fire"] = new List<Rectangle>
+            {
+                new Rectangle(312, 703, 15, 17),
+                new Rectangle(329, 703, 14, 17)
+
+            };
+        }
+
+
+            private ItemSpriteFactory()
+        {
+           itemSpriteDictionary = new Dictionary<string, List<Rectangle>>();
+            CreateItemSpriteDictionary();
         }
 
         public void LoadTextures()
@@ -71,20 +74,9 @@ namespace SprintZero1.Factories
         public ISprite CreateItemSprite(string itemName)
         {
 
-            if (itemName.Contains("Animated"))
-            {
-                /*return new AnimatedItemSprite(tileSourceRectangles[itemName], itemSpriteSheet);*/
-            }
-            else
-            {
-                /*  return new NonAnimatedItemSprite(tileSourceRectangles[itemName], itemSpriteSheet);*/
-            }
-            return null;
+            
+            return new AnimatedSprite(itemSpriteDictionary[itemName], itemSpriteSheet, 2);
         }
 
-        public ISprite CreateNonAnimatedItemSprite(string itemName)
-        {
-            return new NonAnimatedSprite(sourceRectangles[itemName], linkWeaponSpriteSheet);
-        }
-    }
+         }
 }

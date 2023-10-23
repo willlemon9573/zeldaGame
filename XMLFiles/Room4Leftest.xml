@@ -46,6 +46,28 @@
 		<X>199</X>
 		<Y>204</Y>
 	</Wall>
+
+	<Item>
+		<Name>fire</Name>
+		<X>174</X>
+		<Y>135</Y>
+	</Item>
+	<Item>
+		<Name>fire</Name>
+		<X>174</X>
+		<Y>135</Y>
+	</Item>
+	<Item>
+		<Name>fire</Name>
+		<X>74</X>
+		<Y>135</Y>
+	</Item>
+	<Item>
+		<Name>fire</Name>
+		<X>74</X>
+		<Y>135</Y>
+	</Item>
+	
 	<Door>
 		<Name>doorless_north</Name>
 		<X>127</X>

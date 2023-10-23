@@ -48,7 +48,64 @@
 		<Y>204</Y>
 	</Wall>
 
-	
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>54</X>
+		<Y>185</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>54</X>
+		<Y>185</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>56</X>
+		<Y>121</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>56</X>
+		<Y>121</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>88</X>
+		<Y>137</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>88</X>
+		<Y>137</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Item>
+		<Name>key</Name>
+		<X>166</X>
+		<Y>199</Y>
+	</Item>
+	<Item>
+		<Name>key</Name>
+		<X>166</X>
+		<Y>199</Y>
+	</Item>
 	<Door>
 		<Name>doorless_north</Name>
 		<X>127</X>
@@ -90,54 +147,7 @@
 		<Y>224</Y>
 	</Door>
 
-	<Enemy>
-		<Name>dungeon_keese</Name>
-		<X>54</X>
-		<Y>182</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>false</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_keese</Name>
-		<X>54</X>
-		<Y>182</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>false</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_keese</Name>
-		<X>54</X>
-		<Y>118</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>false</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_keese</Name>
-		<X>54</X>
-		<Y>118</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>false</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_keese</Name>
-		<X>86</X>
-		<Y>134</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>false</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_keese</Name>
-		<X>86</X>
-		<Y>134</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>false</IsBoss>
-	</Enemy>
+	
 	
 	
 </Room>
