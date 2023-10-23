@@ -84,9 +84,14 @@ namespace SprintZero1.Managers
             for (int i = 1; i < onScreenEntities.Count; i++)
             {
                 onScreenEntities[i].Draw(spriteBatch);
+                if (i == 5)
+                {
+                    // draw player/projectile here to have player be drawn "under" doors and for project to be "under" link
+                    projectileHandler.Draw(spriteBatch);
+                    player.Draw(spriteBatch);
+                }
             }
-            player.Draw(spriteBatch);
-            projectileHandler.Draw(spriteBatch);
+
         }
     }
 }

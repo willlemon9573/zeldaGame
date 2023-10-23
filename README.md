@@ -24,15 +24,25 @@ PlayerEntity will need extra functionality to handle using both the main weapon 
 
 Player currently has an infinite amount of each item, but will be changed in the following sprint
 
+Door's don't transition to next stage currently as we mainly use the mouse to transition. Door collision will be implemented in Sprint 4 alongside Stage transition
 
 # Known Bugs 
 
 Boomerang Projectile's return state does not return to the player, but where it is currently thrown
 Link is drawn on the layer below projectiles currently
+Link's not drawn above closed doors
 
 
 # Code Metrics 
-  - Calculating Code Metrics: Our end code metrics for sprint 2 are: maintainability index = 85, Cyclomatic Complexity = 259, Depth of Inheritance = 2, class coupling = 70, lines of source code = 2090, and lines of executable code = 465 
+Project: SprintZero1
+Configuration: Debug
+Scope: Assembly
+Maintainability Index: 83
+Cyclomatic Complexity: 595
+Depth of Inheritance: 2
+Class Coupling: 128
+Lines of Source code: 4,330
+Lines of Executable code: 1,039
 
 
 # Sprint 2 Reflection:

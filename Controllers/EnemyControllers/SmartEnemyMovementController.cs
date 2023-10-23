@@ -1,26 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace SprintZero1.Controllers.EnemyControllers
 {
     internal class SmartEnemyMovementController : IEnemyMovementController
     {
         private readonly ICombatEntity _enemyEntity;
-        private readonly float _moveSpeed = 30f; 
         private double _timeSinceLastPathCalculation;
-        private readonly double _pathCalculationInterval = 2.0; 
+        private readonly double _pathCalculationInterval = 2.0;
         private readonly IEntity _playerEntity;
         private Stack<Vector2> currentPath;
-        private AStarPathfinder pathfinder;
+        private readonly AStarPathfinder pathfinder;
         private bool isPathBeingCalculated;
-        private double _moveTime = 4.0; 
-        private double _stopTime = 1.0; //unite is s
-        private double _currentMoveTime = 0; 
-        private double _currentStopTime = 0; 
-        private bool _isMoving = true; 
+        private readonly double _moveTime = 4.0;
+        private readonly double _stopTime = 1.0; //unite is s
+        private double _currentMoveTime = 0;
+        private double _currentStopTime = 0;
+        private bool _isMoving = true;
 
         public SmartEnemyMovementController(ICombatEntity enemyEntity, IEntity playerEntity)
         {
@@ -32,7 +31,7 @@ namespace SprintZero1.Controllers.EnemyControllers
         }
 
         private Direction CalculateDirection(Vector2 moveDirection)
-        { 
+        {
             if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
             {
                 return moveDirection.X > 0 ? Direction.East : Direction.West;
@@ -47,7 +46,7 @@ namespace SprintZero1.Controllers.EnemyControllers
         {
             double elapsed = gameTime.ElapsedGameTime.TotalSeconds;
             _timeSinceLastPathCalculation += elapsed;
-            _currentMoveTime += elapsed; 
+            _currentMoveTime += elapsed;
 
             if (_timeSinceLastPathCalculation >= _pathCalculationInterval && !isPathBeingCalculated)
             {
@@ -62,7 +61,7 @@ namespace SprintZero1.Controllers.EnemyControllers
                 moveDirection.Normalize();
                 Direction direction = CalculateDirection(moveDirection);
                 _enemyEntity.ChangeDirection(direction);
-                _enemyEntity.Move(); 
+                _enemyEntity.Move();
             }
 
             if (isPathBeingCalculated && pathfinder.Update())
@@ -75,9 +74,9 @@ namespace SprintZero1.Controllers.EnemyControllers
             {
                 if (_currentMoveTime >= _moveTime)
                 {
-                    _isMoving = false; 
-                    _currentMoveTime = 0; 
-                    _currentStopTime = elapsed; 
+                    _isMoving = false;
+                    _currentMoveTime = 0;
+                    _currentStopTime = elapsed;
                 }
                 else if (currentPath != null && currentPath.Count > 0)
                 {
@@ -90,7 +89,7 @@ namespace SprintZero1.Controllers.EnemyControllers
 
                     _enemyEntity.ChangeDirection(direction);
 
-                    _enemyEntity.Move(); 
+                    _enemyEntity.Move();
 
                     if (Vector2.Distance(_enemyEntity.Position, nextStep) < 1.0f)
                     {
@@ -100,16 +99,16 @@ namespace SprintZero1.Controllers.EnemyControllers
             }
             else
             {
-               
+
                 _currentStopTime += elapsed;
 
-                
+
                 if (_currentStopTime >= _stopTime)
                 {
-                    _isMoving = true; 
-                    _currentStopTime = 0; 
+                    _isMoving = true;
+                    _currentStopTime = 0;
                 }
-                
+
             }
         }
 
