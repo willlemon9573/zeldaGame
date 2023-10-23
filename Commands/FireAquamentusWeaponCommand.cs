@@ -12,11 +12,11 @@ namespace SprintZero1.Commands
     {
         private Direction Direction; // Direction in which the boomerang will be thrown
         private Vector2 startLocation; // Starting location of the boomerang
-        private WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
-        private IEntity _PlayerEntity; // The player entity who throws the boomerang
-        private float launchOffset = 15; // Offset distance from the player's position to start the boomerang
-        private float movingSpeed = 2.5f; // Speed at which the boomerang moves
-        private int maxDistance = 50; // Maximum distance the boomerang can travel
+        private readonly WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
+        private readonly IEntity _PlayerEntity; // The player entity who throws the boomerang
+        private readonly float launchOffset = 15; // Offset distance from the player's position to start the boomerang
+        private readonly float movingSpeed = 2.5f; // Speed at which the boomerang moves
+        private readonly int maxDistance = 50; // Maximum distance the boomerang can travel
         public ISprite newSprite; // Sprite for the arrow
         public IProjectileEntity _Entity; // Entity representing the arrow
         public IProjectile _projectileType; // Type of projectile (e.g., non-returning arrow)

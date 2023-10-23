@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Sprites;
+using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.projectile;
-using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Sprites;
 
 namespace SprintZero1.Commands
 {
@@ -12,11 +12,11 @@ namespace SprintZero1.Commands
     {
         private Direction Direction; // Direction of the projectile
         private Vector2 startLocation; // Starting location of the projectile
-        private WeaponSpriteFactory WeaponFactory; // Factory used to create weapon sprites
-        private IEntity _PlayerEntity; // Entity to which the projectile belongs
-        private float launchOffset = 15; // Offset from the entity's position where the projectile is launched
-        private float movingSpeed = 3.5f; // Speed at which the projectile moves
-        private int maxDistance = 70; // Maximum distance the projectile can travel
+        private readonly WeaponSpriteFactory WeaponFactory; // Factory used to create weapon sprites
+        private readonly IEntity _PlayerEntity; // Entity to which the projectile belongs
+        private readonly float launchOffset = 15; // Offset from the entity's position where the projectile is launched
+        private readonly float movingSpeed = 3.5f; // Speed at which the projectile moves
+        private readonly int maxDistance = 70; // Maximum distance the projectile can travel
         public ISprite newSprite; // Sprite for the arrow
         public IProjectileEntity _Entity; // Entity representing the arrow
         public IProjectile _projectileType; // Type of projectile (e.g., non-returning arrow)
