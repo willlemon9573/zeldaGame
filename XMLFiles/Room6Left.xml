@@ -162,6 +162,70 @@
 		<IsCollidable>true</IsCollidable>
 	</Block>
 
+	<Enemy>
+		<Name>dungeon_bladetrap</Name>
+		<X>40</X>
+		<Y>198</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_bladetrap</Name>
+		<X>40</X>
+		<Y>198</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_bladetrap</Name>
+		<X>40</X>
+		<Y>102</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_bladetrap</Name>
+		<X>40</X>
+		<Y>102</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_bladetrap</Name>
+		<X>216</X>
+		<Y>198</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_bladetrap</Name>
+		<X>216</X>
+		<Y>198</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_bladetrap</Name>
+		<X>216</X>
+		<Y>102</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_bladetrap</Name>
+		<X>216</X>
+		<Y>102</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
 
 	<Door>
 		<Name>doorless_north</Name>

@@ -195,6 +195,92 @@
 	</Block>
 
 
+
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>88</X>
+		<Y>186</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>88</X>
+		<Y>186</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>146</X>
+		<Y>165</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>146</X>
+		<Y>165</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>136</X>
+		<Y>122</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>136</X>
+		<Y>122</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>190</X>
+		<Y>117</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>190</X>
+		<Y>117</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>209</X>
+		<Y>181</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>209</X>
+		<Y>181</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+
+
+
+
 	<Door>
 		<Name>doorless_north</Name>
 		<X>127</X>

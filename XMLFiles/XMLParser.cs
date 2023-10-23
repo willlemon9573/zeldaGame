@@ -330,8 +330,8 @@ namespace SprintZero1.XMLFiles
         {
             string name = "";
             int X = 0, Y = 0;
-
-            while (reader.Read())
+            bool keepLooping = true;
+            while (reader.Read() && keepLooping)
             {
                 if (reader.NodeType == XmlNodeType.Element)
                 {
@@ -349,6 +349,7 @@ namespace SprintZero1.XMLFiles
                         default:
                             //not needed really since we write the xml files
                             //report error in xml file
+                            keepLooping = false;
                             break;
                     }
                 }
