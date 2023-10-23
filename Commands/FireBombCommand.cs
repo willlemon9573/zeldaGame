@@ -12,7 +12,7 @@ namespace SprintZero1.Commands
     {
         private Direction Direction; // Direction in which the bomb will be thrown
         private Vector2 startLocation; // Starting location of the bomb
-        private WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
+        private readonly WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
         private readonly IEntity _PlayerEntity; // The player entity who throws the bomb
         private readonly float launchOffset = 15; // Offset distance from the player's position to start the bomb
         public ISprite newSprite; // Sprite for the arrow
@@ -36,6 +36,8 @@ namespace SprintZero1.Commands
         {
             startLocation = _PlayerEntity.Position;
             IMovableEntity _PlayerMovableEntity = (IMovableEntity)_PlayerEntity;
+            ICombatEntity _PlayerCombatEntity = (ICombatEntity)_PlayerEntity;
+            _PlayerCombatEntity.Attack("bomb");
             Direction = _PlayerMovableEntity.Direction; // Get the direction the player is facing
 
             // Calculate the starting location of the bomb based on the player's direction

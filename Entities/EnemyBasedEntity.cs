@@ -1,15 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using SprintZero1.StateMachines;
 //using SprintZero1.StatePatterns.CombatStatePatterns;
 //using SprintZero1.StatePatterns.MovingStatePatterns;
 //using SprintZero1.StatePatterns.StatePatternInterfaces;
-using SprintZero1.Controllers.EnemyControllers;
 
 
 namespace SprintZero1.Entities
@@ -47,17 +43,17 @@ namespace SprintZero1.Entities
         /*protected IMovingEntityState _enemyMovingState;
         public IMovingEntityState State { get { return _playerStates.Item1; } set {; } }*/
 
-/*        private void Reset(float deltaTime)
-        {
-            _timeElapsed += deltaTime;
-            if (_timeElapsed >= _timeToReset)
-            {
-                _enemySprite = _EnemyFactory.GetLinkSprite(_playerDirection);
-                _enemyStateMachine.ChangeState(State.Idle);
-                _enemyStateMachine.UnblockTransition();
-                _timeElapsed = 0f;
-            }
-        }*/
+        /*        private void Reset(float deltaTime)
+                {
+                    _timeElapsed += deltaTime;
+                    if (_timeElapsed >= _timeToReset)
+                    {
+                        _enemySprite = _EnemyFactory.GetLinkSprite(_playerDirection);
+                        _enemyStateMachine.ChangeState(State.Idle);
+                        _enemyStateMachine.UnblockTransition();
+                        _timeElapsed = 0f;
+                    }
+                }*/
 
         /// <summary>
         /// Construct a new enemy entity
@@ -65,7 +61,7 @@ namespace SprintZero1.Entities
         /// <param name="position">The position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        protected EnemyBasedEntity(Vector2 position, int startingHealth, string enemyName, int totalFrames,  bool isBoss = false)
+        protected EnemyBasedEntity(Vector2 position, int startingHealth, string enemyName, int totalFrames, bool isBoss = false)
         {
             _totalFrame = totalFrames;
             _enemyHealth = startingHealth;
@@ -104,7 +100,7 @@ namespace SprintZero1.Entities
         {
             //_playerState.TransitionState(newState);
         }
-       
+
         public virtual void Attack(string weaponName)
         {
             PerformAttack();
@@ -115,11 +111,11 @@ namespace SprintZero1.Entities
 
         public virtual void TakeDamage(int damage)
         {
-           /* _enemyHealth -= damage;
-            if (_enemyHealth <= 0)
-            {
-                Die();
-            }*/
+            /* _enemyHealth -= damage;
+             if (_enemyHealth <= 0)
+             {
+                 Die();
+             }*/
         }
 
         public virtual void Die()

@@ -11,7 +11,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
     /// </summary>
     internal class PlayerMovingState : BasePlayerState
     {
-        private Dictionary<Direction, Vector2> _velocityMap;
+        private readonly Dictionary<Direction, Vector2> _velocityMap;
         /// <summary>
         /// Player moving state constructor
         /// </summary>
@@ -35,6 +35,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             _playerEntity.Direction = newDirection;
             _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(newDirection);
         }
+
         /// <summary>
         /// Request moving the character if the character is in a state where they can move
         /// </summary>

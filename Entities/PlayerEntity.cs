@@ -21,9 +21,9 @@ namespace SprintZero1.Entities
         private ISprite _playerSprite;
         private Direction _playerDirection;
         private Vector2 _playerPosition;
-        private PlayerCollider _playerCollider;
+        private PlayerCollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
-        private IWeaponEntity _playerMainWeapon;
+        private readonly IWeaponEntity _playerMainWeapon;
         private IPlayerState _playerState;
         private bool _attackingWithSword = false;
         /* Public properties to modify the player's private members */
@@ -108,7 +108,7 @@ namespace SprintZero1.Entities
             {
                 _playerMainWeapon.Draw(spriteBatch);
             }
-            else if (_playerState is not PlayerAttackingState && !_attackingWithSword)
+            else if (_playerState is not PlayerAttackingState && _attackingWithSword)
             {
                 _attackingWithSword = false;
             }

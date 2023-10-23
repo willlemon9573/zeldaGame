@@ -11,11 +11,13 @@ namespace SprintZero1.Managers
     internal static class ProgramManager
     {
         public static Game1 game;
-        static List<IEntity> onScreenEntities = new List<IEntity>();
-        static IEnemyMovementController enemyMovementController;
+#pragma warning disable IDE0090 // Use 'new(...)'
+        static readonly List<IEntity> onScreenEntities = new List<IEntity>();
+#pragma warning restore IDE0090 // Use 'new(...)'
+        static readonly IEnemyMovementController enemyMovementController;
         // List of available Controllers
 
-        static IController[] controllers = new IController[] 
+        static readonly IController[] controllers = new IController[] 
         #region
         {
             new KeyboardController()
@@ -33,6 +35,7 @@ namespace SprintZero1.Managers
             controllers[0].LoadDefaultCommands(localGame, link, ProjectileEntity);
             AddOnScreenEntity(link);
             AddOnScreenEntity(ProjectileEntity);
+            game = localGame;
         }
 
         /// <summary>

@@ -12,8 +12,8 @@ namespace SprintZero1.Commands
     {
         private Direction Direction; // Direction in which the better arrow will be fired
         private Vector2 startLocation; // Starting location of the better arrow
-        private WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
-        private IEntity _PlayerEntity; // The player entity who fires the better arrow
+        private readonly WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
+        private readonly IEntity _PlayerEntity; // The player entity who fires the better arrow
         private readonly float launchOffset = 15; // Offset distance from the player's position to start the better arrow
         private readonly float movingSpeed = 3; // Speed at which the better arrow moves
         private readonly int maxDistance = 60; // Maximum distance the better arrow can travel before disappearing
@@ -38,6 +38,8 @@ namespace SprintZero1.Commands
         {
             startLocation = _PlayerEntity.Position;
             IMovableEntity _PlayerMovableEntity = (IMovableEntity)_PlayerEntity;
+            ICombatEntity _PlayerCombatEntity = (ICombatEntity)_PlayerEntity;
+            _PlayerCombatEntity.Attack("Bow");
             Direction = _PlayerMovableEntity.Direction; // Get the direction the player is facing
 
             // Calculate the starting location of the better arrow and set sprite effects based on direction

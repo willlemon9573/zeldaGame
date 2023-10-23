@@ -12,7 +12,7 @@ namespace SprintZero1.Commands
     {
         private Direction Direction; // Direction in which the magic fire projectile will be shot
         private Vector2 startLocation; // Starting location of the magic fire projectile
-        private WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
+        private readonly WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
         private readonly IEntity _PlayerEntity; // The player entity who shoots the magic fire
         private readonly float launchOffset = 15; // Offset distance from the player's position to start the magic fire projectile
         private readonly float movingSpeed = 1f; // Speed at which the magic fire projectile moves
@@ -38,6 +38,8 @@ namespace SprintZero1.Commands
         {
             startLocation = _PlayerEntity.Position;
             IMovableEntity _PlayerMovableEntity = (IMovableEntity)_PlayerEntity;
+            ICombatEntity _PlayerCombatEntity = (ICombatEntity)_PlayerEntity;
+            _PlayerCombatEntity.Attack("magicfire");
             Direction = _PlayerMovableEntity.Direction;
 
             // Calculate the starting location of the magic fire projectile based on the player's direction

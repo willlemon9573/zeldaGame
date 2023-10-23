@@ -7,14 +7,12 @@ namespace SprintZero1.projectile
     internal class NonComingBackProjectile : IProjectile
     {
         private double timer = 0; // Timer to track how long the projectile has been active
-        private double waitingTime = 150; // The time in milliseconds before the projectile ends
-        private Vector2 location; // Current location of the projectile
-        private int direction; // Direction in which the projectile is moving
-        private float _speed; // Speed at which the projectile moves
+        private readonly double waitingTime = 150; // The time in milliseconds before the projectile ends
+        private readonly float _speed; // Speed at which the projectile moves
         private float distanceMoved = 0; // Distance traveled by the projectile
         public bool IsActive = true; // Flag to indicate if the projectile is active
-        private int _maxDistance; // Maximum distance the projectile can travel before becoming inactive
-        private IProjectileEntity _projectile; // Reference to the projectile entity
+        private readonly int _maxDistance; // Maximum distance the projectile can travel before becoming inactive
+        private readonly IProjectileEntity _projectile; // Reference to the projectile entity
 
         /// <summary>
         /// Initializes a new instance of the NonComingBackProjectile class.

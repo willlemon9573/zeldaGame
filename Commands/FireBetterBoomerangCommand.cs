@@ -39,6 +39,8 @@ namespace SprintZero1.Commands
         {
             startLocation = _PlayerEntity.Position;
             IMovableEntity _PlayerMovableEntity = (IMovableEntity)_PlayerEntity;
+            ICombatEntity _PlayerCombatEntity = (ICombatEntity)_PlayerEntity;
+            _PlayerCombatEntity.Attack("boomerang");
             Direction = _PlayerMovableEntity.Direction; // Get the direction the player is facing
 
             // Calculate the starting location of the better boomerang and set sprite effects based on direction
@@ -63,7 +65,7 @@ namespace SprintZero1.Commands
 
             spriteEffect = SpriteEffects.None;
             _Entity._ChangeSpriteEffects = spriteEffect;
-            newSprite = WeaponFactory.CreateBoomerangSprite("better", Direction);
+            newSprite = WeaponFactory.CreateBoomerangSprite("better");
             _Entity.Position = startLocation;
             _Entity.Direction = Direction;
             _Entity.ProjectileSprite = newSprite;

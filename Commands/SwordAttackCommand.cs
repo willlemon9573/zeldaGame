@@ -5,11 +5,13 @@ namespace SprintZero1.Commands
     {
 
         readonly ICombatEntity combatEntity;
-        readonly PlayerEntity playerEntity;
+        /// <summary>
+        /// Create an object to handle when an entity needs to attack with a sword
+        /// </summary>
+        /// <param name="entity">The entity that uses the command</param>
         public SwordAttackCommand(ICombatEntity entity)
         {
             combatEntity = entity;
-            playerEntity = entity as PlayerEntity;
         }
 
         public void Execute()

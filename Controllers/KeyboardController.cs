@@ -9,11 +9,10 @@ namespace SprintZero1.Controllers
 {
     internal class KeyboardController : IController
     {
-        private ICommand _idleCommand;
         private readonly Dictionary<Keys, ICommand> keyboardMap;
-        private List<Keys> _movementKeyList;
+        private readonly List<Keys> _movementKeyList;
         private List<Keys> _previouslyPressedKeys;
-        private Stack<Keys> movementKeyStack;
+        private readonly Stack<Keys> movementKeyStack;
         /// <summary>
         /// Construct an object to control the keyboard
         /// </summary>
