@@ -13,7 +13,7 @@ namespace SprintZero1.Managers
 #pragma warning disable IDE0090 // Use 'new(...)'
         static readonly List<IEntity> onScreenEntities = new List<IEntity>();
 #pragma warning restore IDE0090 // Use 'new(...)'
-        private static ICombatEntity player;
+        private static PlayerEntity player;
         // List of available Controllers
         static readonly IController[] controllers = new IController[]
         #region
@@ -27,7 +27,7 @@ namespace SprintZero1.Managers
             _game = game;
             player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
             IEntity ProjectileEntity = new ProjectileEntity();
-            ProgramManager.AddOnScreenEntity(player);
+            AddOnScreenEntity(player);
             controllers[0].LoadDefaultCommands(game, player, ProjectileEntity);
             AddOnScreenEntity(ProjectileEntity);
         }
@@ -52,10 +52,10 @@ namespace SprintZero1.Managers
 
         public static void RemoveNonLinkEntities()
         {
-            int i = 1;
-            ColliderManager.RemoveAllExceptLink();
+            ColliderManager.RemoveAllExcept(player.PlayerCollider);
             onScreenEntities.Clear();
             onScreenEntities.Add(player);
+            player.Position = new Vector2(150, 150);
         }
 
         public static void Update(GameTime gameTime)

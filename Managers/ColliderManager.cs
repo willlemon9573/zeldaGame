@@ -22,13 +22,11 @@ namespace SprintZero1.Colliders
         }
 
 
-        public static void RemoveAllExceptLink()
+        public static void RemoveAllExcept(ICollider collider)
         {
-            int i = 0;
-            while (i < staticColliders.Count)
-            {
-                ColliderManager.RemoveCollider(staticColliders[i]);
-            }
+            staticColliders.Clear();
+            dynamicColliders.Clear();
+            dynamicColliders.Add(collider);
         }
 
         public static void RemoveCollider(ICollider collider)
@@ -49,8 +47,11 @@ namespace SprintZero1.Colliders
                 for (int j = 0; j < dynamicColliders.Count; j++)
                 {
                     ICollider dynamicCollider = dynamicColliders[j];
-                    CollisionsResponseManager.CollisionResponse(staticCollider, dynamicCollider);
-                    CollisionsResponseManager.CollisionResponse(dynamicCollider, staticCollider);
+                    if (dynamicCollider.Collider.Intersects(staticCollider.Collider))
+                    {
+                        CollisionsResponseManager.CollisionResponse(staticCollider, dynamicCollider);
+                        CollisionsResponseManager.CollisionResponse(dynamicCollider, staticCollider);
+                    }
                 }
             }
         }
@@ -65,9 +66,13 @@ namespace SprintZero1.Colliders
                 ICollider dynamicCollider1 = dynamicColliders[i];
                 for (int j = i + 1; j < dynamicColliders.Count; j++)
                 {
+
                     ICollider dynamicCollider2 = dynamicColliders[j];
-                    CollisionsResponseManager.CollisionResponse(dynamicCollider1, dynamicCollider2);
-                    CollisionsResponseManager.CollisionResponse(dynamicCollider2, dynamicCollider1);
+                    if (dynamicCollider1.Collider.Intersects(dynamicCollider2.Collider))
+                    {
+                        CollisionsResponseManager.CollisionResponse(dynamicCollider1, dynamicCollider2);
+                        CollisionsResponseManager.CollisionResponse(dynamicCollider2, dynamicCollider1);
+                    }
                 }
             }
         }

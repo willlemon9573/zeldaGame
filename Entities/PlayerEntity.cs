@@ -32,6 +32,7 @@ namespace SprintZero1.Entities
         public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
         public ISprite PlayerSprite { get { return _playerSprite; } set { _playerSprite = value; } }
         public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
+        public ICollider PlayerCollider { get { return _playerCollider; } }
 
 
         /// <summary>
