@@ -38,7 +38,7 @@ namespace SprintZero1.Managers
             ICombatEntity link = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
             ICombatEntity enemy = new EnemyEntityWithoutDirection(new Vector2(170, 176), 6, "dungeon_gel", 2);
             IEntity ProjectileEntity = new ProjectileEntity();
-            enemyMovementController = new RandomEnemyMovementController(enemy);
+            enemyMovementController = new SmartEnemyMovementController(enemy, link);
             controllers[0].LoadDefaultCommands(localGame, link, ProjectileEntity);
             AddOnScreenEntity(link);
             AddOnScreenEntity(enemy);

@@ -81,16 +81,16 @@ namespace SprintZero1.Entities
             switch (_enemyDirection)
             {
                 case Direction.North:
-                    _enemyPosition.Y -= 1;
+                    _enemyPosition.Y -= 0.4f;
                     break;
                 case Direction.South:
-                    _enemyPosition.Y += 1;
+                    _enemyPosition.Y += 0.4f;
                     break;
                 case Direction.West:
-                    _enemyPosition.X -= 1;
+                    _enemyPosition.X -= 0.4f;
                     break;
                 case Direction.East:
-                    _enemyPosition.X += 1;
+                    _enemyPosition.X += 0.4f;
                     break;
                 default:
                     // Handle other directions if necessary

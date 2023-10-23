@@ -27,8 +27,7 @@ namespace SprintZero1.Managers
 
             myGame = game;
             startTesting = true;
-            enemyEntity = new EnemyEntityWithoutDirection(new Vector2(50,50), 10, "dungeon_gel", 2);
-            enemyController = new RandomEnemyMovementController(enemyEntity);
+            
             controller = new KeyboardController();
             startTesting = true;
         }
@@ -38,7 +37,8 @@ namespace SprintZero1.Managers
             //enemyEntity = new EnemyEntityWithoutDirection(position, health, "dungeon_gel", 2);
             _player = new PlayerEntity(position, health, direction);//Game1 game, IEntity playerEntity, ProjectileEntity ProjectileEntity
             _Weapon = new ProjectileEntity();
-            //enemyController = new RandomEnemyMovementController(enemyEntity);
+            enemyEntity = new EnemyEntityWithoutDirection(new Vector2(50, 50), 10, "dungeon_gel", 2);
+            enemyController = new SmartEnemyMovementController(enemyEntity, _player);
             controller.LoadDefaultCommands(myGame, _player, _Weapon);
             EntityList.Add(enemyEntity);
             EntityList.Add(_player);
