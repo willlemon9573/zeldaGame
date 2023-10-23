@@ -68,6 +68,13 @@ namespace SprintZero1.Factories
                 new Rectangle(393, 11, WIDTH, HEIGHT),
                 new Rectangle(410, 11, WIDTH, HEIGHT)
             };
+
+            //Stalfo
+            enemySpriteDictionary["dungeon_stalfos"] = new List<Rectangle>
+            {
+                new Rectangle(1, 59, WIDTH, HEIGHT),
+                new Rectangle(16, 74, WIDTH, HEIGHT)
+            };
         }
         /// <summary>
         /// Creates the rectangles required for each frame of each boss and places in the proper dictionary
