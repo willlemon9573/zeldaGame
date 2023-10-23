@@ -166,14 +166,78 @@
 		<Name>flat</Name>
 		<X>119</X>
 		<Y>152</Y>
-		<IsCollidable>false</IsCollidable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>flat</Name>
 		<X>119</X>
 		<Y>152</Y>
-		<IsCollidable>false</IsCollidable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>155</X>
+		<Y>150</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>155</X>
+		<Y>150</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_zol</Name>
+		<X>135</X>
+		<Y>130</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_zol</Name>
+		<X>135</X>
+		<Y>130</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_wallmaster</Name>
+		<X>135</X>
+		<Y>170</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_wallmaster</Name>
+		<X>135</X>
+		<Y>170</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_gel</Name>
+		<X>115</X>
+		<Y>150</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_gel</Name>
+		<X>115</X>
+		<Y>150</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
 
 	<Door>
 		<Name>doorless_north</Name>

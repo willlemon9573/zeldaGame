@@ -17,9 +17,17 @@ namespace SprintZero1.Managers
         static List<IEntity> onScreenEntities = new List<IEntity>();
         private static IController controller;
         private static Game1 myGame;
-        // Runs on startup. Use it to add entity if you want to test things
+        static IEnemyMovementController enemyMovementController;
+        // List of available Controllers
 
-        
+        // IController controller = new IController[] 
+        //#region
+       // {
+       //     new KeyboardController()
+       // };
+       // #endregion
+
+
         public static void Start(Game1 game)
         {
             myGame = game;
@@ -28,8 +36,9 @@ namespace SprintZero1.Managers
         }
 
         public static void AddPlayer(Vector2 position, int health, Direction direction) {
-            IEntity player = new PlayerEntity(position, health, direction);
-            controller.LoadDefaultCommands(myGame, player); 
+            ICombatEntity player = new PlayerEntity(position, health, direction);
+            IEntity ProjectileEntity = new ProjectileEntity();
+            controller.LoadDefaultCommands(myGame, player, ProjectileEntity);
             ProgramManager.AddOnScreenEntity(player);
         }
 
@@ -48,30 +57,35 @@ namespace SprintZero1.Managers
         /// <param name="entity">Entity to remove</param>
         public static void RemoveOnScreenEntity(IEntity entity)
         {
+
             onScreenEntities.Remove(entity);
+            
         }
 
         public static void RemoveNonLinkEntities()
         {
             int i = 1;
+            ColliderManager.RemoveAllExceptLink();
             while (i < onScreenEntities.Count) {
 
                 ProgramManager.RemoveOnScreenEntity(onScreenEntities[i]);
-               
+              
+                
             }
         }
 
         public static void Update(GameTime gameTime)
         {
-            foreach (IController controller in controllers)
-            {
+          
                 controller.Update();
-            }
+            ColliderManager.Update(gameTime);
+           
             foreach (IEntity entity in onScreenEntities)
             {
                 entity.Update(gameTime);
+               
             }
-            ColliderManager.Update(gameTime);
+           
             enemyMovementController?.Update(gameTime);
             controller.Update();
         }

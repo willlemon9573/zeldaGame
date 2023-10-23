@@ -66,7 +66,6 @@ namespace SprintZero1.Controllers
         }
 
         public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity, IEntity ProjectileEntity)
-
         {
             /* directional commands */
             keyboardMap.Add(Keys.Up, new MoveUpCommand(playerEntity));
@@ -93,6 +92,8 @@ namespace SprintZero1.Controllers
 
             _idleCommand = new ReturnPlayerToIdleCommand(playerEntity);
         }
+
+        
 
         public void Update()
         {

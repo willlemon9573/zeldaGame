@@ -61,13 +61,16 @@ namespace SprintZero1.Controllers
         /// </summary>
         public MouseController()
         {
+        }
 
-        public void LoadDefaultCommands(Game1 game, IEntity playerEntity)
+
+       
+        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity, IEntity projectileEntity)
         {
             
         }
 
-        public void Update()
+         public void Update()
         {
             MouseState newState = Mouse.GetState();
             if (oldState.LeftButton == ButtonState.Released && newState.LeftButton == ButtonState.Pressed)

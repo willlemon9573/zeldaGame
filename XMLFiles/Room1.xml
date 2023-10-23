@@ -52,146 +52,146 @@
 		<Name>statue1</Name>
 		<X>103</X>
 		<Y>184</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue1</Name>
 		<X>103</X>
 		<Y>184</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue1</Name>
 		<X>55</X>
 		<Y>184</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue1</Name>
 		<X>55</X>
 		<Y>184</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue1</Name>
 		<X>103</X>
 		<Y>152</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue1</Name>
 		<X>103</X>
 		<Y>152</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue1</Name>
 		<X>55</X>
 		<Y>152</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue1</Name>
 		<X>55</X>
 		<Y>152</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue1</Name>
 		<X>103</X>
 		<Y>120</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue1</Name>
 		<X>103</X>
 		<Y>120</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue1</Name>
 		<X>55</X>
 		<Y>120</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue1</Name>
 		<X>55</X>
 		<Y>120</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 
 	<Block>
 		<Name>statue2</Name>
 		<X>151</X>
 		<Y>120</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue2</Name>
 		<X>151</X>
 		<Y>120</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue2</Name>
 		<X>151</X>
 		<Y>152</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue2</Name>
 		<X>151</X>
 		<Y>152</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue2</Name>
 		<X>151</X>
 		<Y>184</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue2</Name>
 		<X>151</X>
 		<Y>184</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue2</Name>
 		<X>199</X>
 		<Y>120</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue2</Name>
 		<X>199</X>
 		<Y>120</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue2</Name>
 		<X>199</X>
 		<Y>152</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue2</Name>
 		<X>199</X>
 		<Y>152</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue2</Name>
 		<X>199</X>
 		<Y>184</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>statue2</Name>
 		<X>199</X>
 		<Y>184</Y>
-		<IsCollideable>True</IsCollideable>
+		<IsCollidable>true</IsCollidable>
 	</Block>
 
 

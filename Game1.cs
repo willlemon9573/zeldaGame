@@ -93,9 +93,7 @@ namespace SprintZero1
             // collidable block
             //TestingManager.AddEntity(new LevelBLockEntity(TileSpriteFactory.Instance.CreateNewTileSprite("pyramid"), new Vector2(39, 104), true));
 
-            WeaponSpriteFactory.Instance.LoadTextures();
-            ItemSpriteFactory.Instance.LoadTextures();
-            ProgramManager.Start(this);
+            
         }
 
         protected override void Update(GameTime gameTime)
