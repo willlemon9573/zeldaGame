@@ -14,6 +14,7 @@ namespace SprintZero1.Managers
         static readonly List<IEntity> onScreenEntities = new List<IEntity>();
 #pragma warning restore IDE0090 // Use 'new(...)'
         private static PlayerEntity player;
+        private static IEntity projectileHandler;
         // List of available Controllers
         static readonly IController[] controllers = new IController[]
         #region
@@ -26,10 +27,10 @@ namespace SprintZero1.Managers
         {
             _game = game;
             player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
-            IEntity ProjectileEntity = new ProjectileEntity();
+            projectileHandler = new ProjectileEntity();
             AddOnScreenEntity(player);
-            controllers[0].LoadDefaultCommands(game, player, ProjectileEntity);
-            AddOnScreenEntity(ProjectileEntity);
+            controllers[0].LoadDefaultCommands(game, player, projectileHandler);
+
         }
 
         /// <summary>
@@ -70,6 +71,7 @@ namespace SprintZero1.Managers
                 entity.Update(gameTime);
 
             }
+            projectileHandler.Update(gameTime);
             ColliderManager.Update();
         }
 
@@ -84,6 +86,7 @@ namespace SprintZero1.Managers
                 onScreenEntities[i].Draw(spriteBatch);
             }
             player.Draw(spriteBatch);
+            projectileHandler.Draw(spriteBatch);
         }
     }
 }

@@ -148,7 +148,7 @@ namespace SprintZero1.Factories
         {
             tileSpriteSheet = Texture2DManager.GetTileSheet();
             levelOneSpriteSheet = Texture2DManager.GetLevelOneSpriteSheet();
-            
+
 
         }
         /// <summary>
@@ -161,7 +161,7 @@ namespace SprintZero1.Factories
             Debug.Assert(tileName != null, "tile is null");
             Debug.Assert(tileSourceRectangles.ContainsKey(tileName), "Source Rectangle does not contain the tile named: " + tileName);
             return new NonAnimatedSprite(tileSourceRectangles[tileName], tileSpriteSheet);
-           
+
         }
 
         /// <summary>
@@ -180,7 +180,6 @@ namespace SprintZero1.Factories
         {
             Debug.Assert(door != null, "door is null");
             Debug.Assert(tileSourceRectangles.ContainsKey(door), "Source Rectangle does not contain the door: " + door);
-            Debug.WriteLine(door + " values: " + tileSourceRectangles[door]);
             return new NonAnimatedSprite(tileSourceRectangles[door], tileSpriteSheet);
         }
 

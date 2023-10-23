@@ -1,0 +1,25 @@
+﻿Readability Code Review
+Date of review: 10/23/2023
+CS File being reviewed: GetNextLevelCommand
+Author of CS file: Chih-Hsiang Jarek Tseng
+Reviewer: Aaron Heishman
+Time taken: 3 minutes
+
+Jarek's implementation of GetPreviousLevelCommand is pretty easy to read. The only function, Execute, is short and to the point and his naming conventions help explain what's going on.
+The only issues here is that it's missing comments. Despite being straight forwar, there isn't any explanation on what certain things do. However, this is just a class for testing purposes
+so it will be removed in the end anyways.
+
+--------------------------------------------
+
+Maintainability Code Review
+Date of review: 10/23/2023
+CS File being reviewed: LevelManger.cs
+Author of CS file: Will Lemon
+Reviewer: Aaron Heishman
+Time taken: 
+
+Will's implementation of a level loader is pretty sleak. As of right now it contains some code that will need to be handled better for the testing of stage switching, but this will be handled in Sprint 4.
+The only thing that I can feel hinders LevelManager is that it's telling Program Manager to update and draw. I think this is unnecessary as LevelManager just handles when loading levels. The way I see it
+The program manager being the "object manager" in our case should be requesting a level be loaded from level loader and let game update the Program Manager and leave update out of Level Manager.
+This will be discussed and hopefully considered for changing in Sprint 4. Each function also is missing comments so it will make it hard to keep maintainence on this for someone who hasn't used this before.
+

@@ -16,6 +16,7 @@ namespace SprintZero1.Managers
         "XMLFiles/Room3.xml", "XMLFiles/Room3Left.xml", "XMLFiles/Room3Right.xml", "XMLFiles/Room4.xml", "XMLFiles/Room4Left.xml", "XMLFiles/Room4Leftest.xml",
                 "XMLFiles/Room4Right.xml", "XMLFiles/Room4Rightest.xml", "XMLFiles/Room5.xml", "XMLFiles/Room5Right.xml", "XMLFiles/Room5Rightest.xml",
                 "XMLFiles/Room6.xml","XMLFiles/Room6Left.xml","XMLFiles/RoomSecret.xml" , "XMLFiles/RoomDev.xml"};
+
         private static int levelListIndex = 0;
 
         public static List<string> LevelList

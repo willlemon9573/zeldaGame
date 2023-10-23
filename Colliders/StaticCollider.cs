@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
-using System.Diagnostics;
 
 namespace SprintZero1.Colliders
 {
@@ -28,7 +27,7 @@ namespace SprintZero1.Colliders
 
         public void OnCollision(IEntity collidedEntity, ICollider collidedCollider)
         {
-            Debug.WriteLine("Collision Detected!");
+            //TODO Implement what happens on collision
         }
 
         public void RemoveCollider()

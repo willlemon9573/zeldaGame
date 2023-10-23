@@ -11,9 +11,13 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="CodeReviews\Sprint3\AaronHeishmanCodeReviews.txt" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
     <None Remove="StatePatterns\PlayerStatePatterns\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeReviews\Sprint3\AaronHeishmanCodeReviews.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />

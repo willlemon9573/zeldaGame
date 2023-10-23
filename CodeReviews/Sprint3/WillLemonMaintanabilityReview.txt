@@ -4,4 +4,5 @@ Sprint: 2
 Name of .cs File: ProgramManager
 Author of .cs File: Muhammad
 
-I understand What Muhammad is doing with his start function, but there is too much similar code, this can be ran through the XmlParser and can eventually be data driven so that there aren’t so many “magic numbers”. The rest of the code seems very maintainable and I can see what Muhammad is doing to make this code usable for the rest of the semester.
+I understand What Muhammad is doing with his start function, but there is too much similar code, this can be ran through the XmlParser and can eventually be data driven so that there aren’t so many “magic numbers”. 
+The rest of the code seems very maintainable and I can see what Muhammad is doing to make this code usable for the rest of the semester.

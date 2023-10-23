@@ -1,41 +1,27 @@
-﻿using SprintZero1.Entities;
-using SprintZero1.Sprites;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
+﻿using Microsoft.Xna.Framework;
+using SprintZero1.Entities;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
+using SprintZero1.Sprites;
+using System;
 using System.IO;
-using System.Collections.Specialized;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System.Xml;
 
 namespace SprintZero1.XMLFiles
 {
     public class XMLParser
     {
-        
-       
-        public XMLParser()
-        {
-           
-        }
+        public XMLParser() { }
 
         public void Parse(String fileName)
         {
             String workingDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
             using (XmlReader reader = new XmlTextReader(workingDirectory + "/" + fileName))
             {
-                while (reader.Read()) 
+                while (reader.Read())
                 {
                     if (reader.NodeType == XmlNodeType.Element)
                     {
-                        Debug.WriteLine(reader.Name);
                         switch (reader.Name)
                         {
                             case "Floor":
@@ -62,8 +48,6 @@ namespace SprintZero1.XMLFiles
                     }
                 }
             }
-
-            
         }
 
         private void ParseFloor(XmlReader reader)
@@ -90,7 +74,7 @@ namespace SprintZero1.XMLFiles
                         default:
                             //not needed really since we write the xml files
                             //report error in xml file
-                            
+
                             keepLooping = false;
                             break;
                     }
@@ -153,12 +137,12 @@ namespace SprintZero1.XMLFiles
                             keepLooping = false;
                             break;
                     }
-                   
+
                 }
                 else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Block")
                 {
 
-                    
+
 
                 }
             }
@@ -170,7 +154,7 @@ namespace SprintZero1.XMLFiles
             int quad = 0;
             int X = 0;
             int Y = 0;
-           
+
             bool keepLooping = true;
             while (reader.Read() && keepLooping)
             {
@@ -190,7 +174,7 @@ namespace SprintZero1.XMLFiles
                         default:
                             //not needed really since we write the xml files
                             //report error in xml file
-                           
+
                             keepLooping = false;
                             break;
                     }
@@ -302,8 +286,8 @@ namespace SprintZero1.XMLFiles
                 else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Enemy")
                 {
                     //parse the data -> get the sprites draw the thing entity
-                   
-                    
+
+
                     IEntity enemy = new EnemyEntityWithDirection(new Vector2(X, Y), health, name, frames, isBoss);
                     if (enemy != null)
                     {
@@ -357,7 +341,7 @@ namespace SprintZero1.XMLFiles
                 {
                     //parse the data -> get the sprites draw the thing entity
                     ISprite itemSprite = ItemSpriteFactory.Instance.CreateItemSprite(name);
-                    IEntity item = new LevelBlockEntity(itemSprite, new Vector2(X,Y), false);
+                    IEntity item = new LevelBlockEntity(itemSprite, new Vector2(X, Y), false);
                     if (item != null)
                     {
                         ProgramManager.AddOnScreenEntity(item);
