@@ -26,6 +26,9 @@ Player currently has an infinite amount of each item, but will be changed in the
 
 Door's don't transition to next stage currently as we mainly use the mouse to transition. Door collision will be implemented in Sprint 4 alongside Stage transition
 
+Enemy AI is implemented, but unused currently
+
+Weapon to Enemy and Player to Enemy collision is unimplemented
 # Known Bugs 
 
 Boomerang Projectile's return state does not return to the player, but where it is currently thrown
@@ -55,3 +58,4 @@ Lines of Executable code: 1,039
 # Extra Notes regarding commits:
 - Just a note for the graders as suggested by Aaron Post. There's going to be a bunch of Commits from me (Aaron Heishman) that are going to include a bunch of changes made to the repo itself due to how I incorrectly uploaded my Sprint0 source
 - All the changes were made to prevent any future conflictions with all of the team members own visual studio settings or to remove my old code that won't be used during the merge with main
+- We added suppressions for messages about using "new()" instead of "new Type()"
