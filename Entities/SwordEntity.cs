@@ -9,15 +9,15 @@ using System.Collections.Generic;
 namespace SprintZero1.Entities
 {
     /// <summary>
-    /// Used for creating a melee weapon as melee weapons do not have a quanitity 
+    /// Entity for the sword the player will use.
     /// @Author - Aaron Heishman
     /// </summary>
-    internal class SwordEntity : IEntity, IWeaponEntity
+    internal class SwordEntity : IWeaponEntity
     {
         // TODO: Clean up code for modularity purposes
-        private readonly String _weaponName;
+        private readonly string _weaponName;
         private Vector2 _weaponPosition;
-        private ISprite _weaponSprite = WeaponSpriteFactory.Instance.GetMeleeWeaponSprite("woodensword", Direction.North);
+        private ISprite _weaponSprite;
         /* Holds the specific values for properly flipping and placing sword in player's hands */
         private readonly Dictionary<Direction, Tuple<SpriteEffects, Vector2>> _spriteEffectsDictionary;
         /* Sprite effect for flipping the weapon */

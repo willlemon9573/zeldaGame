@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using SprintZero1.StatePatterns.StatePatternInterfaces;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
+using SprintZero1.StatePatterns.StatePatternInterfaces;
 
 namespace SprintZero1.Entities
 {
@@ -22,11 +23,9 @@ namespace SprintZero1.Entities
         private Vector2 _playerPosition;
         private PlayerCollider _playerCollider;
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
-
-        private float _timeElapsed;
-        private readonly float _timeToReset = 1f / 7;
-        private IEntity _playerMainWeapon;
+        private IWeaponEntity _playerMainWeapon;
         private IPlayerState _playerState;
+        private bool _attackingWithSword = false;
         /* Public properties to modify the player's private members */
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
@@ -34,7 +33,7 @@ namespace SprintZero1.Entities
         public ISprite PlayerSprite { get { return _playerSprite; } set { _playerSprite = value; } }
         public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
 
-        
+
         /// <summary>
         /// Construct a new player entity
         /// </summary>
@@ -51,7 +50,6 @@ namespace SprintZero1.Entities
             _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
             _playerMainWeapon = new SwordEntity("woodensword");
             _playerState = new PlayerIdleState(this);
-
         }
 
         public void Move()
@@ -70,17 +68,23 @@ namespace SprintZero1.Entities
 
         public void Attack(string weaponName)
         {
-            // updating 
+            if (_playerState is not PlayerAttackingState) { TransitionToState(State.Attacking); }
+            if (weaponName == "sword")
+            {
+                _attackingWithSword = true;
+                _playerMainWeapon.UseWeapon(_playerDirection, _playerPosition);
+            }
+            PlayerState.Request();
         }
 
         public void TakeDamage(int damage)
         {
-            // not implemented yet
+            // TODO: Implement in Sprint 4
         }
 
         public void Die()
         {
-            // not implemented yet
+            // TODO: Implement in Sprint 4
         }
 
         public void ChangeDirection(Direction direction)
@@ -90,14 +94,26 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-
             _playerState.Update(gameTime);
             _playerCollider.Update(gameTime);
+            if (_playerState is not PlayerIdleState && Keyboard.GetState().GetPressedKeyCount() == 0)
+            {
+                TransitionToState(State.Idle);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (_playerState is PlayerAttackingState && _attackingWithSword)
+            {
+                _playerMainWeapon.Draw(spriteBatch);
+            }
+            else if (_playerState is not PlayerAttackingState && !_attackingWithSword)
+            {
+                _attackingWithSword = false;
+            }
             _playerState.Draw(spriteBatch);
+
         }
     }
 }

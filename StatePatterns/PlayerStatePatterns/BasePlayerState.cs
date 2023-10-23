@@ -2,18 +2,23 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
+using SprintZero1.Factories;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System;
 using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.PlayerStatePatterns
 {
+    /// <summary>
+    /// Abstract parent player state. handles default implementations of the player states
+    /// @Author Aaron Heishman
+    /// </summary>
     internal abstract class BasePlayerState : IPlayerState
     {
         protected PlayerEntity _playerEntity;
-        protected State _playerPreviousState;
         private readonly Dictionary<State, Func<IPlayerState>> _stateTransitionMap;
-        Boolean _blockTransition = false; // false by default
+        protected LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
+        protected bool _blockTransition = false; // false by default
 
         /// <summary>
         /// Abstract base player constructor.
@@ -40,20 +45,21 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
 
         public virtual void TransitionState(State newState)
         {
-            // return if player state hasn't changed else change player state
-            if (_playerPreviousState == newState || _blockTransition) { return; }
+            if (_blockTransition) { return; }
             _playerEntity.PlayerState = _stateTransitionMap[newState].Invoke();
-            _playerPreviousState = newState;
         }
+
         /// <summary>
         /// Handles a request made by the player
         /// </summary>
         public abstract void Request();
+
         /// <summary>
         /// Update the player base on player State. Requires override
         /// </summary>
         /// <param name="gameTime">The current time state of the game</param>
         public abstract void Update(GameTime gameTime);
+
         /// <summary>
         /// Default implementation of Sprite drawing. overrideable in case extra logic is required
         /// </summary>
@@ -68,6 +74,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             // draw sprite
             _playerEntity.PlayerSprite.Draw(spriteBatch, _playerEntity.Position, spriteEffects);
         }
+
         /// <summary>
         /// Blocks player from transitioning to a new state. Overridable in case extra logic is required
         /// </summary>
@@ -75,6 +82,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         {
             _blockTransition = true;
         }
+
         /// <summary>
         /// Unblocks player state transition. Overridable in case extra logic is required
         /// </summary>
