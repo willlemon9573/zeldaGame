@@ -1,18 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 
 namespace SprintZero1.Sprites
 {
     [Serializable]
     public class ControlledAnimation : ISprite
     {
-        private AnimatedSprite _animatedSprite;
+        private readonly AnimatedSprite _animatedSprite;
         private bool _shouldStop;
-        private int _frameCount;
         private float _timeToUpdate;
-        private int _maxFrames;
+        private readonly int _maxFrames;
         private float _totalElapsedTime = 0f;
         private int FramesPerSecond
         {
@@ -25,7 +23,6 @@ namespace SprintZero1.Sprites
         public ControlledAnimation(AnimatedSprite animatedSprite, int maxFrames)
         {
             _animatedSprite = animatedSprite;
-            _frameCount = 0;
             _shouldStop = false;
             _maxFrames = maxFrames;
             FramesPerSecond = 8;
@@ -36,7 +33,7 @@ namespace SprintZero1.Sprites
             if (!_shouldStop)
             {
                 float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                _totalElapsedTime += deltaTime; 
+                _totalElapsedTime += deltaTime;
                 _animatedSprite.Update(gameTime);
 
                 if (_totalElapsedTime >= _maxFrames * _timeToUpdate)

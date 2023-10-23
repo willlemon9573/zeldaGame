@@ -31,7 +31,7 @@ namespace SprintZero1
             this.IsFixedTimeStep = true;//false;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
         }
-           
+
         /// Initialize all components required to run the game
         /// </summary>
         protected override void Initialize()
@@ -56,11 +56,9 @@ namespace SprintZero1
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
             _mouseController = new MouseController(this);
-            
-            
-            LevelManager.Initialize();
-
-            
+            WeaponSpriteFactory.Instance.LoadTextures();
+            ItemSpriteFactory.Instance.LoadTextures();
+            ProgramManager.Start(this);
         }
 
         protected override void Update(GameTime gameTime)

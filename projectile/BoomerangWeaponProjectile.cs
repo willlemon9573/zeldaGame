@@ -6,15 +6,13 @@ namespace SprintZero1.projectile
 {
     internal class BoomerangWeaponProjectile : IProjectile
     {
-        private Vector2 location; // Current location of the projectile
-        private int direction; // Direction in which the projectile is moving
-        private float _speed; // Speed at which the projectile moves
+        private readonly float _speed; // Speed at which the projectile moves
         private float distanceMoved = 0; // Distance traveled by the projectile
         private bool returning = false; // Flag to indicate if the projectile is returning
         public bool IsActive { get; private set; } = true; // Flag to indicate if the projectile is active
-        private int _maxDistance; // Maximum distance the projectile can travel before becoming inactive
-        private float RotationIncrement = MathHelper.ToRadians(10); // Increment for projectile rotation
-        private IProjectileEntity _projectile; // Reference to the projectile entity
+        private readonly int _maxDistance; // Maximum distance the projectile can travel before becoming inactive
+        private readonly float RotationIncrement = MathHelper.ToRadians(10); // Increment for projectile rotation
+        private readonly IProjectileEntity _projectile; // Reference to the projectile entity
 
         /// <summary>
         /// Initializes a new instance of the BoomerangWeaponProjectile class.

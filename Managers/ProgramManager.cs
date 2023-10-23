@@ -13,33 +13,27 @@ namespace SprintZero1.Managers
 {
     internal static class ProgramManager
     {
-       // public static Game1 myGame;
-        static List<IEntity> onScreenEntities = new List<IEntity>();
-        private static IController controller;
-        private static Game1 myGame;
-        static IEnemyMovementController enemyMovementController;
+        public static Game1 game;
+#pragma warning disable IDE0090 // Use 'new(...)'
+        static readonly List<IEntity> onScreenEntities = new List<IEntity>();
+#pragma warning restore IDE0090 // Use 'new(...)'
         // List of available Controllers
-
-        // IController controller = new IController[] 
-        //#region
-       // {
-       //     new KeyboardController()
-       // };
-       // #endregion
-
+        static readonly IController[] controllers = new IController[] 
+        #region
+        {
+            new KeyboardController()
+        };
+        #endregion
 
         public static void Start(Game1 game)
         {
-            myGame = game;
-            controller = new KeyboardController();
-
-        }
-
-        public static void AddPlayer(Vector2 position, int health, Direction direction) {
             ICombatEntity player = new PlayerEntity(position, health, direction);
             IEntity ProjectileEntity = new ProjectileEntity();
-            controller.LoadDefaultCommands(myGame, player, ProjectileEntity);
             ProgramManager.AddOnScreenEntity(player);
+            controllers[0].LoadDefaultCommands(localGame, player, ProjectileEntity);
+            AddOnScreenEntity(enemyEntity);
+            AddOnScreenEntity(ProjectileEntity);
+            game = localGame;
         }
 
         /// <summary>
@@ -67,10 +61,7 @@ namespace SprintZero1.Managers
             int i = 1;
             ColliderManager.RemoveAllExceptLink();
             while (i < onScreenEntities.Count) {
-
                 ProgramManager.RemoveOnScreenEntity(onScreenEntities[i]);
-              
-                
             }
         }
 
@@ -84,10 +75,10 @@ namespace SprintZero1.Managers
                 entity.Update(gameTime);
                
             }
-
             ColliderManager.Update(gameTime);
-
+            ColliderManager.Update();
             enemyMovementController?.Update(gameTime);
+            enemyMovementController.Update(gameTime);
         }
 
         /// <summary>

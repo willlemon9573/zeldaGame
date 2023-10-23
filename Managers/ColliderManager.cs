@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using SprintZero1.Managers;
+﻿using SprintZero1.Managers;
 using System.Collections.Generic;
 
 namespace SprintZero1.Colliders
@@ -38,31 +37,45 @@ namespace SprintZero1.Colliders
             dynamicColliders.Remove(collider);
         }
 
-        public static void Update(GameTime gameTime)
+        /// <summary>
+        /// Check each static collider against each dynamic collider and vice versa
+        /// </summary>
+        public static void CheckStaticAgainstDynamicCollisions()
         {
-            foreach (ICollider collider1 in staticColliders)
+            /* Compare each static collider against each dynamic collider */
+            for (int i = 0; i < staticColliders.Count; i++)
             {
-                foreach (ICollider collider2 in dynamicColliders)
+                ICollider staticCollider = staticColliders[i];
+                for (int j = 0; j < dynamicColliders.Count; j++)
                 {
-                    if (collider1.Collider.Intersects(collider2.Collider))
-                    {
-                        CollisionsResponseManager.CollisionResponse(collider1, collider2);
-                        CollisionsResponseManager.CollisionResponse(collider2, collider1);
-                    }
+                    ICollider dynamicCollider = dynamicColliders[j];
+                    CollisionsResponseManager.CollisionResponse(staticCollider, dynamicCollider);
+                    CollisionsResponseManager.CollisionResponse(dynamicCollider, staticCollider);
                 }
             }
+        }
+        /// <summary>
+        /// Compare each dynamic collider against every other dynamic collider and vice versa
+        /// </summary>
+        public static void CheckDynamicAgainstDynamicCollisions()
+        {
+            // Compare each dynamic collider against each static collider */
+            for (int i = 0; i < dynamicColliders.Count; i++)
+            {
+                ICollider dynamicCollider1 = dynamicColliders[i];
+                for (int j = i + 1; j < dynamicColliders.Count; j++)
+                {
+                    ICollider dynamicCollider2 = dynamicColliders[j];
+                    CollisionsResponseManager.CollisionResponse(dynamicCollider1, dynamicCollider2);
+                    CollisionsResponseManager.CollisionResponse(dynamicCollider2, dynamicCollider1);
+                }
+            }
+        }
 
-            foreach (ICollider collider1 in dynamicColliders)
-            {
-                foreach (ICollider collider2 in dynamicColliders)
-                {
-                    if (collider1.Collider.Intersects(collider2.Collider))
-                    {
-                        CollisionsResponseManager.CollisionResponse(collider1, collider2);
-                        CollisionsResponseManager.CollisionResponse(collider2, collider1);
-                    }
-                }
-            }
+        public static void Update()
+        {
+            CheckStaticAgainstDynamicCollisions();
+            CheckDynamicAgainstDynamicCollisions();
         }
     }
 }

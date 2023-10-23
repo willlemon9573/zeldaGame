@@ -1,16 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
-using SprintZero1.Factories;
 using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.PlayerStatePatterns
 {
+    /// <summary>
+    /// Handles the player when they are in the moving state
+    /// @author Aaron Heishman
+    /// </summary>
     internal class PlayerMovingState : BasePlayerState
     {
-
-        private LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
-        private Dictionary<Direction, Vector2> _velocityMap;
+        private readonly Dictionary<Direction, Vector2> _velocityMap;
         /// <summary>
         /// Player moving state constructor
         /// </summary>
@@ -34,11 +35,13 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             _playerEntity.Direction = newDirection;
             _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(newDirection);
         }
+
         /// <summary>
         /// Request moving the character if the character is in a state where they can move
         /// </summary>
         public override void Request()
         {
+            if (_blockTransition) { return; }
             _playerEntity.Position += _velocityMap[_playerEntity.Direction];
         }
         /// <summary>

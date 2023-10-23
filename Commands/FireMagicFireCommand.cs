@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Sprites;
+using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.projectile;
-using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Sprites;
 
 namespace SprintZero1.Commands
 {
@@ -12,11 +12,11 @@ namespace SprintZero1.Commands
     {
         private Direction Direction; // Direction in which the magic fire projectile will be shot
         private Vector2 startLocation; // Starting location of the magic fire projectile
-        private WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
-        private IEntity _PlayerEntity; // The player entity who shoots the magic fire
-        private float launchOffset = 15; // Offset distance from the player's position to start the magic fire projectile
-        private float movingSpeed = 1f; // Speed at which the magic fire projectile moves
-        private int maxDistance = 30; // Maximum distance the magic fire projectile can travel before disappearing
+        private readonly WeaponSpriteFactory WeaponFactory; // Factory for creating weapon sprites
+        private readonly IEntity _PlayerEntity; // The player entity who shoots the magic fire
+        private readonly float launchOffset = 15; // Offset distance from the player's position to start the magic fire projectile
+        private readonly float movingSpeed = 1f; // Speed at which the magic fire projectile moves
+        private readonly int maxDistance = 30; // Maximum distance the magic fire projectile can travel before disappearing
         public ISprite newSprite; // Sprite for the arrow
         public IProjectileEntity _Entity; // Entity representing the arrow
         public IProjectile _projectileType; // Type of projectile (e.g., non-returning arrow)
@@ -38,21 +38,23 @@ namespace SprintZero1.Commands
         {
             startLocation = _PlayerEntity.Position;
             IMovableEntity _PlayerMovableEntity = (IMovableEntity)_PlayerEntity;
+            ICombatEntity _PlayerCombatEntity = (ICombatEntity)_PlayerEntity;
+            _PlayerCombatEntity.Attack("magicfire");
             Direction = _PlayerMovableEntity.Direction;
 
             // Calculate the starting location of the magic fire projectile based on the player's direction
             switch (Direction)
             {
-                case Direction.North: 
+                case Direction.North:
                     startLocation.Y -= launchOffset;
                     break;
-                case Direction.South: 
+                case Direction.South:
                     startLocation.Y += launchOffset;
                     break;
-                case Direction.West: 
+                case Direction.West:
                     startLocation.X -= launchOffset;
                     break;
-                case Direction.East: 
+                case Direction.East:
                     startLocation.X += launchOffset;
                     break;
                 default:

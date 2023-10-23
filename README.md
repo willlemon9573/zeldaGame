@@ -5,32 +5,42 @@
 # Controls
   - W, A, S, D, Up, Down, Left, Right - Link Movement Controls
   - Z  - Attack
-  - E - Hurt Link
-  - T, Y - Change Block sprite
-  - O, P - Change enemy sprite
-  - U, I - Change Item sprite
+  - Numerical keys (1, 2,3) for using items
+ 
 
-# Known bugs and unimplemented features
-  - System for changing Links items developed, just not implemented into the Sprint yet
-  - Code does not detect held keys- Each frame, a held key is executed as a new key press
-  - Sprite sheets were examined and edited using Microsoft Paint (ole reliable) and Pixly.com
-  - Controls are developed using ICommand design- Dictionary is developed with Keys linked to Codes that fire Execute().
-  - Sprites are handled by Sprite Animator classes. Each object has a base class and an Animator as a child object. Child Object fires Draw()
-  - Plan on refactoring heavily. 
-	  - List of planned refactoring
-      - ISprite and implementing classes for better management of updating Sprite Location (remove control from sprite)
-      - Factories for better management of the types of sprites (Static, Animated, etc)
-      - Overhaul of unused code (Code we started, but did not finish)
+# Known bugs, unimplemented features and future updates
+
+For enemy Entity, the way we implement the ChangeDirection is not great enough, because it is using the switch statement for now and we need to change it to use the state pattern for the next sprint.
+Enemy Entity needs refactored to move away from switch state
+
+Enemy State pattern not implemented yet, but plan to implement in Sprint 4
+
+The relationship between the player and the weapon/projectile is under reconsideration. Will be handled in Sprint 4 once we have an inventory set up
+
+Classes are missing comments, but plan to have these update 
+There are magic numbers that we will remove in sprint 4
+
+PlayerEntity will need extra functionality to handle using both the main weapon (sword) and items (bombs, arrows, etc)
+
+Player currently has an infinite amount of each item, but will be changed in the following sprint
+
+
+# Known Bugs 
+
+Boomerang Projectile's return state does not return to the player, but where it is currently thrown
+Link is drawn on the layer below projectiles currently
+
 
 # Code Metrics 
   - Calculating Code Metrics: Our end code metrics for sprint 2 are: maintainability index = 85, Cyclomatic Complexity = 259, Depth of Inheritance = 2, class coupling = 70, lines of source code = 2090, and lines of executable code = 465 
 
 
 # Sprint 2 Reflection:
-	Sprint 2 has revealed the downfalls of not having a clear design plan ready. We completed the requirements of the Sprint, however certain features are missing with several bugs. Links movement is too freeform and the game does not have a method for only allowing one command sent per key press (if held, the game interprets this as a new keypress every frame).
-	Our team made sparse use of the Issues chart in our Github, our pseudo-Trello board. Work was primarily discussed and assigned in person, so precise planning was difficult. Most work was primarily complete thanks to the spirited efforts of the team.
-	For our next Sprint, we are considering a major refactoring of the code to make design more consistent. Considerations are; switching to an Entity-Component System, standardizing Sprite locations, using Managers for Animation. We are also planning to more concretely plan out the next Sprint.
-	All in all, however, our team seems pretty confident in our ability to make a unique product. Several members seem passionate in designing a modular game and believe that with careful planning we can come out with something great.
+	In Sprint 3, we revised our design plan and initiated code refactoring. The new plan improved task distribution and prioritization, but didn’t resolve all issues.
+	The refactoring process was more labor-intensive than anticipated, limiting some team members’ availability for implementing collision and level loader features.
+	Despite this, our plan enabled us to meet the sprint’s objectives. Communication was another challenge due to differing schedules, midterms, and fall break. 
+	We are still confident with our team’s ability to create a complete and finished product. We we recognize that we need to make some more changes in order to properly meet 
+	deadlines so we don’t miss points again this sprint.
 
 # Extra Notes regarding commits:
 - Just a note for the graders as suggested by Aaron Post. There's going to be a bunch of Commits from me (Aaron Heishman) that are going to include a bunch of changes made to the repo itself due to how I incorrectly uploaded my Sprint0 source
