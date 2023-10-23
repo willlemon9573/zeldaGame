@@ -77,17 +77,17 @@ namespace SprintZero1.Managers
         public static void Update(GameTime gameTime)
         {
           
-                controller.Update();
-            ColliderManager.Update(gameTime);
+            controller.Update();
            
             foreach (IEntity entity in onScreenEntities)
             {
                 entity.Update(gameTime);
                
             }
-           
+
+            ColliderManager.Update(gameTime);
+
             enemyMovementController?.Update(gameTime);
-            controller.Update();
         }
 
         /// <summary>
