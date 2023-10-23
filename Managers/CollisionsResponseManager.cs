@@ -13,7 +13,8 @@ namespace SprintZero1.Managers
         private static readonly Dictionary<Tuple<Type, Type>, ICommand> collisionResponseDictionary = new Dictionary<Tuple<Type, Type>, ICommand>()
 #pragma warning restore IDE0090 // Use 'new(...)'
         {
-            { new Tuple<Type, Type>(typeof(PlayerCollider), typeof(LevelBlockCollider) ), new PushBackCommand(null, null) }
+            { new Tuple<Type, Type>(typeof(PlayerCollider), typeof(LevelBlockCollider) ), new PushBackCommand(null, null) },
+            {new Tuple<Type, Type>(typeof(PlayerCollider), typeof(LevelDoorCollider) ), new EnterNextLevelCommand(null, null) }
         };
 
         public static void CollisionResponse(ICollider c1, ICollider c2)

@@ -1,20 +1,25 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Controllers;
+using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
+using System.Collections.Generic;
 
 namespace SprintZero1
 {
     public class Game1 : Game
     {
-        private readonly GraphicsDeviceManager _graphics;
+        private GraphicsDeviceManager _graphics;
+        private MouseController _mouseController;
         private SpriteBatch _spriteBatch;
-
         /* Variables for window rescaling */
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
+        
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -32,8 +37,8 @@ namespace SprintZero1
         protected override void Initialize()
         {
             // code for window rescaling
-            _newRenderTarget = new RenderTarget2D(GraphicsDevice, 256, 240);
-            _actualScreenRectangle = new Rectangle(0, 0, 256 * WINDOW_SCALE, 240 * WINDOW_SCALE);
+            _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
+            _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
             base.Initialize();
         }
 
@@ -50,6 +55,7 @@ namespace SprintZero1
             TileSpriteFactory.Instance.LoadTextures();
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
+            _mouseController = new MouseController(this);
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
             ProgramManager.Start(this);
@@ -57,9 +63,9 @@ namespace SprintZero1
 
         protected override void Update(GameTime gameTime)
         {
-            ProgramManager.Update(gameTime);
+            LevelManager.Update(gameTime);
+            _mouseController.Update();
             base.Update(gameTime);
-
         }
 
         protected override void Draw(GameTime gameTime)
@@ -69,7 +75,7 @@ namespace SprintZero1
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-            ProgramManager.Draw(_spriteBatch);
+            LevelManager.Draw(_spriteBatch);
             _spriteBatch.End();
 
             /* Rescale the window and draw sprite batch with new scale */

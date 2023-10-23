@@ -26,6 +26,7 @@ namespace SprintZero1.Entities
         : base(position, startingHealth, enemyName, totalFrames, isBoss)
         {
             //no special constructor thing
+           
         }
 
 

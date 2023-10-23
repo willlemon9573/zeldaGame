@@ -108,12 +108,29 @@ namespace SprintZero1.Factories
         {
             /*adding one simply for testing*/
             levelOneSourceRectangles.Add("entrance", new Rectangle(535, 906, 216, 135));
+            levelOneSourceRectangles.Add("entranceLeft", new Rectangle(278, 906, 216, 135));
+            levelOneSourceRectangles.Add("entranceRight", new Rectangle(792, 906, 216, 135));
+            levelOneSourceRectangles.Add("floorTwo", new Rectangle(535, 729, 216, 135));
+            levelOneSourceRectangles.Add("floorThree", new Rectangle(535, 552, 216, 135));
+            levelOneSourceRectangles.Add("floorThreeLeft", new Rectangle(278, 552, 216, 135));
+            levelOneSourceRectangles.Add("floorThreeRight", new Rectangle(792, 552, 216, 135));
+            levelOneSourceRectangles.Add("floorFour", new Rectangle(535, 375, 216, 135));
+            levelOneSourceRectangles.Add("floorFourLeft", new Rectangle(278, 375, 216, 135));
+            levelOneSourceRectangles.Add("floorFourRight", new Rectangle(792, 375, 216, 135));
+            levelOneSourceRectangles.Add("floorFourLeftest", new Rectangle(21, 375, 216, 135));
+            levelOneSourceRectangles.Add("floorFourRightest", new Rectangle(1049, 375, 216, 135));
+            levelOneSourceRectangles.Add("floorFive", new Rectangle(535, 198, 216, 135));
+            levelOneSourceRectangles.Add("floorFiveRight", new Rectangle(1049, 198, 216, 135));
+            levelOneSourceRectangles.Add("floorFiveRightest", new Rectangle(1306, 198, 216, 135));
+            levelOneSourceRectangles.Add("floorSix", new Rectangle(535, 21, 216, 135));
+            levelOneSourceRectangles.Add("floorSixLeft", new Rectangle(278, 21, 216, 135));
+            levelOneSourceRectangles.Add("floorSecret", new Rectangle(1, 1, 255, 159));
         }
 
         /// <summary>
         /// Private constructor to prevent instation of a new tile factory
         /// </summary>
-        private TileSpriteFactory()
+        public TileSpriteFactory()
         {
             tileSourceRectangles = new Dictionary<string, Rectangle>();
             wallSourceRectangles = new Dictionary<int, Rectangle>();
@@ -131,6 +148,8 @@ namespace SprintZero1.Factories
         {
             tileSpriteSheet = Texture2DManager.GetTileSheet();
             levelOneSpriteSheet = Texture2DManager.GetLevelOneSpriteSheet();
+            
+
         }
         /// <summary>
         /// Create and return a new tile sprite
@@ -142,6 +161,7 @@ namespace SprintZero1.Factories
             Debug.Assert(tileName != null, "tile is null");
             Debug.Assert(tileSourceRectangles.ContainsKey(tileName), "Source Rectangle does not contain the tile named: " + tileName);
             return new NonAnimatedSprite(tileSourceRectangles[tileName], tileSpriteSheet);
+           
         }
 
         /// <summary>

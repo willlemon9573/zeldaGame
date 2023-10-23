@@ -64,7 +64,6 @@ namespace SprintZero1.Controllers
         }
 
         public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity, IEntity ProjectileEntity)
-
         {
             /* directional commands */
             keyboardMap.Add(Keys.Up, new MoveUpCommand(playerEntity));
@@ -88,6 +87,8 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.D5, new FireBombCommand(playerEntity, ProjectileEntity));
             keyboardMap.Add(Keys.D6, new FireMagicFireCommand(playerEntity, ProjectileEntity));
         }
+
+        
 
         public void Update()
         {

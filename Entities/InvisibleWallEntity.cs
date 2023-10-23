@@ -14,10 +14,14 @@ namespace SprintZero1.Entities
     {
         public Vector2 Position { get { return _position; } set { _position = value; } }
         private Vector2 _position;
+        private ISprite _sprite;
         ICollider _collider;
 
-        public InvisibleWallEntity(Vector2 position, Vector2 dimensions)
+
+        //192long 112high
+        public InvisibleWallEntity(ISprite sprite, Vector2 position, Vector2 dimensions)
         {
+            _sprite = sprite;   
             _position = position;
             _collider = new LevelBlockCollider(this, new Rectangle((int)position.X, (int)position.Y, (int)dimensions.X, (int)dimensions.Y));
             ColliderManager.AddStaticCollider(_collider);

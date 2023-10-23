@@ -4,7 +4,10 @@ using SprintZero1.Colliders;
 using SprintZero1.Controllers;
 using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
+using SprintZero1.Enums;
+using SprintZero1.Factories;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace SprintZero1.Managers
 {
@@ -14,9 +17,7 @@ namespace SprintZero1.Managers
 #pragma warning disable IDE0090 // Use 'new(...)'
         static readonly List<IEntity> onScreenEntities = new List<IEntity>();
 #pragma warning restore IDE0090 // Use 'new(...)'
-        static IEnemyMovementController enemyMovementController;
         // List of available Controllers
-
         static readonly IController[] controllers = new IController[] 
         #region
         {
@@ -24,18 +25,12 @@ namespace SprintZero1.Managers
         };
         #endregion
 
-        /// <summary>
-        /// Test method to load in default objects. Use to create testing environments.
-        /// </summary>
-        /// <param name="localGame">Game1 object</param>
-        public static void Start(Game1 localGame)
+        public static void Start(Game1 game)
         {
-            ICombatEntity link = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
+            ICombatEntity player = new PlayerEntity(position, health, direction);
             IEntity ProjectileEntity = new ProjectileEntity();
-            ICombatEntity enemyEntity = new EnemyEntityWithoutDirection(new Vector2(50, 50), 10, "dungeon_gel", 2);
-            enemyMovementController = new SmartEnemyMovementController(enemyEntity, link);
-            controllers[0].LoadDefaultCommands(localGame, link, ProjectileEntity);
-            AddOnScreenEntity(link);
+            ProgramManager.AddOnScreenEntity(player);
+            controllers[0].LoadDefaultCommands(localGame, player, ProjectileEntity);
             AddOnScreenEntity(enemyEntity);
             AddOnScreenEntity(ProjectileEntity);
             game = localGame;
@@ -56,23 +51,31 @@ namespace SprintZero1.Managers
         /// <param name="entity">Entity to remove</param>
         public static void RemoveOnScreenEntity(IEntity entity)
         {
+
             onScreenEntities.Remove(entity);
+            
         }
 
-        /// <summary>
-        /// Run Update on list of Entities and update any global engines
-        /// </summary>
-        /// <param name="gameTime"></param>
+        public static void RemoveNonLinkEntities()
+        {
+            int i = 1;
+            ColliderManager.RemoveAllExceptLink();
+            while (i < onScreenEntities.Count) {
+                ProgramManager.RemoveOnScreenEntity(onScreenEntities[i]);
+            }
+        }
+
         public static void Update(GameTime gameTime)
         {
-            foreach (IController controller in controllers)
-            {
-                controller.Update();
-            }
+          
+            controller.Update();
+           
             foreach (IEntity entity in onScreenEntities)
             {
                 entity.Update(gameTime);
+               
             }
+            ColliderManager.Update(gameTime);
             ColliderManager.Update();
             enemyMovementController?.Update(gameTime);
             enemyMovementController.Update(gameTime);
@@ -84,9 +87,15 @@ namespace SprintZero1.Managers
         /// <param name="spriteBatch"></param>
         public static void Draw(SpriteBatch spriteBatch)
         {
+            int i = 1;
             foreach (IEntity entity in onScreenEntities)
             {
                 entity.Draw(spriteBatch);
+                i++;
+                if (i == 5)
+                {
+                    onScreenEntities[0].Draw(spriteBatch);
+                }
             }
         }
     }
