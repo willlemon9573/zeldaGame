@@ -1,40 +1,24 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+// unused currently until we want to add credits
 namespace SprintZero1.Sprites
 {
     public class CreditsSprite : ISprite
     {
-        private Vector2 text_position;
-        private readonly int width, height, x_start, y_start;
-
-        public Vector2 Position { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
-        /* Unused, but saved in case we want to use it */
-
-        /// <summary>
-        /// Constructs the credits sprite object
-        /// </summary>
-        public CreditsSprite()
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0, float layerDepth = 0f)
         {
-            text_position = new Vector2(250, 350);
-            width = 391;
-            height = 118;
-            x_start = 5;
-            y_start = 212;
-        }
-        public CreditsSprite(Vector2 location, Texture2D spritesheet)
-        {
-            
+            throw new System.NotImplementedException();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-
+            throw new System.NotImplementedException();
         }
 
-        void ISprite.Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            // unimplemented - text sprite does not update
+            throw new System.NotImplementedException();
         }
     }
 }

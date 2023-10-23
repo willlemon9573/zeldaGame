@@ -1,0 +1,23 @@
+PlayerEntity for readability (Author Aaron):
+Class Responsibilities:
+The PlayerEntity class seems to be handling quite a lot of tasks related to different aspects of the player's behaviour, including movement, combat, state management, and even input handling (indirectly inferred from keyboard state checks). This could potentially violate the Single Responsibility Principle (SRP). You might want to consider delegating some responsibilities to other classes or methods to make the code easier to read, understand, and maintain.
+State Management:
+I know we will separate the State Machine from PlayEntity later but I will still mention it here. The state management logic seems to be spread between the PlayerEntity and the PlayerStateMachine. It might be more readable if the state machine handled all state-related decisions, and the PlayerEntity just queried the state machine to understand what to do next. This way, the PlayerEntity would not need to know how state transitions happen, just what it should do in its current state.
+Magic Numbers:
+The code contains magic numbers, like the “16, 16” in the _playerCollider and the _timeToReset. These numbers might confuse someone else reading the code because they will not have context. Consider using named constants instead to improve readability.
+Dependency Management:
+Though I used the same way to handle my code, but this is still a important issue.
+The PlayerEntity directly accesses LinkSpriteFactory. This tight coupling makes the class harder to test and can reduce readability because it is not immediately clear where this dependency comes from. Consider dependency injection for these types of dependencies.
+
+
+ 
+CollisionManager for readability (Author Muhammed):
+Although I believe that the game we are writing now is a single-threaded game, I still want to mention this point, that is, when your code involves multithreading problems, it will trigger concurrency issues, you can pay a little attention to it.
+Scalability and Performance:
+The nested foreach loops in the Update method can be computationally expensive as the number of colliders increases (quadratic complexity, to be specific). If our game is going to have too objects, this will cause performance issues. It will take many time O(n2).
+Absence of Error Checking:
+There is no error checking for null values or validation in the public methods. Adding a collider that is null would cause issues. It's a good practice to safeguard these methods by checking the parameters and handling potential errors or at least asserting that they are not null.
+Potential for Unintended Behaviors with Collisions:
+The method CollisionsResponseManager.CollisionResponse(collider1, collider2) is called twice consecutively with the colliders reversed. If CollisionResponse is not symmetric (i.e., it matters which collider is first), this could lead to odd behaviors or double-handling of collisions. 
+Code Comments and Documentation:
+The class and methods are missing documentation comments. For maintainability, it's helpful to have these comments explaining the purpose and usage of the class and its methods, especially for public interfaces.

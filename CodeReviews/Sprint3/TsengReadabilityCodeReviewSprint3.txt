@@ -1,0 +1,13 @@
+Readability Code Review
+Author of the code review: Chih-Hsiang Jarek Tseng
+Date of the code review: 10/20/23
+Sprint number: 3
+Name of the .cs file being reviewed: XMLParser.cs
+Author of the .cs file being reviewed: Will Lemon
+Number of minutes taken to complete the review: 10 minutes
+
+Specific comments on what is readable and what is not: The code overall is very readable and easy to understand as a simple XMLReader. 
+There needs to be more documentation, for the functions and within the functions to help explain how everything works so if changes needed to be made in the future, it can be easily done. 
+The code is consistent with each other in the functions and variable names which makes it very easy to understand each function after the first. 
+Possibly improve readability by creating a single parse function for all the elements in the xml file, since there are so many similarities to each function. 
+Variables like Name, X and Y for position, can be utilized for all elements. But overall, with all the switch statements creating an organized way to read the xml file, it is very easy to read and understand what is going on.

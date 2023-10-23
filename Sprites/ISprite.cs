@@ -5,21 +5,19 @@ namespace SprintZero1.Sprites
 {
     public interface ISprite
     {
-        /* had to allow the sprite's location to be modifiable for outside controllers */
         /// <summary>
-        /// Get and update the sprites position
+        /// Draws the _sprite at the given position. Allows for _sprite effects, scaling and rotation
         /// </summary>
-        Vector2 Position { get; set; }
+        /// <param name="spriteBatch">Tool for handling drawing all sprites</param>
+        /// <param name="position">the position for the _sprite to be draw</param>
+        /// <param name="spriteEffects">Used for flipping a sprite Horizontally or Vertically based on entity Direction(Optional)</param>
+        /// <param name="rotation">The angle in radians to rate the _sprite around the origin(Optional)</param>
+        /// <param name="layerDepth">The layer depth the sprite should be drawn on</param>
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0f);
         /// <summary>
-        /// Draw the specified texture onto the game
+        /// Handles updating sprite information (primarily used for animating sprites)
         /// </summary>
-        /// <param name="spriteBatch">Helper for drawing sprites in batches</param>
-        /// <param name="texture">The texture to be drawn</param>
-        void Draw(SpriteBatch spriteBatch);
-        /// <summary>
-        /// Update the specifi sprite based on gameTIme
-        /// </summary>
-        /// <param name="gameTime">The snapshot of the current game time/param>
-        void Update(GameTime gameTime);
+        /// <param name="gameTime">Holds the state of the game</param>
+        public void Update(GameTime gameTime);
     }
 }

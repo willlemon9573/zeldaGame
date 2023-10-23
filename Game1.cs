@@ -2,153 +2,85 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
 using SprintZero1.Factories;
-using SprintZero1.Sprites;
-using SprintZero1.Commands;
-using SprintZero1.Level;
-using SprintZero1.Players;
-using SprintZero1.Characters;
-using Microsoft.Xna.Framework.Input;
+using SprintZero1.Managers;
+using System;
 
 namespace SprintZero1
 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
+        private MouseController _mouseController;
         private SpriteBatch _spriteBatch;
-        /* Temporary assignment of code until managers are made */
-        private IController keyboardController;
-
-        private IEnemyFactory enemyFactory;
-        private int onScreenEnemyIndex;
-        
-        public int OnScreenEnemyIndex
-        {
-            get { return onScreenEnemyIndex; }
-            set { onScreenEnemyIndex = value; }
-        }
-
-        public int CurrentFrame { get; set; }
-        private IBlockFactory blockFactory;
-        private ISprite nonMovingOnScreenBlock;
-        private int onScreenBlockIndex;
-        private WeaponSpriteFactory weaponFactory;
-        public Enemy enemy;
-        private LevelManager levelManager;
-
-        public int OnScreenBlockIndex
-        {
-            get { return onScreenBlockIndex; }
-            set { onScreenBlockIndex = value; }
-        }
-        public ISprite NonMovingBlock
-        {
-            set { nonMovingOnScreenBlock = value; }
-        }
-        
-        //ALL the variables needs for create a LinkSprite
-        public ISprite Link { get; set; }
-        internal ILinkFactory linkFactory { get; set; }
-        private Vector2 _position;
-        public Vector2 position
-        {
-            get { return _position; }
-            set { _position = value; }
-        }
-        public int CurrentDirection { get; set; }
-        //0 is facingUp. 1 is facingDown. 2 is facingLeft. 3 is facingRight
-        public bool isAttacking { get; set; }
+        /* Variables for window rescaling */
+        private const int WINDOW_SCALE = 4;
+        private RenderTarget2D _newRenderTarget;
+        private Rectangle _actualScreenRectangle;
 
 
-        public void SetLink(ISprite newLink)
-        {
-            Link = newLink;
-        }
-
-        private IUsableItemFactory itemFactory;
-        private ISprite onScreenItem;
-        private int onScreenItemIndex;
-        internal int direction;
-
-        public int OnScreenItemIndex
-        {
-            get { return onScreenItemIndex; }
-            set { onScreenItemIndex = value; }
-        }
-
-        public ISprite Item
-        {
-            set { onScreenItem = value; }
-        }
-        /* end of temporary assignment of code */
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            // Code for Window rescaling
+            _graphics.PreferredBackBufferWidth = 256 * WINDOW_SCALE;
+            _graphics.PreferredBackBufferHeight = 240 * WINDOW_SCALE;
+            this.IsFixedTimeStep = true;//false;
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
         }
 
-        /// <summary>
         /// Initialize all components required to run the game
         /// </summary>
         protected override void Initialize()
         {
-            weaponFactory = WeaponSpriteFactory.Instance;
-            enemyFactory = EnemyFactory.Instance;
-            keyboardController = new KeyboardController();
-            keyboardController.LoadDefaultCommands(this);
-            OnScreenEnemyIndex = 0;
-            _position = new Vector2(100, 100);
-            blockFactory = BlockFactory.Instance;
-            OnScreenBlockIndex = 0;
-
-            linkFactory = new LinkFactory();
-            CurrentDirection = 2;
-            CurrentFrame = 0;
-            isAttacking = false;
-            keyboardController = new KeyboardController();
-            keyboardController.LoadDefaultCommands(this);
-            itemFactory = ItemFactory.Instance;
-            keyboardController = new KeyboardController();
-            keyboardController.LoadDefaultCommands(this);
-            OnScreenBlockIndex = 0;
-            OnScreenItemIndex = 0;
+            // code for window rescaling
+            _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
+            _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            enemyFactory.LoadTextures(this.Content);
-            blockFactory.LoadTextures(this.Content);
-            enemy = new Enemy(_spriteBatch, this.Content.Load<Texture2D>("Bosses"), this);
-            enemy.EnemySprite = enemyFactory.CreateEnemySprite("dungeon_gel", new Vector2(600, 300), 0);
-            linkFactory.LoadTextures(this.Content);
-            Link = linkFactory.createNewLink(CurrentDirection, position, CurrentFrame, isAttacking);
-            nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
-            itemFactory.LoadTextures(this.Content);
-            weaponFactory.LoadTextures(this.Content);
-            nonMovingOnScreenBlock = blockFactory.CreateNonMovingBlockSprite("flat", new Vector2(200, 230)); // default block shown is flat
-            onScreenItem = itemFactory.CreateItemSprite("rubyStatic");
+            Texture2DManager.LoadAllTextures(this.Content);
+            /* Factories are missing a lot of comments. To be added in Sprint 4 
+                May also be loading textures specifically Program Manager rather than in game1.cs
+            */
+            EnemySpriteFactory.Instance.LoadTextures();
+            LinkSpriteFactory.Instance.LoadTextures();
+            TileSpriteFactory.Instance.LoadTextures();
+            WeaponSpriteFactory.Instance.LoadTextures();
+            ItemSpriteFactory.Instance.LoadTextures();
+            _mouseController = new MouseController(this);
+            WeaponSpriteFactory.Instance.LoadTextures();
+            ItemSpriteFactory.Instance.LoadTextures();
+            /*ProgramManager.Start(this);*/
+            LevelManager.Initialize(this);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            keyboardController.Update();
-            Link.Update(gameTime);
-            enemy.Update(gameTime);
-            onScreenItem.Update(gameTime);
+            LevelManager.Update(gameTime);
+            _mouseController.Update();
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            /* Draw all sprites on a new render target */
+            GraphicsDevice.SetRenderTarget(this._newRenderTarget);
+            GraphicsDevice.Clear(Color.Black);
 
-            GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
-            nonMovingOnScreenBlock.Draw(_spriteBatch);
-            enemy.Draw();
-            Link.Draw(_spriteBatch);
-            onScreenItem.Draw(_spriteBatch);
+            LevelManager.Draw(_spriteBatch);
+            _spriteBatch.End();
+
+            /* Rescale the window and draw sprite batch with new scale */
+            GraphicsDevice.SetRenderTarget(null);
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            _spriteBatch.Draw(_newRenderTarget, _actualScreenRectangle, Color.White);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

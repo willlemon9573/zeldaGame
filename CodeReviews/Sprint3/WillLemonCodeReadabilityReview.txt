@@ -1,0 +1,10 @@
+Author of code review: Will Lemon
+Date: 10/290/2023
+Sprint: 3
+Name of .cs file: AnimatedSprite.cs:
+Author of .cs file: Aaron
+Time reviewed: 25 minutes
+
+
+The readability on this file was excellent. Aaron did a great job naming his variables something useful. He also did a great job commenting all of his code. If I needed to be super nitpicky, I would suggest that he comments his update function. While I understand what is going on here, someone with an outside perspective might not. 
+
