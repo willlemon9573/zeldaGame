@@ -53,6 +53,7 @@ namespace SprintZero1.Entities
         public void Update(GameTime gameTime)
         {
             // TODO: Add flashing effect if we want to have link shoot off projectile at full hearts
+
         }
     }
 }

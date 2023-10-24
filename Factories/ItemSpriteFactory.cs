@@ -47,7 +47,6 @@ namespace SprintZero1.Factories
             {
                 new Rectangle(312, 703, 15, 17),
                 new Rectangle(329, 703, 14, 17)
-
             };
         }
 

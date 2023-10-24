@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
+using SprintZero1.Sprites;
 
 namespace SprintZero1.projectile
 {
@@ -8,6 +9,7 @@ namespace SprintZero1.projectile
         private double timer = 0; // Timer to track how long the bomb has been active
         private readonly double waitingTime = 600; // The time in milliseconds before the bomb explodes
         private readonly IProjectileEntity _projectile; // Reference to the projectile entity representing the bomb
+        private ISprite _bombSprite;
 
         /// <summary>
         /// Initializes a new instance of the BombProjectile class.

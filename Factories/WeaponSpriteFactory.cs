@@ -27,12 +27,6 @@ namespace SprintZero1.Factories
         }
         private void CreateDictionary()
         {
-            /* starting position of each weapon */
-            /*weaponSourceRectangles.Add("arrow", new Rectangle(2, 190, 16, 5));
-            weaponSourceRectangles.Add("boomerang", new Rectangle(57, 189, 8, 8));
-            weaponSourceRectangles.Add("bomb", new Rectangle(130, 185, 70, 16));
-            weaponSourceRectangles.Add("magicfire", new Rectangle(202, 185, 70, 16));
-            */
 
             List<Rectangle> regBoomerangFrames = new List<Rectangle>
             {
