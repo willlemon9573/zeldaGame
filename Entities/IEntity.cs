@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace SprintZero1.Entities
 {
-    public interface IEntity
+    public interface IEntity 
     {
         /// <summary>
         /// Set and Get the Entity Position

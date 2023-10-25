@@ -1,18 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Colliders;
+using SprintZero1.Entities;
 using System.Collections.Generic;
 
 namespace SprintZero1.Commands
 {
     internal class PushBackCommand : ICommand
     {
-        ICollider c1;
-        ICollider c2;
+        ICollidableEntity e1;
+        ICollidableEntity e2;
 
-        public PushBackCommand(ICollider c1, ICollider c2)
+        public PushBackCommand(ICollidableEntity c1, ICollidableEntity c2)
         {
-            this.c1 = c1;
-            this.c2 = c2;
+            this.e1 = c1;
+            this.e2 = c2;
             if (c1 != null && c2 != null)
                 Execute();
         }
@@ -20,20 +21,20 @@ namespace SprintZero1.Commands
         public void Execute()
         {
             PriorityQueue<Vector2, float> colliderDistances = new PriorityQueue<Vector2, float>();
-            Rectangle intersection = Rectangle.Intersect(c1.Collider, c2.Collider);
+            Rectangle intersection = Rectangle.Intersect(e1.Collider.Collider, e2.Collider.Collider);
             if(intersection.Width > intersection.Height)
             {
-                colliderDistances.Enqueue(new Vector2(0, -1), System.Math.Abs(intersection.Center.Y - c2.Collider.Top));
-                colliderDistances.Enqueue(new Vector2(0, 1), System.Math.Abs(intersection.Center.Y - c2.Collider.Bottom));
+                colliderDistances.Enqueue(new Vector2(0, -1), System.Math.Abs(intersection.Center.Y - e2.Collider.Collider.Top));
+                colliderDistances.Enqueue(new Vector2(0, 1), System.Math.Abs(intersection.Center.Y - e2.Collider.Collider.Bottom));
             }
             else
             {
-                colliderDistances.Enqueue(new Vector2(1,0), System.Math.Abs(intersection.Center.X - c2.Collider.Right));
-                colliderDistances.Enqueue(new Vector2(-1, 0), System.Math.Abs(intersection.Center.X - c2.Collider.Left));
+                colliderDistances.Enqueue(new Vector2(1,0), System.Math.Abs(intersection.Center.X - e2.Collider.Collider.Right));
+                colliderDistances.Enqueue(new Vector2(-1, 0), System.Math.Abs(intersection.Center.X - e2.Collider.Collider.Left));
             }
             // Insert Pushback Code Here
-            c1.Parent.Position += colliderDistances.Dequeue();
-            c1.Update(null);
+            e1.Position += colliderDistances.Dequeue();
+            e1.Collider.Update(null);
         }
     }
 }

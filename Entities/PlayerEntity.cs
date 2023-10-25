@@ -14,7 +14,7 @@ namespace SprintZero1.Entities
     /// Player Entity class used to control and update player.
     /// @Author Aaron Heishman
     /// </summary>
-    internal class PlayerEntity : ICombatEntity
+    internal class PlayerEntity : ICombatEntity, ICollidableEntity
     {
         /* Player Components */
         private int _playerHealth;
@@ -32,7 +32,7 @@ namespace SprintZero1.Entities
         public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
         public ISprite PlayerSprite { get { return _playerSprite; } set { _playerSprite = value; } }
         public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
-        public ICollider PlayerCollider { get { return _playerCollider; } }
+        public ICollider Collider { get { return _playerCollider; } }
 
 
         /// <summary>

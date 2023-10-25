@@ -53,11 +53,11 @@ namespace SprintZero1.Managers
 
         public static void RemoveNonLinkEntities()
         {
-            ColliderManager.RemoveAllExcept(player.PlayerCollider);
+            ColliderManager.RemoveAllExcept(player.Collider);
             onScreenEntities.Clear();
             onScreenEntities.Add(player);
             player.Position = new Vector2(150, 150);
-            player.PlayerCollider.Update(null);
+            player.Collider.Update(null);
 
         }
 
