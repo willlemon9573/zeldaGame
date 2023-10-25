@@ -17,7 +17,6 @@ namespace SprintZero1
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
 
-
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
