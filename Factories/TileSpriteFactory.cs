@@ -172,7 +172,6 @@ namespace SprintZero1.Factories
         public ISprite CreateNewWallSprite(int quadrant)
         {
             Debug.Assert(wallSourceRectangles.ContainsKey(quadrant), "Incorrect Quadrant: " + quadrant);
-            Debug.WriteLine(wallSourceRectangles[quadrant]);
             return new NonAnimatedSprite(wallSourceRectangles[quadrant], tileSpriteSheet);
         }
         /* maybe this can be used if we want to separate between doors and tile calls, if not we'll delete it */
