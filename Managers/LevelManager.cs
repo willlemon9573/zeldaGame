@@ -40,7 +40,7 @@ namespace SprintZero1.Managers
         public static void Initialize(Game1 game)
         {
             ProgramManager.Start(game);
-            LoadNewRoom(levelList[1]);
+            LoadNewRoom(levelList[0]);
         }
 
         public static void LoadNewRoom(String xmlFile)

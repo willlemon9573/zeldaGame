@@ -295,11 +295,13 @@
 		<Name>open_west</Name>
 		<X>15</X>
 		<Y>152</Y>
+		<Destination>0</Destination>
 	</Door>
 	<Door>
 		<Name>open_west</Name>
 		<X>15</X>
 		<Y>152</Y>
+		<Destination>0</Destination>
 	</Door>
 	<Door>
 		<Name>doorless_east</Name>

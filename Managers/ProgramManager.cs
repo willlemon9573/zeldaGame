@@ -57,6 +57,8 @@ namespace SprintZero1.Managers
             onScreenEntities.Clear();
             onScreenEntities.Add(player);
             player.Position = new Vector2(150, 150);
+            player.PlayerCollider.Update(null);
+
         }
 
         public static void Update(GameTime gameTime)

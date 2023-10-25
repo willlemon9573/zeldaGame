@@ -203,6 +203,7 @@ namespace SprintZero1.XMLFiles
             string name = "";
             int X = 0, Y = 0;
             string type = "";
+            int destination = -1;
             bool keepLooping = true;
             while (reader.Read() && keepLooping)
             {
@@ -223,6 +224,9 @@ namespace SprintZero1.XMLFiles
                         case "Type":
                             type = reader.ReadElementContentAsString();
                             break;
+                        case "Destination":
+                            destination = reader.ReadElementContentAsInt();
+                            break;
                         default:
                             //not needed really since we write the xml files
                             //report error in xml file
@@ -236,7 +240,7 @@ namespace SprintZero1.XMLFiles
                     //parse the data -> get the sprites draw the thing entity
                     Vector2 pos = new Vector2(X, Y);
                     ISprite newDoorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(name);
-                    IEntity Door = new LevelBlockEntity(newDoorSprite, pos, false);
+                    IEntity Door = new LevelDoorEntity(newDoorSprite, pos, destination);
                     if (Door != null)
                     {
                         ProgramManager.AddOnScreenEntity(Door);

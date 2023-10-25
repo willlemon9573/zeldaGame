@@ -8,13 +8,12 @@ namespace SprintZero1.Managers
 {
     internal static class CollisionsResponseManager
     {
-
 #pragma warning disable IDE0090 // Use 'new(...)'
         private static readonly Dictionary<Tuple<Type, Type>, ICommand> collisionResponseDictionary = new Dictionary<Tuple<Type, Type>, ICommand>()
 #pragma warning restore IDE0090 // Use 'new(...)'
         {
             { new Tuple<Type, Type>(typeof(PlayerCollider), typeof(LevelBlockCollider) ), new PushBackCommand(null, null) },
-            {new Tuple<Type, Type>(typeof(PlayerCollider), typeof(LevelDoorCollider) ), new EnterNextLevelCommand(null, null) }
+            { new Tuple<Type, Type>(typeof(PlayerCollider), typeof(LevelDoorCollider) ), new EnterNextLevelCommand(null, null) }
         };
 
         public static void CollisionResponse(ICollider c1, ICollider c2)
@@ -24,7 +23,7 @@ namespace SprintZero1.Managers
 #pragma warning restore IDE0090 // Use 'new(...)'
             if (collisionResponseDictionary.ContainsKey(generic))
             {
-                ConstructorInfo constructorInfoObj = collisionResponseDictionary[generic].GetType().GetConstructor(new[] { typeof(ICollider), typeof(ICollider) });
+                ConstructorInfo constructorInfoObj = collisionResponseDictionary[generic].GetType().GetConstructor(new[] { generic.Item1, generic.Item2 });
                 constructorInfoObj.Invoke(new object[] { c1, c2 });
             }
         }

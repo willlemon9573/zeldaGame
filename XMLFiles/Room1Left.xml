@@ -130,11 +130,13 @@
 		<Name>open_east</Name>
 		<X>239</X>
 		<Y>152</Y>
+		<Destination>0</Destination>
 	</Door>
 	<Door>
 		<Name>open_east</Name>
 		<X>239</X>
 		<Y>152</Y>
+		<Destination>0</Destination>
 	</Door>
 	<Door>
 		<Name>doorless_south</Name>

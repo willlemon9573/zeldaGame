@@ -11,18 +11,20 @@ namespace SprintZero1.Commands
         readonly int nextLevel;
         private readonly List<String> levelList;
 
-        public EnterNextLevelCommand(ICollider c1, ICollider c2)
+        public EnterNextLevelCommand(ICollider c1, LevelDoorCollider c2)
         {
             if (c1 != null && c2 != null)
             {
                 nextLevel = ((LevelDoorEntity)c2.Parent)._nextLevel;
+                levelList = LevelManager.LevelList;
                 Execute();
             }
         }
 
         public void Execute()
         {
-            LevelManager.LoadNewRoom(levelList[nextLevel]);
+            if(nextLevel > -1)
+                LevelManager.LoadNewRoom(levelList[nextLevel]);
         }
     }
 }
