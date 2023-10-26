@@ -64,9 +64,9 @@ namespace SprintZero1.Factories
         /// </summary>
         public TileSpriteFactory()
         {
-            tileSourceRectangles = FactoryXMLParser.ParseNonAnimatedSpriteXML("DoorAndTileSprites.xml");
+            tileSourceRectangles = FactoryXMLParser.ParseNonAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\DoorAndTileSprites.xml");
             wallSourceRectangles = new Dictionary<int, Rectangle>();
-            levelOneSourceRectangles = FactoryXMLParser.ParseNonAnimatedSpriteXML("Level1FloorSprites.xml");
+            levelOneSourceRectangles = FactoryXMLParser.ParseNonAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\Level1FloorSprites.xml");
             AddWallSourceRectangles();
         }
 

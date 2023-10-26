@@ -28,8 +28,8 @@ namespace SprintZero1.Factories
         /// </summary>
         private LinkSpriteFactory()
         {
-            movementSpriteDictionary = FactoryXMLParser.ParseAnimatedSpriteWithDirectionXML("LinkMovingSprites.xml");
-            attackSpriteDictionary = FactoryXMLParser.ParseNonAnimatedSpriteWithDirectionXML("LinkAttackingSprites.xml");
+            movementSpriteDictionary = FactoryXMLParser.ParseAnimatedSpriteWithDirectionXML(@"XMLFiles\FactoryXMLFiles\LinkMovingSprites.xml");
+            attackSpriteDictionary = FactoryXMLParser.ParseNonAnimatedSpriteWithDirectionXML(@"XMLFiles\FactoryXMLFiles\LinkAttackingSprites.xml");
         }
         /// <summary>
         /// Load the required sprite sheet that contains Link's sprite data

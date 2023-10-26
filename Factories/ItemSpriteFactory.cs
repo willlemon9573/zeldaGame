@@ -25,8 +25,8 @@ namespace SprintZero1.Factories
         /// </summary>
         private ItemSpriteFactory()
         {
-            AnimatedItemSpriteMap = FactoryXMLParser.ParseAnimatedSpriteXML("AnimatedItemSprites.XML");
-            NonAnimatedItemSpriteMap = FactoryXMLParser.ParseNonAnimatedSpriteXML("NonAnimatedItemSprites.XML");
+            AnimatedItemSpriteMap = FactoryXMLParser.ParseAnimatedSpriteXML(@"XMLFILES\FactoryXMLFiles\AnimatedItemSprites.XML");
+            NonAnimatedItemSpriteMap = FactoryXMLParser.ParseNonAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\NonAnimatedItemSprites.XML");
         }
         /// <summary>
         /// Load the sprite sheet containing all the item sprites

@@ -13,10 +13,6 @@ namespace SprintZero1.XMLParsers
     /// </summary>
     internal static class FactoryXMLParser
     {
-        /// <summary>
-        /// Parser tries to load files in debug, so using this path as a means to find the actual folder
-        /// </summary>
-        private static readonly string xmlFolderLocation = @"..\..\..\XMLFiles\FactoryXMLFiles\";
 
         /// <summary>
         /// Parses the given xml file located at {@param fileName} and returns a dictionary map of animated sprites
@@ -26,14 +22,13 @@ namespace SprintZero1.XMLParsers
         /// Must be an existing and valid xml file</param>
         /// <exception cref="ArgumentNullException">Thrown when fileName is null</exception>
         /// <exception cref="FileNotFoundException">Thrown when fileName does not point to a valid XML file</exception>
-        public static Dictionary<String, List<Rectangle>> ParseAnimatedSpriteXML(string fileName)
+        public static Dictionary<string, List<Rectangle>> ParseAnimatedSpriteXML(string fileName)
         {
             Dictionary<string, List<Rectangle>> spriteDictionary = null;  // try catch will prevent a null dictionary from being passed back
             /* Try to read the document file and parse for desired info */
-            string xmlFile = Path.Combine(xmlFolderLocation, fileName);
             try
             {
-                XDocument enemyDoc = XDocument.Load(xmlFile);
+                XDocument enemyDoc = XDocument.Load(fileName);
                 // Using Lambda => to search through the document to get all the required information
                 spriteDictionary = enemyDoc.Root.Elements("Sprite").ToDictionary(
                         // Get all "names" and create keys
@@ -67,13 +62,12 @@ namespace SprintZero1.XMLParsers
         /// Must be an existing and valid xml file</param>
         /// <exception cref="ArgumentNullException">Thrown when fileName is null</exception>
         /// <exception cref="FileNotFoundException">Thrown when fileName does not point to a valid XML file</exception>
-        public static Dictionary<String, Rectangle> ParseNonAnimatedSpriteXML(string fileName)
+        public static Dictionary<string, Rectangle> ParseNonAnimatedSpriteXML(string fileName)
         {
             Dictionary<string, Rectangle> spriteDictionary = null; // try catch will prevent a null dictionary from being passed back
-            string xmlFile = Path.Combine(xmlFolderLocation, fileName);
             try
             {
-                XDocument enemyDoc = XDocument.Load(xmlFile);
+                XDocument enemyDoc = XDocument.Load(fileName);
                 // Using Lambda => to search through the document to get all the required information
                 spriteDictionary = enemyDoc.Root.Elements("Sprite").ToDictionary(
                         // Get all "names" and create keys
@@ -112,10 +106,9 @@ namespace SprintZero1.XMLParsers
         {
             Dictionary<Direction, List<Rectangle>> spriteDictionary = null;  // try catch will prevent a null dictionary from being passed back
             /* Try to read the document file and parse for desired info */
-            string xmlFile = Path.Combine(xmlFolderLocation, fileName);
             try
             {
-                XDocument enemyDoc = XDocument.Load(xmlFile);
+                XDocument enemyDoc = XDocument.Load(fileName);
                 // Using Lambda => to search through the document to get all the required information
                 spriteDictionary = enemyDoc.Root.Elements("Sprite").ToDictionary(
                         // Get the list of directions as a key
@@ -152,10 +145,9 @@ namespace SprintZero1.XMLParsers
         public static Dictionary<Direction, Rectangle> ParseNonAnimatedSpriteWithDirectionXML(string fileName)
         {
             Dictionary<Direction, Rectangle> spriteDictionary = null; // try catch will prevent a null dictionary from being passed back
-            string xmlFile = Path.Combine(xmlFolderLocation, fileName);
             try
             {
-                XDocument enemyDoc = XDocument.Load(xmlFile);
+                XDocument enemyDoc = XDocument.Load(fileName);
                 // Using Lambda => to search through the document to get all the required information
                 spriteDictionary = enemyDoc.Root.Elements("Sprite").ToDictionary(
                         // Get all "names" and create keys
