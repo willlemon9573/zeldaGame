@@ -25,10 +25,8 @@ namespace SprintZero1.Factories
         /// </summary>
         private LinkSpriteFactory()
         {
-            const string movementXML = @"..\..\..\XMLFiles\FactoryXMLFiles\LinkMovingSprites.XML";
-            const string attackingXML = @"..\..\..\XMLFiles\FactoryXMLFiles\LinkAttackingSprites.XML";
-            movementSpriteDictionary = FactoryXMLParser.ParseAnimatedSpriteWithDirectionXML(movementXML);
-            attackSpriteDictionary = FactoryXMLParser.ParseNonAnimatedSpriteWithDirectionXML(attackingXML);
+            movementSpriteDictionary = FactoryXMLParser.ParseAnimatedSpriteWithDirectionXML("LinkMovingSprites.xml");
+            attackSpriteDictionary = FactoryXMLParser.ParseNonAnimatedSpriteWithDirectionXML("LinkAttackingSprites.xml");
         }
 
         public void LoadTextures()

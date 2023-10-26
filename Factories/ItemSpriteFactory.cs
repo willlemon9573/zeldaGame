@@ -22,8 +22,8 @@ namespace SprintZero1.Factories
 
         private ItemSpriteFactory()
         {
-            AnimatedItemSpriteMap = FactoryXMLParser.ParseAnimatedSpriteXML(@"..\..\..\XMLFiles\FactoryXMLFiles\AnimatedItemSprites.XML");
-            NonAnimatedItemSpriteMap = FactoryXMLParser.ParseNonAnimatedSpriteXML(@"..\..\..\XMLFiles\FactoryXMLFiles\NonAnimatedItemSprites.XML");
+            AnimatedItemSpriteMap = FactoryXMLParser.ParseAnimatedSpriteXML("AnimatedItemSprites.XML");
+            NonAnimatedItemSpriteMap = FactoryXMLParser.ParseNonAnimatedSpriteXML("NonAnimatedItemSprites.XML");
         }
 
         public void LoadTextures()
