@@ -5,6 +5,7 @@ using SprintZero1.Sprites;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using SprintZero1.Enums;
 
 namespace SprintZero1.Factories
 {
@@ -145,12 +146,12 @@ namespace SprintZero1.Factories
         /// <param name="enemyName">The name of the enemy/param>
         /// <param name="totalFrames">The maximum amount of frames for the sprite</param>
         /// <returns>An animated sprite of the enemy</returns>
-        public ISprite CreateEnemySprite(string enemyName, int totalFrames)
+        public ISprite CreateEnemySprite(string enemyName, Direction direction)
         {
             Debug.Assert(enemyName != null, "enemyName is null");
 
             Debug.Assert(enemySpriteDictionary.ContainsKey(enemyName), "Enemy not found: " + enemyName);
-            return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, totalFrames);
+            return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, enemySpriteDictionary[enemyName].Count);
         }
         /// <summary>
         /// Creates a boss sprite
@@ -158,10 +159,10 @@ namespace SprintZero1.Factories
         /// <param name="bossName">The name of the boss/param>
         /// <param name="totalFrames">The maximum amount of frames for the sprite</param>
         /// <returns>An animated sprite of the boss</returns>
-        public ISprite CreateBossSprite(string bossName, int totalFrames)
+        public ISprite CreateBossSprite(string bossName, Direction direction)
         {
             Debug.Assert(bossEnemySpriteDictionary.ContainsKey(bossName), "Boss not found: " + bossName);
-            return new AnimatedSprite(bossEnemySpriteDictionary[bossName], bossSpriteSheet, totalFrames);
+            return new AnimatedSprite(bossEnemySpriteDictionary[bossName], bossSpriteSheet, bossEnemySpriteDictionary[bossName].Count);
         }
     }
 }

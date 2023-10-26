@@ -175,7 +175,6 @@
 		<X>40</X>
 		<Y>198</Y>
 		<Health>1</Health>
-		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
 	<Enemy>
