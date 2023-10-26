@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 
 namespace SprintZero1.Entities
 {
-    internal class InvisibleWallEntity : IEntity
+    internal class InvisibleWallEntity : IEntity, ICollidableEntity
     {
         public Vector2 Position { get { return _position; } set { _position = value; } }
         private Vector2 _position;
         private ISprite _sprite;
         ICollider _collider;
+        public ICollider Collider { get { return _collider; } }
 
 
         //192long 112high
@@ -24,7 +25,7 @@ namespace SprintZero1.Entities
             _sprite = sprite;   
             _position = position;
             _collider = new LevelBlockCollider(this, new Rectangle((int)position.X, (int)position.Y, (int)dimensions.X, (int)dimensions.Y));
-            ColliderManager.AddStaticCollider(_collider);
+            ColliderManager.AddStaticCollider(this);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -35,6 +36,11 @@ namespace SprintZero1.Entities
         public void Update(GameTime gameTime)
         {
             // N/A
+        }
+
+        ~InvisibleWallEntity()
+        {
+            ColliderManager.RemoveCollider(this);
         }
     }
 }

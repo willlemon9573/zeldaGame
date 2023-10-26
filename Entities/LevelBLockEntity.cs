@@ -1,12 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Colliders;
 using SprintZero1.Sprites;
+using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {
-    internal class LevelBlockEntity : BackgroundSpriteEntity
+    internal class LevelBlockEntity : BackgroundSpriteEntity, ICollidableEntity
     {
         StaticCollider collider;
+
+        public ICollider Collider { get { return collider; } }
 
         /// <summary>
         /// Constructor for simple level tile
@@ -22,5 +25,7 @@ namespace SprintZero1.Entities
             if (collidable)
                 collider = new LevelBlockCollider(this, new Rectangle((int)pos.X, (int)pos.Y, 16, 16));
         }
+
+        
     }
 }
