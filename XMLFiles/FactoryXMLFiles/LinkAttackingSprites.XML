@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LinkAttackingSprites>
+	<Sprite direction="South">
+		<Rectangle x="107" y="11" width="16" height="16" />
+	</Sprite>
+	<Sprite direction="East">
+		<Rectangle x="124" y="11" width="16" height="16" />
+	</Sprite>
+	<Sprite direction="West">
+		<Rectangle x="124" y="11" width="16" height="16" />
+	</Sprite>
+	<Sprite direction="North">
+		<Rectangle x="141" y="11" width="16" height="16" />
+	</Sprite>
+</LinkAttackingSprites>
