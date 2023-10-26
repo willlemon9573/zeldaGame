@@ -22,8 +22,8 @@ namespace SprintZero1.Entities
         /// <param name="position">The position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        public EnemyEntityWithDirection(Vector2 position, int startingHealth, string enemyName, int totalFrames, bool isBoss = false)
-        : base(position, startingHealth, enemyName, totalFrames, isBoss)
+        public EnemyEntityWithDirection(Vector2 position, int startingHealth, string enemyName, bool isBoss = false)
+        : base(position, startingHealth, enemyName, isBoss)
         {
             //no special constructor thing
         }

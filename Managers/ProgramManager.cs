@@ -4,6 +4,7 @@ using SprintZero1.Colliders;
 using SprintZero1.Controllers;
 using SprintZero1.Entities;
 using System.Collections.Generic;
+using SprintZero1.Controllers.EnemyControllers;
 
 namespace SprintZero1.Managers
 {
@@ -11,6 +12,7 @@ namespace SprintZero1.Managers
     {
         public static Game1 _game;
 #pragma warning disable IDE0090 // Use 'new(...)'
+        static readonly List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
         static readonly List<IEntity> onScreenEntities = new List<IEntity>();
 #pragma warning restore IDE0090 // Use 'new(...)'
         private static PlayerEntity player;
@@ -22,6 +24,8 @@ namespace SprintZero1.Managers
             new KeyboardController()
         };
         #endregion
+        public static PlayerEntity Player { get { return player; } }
+
 
         public static void Start(Game1 game)
         {
@@ -37,6 +41,12 @@ namespace SprintZero1.Managers
         /// Add an entity to the screen
         /// </summary>
         /// <param name="entity">Entity to be added</param>
+        /// 
+
+        public static void AddOnScreenEnemyController(IEnemyMovementController enemyController)
+        {
+            onScreenEnemyController.Add(enemyController);
+        }
         public static void AddOnScreenEntity(IEntity entity)
         {
             onScreenEntities.Add(entity);
@@ -63,6 +73,10 @@ namespace SprintZero1.Managers
 
         public static void Update(GameTime gameTime)
         {
+            foreach (IEnemyMovementController enemyController in onScreenEnemyController)
+            {
+                enemyController.Update(gameTime);
+            }
 
             foreach (IController controller in controllers)
             {

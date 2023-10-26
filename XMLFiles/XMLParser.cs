@@ -6,6 +6,7 @@ using SprintZero1.Sprites;
 using System;
 using System.IO;
 using System.Xml;
+using SprintZero1.Controllers.EnemyControllers;
 
 namespace SprintZero1.XMLFiles
 {
@@ -292,12 +293,14 @@ namespace SprintZero1.XMLFiles
                     //parse the data -> get the sprites draw the thing entity
 
 
-                    IEntity enemy = new EnemyEntityWithDirection(new Vector2(X, Y), health, name, frames, isBoss);
+                    ICombatEntity enemy = new EnemyEntityWithDirection(new Vector2(X, Y), health, name, isBoss);
                     if (enemy != null)
                     {
                         ProgramManager.AddOnScreenEntity(enemy);
+                        IEnemyMovementController movementController = new SmartEnemyMovementController(enemy, ProgramManager.Player);
+                        ProgramManager.AddOnScreenEnemyController(movementController);
                     }
-
+                    
                     /* 
                      * what to use for adding enemies in xml file skeleton
                      * <Enemy>

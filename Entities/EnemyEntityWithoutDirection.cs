@@ -22,8 +22,8 @@ namespace SprintZero1.Entities
         /// <param name="position">The position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        public EnemyEntityWithoutDirection(Vector2 position, int startingHealth, string enemyName, int totalFrames,bool isBoss = false)
-        : base(position, startingHealth, enemyName, totalFrames, isBoss)
+        public EnemyEntityWithoutDirection(Vector2 position, int startingHealth, string enemyName, bool isBoss = false)
+        : base(position, startingHealth, enemyName, isBoss)
         {
             //no special constructor thing
            
@@ -36,14 +36,13 @@ namespace SprintZero1.Entities
         }
         public override void Update(GameTime gameTime)
         {
-            _enemySprite.Update(gameTime);
+            _enemyState.Update(gameTime);
             projectileSprite.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            SpriteEffects spriteEffects = SpriteEffects.None;
-            _enemySprite.Draw(spriteBatch, _enemyPosition, spriteEffects);
+            _enemyState.Draw(spriteBatch);
         }
     }
 }
