@@ -11,7 +11,7 @@ namespace SprintZero1.Managers
     {
         public static Game1 _game;
 #pragma warning disable IDE0090 // Use 'new(...)'
-        static readonly List<IEntity> onScreenEntities = new List<IEntity>();
+        static readonly EntityManager entityManager = new EntityManager();
 #pragma warning restore IDE0090 // Use 'new(...)'
         private static PlayerEntity player;
         private static IEntity projectileHandler;
@@ -39,7 +39,7 @@ namespace SprintZero1.Managers
         /// <param name="entity">Entity to be added</param>
         public static void AddOnScreenEntity(IEntity entity)
         {
-            onScreenEntities.Add(entity);
+            entityManager.Add(entity);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace SprintZero1.Managers
         /// <param name="entity">Entity to remove</param>
         public static void RemoveOnScreenEntity(IEntity entity)
         {
-            onScreenEntities.Remove(entity);
+            entityManager.Remove(entity);
         }
 
         public static void RemoveNonLinkEntities()
@@ -63,12 +63,12 @@ namespace SprintZero1.Managers
 
         public static void Update(GameTime gameTime)
         {
-
+            List<IEntity> entities = entityManager.OnScreenEntities();
             foreach (IController controller in controllers)
             {
                 controller.Update();
             }
-            foreach (IEntity entity in onScreenEntities)
+            foreach (IEntity entity in entities)
             {
                 entity.Update(gameTime);
 
