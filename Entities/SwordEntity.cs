@@ -47,7 +47,7 @@ namespace SprintZero1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _weaponSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, 0, 1f);
+            _weaponSprite?.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, 0, 1f);
         }
 
         public void Update(GameTime gameTime)

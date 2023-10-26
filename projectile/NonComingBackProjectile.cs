@@ -10,7 +10,7 @@ namespace SprintZero1.projectile
         private readonly double waitingTime = 150; // The time in milliseconds before the projectile ends
         private readonly float _speed; // Speed at which the projectile moves
         private float distanceMoved = 0; // Distance traveled by the projectile
-        public bool IsActive = true; // Flag to indicate if the projectile is active
+        private bool IsActive = true; // Flag to indicate if the projectile is active
         private readonly int _maxDistance; // Maximum distance the projectile can travel before becoming inactive
         private readonly IProjectileEntity _projectile; // Reference to the projectile entity
 

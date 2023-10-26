@@ -37,7 +37,7 @@ namespace SprintZero1.Controllers
             getNextLevelCommand.Execute();
         }
 
-        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity, IEntity projectileEntity)
+        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity)
         {
             // Unimplemented for this - will update for Sprint 4
         }

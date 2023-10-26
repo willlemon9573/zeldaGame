@@ -46,7 +46,7 @@ namespace SprintZero1.Entities
         public override void Update(GameTime gameTime)
         {
             _enemySprite.Update(gameTime);
-            projectileSprite.Update(gameTime);
+            projectileSprite?.Update(gameTime);
             /* _enemyMovingState.Update(gameTime);
              if (_enemyMovingState is not IdleMovingState)
              {
@@ -84,7 +84,7 @@ namespace SprintZero1.Entities
 
                spriteEffects = SpriteEffects.FlipHorizontally;
             }
-            projectileSprite.Draw(spriteBatch);
+            projectileSprite?.Draw(spriteBatch);
             _enemySprite.Draw(spriteBatch, _enemyPosition, spriteEffects);
         }
     }

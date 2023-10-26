@@ -71,7 +71,6 @@ namespace SprintZero1.Entities
             _enemyHealth = startingHealth;
             _enemyPosition = position;
             _enemyName = enemyName;
-            projectileSprite = new ProjectileEntity();
             _enemyState = new EnemyIdleState(this);
             _enemySprite = !isBoss ? _EnemyFactory.CreateEnemySprite(enemyName, _enemyDirection) : _EnemyFactory.CreateBossSprite(enemyName, _enemyDirection);
         }

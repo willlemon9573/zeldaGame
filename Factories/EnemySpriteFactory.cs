@@ -5,11 +5,8 @@ using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
 using System.Collections.Generic;
 using System.Diagnostics;
-<<<<<<< HEAD
-=======
 using System.Linq;
 using SprintZero1.Enums;
->>>>>>> 1f587db04d16b804da0db1741d9b30970fdc4970
 
 namespace SprintZero1.Factories
 {
@@ -53,7 +50,7 @@ namespace SprintZero1.Factories
         public ISprite CreateEnemySprite(string enemyName, Direction direction)
         {
             Debug.Assert(enemyName != null, "enemyName is null");
-            Debug.Assert(totalFrames >= 0, "totalFrames must be positive");
+            //Debug.Assert(totalFrames >= 0, "totalFrames must be positive");
             Debug.Assert(enemySpriteDictionary.ContainsKey(enemyName), "Enemy not found: " + enemyName);
             return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, enemySpriteDictionary[enemyName].Count);
         }
@@ -66,7 +63,7 @@ namespace SprintZero1.Factories
         public ISprite CreateBossSprite(string bossName, Direction direction)
         {
             Debug.Assert(bossName != null, "bossName is null");
-            Debug.Assert(totalFrames >= 0, "totalFrames must be positive");
+            //Debug.Assert(totalFrames >= 0, "totalFrames must be positive");
             Debug.Assert(bossEnemySpriteDictionary.ContainsKey(bossName), "Boss not found: " + bossName);
             return new AnimatedSprite(bossEnemySpriteDictionary[bossName], bossSpriteSheet, bossEnemySpriteDictionary[bossName].Count);
         }

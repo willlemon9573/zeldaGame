@@ -1,75 +1,58 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Enums;
-using SprintZero1.projectile;
+using SprintZero1.Factories;
 using SprintZero1.Sprites;
+using System;
+using System.Collections.Generic;
 
 namespace SprintZero1.Entities
 {
     /// <summary>
-    /// Represents a projectile entity. This class is designed with deferred property initialization in mind.
-    /// Properties are expected to be set externally before the first use in game logic.
+    /// Entity for the projectile the player will use.
+    /// @Author - Aaron ZiheWang
     /// </summary>
-    internal class ProjectileEntity : IProjectileEntity
+    internal abstract class ProjectileEntity : IWeaponEntity
     {
-        private Direction _projectileDirection;
-        private Vector2 _projectilePosition;
-        public Vector2 Position { get { return _projectilePosition; } set { _projectilePosition = value; } }
-        public Direction Direction { get { return _projectileDirection; } set { _projectileDirection = value; } }
-        private ISprite projectileSprite;
-        private IProjectile projectileUpdate;
-        private ISprite endingSprite;
-        private SpriteEffects _SpriteEffects;
-        private float _rotation;
-        public float Rotation { get { return _rotation; } set { _rotation = value; } }
-        public SpriteEffects _ChangeSpriteEffects { get { return _SpriteEffects; } set { _SpriteEffects = value; } }
-        public ISprite ProjectileSprite
-        {
-            get { return projectileSprite; }
-            set { projectileSprite = value; }
-        }
+        // TODO: Clean up code for modularity purposes
+        protected readonly string _weaponName;
+        protected Vector2 PlayerWeaponSprite;
+        protected float _rotation;
+        protected ISprite ProjectileSprite;
+        protected ISprite ImpactEffectSprite;
+        protected float movingSpeed;
+        /* Holds the specific values for properly flipping and placing sword in player's hands */
+        protected readonly Dictionary<Direction, Tuple<SpriteEffects, Vector2>> _spriteEffectsDictionary;
+        protected readonly Dictionary<Direction, Vector2> _spriteMovingDictionary;
+        /* Sprite effect for flipping the weapon */
+        protected SpriteEffects _currentSpriteEffect = SpriteEffects.None;
+        protected Vector2 _weaponPosition;
+        public Vector2 Position { get { return _weaponPosition; } set { _weaponPosition = value; } }
 
-        public IProjectile ProjectileUpdate
+        protected ProjectileEntity(String weaponName)
         {
-            get { return projectileUpdate; }
-            set { projectileUpdate = value; }
-        }
-
-        public ISprite EndingSprite
-        {
-            get { return endingSprite; }
-            set { endingSprite = value; }
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectileEntity"/> class.
-        /// Note: Property values should be set externally before using this instance in game logic.
-        /// </summary>
-        public ProjectileEntity()
-        {
-            // No initialization code needed
-        }
-
-        /// <summary>
-        /// Updates the projectile's state over time.
-        /// </summary>
-        /// <param name="gameTime">The game time information.</param>
-        public void Update(GameTime gameTime)
-        {
-            projectileSprite?.Update(gameTime);
-            projectileUpdate?.Update(gameTime);
-        }
-
-        /// <summary>
-        /// Draws the projectile on the screen.
-        /// </summary>
-        /// <param name="spriteBatch">The sprite batch used for rendering.</param>
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            if (projectileSprite == null)
+            _rotation = 0;
+            _weaponName = weaponName;
+            /* This might be able to be passed by the player / xml / or mathematically */
+            _spriteEffectsDictionary = new Dictionary<Direction, Tuple<SpriteEffects, Vector2>>()
             {
-                return;
-            }
-            projectileSprite.Draw(spriteBatch, _projectilePosition, _SpriteEffects, _rotation);
+                { Direction.North, Tuple.Create(SpriteEffects.None, new Vector2(0, -11)) },
+                { Direction.South, Tuple.Create(SpriteEffects.FlipVertically, new Vector2(0, 11)) },
+                { Direction.East, Tuple.Create(SpriteEffects.None, new Vector2(11, 0)) },
+                { Direction.West, Tuple.Create(SpriteEffects.FlipHorizontally, new Vector2(-11, 0)) }
+            };
+            _spriteMovingDictionary = new Dictionary<Direction, Vector2>()
+            {
+                { Direction.North, new Vector2(0, -1) },
+                { Direction.South, new Vector2(0, 1)},
+                { Direction.East,  new Vector2(1, 0)},
+                { Direction.West,  new Vector2(-1, 0) }
+            };
         }
+        public abstract void UseWeapon(Direction direction, Vector2 position);
+
+        public abstract void Draw(SpriteBatch spriteBatch);
+
+        public abstract void Update(GameTime gameTime);
     }
 }

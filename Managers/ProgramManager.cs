@@ -16,7 +16,6 @@ namespace SprintZero1.Managers
         static readonly List<IEntity> onScreenEntities = new List<IEntity>();
 #pragma warning restore IDE0090 // Use 'new(...)'
         private static PlayerEntity player;
-        private static IEntity projectileHandler;
         // List of available Controllers
         static readonly IController[] controllers = new IController[]
         #region
@@ -31,9 +30,8 @@ namespace SprintZero1.Managers
         {
             _game = game;
             player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
-            projectileHandler = new ProjectileEntity();
             AddOnScreenEntity(player);
-            controllers[0].LoadDefaultCommands(game, player, projectileHandler);
+            controllers[0].LoadDefaultCommands(game, player);
 
         }
 
@@ -87,7 +85,6 @@ namespace SprintZero1.Managers
                 entity.Update(gameTime);
 
             }
-            projectileHandler.Update(gameTime);
             ColliderManager.Update();
         }
 
@@ -103,7 +100,6 @@ namespace SprintZero1.Managers
                 if (i == 5)
                 {
                     // draw player/projectile here to have player be drawn "under" doors and for project to be "under" link
-                    projectileHandler.Draw(spriteBatch);
                     player.Draw(spriteBatch);
                 }
             }
