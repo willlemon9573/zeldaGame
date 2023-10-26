@@ -128,7 +128,7 @@ namespace SprintZero1.XMLFiles
                             Vector2 pos = new Vector2(X, Y);
 
                             ISprite newblockSprite = TileSpriteFactory.Instance.CreateNewTileSprite(name);
-                            IEntity block = new LevelBlockEntity(newblockSprite, pos, isCollidable);
+                            IEntity block = new LevelBlockEntity(newblockSprite, pos);
 
                             if (block != null)
                             {
@@ -185,7 +185,7 @@ namespace SprintZero1.XMLFiles
                     Vector2 pos = new Vector2(X, Y);
                     Vector2 hitbox = new Vector2(1, 1);
                     ISprite newWallSprite = TileSpriteFactory.Instance.CreateNewWallSprite(quad);
-                    IEntity wall = new LevelBlockEntity(newWallSprite, pos, false);
+                    IEntity wall = new LevelBlockEntity(newWallSprite, pos);
 
                     if (wall != null)
                     {
@@ -345,7 +345,7 @@ namespace SprintZero1.XMLFiles
                 {
                     //parse the data -> get the sprites draw the thing entity
                     ISprite itemSprite = ItemSpriteFactory.Instance.CreateItemSprite(name);
-                    IEntity item = new LevelBlockEntity(itemSprite, new Vector2(X, Y), false);
+                    IEntity item = new LevelBlockEntity(itemSprite, new Vector2(X, Y));
                     if (item != null)
                     {
                         ProgramManager.AddOnScreenEntity(item);

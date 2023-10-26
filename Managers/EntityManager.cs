@@ -24,6 +24,18 @@ namespace SprintZero1.Managers
         }
 
         /// <summary>
+        /// Readies the next screen, removing
+        /// all but the player
+        /// </summary>
+        /// <param name="player">Player to be loaded into the next screen</param>
+        public void LoadNextScreen(IEntity player)
+        {
+            entitiesToRemove.AddRange(entities);
+            entitiesToAdd.Clear();
+            entitiesToAdd.Add(player);
+        }
+
+        /// <summary>
         /// Updates the list of onscreen entities
         /// Removing entities queued to remove
         /// Then adds entities queued to add

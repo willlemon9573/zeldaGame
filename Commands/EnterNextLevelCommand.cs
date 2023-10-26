@@ -13,7 +13,7 @@ namespace SprintZero1.Commands
 
         public EnterNextLevelCommand(PlayerEntity e1, LevelDoorEntity e2)
         {
-            if (e2.Collider != null)
+            if (e2 != null)
             {
                 nextLevel = e2._nextLevel;
                 levelList = LevelManager.LevelList;

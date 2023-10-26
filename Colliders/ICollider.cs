@@ -11,11 +11,6 @@ namespace SprintZero1.Colliders
         public int Delta { get; set; }
 
         /// <summary>
-        /// The Parent Entity of the Collider.
-        /// </summary>
-        public IEntity Parent { get; set; }
-
-        /// <summary>
         /// The Rectangle object of the Collider.
         /// </summary>
         public Rectangle Collider { get; set; }
@@ -24,17 +19,7 @@ namespace SprintZero1.Colliders
         /// Update
         /// </summary>
         /// <param name="gameTime">The GameTime object</param>
-        public void Update(GameTime gameTime);
-
-        /// <summary>
-        /// Adds collider into the ColliderManager global singleton
-        /// </summary>
-        public void AddCollider();
-
-        /// <summary>
-        /// Removes the collider from the ColliderManager global singleton
-        /// </summary>
-        public void RemoveCollider();
+        public void Update(IEntity parent);
 
     }
 }

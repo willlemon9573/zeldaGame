@@ -17,13 +17,12 @@ namespace SprintZero1.Entities
         /// <param name="sprite">Block ISprite</param>
         /// <param name="pos">Block position</param>
         /// <param name="collidable">Whether or not block is Collidable</param>
-        public LevelBlockEntity(ISprite sprite, Vector2 pos, bool collidable) : base(sprite, pos)
+        public LevelBlockEntity(ISprite sprite, Vector2 pos) : base(sprite, pos)
         {
             this._sprite = sprite;
             this._position = pos;
 
-            if (collidable)
-                collider = new LevelBlockCollider(this, new Rectangle((int)pos.X, (int)pos.Y, 16, 16));
+            collider = new LevelBlockCollider(new Rectangle((int)pos.X, (int)pos.Y, 16, 16));
         }
 
         

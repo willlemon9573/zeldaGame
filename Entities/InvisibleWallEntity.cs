@@ -24,7 +24,7 @@ namespace SprintZero1.Entities
         {
             _sprite = sprite;   
             _position = position;
-            _collider = new LevelBlockCollider(this, new Rectangle((int)position.X, (int)position.Y, (int)dimensions.X, (int)dimensions.Y));
+            _collider = new LevelBlockCollider(new Rectangle((int)position.X, (int)position.Y, (int)dimensions.X, (int)dimensions.Y));
             ColliderManager.AddStaticCollider(this);
         }
 

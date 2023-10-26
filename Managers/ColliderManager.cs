@@ -1,6 +1,9 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Managers;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SprintZero1.Colliders
 {
@@ -56,6 +59,7 @@ namespace SprintZero1.Colliders
                 }
             }
         }
+
         /// <summary>
         /// Compare each dynamic collider against every other dynamic collider and vice versa
         /// </summary>
@@ -78,10 +82,37 @@ namespace SprintZero1.Colliders
             }
         }
 
-        public static void Update()
+        /// <summary>
+        /// Checks Collisions on all types and fires collisions from Collisions Response
+        /// </summary>
+        /// <param name="entities"> List of ICollidableEntities</param>
+        public static void CheckCollisions(List<ICollidableEntity> entities)
         {
+            ParseColliders(entities);
             CheckStaticAgainstDynamicCollisions();
             CheckDynamicAgainstDynamicCollisions();
+            staticColliderEntities.Clear();
+            dynamicColliderEntities.Clear();
+        }
+
+        /// <summary>
+        /// Private method. Used to parse Collider type
+        /// </summary>
+        /// <param name="entities">List of ICollidbleEntity's</param>
+        private static void ParseColliders(List<ICollidableEntity> entities)
+        {
+            foreach(ICollidableEntity entity in entities) 
+            {
+                switch(entity.Collider)
+                {
+                    case StaticCollider:
+                        staticColliderEntities.Add(entity); 
+                        break;
+                    case DynamicCollider:
+                        dynamicColliderEntities.Add(entity);
+                        break;
+                }
+            }
         }
     }
 }

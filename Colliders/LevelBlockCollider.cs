@@ -10,10 +10,10 @@ namespace SprintZero1.Colliders
         /// </summary>
         /// <param name="entity">Parent Entity</param>
         /// <param name="_collider">Collider Rectangle</param>
-        public LevelBlockCollider(IEntity entity, Rectangle _collider) : base(entity, _collider)
+        public LevelBlockCollider(Rectangle _collider, int delta = 0) : base(_collider, delta)
         {
-            this.Parent = entity;
             this.Collider = _collider;
+            this.Delta = delta;
         }
     }
 }

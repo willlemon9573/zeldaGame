@@ -21,7 +21,7 @@ namespace SprintZero1.Entities
             this._sprite = sprite;
             this._position = position;
             _nextLevel = nextlevel;
-            _collider = new LevelDoorCollider(this, new Rectangle((int)position.X, (int)position.Y, 16, 16), _nextLevel);
+            _collider = new LevelDoorCollider(new Rectangle((int)position.X, (int)position.Y, 16, 16));
         }
     }
 }

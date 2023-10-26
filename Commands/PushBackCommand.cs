@@ -34,7 +34,7 @@ namespace SprintZero1.Commands
             }
             // Insert Pushback Code Here
             e1.Position += colliderDistances.Dequeue();
-            e1.Collider.Update(null);
+            e1.Collider.Update(e1);
         }
     }
 }
