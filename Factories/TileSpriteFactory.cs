@@ -99,13 +99,6 @@ namespace SprintZero1.Factories
             Debug.Assert(wallSourceRectangles.ContainsKey(quadrant), "Incorrect Quadrant: " + quadrant);
             return new NonAnimatedSprite(wallSourceRectangles[quadrant], tileSpriteSheet);
         }
-        /* maybe this can be used if we want to separate between doors and tile calls, if not we'll delete it */
-        public ISprite CreateNewDoorSprite(string door)
-        {
-            Debug.Assert(door != null, "door is null");
-            Debug.Assert(tileSourceRectangles.ContainsKey(door), "Source Rectangle does not contain the door: " + door);
-            return new NonAnimatedSprite(tileSourceRectangles[door], tileSpriteSheet);
-        }
 
         public ISprite CreateFloorSprite(string floor)
         {
