@@ -53,7 +53,6 @@ namespace SprintZero1
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
             _mouseController = new MouseController(this);
-            WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize(this);
