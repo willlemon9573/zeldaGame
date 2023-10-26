@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LevelOneSourceRectangles>
+	<Sprite name="entrance">
+		<Rectangle x="535" y="906" width="216" height="135"/>
+	</Sprite>
+	<Sprite name="entranceLeft">
+		<Rectangle x="278" y="906" width="216" height="135"/>
+	</Sprite>
+	<Sprite name="entranceRight">
+		<Rectangle x="792" y="906" width="216" height="135"/>
+	</Sprite>
+	<Sprite name="floorTwo">
+		<Rectangle x="535" y="729" width="216" height="135"/>
+	</Sprite>
+	<Sprite name="floorThree">
+		<Rectangle x="535" y="552" width="216" height="135"/>
+	</Sprite>
+	<Sprite name="floorThreeLeft">
+		<Rectangle x="278" y="552" width="216" height="135"/>
+	</Sprite>
+	<Sprite name="floorThreeRight">
+		<Rectangle x="792" y="552" width="216" height="135"/>
+	</Sprite>
+	<Sprite name="floorFour">
+		<Rectangle x="535" y="375" width="216" height="135"/>
+	</Sprite>
+	<Sprite name= "floorFourLeft">
+		<Rectangle x= "278" y= "375" width= "216" height= "135"/>
+	</Sprite>
+	<Sprite name= "floorFourRight">
+		<Rectangle x= "792" y= "375" width= "216" height= "135"/>
+	</Sprite>
+	<Sprite name= "floorFourLeftest">
+		<Rectangle x= "21" y= "375" width= "216" height= "135"/>
+	</Sprite>
+	<Sprite name= "floorFourRightest">
+		<Rectangle x= "1049" y= "375" width= "216" height= "135"/>
+	</Sprite>
+	<Sprite name= "floorFive">
+		<Rectangle x= "535" y= "198" width= "216" height= "135"/>
+	</Sprite>
+	<Sprite name= "floorFiveRight">
+		<Rectangle x= "1049" y= "198" width= "216" height= "135"/>
+	</Sprite>
+	<Sprite name= "floorFiveRightest">
+		<Rectangle x="1306" y= "198" width="216" height="135"/>
+	</Sprite>
+	<Sprite name = "floorSix">
+		<Rectangle x = "535" y = "21" width = "216" height = "135"/>
+	</Sprite>
+	<Sprite name = "floorSixLeft">
+		<Rectangle x = "278" y = "21" width = "216" height = "135"/>
+	</Sprite>
+	<Sprite name = "floorSecret">
+		<Rectangle x = "1" y = "1" width = "255" height = "159"/>
+	</Sprite>
+</LevelOneSourceRectangles>

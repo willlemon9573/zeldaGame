@@ -2,69 +2,57 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
+using SprintZero1.XMLParsers;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SprintZero1.Factories
 {
     internal class ItemSpriteFactory
     {
         private Texture2D itemSpriteSheet;
-#pragma warning disable IDE0090 // Use 'new(...)'
         private static readonly ItemSpriteFactory instance = new ItemSpriteFactory();
-#pragma warning restore IDE0090 // Use 'new(...)'
-        private readonly Dictionary<string, List<Rectangle>> itemSpriteDictionary;
+        private readonly Dictionary<string, List<Rectangle>> AnimatedItemSpriteMap;
+        private readonly Dictionary<string, Rectangle> NonAnimatedItemSpriteMap;
+        /// <summary>
+        /// 
+        /// </summary>
         public static ItemSpriteFactory Instance
         {
             get { return instance; }
         }
-
-        public List<string> ItemNamesList
-        {
-            get { return itemSpriteDictionary.Keys.ToList<string>(); }
-        }
-        private void CreateItemSpriteDictionary()
-        {
-            itemSpriteDictionary["key"] = new List<Rectangle>
-            {
-                new Rectangle(228, 703, 11, 17),
-                new Rectangle(228, 703, 11, 17)
-
-            };
-            itemSpriteDictionary["map"] = new List<Rectangle>
-            {
-                new Rectangle(245, 703, 11, 17),
-                new Rectangle(245, 703, 11, 17)
-
-            };
-            itemSpriteDictionary["compass"] = new List<Rectangle>
-            {
-                new Rectangle(260, 703, 14, 17),
-                new Rectangle(260, 703, 14, 17)
-
-            };
-            itemSpriteDictionary["fire"] = new List<Rectangle>
-            {
-                new Rectangle(312, 703, 15, 17),
-                new Rectangle(329, 703, 14, 17)
-            };
-        }
-
+        /// <summary>
+        /// Private constructor so factory cannot be instantiated
+        /// </summary>
         private ItemSpriteFactory()
         {
-            itemSpriteDictionary = new Dictionary<string, List<Rectangle>>();
-            CreateItemSpriteDictionary();
+            AnimatedItemSpriteMap = FactoryXMLParser.ParseAnimatedSpriteXML("AnimatedItemSprites.XML");
+            NonAnimatedItemSpriteMap = FactoryXMLParser.ParseNonAnimatedSpriteXML("NonAnimatedItemSprites.XML");
         }
-
+        /// <summary>
+        /// Load the sprite sheet containing all the item sprites
+        /// </summary>
         public void LoadTextures()
         {
             itemSpriteSheet = Texture2DManager.GetItemSpriteSheet();
         }
-
-        public ISprite CreateItemSprite(string itemName)
+        /// <summary>
+        /// Create and return a new animated item sprite
+        /// </summary>
+        /// <param name="itemName">The name of the specific item</param>
+        /// <returns></returns>
+        public ISprite CreateAnimatedItemSprite(string itemName)
         {
-            return new AnimatedSprite(itemSpriteDictionary[itemName], itemSpriteSheet, 2);
+            return new AnimatedSprite(AnimatedItemSpriteMap[itemName], itemSpriteSheet, 2);
         }
 
+        /// <summary>
+        /// Create and return a new non-animated item sprite
+        /// </summary>
+        /// <param name="itemName">the name of the specific item</param>
+        /// <returns></returns>
+        public ISprite CreateNonAnimatedItemSprite(string itemName)
+        {
+            return new NonAnimatedSprite(NonAnimatedItemSpriteMap[itemName], itemSpriteSheet);
+        }
     }
 }

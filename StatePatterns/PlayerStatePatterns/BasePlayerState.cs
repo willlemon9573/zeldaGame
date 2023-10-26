@@ -72,7 +72,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             SpriteEffects spriteEffects = _playerEntity.Direction == Direction.West
                 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             // draw sprite
-            _playerEntity.PlayerSprite.Draw(spriteBatch, _playerEntity.Position, spriteEffects);
+            _playerEntity.PlayerSprite.Draw(spriteBatch, _playerEntity.Position, spriteEffects, 0, 0f);
         }
 
         /// <summary>
