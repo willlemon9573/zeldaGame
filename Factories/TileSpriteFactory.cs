@@ -36,6 +36,7 @@ namespace SprintZero1.Factories
         /// </summary>
         private void AddWallSourceRectangles()
         {
+            //TODO: Create an XML File to parse - In discussion with Will/Jarek on how we want to handle walls
             const int WIDTH = 112, LENGTH = 72;
             const int QUAD_ONE = 1, QUAD_TWO = 2, QUAD_THREE = 3, QUAD_FOUR = 4;
             // used to set the offset of coordinates between each quadrant
@@ -49,12 +50,13 @@ namespace SprintZero1.Factories
             wallSourceRectangles.Add(QUAD_THREE, new Rectangle((int)spriteOrigin.X - X_OFFSET, (int)spriteOrigin.Y + Y_OFFSET, WIDTH, LENGTH));
             // Bottom Right Wall (Quadrant 4)
             wallSourceRectangles.Add(QUAD_FOUR, new Rectangle((int)spriteOrigin.X, (int)spriteOrigin.Y + Y_OFFSET, WIDTH, LENGTH));
-            foreach (var kvp in wallSourceRectangles)
+            /* should be deleted, but saving this for when we refactor */
+            /*foreach (var kvp in wallSourceRectangles)
             {
-                Debug.WriteLine("<Sprite direction=\"" + kvp.Key + "\">");
+                Debug.WriteLine("<Sprite quadrant=\"" + kvp.Key + "\">");
                 Debug.WriteLine("\t<Rectangle x='" + kvp.Value.X + "' y='" + kvp.Value.Y + "' width='" + WIDTH + "' height='" + LENGTH + "'/>");
                 Debug.WriteLine("</Sprite>");
-            }
+            }*/
         }
 
         /// <summary>
@@ -99,7 +101,11 @@ namespace SprintZero1.Factories
             Debug.Assert(wallSourceRectangles.ContainsKey(quadrant), "Incorrect Quadrant: " + quadrant);
             return new NonAnimatedSprite(wallSourceRectangles[quadrant], tileSpriteSheet);
         }
-
+        /// <summary>
+        /// Create a sprite that will be the room specific floor sprite.
+        /// </summary>
+        /// <param name="floor">The name of the desired floor sprite</param>
+        /// <returns></returns>
         public ISprite CreateFloorSprite(string floor)
         {
             return new NonAnimatedSprite(levelOneSourceRectangles[floor], levelOneSpriteSheet);

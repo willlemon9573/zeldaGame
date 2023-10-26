@@ -15,6 +15,9 @@ namespace SprintZero1.Factories
         private readonly Dictionary<Direction, List<Rectangle>> movementSpriteDictionary;
         private readonly Dictionary<Direction, Rectangle> attackSpriteDictionary;
         private static readonly LinkSpriteFactory instance = new();
+        /// <summary>
+        /// Get the instance of the factory
+        /// </summary>
         public static LinkSpriteFactory Instance
         {
             get { return instance; }
@@ -28,20 +31,28 @@ namespace SprintZero1.Factories
             movementSpriteDictionary = FactoryXMLParser.ParseAnimatedSpriteWithDirectionXML("LinkMovingSprites.xml");
             attackSpriteDictionary = FactoryXMLParser.ParseNonAnimatedSpriteWithDirectionXML("LinkAttackingSprites.xml");
         }
-
+        /// <summary>
+        /// Load the required sprite sheet that contains Link's sprite data
+        /// </summary>
         public void LoadTextures()
         {
             LinkSpriteSheet = Texture2DManager.GetLinkSpriteSheet();
         }
-
+        /// <summary>
+        /// Create and return a new sprite for link moving
+        /// </summary>
+        /// <param name="direction">The direction in which link will be facing</param>
+        /// <returns></returns>
         public ISprite GetLinkSprite(Direction direction)
         {
             Debug.Assert(movementSpriteDictionary.ContainsKey(direction), "Direction not found in dictionary");
-
-            /*return new CreateMovingLinkSprite(spriteRectangle, LinkSpriteSheet, position, frameIndex, direction, isAttacking);*/
             return new AnimatedSprite(movementSpriteDictionary[direction], LinkSpriteSheet, 2);
         }
-
+        /// <summary>
+        /// Create and return a new attacking sprite for link
+        /// </summary>
+        /// <param name="direction">The direction in which link will be facing</param>
+        /// <returns></returns>
         public ISprite GetAttackingSprite(Direction direction)
         {
             Debug.Assert(attackSpriteDictionary.ContainsKey(direction), "Direction not found in dictionary");

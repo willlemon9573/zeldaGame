@@ -15,7 +15,9 @@ namespace SprintZero1.Factories
         private readonly Dictionary<string, List<Rectangle>> enemySpriteDictionary;
         private readonly Dictionary<string, List<Rectangle>> bossEnemySpriteDictionary;
         private static readonly EnemySpriteFactory instance = new EnemySpriteFactory();
-
+        /// <summary>
+        /// Get the Enemy Sprite Factory instance
+        /// </summary>
         public static EnemySpriteFactory Instance
         {
             get { return instance; }

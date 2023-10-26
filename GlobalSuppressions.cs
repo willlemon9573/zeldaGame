@@ -5,4 +5,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE0090:Use 'new(...)'", Justification = "<Pending>", Scope = "member", Target = "~M:SprintZero1.Factories.WeaponSpriteFactory.CreateDictionary")]
+[assembly: SuppressMessage("Style", "IDE0090:Use 'new(...)'", Justification = "Annoying", Scope = "member", Target = "~F:SprintZero1.Factories.ItemSpriteFactory.instance")]
+[assembly: SuppressMessage("Style", "IDE0090:Use 'new(...)'", Justification = "Annoying", Scope = "member", Target = "~M:SprintZero1.Factories.WeaponSpriteFactory.CreateMeleeWeaponDictionary")]
+[assembly: SuppressMessage("Style", "IDE0090:Use 'new(...)'", Justification = "Annoying", Scope = "member", Target = "~F:SprintZero1.Factories.WeaponSpriteFactory.instance")]
