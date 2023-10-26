@@ -16,8 +16,9 @@ namespace SprintZero1.XMLParsers
         /// <summary>
         /// Parses the given xml file located at {@param xmlPath} and returns a dictionary map of animated sprites
         /// </summary>
-        /// <returns>A new dictionary containing the enemy sprite information</returns>
-        /// <param name="xml_path">Must not be null. Must be an XML file. Must follow formatting</param>
+        /// <returns>A new dictionary containing the sprite information</returns>
+        /// <param name="xml_path">correspond path to the xml file to be be parsed
+        /// Must not be null. Must be an XML file. Must follow formatting</param>
         /// <exception cref="ArgumentNullException">Thrown when xml_path is null</exception>
         /// <exception cref="FileNotFoundException">Thrown when xmlPath does not point to a valid XML file</exception>
         public static Dictionary<String, List<Rectangle>> ParseAnimatedSpriteXML(string xmlPath)
@@ -51,11 +52,13 @@ namespace SprintZero1.XMLParsers
             }
             return spriteDictionary;
         }
+
         /// <summary>
         /// Parses the given xml file located at {@param xmlPath} and returns a dictionary map of information on non animated sprites.
         /// </summary>
-        /// <returns>A new dictionary containing the enemy sprite information</returns>
-        /// <param name="xml_path">Must not be null. Must be an XML file. Must follow formatting</param>
+        /// <returns>A new dictionary containing the sprite information</returns>
+        /// <param name="xml_path">correspond path to the xml file to be be parsed
+        /// Must not be null. Must be an XML file. Must follow formatting</param>
         /// <exception cref="ArgumentNullException">Thrown when xml_path is null</exception>
         /// <exception cref="FileNotFoundException">Thrown when xmlPath does not point to a valid XML file</exception>
         public static Dictionary<String, Rectangle> ParseNonAnimatedSpriteXML(string xmlPath)
@@ -90,12 +93,12 @@ namespace SprintZero1.XMLParsers
             return spriteDictionary;
         }
 
-
         /// <summary>
         /// Parses the given xml file located at {@param xmlPath} and returns a dictionary map of animated sprites
         /// </summary>
-        /// <returns>A new dictionary containing the enemy sprite information</returns>
-        /// <param name="xml_path">Must not be null. Must be an XML file. Must follow formatting</param>
+        /// <returns>A new dictionary containing thesprite information</returns>
+        /// <param name="xml_path">correspond path to the xml file to be be parsed
+        /// Must not be null. Must be an XML file. Must follow formatting</param>
         /// <exception cref="ArgumentNullException">Thrown when xml_path is null</exception>
         /// <exception cref="FileNotFoundException">Thrown when xmlPath does not point to a valid XML file</exception>
         public static Dictionary<Direction, List<Rectangle>> ParseAnimatedSpriteWithDirectionXML(string xmlPath)
@@ -133,8 +136,9 @@ namespace SprintZero1.XMLParsers
         /// <summary>
         /// Parses the given xml file located at {@param xmlPath} and returns a dictionary map of information on non animated sprites.
         /// </summary>
-        /// <returns>A new dictionary containing the enemy sprite information</returns>
-        /// <param name="xml_path">Must not be null. Must be an XML file. Must follow formatting</param>
+        /// <returns>A new dictionary containing the sprite information</returns>
+        /// <param name="xml_path">correspond path to the xml file to be be parsed
+        /// Must not be null. Must be an XML file. Must follow formatting</param>
         /// <exception cref="ArgumentNullException">Thrown when xml_path is null</exception>
         /// <exception cref="FileNotFoundException">Thrown when xmlPath does not point to a valid XML file</exception>
         public static Dictionary<Direction, Rectangle> ParseNonAnimatedSpriteWithDirectionXML(string xmlPath)
