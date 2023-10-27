@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
@@ -14,7 +15,7 @@ namespace SprintZero1.Entities
     /// Player Entity class used to control and update player.
     /// @Author Zihe Wang
     /// </summary>
-    internal abstract class EnemyBasedEntity : ICombatEntity
+    internal abstract class EnemyBasedEntity : ICombatEntity, ICollidableEntity
     {
         //Enemy Components
         protected IProjectileEntity projectileSprite;
@@ -32,13 +33,16 @@ namespace SprintZero1.Entities
 
 
         protected Vector2 _enemyPosition;
-        public Vector2 Position { get { return _enemyPosition; } set { _enemyPosition = value; } }
+        public Vector2 Position { get { return _enemyPosition; } set { _enemyPosition = value; _collider.Update(this); } }
 
         protected int _enemyHealth;
         public int Health { get { return _enemyHealth; } set { _enemyHealth = value; } }
 
         protected Direction _enemyDirection = Direction.South;
         public Direction Direction { get { return _enemyDirection; } set { _enemyDirection = value; } }
+
+        private ICollider _collider;
+        public ICollider Collider { get { return _collider; } }
 
         /*protected IMovingEntityState _enemyMovingState;
         public IMovingEntityState State { get { return _playerStates.Item1; } set {; } }*/
@@ -68,6 +72,7 @@ namespace SprintZero1.Entities
             _enemyPosition = position;
             _enemyName = enemyName;
             projectileSprite = new ProjectileEntity();
+            _collider = new DynamicCollider(new Rectangle((int)position.X, (int)position.Y, 16, 16));
             _enemySprite = !isBoss ? _EnemyFactory.CreateEnemySprite(enemyName, totalFrames) : _EnemyFactory.CreateBossSprite(enemyName, totalFrames);
         }
 

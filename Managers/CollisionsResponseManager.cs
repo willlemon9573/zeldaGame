@@ -14,7 +14,8 @@ namespace SprintZero1.Managers
 #pragma warning restore IDE0090 // Use 'new(...)'
         {
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(LevelBlockEntity) ), new PushBackCommand(null, null) },
-            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(LevelDoorEntity) ), new EnterNextLevelCommand(null, null) }
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(LevelDoorEntity) ), new EnterNextLevelCommand(null, null) },
+            { new Tuple<Type, Type>(typeof(EnemyEntityWithDirection), typeof(SwordEntity)), new PushBackCommand(null, null) }
         };
 
         public static void CollisionResponse(ICollidableEntity e1, ICollidableEntity e2)

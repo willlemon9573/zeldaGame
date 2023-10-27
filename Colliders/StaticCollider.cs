@@ -3,7 +3,7 @@ using SprintZero1.Entities;
 
 namespace SprintZero1.Colliders
 {
-    internal abstract class StaticCollider : ICollider
+    internal class StaticCollider : ICollider
     {
         Rectangle _collider;
         public Rectangle Collider { get { return _collider; } set { _collider = value; } }

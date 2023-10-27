@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace SprintZero1.Managers
 {
-    internal class EntityManager
+    internal static class EntityManager
     {
-        private List<IEntity> entities = new List<IEntity>();
-        private List<IEntity> entitiesToAdd = new List<IEntity>();
-        private List<IEntity> entitiesToRemove = new List<IEntity>();
+        private static List<IEntity> entities = new List<IEntity>();
+        private static List<IEntity> entitiesToAdd = new List<IEntity>();
+        private static List<IEntity> entitiesToRemove = new List<IEntity>();
 
         /// <summary>
         /// Returns the list of entities to be display onscreen
         /// </summary>
         /// <returns>List of entities</IEntity></returns>
-        public List<IEntity> OnScreenEntities()
+        public static List<IEntity> OnScreenEntities()
         {
             return entities;
         }
@@ -28,7 +28,7 @@ namespace SprintZero1.Managers
         /// all but the player
         /// </summary>
         /// <param name="player">Player to be loaded into the next screen</param>
-        public void LoadNextScreen(IEntity player)
+        public static void LoadNextScreen(IEntity player)
         {
             entitiesToRemove.AddRange(entities);
             entitiesToAdd.Clear();
@@ -41,7 +41,7 @@ namespace SprintZero1.Managers
         /// Then adds entities queued to add
         /// </summary>
         /// <param name="gametime"> Gametime </param>
-        public void Update(GameTime gametime)
+        public static void Update(GameTime gametime)
         {
             entities = entities.Except(entitiesToRemove).ToList();
             entities.AddRange(entitiesToAdd);
@@ -53,7 +53,7 @@ namespace SprintZero1.Managers
         /// Queues an Entity for removal next Update()
         /// </summary>
         /// <param name="entity">IEntity to remove</param>
-        public void Remove(IEntity entity) 
+        public static void Remove(IEntity entity) 
         {
             entitiesToRemove.Add(entity);
         }
@@ -62,7 +62,7 @@ namespace SprintZero1.Managers
         /// Queues a list of entities for removal next Update()
         /// </summary>
         /// <param name="entitiesToRemove">List of entities to remove</param>
-        public void Remove(List<IEntity> entitiesToRemove)
+        public static void Remove(List<IEntity> entitiesToRemove)
         {
             entitiesToRemove.AddRange(entitiesToRemove);
         }
@@ -71,16 +71,34 @@ namespace SprintZero1.Managers
         /// Queues a entity for addition next Update()
         /// </summary>
         /// <param name="entity">Entity to add</param>
-        public void Add(IEntity entity) 
+        public static void Add(IEntity entity) 
         {
             entitiesToAdd.Add(entity);
+        }
+
+        /// <summary>
+        /// Immediately add to entities list (during current update)
+        /// </summary>
+        /// <param name="entity">Entity to add</param>
+        public static void AddImmediately(IEntity entity)
+        {
+            entities.Add(entity);
+        }
+
+        /// <summary>
+        /// Immediately removes Entity from list during update
+        /// </summary>
+        /// <param name="entity">Entity to remove</param>
+        public static void RemoveImmediately(IEntity entity)
+        {
+            entities.Remove(entity);
         }
 
         /// <summary>
         /// Queues a list of entities to be added next Update()
         /// </summary>
         /// <param name="entitiesToAdd">List of entities to add</param>
-        public void Add(List<IEntity> entitiesToAdd)
+        public static void Add(List<IEntity> entitiesToAdd)
         {
             entitiesToAdd.AddRange(entitiesToAdd);
         }

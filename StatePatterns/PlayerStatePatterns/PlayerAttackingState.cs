@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
+using SprintZero1.Managers;
 
 namespace SprintZero1.StatePatterns.PlayerStatePatterns
 {
@@ -53,6 +54,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             TrackStateTime(deltaTime);
         }
+
         /// <summary>
         /// Changes direction of player
         /// </summary>

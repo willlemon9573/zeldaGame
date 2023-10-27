@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
+using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
@@ -112,6 +113,7 @@ namespace SprintZero1.Entities
             else if (_playerState is not PlayerAttackingState && _attackingWithSword)
             {
                 _attackingWithSword = false;
+                EntityManager.RemoveImmediately(_playerMainWeapon);
             }
             _playerState.Draw(spriteBatch);
 

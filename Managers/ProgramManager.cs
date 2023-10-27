@@ -11,9 +11,6 @@ namespace SprintZero1.Managers
     internal static class ProgramManager
     {
         public static Game1 _game;
-#pragma warning disable IDE0090 // Use 'new(...)'
-        static readonly EntityManager entityManager = new EntityManager();
-#pragma warning restore IDE0090 // Use 'new(...)'
         private static List<PlayerEntity> playerList = new List<PlayerEntity>();
         private static IEntity projectileHandler;
         // List of available Controllers
@@ -40,7 +37,7 @@ namespace SprintZero1.Managers
         /// <param name="entity">Entity to be added</param>
         public static void AddOnScreenEntity(IEntity entity)
         {
-            entityManager.Add(entity);
+            EntityManager.Add(entity);
         }
 
         /// <summary>
@@ -49,28 +46,27 @@ namespace SprintZero1.Managers
         /// <param name="entity">Entity to remove</param>
         public static void RemoveOnScreenEntity(IEntity entity)
         {
-            entityManager.Remove(entity);
+            EntityManager.Remove(entity);
         }
 
         public static void RemoveNonPlayerEntities()
         {
             IEntity player = playerList[0];
-            entityManager.LoadNextScreen(player);
+            EntityManager.LoadNextScreen(player);
             player.Position = new Vector2(150 ,150);
         }
 
         public static void Update(GameTime gameTime)
         {
-            entityManager.Update(gameTime);
-            List<IEntity> entities = entityManager.OnScreenEntities();
+            EntityManager.Update(gameTime);
+            List<IEntity> entities = EntityManager.OnScreenEntities();
             foreach (IController controller in controllers)
             {
                 controller.Update();
             }
-            foreach (IEntity entity in entities)
+            for(int i = 0; i < entities.Count; i++) 
             {
-                entity.Update(gameTime);
-
+                entities[i].Update(gameTime);
             }
             projectileHandler.Update(gameTime);
             ColliderManager.CheckCollisions(entities.OfType<ICollidableEntity>().ToList());
@@ -83,7 +79,7 @@ namespace SprintZero1.Managers
         public static void Draw(SpriteBatch spriteBatch)
         {
             IEntity player = playerList[0];
-            List<IEntity> onScreenEntities = entityManager.OnScreenEntities();
+            List<IEntity> onScreenEntities = EntityManager.OnScreenEntities();
             for (int i = 1; i < onScreenEntities.Count; i++)
             {
                 onScreenEntities[i].Draw(spriteBatch);

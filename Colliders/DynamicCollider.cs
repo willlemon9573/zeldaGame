@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace SprintZero1.Colliders
 {
-    internal abstract class DynamicCollider : ICollider
+    internal class DynamicCollider : ICollider
     {
         Rectangle _collider;
 
