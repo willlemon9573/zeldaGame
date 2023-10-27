@@ -38,8 +38,9 @@ namespace SprintZero1.Factories
         /// </summary>
         private WeaponSpriteFactory()
         {
-            projectileSourceRectangles = FactoryXMLParser.ParseAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\ProjectileSprites.xml");
-            _linkSwordSpriteDictionary = FactoryXMLParser.ParseNonAnimatedSpriteWithDirectionXML(@"XMLFiles\FactoryXMLFiles\LinkSwordSprites.xml");
+            SpriteXMLParser spriteParser = new SpriteXMLParser();
+            projectileSourceRectangles = spriteParser.ParseAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\ProjectileSprites.xml");
+            _linkSwordSpriteDictionary = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(@"XMLFiles\FactoryXMLFiles\LinkSwordSprites.xml");
         }
 
         /* TODO: Consolidate the functions to an animated weapon/projectile sprite sheet and non/animated */

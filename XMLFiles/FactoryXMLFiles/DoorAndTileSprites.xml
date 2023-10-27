@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<DoorSprites>
+<Sprites>
 	<Sprite name="flat">
 		<Rectangle x='984' y='11' width='16' height='16'/>
 	</Sprite>
@@ -90,4 +90,4 @@
 	<Sprite name="hole_south">
 		<Rectangle x='947' y='110' width='32' height='32'/>
 	</Sprite>
-</DoorSprites>
+</Sprites>

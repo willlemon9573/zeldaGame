@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<LevelOneSourceRectangles>
+<Sprites>
 	<Sprite name="entrance">
 		<Rectangle x="535" y="906" width="216" height="135"/>
 	</Sprite>
@@ -54,4 +54,4 @@
 	<Sprite name = "floorSecret">
 		<Rectangle x = "1" y = "1" width = "255" height = "159"/>
 	</Sprite>
-</LevelOneSourceRectangles>
+</Sprites>
