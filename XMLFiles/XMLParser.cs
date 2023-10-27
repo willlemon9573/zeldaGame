@@ -344,7 +344,7 @@ namespace SprintZero1.XMLFiles
                 else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Item")
                 {
                     //parse the data -> get the sprites draw the thing entity
-                    ISprite itemSprite = ItemSpriteFactory.Instance.CreateItemSprite(name);
+                    ISprite itemSprite = ItemSpriteFactory.Instance.CreateAnimatedItemSprite(name);
                     IEntity item = new LevelBlockEntity(itemSprite, new Vector2(X, Y), false);
                     if (item != null)
                     {

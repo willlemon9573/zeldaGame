@@ -17,7 +17,6 @@ namespace SprintZero1
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
 
-
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -54,7 +53,6 @@ namespace SprintZero1
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
             _mouseController = new MouseController(this);
-            WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize(this);

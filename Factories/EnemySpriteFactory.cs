@@ -15,7 +15,9 @@ namespace SprintZero1.Factories
         private readonly Dictionary<string, List<Rectangle>> enemySpriteDictionary;
         private readonly Dictionary<string, List<Rectangle>> bossEnemySpriteDictionary;
         private static readonly EnemySpriteFactory instance = new EnemySpriteFactory();
-
+        /// <summary>
+        /// Get the Enemy Sprite Factory instance
+        /// </summary>
         public static EnemySpriteFactory Instance
         {
             get { return instance; }
@@ -35,8 +37,9 @@ namespace SprintZero1.Factories
         /// </summary>
         private EnemySpriteFactory()
         {
-            enemySpriteDictionary = FactoryXMLParser.ParseDungeonEnemyFile(@"..\..\..\XMLFiles\FactoryXMLFiles\EnemySprites.xml");
-            bossEnemySpriteDictionary = FactoryXMLParser.ParseDungeonEnemyFile(@"..\..\..\XMLFiles\FactoryXMLFiles\BossSprites.xml");
+            SpriteXMLParser spriteParser = new SpriteXMLParser();
+            enemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\EnemySprites.xml");
+            bossEnemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\BossSprites.xml");
         }
 
         /// <summary>

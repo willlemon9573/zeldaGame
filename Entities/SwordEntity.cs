@@ -27,19 +27,20 @@ namespace SprintZero1.Entities
         public SwordEntity(String weaponName)
         {
             _weaponName = weaponName;
+            const int X = 11, Y = 11;
             /* This might be able to be passed by the player / xml / or mathematically */
             _spriteEffectsDictionary = new Dictionary<Direction, Tuple<SpriteEffects, Vector2>>()
             {
-                { Direction.North, Tuple.Create(SpriteEffects.None, new Vector2(0, -11)) },
-                { Direction.South, Tuple.Create(SpriteEffects.FlipVertically, new Vector2(0, 11)) },
-                { Direction.East, Tuple.Create(SpriteEffects.None, new Vector2(11, 0)) },
-                { Direction.West, Tuple.Create(SpriteEffects.FlipHorizontally, new Vector2(-11, 0)) }
+                { Direction.North, Tuple.Create(SpriteEffects.None, new Vector2(0, Y*-1)) },
+                { Direction.South, Tuple.Create(SpriteEffects.FlipVertically, new Vector2(0, Y)) },
+                { Direction.East, Tuple.Create(SpriteEffects.None, new Vector2(X, 0)) },
+                { Direction.West, Tuple.Create(SpriteEffects.FlipHorizontally, new Vector2(X*-1, 0)) }
             };
         }
 
         public void UseWeapon(Direction direction, Vector2 position)
         {
-            _weaponSprite = WeaponSpriteFactory.Instance.GetSwordSprite(_weaponName, direction);
+            _weaponSprite = WeaponSpriteFactory.Instance.GetSwordSprite(direction);
             Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];
             _currentSpriteEffect = SpriteAdditions.Item1;
             _weaponPosition = position + SpriteAdditions.Item2;
