@@ -6,9 +6,9 @@ using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
 
-namespace SprintZero1.Entities.BowEntity
+namespace SprintZero1.Entities.BowAndMagicFireEntity
 {
-    internal abstract class BowBaseEntity : ProjectileEntity
+    internal abstract class NonComingBackWeaponEntity : ProjectileEntity
     {
         /// <summary>
         /// Entity for the Bow the player will use.
@@ -21,7 +21,7 @@ namespace SprintZero1.Entities.BowEntity
         protected Vector2 _spriteMovingAddition;
         protected bool IsActive; // Flag to indicate if the projectile is active
 
-        public BowBaseEntity(String weaponName) : base(weaponName)
+        public NonComingBackWeaponEntity(String weaponName) : base(weaponName)
         {
             _rotation = 0;
             //no constructor needed

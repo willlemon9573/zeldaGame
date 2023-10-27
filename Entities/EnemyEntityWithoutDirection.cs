@@ -37,7 +37,7 @@ namespace SprintZero1.Entities
         public override void Update(GameTime gameTime)
         {
             _enemyState.Update(gameTime);
-            projectileSprite.Update(gameTime);
+            //projectileSprite.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

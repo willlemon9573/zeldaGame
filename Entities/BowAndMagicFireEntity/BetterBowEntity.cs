@@ -6,9 +6,9 @@ using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
 
-namespace SprintZero1.Entities.BowEntity
+namespace SprintZero1.Entities.BowAndMagicFireEntity
 {
-	internal class BetterBowEntity : BowBaseEntity
+	internal class BetterBowEntity : NonComingBackWeaponEntity
     {
 		private const int BetterBowMaxDistance = 60; // Maximum distance the projectile can travel before becoming inactive
         private const float BetterBowMovingSpeed = 3; 

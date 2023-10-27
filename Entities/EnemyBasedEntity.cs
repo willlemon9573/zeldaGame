@@ -19,7 +19,7 @@ namespace SprintZero1.Entities
     internal abstract class EnemyBasedEntity : ICombatEntity
     {
         //Enemy Components
-        protected IProjectileEntity projectileSprite;
+        //protected IProjectileEntity projectileSprite;
         protected int _totalFrame;
         protected float _attackCooldown;
         //protected EnemyCollider _enemyCollider;

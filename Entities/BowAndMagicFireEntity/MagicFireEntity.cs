@@ -6,17 +6,18 @@ using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
 
-namespace SprintZero1.Entities.BowEntity
+namespace SprintZero1.Entities.BowAndMagicFireEntity
 {
-	internal class RegularBowEntity : BowBaseEntity
-	{
+	internal class MagicFireEntity : NonComingBackWeaponEntity
+    {
         /// <summary>
         /// Entity for the Bow the player will use.
         /// @Author - ZiheWang
         /// </summary>
-		private const int RegularBowMaxDistance = 40; // Maximum distance the projectile can travel before becoming inactive
-        private const float RegularBowMovingSpeed = 1; 
-        public RegularBowEntity(String weaponName) : base(weaponName)
+		private const int RegularBowMaxDistance = 100; // Maximum distance the projectile can travel before becoming inactive
+        private const float RegularBowMovingSpeed = 0.7f; 
+
+        public MagicFireEntity(String weaponName) : base(weaponName)
 		{
             _maxDistance = RegularBowMaxDistance;
             movingSpeed = RegularBowMovingSpeed;
@@ -27,11 +28,11 @@ namespace SprintZero1.Entities.BowEntity
 		{
             distanceMoved = 0;
             IsActive = true;
-            ProjectileSprite = WeaponSpriteFactory.Instance.CreateArrowSprite("", direction);
-            ImpactEffectSprite = WeaponSpriteFactory.Instance.CreateEndSprite();
+            ProjectileSprite = WeaponSpriteFactory.Instance.CreateMagicFireSprite();
+            ImpactEffectSprite = null;
             Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];
             _spriteMovingAddition = _spriteMovingDictionary[direction] * movingSpeed;
-            _currentSpriteEffect = SpriteAdditions.Item1;
+            _currentSpriteEffect = SpriteEffects.None;
             _weaponPosition = position + SpriteAdditions.Item2;
         }
 

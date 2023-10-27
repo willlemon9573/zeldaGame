@@ -1,7 +1,7 @@
 ﻿using SprintZero1.Entities;
 namespace SprintZero1.Commands
 {
-    internal class BombAttackCommand : ICommand
+    internal class MagicFireAttackCommand : ICommand
     {
 
         readonly ICombatEntity combatEntity;
@@ -9,14 +9,14 @@ namespace SprintZero1.Commands
         /// Create an object to handle when an entity needs to attack with a sword
         /// </summary>
         /// <param name="entity">The entity that uses the command</param>
-        public BombAttackCommand(ICombatEntity entity)
+        public MagicFireAttackCommand(ICombatEntity entity)
         {
             combatEntity = entity;
         }
 
         public void Execute()
         {
-            combatEntity.Attack("Bow");
+            combatEntity.Attack("MagicFire");
         }
     }
 }
