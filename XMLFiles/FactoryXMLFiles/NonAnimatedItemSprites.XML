@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Items>
+<Sprites>
 	<Sprite name="heartcontainer">
 		<Rectangle x="431" y="364" width="13" height="13" />
 	</Sprite>
@@ -36,4 +36,4 @@
 	<Sprite name="woodensword">
 		<Rectangle x="136" y="665" width="7" height="16" />
 	</Sprite>
-</Items>
+</Sprites>

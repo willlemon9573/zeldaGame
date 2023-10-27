@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ProjectileSprites>
+<Sprites>
 	<Sprite name="boomerang">
 		<Rectangle x='63' y='189' width='8' height='8'/>
 	</Sprite>
@@ -30,4 +30,4 @@
 		<Rectangle x='118' y='11' width='8' height='16'/>
 		<Rectangle x='127' y='11' width='8' height='16'/>
 	</Sprite>
-</ProjectileSprites>
+</Sprites>

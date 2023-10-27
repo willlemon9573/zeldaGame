@@ -37,8 +37,9 @@ namespace SprintZero1.Factories
         /// </summary>
         private EnemySpriteFactory()
         {
-            enemySpriteDictionary = FactoryXMLParser.ParseAnimatedSpriteXML("EnemySprites.xml");
-            bossEnemySpriteDictionary = FactoryXMLParser.ParseAnimatedSpriteXML("BossSprites.xml");
+            SpriteXMLParser spriteParser = new SpriteXMLParser();
+            enemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\EnemySprites.xml");
+            bossEnemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\BossSprites.xml");
         }
 
         /// <summary>

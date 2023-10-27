@@ -1,0 +1,12 @@
+﻿FactoryXMLParser for maintainability
+Author of code review: Zihe Wang
+Date of the code review: 10/26/2023
+Name of the .cs file being reviewed: FactoryXMLParser.cs
+Author of the .cs file being reviewed: Aaron Heishman
+Time taken: 10 minutes
+Comments:
+
+File Location and Accessibility
+The path to the XML files is hardcoded in xmlFolderLocation. This might cause issues if the project structure changes or if the code is run on a different environment where the relative path is not valid. Consider making this configurable, perhaps through a configuration file or an environment variable.
+Exception Handling
+The methods catch ArgumentNullException and FileNotFoundException to throw specific exceptions. This is good as it provides clear error messages. However, there are other potential exceptions (e.g., XmlException for malformed XML, FormatException or OverflowException for invalid attribute values) that are not explicitly handled. You need to have more exception handling to improve the maintainability of the code.

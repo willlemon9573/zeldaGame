@@ -62,11 +62,12 @@ namespace SprintZero1.Factories
         /// <summary>
         /// Private constructor to prevent instation of a new tile factory
         /// </summary>
-        public TileSpriteFactory()
+        private TileSpriteFactory()
         {
-            tileSourceRectangles = FactoryXMLParser.ParseNonAnimatedSpriteXML("DoorAndTileSprites.xml");
+            SpriteXMLParser spriteParser = new SpriteXMLParser();
+            tileSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\DoorAndTileSprites.xml");
             wallSourceRectangles = new Dictionary<int, Rectangle>();
-            levelOneSourceRectangles = FactoryXMLParser.ParseNonAnimatedSpriteXML("Level1FloorSprites.xml");
+            levelOneSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\Level1FloorSprites.xml");
             AddWallSourceRectangles();
         }
 

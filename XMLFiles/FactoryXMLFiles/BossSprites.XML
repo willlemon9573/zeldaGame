@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<EnemySprites>
+<Sprites>
 	<Sprite name="aquamentus">
 		<Rectangle x="1" y="11" width="24" height="32" />
 		<Rectangle x="26" y="11" width="24" height="32" />
@@ -21,4 +21,4 @@
 		<Rectangle x ="172" y ="154" width ="32" height ="32"/>
 		<Rectangle x ="205" y ="154" width ="32" height ="32"/>
 	</Sprite>
-</EnemySprites>
+</Sprites>
