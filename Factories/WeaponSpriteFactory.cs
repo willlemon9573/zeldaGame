@@ -43,8 +43,6 @@ namespace SprintZero1.Factories
             _linkSwordSpriteDictionary = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(@"XMLFiles\FactoryXMLFiles\LinkSwordSprites.xml");
         }
 
-        /* TODO: Consolidate the functions to an animated weapon/projectile sprite sheet and non/animated */
-
         public ISprite CreateAquamentusWeaponSprite(int index)
         {
             List<Rectangle> sourceRectangle = projectileSourceRectangles["aquamentusWeapon"];

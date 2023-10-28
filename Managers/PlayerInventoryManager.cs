@@ -59,11 +59,18 @@ namespace SprintZero1.Managers
             //TODO - Create utility item class
             // etc
         }
-
-        public static void AddEquipmentItemToInventory(IEntity player, IPlayerItem equipment)
+        /// <summary>
+        /// Add an equipment item to the palyer's inventory
+        /// </summary>
+        /// <param name="player">the player receiving the equipment</param>
+        /// <param name="equipment">the enum to be used as the key to access the equipment</param>
+        /// <param name="newEquipment">the enetity object for the player to access</param>
+        public static void AddEquipmentItemToInventory(IEntity player, EquipmentItem equipment, IWeaponEntity newEquipment)
         {
             Debug.Assert(player != null, "Error: Player is null.");
             Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Inventory manager could not find {player}");
+            Debug.Assert(!_playerInventoryMap[player].IsInInventory(equipment), $"Error adding to invnetory, {player} already contains {equipment}");
+            _playerInventoryMap[player].AddEquipmentItem(equipment, newEquipment);
         }
 
         /// <summary>
@@ -76,8 +83,10 @@ namespace SprintZero1.Managers
         /// <param name="upgradedEquipmentEntity">The entity object of the item being added</param>
         public static void UpgradeEquipment(IEntity player, EquipmentItem oldEquipment, EquipmentItem upgradedEquipment, IWeaponEntity upgradedEquipmentEntity)
         {
-            Debug.Assert(player != null || upgradedEquipmentEntity != null, "Error: Player or upgradedEquipmentEntity is null.");
-            Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Inventory manager could not find {player}");
+            Debug.Assert(player != null || upgradedEquipmentEntity != null, "Error: Player or upgradedEquipmentEntity cannot be null.");
+            Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Error Upgrading equipment. {player} not found in inventory manager.");
+            Debug.Assert(_playerInventoryMap[player].IsInInventory(oldEquipment), $"Error upgrading equipment. {player} does not contain {oldEquipment} in their inventory.");
+            Debug.Assert(!_playerInventoryMap[player].IsInInventory(upgradedEquipment), $"Error adding to invnetory, {player} already contains {upgradedEquipment}");
             _playerInventoryMap[player].UpgradePlayerEquipment(oldEquipment, upgradedEquipment, upgradedEquipmentEntity);
         }
     }

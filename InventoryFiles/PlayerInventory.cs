@@ -53,6 +53,7 @@ namespace SprintZero1.InventoryFiles
         /// <param name="amount">The amount of the item used</param>
         public void PickedUpStackableItem(Items item, int amount)
         {
+            // No need for assert, player will be built to contain a slot for all stackable items
             _playerStackableItemSlots[item].PickedUpItem(amount);
         }
 
@@ -66,12 +67,11 @@ namespace SprintZero1.InventoryFiles
         }
 
         /// <summary>
-        /// Add an equipment item to the list
+        /// Add an equipment item to the list. 
         /// </summary>
-        /// <param name="equipmentItem"></param>
+        /// <param name="equipmentItem">The equipment item to add to the palyer inventory</param>
         public void AddEquipmentItem(EquipmentItem equipmentItem, IWeaponEntity equipmentEntity)
         {
-            Debug.Assert(!_playerEquipmentSlots.ContainsKey(equipmentItem), $"Error adding {equipmentItem} to inventory. Item already exists in the inventory");
             Debug.Assert(_playerEquipmentSlots.Count < MAX_EQUIPMENT_SLOTS, "Error. Player equipment slots are filled.");
             _playerEquipmentSlots[equipmentItem] = equipmentEntity;
         }
@@ -89,9 +89,7 @@ namespace SprintZero1.InventoryFiles
         /// <exception cref="Exception">Throws exception if an error occurs while trying to replace equipment items</exception>
         public void UpgradePlayerEquipment(EquipmentItem oldEquipmentItem, EquipmentItem newEquipmentItem, IWeaponEntity newWeaponEntity)
         {
-            Debug.Assert(_playerEquipmentSlots.ContainsKey(oldEquipmentItem), $"Error replacing equipment: {oldEquipmentItem} not located in player inventory");
-            Debug.Assert(!_playerEquipmentSlots.ContainsKey(newEquipmentItem), $"Erorr replacing equipment: {newEquipmentItem} already exists in player inventory.");
-            /* Check if the equipment being replaced is the same one the user is currently used */
+            /* Update player equipment slot if current equipment is being upgraded */
             if (_playerEquipmentSlotReference == _playerEquipmentSlots[oldEquipmentItem])
             {
                 _playerEquipmentSlotReference = newWeaponEntity;
@@ -118,8 +116,23 @@ namespace SprintZero1.InventoryFiles
         /// <param name="newEquipment">The new item the player will use</param>
         public void ChangeEquipmentItem(EquipmentItem newEquipment)
         {
-            Debug.Assert(_playerEquipmentSlots.ContainsKey(newEquipment));
             _playerEquipmentSlotReference = _playerEquipmentSlots[newEquipment];
+        }
+
+        /// <summary>
+        /// Check if an item is in the player's inventory
+        /// </summary>
+        /// <param name="item">the item to be checked</param>
+        /// <returns>True if the item is in the inventory, false otherwise</returns>
+        public bool IsInInventory(EquipmentItem item)
+        {
+            return _playerEquipmentSlots.ContainsKey(item);
+        }
+
+        public int GetStackableItemCount(Items item)
+        {
+            // No need for assert, player will be built to contain a slot for all stackable items
+            return _playerStackableItemSlots[item].CurrentStock;
         }
 
         /// <summary>
