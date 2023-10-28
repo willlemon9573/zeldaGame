@@ -1,12 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using SprintZero1.Entities;
 using SprintZero1.Commands;
+using SprintZero1.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
 
 namespace SprintZero1.Controllers
 {
@@ -36,11 +33,11 @@ namespace SprintZero1.Controllers
         /// <param name="pressedButtons">collection of currently pressed buttons</param>
         private void FlipAndClean(List<Buttons> pressedButtons)
         {
-            if(movementButtonStack.Count > 0) 
+            if (movementButtonStack.Count > 0)
             {
                 Buttons b = movementButtonStack.Pop();
                 FlipAndClean(pressedButtons);
-                if(pressedButtons.Contains(b)) 
+                if (pressedButtons.Contains(b))
                 {
                     movementButtonStack.Push(b);
                 }
@@ -57,14 +54,13 @@ namespace SprintZero1.Controllers
              * Add button to stack if its not already in the stack
              * else execute the command
              */
-            if(!movementButtonStack.Contains(movementButton))
+            if (!movementButtonStack.Contains(movementButton))
             {
                 movementButtonStack.Push(movementButton);
             }
-            else if(movementButton == movementButtonStack.Peek())
+            else if (movementButton == movementButtonStack.Peek())
             {
                 Buttons buttonRef = movementButtonStack.Peek();
-                Debug.WriteLine(gamepadMap[buttonRef].ToString());
                 gamepadMap[buttonRef].Execute();
             }
         }
@@ -102,20 +98,19 @@ namespace SprintZero1.Controllers
             /* iterate over pressed button collection executing only valid keys in the gamepad map 
                keeping track of the amount of movement button that are also currently being pressed
             */
-            foreach(Buttons button in pressedButtons)
+            foreach (Buttons button in pressedButtons)
             {
-                if(_movementButtonList.Contains(button))
+                if (_movementButtonList.Contains(button))
                 {
-                    Debug.WriteLine(button);
                     HandleMovementButtons(button);
                 }
-                else if(gamepadMap.ContainsKey(button) &&!_previousPressedButtons.Contains(button)) 
+                else if (gamepadMap.ContainsKey(button) && !_previousPressedButtons.Contains(button))
                 {
                     gamepadMap[button].Execute();
                 }
             }
 
-            if(totalButtonCount < movementButtonStack.Count) 
+            if (totalButtonCount < movementButtonStack.Count)
             {
                 FlipAndClean(pressedButtons);
             }

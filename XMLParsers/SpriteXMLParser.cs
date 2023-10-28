@@ -2,7 +2,6 @@
 using SprintZero1.Enums;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -138,7 +137,6 @@ namespace SprintZero1.XMLParsers
         public Dictionary<string, List<Rectangle>> ParseAnimatedSpriteXML(string filePath)
         {
             XDocument spriteXML = XDocument.Load(filePath);
-            Debug.WriteLine(spriteXML.Root.ToString());
             XElement root = spriteXML.Root;
             CheckIfNull(root, filePath, SpritesRoot);
             IEnumerable<XElement> rootElements = root.Elements(SpriteElement);

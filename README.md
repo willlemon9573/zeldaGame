@@ -38,19 +38,21 @@ Link is drawn on the layer below projectiles currently
 Link's not drawn above closed doors
 
 
-# Code Metrics 
-Project: SprintZero1
-Configuration: Debug
-Scope: Assembly
-Maintainability Index: 83
-Cyclomatic Complexity: 595
-Depth of Inheritance: 2
-Class Coupling: 128
-Lines of Source code: 4,330
-Lines of Executable code: 1,039
+# Code Metrics for Sprint 4 (DO NOT DELETE)
+Code Metrics ran 10/28/2023
+	Project: SprintZero1
+	Configuration: Debug
+	Scope: Assembly
+	Maintainability Index: 83
+	Cyclomatic Complexity: 622
+	Depth of Inheritance: 2
+	Class Coupling: 143
+	Lines of Source code: 4,542
+	Lines of Executable code: 1,072
+	During runtime the code analysis shows the game uses about 139mb of memory now
 
 
-# Sprint 2 Reflection:
+# Sprint 3 Reflection:
 	In Sprint 3, we revised our design plan and initiated code refactoring. The new plan improved task distribution and prioritization, but didn’t resolve all issues.
 	The refactoring process was more labor-intensive than anticipated, limiting some team members’ availability for implementing collision and level loader features.
 	Despite this, our plan enabled us to meet the sprint’s objectives. Communication was another challenge due to differing schedules, midterms, and fall break. 
