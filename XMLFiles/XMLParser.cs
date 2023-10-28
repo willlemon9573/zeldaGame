@@ -128,7 +128,7 @@ namespace SprintZero1.XMLFiles
                             Vector2 pos = new Vector2(X, Y);
 
                             ISprite newblockSprite = TileSpriteFactory.Instance.CreateNewTileSprite(name);
-                            IEntity block = new LevelBlockEntity(newblockSprite, pos, isCollidable);
+                            IEntity block = new LevelBlockEntity(newblockSprite, pos);
 
                             if (block != null)
                             {
@@ -185,7 +185,7 @@ namespace SprintZero1.XMLFiles
                     Vector2 pos = new Vector2(X, Y);
                     Vector2 hitbox = new Vector2(1, 1);
                     ISprite newWallSprite = TileSpriteFactory.Instance.CreateNewWallSprite(quad);
-                    IEntity wall = new LevelBlockEntity(newWallSprite, pos, false);
+                    IEntity wall = new LevelBlockEntity(newWallSprite, pos);
 
                     if (wall != null)
                     {
@@ -203,6 +203,7 @@ namespace SprintZero1.XMLFiles
             string name = "";
             int X = 0, Y = 0;
             string type = "";
+            int destination = -1;
             bool keepLooping = true;
             while (reader.Read() && keepLooping)
             {
@@ -223,6 +224,9 @@ namespace SprintZero1.XMLFiles
                         case "Type":
                             type = reader.ReadElementContentAsString();
                             break;
+                        case "Destination":
+                            destination = reader.ReadElementContentAsInt();
+                            break;
                         default:
                             //not needed really since we write the xml files
                             //report error in xml file
@@ -236,7 +240,7 @@ namespace SprintZero1.XMLFiles
                     //parse the data -> get the sprites draw the thing entity
                     Vector2 pos = new Vector2(X, Y);
                     ISprite newDoorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(name);
-                    IEntity Door = new LevelBlockEntity(newDoorSprite, pos, false);
+                    IEntity Door = new LevelDoorEntity(newDoorSprite, pos, destination);
                     if (Door != null)
                     {
                         ProgramManager.AddOnScreenEntity(Door);
@@ -340,8 +344,8 @@ namespace SprintZero1.XMLFiles
                 else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Item")
                 {
                     //parse the data -> get the sprites draw the thing entity
-                    ISprite itemSprite = ItemSpriteFactory.Instance.CreateItemSprite(name);
-                    IEntity item = new LevelBlockEntity(itemSprite, new Vector2(X, Y), false);
+                    ISprite itemSprite = ItemSpriteFactory.Instance.CreateAnimatedItemSprite(name);
+                    IEntity item = new LevelBlockEntity(itemSprite, new Vector2(X, Y));
                     if (item != null)
                     {
                         ProgramManager.AddOnScreenEntity(item);

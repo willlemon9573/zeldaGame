@@ -34,6 +34,7 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
+
             startLocation = _PlayerEntity.Position;
             IMovableEntity _PlayerMovableEntity = (IMovableEntity)_PlayerEntity;
             ICombatEntity _PlayerCombatEntity = (ICombatEntity)_PlayerEntity;

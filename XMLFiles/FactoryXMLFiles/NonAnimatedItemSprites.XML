@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+	<Sprite name="heartcontainer">
+		<Rectangle x="431" y="364" width="13" height="13" />
+	</Sprite>
+	<Sprite name="heartrefill">
+		<Rectangle x="330" y="362" width="7" height="8" />
+	</Sprite>
+	<Sprite name="rupy">
+		<Rectangle x="587" y="266" width="8" height="16" />
+	</Sprite>
+	<Sprite name="fiverupy">
+		<Rectangle x="691" y="266" width="8" height="16" />
+	</Sprite>
+	<Sprite name="boomerang">
+		<Rectangle x="845" y="366" width="5" height="8" />
+	</Sprite>
+	<Sprite name="betterboomerang">
+		<Rectangle x="949" y="366" width="5" height="8" />
+	</Sprite>
+	<Sprite name="bomb">
+		<Rectangle x="844" y="426" width="8" height="14" />
+	</Sprite>
+	<Sprite name="bow">
+		<Rectangle x="948" y="426" width="8" height="16" />
+	</Sprite>
+	<Sprite name="magicalrod">
+		<Rectangle x="332" y="587" width="4" height="16" />
+	</Sprite>
+	<Sprite name="bookofmagic">
+		<Rectangle x="434" y="587" width="8" height="16" />
+	</Sprite>
+	<Sprite name="magicalkey">
+		<Rectangle x="434" y="651" width="8" height="16" />
+	</Sprite>
+	<Sprite name="woodensword">
+		<Rectangle x="136" y="665" width="7" height="16" />
+	</Sprite>
+</Sprites>

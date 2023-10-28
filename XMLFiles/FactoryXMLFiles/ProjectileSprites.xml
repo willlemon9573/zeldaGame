@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+	<Sprite name="boomerang">
+		<Rectangle x='63' y='189' width='8' height='8'/>
+	</Sprite>
+	<Sprite name="betterboomerang">
+		<Rectangle x='91' y='189' width='8' height='8'/>
+	</Sprite>
+	<Sprite name="arrow">
+		<Rectangle x='3' y='185' width='5' height='16'/>
+		<Rectangle x='10' y='190' width='16' height='5'/>
+	</Sprite>
+	<Sprite name="betterbowarrows">
+		<Rectangle x='29' y='182' width='5' height='16'/>
+		<Rectangle x='36' y='190' width='16' height='5'/>
+	</Sprite>
+	<Sprite name="bomb">
+		<Rectangle x='126' y='185' width='16' height='16'/>
+		<Rectangle x='142' y='185' width='16' height='16'/>
+		<Rectangle x='160' y='185' width='16' height='16'/>
+		<Rectangle x='178' y='185' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="magicfire">
+		<Rectangle x='194' y='185' width='16' height='16'/>
+		<Rectangle x='213' y='185' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="aquamentusWeapon">
+		<Rectangle x='101' y='11' width='8' height='16'/>
+		<Rectangle x='109' y='11' width='8' height='16'/>
+		<Rectangle x='118' y='11' width='8' height='16'/>
+		<Rectangle x='127' y='11' width='8' height='16'/>
+	</Sprite>
+</Sprites>

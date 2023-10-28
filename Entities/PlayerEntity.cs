@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
+using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
@@ -14,7 +15,7 @@ namespace SprintZero1.Entities
     /// Player Entity class used to control and update player.
     /// @Author Aaron Heishman
     /// </summary>
-    internal class PlayerEntity : ICombatEntity
+    internal class PlayerEntity : ICombatEntity, ICollidableEntity
     {
         /* Player Components */
         private int _playerHealth;
@@ -27,12 +28,12 @@ namespace SprintZero1.Entities
         private IPlayerState _playerState;
         private bool _attackingWithSword = false;
         /* Public properties to modify the player's private members */
-        public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; } }
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
         public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
         public ISprite PlayerSprite { get { return _playerSprite; } set { _playerSprite = value; } }
         public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
-        public ICollider PlayerCollider { get { return _playerCollider; } }
+        public ICollider Collider { get { return _playerCollider; } }
+        public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; Collider.Update(this); } }
 
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace SprintZero1.Entities
             _playerHealth = startingHealth;
             _playerPosition = position;
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
-            _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
+            _playerCollider = new PlayerCollider(new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
             _playerMainWeapon = new SwordEntity("woodensword");
             _playerState = new PlayerIdleState(this);
         }
@@ -96,7 +97,7 @@ namespace SprintZero1.Entities
         public void Update(GameTime gameTime)
         {
             _playerState.Update(gameTime);
-            _playerCollider.Update(gameTime);
+            _playerCollider.Update(this);
             if (_playerState is not PlayerIdleState && Keyboard.GetState().GetPressedKeyCount() == 0)
             {
                 TransitionToState(State.Idle);
@@ -112,6 +113,7 @@ namespace SprintZero1.Entities
             else if (_playerState is not PlayerAttackingState && _attackingWithSword)
             {
                 _attackingWithSword = false;
+                EntityManager.RemoveImmediately(_playerMainWeapon);
             }
             _playerState.Draw(spriteBatch);
 

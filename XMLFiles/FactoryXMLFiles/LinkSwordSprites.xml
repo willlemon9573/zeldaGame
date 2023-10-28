@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+	<Sprite direction="North">
+		<Rectangle x='1' y='154' width='7' height='16'/>
+	</Sprite>
+	<Sprite direction="South">
+		<Rectangle x='1' y='154' width='7' height='16'/>
+	</Sprite>
+	<Sprite direction="East">
+		<Rectangle x='10' y='159' width='16' height='7'/>
+	</Sprite>
+	<Sprite direction="West">
+		<Rectangle x='10' y='159' width='16' height='7'/>
+	</Sprite>
+</Sprites>

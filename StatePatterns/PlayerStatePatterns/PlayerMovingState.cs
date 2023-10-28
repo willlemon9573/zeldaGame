@@ -26,15 +26,8 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
                 {Direction.West, new Vector2(-1, 0) }
            };
         }
-        /// <summary>
-        /// Handles changing the direction of player when the player is in the moving state
-        /// </summary>
-        /// <param name="newDirection">The new direction the player is going to face</param>
-        public override void ChangeDirection(Direction newDirection)
-        {
-            _playerEntity.Direction = newDirection;
-            _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(newDirection);
-        }
+
+
 
         /// <summary>
         /// Request moving the character if the character is in a state where they can move

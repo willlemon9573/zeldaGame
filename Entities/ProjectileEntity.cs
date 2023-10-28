@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Enums;
 using SprintZero1.projectile;
 using SprintZero1.Sprites;
+using System;
+using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {
@@ -57,6 +59,7 @@ namespace SprintZero1.Entities
         {
             projectileSprite?.Update(gameTime);
             projectileUpdate?.Update(gameTime);
+            BackgroundSpriteEntity a = new BackgroundSpriteEntity(null, new Vector2());
         }
 
         /// <summary>
@@ -70,6 +73,11 @@ namespace SprintZero1.Entities
                 return;
             }
             projectileSprite.Draw(spriteBatch, _projectilePosition, _SpriteEffects, _rotation);
+        }
+
+        ~ProjectileEntity()
+        {
+
         }
     }
 }
