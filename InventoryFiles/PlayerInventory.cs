@@ -1,7 +1,10 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Enums;
+using SprintZero1.Sprites;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace SprintZero1.InventoryFiles
 {
@@ -86,10 +89,13 @@ namespace SprintZero1.InventoryFiles
             }
             else
             {
-                throw new System.Exception($"Error removing {oldEquipmentItem} and replacing with {newEquipmentItem}");
+                throw new Exception($"Error removing {oldEquipmentItem} and replacing with {newEquipmentItem}");
             }
         }
-
+        /// <summary>
+        /// Change the player's current equipment item to a new equipment item
+        /// </summary>
+        /// <param name="newEquipment">The new item the player will use</param>
         public void ChangeEquipmentItem(EquipmentItem newEquipment)
         {
             Debug.Assert(_playerEquipmentSlots.ContainsKey(newEquipment));
@@ -97,12 +103,12 @@ namespace SprintZero1.InventoryFiles
         }
 
         /// <summary>
-        /// Retrieve the sprites for all stackable items
+        /// Get the list of Sprites and their related stocks
         /// </summary>
-        /// <returns>An IEnumeral of sprite objects that represent the sprites of each stackable item in the player inventory</returns>
-        //public List<Tuple<ISprite, int>> GetStackableItemSpritesAndCount()
-        //{
-        //return StackableItem => _playerStackableItemSlots.Select(kvp => new Tuple<ISprite, int>(kvp.Value.ItemSprite, kvp.Value.CurrentStock));
-        //}
+        /// <returns>A list that contains the Sprite information and current stock of the item in the player inventory</returns>
+        public List<Tuple<ISprite, int>> GetStackableItemSpritesAndCount()
+        {
+            return _playerStackableItemSlots.Select(kvp => new Tuple<ISprite, int>(kvp.Value.ItemSprite, kvp.Value.CurrentStock)).ToList();
+        }
     }
 }
