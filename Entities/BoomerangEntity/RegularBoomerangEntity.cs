@@ -8,29 +8,43 @@ using System.Collections.Generic;
 
 namespace SprintZero1.Entities.BoomerangEntity
 {
-	internal class RegularBoomerangEntity : BoomerangBasedEntity
+    // Definition of the RegularBoomerangEntity class which is a type of BoomerangBasedEntity
+    internal class RegularBoomerangEntity : BoomerangBasedEntity
     {
-        private const int RegularBoomerangMaxDistance = 50; // Maximum distance the projectile can travel before becoming inactive
+        // Constants defining the maximum distance the boomerang can travel and its moving speed
+        private const int RegularBoomerangMaxDistance = 70;
         private const float RegularBoomerangMovingSpeed = 2.5f;
+
         /// <summary>
-		/// Entity for the Bow the player will use.
-        /// @Author - ZiheWang
+        /// Initializes a new instance of the RegularBoomerangEntity class.
         /// </summary>
-        public RegularBoomerangEntity(String weaponName) : base(weaponName)
-		{
+        /// <param name="weaponName">The name of the weapon.</param>
+        /// <param name="player">The player entity.</param>
+        public RegularBoomerangEntity(String weaponName, IMovableEntity player) : base(weaponName, player)
+        {
+            // Initializing the maximum distance and moving speed of the boomerang
             _maxDistance = RegularBoomerangMaxDistance;
             movingSpeed = RegularBoomerangMovingSpeed;
         }
 
-		public override void UseWeapon(Direction direction, Vector2 position)
-		{
-			ProjectileSprite = WeaponSpriteFactory.Instance.CreateBoomerangSprite("");
-			ImpactEffectSprite = null;
-			Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];
-			_spriteMovingAddition = _spriteMovingDictionary[direction];
-			_currentSpriteEffect = SpriteAdditions.Item1;
-			_weaponPosition = position + SpriteAdditions.Item2;
-		}
+        /// <summary>
+        /// Prepares the weapon for use by setting its initial state and sprite.
+        /// </summary>
+        /// <param name="direction">The direction in which the weapon will be used.</param>
+        /// <param name="position">The initial position of the weapon.</param>
+        public override void UseWeapon(Direction direction, Vector2 position)
+        {
+            _speedFactor = 1.0f;
+            IsActive = true;
+            returning = false;
+            ProjectileSprite = WeaponSpriteFactory.Instance.CreateBoomerangSprite("");
+            ImpactEffectSprite = null;
 
-	}
+            // Adjusting position and sprite based on the direction.
+            var spriteAdditions = _spriteEffectsDictionary[direction];
+            _spriteMovingAddition = _spriteMovingDictionary[direction] * movingSpeed;
+            _currentSpriteEffect = SpriteEffects.None;
+            _weaponPosition = position + spriteAdditions.Item2;
+        }
+    }
 }

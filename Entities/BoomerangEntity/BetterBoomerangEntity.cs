@@ -10,27 +10,38 @@ namespace SprintZero1.Entities.BoomerangEntity
 {
 	internal class BetterBoomerangEntity : BoomerangBasedEntity
     {
-        private const int RegularBoomerangMaxDistance = 70; // Maximum distance the projectile can travel before becoming inactive
-        private const float RegularBoomerangMovingSpeed = 3.5f;
+        // Constants defining the maximum distance the boomerang can travel and its moving speed
+        private const int BetterBoomerangMaxDistance = 100; 
+        private const float BetterBoomerangMovingSpeed = 3.5f;
         /// <summary>
-        /// Entity for the Bow the player will use.
-        /// @Author - ZiheWang
+        /// Initializes a new instance of the BetterBoomerangEntity class.
         /// </summary>
-        public BetterBoomerangEntity(String weaponName) : base(weaponName)
+        /// <param name="weaponName">The name of the weapon.</param>
+        /// <param name="player">The player entity.</param>
+        public BetterBoomerangEntity(String weaponName, IMovableEntity player) : base(weaponName, player)
 		{
-            _maxDistance = RegularBoomerangMaxDistance;
-            movingSpeed = RegularBoomerangMovingSpeed;
+            _maxDistance = BetterBoomerangMaxDistance;
+            movingSpeed = BetterBoomerangMovingSpeed;
         }
-
-		public override void UseWeapon(Direction direction, Vector2 position)
+        /// <summary>
+        /// Prepares the weapon for use by setting its initial state and sprite.
+        /// </summary>
+        /// <param name="direction">The direction in which the weapon will be used.</param>
+        /// <param name="position">The initial position of the weapon.</param>
+        public override void UseWeapon(Direction direction, Vector2 position)
 		{
-			ProjectileSprite = WeaponSpriteFactory.Instance.CreateBoomerangSprite("better");
-			ImpactEffectSprite = null;
-			Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];
-			_spriteMovingAddition = _spriteMovingDictionary[direction];
-			_currentSpriteEffect = SpriteAdditions.Item1;
-			_weaponPosition = position + SpriteAdditions.Item2;
-		}
+            _speedFactor = 1.0f;
+            IsActive = true;
+            returning = false;
+            ProjectileSprite = WeaponSpriteFactory.Instance.CreateBoomerangSprite("better");
+            ImpactEffectSprite = null;
+
+            // Adjusting position and sprite based on the direction.
+            var spriteAdditions = _spriteEffectsDictionary[direction];
+            _spriteMovingAddition = _spriteMovingDictionary[direction] * movingSpeed;
+            _currentSpriteEffect = SpriteEffects.None;
+            _weaponPosition = position + spriteAdditions.Item2;
+        }
 
 	}
 }

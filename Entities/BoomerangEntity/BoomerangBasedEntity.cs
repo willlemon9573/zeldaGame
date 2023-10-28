@@ -10,79 +10,116 @@ namespace SprintZero1.Entities.BoomerangEntity
 {
     internal abstract class BoomerangBasedEntity : ProjectileEntity
     {
+        // Variables to control the boomerang's behavior and state.
         protected int _maxDistance;
         protected bool returning = false;
-        protected int distanceMoved = 0;
+        protected float distanceMoved = 0;
         protected Vector2 _spriteMovingAddition;
-        protected bool IsActive = true; // Flag to indicate if the projectile is active
-        protected readonly float RotationIncrement = MathHelper.ToRadians(10); // Increment for projectile rotation
+        protected bool IsActive = true;
+        protected readonly float RotationIncrement = MathHelper.ToRadians(20);
+        protected readonly IMovableEntity _player;
+        protected float _speedFactor = 1.0f;
+        protected bool _isAccelerating = false;
+
         /// <summary>
-        /// Entity for the Boomerang the player will use.
-        /// @Author - ZiheWang
+        /// Initializes a new instance of the BoomerangBasedEntity class.
         /// </summary>
-        public BoomerangBasedEntity(String weaponName) : base(weaponName)
+        /// <param name="weaponName">The name of the weapon.</param>
+        /// <param name="player">The player entity.</param>
+        public BoomerangBasedEntity(String weaponName, IMovableEntity player) : base(weaponName)
         {
             _rotation = 0;
-            //no constructor needed
+            _player = player;
         }
 
+        /// <summary>
+        /// Draws the boomerang on the screen.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public sealed override void Draw(SpriteBatch spriteBatch)
         {
-            if (ProjectileSprite == null)
-            {
-                return;
-            }
+            if (ProjectileSprite == null) return;
             ProjectileSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, _rotation);
         }
 
+        /// <summary>
+        /// Updates the state of the boomerang.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public sealed override void Update(GameTime gameTime)
         {
-            if (ProjectileSprite == null)
-            {
-                return;
-            }
+            if (!IsActive || ProjectileSprite == null) return;
+
+            // Update the sprite animation.
             ProjectileSprite.Update(gameTime);
-            Animate();
 
-
-        }
-        protected void MoveProjectile(Vector2 _spriteMovingAddition)
-        {
-            _weaponPosition += _spriteMovingAddition;
-        }
-        protected void Animate()
-        {
-            _rotation += RotationIncrement;
-
-            if (_rotation > MathHelper.TwoPi)
-                _rotation -= MathHelper.TwoPi;
-
-            if (!IsActive)
-            {
-                // If the projectile is not active, set its sprite and update function to null
-                ProjectileSprite = null;
-                return;
-            }
-
+            // Move the boomerang based on its current state.
             if (returning)
+                ReturnBoomerang(gameTime);
+            else
+                ThrowBoomerang(gameTime);
+        }
+
+        // Helper method to update the boomerang's position.
+        protected void MoveProjectile(Vector2 spriteMovingAddition)
+        {
+            _weaponPosition += spriteMovingAddition;
+        }
+
+        // Handles the behavior of the boomerang when thrown.
+        protected void ThrowBoomerang(GameTime gameTime)
+        {
+            // Rotate the boomerang.
+            _rotation += RotationIncrement;
+            if (_rotation > MathHelper.TwoPi) _rotation -= MathHelper.TwoPi;
+
+            // Decelerate the boomerang.
+            if (_speedFactor > 0.1f && !_isAccelerating) _speedFactor -= 0.017f;
+
+            // Calculate and apply the movement of the boomerang.
+            Vector2 moveDirection = _spriteMovingAddition * _speedFactor;
+            MoveProjectile(moveDirection);
+            distanceMoved += movingSpeed * _speedFactor;
+
+            // Check if the boomerang should start returning.
+            if (distanceMoved >= _maxDistance)
             {
-                MoveProjectile(-_spriteMovingAddition); // Move the projectile back if it's returning
+                returning = true;
+                distanceMoved = 0;
+                _isAccelerating = true;
+                _speedFactor = 0.1f;
             }
+        }
+
+        // Handles the behavior of the boomerang when returning.
+        protected void ReturnBoomerang(GameTime gameTime)
+        {
+            // Rotate the boomerang.
+            _rotation += RotationIncrement;
+            if (_rotation > MathHelper.TwoPi) _rotation -= MathHelper.TwoPi;
+
+            // Calculate the direction to the player.
+            Vector2 moveDirection = _player.Position - _weaponPosition;
+            if (moveDirection != Vector2.Zero) moveDirection.Normalize();
+
+            // Accelerate the boomerang.
+            if (_speedFactor < 1.0f && _isAccelerating) _speedFactor += 0.017f;
             else
             {
-                MoveProjectile(_spriteMovingAddition); // Move the projectile forward
+                _isAccelerating = false;
+                _speedFactor = 1.0f;
             }
-            distanceMoved += 1;
 
-            if (distanceMoved >= _maxDistance && !returning)
+            // Move the boomerang towards the player.
+            MoveProjectile(moveDirection * movingSpeed * _speedFactor);
+
+            // Deactivate the boomerang when it reaches the player.
+            if (Vector2.Distance(_weaponPosition, _player.Position) < 1.0f)
             {
-                returning = true; // Start returning when the maximum distance is reached
-                distanceMoved = 0;
-            }
-            else if (distanceMoved >= _maxDistance && returning)
-            {
-                IsActive = false; // Deactivate the projectile when it returns and reaches max distance
+                ProjectileSprite = null;
+                IsActive = false;
             }
         }
     }
+
 }

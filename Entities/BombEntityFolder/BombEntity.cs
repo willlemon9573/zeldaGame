@@ -8,45 +8,60 @@ using System.Collections.Generic;
 
 namespace SprintZero1.Entities.BombEntityFolder
 {
-    internal class BombEntity : ProjectileEntity
+    internal class BombEntity : IWeaponEntity
     {
         private double timer = 0; // Timer to track how long the bomb has been active
         private readonly double waitingTime = 600; // The time in milliseconds before the bomb explodes
+        private readonly string _weaponName;
+        private Vector2 _weaponPosition;
+        private ISprite _weaponSprite;
+        private ISprite ImpactEffectSprite;
+        private const SpriteEffects _currentSpriteEffect = SpriteEffects.None;
+        private readonly Dictionary<Direction, Vector2> _spriteEffectsDictionary;
+        public Vector2 Position { get { return _weaponPosition; } set { _weaponPosition = value; } }
         /// <summary>
         /// Entity for the Boomerang the player will use.
         /// @Author - ZiheWang
         /// </summary>
-        public BombEntity(String weaponName) : base(weaponName)
+        public BombEntity(String weaponName)
         {
-            _rotation = 0;
+            _weaponName = weaponName;
+            /* This might be able to be passed by the player / xml / or mathematically */
+            _spriteEffectsDictionary = new Dictionary<Direction,Vector2>()
+            {
+                { Direction.North,  new Vector2(0, -11) },
+                { Direction.South,  new Vector2(0, 11) },
+                { Direction.East,   new Vector2(11, 0) },
+                { Direction.West,   new Vector2(-11, 0) }
+            };
             //no constructor needed
         }
 
-        public override void UseWeapon(Direction direction, Vector2 position)
+
+        public void UseWeapon(Direction direction, Vector2 position)
         {
             timer = 0;
-            ProjectileSprite = WeaponSpriteFactory.Instance.CreateBombSprite();
+            _weaponSprite = WeaponSpriteFactory.Instance.CreateBombSprite();
             ImpactEffectSprite = WeaponSpriteFactory.Instance.CreateBombSpriteExplodes();
-            Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];
-            _currentSpriteEffect = SpriteEffects.None;
-            _weaponPosition = position + SpriteAdditions.Item2;
+            Vector2 SpriteAdditions = _spriteEffectsDictionary[direction];
+            _weaponPosition = position + SpriteAdditions;
         }
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            if (ProjectileSprite == null)
+            if (_weaponSprite == null)
             {
                 return;
             }
-            ProjectileSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, _rotation);
+            _weaponSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, 0);
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            if (ProjectileSprite == null)
+            if (_weaponSprite == null)
             {
                 return;
             }
-            ProjectileSprite.Update(gameTime);
+            _weaponSprite.Update(gameTime);
             Animate(gameTime);
 
 
@@ -58,7 +73,7 @@ namespace SprintZero1.Entities.BombEntityFolder
             if (timer >= waitingTime)
             {
                 // When the timer exceeds the waiting time, set the projectile sprite to the ending sprite
-                ProjectileSprite = ImpactEffectSprite;
+                _weaponSprite = ImpactEffectSprite;
             }
         }
     }

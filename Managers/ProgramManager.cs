@@ -5,6 +5,7 @@ using SprintZero1.Controllers;
 using SprintZero1.Entities;
 using System.Collections.Generic;
 using SprintZero1.Controllers.EnemyControllers;
+using SprintZero1.Enums;
 
 namespace SprintZero1.Managers
 {
@@ -24,6 +25,14 @@ namespace SprintZero1.Managers
         };
         #endregion
         public static PlayerEntity Player { get { return player; } }
+        private static GameState gameState = GameState.Playing;
+
+        public static GameState GameState
+        {
+            get { return gameState; }
+            set { gameState = value; }
+        }
+
 
 
         public static void Start(Game1 game)
@@ -71,6 +80,11 @@ namespace SprintZero1.Managers
 
         public static void Update(GameTime gameTime)
         {
+            if (gameState != GameState.Playing)
+            {
+                controllers[0].Update();
+                return;
+            }
             foreach (IEnemyMovementController enemyController in onScreenEnemyController)
             {
                 enemyController.Update(gameTime);

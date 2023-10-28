@@ -22,4 +22,13 @@
         Melee,  
         Ranged  
     }
+
+    public enum GameState
+    {
+        Playing,
+        Paused,
+        GameOver,
+        LevelCompleted
+    }
+
 }
