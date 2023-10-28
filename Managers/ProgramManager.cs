@@ -17,6 +17,7 @@ namespace SprintZero1.Managers
         private static List<PlayerEntity> playerList = new List<PlayerEntity>();
         private static IEntity projectileHandler;
         // List of available Controllers
+        static List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
         static readonly IController[] controllers = new IController[]
         #region
         {
@@ -27,6 +28,7 @@ namespace SprintZero1.Managers
             new GamepadController(3)
         };
         #endregion
+        static PlayerEntity player;
         public static PlayerEntity Player { get { return player; } }
         private static GameState gameState = GameState.Playing;
 
@@ -42,10 +44,10 @@ namespace SprintZero1.Managers
         {
             _game = game;
 
-            PlayerEntity player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
+            player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
             playerList.Add(player);
             AddOnScreenEntity(player);
-            controllers[0].LoadDefaultCommands(game, player, projectileHandler);
+            controllers[0].LoadDefaultCommands(game, player);
 
         }
 

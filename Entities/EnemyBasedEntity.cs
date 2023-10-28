@@ -44,6 +44,8 @@ namespace SprintZero1.Entities
         protected Direction _enemyDirection = Direction.South;
         public Direction Direction { get { return _enemyDirection; } set { _enemyDirection = value; } }
 
+        protected IEnemyState _enemyState;
+        public IEnemyState EnemyState { get { return _enemyState; } set { _enemyState = value; } }
 
         private ICollider _collider;
         public ICollider Collider { get { return _collider; } }
@@ -75,6 +77,7 @@ namespace SprintZero1.Entities
             _enemyPosition = position;
             _enemyName = enemyName;
             _enemyState = new EnemyIdleState(this);
+            _collider = new DynamicCollider(new Rectangle((int)position.X, (int)position.Y, 16, 16));
             _enemySprite = !isBoss ? _EnemyFactory.CreateEnemySprite(enemyName, _enemyDirection) : _EnemyFactory.CreateBossSprite(enemyName, _enemyDirection);
 
         }
