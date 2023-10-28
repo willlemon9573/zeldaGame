@@ -10,9 +10,8 @@ namespace SprintZero1.Colliders
 {
     internal class LevelDoorCollider : StaticCollider
     {
-        public LevelDoorCollider(IEntity entity, Rectangle _collider) : base(entity, _collider)
+        public LevelDoorCollider(Rectangle _collider) : base(_collider)
         {
-            this.Parent = entity;
             this.Collider = _collider;
         }
     }

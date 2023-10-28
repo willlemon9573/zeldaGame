@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<EnemySprites>
+<Sprites>
 	<Sprite name="dungeon_gel">
 		<Rectangle x="1" y="11" width="8" height="16" />
 		<Rectangle x="10" y="11" width="8" height="16" />
@@ -28,4 +28,4 @@
 		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
 		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
 	</Sprite>
-</EnemySprites>
+</Sprites>

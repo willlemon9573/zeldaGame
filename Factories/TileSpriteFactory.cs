@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
+using SprintZero1.XMLParsers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace SprintZero1.Factories
 {
@@ -29,44 +29,14 @@ namespace SprintZero1.Factories
         /// <summary>
         /// Tile Factory Property to get the current tile list
         /// </summary>
-        public List<string> TileSourceRectangles
-        {
-            get { return tileSourceRectangles.Keys.ToList(); }
-        }
 
-        /// <summary>
-        /// Creates a dictionary where the keys are related to the tile names
-        /// and each value is related to the source rectangle (spriteOrigin and dimensions)
-        /// found on the tile sheet
-        /// </summary>
-        private void AddTileSourceRectangles()
-        {
-            string[] tileNames = {
-                "flat", "pyramid", "statue1", "statue2",
-                "hole", "spackled", "blueflat", "stairs",
-                "greybrick", "greystriped"
-            };
 
-            int x_pixels = 984, y_pixels = 11; // starting coordiantes of the tiles
-            const int WIDTH = 16, HEIGHT = 16; // dimmension of each tile
-            foreach (string tile in tileNames)
-            {
-                // Add tile name with spriteOrigin and dimensions to the dictionary
-                tileSourceRectangles.Add(tile, new Rectangle(x_pixels, y_pixels, WIDTH, HEIGHT));
-                x_pixels += 17; // move to next column in the current row of tiles
-                // when x_pixels exceed 1035, reset the x_pixels and increment y_pixels to access the next row
-                if (x_pixels > 1035)
-                {
-                    x_pixels = 984;
-                    y_pixels += 17;
-                }
-            }
-        }
         /// <summary>
         /// Adds the coordinates of the walls from the sprite sheet into the dictionary
         /// </summary>
         private void AddWallSourceRectangles()
         {
+            //TODO: Create an XML File to parse - In discussion with Will/Jarek on how we want to handle walls
             const int WIDTH = 112, LENGTH = 72;
             const int QUAD_ONE = 1, QUAD_TWO = 2, QUAD_THREE = 3, QUAD_FOUR = 4;
             // used to set the offset of coordinates between each quadrant
@@ -80,65 +50,25 @@ namespace SprintZero1.Factories
             wallSourceRectangles.Add(QUAD_THREE, new Rectangle((int)spriteOrigin.X - X_OFFSET, (int)spriteOrigin.Y + Y_OFFSET, WIDTH, LENGTH));
             // Bottom Right Wall (Quadrant 4)
             wallSourceRectangles.Add(QUAD_FOUR, new Rectangle((int)spriteOrigin.X, (int)spriteOrigin.Y + Y_OFFSET, WIDTH, LENGTH));
-        }
-        /// <summary>
-        /// Add the coordinates for each door into the dictionary
-        /// </summary>
-        private void AddDoorSourceRectangles()
-        {
-            String[] direction = { "north", "west", "east", "south" };
-            String[] doorType = { "doorless", "open", "locked", "blocked", "hole" };
-            const int ORIGIN_X = 815, ORIGIN_Y = 11;
-            Vector2 spriteOrigin = new Vector2(ORIGIN_X, ORIGIN_Y); // top left door tile
-            const int WIDTH = 32, HEIGHT = 32, OFFSET = 33;
-            foreach (string door_type in doorType)
+            /* should be deleted, but saving this for when we refactor */
+            /*foreach (var kvp in wallSourceRectangles)
             {
-                foreach (string d in direction)
-                {
-                    string door = door_type + "_" + d;
-                    tileSourceRectangles.Add(door, new Rectangle((int)spriteOrigin.X, (int)spriteOrigin.Y, WIDTH, HEIGHT));
-                    spriteOrigin.Y += OFFSET;
-                }
-                spriteOrigin.X += OFFSET;
-                spriteOrigin.Y = ORIGIN_Y;
-            }
-        }
-
-        private void AddLevelOneSourceRectangles()
-        {
-            /*adding one simply for testing*/
-            levelOneSourceRectangles.Add("entrance", new Rectangle(535, 906, 216, 135));
-            levelOneSourceRectangles.Add("entranceLeft", new Rectangle(278, 906, 216, 135));
-            levelOneSourceRectangles.Add("entranceRight", new Rectangle(792, 906, 216, 135));
-            levelOneSourceRectangles.Add("floorTwo", new Rectangle(535, 729, 216, 135));
-            levelOneSourceRectangles.Add("floorThree", new Rectangle(535, 552, 216, 135));
-            levelOneSourceRectangles.Add("floorThreeLeft", new Rectangle(278, 552, 216, 135));
-            levelOneSourceRectangles.Add("floorThreeRight", new Rectangle(792, 552, 216, 135));
-            levelOneSourceRectangles.Add("floorFour", new Rectangle(535, 375, 216, 135));
-            levelOneSourceRectangles.Add("floorFourLeft", new Rectangle(278, 375, 216, 135));
-            levelOneSourceRectangles.Add("floorFourRight", new Rectangle(792, 375, 216, 135));
-            levelOneSourceRectangles.Add("floorFourLeftest", new Rectangle(21, 375, 216, 135));
-            levelOneSourceRectangles.Add("floorFourRightest", new Rectangle(1049, 375, 216, 135));
-            levelOneSourceRectangles.Add("floorFive", new Rectangle(535, 198, 216, 135));
-            levelOneSourceRectangles.Add("floorFiveRight", new Rectangle(1049, 198, 216, 135));
-            levelOneSourceRectangles.Add("floorFiveRightest", new Rectangle(1306, 198, 216, 135));
-            levelOneSourceRectangles.Add("floorSix", new Rectangle(535, 21, 216, 135));
-            levelOneSourceRectangles.Add("floorSixLeft", new Rectangle(278, 21, 216, 135));
-            levelOneSourceRectangles.Add("floorSecret", new Rectangle(1, 1, 255, 159));
+                Debug.WriteLine("<Sprite quadrant=\"" + kvp.Key + "\">");
+                Debug.WriteLine("\t<Rectangle x='" + kvp.Value.X + "' y='" + kvp.Value.Y + "' width='" + WIDTH + "' height='" + LENGTH + "'/>");
+                Debug.WriteLine("</Sprite>");
+            }*/
         }
 
         /// <summary>
         /// Private constructor to prevent instation of a new tile factory
         /// </summary>
-        public TileSpriteFactory()
+        private TileSpriteFactory()
         {
-            tileSourceRectangles = new Dictionary<string, Rectangle>();
+            SpriteXMLParser spriteParser = new SpriteXMLParser();
+            tileSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\DoorAndTileSprites.xml");
             wallSourceRectangles = new Dictionary<int, Rectangle>();
-            levelOneSourceRectangles = new Dictionary<string, Rectangle>();
-            AddTileSourceRectangles();
+            levelOneSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\Level1FloorSprites.xml");
             AddWallSourceRectangles();
-            AddDoorSourceRectangles();
-            AddLevelOneSourceRectangles();
         }
 
         /// <summary>
@@ -148,8 +78,6 @@ namespace SprintZero1.Factories
         {
             tileSpriteSheet = Texture2DManager.GetTileSheet();
             levelOneSpriteSheet = Texture2DManager.GetLevelOneSpriteSheet();
-
-
         }
         /// <summary>
         /// Create and return a new tile sprite
@@ -172,17 +100,13 @@ namespace SprintZero1.Factories
         public ISprite CreateNewWallSprite(int quadrant)
         {
             Debug.Assert(wallSourceRectangles.ContainsKey(quadrant), "Incorrect Quadrant: " + quadrant);
-            Debug.WriteLine(wallSourceRectangles[quadrant]);
             return new NonAnimatedSprite(wallSourceRectangles[quadrant], tileSpriteSheet);
         }
-        /* maybe this can be used if we want to separate between doors and tile calls, if not we'll delete it */
-        public ISprite CreateNewDoorSprite(string door)
-        {
-            Debug.Assert(door != null, "door is null");
-            Debug.Assert(tileSourceRectangles.ContainsKey(door), "Source Rectangle does not contain the door: " + door);
-            return new NonAnimatedSprite(tileSourceRectangles[door], tileSpriteSheet);
-        }
-
+        /// <summary>
+        /// Create a sprite that will be the room specific floor sprite.
+        /// </summary>
+        /// <param name="floor">The name of the desired floor sprite</param>
+        /// <returns></returns>
         public ISprite CreateFloorSprite(string floor)
         {
             return new NonAnimatedSprite(levelOneSourceRectangles[floor], levelOneSpriteSheet);

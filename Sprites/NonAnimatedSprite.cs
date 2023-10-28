@@ -19,7 +19,7 @@ namespace SprintZero1.Sprites
              _spriteSheet = spriteSheet;
              //_spriteSheet = Texture2DManager.GetTileSheet();
         }
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0f)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0.5f)
         {
             int width = _sourceRectangle.Width;
             int height = _sourceRectangle.Height;

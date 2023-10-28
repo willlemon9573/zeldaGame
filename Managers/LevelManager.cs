@@ -45,7 +45,7 @@ namespace SprintZero1.Managers
 
         public static void LoadNewRoom(String xmlFile)
         {
-            ProgramManager.RemoveNonLinkEntities();
+            ProgramManager.RemoveNonPlayerEntities();
             xmlParser.Parse(xmlFile);
         }
 
