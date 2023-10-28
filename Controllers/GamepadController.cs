@@ -50,11 +50,10 @@ namespace SprintZero1.Controllers
         /// <param name="movementButton">the current movement button</param>
         void HandleMovementButtons(Buttons movementButton)
         {
-
-            *Add button to stack if its not already in the stack
+            /*
+             * Add button to stack if its not already in the stack
              * else execute the command
-
-
+             */
             if (!movementButtonStack.Contains(movementButton))
             {
                 movementButtonStack.Push(movementButton);
@@ -68,7 +67,7 @@ namespace SprintZero1.Controllers
 
         public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity, IEntity ProjectileEntity)
         {
-            directional commands
+            /* directional commands */
             gamepadMap.Add(Buttons.DPadUp, new MoveUpCommand(playerEntity));
             gamepadMap.Add(Buttons.DPadDown, new MoveDownCommand(playerEntity));
             gamepadMap.Add(Buttons.DPadLeft, new MoveLeftCommand(playerEntity));
@@ -78,9 +77,9 @@ namespace SprintZero1.Controllers
             gamepadMap.Add(Buttons.LeftThumbstickLeft, new MoveLeftCommand(playerEntity));
             gamepadMap.Add(Buttons.LeftThumbstickRight, new MoveRightCommand(playerEntity));
 
-            Attack Commands
+            /* Attack Commands */
             gamepadMap.Add(Buttons.X, new SwordAttackCommand(playerEntity));
-            Other commands
+            /* Other commands */
             gamepadMap.Add(Buttons.Back, new ExitCommand(game));
 
             gamepadMap.Add(Buttons.LeftShoulder, new FireArrowCommand(playerEntity, ProjectileEntity));
@@ -96,10 +95,9 @@ namespace SprintZero1.Controllers
         {
             List<Buttons> pressedButtons = GetPressedButtons(index);
             int totalButtonCount = 0;
-            iterate over pressed button collection executing only valid keys in the gamepad map
-              keeping track of the amount of movement button that are also currently being pressed
-
-
+            /* iterate over pressed button collection executing only valid keys in the gamepad map 
+               keeping track of the amount of movement button that are also currently being pressed
+            */
             foreach (Buttons button in pressedButtons)
             {
                 if (_movementButtonList.Contains(button))
