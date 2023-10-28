@@ -36,7 +36,7 @@ namespace SprintZero1.Entities
 
         ~BackgroundSpriteEntity() 
         {
-            Debug.WriteLine("Sprite removed");
+
         }
 
     }

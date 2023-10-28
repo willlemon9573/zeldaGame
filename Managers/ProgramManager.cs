@@ -17,7 +17,11 @@ namespace SprintZero1.Managers
         static readonly IController[] controllers = new IController[]
         #region
         {
-            new KeyboardController()
+            new KeyboardController(),
+            new GamepadController(0),
+            new GamepadController(1),
+            new GamepadController(2),
+            new GamepadController(3)
         };
         #endregion
 
@@ -28,7 +32,7 @@ namespace SprintZero1.Managers
             playerList.Add(player);
             projectileHandler = new ProjectileEntity();
             AddOnScreenEntity(player);
-            controllers[0].LoadDefaultCommands(game, player, projectileHandler);
+            controllers[1].LoadDefaultCommands(game, player, projectileHandler);
         }
 
         /// <summary>
