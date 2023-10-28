@@ -88,7 +88,7 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.D6, new FireMagicFireCommand(playerEntity, ProjectileEntity));
         }
 
-        
+
 
         public void Update()
         {
