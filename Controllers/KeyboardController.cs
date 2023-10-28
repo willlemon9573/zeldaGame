@@ -76,7 +76,7 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.D, new MoveRightCommand(playerEntity));
 
             /* Attack Commands */
-            keyboardMap.Add(Keys.D1, new BetterBoomerangAttackCommand(playerEntity));
+            keyboardMap.Add(Keys.D1, new BombAttackCommand(playerEntity));
             /* Other commands */
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
             keyboardMap.Add(Keys.Escape, new PauseCommand());

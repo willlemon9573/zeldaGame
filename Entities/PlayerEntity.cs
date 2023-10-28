@@ -7,7 +7,7 @@ using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
-using SprintZero1.Entities.BoomerangEntity;
+using SprintZero1.Entities.BombEntityFolder;
 
 namespace SprintZero1.Entities
 {
@@ -50,7 +50,7 @@ namespace SprintZero1.Entities
             _playerPosition = position;
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
             _playerCollider = new PlayerCollider(this, new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
-            _playerMainWeapon = new BetterBoomerangEntity("betterboomerang", this);
+            _playerMainWeapon = new BombEntity("bomb");
             _playerState = new PlayerIdleState(this);
         }
 
@@ -71,7 +71,7 @@ namespace SprintZero1.Entities
         public void Attack(string weaponName)
         {
             if (_playerState is not PlayerAttackingState) { TransitionToState(State.Attacking); }
-            if (weaponName == "betterboomerang")
+            if (weaponName == "bomb")
             {
                 _attackingWithSword = true;
                 _playerMainWeapon.UseWeapon(_playerDirection, _playerPosition);
