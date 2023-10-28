@@ -35,6 +35,7 @@ namespace SprintZero1.Managers
         {
             _playerInventoryMap[player].PickedUpStackableItem(item, amount);
         }
+
         /// <summary>
         /// Add the utility items like maps, compass, etc
         /// </summary>
@@ -48,7 +49,7 @@ namespace SprintZero1.Managers
 
         public static void AddEquipmentItemToInventory(ICombatEntity player, IPlayerItem equipment)
         {
-            _playerInventoryMap[player].AddEquipmentItem(equipment);
+
         }
         /// <summary>
         /// Upgrade the equipment item with the new item

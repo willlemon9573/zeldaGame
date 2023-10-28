@@ -1,5 +1,5 @@
 ﻿using SprintZero1.Entities;
-using SprintZero1.Sprites;
+using SprintZero1.Enums;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -10,139 +10,99 @@ namespace SprintZero1.InventoryFiles
         /* ---------------------------------------- FIelds and properties ---------------------------------------- */
         private const int MAX_EQUIPMENT_SLOTS = 8;
         private const int MAX_UTILITY_SLOTS = 7;
-        /// <summary>
-        /// Holds all the items that are stackable like projectile ammo, ruppees, etc
-        /// </summary>
-        private List<IStackableItems> _stackableItemSlots;
-        /// <summary>
-        /// Holds the utility items like the maps, compass, triforce, etc
-        /// </summary>
-        private List<IPlayerItem> _UtilityItemSlots;
-        /// <summary>
-        /// Holds the player's equipment
-        /// </summary>
-        private List<IPlayerItem> _EquipmentSlots;
-        /// <summary>
-        /// The player that owns the inventory
-        /// </summary>
-        private readonly ICombatEntity _inventoryOwner;
-        private IWeaponEntity[] _playerWeaponSlots;
-
+        private IEntity _inventoryOwner;
+        private Dictionary<Items, IStackableItems> _playerStackableItemSlots = new Dictionary<Items, IStackableItems>();
+        private Dictionary<EquipmentItem, IWeaponEntity> _playerEquipmentSlots = new Dictionary<EquipmentItem, IWeaponEntity>();
+        private IWeaponEntity _playerSwordSlotReference;
+        private IWeaponEntity _playerEquipmentSlotReference;
         /* ---------------------------------------- Private functions ---------------------------------------- */
 
         /// <summary>
-        /// returns the index of the item
+        /// Used to create the player inventory 
         /// </summary>
-        /// <param name="list">The list to iterate over</param>
-        /// <param name="itemEntity">The item being looked for</param>
-        /// <returns>The item index if it's in the list, else returns -1</returns>
-        private int IndexOfPlayerItem(List<IPlayerItem> list, IEntity itemEntity)
+        private void BuildPlayerInventory()
         {
-
-            foreach (IPlayerItem item in list)
-            {
-                if (item.ItemEntity == itemEntity)
-                {
-                    return list.IndexOf(item);
-                }
-            }
-            return -1;
 
         }
 
-        /// <summary>
-        /// Returns the index of the stackable item
-        /// </summary>
-        /// <param name="stackableItem">The item to look for</param>
-        /// <returns>The index of the stackable item if it exists else -1</returns>
-        private int IndexOfStackableItem(IEntity stackableItem)
-        {
-            foreach (StackableItem item in _stackableItemSlots)
-            {
-                if (item.ItemEntity == stackableItem)
-                {
-                    return _stackableItemSlots.IndexOf(item);
-                }
-            }
-            return -1;
-        }
         /* ---------------------------------------- Public Methods ---------------------------------------- */
-        public PlayerInventory(ICombatEntity player, ref IWeaponEntity playerWeaponRef, ref IWeaponEntity secondaryWeaponRef)
+        /// <summary>
+        /// Create the inventory for 
+        /// </summary>
+        /// <param name="player">The player who will own the inventory</param>
+        /// <param name="playerSwordRef">the reference to the player's weapon slot</param>
+        /// <param name="playerEquipmentRef">the reference to the player equipment slot</param>
+        public PlayerInventory(ICombatEntity player, ref IWeaponEntity playerSwordRef, ref IWeaponEntity playerEquipmentRef)
         {
             _inventoryOwner = player;
-            _playerWeaponSlots = new IWeaponEntity[] { playerWeaponRef, secondaryWeaponRef };
-        }
-
-        /// <summary>
-        /// builds the inventories that will hold the items
-        /// </summary>
-        public void BuildPlayerInventory()
-        {
-            // TODO - Build each inventory slot
-            // TODO - Add the default starting weapon
-            // TODO - Add the default use Item weapon?
+            _playerSwordSlotReference = playerSwordRef;
+            _playerEquipmentSlotReference = playerEquipmentRef;
         }
 
         /// <summary>
         /// Player picks up an item. Increment the item in the list
         /// </summary>
-        /// <param name="itemEntity">The item that was used</param>
+        /// <param name="item"The item being picked up</param>
         /// <param name="amount">The amount of the item used</param>
-        public void PickedUpStackableItem(IEntity stackableItem, int amount)
+        public void PickedUpStackableItem(Items item, int amount)
         {
-            int i = IndexOfStackableItem(stackableItem);
-            _stackableItemSlots[i].PickedUpItem(amount);
+            _playerStackableItemSlots[item].PickedUpItem(amount);
         }
 
-        public void AddUtilityItem(IUtilityItem utilityItem)
+        /// <summary>
+        /// Adds a dungeon item like map or compass to the player inventory
+        /// </summary>
+        /// <param name="dungeonItem">The item to add to the player inventory</param>
+        public void AddDungeonItemToInventory(DungeonItems dungeonItem)
         {
-            Debug.Assert(_UtilityItemSlots.Count <= MAX_UTILITY_SLOTS);
 
         }
+
         /// <summary>
         /// Add an equipment item to the list
         /// </summary>
         /// <param name="equipmentItem"></param>
-        public void AddEquipmentItem(IPlayerItem equipmentItem)
+        public void AddEquipmentItem(EquipmentItem equipmentItem, IWeaponEntity equipmentEntity)
         {
-            Debug.Assert(equipmentItem != null, $"{nameof(equipmentItem)} cannot be null");
-            Debug.Assert(!_EquipmentSlots.Contains(equipmentItem), $"PlayerInventory already contains {equipmentItem}");
-            Debug.Assert(_EquipmentSlots.Count < MAX_EQUIPMENT_SLOTS, $"Player inventory cannot hold more than {MAX_EQUIPMENT_SLOTS} items");
-            _EquipmentSlots.Add(equipmentItem);
+            Debug.Assert(!_playerEquipmentSlots.ContainsKey(equipmentItem), $"Error adding {equipmentItem} to inventory. Item already exists in the inventory");
+            Debug.Assert(_playerEquipmentSlots.Count < MAX_EQUIPMENT_SLOTS, "Error. Player equipment slots are filled.");
+            _playerEquipmentSlots[equipmentItem] = equipmentEntity;
         }
+
 
         /// <summary>
         /// Replace an equipment item with its upgraded item version
         /// </summary>
         /// <param name="oldEquipmentItem">The equipment to be replaced</param>
         /// <param name="newEquipmentItem">The new equipment item to be added to inventory</param>
-        public void ReplaceEquipmentWithUpgrade(IEntity oldEquipmentItem, IPlayerItem newEquipmentItem)
+        /// <exception cref="System.Exception">Throws exception if an error occurs while trying to replace equipment items</exception>
+        public void ReplaceEquipmentWithUpgrade(EquipmentItem oldEquipmentItem, EquipmentItem newEquipmentItem, IWeaponEntity newWeaponEntity)
         {
-            int index = IndexOfPlayerItem(_EquipmentSlots, oldEquipmentItem);
-            _EquipmentSlots[index] = newEquipmentItem;
-            if (_playerWeaponSlots[1] == (IWeaponEntity)oldEquipmentItem)
+            Debug.Assert(_playerEquipmentSlots.ContainsKey(oldEquipmentItem), $"Error replacing equipment: {oldEquipmentItem} not located in player inventory");
+            Debug.Assert(!_playerEquipmentSlots.ContainsKey(newEquipmentItem), $"Erorr replacing equipment: {newEquipmentItem} already exists in player inventory.");
+            if (_playerEquipmentSlots.Remove(oldEquipmentItem))
             {
-                _playerWeaponSlots[1] = (IWeaponEntity)newEquipmentItem.ItemEntity;
+                _playerEquipmentSlots.Add(newEquipmentItem, newWeaponEntity);
+            }
+            else
+            {
+                throw new System.Exception($"Error removing {oldEquipmentItem} and replacing with {newEquipmentItem}");
             }
         }
 
-        public void ChangeUsableItem(IEntity equipmentItem)
+        public void ChangeEquipmentItem(EquipmentItem newEquipment)
         {
-            Debug.Assert(equipmentItem != null, $"{nameof(equipmentItem)} cannot be null.");
-            int index = IndexOfPlayerItem(_EquipmentSlots, equipmentItem);
-            _playerWeaponSlots[1] = (IWeaponEntity)_EquipmentSlots[index];
+            Debug.Assert(_playerEquipmentSlots.ContainsKey(newEquipment));
+            _playerEquipmentSlotReference = _playerEquipmentSlots[newEquipment];
         }
 
         /// <summary>
         /// Retrieve the sprites for all stackable items
         /// </summary>
         /// <returns>An IEnumeral of sprite objects that represent the sprites of each stackable item in the player inventory</returns>
-        public IEnumerable<ISprite> GetStackableItemSprites()
-        {
-            foreach (var item in _stackableItemSlots)
-            {
-                yield return item.ItemSprite;
-            }
-        }
+        //public List<Tuple<ISprite, int>> GetStackableItemSpritesAndCount()
+        //{
+        //return StackableItem => _playerStackableItemSlots.Select(kvp => new Tuple<ISprite, int>(kvp.Value.ItemSprite, kvp.Value.CurrentStock));
+        //}
     }
 }

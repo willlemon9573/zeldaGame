@@ -19,7 +19,43 @@
 
     public enum AttackType
     {
-        Melee,  
-        Ranged  
+        Melee,
+        Ranged
+    }
+    /// <summary>
+    /// The list of stackable items link can hold
+    /// </summary>
+    public enum Items
+    {
+        Rupee,
+        Bomb,
+        Arrow,
+        Clock,
+        HeartContainer,
+        RecoveryHeart,
+        DungeonKey,
+        TriforceFragment
+    }
+    /// <summary>
+    /// Items that are found in a dungeon
+    /// </summary>
+    public enum DungeonItems
+    {
+        Level1Compass,
+        Level1Map,
+    }
+    public enum EquipmentItem
+    {
+        WoodenSword,
+        WhiteSword,
+        MagicalSword,
+        WoodenShield,
+        MagicalShield,
+        Boomerang,
+        BetterBoomerang,
+        Bomb,
+        Bow,
+        BetterBow,
+        MagicalRod
     }
 }

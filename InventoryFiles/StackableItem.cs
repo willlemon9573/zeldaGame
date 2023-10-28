@@ -25,15 +25,43 @@ namespace SprintZero1.InventoryFiles
             _itemEntity = itemEntity;
             _itemsprite = itemsprite;
         }
-
+        /// <summary>
+        /// Add the specified amount to the stock
+        /// </summary>
+        /// <param name="amount">the amount to be added to the inventory</param>
         public void PickedUpItem(int amount)
         {
-            _currentStock += amount;
+            if (_currentStock == MaxStock)
+            {
+                return;
+            }
+            else if (_currentStock + amount > MaxStock)
+            {
+                _currentStock = MaxStock;
+            }
+            else
+            {
+                _currentStock += amount;
+            }
         }
-
+        /// <summary>
+        /// Remove the specified amount from the stock
+        /// </summary>
+        /// <param name="amount">the amount to remove</param>
         public void UsedItem(int amount)
         {
-            _currentStock -= amount;
+            if (_currentStock == 0)
+            {
+                return;
+            }
+            else if (_currentStock - amount < 0)
+            {
+                _currentStock = 0;
+            }
+            else
+            {
+                _currentStock -= amount;
+            }
         }
     }
 }

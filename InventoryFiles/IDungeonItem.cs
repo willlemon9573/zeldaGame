@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface for items such as the Map, tunics, etc
     /// </summary>
-    internal interface IUtilityItem : IPlayerItem
+    internal interface IDungeonItem : IPlayerItem
     {
         void UtilityItemAction();
     }
