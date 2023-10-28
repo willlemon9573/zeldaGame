@@ -1,8 +1,7 @@
-using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SprintZero1.Controllers.EnemyControllers
 {
