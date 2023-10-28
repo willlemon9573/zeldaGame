@@ -13,9 +13,13 @@ namespace SprintZero1.InventoryFiles
         /* ---------------------------------------- FIelds and properties ---------------------------------------- */
         private const int MAX_EQUIPMENT_SLOTS = 8;
         private const int MAX_UTILITY_SLOTS = 7;
-        private IEntity _inventoryOwner;
-        private Dictionary<Items, IStackableItems> _playerStackableItemSlots = new Dictionary<Items, IStackableItems>();
-        private Dictionary<EquipmentItem, IWeaponEntity> _playerEquipmentSlots = new Dictionary<EquipmentItem, IWeaponEntity>();
+        private readonly IEntity _inventoryOwner; // player may not be used, will remove if we don't find a use. 
+        private readonly Dictionary<Items, IStackableItems> _playerStackableItemSlots = new Dictionary<Items, IStackableItems>();
+        private readonly Dictionary<EquipmentItem, IWeaponEntity> _playerEquipmentSlots = new Dictionary<EquipmentItem, IWeaponEntity>();
+        /* Player already contains a large amount of properties and fields as is.
+         * So these will hold a reference to the player's current sword slot and equipment slot
+         * For easily changing the players items around
+         */
         private IWeaponEntity _playerSwordSlotReference;
         private IWeaponEntity _playerEquipmentSlotReference;
         /* ---------------------------------------- Private functions ---------------------------------------- */
@@ -25,7 +29,7 @@ namespace SprintZero1.InventoryFiles
         /// </summary>
         private void BuildPlayerInventory()
         {
-
+            // TODO - Parse xml file with player's inventory 
         }
 
         /* ---------------------------------------- Public Methods ---------------------------------------- */
@@ -72,26 +76,42 @@ namespace SprintZero1.InventoryFiles
             _playerEquipmentSlots[equipmentItem] = equipmentEntity;
         }
 
+        /* 
+         * Note on upgrading. In the original game some images show the game tracks the old items, but they are in a usable state
+         * As we are only doing a single level it's up to the team whether we want to do this or not.
+         */
 
         /// <summary>
-        /// Replace an equipment item with its upgraded item version
+        /// Upgrade a player's equipment
         /// </summary>
-        /// <param name="oldEquipmentItem">The equipment to be replaced</param>
-        /// <param name="newEquipmentItem">The new equipment item to be added to inventory</param>
-        /// <exception cref="System.Exception">Throws exception if an error occurs while trying to replace equipment items</exception>
-        public void ReplaceEquipmentWithUpgrade(EquipmentItem oldEquipmentItem, EquipmentItem newEquipmentItem, IWeaponEntity newWeaponEntity)
+        /// <param name="oldEquipmentItem">The equipment to be upgraded</param>
+        /// <param name="newEquipmentItem">The new equipment item that will replace the old one</param>
+        /// <exception cref="Exception">Throws exception if an error occurs while trying to replace equipment items</exception>
+        public void UpgradePlayerEquipment(EquipmentItem oldEquipmentItem, EquipmentItem newEquipmentItem, IWeaponEntity newWeaponEntity)
         {
             Debug.Assert(_playerEquipmentSlots.ContainsKey(oldEquipmentItem), $"Error replacing equipment: {oldEquipmentItem} not located in player inventory");
             Debug.Assert(!_playerEquipmentSlots.ContainsKey(newEquipmentItem), $"Erorr replacing equipment: {newEquipmentItem} already exists in player inventory.");
-            if (_playerEquipmentSlots.Remove(oldEquipmentItem))
+            /* Check if the equipment being replaced is the same one the user is currently used */
+            if (_playerEquipmentSlotReference == _playerEquipmentSlots[oldEquipmentItem])
             {
-                _playerEquipmentSlots.Add(newEquipmentItem, newWeaponEntity);
+                _playerEquipmentSlotReference = newWeaponEntity;
             }
-            else
-            {
-                throw new Exception($"Error removing {oldEquipmentItem} and replacing with {newEquipmentItem}");
-            }
+            /* Remove and replace the kvp of the old equipment item with the new kvp of the new equipment item*/
+            _playerEquipmentSlots.Remove(oldEquipmentItem);
+            _playerEquipmentSlots.Add(newEquipmentItem, newWeaponEntity);
+
         }
+
+        /// <summary>
+        /// Upgrades the player sword to the new sword
+        /// </summary>
+        /// <param name="newSword"></param>
+        public void UpgradePlayerSword(IWeaponEntity newSword)
+        {
+            Debug.Assert(newSword is SwordEntity, $"Erorr upgrading playersword. {newSword} is not a type of sword entity");
+            _playerSwordSlotReference = newSword;
+        }
+
         /// <summary>
         /// Change the player's current equipment item to a new equipment item
         /// </summary>
