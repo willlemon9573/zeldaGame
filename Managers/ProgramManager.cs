@@ -32,7 +32,7 @@ namespace SprintZero1.Managers
             playerList.Add(player);
             projectileHandler = new ProjectileEntity();
             AddOnScreenEntity(player);
-            controllers[1].LoadDefaultCommands(game, player, projectileHandler);
+            controllers[0].LoadDefaultCommands(game, player, projectileHandler);
         }
 
         /// <summary>

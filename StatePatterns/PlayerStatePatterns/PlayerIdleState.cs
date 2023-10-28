@@ -12,10 +12,6 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         /// <param name="playerEntity">The player entering the idle state</param>
         public PlayerIdleState(PlayerEntity playerEntity) : base(playerEntity) { }
 
-        public override void ChangeDirection(Direction newDirection)
-        {
-            //  Idle player does not change direction
-        }
 
         public override void Request()
         {

@@ -64,6 +64,7 @@ namespace SprintZero1.Controllers
             else if(movementButton == movementButtonStack.Peek())
             {
                 Buttons buttonRef = movementButtonStack.Peek();
+                Debug.WriteLine(gamepadMap[buttonRef].ToString());
                 gamepadMap[buttonRef].Execute();
             }
         }

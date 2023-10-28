@@ -41,7 +41,11 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         /// Changes the direction of the player based on the current state
         /// </summary>
         /// <param name="newDirection">the new direction the player will face</param>
-        public abstract void ChangeDirection(Direction newDirection);
+        public virtual void ChangeDirection(Direction newDirection)
+        {
+            _playerEntity.Direction = newDirection;
+            _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(newDirection);
+        }
 
         public virtual void TransitionState(State newState)
         {

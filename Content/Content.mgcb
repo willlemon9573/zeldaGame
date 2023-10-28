@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin 03 Underworld BGM.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:03 Underworld BGM.mp3
+
 #begin 8366.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -108,6 +114,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:OverworldEnemySpritesheet.png
+
+#begin The Legend of Zelda Cartoon Sound Effects Shield Deflecting.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:The Legend of Zelda Cartoon Sound Effects Shield Deflecting.wav
 
 #begin TileSheet.png
 /importer:TextureImporter
