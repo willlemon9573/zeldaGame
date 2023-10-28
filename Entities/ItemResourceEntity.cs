@@ -6,7 +6,7 @@ namespace SprintZero1.Entities
     /// <summary>
     /// a class to handle items resources such as hearts, arrows, etc
     /// </summary>
-    internal class PlayerResourceEntity : IResourceEntity
+    internal class PlayerResourceEntity
     {
 
 
