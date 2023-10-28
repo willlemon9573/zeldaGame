@@ -115,12 +115,6 @@
 /processorParam:TextureFormat=Color
 /build:OverworldEnemySpritesheet.png
 
-#begin The Legend of Zelda Cartoon Sound Effects Shield Deflecting.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:The Legend of Zelda Cartoon Sound Effects Shield Deflecting.wav
-
 #begin TileSheet.png
 /importer:TextureImporter
 /processor:TextureProcessor

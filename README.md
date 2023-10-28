@@ -49,6 +49,7 @@ Code Metrics ran 10/28/2023
 	Class Coupling: 143
 	Lines of Source code: 4,542
 	Lines of Executable code: 1,072
+	During runtime the code analysis shows the game uses about 139mb of memory now
 
 
 # Sprint 3 Reflection:
