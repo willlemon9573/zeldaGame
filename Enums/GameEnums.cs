@@ -32,7 +32,7 @@
     /// </summary>
     public enum Items
     {
-        GreenRupee,
+        Rupee,
         BlueRupee,
         Bomb,
         Arrow,

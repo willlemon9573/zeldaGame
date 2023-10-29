@@ -16,7 +16,7 @@ namespace SprintZero1.InventoryFiles
         private const int MAX_EQUIPMENT_SLOTS = 8;
         private const int MAX_UTILITY_SLOTS = 7;
         private readonly PlayerEntity _inventoryOwner; // need the player as base state to not have to add a whole new interface to access weapon slots
-        private readonly Dictionary<Items, IStackableItems> _playerStackableItemSlots;
+        private Dictionary<Items, IStackableItems> _playerStackableItemSlots;
         private readonly Dictionary<EquipmentItem, IWeaponEntity> _playerEquipmentSlots = new Dictionary<EquipmentItem, IWeaponEntity>();
         /* ---------------------------------------- Private functions ---------------------------------------- */
 
@@ -28,6 +28,7 @@ namespace SprintZero1.InventoryFiles
             XDocument inventoryDocument = XDocument.Load(@"XMLFiles\PlayerXMLFiles\StartingInventory.xml");
             InventoryXMLParser parser = new InventoryXMLParser(inventoryDocument, "startinginventory");
             _inventoryOwner.SwordSlot = parser.ParsePlayerWeapon("startingweapon");
+            _playerStackableItemSlots = parser.ParseInitialStartingItems("stackableitems");
         }
 
         /* ---------------------------------------- Public Methods ---------------------------------------- */

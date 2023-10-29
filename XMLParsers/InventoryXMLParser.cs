@@ -32,12 +32,10 @@ namespace SprintZero1.XMLParsers
         const string ITEMS_ENUM_ATTRIBUTE = "items";
         const string KEY_VALUE_ATTRIBUTE = "kvp";
         const string TUPLE_ELEMENT = "tuple";
-        const string STARTING_STOCK_ATTRIBUTE = "currentstock";
+        const string STARTING_STOCK_ATTRIBUTE = "startingstock";
         const string MAX_STOCK_ATTRIBUTE = "maxstock";
         const string SPRITE_ATTRIBUTE = "sprite";
-        const string PARAM_ELEMENT = "param";
-        const string STARTING_WEAP_ELEMENT = "startingweapon";
-        const string SWORD_ELEMENT = "sword";
+        const string PARAM_ELEMENT = "params";
         const string ITEM_ELEMENT = "item";
 
         /* ----------------------------- Private Members ----------------------------- */
@@ -202,7 +200,7 @@ namespace SprintZero1.XMLParsers
             return stackableItemsElement.Elements(ITEM_ELEMENT).ToDictionary
                 (
                       itemElement => ParseElementForItem(itemElement),
-                      itemChildElement => ParseElementForStackableItems(itemChildElement.Element(ITEM_ELEMENT))
+                      itemChildElement => ParseElementForStackableItems(itemChildElement.Element(PARAM_ELEMENT))
                 );
         }
     }
