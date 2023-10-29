@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Colliders;
 using SprintZero1.Sprites;
-using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {
@@ -25,6 +24,6 @@ namespace SprintZero1.Entities
             collider = new LevelBlockCollider(new Rectangle((int)pos.X, (int)pos.Y, 16, 16));
         }
 
-        
+
     }
 }

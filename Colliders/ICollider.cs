@@ -4,7 +4,7 @@ using SprintZero1.Entities;
 namespace SprintZero1.Colliders
 {
     internal interface ICollider
-    { 
+    {
         /// <summary>
         /// The factor at which to add or subtract to/from the dimensions of the Collider. Used to keep the Collider centered.
         /// </summary>

@@ -1,5 +1,4 @@
-﻿using SprintZero1.Colliders;
-using SprintZero1.Entities;
+﻿using SprintZero1.Entities;
 using SprintZero1.Managers;
 using System;
 using System.Collections.Generic;
@@ -23,7 +22,7 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            if(nextLevel > -1)
+            if (nextLevel > -1)
                 LevelManager.LoadNewRoom(levelList[nextLevel]);
         }
     }

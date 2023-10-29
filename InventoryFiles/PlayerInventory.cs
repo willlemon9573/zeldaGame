@@ -12,6 +12,10 @@ namespace SprintZero1.InventoryFiles
 {
     internal class PlayerInventory
     {
+        const string INVENTORY_DOCUMENT_PATH = @"XMLFiles\PlayerXMLFiles\StartingInventory.xml";
+        const string DOCUMENT_ROOT = "startinginventory";
+        const string STARTING_WEAPON_ELEMENT = "startingweapon";
+        const string STACKABLE_ITEMS_ELEMENT = "stackableitems";
         /* ---------------------------------------- FIelds and properties ---------------------------------------- */
         private const int MAX_EQUIPMENT_SLOTS = 8;
         private const int MAX_UTILITY_SLOTS = 7;
@@ -25,10 +29,10 @@ namespace SprintZero1.InventoryFiles
         /// </summary>
         private void BuildPlayerInventory()
         {
-            XDocument inventoryDocument = XDocument.Load(@"XMLFiles\PlayerXMLFiles\StartingInventory.xml");
-            InventoryXMLParser parser = new InventoryXMLParser(inventoryDocument, "startinginventory");
-            _inventoryOwner.SwordSlot = parser.ParsePlayerWeapon("startingweapon");
-            _playerStackableItemSlots = parser.ParseInitialStartingItems("stackableitems");
+            XDocument inventoryDocument = XDocument.Load(INVENTORY_DOCUMENT_PATH);
+            InventoryXMLParser parser = new InventoryXMLParser(inventoryDocument, DOCUMENT_ROOT);
+            _inventoryOwner.SwordSlot = parser.ParsePlayerWeapon(STARTING_WEAPON_ELEMENT);
+            _playerStackableItemSlots = parser.ParseInitialStartingItems(STACKABLE_ITEMS_ELEMENT);
         }
 
         /* ---------------------------------------- Public Methods ---------------------------------------- */

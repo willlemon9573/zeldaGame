@@ -57,7 +57,7 @@ namespace SprintZero1.Managers
         {
             IEntity player = playerList[0];
             EntityManager.LoadNextScreen(player);
-            player.Position = new Vector2(150 ,150);
+            player.Position = new Vector2(150, 150);
         }
 
         public static void Update(GameTime gameTime)
@@ -68,7 +68,7 @@ namespace SprintZero1.Managers
             {
                 controller.Update();
             }
-            for(int i = 0; i < entities.Count; i++) 
+            for (int i = 0; i < entities.Count; i++)
             {
                 entities[i].Update(gameTime);
             }

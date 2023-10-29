@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Enums;
 using SprintZero1.projectile;
 using SprintZero1.Sprites;
-using System;
-using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {

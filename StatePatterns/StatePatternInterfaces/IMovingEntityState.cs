@@ -4,7 +4,8 @@ using SprintZero1.Enums;
 namespace SprintZero1.StatePatterns.StatePatternInterfaces
 {
 
-    internal interface IMovingEntityState { 
+    internal interface IMovingEntityState
+    {
 
         /// <summary>
         /// Handles update logic for changing entity direction
