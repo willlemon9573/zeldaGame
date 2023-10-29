@@ -6,7 +6,7 @@ namespace SprintZero1.InventoryFiles
     internal class StackableItem : IStackableItems
     {
         private int _currentStock;
-        private int _maxStock;
+        private readonly int _maxStock;
         private readonly IEntity _itemEntity;
         private readonly ISprite _itemsprite;
 

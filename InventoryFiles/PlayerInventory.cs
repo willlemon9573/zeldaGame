@@ -22,6 +22,7 @@ namespace SprintZero1.InventoryFiles
         private readonly PlayerEntity _inventoryOwner; // need the player as base state to not have to add a whole new interface to access weapon slots
         private Dictionary<Items, IStackableItems> _playerStackableItemSlots;
         private readonly Dictionary<EquipmentItem, IWeaponEntity> _playerEquipmentSlots = new Dictionary<EquipmentItem, IWeaponEntity>();
+
         /* ---------------------------------------- Private functions ---------------------------------------- */
 
         /// <summary>

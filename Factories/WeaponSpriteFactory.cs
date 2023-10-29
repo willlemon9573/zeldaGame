@@ -12,6 +12,8 @@ namespace SprintZero1.Factories
 {
     internal class WeaponSpriteFactory
     {
+        private const string WEAPON_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\ProjectileSprites.xml";
+        private const string SWORD_SPRITE_PATH = @"XMLFiles\FactoryXMLFiles\LinkSwordSprites.xml";
         /* Temporary class for sprint2 requirements. This along with other factories will be refractored for sprint 3 */
         private Texture2D spriteSheet;
         private Texture2D enemyProjectileSheet;
@@ -39,8 +41,8 @@ namespace SprintZero1.Factories
         private WeaponSpriteFactory()
         {
             SpriteXMLParser spriteParser = new SpriteXMLParser();
-            projectileSourceRectangles = spriteParser.ParseAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\ProjectileSprites.xml");
-            _linkSwordSpriteDictionary = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(@"XMLFiles\FactoryXMLFiles\LinkSwordSprites.xml");
+            projectileSourceRectangles = spriteParser.ParseAnimatedSpriteXML(WEAPON_DOCUMENT_PATH);
+            _linkSwordSpriteDictionary = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(SWORD_SPRITE_PATH);
         }
 
         public ISprite CreateAquamentusWeaponSprite(int index)

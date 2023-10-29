@@ -11,6 +11,8 @@ namespace SprintZero1.Factories
 
     public class EnemySpriteFactory
     {
+        private const string ENEMY_SPRITE_PATH = @"XMLFiles\FactoryXMLFiles\EnemySprites.xml";
+        private const string BOSS_SPRITE_PATH = @"XMLFiles\FactoryXMLFiles\BossSprites.xml";
         private Texture2D dungeonEnemySpriteSheet, bossSpriteSheet;
         private readonly Dictionary<string, List<Rectangle>> enemySpriteDictionary;
         private readonly Dictionary<string, List<Rectangle>> bossEnemySpriteDictionary;
@@ -38,8 +40,8 @@ namespace SprintZero1.Factories
         private EnemySpriteFactory()
         {
             SpriteXMLParser spriteParser = new SpriteXMLParser();
-            enemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\EnemySprites.xml");
-            bossEnemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\BossSprites.xml");
+            enemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(ENEMY_SPRITE_PATH);
+            bossEnemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(BOSS_SPRITE_PATH);
         }
 
         /// <summary>

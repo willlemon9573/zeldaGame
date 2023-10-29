@@ -11,6 +11,8 @@ namespace SprintZero1.Factories
 {
     public class TileSpriteFactory
     {
+        private const string DOOR_TILE_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\DoorAndTileSprites.xml";
+        private const string LEVEL_ONE_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\Level1FloorSprites.xml";
         private Texture2D tileSpriteSheet;
         private Texture2D levelOneSpriteSheet;
         private readonly Dictionary<string, Rectangle> tileSourceRectangles;
@@ -65,9 +67,9 @@ namespace SprintZero1.Factories
         private TileSpriteFactory()
         {
             SpriteXMLParser spriteParser = new SpriteXMLParser();
-            tileSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\DoorAndTileSprites.xml");
+            tileSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(DOOR_TILE_DOCUMENT_PATH);
             wallSourceRectangles = new Dictionary<int, Rectangle>();
-            levelOneSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\Level1FloorSprites.xml");
+            levelOneSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(LEVEL_ONE_DOCUMENT_PATH);
             AddWallSourceRectangles();
         }
 
