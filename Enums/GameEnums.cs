@@ -1,5 +1,8 @@
 ﻿namespace SprintZero1.Enums
 {
+    /// <summary>
+    /// Holds enums for direction
+    /// </summary>
     public enum Direction
     {
         North,
@@ -7,7 +10,9 @@
         West,
         East
     }
-
+    /// <summary>
+    /// Holds enums for states
+    /// </summary>
     public enum State
     {
         Attacking,
@@ -45,6 +50,9 @@
         Level1Compass,
         Level1Map,
     }
+    /// <summary>
+    /// Holds the enums for weapons 
+    /// </summary>
     public enum EquipmentItem
     {
         WoodenSword,

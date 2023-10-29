@@ -16,7 +16,7 @@ namespace SprintZero1.InventoryFiles
         private const int MAX_EQUIPMENT_SLOTS = 8;
         private const int MAX_UTILITY_SLOTS = 7;
         private readonly PlayerEntity _inventoryOwner; // need the player as base state to not have to add a whole new interface to access weapon slots
-        private readonly Dictionary<Items, IStackableItems> _playerStackableItemSlots = new Dictionary<Items, IStackableItems>();
+        private readonly Dictionary<Items, IStackableItems> _playerStackableItemSlots;
         private readonly Dictionary<EquipmentItem, IWeaponEntity> _playerEquipmentSlots = new Dictionary<EquipmentItem, IWeaponEntity>();
         /* ---------------------------------------- Private functions ---------------------------------------- */
 

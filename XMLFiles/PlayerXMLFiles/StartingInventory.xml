@@ -5,7 +5,7 @@
 			<tuple spriteeffect="None" x="0" y="-11"/>
 		</kvp>
 		<kvp direction="South">
-			<tuple spriteeffect="FlipVertically" x="0" y="11"/> 
+			<tuple spriteeffect="FlipVertically" x="0" y="11"/>
 		</kvp>
 		<kvp direction="East">
 			<tuple spriteeffect="None" x="11" y="0"/>
@@ -15,16 +15,16 @@
 		</kvp>
 	</startingweapon>
 	<stackableitems>
-		<item key="Rupee">
+		<item items="Rupee">
 			<params currentstock="0" maxstock = "999" sprite="rupee"/>
 		</item>
-		<item key="Bomb">
+		<item items="Bomb">
 			<params currentstock="0" maxstock = "99" sprite="bomb"/>
 		</item>
-		<item key="DungeonKey">
+		<item items="DungeonKey">
 			<params currentstock="0" maxstock = "9" sprite="dungeonkey"/>
 		</item>
-		<item key="Arrow">
+		<item items="Arrow">
 			<params currentstock="0" maxstock="99" sprite="arrow"></params>
 		</item>
 	</stackableitems>

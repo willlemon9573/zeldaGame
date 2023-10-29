@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
+using SprintZero1.Factories;
+using SprintZero1.InventoryFiles;
+using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,15 +29,16 @@ namespace SprintZero1.XMLParsers
         const string SPRITE_EFFECT_ATTRIBUTE = "spriteeffect";
         const string X_ATTRIBUTE = "x";
         const string Y_ATTRIBUTE = "y";
+        const string ITEMS_ENUM_ATTRIBUTE = "items";
         const string KEY_VALUE_ATTRIBUTE = "kvp";
         const string TUPLE_ELEMENT = "tuple";
-        const string CURRENT_STOCK_ATTRIBUTE = "currentstock";
+        const string STARTING_STOCK_ATTRIBUTE = "currentstock";
         const string MAX_STOCK_ATTRIBUTE = "maxstock";
         const string SPRITE_ATTRIBUTE = "sprite";
         const string PARAM_ELEMENT = "param";
         const string STARTING_WEAP_ELEMENT = "startingweapon";
         const string SWORD_ELEMENT = "sword";
-        const string STACKABLE_ITEM_ELEMENT = "stackableitems";
+        const string ITEM_ELEMENT = "item";
 
         /* ----------------------------- Private Members ----------------------------- */
         private readonly XDocument _inventoryDocument;
@@ -69,7 +73,7 @@ namespace SprintZero1.XMLParsers
         /// </summary>
         /// <param name="attribute">The attribute to be parsed</param>
         /// <returns>The string form of the attribute value</returns>
-        private string ParseStringAsAttribute(XAttribute attribute)
+        private string ParseAttributeAsString(XAttribute attribute)
         {
             CheckAttribute(attribute);
             return attribute.Value;
@@ -82,9 +86,21 @@ namespace SprintZero1.XMLParsers
         /// <returns>The content of the directio enum with its corresponding enum type</returns>
         private Direction ParseElementForDirection(XElement keyElement)
         {
-            XAttribute key = keyElement.Attribute(DIRECTION_ATTRIBUTE);
+            XAttribute direction = keyElement.Attribute(DIRECTION_ATTRIBUTE);
+            CheckAttribute(direction);
+            return (Direction)Enum.Parse(typeof(Direction), direction.Value, true);
+        }
+
+        /// <summary>
+        /// Parses the given element for the key attribute
+        /// </summary>
+        /// <param name="itemElement"></param>
+        /// <returns></returns>
+        private Items ParseElementForItem(XElement itemElement)
+        {
+            XAttribute key = itemElement.Attribute(ITEMS_ENUM_ATTRIBUTE);
             CheckAttribute(key);
-            return (Direction)Enum.Parse(typeof(Direction), key.Value);
+            return (Items)Enum.Parse(typeof(Items), key.Value, true);
         }
 
         /// <summary>
@@ -98,6 +114,14 @@ namespace SprintZero1.XMLParsers
             CheckAttribute(spriteEffect);
             return (SpriteEffects)Enum.Parse(typeof(SpriteEffects), spriteEffect.Value, true);
         }
+
+        private ISprite ParseElementForNonAnimatedItemSprite(XElement element)
+        {
+            XAttribute spriteAttribute = element.Attribute(SPRITE_ATTRIBUTE);
+            CheckAttribute(spriteAttribute);
+            return ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite(spriteAttribute.Value);
+        }
+
         /// <summary>
         /// Parses the element for the given attribute and returns it as an int
         /// </summary>
@@ -115,6 +139,7 @@ namespace SprintZero1.XMLParsers
             }
             return result;
         }
+
         /// <summary>
         /// Parses the given element for the attributes required to create the Tuple
         /// </summary>
@@ -122,10 +147,20 @@ namespace SprintZero1.XMLParsers
         /// <returns>A Tuple containing the required sprite effects for flipping and the position offsets for the weapon</returns>
         private Tuple<SpriteEffects, Vector2> ParseElementForTuple(XElement keyElement)
         {
+            CheckIfNull(keyElement, TUPLE_ELEMENT);
             SpriteEffects spriteEffects = ParseElementForSpriteEffects(keyElement);
             int x = ParseElementForInt(keyElement, X_ATTRIBUTE);
             int y = ParseElementForInt(keyElement, Y_ATTRIBUTE);
             return Tuple.Create(spriteEffects, new Vector2(x, y));
+        }
+
+        private IStackableItems ParseElementForStackableItems(XElement paramElement)
+        {
+            CheckIfNull(paramElement, PARAM_ELEMENT);
+            int startingStock = ParseElementForInt(paramElement, STARTING_STOCK_ATTRIBUTE);
+            int maxStock = ParseElementForInt(paramElement, MAX_STOCK_ATTRIBUTE);
+            ISprite itemSprite = ParseElementForNonAnimatedItemSprite(paramElement);
+            return new StackableItem(startingStock, maxStock, new InventoryEntityTest(), itemSprite);
         }
 
         /* ----------------------------- Public functions ----------------------------- */
@@ -149,18 +184,26 @@ namespace SprintZero1.XMLParsers
         {
             XElement weaponElement = _inventoryDocument.Root.Element(elementName);
             CheckIfNull(weaponElement, elementName);
-            String weaponName = ParseStringAsAttribute(weaponElement.Attribute(NAME_ATTRIBUTE));
+            String weaponName = ParseAttributeAsString(weaponElement.Attribute(NAME_ATTRIBUTE));
             Dictionary<Direction, Tuple<SpriteEffects, Vector2>> weaponEffects =
-                weaponElement.Elements(KEY_VALUE_ATTRIBUTE).ToDictionary(
-                        kvpElement => ParseElementForDirection(kvpElement),
-                        kvpElement => ParseElementForTuple(kvpElement.Element(TUPLE_ELEMENT))
+                weaponElement.Elements(KEY_VALUE_ATTRIBUTE).ToDictionary
+                (
+                        directionElement => ParseElementForDirection(directionElement),
+                        directionChildElement => ParseElementForTuple(directionChildElement.Element(TUPLE_ELEMENT))
                 );
-            foreach (var kvp in weaponEffects)
-            {
-                Debug.WriteLine($"Why are you not right {kvp.Key}, {kvp.Value.Item1}, {kvp.Value.Item2}");
-            }
 
             return new SwordEntity(weaponName, weaponEffects);
+        }
+
+        public Dictionary<Items, IStackableItems> ParseInitialStartingItems(string elementName)
+        {
+            XElement stackableItemsElement = _inventoryDocument.Root.Element(elementName);
+            CheckIfNull(stackableItemsElement, elementName);
+            return stackableItemsElement.Elements(ITEM_ELEMENT).ToDictionary
+                (
+                      itemElement => ParseElementForItem(itemElement),
+                      itemChildElement => ParseElementForStackableItems(itemChildElement.Element(ITEM_ELEMENT))
+                );
         }
     }
 }
