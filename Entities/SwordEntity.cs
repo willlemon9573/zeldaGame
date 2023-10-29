@@ -6,7 +6,6 @@ using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace SprintZero1.Entities
@@ -32,19 +31,24 @@ namespace SprintZero1.Entities
         private ICollider _collider;
         /* Get collider */
         public ICollider Collider { get { return _collider; } }
-
-        public SwordEntity(String weaponName)
+        /// <summary>
+        /// TODO: Remove weapon name if my inventory implementation works
+        /// </summary>
+        /// <param name="weaponName"></param>
+        public SwordEntity(String weaponName, Dictionary<Direction, Tuple<SpriteEffects, Vector2>> spriteEffectsMap)
         {
             _weaponName = weaponName;
             const int X = 11, Y = 11;
             /* This might be able to be passed by the player / xml / or mathematically */
-            _spriteEffectsDictionary = new Dictionary<Direction, Tuple<SpriteEffects, Vector2>>()
-            {
-                { Direction.North, Tuple.Create(SpriteEffects.None, new Vector2(0, Y*-1)) },
-                { Direction.South, Tuple.Create(SpriteEffects.FlipVertically, new Vector2(0, Y)) },
-                { Direction.East, Tuple.Create(SpriteEffects.None, new Vector2(X, 0)) },
-                { Direction.West, Tuple.Create(SpriteEffects.FlipHorizontally, new Vector2(X*-1, 0)) }
-            };
+            _spriteEffectsDictionary = spriteEffectsMap;
+
+            /*                new Dictionary<Direction, Tuple<SpriteEffects, Vector2>>()
+                        {
+                            { Direction.North, Tuple.Create(SpriteEffects.None, new Vector2(0, -11)) },
+                            { Direction.South, Tuple.Create(SpriteEffects.FlipVertically, new Vector2(0, 11)) },
+                            { Direction.East, Tuple.Create(SpriteEffects.None, new Vector2(11, 0)) },
+                            { Direction.West, Tuple.Create(SpriteEffects.FlipHorizontally, new Vector2(-11, 0)) }
+                        };*/
             _colliderRectanglesDictionary = new Dictionary<Direction, Rectangle>()
             {
                 {Direction.North, new Rectangle(5, Y*-1, 7, 16) },
@@ -60,7 +64,7 @@ namespace SprintZero1.Entities
             Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];
             Rectangle colliderRectangle = _colliderRectanglesDictionary[direction];
             colliderRectangle.Location += position.ToPoint();
-            _collider = new DynamicCollider(colliderRectangle);  
+            _collider = new DynamicCollider(colliderRectangle);
             _currentSpriteEffect = SpriteAdditions.Item1;
             _weaponPosition = position + SpriteAdditions.Item2;
             EntityManager.AddImmediately(this);

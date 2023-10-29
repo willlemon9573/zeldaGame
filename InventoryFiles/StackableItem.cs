@@ -7,8 +7,8 @@ namespace SprintZero1.InventoryFiles
     {
         private int _currentStock;
         private int _maxStock;
-        private IEntity _itemEntity;
-        private ISprite _itemsprite;
+        private readonly IEntity _itemEntity;
+        private readonly ISprite _itemsprite;
 
         public int CurrentStock { get { return _currentStock; } }
 
@@ -18,9 +18,18 @@ namespace SprintZero1.InventoryFiles
 
         public ISprite ItemSprite { get { return _itemsprite; } }
 
-        public StackableItem(int currentStock, int maxStock, IEntity itemEntity, ISprite itemsprite)
+        /* Note IENTITY may not even be needed */
+        /// <summary>
+        /// Creates a stackable item that can be placed in a player inventory
+        /// </summary>
+        /// <param name="startingStock">The starting amount the player will start with</param>
+        /// <param name="maxStock">the max stock of the item</param>
+        /// <param name="itemEntity">the entity object the item belongs to</param>
+        /// <param name="itemsprite">The sprite of the item</param>
+
+        public StackableItem(int startingStock, int maxStock, IEntity itemEntity, ISprite itemsprite)
         {
-            _currentStock = currentStock;
+            _currentStock = startingStock;
             _maxStock = maxStock;
             _itemEntity = itemEntity;
             _itemsprite = itemsprite;

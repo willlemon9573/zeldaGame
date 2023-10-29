@@ -1,10 +1,12 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Sprites;
+using SprintZero1.XMLParsers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace SprintZero1.InventoryFiles
 {
@@ -13,15 +15,9 @@ namespace SprintZero1.InventoryFiles
         /* ---------------------------------------- FIelds and properties ---------------------------------------- */
         private const int MAX_EQUIPMENT_SLOTS = 8;
         private const int MAX_UTILITY_SLOTS = 7;
-        private readonly IEntity _inventoryOwner; // player may not be used, will remove if we don't find a use. 
+        private readonly PlayerEntity _inventoryOwner; // need the player as base state to not have to add a whole new interface to access weapon slots
         private readonly Dictionary<Items, IStackableItems> _playerStackableItemSlots = new Dictionary<Items, IStackableItems>();
         private readonly Dictionary<EquipmentItem, IWeaponEntity> _playerEquipmentSlots = new Dictionary<EquipmentItem, IWeaponEntity>();
-        /* Player already contains a large amount of properties and fields as is.
-         * So these will hold a reference to the player's current sword slot and equipment slot
-         * For easily changing the players items around
-         */
-        private IWeaponEntity _playerSwordSlotReference;
-        private IWeaponEntity _playerEquipmentSlotReference;
         /* ---------------------------------------- Private functions ---------------------------------------- */
 
         /// <summary>
@@ -29,7 +25,9 @@ namespace SprintZero1.InventoryFiles
         /// </summary>
         private void BuildPlayerInventory()
         {
-            // TODO - Parse xml file with player's inventory 
+            XDocument inventoryDocument = XDocument.Load(@"XMLFiles\PlayerXMLFiles\StartingInventory.xml");
+            InventoryXMLParser parser = new InventoryXMLParser(inventoryDocument, "startinginventory");
+            _inventoryOwner.SwordSlot = parser.ParsePlayerWeapon("startingweapon");
         }
 
         /* ---------------------------------------- Public Methods ---------------------------------------- */
@@ -39,11 +37,10 @@ namespace SprintZero1.InventoryFiles
         /// <param name="player">The player who will own the inventory</param>
         /// <param name="playerSwordRef">the reference to the player's weapon slot</param>
         /// <param name="playerEquipmentRef">the reference to the player equipment slot</param>
-        public PlayerInventory(ICombatEntity player, ref IWeaponEntity playerSwordRef, ref IWeaponEntity playerEquipmentRef)
+        public PlayerInventory(PlayerEntity player)
         {
             _inventoryOwner = player;
-            _playerSwordSlotReference = playerSwordRef;
-            _playerEquipmentSlotReference = playerEquipmentRef;
+            BuildPlayerInventory();
         }
 
         /// <summary>
@@ -90,9 +87,9 @@ namespace SprintZero1.InventoryFiles
         public void UpgradePlayerEquipment(EquipmentItem oldEquipmentItem, EquipmentItem newEquipmentItem, IWeaponEntity newWeaponEntity)
         {
             /* Update player equipment slot if current equipment is being upgraded */
-            if (_playerEquipmentSlotReference == _playerEquipmentSlots[oldEquipmentItem])
+            if (_inventoryOwner.EquipmentSlot == _playerEquipmentSlots[oldEquipmentItem])
             {
-                _playerEquipmentSlotReference = newWeaponEntity;
+                _inventoryOwner.EquipmentSlot = newWeaponEntity;
             }
             /* Remove and replace the kvp of the old equipment item with the new kvp of the new equipment item*/
             _playerEquipmentSlots.Remove(oldEquipmentItem);
@@ -107,7 +104,7 @@ namespace SprintZero1.InventoryFiles
         public void UpgradePlayerSword(IWeaponEntity newSword)
         {
             Debug.Assert(newSword is SwordEntity, $"Erorr upgrading playersword. {newSword} is not a type of sword entity");
-            _playerSwordSlotReference = newSword;
+            _inventoryOwner.SwordSlot = newSword;
         }
 
         /// <summary>
@@ -116,7 +113,7 @@ namespace SprintZero1.InventoryFiles
         /// <param name="newEquipment">The new item the player will use</param>
         public void ChangeEquipmentItem(EquipmentItem newEquipment)
         {
-            _playerEquipmentSlotReference = _playerEquipmentSlots[newEquipment];
+            _inventoryOwner.EquipmentSlot = _playerEquipmentSlots[newEquipment];
         }
 
         /// <summary>

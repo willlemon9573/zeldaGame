@@ -59,6 +59,5 @@ namespace SprintZero1.Factories
             Debug.Assert(attackSpriteDictionary.ContainsKey(direction), "Direction not found in dictionary");
             return new NonAnimatedSprite(attackSpriteDictionary[direction], LinkSpriteSheet);
         }
-
     }
 }

@@ -17,6 +17,9 @@ namespace SprintZero1.XMLParsers
         private const string RectangleElement = "Rectangle";
         private const string SpriteNameAttribute = "name";
         private const string SpriteDirectionAttribute = "direction";
+
+        /* ----------------------------- Private Functions (Might throw these in another file) ----------------------------- */
+
         /// <summary>
         /// A helper object to parse different types of XML files that contain sprites
         /// </summary>
@@ -127,6 +130,8 @@ namespace SprintZero1.XMLParsers
                 throw new Exception($"Error parsing {filePath}: Missing Element");
             }
         }
+
+        /* ----------------------------- Public functions ----------------------------- */
 
         /// <summary>
         /// Parses the given xml file located at {@param fileName} and returns a dictionary map of animated sprites

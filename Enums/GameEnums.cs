@@ -27,7 +27,8 @@
     /// </summary>
     public enum Items
     {
-        Rupee,
+        GreenRupee,
+        BlueRupee,
         Bomb,
         Arrow,
         Clock,
