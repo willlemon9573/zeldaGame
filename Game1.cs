@@ -4,6 +4,7 @@ using SprintZero1.Controllers;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
+using SprintZero1.GameStateMenu;
 
 namespace SprintZero1
 {
@@ -16,6 +17,7 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
+        private PauseMenu _pauseMenu;
 
         public Game1()
         {
@@ -54,6 +56,7 @@ namespace SprintZero1
             ItemSpriteFactory.Instance.LoadTextures();
             _mouseController = new MouseController(this);
             ItemSpriteFactory.Instance.LoadTextures();
+            _pauseMenu = new PauseMenu(Content.Load<SpriteFont>("Pause"), GraphicsDevice);
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize(this);
 
@@ -63,6 +66,7 @@ namespace SprintZero1
         {
             LevelManager.Update(gameTime);
             _mouseController.Update();
+            _pauseMenu.Hide();
             base.Update(gameTime);
         }
 
@@ -80,6 +84,8 @@ namespace SprintZero1
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(_newRenderTarget, _actualScreenRectangle, Color.White);
+            _pauseMenu.Draw(_spriteBatch, _graphics);
+
             _spriteBatch.End();
             base.Draw(gameTime);
         }
