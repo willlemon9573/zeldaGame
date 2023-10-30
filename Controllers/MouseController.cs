@@ -70,7 +70,7 @@ namespace SprintZero1.Controllers
             _getNextRoom.Execute();
         }
 
-        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity, IEntity projectileEntity)
+        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity)
         {
             // TODO: Unused - going to make parser for commands later
         }

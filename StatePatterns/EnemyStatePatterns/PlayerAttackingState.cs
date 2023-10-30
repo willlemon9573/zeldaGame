@@ -2,16 +2,16 @@
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 
-namespace SprintZero1.StatePatterns.PlayerStatePatterns
+namespace SprintZero1.StatePatterns.EnemyStatePatterns
 {
     /// <summary>
     /// Handles the player when they're in the attacking state
     /// @author Aaron Heishman
     /// </summary>
-    internal class PlayerAttackingState : BasePlayerState
+    internal class EnemyAttackingState : BaseEnemyState
     {
         private float _stateElapsedTime = 0f;
-        private readonly float _timeToResetState = 1/7f;
+        private readonly float _timeToResetState = 1 / 7f;
         /// <summary>
         /// Keep track of the time in the state and reset back to idle state when finished
         /// </summary>
@@ -21,16 +21,16 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             _stateElapsedTime += deltaTime;
             if (_stateElapsedTime >= _timeToResetState)
             {
-                _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(_playerEntity.Direction);
+                _enemyEntity.EnemySprite = _enemySpriteFactory.CreateEnemySprite(_enemyEntity.EnemyName, _enemyEntity.Direction);
                 _blockTransition = false;
-                _playerEntity.TransitionToState(State.Idle);
+                _enemyEntity.TransitionToState(State.Idle);
             }
         }
         /// <summary>
         /// Constructor for the state transition Player Attacking State
         /// </summary>
         /// <param name="playerEntity">The player entering the state</param>
-        public PlayerAttackingState(PlayerEntity playerEntity) : base(playerEntity)
+        public EnemyAttackingState(EnemyBasedEntity enemyEntity) : base(enemyEntity)
         {
             /* Transition to state updates player state after invoking method. Track the previous state beforehand */
         }
@@ -42,7 +42,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         {
             if (_blockTransition) { return; }
             _blockTransition = true;
-            _playerEntity.PlayerSprite = _linkSpriteFactory.GetAttackingSprite(_playerEntity.Direction);
+            _enemyEntity.EnemySprite = _enemySpriteFactory.CreateEnemySprite(_enemyEntity.EnemyName, _enemyEntity.Direction);
         }
         /// <summary>
         /// Handles updating 
@@ -53,7 +53,6 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             TrackStateTime(deltaTime);
         }
-
         /// <summary>
         /// Changes direction of player
         /// </summary>

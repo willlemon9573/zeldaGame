@@ -65,7 +65,7 @@ namespace SprintZero1.Controllers
             }
         }
 
-        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity, IEntity ProjectileEntity)
+        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity)
         {
             /* directional commands */
             gamepadMap.Add(Buttons.DPadUp, new MoveUpCommand(playerEntity));
@@ -81,13 +81,6 @@ namespace SprintZero1.Controllers
             gamepadMap.Add(Buttons.X, new SwordAttackCommand(playerEntity));
             /* Other commands */
             gamepadMap.Add(Buttons.Back, new ExitCommand(game));
-
-            gamepadMap.Add(Buttons.LeftShoulder, new FireArrowCommand(playerEntity, ProjectileEntity));
-            gamepadMap.Add(Buttons.RightShoulder, new FireBetterArrowCommand(playerEntity, ProjectileEntity));
-            gamepadMap.Add(Buttons.LeftTrigger, new FireBoomerangCommand(playerEntity, ProjectileEntity));
-            gamepadMap.Add(Buttons.RightTrigger, new FireBetterBoomerangCommand(playerEntity, ProjectileEntity));
-            gamepadMap.Add(Buttons.Y, new FireBombCommand(playerEntity, ProjectileEntity));
-            gamepadMap.Add(Buttons.B, new FireMagicFireCommand(playerEntity, ProjectileEntity));
 
         }
 

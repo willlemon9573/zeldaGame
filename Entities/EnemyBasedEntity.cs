@@ -4,6 +4,8 @@ using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
+using SprintZero1.StatePatterns.StatePatternInterfaces;
+using SprintZero1.StatePatterns.EnemyStatePatterns;
 //using SprintZero1.StatePatterns.CombatStatePatterns;
 //using SprintZero1.StatePatterns.MovingStatePatterns;
 //using SprintZero1.StatePatterns.StatePatternInterfaces;
@@ -18,10 +20,8 @@ namespace SprintZero1.Entities
     internal abstract class EnemyBasedEntity : ICombatEntity, ICollidableEntity
     {
         //Enemy Components
-        protected IProjectileEntity projectileSprite;
-        protected ISprite _enemySprite;
+        //protected IProjectileEntity projectileSprite;
         protected int _totalFrame;
-        protected string _enemyName;
         protected float _attackCooldown;
         //protected EnemyCollider _enemyCollider;
         //protected readonly EnemyStateMachine _enemyStateMachine;
@@ -30,7 +30,10 @@ namespace SprintZero1.Entities
         protected float _timeElapsed;
         //protected readonly string _weapon;
         protected readonly float _timeToReset = 1f / 7;
-
+        protected ISprite _enemySprite;
+        public ISprite EnemySprite { get { return _enemySprite; } set { _enemySprite = value; } }
+        protected string _enemyName;
+        public string EnemyName { get { return _enemyName; } set { _enemyName = value; } }
 
         protected Vector2 _enemyPosition;
         public Vector2 Position { get { return _enemyPosition; } set { _enemyPosition = value; _collider.Update(this); } }
@@ -40,6 +43,9 @@ namespace SprintZero1.Entities
 
         protected Direction _enemyDirection = Direction.South;
         public Direction Direction { get { return _enemyDirection; } set { _enemyDirection = value; } }
+
+        protected IEnemyState _enemyState;
+        public IEnemyState EnemyState { get { return _enemyState; } set { _enemyState = value; } }
 
         private ICollider _collider;
         public ICollider Collider { get { return _collider; } }
@@ -65,45 +71,30 @@ namespace SprintZero1.Entities
         /// <param name="position">The position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        protected EnemyBasedEntity(Vector2 position, int startingHealth, string enemyName, int totalFrames, bool isBoss = false)
+        protected EnemyBasedEntity(Vector2 position, int startingHealth, string enemyName,bool isBoss = false)
         {
-            _totalFrame = totalFrames;
             _enemyHealth = startingHealth;
             _enemyPosition = position;
             _enemyName = enemyName;
-            projectileSprite = new ProjectileEntity();
+            _enemyState = new EnemyIdleState(this);
             _collider = new DynamicCollider(new Rectangle((int)position.X, (int)position.Y, 16, 16));
-            _enemySprite = !isBoss ? _EnemyFactory.CreateEnemySprite(enemyName, totalFrames) : _EnemyFactory.CreateBossSprite(enemyName, totalFrames);
+            _enemySprite = !isBoss ? _EnemyFactory.CreateEnemySprite(enemyName, _enemyDirection) : _EnemyFactory.CreateBossSprite(enemyName, _enemyDirection);
+
         }
 
-
+        
         public virtual void Move()
         {
-            switch (_enemyDirection)
-            {
-                case Direction.North:
-                    _enemyPosition.Y -= 0.5f;
-                    break;
-                case Direction.South:
-                    _enemyPosition.Y += 0.5f;
-                    break;
-                case Direction.West:
-                    _enemyPosition.X -= 0.5f;
-                    break;
-                case Direction.East:
-                    _enemyPosition.X += 0.5f;
-                    break;
-                default:
-                    // Handle other directions if necessary
-                    break;
-            }
+            if (_enemyState is not EnemyMovingState) { TransitionToState(State.Moving); }
+            _enemyState.Request();
+        }
             /*if (_playerState is not PlayerMovingState) { TransitionToState(State.Moving); }
             _playerState.Request();*/
-        }
+        
 
         public virtual void TransitionToState(State newState)
         {
-            //_playerState.TransitionState(newState);
+            _enemyState.TransitionState(newState);
         }
 
         public virtual void Attack(string weaponName)
@@ -130,7 +121,7 @@ namespace SprintZero1.Entities
 
         public virtual void ChangeDirection(Direction direction)
         {
-            _enemyDirection = direction;
+            _enemyState.ChangeDirection(direction);
         }
         //_enemyDirection = direction;
 

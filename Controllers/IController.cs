@@ -9,7 +9,7 @@ namespace SprintZero1.Controllers
         /// </summary>
         /// <param name="game">Game1 object</param>
 
-        void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity, IEntity ProjectileEntity);
+        void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity);
 
 
         /// <summary>

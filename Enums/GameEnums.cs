@@ -77,4 +77,12 @@ namespace SprintZero1.Enums
         MagicalRod       // A magical rod weapon with special abilities 
     }
 
+    public enum GameState
+    {
+        Playing,
+        Paused,
+        GameOver,
+        LevelCompleted
+    }
+
 }

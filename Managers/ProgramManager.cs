@@ -5,6 +5,8 @@ using SprintZero1.Controllers;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 using System.Collections.Generic;
+using SprintZero1.Controllers.EnemyControllers;
+using SprintZero1.Enums;
 using System.Linq;
 
 namespace SprintZero1.Managers
@@ -12,11 +14,13 @@ namespace SprintZero1.Managers
     internal static class ProgramManager
     {
         public static Game1 _game;
+
         private static List<PlayerEntity> playerList = new List<PlayerEntity>();
         private static IEntity projectileHandler;
         /* Inventory Testing */
         private static List<StackableItems> itemList = new List<StackableItems>() { StackableItems.Rupee, StackableItems.Bomb, StackableItems.Arrow, StackableItems.DungeonKey };
         // List of available Controllers
+        static List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
         static readonly IController[] controllers = new IController[]
 
         #region
@@ -28,22 +32,40 @@ namespace SprintZero1.Managers
             new GamepadController(3)
         };
         #endregion
+        static PlayerEntity player;
+        public static PlayerEntity Player { get { return player; } }
+        private static GameState gameState = GameState.Playing;
+
+        public static GameState GameState
+        {
+            get { return gameState; }
+            set { gameState = value; }
+        }
+
+
 
 
         public static void Start(Game1 game)
         {
             _game = game;
-            PlayerEntity player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
+
+            player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
             playerList.Add(player);
-            projectileHandler = new ProjectileEntity();
             AddOnScreenEntity(player);
-            controllers[0].LoadDefaultCommands(game, player, projectileHandler);
+            controllers[0].LoadDefaultCommands(game, player);
+
         }
 
         /// <summary>
         /// Add an entity to the screen
         /// </summary>
         /// <param name="entity">Entity to be added</param>
+        /// 
+
+        public static void AddOnScreenEnemyController(IEnemyMovementController enemyController)
+        {
+            onScreenEnemyController.Add(enemyController);
+        }
         public static void AddOnScreenEntity(IEntity entity)
         {
             EntityManager.Add(entity);
@@ -67,6 +89,11 @@ namespace SprintZero1.Managers
 
         public static void Update(GameTime gameTime)
         {
+            foreach (IEnemyMovementController enemyController in onScreenEnemyController)
+            {
+                enemyController.Update(gameTime);
+            }
+
             EntityManager.Update(gameTime);
             List<IEntity> entities = EntityManager.OnScreenEntities();
             foreach (IController controller in controllers)
@@ -77,7 +104,7 @@ namespace SprintZero1.Managers
             {
                 entities[i].Update(gameTime);
             }
-            projectileHandler.Update(gameTime);
+            //projectileHandler.Update(gameTime);
             ColliderManager.CheckCollisions(entities.OfType<ICollidableEntity>().ToList());
 
         }
@@ -96,7 +123,6 @@ namespace SprintZero1.Managers
                 if (i == 5)
                 {
                     // draw player/projectile here to have player be drawn "under" doors and for project to be "under" link
-                    projectileHandler.Draw(spriteBatch);
                     player.Draw(spriteBatch);
                 }
             }
