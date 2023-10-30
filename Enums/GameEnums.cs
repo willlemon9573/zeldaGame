@@ -17,11 +17,15 @@ namespace SprintZero1.Enums
     /// </summary>
     public enum State
     {
-        Attacking,     // Represents the state of attacking
-        Moving,        // Represents the state of moving
-        TakingDamage,  // Represents the state of taking damage
-        Idle,          // Represents the state of being idle
-        Interacting    // Represents the state of interacting
+        Attacking,              // Represents the state of attacking
+        Moving,                 // Represents the state of moving
+        TakingDamage,           // Represents the state of taking damage
+        Idle,                   // Represents the state of being idle
+        Interacting,            // Represents the state of interacting
+        Paused,                 // Represents the state of being paused
+        InteractingWithItem,    // represetns the state of interacting with an item
+        KnockedBack,            // represents the state of being knocked back
+        Die                     // Represents the state of dying
     }
 
     public enum AttackType
@@ -79,10 +83,12 @@ namespace SprintZero1.Enums
 
     public enum GameState
     {
-        Playing,
-        Paused,
-        GameOver,
-        LevelCompleted
+        Playing,                // Represents the playable game state
+        Paused,                 //  Represents the game paused state
+        ItemSelectionScreen,    // Represents the Item Selection Screen state (open inventory)
+        GameOver,               // Represents the game over state
+        LevelCompleted,         // Represents the level completed state
+        Reset,                  // Rerpesents the game reset state
+        RoomTransition          // Represents the room transition state
     }
-
 }

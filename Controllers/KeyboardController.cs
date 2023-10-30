@@ -1,12 +1,14 @@
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
+using SprintZero1.Commands.PlayerCommands;
 using SprintZero1.Entities;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace SprintZero1.Controllers
 {
+
     internal class KeyboardController : IController
     {
         private readonly Dictionary<Keys, ICommand> keyboardMap;
@@ -80,6 +82,8 @@ namespace SprintZero1.Controllers
             /* Other commands */
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
             keyboardMap.Add(Keys.Escape, new PauseCommand());
+            keyboardMap.Add(Keys.R, new UnpauseCommand((BaseGameState)game.GameState));
+
         }
 
         public void Update()

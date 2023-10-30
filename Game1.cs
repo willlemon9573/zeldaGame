@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
+using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System;
 
 namespace SprintZero1
@@ -16,6 +18,8 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
+        private IGameState _gameState;
+        public IGameState GameState { get { return _gameState; } set { _gameState = value; } }
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -35,6 +39,7 @@ namespace SprintZero1
             // code for window rescaling
             _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
             _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
+            _gameState = new GamePlayingState(this);
             base.Initialize();
         }
 
@@ -61,7 +66,8 @@ namespace SprintZero1
 
         protected override void Update(GameTime gameTime)
         {
-            LevelManager.Update(gameTime);
+            // LevelManager.Update(gameTime);
+            _gameState.Update(gameTime);
             _mouseController.Update();
             base.Update(gameTime);
         }
@@ -73,7 +79,8 @@ namespace SprintZero1
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
-            LevelManager.Draw(_spriteBatch);
+            // LevelManager.Draw(_spriteBatch);
+            _gameState.Draw(_spriteBatch);
             _spriteBatch.End();
 
             /* Rescale the window and draw sprite batch with new scale */

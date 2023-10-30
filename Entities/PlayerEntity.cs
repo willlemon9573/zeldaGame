@@ -27,9 +27,10 @@ namespace SprintZero1.Entities
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
         private IWeaponEntity _playerSwordSlot;
         private IWeaponEntity _playerEquipmentSlot;
+        private readonly PlayerStateFactory _playerStateFactory;
         private IPlayerState _playerState;
         private bool _attackingWithSword = false;
-        private PlayerInventory _playerInventory;
+        private readonly PlayerInventory _playerInventory;
         /* Public properties to modify the player's private members */
         public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
         public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
@@ -56,6 +57,7 @@ namespace SprintZero1.Entities
             _playerCollider = new PlayerCollider(new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
             _playerState = new PlayerIdleState(this);
             _playerInventory = new PlayerInventory(this);
+            _playerStateFactory = new PlayerStateFactory(this);
             PlayerInventoryManager.AddPlayerInventory(this, _playerInventory);
         }
 
@@ -70,7 +72,7 @@ namespace SprintZero1.Entities
         /// <param name="newState">the new state the player will transition to</param>
         public void TransitionToState(State newState)
         {
-            _playerState.TransitionState(newState);
+            _playerState.TransitionState(_playerStateFactory.GetPlayerState(newState));
         }
 
         public void Attack(string weaponName)

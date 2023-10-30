@@ -24,9 +24,6 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="StatePatterns\PlayerStatePatterns\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Update="XMLFiles\FactoryXMLFiles\AnimatedItemSprites.XML">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

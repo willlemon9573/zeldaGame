@@ -16,8 +16,6 @@ namespace SprintZero1.Managers
 
         private static List<PlayerEntity> playerList = new List<PlayerEntity>();
         private static IEntity projectileHandler;
-        /* Inventory Testing */
-        private static List<StackableItems> itemList = new List<StackableItems>() { StackableItems.Rupee, StackableItems.Bomb, StackableItems.Arrow, StackableItems.DungeonKey };
         // List of available Controllers
         static List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
         static readonly IController[] controllers = new IController[]
@@ -40,9 +38,6 @@ namespace SprintZero1.Managers
             get { return gameState; }
             set { gameState = value; }
         }
-
-
-
 
         public static void Start(Game1 game)
         {
