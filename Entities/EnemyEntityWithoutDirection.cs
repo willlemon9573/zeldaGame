@@ -1,14 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Colliders;
-using SprintZero1.Enums;
-using SprintZero1.Factories;
-using SprintZero1.Sprites;
-using SprintZero1.Commands;
 //using SprintZero1.StatePatterns.CombatStatePatterns;
 //using SprintZero1.StatePatterns.MovingStatePatterns;
 //using SprintZero1.StatePatterns.StatePatternInterfaces;
-using SprintZero1.Controllers.EnemyControllers;
 
 namespace SprintZero1.Entities
 {
@@ -26,7 +20,7 @@ namespace SprintZero1.Entities
         : base(position, startingHealth, enemyName, isBoss)
         {
             //no special constructor thing
-           
+
         }
 
 

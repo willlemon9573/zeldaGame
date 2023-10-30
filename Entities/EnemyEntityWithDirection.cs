@@ -1,14 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Colliders;
-using SprintZero1.Enums;
-using SprintZero1.Factories;
-using SprintZero1.Sprites;
 using SprintZero1.Commands;
+using SprintZero1.Enums;
 //using SprintZero1.StatePatterns.CombatStatePatterns;
 //using SprintZero1.StatePatterns.MovingStatePatterns;
 //using SprintZero1.StatePatterns.StatePatternInterfaces;
-using SprintZero1.Controllers.EnemyControllers;
 
 namespace SprintZero1.Entities
 {
@@ -82,7 +78,7 @@ namespace SprintZero1.Entities
             {
                 //Considering adding this as an option for creating a sprite so it doesn't have to be called each time 
 
-               spriteEffects = SpriteEffects.FlipHorizontally;
+                spriteEffects = SpriteEffects.FlipHorizontally;
             }
             //projectileSprite?.Draw(spriteBatch);
             _enemySprite.Draw(spriteBatch, _enemyPosition, spriteEffects);

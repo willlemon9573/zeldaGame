@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
-using System.ComponentModel;
 
 namespace SprintZero1.Colliders
 {

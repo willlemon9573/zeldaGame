@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SprintZero1.Managers
 {
@@ -16,7 +18,7 @@ namespace SprintZero1.Managers
         private static Texture2D _itemSpriteSheet;
         private static Texture2D _weaponSpriteSheet;
         /* for update */
-        //private static Dictionary<string, Texture2D> textureDictionary;
+        private static Dictionary<string, SpriteFont> spriteFontMap = new Dictionary<string, SpriteFont>();
 
         /// <summary>
         /// Loads all the textures required to create sprites
@@ -40,6 +42,11 @@ namespace SprintZero1.Managers
                 { "boss_enemies", contentManager.Load<Texture2D>("BossSpriteSheet") },
                 { "floors", contentManager.Load<Texture2D>("level1") }
             }; */
+        }
+
+        public static void LoadSpriteFonts(ContentManager contentManager)
+        {
+            spriteFontMap.Add("itemfont", contentManager.Load<SpriteFont>("ItemCount"));
         }
 
         public static Texture2D GetLinkSpriteSheet()
@@ -79,5 +86,12 @@ namespace SprintZero1.Managers
         /// </summary>
         /// <returns></returns>
         public static Texture2D GetItemSpriteSheet() { return _itemSpriteSheet; }
+
+        public static SpriteFont GetSpriteFont(string spriteFontName)
+        {
+            Debug.Assert(spriteFontName != null, "spriteFontName cannot be null");
+            Debug.Assert(spriteFontMap.ContainsKey(spriteFontName), $"{spriteFontMap} is an invalid key");
+            return spriteFontMap[spriteFontName];
+        }
     }
 }

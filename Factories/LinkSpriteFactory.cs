@@ -11,6 +11,8 @@ namespace SprintZero1.Factories
 {
     public class LinkSpriteFactory
     {
+        private const string MOVEMENT_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\LinkMovingSprites.xml";
+        private const string ATTACKING_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\LinkAttackingSprites.xml";
         private Texture2D LinkSpriteSheet;
         private readonly Dictionary<Direction, List<Rectangle>> movementSpriteDictionary;
         private readonly Dictionary<Direction, Rectangle> attackSpriteDictionary;
@@ -29,8 +31,8 @@ namespace SprintZero1.Factories
         private LinkSpriteFactory()
         {
             SpriteXMLParser spriteParser = new SpriteXMLParser();
-            movementSpriteDictionary = spriteParser.ParseAnimatedSpriteWithDirectionXML(@"XMLFiles\FactoryXMLFiles\LinkMovingSprites.xml");
-            attackSpriteDictionary = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(@"XMLFiles\FactoryXMLFiles\LinkAttackingSprites.xml");
+            movementSpriteDictionary = spriteParser.ParseAnimatedSpriteWithDirectionXML(MOVEMENT_DOCUMENT_PATH);
+            attackSpriteDictionary = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(ATTACKING_DOCUMENT_PATH);
         }
         /// <summary>
         /// Load the required sprite sheet that contains Link's sprite data
@@ -46,7 +48,7 @@ namespace SprintZero1.Factories
         /// <returns></returns>
         public ISprite GetLinkSprite(Direction direction)
         {
-            Debug.Assert(movementSpriteDictionary.ContainsKey(direction), "Direction not found in dictionary");
+            Debug.Assert(movementSpriteDictionary.ContainsKey(direction), $"{direction} not found in dictionary");
             return new AnimatedSprite(movementSpriteDictionary[direction], LinkSpriteSheet, 2);
         }
         /// <summary>
@@ -56,9 +58,8 @@ namespace SprintZero1.Factories
         /// <returns></returns>
         public ISprite GetAttackingSprite(Direction direction)
         {
-            Debug.Assert(attackSpriteDictionary.ContainsKey(direction), "Direction not found in dictionary");
+            Debug.Assert(attackSpriteDictionary.ContainsKey(direction), $"{direction} not found in dictionary");
             return new NonAnimatedSprite(attackSpriteDictionary[direction], LinkSpriteSheet);
         }
-
     }
 }

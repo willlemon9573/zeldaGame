@@ -82,8 +82,6 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.Escape, new PauseCommand());
         }
 
-
-
         public void Update()
         {
             /* handling movement? */

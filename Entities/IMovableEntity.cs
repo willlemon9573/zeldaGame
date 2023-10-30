@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using SprintZero1.Enums;
+﻿using SprintZero1.Enums;
 
 namespace SprintZero1.Entities
 {

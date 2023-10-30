@@ -9,10 +9,14 @@ namespace SprintZero1.Factories
 {
     internal class ItemSpriteFactory
     {
+        private const string ANIMATED_ITEMS_DOCUMENT_PATH = @"XMLFILES\FactoryXMLFiles\AnimatedItemSprites.xml";
+        private const string NONANIMATED_ITEMS_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\NonAnimatedItemSprites.xml";
+
         private Texture2D itemSpriteSheet;
         private static readonly ItemSpriteFactory instance = new ItemSpriteFactory();
         private readonly Dictionary<string, List<Rectangle>> AnimatedItemSpriteMap;
         private readonly Dictionary<string, Rectangle> NonAnimatedItemSpriteMap;
+
         /// <summary>
         /// 
         /// </summary>
@@ -20,15 +24,17 @@ namespace SprintZero1.Factories
         {
             get { return instance; }
         }
+
         /// <summary>
         /// Private constructor so factory cannot be instantiated
         /// </summary>
         private ItemSpriteFactory()
         {
             SpriteXMLParser spriteParser = new SpriteXMLParser();
-            AnimatedItemSpriteMap = spriteParser.ParseAnimatedSpriteXML(@"XMLFILES\FactoryXMLFiles\AnimatedItemSprites.xml");
-            NonAnimatedItemSpriteMap = spriteParser.ParseNonAnimatedSpriteXML(@"XMLFiles\FactoryXMLFiles\NonAnimatedItemSprites.xml");
+            AnimatedItemSpriteMap = spriteParser.ParseAnimatedSpriteXML(ANIMATED_ITEMS_DOCUMENT_PATH);
+            NonAnimatedItemSpriteMap = spriteParser.ParseNonAnimatedSpriteXML(NONANIMATED_ITEMS_DOCUMENT_PATH);
         }
+
         /// <summary>
         /// Load the sprite sheet containing all the item sprites
         /// </summary>
@@ -36,6 +42,7 @@ namespace SprintZero1.Factories
         {
             itemSpriteSheet = Texture2DManager.GetItemSpriteSheet();
         }
+
         /// <summary>
         /// Create and return a new animated item sprite
         /// </summary>

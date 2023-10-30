@@ -1,15 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Colliders;
 using SprintZero1.Sprites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SprintZero1.Entities
 {
-    internal class LevelDoorEntity : BackgroundSpriteEntity, ICollidableEntity 
+    internal class LevelDoorEntity : BackgroundSpriteEntity, ICollidableEntity
     {
         public int _nextLevel;
         readonly LevelDoorCollider _collider;

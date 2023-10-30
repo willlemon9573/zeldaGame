@@ -3,7 +3,7 @@ using SprintZero1.Sprites;
 
 namespace SprintZero1.InventoryFiles
 {
-    internal class PlayerMap : IUtilityItem
+    internal class PlayerMap : IDungeonItem
     {
         //TODO: Implement class
         public IEntity ItemEntity => throw new System.NotImplementedException();
