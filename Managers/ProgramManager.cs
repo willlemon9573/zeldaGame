@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Controllers;
 using SprintZero1.Entities;
+using SprintZero1.Enums;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,8 +14,11 @@ namespace SprintZero1.Managers
         public static Game1 _game;
         private static List<PlayerEntity> playerList = new List<PlayerEntity>();
         private static IEntity projectileHandler;
+        /* Inventory Testing */
+        private static List<StackableItems> itemList = new List<StackableItems>() { StackableItems.Rupee, StackableItems.Bomb, StackableItems.Arrow, StackableItems.DungeonKey };
         // List of available Controllers
         static readonly IController[] controllers = new IController[]
+
         #region
         {
             new KeyboardController(),
@@ -24,6 +28,7 @@ namespace SprintZero1.Managers
             new GamepadController(3)
         };
         #endregion
+
 
         public static void Start(Game1 game)
         {
@@ -74,6 +79,7 @@ namespace SprintZero1.Managers
             }
             projectileHandler.Update(gameTime);
             ColliderManager.CheckCollisions(entities.OfType<ICollidableEntity>().ToList());
+
         }
 
         /// <summary>
@@ -94,7 +100,6 @@ namespace SprintZero1.Managers
                     player.Draw(spriteBatch);
                 }
             }
-
         }
     }
 }

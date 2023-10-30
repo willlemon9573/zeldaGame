@@ -94,11 +94,11 @@ namespace SprintZero1.XMLParsers
         /// </summary>
         /// <param name="itemElement"></param>
         /// <returns></returns>
-        private Items ParseElementForItem(XElement itemElement)
+        private StackableItems ParseElementForItem(XElement itemElement)
         {
             XAttribute key = itemElement.Attribute(ITEMS_ENUM_ATTRIBUTE);
             CheckAttribute(key);
-            return (Items)Enum.Parse(typeof(Items), key.Value, true);
+            return (StackableItems)Enum.Parse(typeof(StackableItems), key.Value, true);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace SprintZero1.XMLParsers
             return new SwordEntity(weaponName, weaponEffects);
         }
 
-        public Dictionary<Items, IStackableItems> ParseInitialStartingItems(string elementName)
+        public Dictionary<StackableItems, IStackableItems> ParseInitialStartingItems(string elementName)
         {
             XElement stackableItemsElement = _inventoryDocument.Root.Element(elementName);
             CheckIfNull(stackableItemsElement, elementName);

@@ -16,6 +16,7 @@ namespace SprintZero1.Factories
         private static readonly ItemSpriteFactory instance = new ItemSpriteFactory();
         private readonly Dictionary<string, List<Rectangle>> AnimatedItemSpriteMap;
         private readonly Dictionary<string, Rectangle> NonAnimatedItemSpriteMap;
+
         /// <summary>
         /// 
         /// </summary>
@@ -23,6 +24,7 @@ namespace SprintZero1.Factories
         {
             get { return instance; }
         }
+
         /// <summary>
         /// Private constructor so factory cannot be instantiated
         /// </summary>
@@ -32,6 +34,7 @@ namespace SprintZero1.Factories
             AnimatedItemSpriteMap = spriteParser.ParseAnimatedSpriteXML(ANIMATED_ITEMS_DOCUMENT_PATH);
             NonAnimatedItemSpriteMap = spriteParser.ParseNonAnimatedSpriteXML(NONANIMATED_ITEMS_DOCUMENT_PATH);
         }
+
         /// <summary>
         /// Load the sprite sheet containing all the item sprites
         /// </summary>
@@ -39,6 +42,7 @@ namespace SprintZero1.Factories
         {
             itemSpriteSheet = Texture2DManager.GetItemSpriteSheet();
         }
+
         /// <summary>
         /// Create and return a new animated item sprite
         /// </summary>
