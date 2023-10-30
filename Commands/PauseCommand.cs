@@ -1,5 +1,5 @@
-﻿using SprintZero1.Managers;
-using SprintZero1.Enums;
+﻿using SprintZero1.Enums;
+using SprintZero1.Managers;
 namespace SprintZero1.Commands
 {
     public class PauseCommand : ICommand

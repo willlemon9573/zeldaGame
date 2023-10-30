@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
-using SprintZero1.Enums;
 
 namespace SprintZero1.StatePatterns.PlayerStatePatterns
 {

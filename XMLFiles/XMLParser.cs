@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
@@ -6,7 +7,6 @@ using SprintZero1.Sprites;
 using System;
 using System.IO;
 using System.Xml;
-using SprintZero1.Controllers.EnemyControllers;
 
 namespace SprintZero1.XMLFiles
 {
@@ -300,7 +300,7 @@ namespace SprintZero1.XMLFiles
                         IEnemyMovementController movementController = new SmartEnemyMovementController(enemy, ProgramManager.Player);
                         ProgramManager.AddOnScreenEnemyController(movementController);
                     }
-                    
+
                     /* 
                      * what to use for adding enemies in xml file skeleton
                      * <Enemy>

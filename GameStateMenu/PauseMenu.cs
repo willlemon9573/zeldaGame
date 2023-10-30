@@ -10,6 +10,7 @@ namespace SprintZero1.GameStateMenu
         public PauseMenu(SpriteFont font, GraphicsDevice graphicsDevice): base(font, graphicsDevice)
 		{
             pauseText = "Pause";
+            _overlay.SetData(new[] { new Color(0, 0, 0, 150) }); //gray overlay
 
         }
 

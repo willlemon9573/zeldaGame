@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Controllers;
-using SprintZero1.Entities;
-using System.Collections.Generic;
 using SprintZero1.Controllers.EnemyControllers;
+using SprintZero1.Entities;
 using SprintZero1.Enums;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SprintZero1.Managers
@@ -16,9 +16,12 @@ namespace SprintZero1.Managers
 
         private static List<PlayerEntity> playerList = new List<PlayerEntity>();
         private static IEntity projectileHandler;
+        /* Inventory Testing */
+        private static List<StackableItems> itemList = new List<StackableItems>() { StackableItems.Rupee, StackableItems.Bomb, StackableItems.Arrow, StackableItems.DungeonKey };
         // List of available Controllers
         static List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
         static readonly IController[] controllers = new IController[]
+
         #region
         {
             new KeyboardController(),
@@ -37,6 +40,7 @@ namespace SprintZero1.Managers
             get { return gameState; }
             set { gameState = value; }
         }
+
 
 
 
@@ -79,7 +83,7 @@ namespace SprintZero1.Managers
         {
             IEntity player = playerList[0];
             EntityManager.LoadNextScreen(player);
-            player.Position = new Vector2(150 ,150);
+            player.Position = new Vector2(150, 150);
         }
 
         public static void Update(GameTime gameTime)
@@ -95,7 +99,7 @@ namespace SprintZero1.Managers
             {
                 controller.Update();
             }
-            for(int i = 0; i < entities.Count; i++) 
+            for (int i = 0; i < entities.Count; i++)
             {
                 entities[i].Update(gameTime);
             }
@@ -121,7 +125,6 @@ namespace SprintZero1.Managers
                     player.Draw(spriteBatch);
                 }
             }
-
         }
     }
 }

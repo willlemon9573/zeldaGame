@@ -14,7 +14,6 @@ namespace SprintZero1.GameStateMenu
 		{
 			_font = font;
 			_overlay = new Texture2D(graphicsDevice, 1, 1);
-			_overlay.SetData(new[] { new Color(0, 0, 0, 150) }); //gray overlay
 		}
 
 		public abstract void Update(GameTime gameTime);

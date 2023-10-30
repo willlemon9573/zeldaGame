@@ -3,13 +3,13 @@
 	<Sprite name="heartcontainer">
 		<Rectangle x="431" y="364" width="13" height="13" />
 	</Sprite>
-	<Sprite name="heartrefill">
+	<Sprite name="heart">
 		<Rectangle x="330" y="362" width="7" height="8" />
 	</Sprite>
-	<Sprite name="rupy">
+	<Sprite name="rupee">
 		<Rectangle x="587" y="266" width="8" height="16" />
 	</Sprite>
-	<Sprite name="fiverupy">
+	<Sprite name="bluerupee">
 		<Rectangle x="691" y="266" width="8" height="16" />
 	</Sprite>
 	<Sprite name="boomerang">
@@ -30,10 +30,13 @@
 	<Sprite name="bookofmagic">
 		<Rectangle x="434" y="587" width="8" height="16" />
 	</Sprite>
-	<Sprite name="magicalkey">
+	<Sprite name="dungeonkey">
 		<Rectangle x="434" y="651" width="8" height="16" />
 	</Sprite>
 	<Sprite name="woodensword">
 		<Rectangle x="136" y="665" width="7" height="16" />
+	</Sprite>
+	<Sprite name="arrow">
+		<Rectangle x='3' y='185' width='5' height='16'/>
 	</Sprite>
 </Sprites>

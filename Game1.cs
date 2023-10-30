@@ -17,8 +17,11 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
+<<<<<<< HEAD
         private IGameStateMenu _pauseMenu;
 
+=======
+>>>>>>> 09f5053ceb64b8bd3293db1d35ebb6da217cd721
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -46,17 +49,22 @@ namespace SprintZero1
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2DManager.LoadAllTextures(this.Content);
-            /* Factories are missing a lot of comments. To be added in Sprint 4 
-                May also be loading textures specifically Program Manager rather than in game1.cs
-            */
+            Texture2DManager.LoadSpriteFonts(this.Content);
+            /* 
+             * Factories are missing a lot of comments. To be added in Sprint 4 
+             * May also be loading textures specifically Program Manager rather than in game1.cs
+             */
             EnemySpriteFactory.Instance.LoadTextures();
             LinkSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
             _mouseController = new MouseController(this);
+<<<<<<< HEAD
             ItemSpriteFactory.Instance.LoadTextures();
             _pauseMenu = new PauseMenu(Content.Load<SpriteFont>("Pause"), GraphicsDevice);
+=======
+>>>>>>> 09f5053ceb64b8bd3293db1d35ebb6da217cd721
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize(this);
 

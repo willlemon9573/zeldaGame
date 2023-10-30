@@ -1,10 +1,5 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Managers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SprintZero1.Commands
 {
@@ -12,7 +7,7 @@ namespace SprintZero1.Commands
     {
         IEntity deadEntityWalking;
 
-        public DestroyEntity(IEntity entityToLive, IEntity entityToDIE) 
+        public DestroyEntity(IEntity entityToLive, IEntity entityToDIE)
         {
             deadEntityWalking = entityToDIE;
             Execute();

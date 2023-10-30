@@ -4,8 +4,8 @@ using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using SprintZero1.StatePatterns.StatePatternInterfaces;
 using SprintZero1.StatePatterns.EnemyStatePatterns;
+using SprintZero1.StatePatterns.StatePatternInterfaces;
 //using SprintZero1.StatePatterns.CombatStatePatterns;
 //using SprintZero1.StatePatterns.MovingStatePatterns;
 //using SprintZero1.StatePatterns.StatePatternInterfaces;
@@ -71,7 +71,7 @@ namespace SprintZero1.Entities
         /// <param name="position">The position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        protected EnemyBasedEntity(Vector2 position, int startingHealth, string enemyName,bool isBoss = false)
+        protected EnemyBasedEntity(Vector2 position, int startingHealth, string enemyName, bool isBoss = false)
         {
             _enemyHealth = startingHealth;
             _enemyPosition = position;
@@ -82,15 +82,15 @@ namespace SprintZero1.Entities
 
         }
 
-        
+
         public virtual void Move()
         {
             if (_enemyState is not EnemyMovingState) { TransitionToState(State.Moving); }
             _enemyState.Request();
         }
-            /*if (_playerState is not PlayerMovingState) { TransitionToState(State.Moving); }
-            _playerState.Request();*/
-        
+        /*if (_playerState is not PlayerMovingState) { TransitionToState(State.Moving); }
+        _playerState.Request();*/
+
 
         public virtual void TransitionToState(State newState)
         {

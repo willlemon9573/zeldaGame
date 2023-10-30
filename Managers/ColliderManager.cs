@@ -1,9 +1,6 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Managers;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SprintZero1.Colliders
 {
@@ -101,12 +98,12 @@ namespace SprintZero1.Colliders
         /// <param name="entities">List of ICollidbleEntity's</param>
         private static void ParseColliders(List<ICollidableEntity> entities)
         {
-            foreach(ICollidableEntity entity in entities) 
+            foreach (ICollidableEntity entity in entities)
             {
-                switch(entity.Collider)
+                switch (entity.Collider)
                 {
                     case StaticCollider:
-                        staticColliderEntities.Add(entity); 
+                        staticColliderEntities.Add(entity);
                         break;
                     case DynamicCollider:
                         dynamicColliderEntities.Add(entity);

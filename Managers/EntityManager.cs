@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SprintZero1.Managers
 {
@@ -53,7 +50,7 @@ namespace SprintZero1.Managers
         /// Queues an Entity for removal next Update()
         /// </summary>
         /// <param name="entity">IEntity to remove</param>
-        public static void Remove(IEntity entity) 
+        public static void Remove(IEntity entity)
         {
             entitiesToRemove.Add(entity);
         }
@@ -71,7 +68,7 @@ namespace SprintZero1.Managers
         /// Queues a entity for addition next Update()
         /// </summary>
         /// <param name="entity">Entity to add</param>
-        public static void Add(IEntity entity) 
+        public static void Add(IEntity entity)
         {
             entitiesToAdd.Add(entity);
         }

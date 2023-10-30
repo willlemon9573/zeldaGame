@@ -27,7 +27,7 @@ namespace SprintZero1.Entities.BombEntityFolder
         {
             _weaponName = weaponName;
             /* This might be able to be passed by the player / xml / or mathematically */
-            _spriteEffectsDictionary = new Dictionary<Direction,Vector2>()
+            _spriteEffectsDictionary = new Dictionary<Direction, Vector2>()
             {
                 { Direction.North,  new Vector2(0, -11) },
                 { Direction.South,  new Vector2(0, 11) },

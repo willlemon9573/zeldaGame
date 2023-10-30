@@ -25,8 +25,8 @@ namespace SprintZero1.Entities
         private Vector2 _playerPosition;
         private PlayerCollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
-        private readonly IWeaponEntity _playerSwordSlot;
-        private readonly IWeaponEntity _playerEquipmentSlot;
+        private IWeaponEntity _playerSwordSlot;
+        private IWeaponEntity _playerEquipmentSlot;
         private IPlayerState _playerState;
         private bool _attackingWithSword = false;
         private PlayerInventory _playerInventory;
@@ -37,7 +37,8 @@ namespace SprintZero1.Entities
         public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
         public ICollider Collider { get { return _playerCollider; } }
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; Collider.Update(this); } }
-
+        public IWeaponEntity SwordSlot { get { return _playerSwordSlot; } set { _playerSwordSlot = value; } }
+        public IWeaponEntity EquipmentSlot { get { return _playerEquipmentSlot; } set { _playerEquipmentSlot = value; } }
 
         /// <summary>
         /// Construct a new player entity
@@ -53,9 +54,8 @@ namespace SprintZero1.Entities
             _playerPosition = position;
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
             _playerCollider = new PlayerCollider(new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
-            _playerSwordSlot = new SwordEntity("woodensword");
             _playerState = new PlayerIdleState(this);
-            _playerInventory = new PlayerInventory(this, ref _playerSwordSlot, ref _playerEquipmentSlot);
+            _playerInventory = new PlayerInventory(this);
             PlayerInventoryManager.AddPlayerInventory(this, _playerInventory);
         }
 
