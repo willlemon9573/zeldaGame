@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Commands;
 using SprintZero1.Enums;
 //using SprintZero1.StatePatterns.CombatStatePatterns;
 //using SprintZero1.StatePatterns.MovingStatePatterns;

@@ -11,7 +11,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
     internal class PlayerAttackingState : BasePlayerState
     {
         private float _stateElapsedTime = 0f;
-        private readonly float _timeToResetState = 1/7f;
+        private readonly float _timeToResetState = 1 / 7f;
         /// <summary>
         /// Keep track of the time in the state and reset back to idle state when finished
         /// </summary>

@@ -1,12 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Enums;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using SprintZero1.Enums;
 
 namespace SprintZero1.Factories
 {

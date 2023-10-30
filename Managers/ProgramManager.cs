@@ -2,11 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Controllers;
+using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 using System.Collections.Generic;
-using SprintZero1.Controllers.EnemyControllers;
-using SprintZero1.Enums;
 using System.Linq;
 
 namespace SprintZero1.Managers
