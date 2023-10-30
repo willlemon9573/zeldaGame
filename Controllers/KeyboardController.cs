@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace SprintZero1.Controllers
 {
-
+    public delegate void PausedStateUpdater();
     internal class KeyboardController : IController
     {
         private readonly Dictionary<Keys, ICommand> keyboardMap;
@@ -62,7 +62,6 @@ namespace SprintZero1.Controllers
                 Keys keyRef = movementKeyStack.Peek();
                 keyboardMap[keyRef].Execute();
             }
-
         }
 
         public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity)
@@ -81,14 +80,27 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.Z, new SwordAttackCommand(playerEntity));
             /* Other commands */
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
-            keyboardMap.Add(Keys.Escape, new PauseCommand());
             keyboardMap.Add(Keys.R, new UnpauseCommand((BaseGameState)game.GameState));
+            /* Testing state change commands */
+            keyboardMap.Add(Keys.Escape, new PauseGameCommand((BaseGameState)game.GameState));
+            keyboardMap.Add(Keys.U, new UnpauseCommand((BaseGameState)game.GameState));
+        }
 
+        public void PausedStateUpdater()
+        {
+            KeyboardState currentKeyboardState = Keyboard.GetState();
+            Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
+            foreach (Keys key in pressedKeys)
+            {
+                if (key == Keys.U)
+                {
+                    keyboardMap[key].Execute();
+                }
+            }
         }
 
         public void Update()
         {
-            /* handling movement? */
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
             // no need to update if no keys have been pressed

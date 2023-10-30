@@ -29,6 +29,9 @@ namespace SprintZero1.Managers
             new GamepadController(3)
         };
         #endregion
+
+        static KeyboardController k;
+
         static PlayerEntity player;
         public static PlayerEntity Player { get { return player; } }
         private static GameState gameState = GameState.Playing;
@@ -47,6 +50,7 @@ namespace SprintZero1.Managers
             playerList.Add(player);
             AddOnScreenEntity(player);
             controllers[0].LoadDefaultCommands(game, player);
+            k = (KeyboardController)controllers[0];
 
         }
 
@@ -81,6 +85,10 @@ namespace SprintZero1.Managers
             player.Position = new Vector2(150, 150);
         }
 
+        public static PausedStateUpdater GetPausedStateUpdater()
+        {
+            return k.PausedStateUpdater;
+        }
         public static void Update(GameTime gameTime)
         {
             foreach (IEnemyMovementController enemyController in onScreenEnemyController)

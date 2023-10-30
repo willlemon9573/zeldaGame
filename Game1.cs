@@ -40,6 +40,7 @@ namespace SprintZero1
             _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
             _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
             _gameState = new GamePlayingState(this);
+            GameStateFactory.InitializeGameStateMap(this);
             base.Initialize();
         }
 
