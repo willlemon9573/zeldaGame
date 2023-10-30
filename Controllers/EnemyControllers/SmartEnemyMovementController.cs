@@ -42,26 +42,17 @@ namespace SprintZero1.Controllers.EnemyControllers
             }
         }
 
+
         public void Update(GameTime gameTime)
         {
             double elapsed = gameTime.ElapsedGameTime.TotalSeconds;
             _timeSinceLastPathCalculation += elapsed;
             _currentMoveTime += elapsed;
-
             if (_timeSinceLastPathCalculation >= _pathCalculationInterval && !isPathBeingCalculated)
             {
                 pathfinder.StartFindingPath(_enemyEntity.Position, _playerEntity.Position);
                 isPathBeingCalculated = true;
                 _timeSinceLastPathCalculation = 0;
-            }
-
-            if (isPathBeingCalculated && _isMoving)
-            {
-                Vector2 moveDirection = _playerEntity.Position - _enemyEntity.Position;
-                moveDirection.Normalize();
-                Direction direction = CalculateDirection(moveDirection);
-                _enemyEntity.ChangeDirection(direction);
-                _enemyEntity.Move();
             }
 
             if (isPathBeingCalculated && pathfinder.Update())
@@ -82,13 +73,9 @@ namespace SprintZero1.Controllers.EnemyControllers
                 {
                     Vector2 nextStep = currentPath.Peek();
                     Vector2 moveDirection = nextStep - _enemyEntity.Position;
-
                     moveDirection.Normalize();
-
                     Direction direction = CalculateDirection(moveDirection);
-
                     _enemyEntity.ChangeDirection(direction);
-
                     _enemyEntity.Move();
 
                     if (Vector2.Distance(_enemyEntity.Position, nextStep) < 1.0f)
@@ -99,18 +86,15 @@ namespace SprintZero1.Controllers.EnemyControllers
             }
             else
             {
-
                 _currentStopTime += elapsed;
-
-
                 if (_currentStopTime >= _stopTime)
                 {
                     _isMoving = true;
                     _currentStopTime = 0;
                 }
-
             }
         }
+
 
     }
 }
