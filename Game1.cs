@@ -17,7 +17,7 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
-        private PauseMenu _pauseMenu;
+        private IGameStateMenu _pauseMenu;
 
         public Game1()
         {
@@ -66,7 +66,6 @@ namespace SprintZero1
         {
             LevelManager.Update(gameTime);
             _mouseController.Update();
-            _pauseMenu.Hide();
             base.Update(gameTime);
         }
 
