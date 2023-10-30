@@ -17,11 +17,7 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
-<<<<<<< HEAD
-        private IGameStateMenu _pauseMenu;
 
-=======
->>>>>>> 09f5053ceb64b8bd3293db1d35ebb6da217cd721
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -60,11 +56,8 @@ namespace SprintZero1
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
             _mouseController = new MouseController(this);
-<<<<<<< HEAD
             ItemSpriteFactory.Instance.LoadTextures();
-            _pauseMenu = new PauseMenu(Content.Load<SpriteFont>("Pause"), GraphicsDevice);
-=======
->>>>>>> 09f5053ceb64b8bd3293db1d35ebb6da217cd721
+
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize(this);
 
@@ -91,7 +84,6 @@ namespace SprintZero1
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(_newRenderTarget, _actualScreenRectangle, Color.White);
-            _pauseMenu.Draw(_spriteBatch, _graphics);
 
             _spriteBatch.End();
             base.Draw(gameTime);
