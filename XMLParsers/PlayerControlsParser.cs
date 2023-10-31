@@ -11,6 +11,7 @@ namespace SprintZero1.XMLParsers
 {
     /// <summary>
     /// Helper object for parsing player controls
+    /// @Author Aaron Heishman
     /// </summary>
     internal class PlayerControlsParser
     {

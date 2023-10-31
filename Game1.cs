@@ -65,8 +65,6 @@ namespace SprintZero1
             LevelManager.Initialize(this);
         }
 
-
-
         protected override void Update(GameTime gameTime)
         {
             // LevelManager.Update(gameTime);
@@ -90,7 +88,6 @@ namespace SprintZero1
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(_newRenderTarget, _actualScreenRectangle, Color.White);
-
             _spriteBatch.End();
             base.Draw(gameTime);
         }

@@ -98,7 +98,6 @@ namespace SprintZero1.Managers
             }
             //projectileHandler.Update(gameTime);
             ColliderManager.CheckCollisions(entities.OfType<ICollidableEntity>().ToList());
-
         }
 
         /// <summary>

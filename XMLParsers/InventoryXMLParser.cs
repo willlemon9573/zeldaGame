@@ -19,6 +19,7 @@ namespace SprintZero1.XMLParsers
 
     /// <summary>
     /// A helper for parsing inventory xml files
+    /// @Author Aaron Heishman
     /// </summary>
     internal class InventoryXMLParser
     {
@@ -42,6 +43,7 @@ namespace SprintZero1.XMLParsers
         private readonly XDocTools _parseTools;
 
         /* ----------------------------- Private Functions  ----------------------------- */
+
         /// <summary>
         /// Parses the given element for the attributes required to create the Tuple
         /// </summary>
@@ -54,7 +56,11 @@ namespace SprintZero1.XMLParsers
             int y = _parseTools.ParseAttributeAsInt(keyElement, Y_ATTRIBUTE);
             return Tuple.Create(spriteEffects, new Vector2(x, y));
         }
-
+        /// <summary>
+        /// Parses the given element for the attributes required to create a stack aitem object
+        /// </summary>
+        /// <param name="paramElement">the element to parse</param>
+        /// <returns>the stackable item object</returns>
         private IStackableItems CreateStackableItemObject(XElement paramElement)
         {
             _parseTools.CheckIfElementNull(paramElement, PARAM_ELEMENT);

@@ -12,7 +12,8 @@ using System.Xml.Linq;
 namespace SprintZero1.XMLParsers
 {
     /// <summary>
-    /// Handy Tool for parsing XDocument elements for their attributes
+    /// Container for methods to parse files that only need to be loaded at the start of the game
+    /// @author Aaron Heishman
     /// </summary>
     internal class XDocTools
     {

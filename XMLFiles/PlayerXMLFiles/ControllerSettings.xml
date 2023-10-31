@@ -47,5 +47,37 @@
 			</Command>
 		</misc>
 	</Keyboard>
+	<GamePad>
+		<PlayerActionCommands>
+			<Command>
+				<key button="DPadUp" action ="MoveUpCommand"/>
+			</Command>
+			<Command>
+				<key button="DPadDown" action ="MoveDownCommand"/>
+			</Command>
+			<Command>
+				<key button="DPadLeft" action ="MoveLeftCommand"/>
+			</Command>
+			<Command>
+				<key button="DPadRight" action ="MoveRightCommand"/>
+			</Command>
+			<Command>
+				<key button="LeftThumbstickUp" action ="MoveUpCommand"/>
+			</Command>
+			<Command>
+				<key button="LeftThumbsticDown" action ="MoveDownCommand"/>
+			</Command>
+			<Command>
+				<key button="LeftThumbstickLeft" action ="MoveLeftCommand"/>
+			</Command>
+			<Command>
+				<key button="LeftThumbstickRight" action ="MoveRightCommand"/>
+			</Command>
+			
+		</PlayerActionCommands>
+		<PlayerMenuCommands>
+			
+		</PlayerMenuCommands>
+	</GamePad>
 	<!-- Reserved for Gamepad Controls-->
 </Controllers>
