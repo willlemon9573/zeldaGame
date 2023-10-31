@@ -8,7 +8,7 @@ Time taken to review: 20 minutes
 Class Structure:
 	- The class is well defined as it uses inheritance correctly. 
 	- The constructor properly initializes the values of the base class for use in this class, allowing the class to inherit and reuse code without having to make duplicated code. 
-	- The update method uses a common means of checking for input. This is particularly good because the allows the program to call this update function (and the inherited draw function) when in the Paused state, which will then only check for a siingle input to unpause the game.
+	- The update method uses a common means of checking for input. This is particularly good because the allows the program to call this update function (and the inherited draw function) when in the Paused state, which will then only check for a single input to unpause the game.
 
 Magic Numbers:
 	The constructor contains magic numbers which makes it hard to understand what _overlay.SetData() is doing, here is one suggestion I would make to fix this
@@ -29,5 +29,5 @@ Inheritence of Draw:
 	If the plan is to have ItemSelectionMenu and PauseMenu inherete from the parent class then there should be careful consideration on whether or not a derived class should inherit the parent's Draw function. An example would be when drawing the ItemSelectionmMenu. The best idea would be to make the parent function's Draw function be 'public virtual void Draw(SpriteBatch spriteBatch)'. The virtual keyword allows a derived class to override the default implementation with its own implementation.
 
 Variable/Field locations:
-	string PauseText should be in the PauseText class and not in the parent class as this probably won't be used by the derived classes that inherit from the parent class.
+	string PauseText should be in the PauseMenu class and not in the parent class as this probably won't be used by the other derived classes that inherit from the parent class.
 	
