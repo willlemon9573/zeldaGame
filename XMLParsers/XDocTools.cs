@@ -16,6 +16,21 @@ namespace SprintZero1.XMLParsers
     /// </summary>
     internal class XDocTools
     {
+        /* ----------------------------- null checks ----------------------------- */
+
+        /// <summary>
+        /// Check if an atribute is null
+        /// </summary>
+        /// <param name="attribute"></param>
+        /// <exception cref="Exception"></exception>
+        public void CheckAttribute(XAttribute attribute)
+        {
+            if (string.IsNullOrEmpty(attribute.Value))
+            {
+                throw new Exception($"Inventory XML file missing key attribute direction or direction value is null");
+            }
+        }
+
         /// <summary>
         /// Checks if the XMLElements enumerable is null, then checks each element and verifies they match
         /// the name given in expectedElementsName
@@ -32,18 +47,7 @@ namespace SprintZero1.XMLParsers
             }
         }
 
-        /// <summary>
-        /// Check if an atribute is null
-        /// </summary>
-        /// <param name="attribute"></param>
-        /// <exception cref="Exception"></exception>
-        private void CheckAttribute(XAttribute attribute)
-        {
-            if (string.IsNullOrEmpty(attribute.Value))
-            {
-                throw new Exception($"Inventory XML file missing key attribute direction or direction value is null");
-            }
-        }
+        /* ----------------------------- Attribute Parsing ----------------------------- */
 
         /// <summary>
         /// Not exactly necessary....but...Parses attribute as a string
@@ -133,6 +137,7 @@ namespace SprintZero1.XMLParsers
             CheckAttribute(keys);
             return (Keys)Enum.Parse(typeof(Keys), keys.Value);
         }
+
         /// <summary>
         /// Parse the player actions commands
         /// </summary>
@@ -141,11 +146,11 @@ namespace SprintZero1.XMLParsers
         /// <returns></returns>
         public ICommand ParsePlayerActionCommands(XElement element, string attributeName, string nameSpace, ICombatEntity player)
         {
-
             XAttribute command = element.Attribute(attributeName);
             CheckAttribute(command);
             return (ICommand)Activator.CreateInstance(Type.GetType($"{nameSpace}.{command.Value}"), player);
         }
+
         /// <summary>
         /// Parse the Player Menu commands (requires different values than action commands so has to be separate)
         /// </summary>
