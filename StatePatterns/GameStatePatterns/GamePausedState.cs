@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Controllers;
-using SprintZero1.Managers;
-using System.Diagnostics;
 using SprintZero1.GameStateMenu;
+using SprintZero1.Managers;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
@@ -13,7 +11,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public GamePausedState(Game1 game) : base(game)
         {
             pauseGame = new PauseMenu(game);
-            Debug.WriteLine("Game is paused");
         }
 
         public override void Draw(SpriteBatch spriteBatch)

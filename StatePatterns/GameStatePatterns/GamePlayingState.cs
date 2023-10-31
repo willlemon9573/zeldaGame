@@ -12,7 +12,10 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// The state of the game when the game is running
         /// </summary>
         /// <param name="game">The game</param>
-        public GamePlayingState(Game1 game) : base(game) { Debug.WriteLine($"{game} is now in the playable state."); }
+        public GamePlayingState(Game1 game) : base(game)
+        {
+            Debug.WriteLine($"{game} is now in the playable state.");
+        }
         /// <summary>
         /// Handles Drawing The entire game
         /// </summary>
@@ -25,7 +28,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public override void Handle()
         {
 
-            // TODO: Update the player keyboard controls
         }
         /// <summary>
         /// Handles updating the game

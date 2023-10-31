@@ -1,21 +1,20 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Diagnostics;
 using SprintZero1.Commands;
 using SprintZero1.Commands.PlayerCommands;
 using SprintZero1.StatePatterns.GameStatePatterns;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SprintZero1.GameStateMenu
 {
-	public class PauseMenu : GameStateAbstract
+    public class PauseMenu : GameStateAbstract
     {
         private ICommand _unPauseGame;
 
         public PauseMenu(Game1 game) : base(game)
-		{
+        {
             _font = game.Content.Load<SpriteFont>("PauseSetting");
             pauseText = "Pause";
             _overlay.SetData(new[] { new Color(0, 0, 0, 225) }); //gray overlay
