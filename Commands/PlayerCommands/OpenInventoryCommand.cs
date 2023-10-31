@@ -6,10 +6,12 @@ namespace SprintZero1.Commands.PlayerCommands
     internal class OpenInventoryCommand : BaseChangeGameStateCommand
     {
         /// <summary>
-        /// Command for opening the player inventory
+        /// Command for opening player inventory
         /// </summary>
-        /// <param name="gameState">Base Game State reference</param>
-        public OpenInventoryCommand(BaseGameState gameState) : base(gameState) { }
+        /// <param name="gameChangeStateHandler">Delegate that points to the state changing function</param>
+        /// <param name="gameStateHandler">Delegate that points to the state handling function</param>
+        public OpenInventoryCommand(GameChangeStateHandler gameChangeStateHandler, GameStateHandler gameStateHandler) : base(gameChangeStateHandler, gameStateHandler) { }
+
         /// <summary>
         /// Execute the command for opening the player inventory
         /// </summary>

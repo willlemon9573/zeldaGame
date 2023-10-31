@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
+using SprintZero1.Commands.PlayerCommands;
 using SprintZero1.Entities;
 using System;
 using System.Collections.Generic;
@@ -110,8 +111,6 @@ namespace SprintZero1.Controllers
 
             _previousPressedButtons = pressedButtons.ToList<Buttons>();
         }
-
-
 
         /// <summary>
         /// Return list of currently pressed buttons,

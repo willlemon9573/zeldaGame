@@ -6,10 +6,14 @@ namespace SprintZero1.Commands.PlayerCommands
     internal class CloseInventoryCommand : BaseChangeGameStateCommand
     {
         /// <summary>
-        /// Command for closing player inventory
+        /// Command for closing the player inventory
         /// </summary>
-        /// <param name="gameState">Base Game State reference</param>
-        public CloseInventoryCommand(BaseGameState gameState) : base(gameState) { }
+        /// <param name="gameChangeStateHandler">Delegate that points to the state changing function</param>
+        /// <param name="gameStateHandler">Delegate that points to the state handling function</param>
+        public CloseInventoryCommand(GameChangeStateHandler gameChangeStateHandler, GameStateHandler gameStateHandler) : base(gameChangeStateHandler, gameStateHandler)
+        {
+        }
+
         /// <summary>
         /// Execute the command for closing player inventory
         /// </summary>

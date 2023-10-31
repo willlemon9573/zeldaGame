@@ -12,14 +12,21 @@ namespace SprintZero1.Commands.PlayerCommands
         /// </summary>
         protected readonly GameChangeStateHandler _gameChangeStateHandler;
         protected readonly GameStateHandler _gameStateHandler;
+        private BaseGameState gameState;
+
         /// <summary>
         /// Default implementation for creating game state change commands based on player input
         /// </summary>
         /// <param name="gameState">base game state class reference</param>
-        public BaseChangeGameStateCommand(BaseGameState gameState)
+        public BaseChangeGameStateCommand(GameChangeStateHandler gameChangeStateHandler, GameStateHandler gameStateHandler)
         {
-            _gameChangeStateHandler = gameState.ChangeGameState;
-            _gameStateHandler = gameState.Handle;
+            _gameChangeStateHandler = gameChangeStateHandler;
+            _gameStateHandler = gameStateHandler;
+        }
+
+        protected BaseChangeGameStateCommand(BaseGameState gameState)
+        {
+            this.gameState = gameState;
         }
 
         public abstract void Execute();

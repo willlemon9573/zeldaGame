@@ -1,12 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SprintZero1.Colliders;
+using SprintZero1.Commands;
 using SprintZero1.Controllers;
 using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
-using SprintZero1.Enums;
+using SprintZero1.StatePatterns.GameStatePatterns;
+using SprintZero1.XMLParsers;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace SprintZero1.Managers
 {
@@ -34,12 +39,16 @@ namespace SprintZero1.Managers
 
         static PlayerEntity player;
         public static PlayerEntity Player { get { return player; } }
-        private static GameState gameState = GameState.Playing;
 
-        public static GameState GameState
+        public static void test()
         {
-            get { return gameState; }
-            set { gameState = value; }
+            XDocument x = XDocument.Load(@"XMLFiles\PlayerXMLFiles\ControllerSettings.xml");
+            PlayerControlsParser p = new PlayerControlsParser(x, "Controllers");
+            Dictionary<Keys, ICommand> k = p.ParseKeyboardControls("Keyboard", (ICombatEntity)playerList[0], (BaseGameState)_game.GameState);
+            foreach (var kvp in k)
+            {
+                Debug.WriteLine($"{kvp.Key} | {kvp.Value}");
+            }
         }
 
         public static void Start(Game1 game)

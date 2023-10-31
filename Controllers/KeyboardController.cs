@@ -80,10 +80,10 @@ namespace SprintZero1.Controllers
             keyboardMap.Add(Keys.Z, new SwordAttackCommand(playerEntity));
             /* Other commands */
             keyboardMap.Add(Keys.D0, new ExitCommand(game));
-            keyboardMap.Add(Keys.R, new UnpauseCommand((BaseGameState)game.GameState));
             /* Testing state change commands */
-            keyboardMap.Add(Keys.Escape, new PauseGameCommand((BaseGameState)game.GameState));
-            keyboardMap.Add(Keys.U, new UnpauseCommand((BaseGameState)game.GameState));
+            BaseGameState b = (BaseGameState)game.GameState;
+            keyboardMap.Add(Keys.Escape, new PauseGameCommand(b.ChangeGameState, b.Handle));
+            keyboardMap.Add(Keys.U, new UnpauseGameCommand(b.ChangeGameState, b.Handle));
         }
 
         public void PausedStateUpdater()

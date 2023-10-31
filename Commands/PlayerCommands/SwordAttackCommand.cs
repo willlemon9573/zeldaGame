@@ -1,5 +1,5 @@
 ﻿using SprintZero1.Entities;
-namespace SprintZero1.Commands
+namespace SprintZero1.Commands.PlayerCommands
 {
     internal class SwordAttackCommand : ICommand
     {

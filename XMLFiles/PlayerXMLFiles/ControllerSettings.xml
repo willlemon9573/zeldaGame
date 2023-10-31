@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Controllers>
+	<Keyboard>
+		<!--The player action commands-->>
+		<PlayerActionCommands>
+			<Command>
+				<key keys="Up" action="MoveUpCommand"></key>
+			</Command>
+			<Command>
+				<key keys="Down" action="MoveDownCommand"></key>
+			</Command>
+			<Command>
+				<key keys="Left" action="MoveLeftCommand"></key>
+			</Command>
+			<Command>
+				<key keys="Right" action="MoveRightCommand"></key>
+			</Command>
+			<Command>
+				<key keys="W" action="MoveUpCommand"></key>
+			</Command>
+			<Command>
+				<key keys="S" action="MoveDownCommand"></key>
+			</Command>
+			<Command>
+				<key keys="A" action="MoveLeftCommand"></key>
+			</Command>
+			<Command>
+				<key keys="D" action="MoveRightCommand"></key>
+			</Command>
+			<Command>
+				<key keys="Z" action="SwordAttackCommand"></key>
+			</Command>
+		</PlayerActionCommands>
+		<!--Player commands to access menus-->
+		<PlayerMenuAccessCommands>
+			<Command>
+				<key keys="Escape" action="PauseGameCommand"></key>
+			</Command>
+			<Command>
+				<key keys="U" action="UnpauseGameCommand"></key>
+			</Command>
+		</PlayerMenuAccessCommands>
+		<!--Temporary placeholder until exit game command is set up for game state exiting-->
+		<misc>
+			<Command>
+				<key keys="D0" action="ExitCommand"></key>
+			</Command>
+		</misc>
+	</Keyboard>
+	<!-- Reserved for Gamepad Controls-->
+</Controllers>

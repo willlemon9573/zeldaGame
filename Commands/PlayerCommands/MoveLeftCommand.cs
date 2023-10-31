@@ -1,7 +1,7 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Enums;
 
-namespace SprintZero1.Commands
+namespace SprintZero1.Commands.PlayerCommands
 {
     internal class MoveLeftCommand : ICommand
     {
