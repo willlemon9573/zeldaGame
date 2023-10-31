@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
-using SprintZero1.Entities;
 using System.Drawing;
 
 namespace SprintZero1.Controllers
@@ -70,9 +69,9 @@ namespace SprintZero1.Controllers
             _getNextRoom.Execute();
         }
 
-        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity)
+        public void LoadControls()
         {
-            // TODO: Unused - going to make parser for commands later
+
         }
 
         public void Update()
@@ -94,5 +93,7 @@ namespace SprintZero1.Controllers
 
             _oldMouseState = currentMouseState;
         }
+
+
     }
 }

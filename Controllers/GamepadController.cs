@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
-using SprintZero1.Commands.PlayerCommands;
-using SprintZero1.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,24 +64,30 @@ namespace SprintZero1.Controllers
             }
         }
 
-        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity)
+        public void LoadControls()
         {
-            /* directional commands */
-            gamepadMap.Add(Buttons.DPadUp, new MoveUpCommand(playerEntity));
-            gamepadMap.Add(Buttons.DPadDown, new MoveDownCommand(playerEntity));
-            gamepadMap.Add(Buttons.DPadLeft, new MoveLeftCommand(playerEntity));
-            gamepadMap.Add(Buttons.DPadRight, new MoveRightCommand(playerEntity));
-            gamepadMap.Add(Buttons.LeftThumbstickUp, new MoveUpCommand(playerEntity));
-            gamepadMap.Add(Buttons.LeftThumbstickDown, new MoveDownCommand(playerEntity));
-            gamepadMap.Add(Buttons.LeftThumbstickLeft, new MoveLeftCommand(playerEntity));
-            gamepadMap.Add(Buttons.LeftThumbstickRight, new MoveRightCommand(playerEntity));
-
-            /* Attack Commands */
-            gamepadMap.Add(Buttons.X, new SwordAttackCommand(playerEntity));
-            /* Other commands */
-            gamepadMap.Add(Buttons.Back, new ExitCommand(game));
-
+            //
         }
+
+        /*
+                public void LoadPlayerCommands(Game1 game, ICombatEntity playerEntity)
+                {
+                    *//* directional commands *//*
+                    gamepadMap.Add(Buttons.DPadUp, new MoveUpCommand(playerEntity));
+                    gamepadMap.Add(Buttons.DPadDown, new MoveDownCommand(playerEntity));
+                    gamepadMap.Add(Buttons.DPadLeft, new MoveLeftCommand(playerEntity));
+                    gamepadMap.Add(Buttons.DPadRight, new MoveRightCommand(playerEntity));
+                    gamepadMap.Add(Buttons.LeftThumbstickUp, new MoveUpCommand(playerEntity));
+                    gamepadMap.Add(Buttons.LeftThumbstickDown, new MoveDownCommand(playerEntity));
+                    gamepadMap.Add(Buttons.LeftThumbstickLeft, new MoveLeftCommand(playerEntity));
+                    gamepadMap.Add(Buttons.LeftThumbstickRight, new MoveRightCommand(playerEntity));
+
+                    *//* Attack Commands *//*
+                    gamepadMap.Add(Buttons.X, new SwordAttackCommand(playerEntity));
+                    *//* Other commands *//*
+                    gamepadMap.Add(Buttons.Back, new ExitCommand(game));
+
+                }*/
 
         public void Update()
         {

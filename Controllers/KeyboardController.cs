@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
-using SprintZero1.Commands.PlayerCommands;
-using SprintZero1.Entities;
-using SprintZero1.StatePatterns.GameStatePatterns;
+using SprintZero1.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +9,17 @@ namespace SprintZero1.Controllers
     public delegate void PausedStateUpdater();
     internal class KeyboardController : IController
     {
-        private readonly Dictionary<Keys, ICommand> keyboardMap;
+        private Dictionary<Keys, ICommand> _keyboardMap;
         private readonly List<Keys> _movementKeyList;
         private List<Keys> _previouslyPressedKeys;
-        private readonly Stack<Keys> movementKeyStack;
+        private readonly Stack<Keys> _movementKeyStack;
         /// <summary>
         /// Construct an object to control the keyboard
         /// </summary>
         public KeyboardController()
         {
-            keyboardMap = new Dictionary<Keys, ICommand>();
             _previouslyPressedKeys = new List<Keys>();
-            movementKeyStack = new Stack<Keys>();
+            _movementKeyStack = new Stack<Keys>();
             _movementKeyList = new List<Keys>() { Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.W, Keys.S, Keys.A, Keys.D };
         }
 
@@ -32,13 +29,13 @@ namespace SprintZero1.Controllers
         /// <param name="pressedKeys">collection of currently pressed keys</param>
         private void FlipAndClean(Keys[] pressedKeys)
         {
-            if (movementKeyStack.Count > 0)
+            if (_movementKeyStack.Count > 0)
             {
-                Keys k = movementKeyStack.Pop();
+                Keys k = _movementKeyStack.Pop();
                 FlipAndClean(pressedKeys);
                 if (pressedKeys.Contains(k))
                 {
-                    movementKeyStack.Push(k);
+                    _movementKeyStack.Push(k);
                 }
             }
         }
@@ -53,37 +50,20 @@ namespace SprintZero1.Controllers
              * Add key to stack if it's not in the stack already and execute that key
              * else execute the command of the movement key at the top of the stack
              */
-            if (!movementKeyStack.Contains(movementKey))
+            if (!_movementKeyStack.Contains(movementKey))
             {
-                movementKeyStack.Push(movementKey);
+                _movementKeyStack.Push(movementKey);
             }
-            else if (movementKey == movementKeyStack.Peek())
+            else if (movementKey == _movementKeyStack.Peek())
             {
-                Keys keyRef = movementKeyStack.Peek();
-                keyboardMap[keyRef].Execute();
+                Keys keyRef = _movementKeyStack.Peek();
+                _keyboardMap[keyRef].Execute();
             }
         }
 
-        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity)
+        public void LoadControls()
         {
-            /* directional commands */
-            keyboardMap.Add(Keys.Up, new MoveUpCommand(playerEntity));
-            keyboardMap.Add(Keys.Down, new MoveDownCommand(playerEntity));
-            keyboardMap.Add(Keys.Left, new MoveLeftCommand(playerEntity));
-            keyboardMap.Add(Keys.Right, new MoveRightCommand(playerEntity));
-            keyboardMap.Add(Keys.W, new MoveUpCommand(playerEntity));
-            keyboardMap.Add(Keys.S, new MoveDownCommand(playerEntity));
-            keyboardMap.Add(Keys.A, new MoveLeftCommand(playerEntity));
-            keyboardMap.Add(Keys.D, new MoveRightCommand(playerEntity));
-
-            /* Attack Commands */
-            keyboardMap.Add(Keys.Z, new SwordAttackCommand(playerEntity));
-            /* Other commands */
-            keyboardMap.Add(Keys.D0, new ExitCommand(game));
-            /* Testing state change commands */
-            BaseGameState b = (BaseGameState)game.GameState;
-            keyboardMap.Add(Keys.Escape, new PauseGameCommand(b.ChangeGameState, b.Handle));
-            keyboardMap.Add(Keys.U, new UnpauseGameCommand(b.ChangeGameState, b.Handle));
+            _keyboardMap = ControlsManager.GetKeyboardControls();
         }
 
         public void PausedStateUpdater()
@@ -94,7 +74,7 @@ namespace SprintZero1.Controllers
             {
                 if (key == Keys.U)
                 {
-                    keyboardMap[key].Execute();
+                    _keyboardMap[key].Execute();
                 }
             }
         }
@@ -104,7 +84,7 @@ namespace SprintZero1.Controllers
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
             // no need to update if no keys have been pressed
-            if (pressedKeys.Length == 0 && movementKeyStack.Count == 0 && _previouslyPressedKeys.Count == 0) { return; }
+            if (pressedKeys.Length == 0 && _movementKeyStack.Count == 0 && _previouslyPressedKeys.Count == 0) { return; }
             int totalKeyCount = 0;
             /* iterate over pressed key collection executing only valid keys in the keyboard map 
                keeping track of the amount of movement keys that are also currently being pressed
@@ -117,9 +97,9 @@ namespace SprintZero1.Controllers
                     totalKeyCount++;
 
                 }
-                else if (keyboardMap.ContainsKey(key) && !_previouslyPressedKeys.Contains(key))
+                else if (_keyboardMap.ContainsKey(key) && !_previouslyPressedKeys.Contains(key))
                 {
-                    keyboardMap[key].Execute();
+                    _keyboardMap[key].Execute();
                 }
             }
 
@@ -127,7 +107,7 @@ namespace SprintZero1.Controllers
              * no keys are pressed. Checking both movement key count and previously pressed
              * keys to prevent _idleCommand from executing more than once
              */
-            if (totalKeyCount < movementKeyStack.Count)
+            if (totalKeyCount < _movementKeyStack.Count)
             {
                 FlipAndClean(pressedKeys);
             }

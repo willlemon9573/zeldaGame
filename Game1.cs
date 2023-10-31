@@ -63,7 +63,6 @@ namespace SprintZero1
             ItemSpriteFactory.Instance.LoadTextures();
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize(this);
-            ProgramManager.test();
         }
 
 

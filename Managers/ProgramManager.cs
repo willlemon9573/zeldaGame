@@ -1,17 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SprintZero1.Colliders;
-using SprintZero1.Commands;
 using SprintZero1.Controllers;
 using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
-using SprintZero1.StatePatterns.GameStatePatterns;
-using SprintZero1.XMLParsers;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Xml.Linq;
 
 namespace SprintZero1.Managers
 {
@@ -35,32 +29,17 @@ namespace SprintZero1.Managers
         };
         #endregion
 
-        static KeyboardController k;
-
         static PlayerEntity player;
         public static PlayerEntity Player { get { return player; } }
-
-        public static void test()
-        {
-            XDocument x = XDocument.Load(@"XMLFiles\PlayerXMLFiles\ControllerSettings.xml");
-            PlayerControlsParser p = new PlayerControlsParser(x, "Controllers");
-            Dictionary<Keys, ICommand> k = p.ParseKeyboardControls("Keyboard", (ICombatEntity)playerList[0], (BaseGameState)_game.GameState);
-            foreach (var kvp in k)
-            {
-                Debug.WriteLine($"{kvp.Key} | {kvp.Value}");
-            }
-        }
 
         public static void Start(Game1 game)
         {
             _game = game;
-
             player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
             playerList.Add(player);
             AddOnScreenEntity(player);
-            controllers[0].LoadDefaultCommands(game, player);
-            k = (KeyboardController)controllers[0];
-
+            ControlsManager.CreateKeyboardControls(player, _game.GameState);
+            controllers[0].LoadControls();
         }
 
         /// <summary>
@@ -96,8 +75,10 @@ namespace SprintZero1.Managers
 
         public static PausedStateUpdater GetPausedStateUpdater()
         {
+            KeyboardController k = (KeyboardController)controllers[0];
             return k.PausedStateUpdater;
         }
+
         public static void Update(GameTime gameTime)
         {
             foreach (IEnemyMovementController enemyController in onScreenEnemyController)

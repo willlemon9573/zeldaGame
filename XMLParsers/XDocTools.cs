@@ -7,7 +7,6 @@ using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
-using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace SprintZero1.XMLParsers
@@ -126,7 +125,7 @@ namespace SprintZero1.XMLParsers
         /// Parses an element for the given attribute and returns it as a keys enum
         /// </summary>
         /// <param name="element">The element to parse</param>
-        /// <param name="attributeName">the name of the attribute name to look for</param>
+        /// <param name="attributeName">the name of the attribute to look for</param>
         /// <returns></returns>
         public Keys ParseAttributeAsKeys(XElement element, string attributeName)
         {
@@ -135,10 +134,10 @@ namespace SprintZero1.XMLParsers
             return (Keys)Enum.Parse(typeof(Keys), keys.Value);
         }
         /// <summary>
-        /// 
+        /// Parse the player actions commands
         /// </summary>
-        /// <param name="element"></param>
-        /// <param name="attributeName"></param>
+        /// <param name="element">The elemnt to parse</param>
+        /// <param name="attributeName">the name of the attribute to look for</param>
         /// <returns></returns>
         public ICommand ParsePlayerActionCommands(XElement element, string attributeName, string nameSpace, ICombatEntity player)
         {
@@ -147,15 +146,20 @@ namespace SprintZero1.XMLParsers
             CheckAttribute(command);
             return (ICommand)Activator.CreateInstance(Type.GetType($"{nameSpace}.{command.Value}"), player);
         }
-
+        /// <summary>
+        /// Parse the Player Menu commands (requires different values than action commands so has to be separate)
+        /// </summary>
+        /// <param name="element">the element to parse</param>
+        /// <param name="attributeName">the attribute name the parser looks for</param>
+        /// <param name="nameSpace">the namespace of the command being added (excluding the command name itself)</param>
+        /// <param name="baseGameState">the name of the attribute to look for</param>
+        /// <returns></returns>
         public ICommand ParsePlayerMenuCommands(XElement element, string attributeName, string nameSpace, BaseGameState baseGameState)
         {
             XAttribute command = element.Attribute(attributeName);
             CheckAttribute(command);
             GameChangeStateHandler gcsh = baseGameState.ChangeGameState;
             GameStateHandler gsh = baseGameState.Handle;
-            Debug.WriteLine($"{nameSpace}");
-            Debug.WriteLine($"{command.Value}");
             return (ICommand)Activator.CreateInstance(Type.GetType($"{nameSpace}.{command.Value}"), gcsh, gsh);
         }
     }
