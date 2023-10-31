@@ -80,7 +80,7 @@ namespace SprintZero1.Entities
                 spriteEffects = SpriteEffects.FlipHorizontally;
             }
             //projectileSprite?.Draw(spriteBatch);
-            _enemySprite.Draw(spriteBatch, _enemyPosition, spriteEffects);
+            _enemySprite.Draw(spriteBatch, _enemyPosition, spriteEffects, 0, 0.1f);
         }
     }
 }

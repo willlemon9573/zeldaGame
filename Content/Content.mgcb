@@ -122,12 +122,12 @@
 /processorParam:TextureFormat=Color
 /build:OverworldEnemySpritesheet.png
 
-#begin Pause.spritefont
+#begin PauseSetting.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Pause.spritefont
+/build:PauseSetting.spritefont
 
 #begin TileSheet.png
 /importer:TextureImporter

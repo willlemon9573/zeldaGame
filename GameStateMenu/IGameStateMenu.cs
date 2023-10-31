@@ -5,7 +5,7 @@ namespace SprintZero1.GameStateMenu
 {
     public interface IGameStateMenu
     {
-        public void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics);
+        public void Draw(SpriteBatch spriteBatch);
 
         public void Update(GameTime gameTime);
     }

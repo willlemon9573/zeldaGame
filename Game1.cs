@@ -20,6 +20,7 @@ namespace SprintZero1
         private Rectangle _actualScreenRectangle;
         private IGameState _gameState;
         public IGameState GameState { get { return _gameState; } set { _gameState = value; } }
+        public GraphicsDeviceManager Graphics { get { return _graphics; } }
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -82,7 +83,7 @@ namespace SprintZero1
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
-            // LevelManager.Draw(_spriteBatch);
+            //LevelManager.Draw(_spriteBatch);
             _gameState.Draw(_spriteBatch);
             _spriteBatch.End();
 
@@ -90,7 +91,6 @@ namespace SprintZero1
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(_newRenderTarget, _actualScreenRectangle, Color.White);
-
             _spriteBatch.End();
             base.Draw(gameTime);
         }

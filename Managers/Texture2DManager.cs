@@ -47,6 +47,7 @@ namespace SprintZero1.Managers
         public static void LoadSpriteFonts(ContentManager contentManager)
         {
             spriteFontMap.Add("itemfont", contentManager.Load<SpriteFont>("ItemCount"));
+            spriteFontMap.Add("PauseSetting", contentManager.Load<SpriteFont>("PauseSetting"));
         }
 
         public static Texture2D GetLinkSpriteSheet()

@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Diagnostics;
 
 namespace SprintZero1.GameStateMenu
 {
@@ -7,10 +9,11 @@ namespace SprintZero1.GameStateMenu
     {
 
 
-        public PauseMenu(SpriteFont font, GraphicsDevice graphicsDevice): base(font, graphicsDevice)
+        public PauseMenu(Game1 game): base(game)
 		{
+            _font = game.Content.Load<SpriteFont>("PauseSetting");
             pauseText = "Pause";
-            _overlay.SetData(new[] { new Color(0, 0, 0, 150) }); //gray overlay
+            _overlay.SetData(new[] { new Color(0, 0, 0, 225) }); //gray overlay
 
         }
 
