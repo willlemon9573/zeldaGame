@@ -143,7 +143,7 @@ namespace SprintZero1.XMLParsers
         /// </summary>
         /// <param name="element">The elemnt to parse</param>
         /// <param name="attributeName">the name of the attribute to look for</param>
-        /// <returns></returns>
+        /// <returns>The command related to the value found in the attribute</returns>
         public ICommand ParsePlayerActionCommands(XElement element, string attributeName, string nameSpace, ICombatEntity player)
         {
             XAttribute command = element.Attribute(attributeName);
@@ -158,7 +158,7 @@ namespace SprintZero1.XMLParsers
         /// <param name="attributeName">the attribute name the parser looks for</param>
         /// <param name="nameSpace">the namespace of the command being added (excluding the command name itself)</param>
         /// <param name="baseGameState">the name of the attribute to look for</param>
-        /// <returns></returns>
+        /// <returns>The command related to the value found in the attribute</returns>
         public ICommand ParsePlayerMenuCommands(XElement element, string attributeName, string nameSpace, BaseGameState baseGameState)
         {
             XAttribute command = element.Attribute(attributeName);
