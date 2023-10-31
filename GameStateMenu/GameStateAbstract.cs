@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using System.Diagnostics;
 
 
@@ -11,6 +12,7 @@ namespace SprintZero1.GameStateMenu
         protected Texture2D _overlay;
         protected string pauseText;
         protected GraphicsDeviceManager graphics;
+
 
 
         public GameStateAbstract(Game1 game)
@@ -34,7 +36,6 @@ namespace SprintZero1.GameStateMenu
             //(graphics.PreferredBackBufferWidth - textSize.X) / 2, (graphics.PreferredBackBufferHeight - textSize.Y) / 2
             spriteBatch.DrawString(_font, pauseText, textPosition, Color.White);
 
-            //spriteBatch.DrawString(_font, pauseText, textPosition, Color.Black, 0f, Vector2.Zero, SpriteEffects.None, 0f);
 
 
         }

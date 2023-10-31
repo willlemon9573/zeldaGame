@@ -9,12 +9,10 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 {
     public class GamePausedState : BaseGameState
     {
-        private PausedStateUpdater _updater;
         private IGameStateMenu pauseGame;
         public GamePausedState(Game1 game) : base(game)
         {
             pauseGame = new PauseMenu(game);
-            _updater = ProgramManager.GetPausedStateUpdater();
             Debug.WriteLine("Game is paused");
         }
 
@@ -31,7 +29,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public override void Update(GameTime gameTime)
         {
             pauseGame.Update(gameTime);
-            _updater.Invoke();
         }
     }
 }
