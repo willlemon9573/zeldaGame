@@ -18,8 +18,8 @@ namespace SprintZero1.Commands.PlayerCommands
         /// <param name="gameState">base game state class reference</param>
         public BaseChangeGameStateCommand(BaseGameState gameState)
         {
-            _gameChangeStateHandler = gameState.ChangeGameState;
             _gameStateHandler = gameState.Handle;
+            _gameChangeStateHandler = gameState.ChangeGameState;
         }
 
         public abstract void Execute();

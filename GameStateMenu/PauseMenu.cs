@@ -6,6 +6,7 @@ using System.Diagnostics;
 using SprintZero1.Commands;
 using SprintZero1.Commands.PlayerCommands;
 using SprintZero1.StatePatterns.GameStatePatterns;
+using System.Linq;
 
 namespace SprintZero1.GameStateMenu
 {
@@ -27,11 +28,15 @@ namespace SprintZero1.GameStateMenu
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
             foreach (Keys key in pressedKeys)
             {
-                if (key == Keys.Escape)
+                Debug.WriteLine(key.ToString());
+                Debug.WriteLine(_previouslyPressedKeys.Contains(key));
+                if (key == Keys.U && !_previouslyPressedKeys.Contains(key))
                 {
                     _unPauseGame.Execute();
+                    Debug.WriteLine("uppause executed");
                 }
             }
+            _previouslyPressedKeys = pressedKeys.ToList<Keys>();
         }
     }
 }
