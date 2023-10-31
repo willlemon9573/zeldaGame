@@ -11,7 +11,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
     public abstract class BaseGameState : IGameState
     {
-        private GameState _previousState;
         private readonly Game1 _game;
         public BaseGameState(Game1 game)
         {
@@ -22,9 +21,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public virtual void ChangeGameState(GameState newState)
         {
-            if (_previousState == newState) { return; }
             _game.GameState = GameStateFactory.GetGameState(newState);
-            _previousState = newState;
         }
 
         public abstract void Draw(SpriteBatch spriteBatch);

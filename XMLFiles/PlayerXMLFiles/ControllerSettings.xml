@@ -48,6 +48,7 @@
 		</misc>
 	</Keyboard>
 	<GamePad>
+		<!--The player action commands-->>
 		<PlayerActionCommands>
 			<Command>
 				<key button="DPadUp" action ="MoveUpCommand"/>
@@ -73,11 +74,25 @@
 			<Command>
 				<key button="LeftThumbstickRight" action ="MoveRightCommand"/>
 			</Command>
-			
+			<Command>
+				<key button="X" action="SwordAttackCommand"/>
+			</Command>
 		</PlayerActionCommands>
+		<!--Player commands to access menus-->
+			<
 		<PlayerMenuCommands>
-			
+			<Command>
+				<key keys="Escape" action="PauseGameCommand"></key>
+			</Command>
+			<Command>
+				<key keys="U" action="UnpauseGameCommand"></key>
+			</Command>
 		</PlayerMenuCommands>
+		<!--Temporary placeholder until exit game command is set up for game state exiting-->
+		<misc>
+			<Command>
+				<key keys="D0" action="ExitCommand"></key>
+			</Command>
+		</misc>
 	</GamePad>
-	<!-- Reserved for Gamepad Controls-->
 </Controllers>
