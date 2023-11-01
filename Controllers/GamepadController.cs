@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
+using SprintZero1.Entities;
+using SprintZero1.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ namespace SprintZero1.Controllers
 {
     internal class GamepadController : IController
     {
-        private readonly Dictionary<Buttons, ICommand> gamepadMap;
+        private Dictionary<Buttons, ICommand> gamepadMap;
         private readonly List<Buttons> _movementButtonList;
         private List<Buttons> _previousPressedButtons;
         private readonly Stack<Buttons> movementButtonStack;
@@ -64,9 +66,9 @@ namespace SprintZero1.Controllers
             }
         }
 
-        public void LoadControls()
+        public void LoadControls(IEntity player)
         {
-            //
+            gamepadMap = ControlsManager.GetGamePadControls(player);
         }
 
         /*

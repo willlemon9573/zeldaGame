@@ -1,3 +1,5 @@
+using SprintZero1.Entities;
+
 namespace SprintZero1.Controllers
 {
     internal interface IController
@@ -5,7 +7,7 @@ namespace SprintZero1.Controllers
         /// <summary>
         /// Loads the controls for the specific controller
         /// </summary>
-        void LoadControls();
+        void LoadControls(IEntity playerEntity);
 
         /// <summary>
         /// Updates game based on which input is read

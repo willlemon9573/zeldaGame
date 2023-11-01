@@ -34,12 +34,15 @@ namespace SprintZero1.Managers
 
         public static void Start(Game1 game)
         {
+            const string DOCUMENT_PATH = @"XMLFiles\PlayerXMLFiles\ControllerSettings.xml";
             _game = game;
             player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
             playerList.Add(player);
             AddOnScreenEntity(player);
-            ControlsManager.CreateKeyboardControls(player, _game.GameState);
-            controllers[0].LoadControls();
+            ControlsManager.CreateKeyboardControlsMap(DOCUMENT_PATH, player, _game.GameState);
+            controllers[0].LoadControls(player);
+            /*ControlsManager.CreateGamePadControlsMap(DOCUMENT_PATH, player, _game.GameState);
+            controllers[1].LoadControls(player);*/
         }
 
         /// <summary>
@@ -76,7 +79,7 @@ namespace SprintZero1.Managers
         public static PausedStateUpdater GetPausedStateUpdater()
         {
             KeyboardController k = (KeyboardController)controllers[0];
-            return k.PausedStateUpdater;
+            return k.PausedStateUpdate;
         }
 
         public static void Update(GameTime gameTime)

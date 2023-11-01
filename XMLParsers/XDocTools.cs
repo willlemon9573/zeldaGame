@@ -96,6 +96,7 @@ namespace SprintZero1.XMLParsers
             CheckAttribute(spriteEffect);
             return (SpriteEffects)Enum.Parse(typeof(SpriteEffects), spriteEffect.Value, true);
         }
+
         /// <summary>
         /// Parses an element for Non Animated Item Spritei nformation
         /// </summary>
@@ -126,17 +127,31 @@ namespace SprintZero1.XMLParsers
             }
             return result;
         }
+
         /// <summary>
         /// Parses an element for the given attribute and returns it as a keys enum
         /// </summary>
         /// <param name="element">The element to parse</param>
         /// <param name="attributeName">the name of the attribute to look for</param>
-        /// <returns></returns>
+        /// <returns>A Microsoft XNA Keys Enum</returns>
         public Keys ParseAttributeAsKeys(XElement element, string attributeName)
         {
             XAttribute keys = element.Attribute(attributeName);
             CheckAttribute(keys);
             return (Keys)Enum.Parse(typeof(Keys), keys.Value);
+        }
+
+        /// <summary>
+        /// Parses an element for the given attribute and returns it as a button enum
+        /// </summary>
+        /// <param name="element">The element to parse</param>
+        /// <param name="attributeName">the name of the attribute to look for</param>
+        /// <returns>A Microsoft XNA Button enum</returns>
+        public Buttons ParseAttributeAsButton(XElement element, string attributeName)
+        {
+            XAttribute buttonAttribute = element.Attribute(attributeName);
+            CheckAttribute(buttonAttribute);
+            return (Buttons)Enum.Parse(typeof(Buttons), buttonAttribute.Value, true);
         }
 
         /// <summary>

@@ -16,13 +16,16 @@ namespace SprintZero1.XMLParsers
     internal class PlayerControlsParser
     {
         /* ----------------------------- Attribute/Element strings ----------------------------- */
-        private readonly string COMMAND_ELEMENT = "Command";
-        private readonly string KEY_ELEMENT = "key";
-        private readonly string KEYS_ATTRIBUTE = "keys";
+        private readonly string KEYBOARD_KEY_ELEMENT = "key";
+        private readonly string KEYBOARD_KEYS_ATTRIBUTE = "keys";
         private readonly string ACTION_ATTRIBUTE = "action";
+        private const string GAMEPAD_BUTTONS_ATTRIBUTE = "buttons";
+        private const string GAMEPAD_BUTTON_ELEMENT = "button";
         private readonly string NAMESPACE = "SprintZero1.Commands.PlayerCommands";
-        private const string PLAYER_ACTION_COMMANDS_ELEMENT = "PlayerActionCommands";
-        private const string PLAYER_MENU_ACCESS_COMMANDS_ELEMENT = "PlayerMenuAccessCommands";
+        private const string ACTION_COMMANDS_ELEMENT = "ActionCommands";
+        private const string MENU_ACCESS_COMMANDS_ELEMENT = "MenuAccessCommands";
+        private const string KEYBOARD_ELEMENT = "Keyboard";
+        private const string GAMEPAD_ELEMENT = "GamePad";
         /* ----------------------------- Private Members ----------------------------- */
         private readonly XDocument _controllerDocument;
         private readonly XDocTools _parseTools;
@@ -40,37 +43,66 @@ namespace SprintZero1.XMLParsers
             _controllerDocument = controllerDocument;
             _parseTools = new XDocTools();
         }
+
         /// <summary>
         /// Parse The given elements for the keyboard controls used by the player
         /// </summary>
-        /// <param name="elementName">The element name that contains all the elements and attributes for creating the controller map</param>
+        /// <param name="keyboardElementString">The element name that contains all the elements and attributes for creating the controller map</param>
         /// <param name="player">The player who will use the commands</param>
         /// <param name="baseGameState">the game state that is affected by the commands</param>
         /// <returns></returns>
-        public Dictionary<Keys, ICommand> ParseKeyboardControls(string elementName, ICombatEntity player, BaseGameState baseGameState)
+        public Dictionary<Keys, ICommand> ParseKeyboardControls(string keyboardElementString, ICombatEntity player, BaseGameState baseGameState)
         {
-            XElement keyboardElement = _controllerDocument.Root.Element(elementName);
-            _parseTools.CheckIfElementNull(keyboardElement, elementName);
-            /* Sets up the player action commands */
-            XElement playerActionElement = keyboardElement.Element(PLAYER_ACTION_COMMANDS_ELEMENT);
-            _parseTools.CheckIfElementNull(playerActionElement, PLAYER_ACTION_COMMANDS_ELEMENT);
-            Dictionary<Keys, ICommand> commandsMap = playerActionElement.Elements(COMMAND_ELEMENT).ToDictionary(
-                    commandElement => _parseTools.ParseAttributeAsKeys(commandElement.Element(KEY_ELEMENT), KEYS_ATTRIBUTE),
-                    commandElement => _parseTools.ParsePlayerActionCommands(commandElement.Element(KEY_ELEMENT), ACTION_ATTRIBUTE, NAMESPACE, player)
-                );
-            /* Set up the player menu access commands that affect game state - not the best implementation..*/
-            XElement playerMenuAccessElement = keyboardElement.Element(PLAYER_MENU_ACCESS_COMMANDS_ELEMENT);
-            _parseTools.CheckIfElementNull(playerMenuAccessElement, PLAYER_MENU_ACCESS_COMMANDS_ELEMENT);
-            foreach (var menuCommandElement in playerMenuAccessElement.Elements(COMMAND_ELEMENT))
+            /* Check to make sure the keyboard element exists */
+            XElement keyboardElement = _controllerDocument.Root.Element(keyboardElementString);
+            _parseTools.CheckIfElementNull(keyboardElement, keyboardElementString);
+
+            XElement actionCommandsElement = keyboardElement.Element(ACTION_COMMANDS_ELEMENT);
+            _parseTools.CheckIfElementNull(actionCommandsElement, ACTION_COMMANDS_ELEMENT);
+
+            XElement menuAccessCommands = keyboardElement.Element(MENU_ACCESS_COMMANDS_ELEMENT);
+            _parseTools.CheckIfElementNull(menuAccessCommands, MENU_ACCESS_COMMANDS_ELEMENT);
+
+
+            /* Parse the file for commands that require the player and create the dictionary */
+            Dictionary<Keys, ICommand> keyboardControlsMap = actionCommandsElement.Elements(KEYBOARD_KEY_ELEMENT).ToDictionary(
+                    keyElement => _parseTools.ParseAttributeAsKeys(keyElement, KEYBOARD_KEYS_ATTRIBUTE),
+                    keyElement => _parseTools.ParsePlayerActionCommands(keyElement, ACTION_ATTRIBUTE, NAMESPACE, player));
+
+
+            /* Parse the file and add the menu access commands to the dictionary */
+            foreach (XElement keyboardKeyElement in menuAccessCommands.Elements(KEYBOARD_KEY_ELEMENT))
             {
-                var keyElement = menuCommandElement.Element(KEY_ELEMENT);
-                Keys key = _parseTools.ParseAttributeAsKeys(keyElement, KEYS_ATTRIBUTE);
-                ICommand command = _parseTools.ParsePlayerMenuCommands(keyElement, ACTION_ATTRIBUTE, NAMESPACE, baseGameState);
-                commandsMap.Add(key, command);
+                Keys keyboardKey = _parseTools.ParseAttributeAsKeys(keyboardKeyElement, KEYBOARD_KEYS_ATTRIBUTE);
+                ICommand playerCommand = _parseTools.ParsePlayerMenuCommands(keyboardKeyElement, ACTION_ATTRIBUTE, NAMESPACE, baseGameState);
+                keyboardControlsMap.Add(keyboardKey, playerCommand);
             }
 
-            return commandsMap;
 
+            return keyboardControlsMap;
+        }
+
+        public Dictionary<Buttons, ICommand> ParseGamePadControls(string gamePadElementString, ICombatEntity player, BaseGameState baseGameState)
+        {
+            /* Get the proper elements to parse */
+            /* check to make sure the proper elements exist */
+            _parseTools.CheckIfElementNull(_controllerDocument.Element(gamePadElementString), gamePadElementString);
+            XElement actionCommandsElement = _controllerDocument.Element(gamePadElementString).Element(ACTION_COMMANDS_ELEMENT);
+            _parseTools.CheckIfElementNull(actionCommandsElement, ACTION_COMMANDS_ELEMENT);
+            XElement menuAccessCommands = _controllerDocument.Element(MENU_ACCESS_COMMANDS_ELEMENT);
+            _parseTools.CheckIfElementNull(menuAccessCommands, MENU_ACCESS_COMMANDS_ELEMENT);
+            /* Parse the file for commands that require the player and create the dictionary */
+            Dictionary<Buttons, ICommand> keyboardControlsMap = actionCommandsElement.Elements(GAMEPAD_BUTTON_ELEMENT).ToDictionary(
+                    keyElement => _parseTools.ParseAttributeAsButton(keyElement, GAMEPAD_BUTTONS_ATTRIBUTE),
+                    keyElement => _parseTools.ParsePlayerActionCommands(keyElement, ACTION_ATTRIBUTE, NAMESPACE, player));
+            /* Parse the file and add the menu access commands to the dictionary */
+            foreach (XElement keyElement in menuAccessCommands.Elements(GAMEPAD_BUTTON_ELEMENT))
+            {
+                Buttons gamepadButton = _parseTools.ParseAttributeAsButton(keyElement, GAMEPAD_BUTTONS_ATTRIBUTE);
+                ICommand playerCommand = _parseTools.ParsePlayerMenuCommands(keyElement, ACTION_ATTRIBUTE, NAMESPACE, baseGameState);
+                keyboardControlsMap.Add(gamepadButton, playerCommand);
+            }
+            return keyboardControlsMap;
         }
     }
 }

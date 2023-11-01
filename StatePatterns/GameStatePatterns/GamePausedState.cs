@@ -26,7 +26,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Update(GameTime gameTime)
         {
-            _updater.Invoke();
+            _updater.Invoke(_game);
         }
     }
 }

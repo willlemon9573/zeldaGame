@@ -1,12 +1,13 @@
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
+using SprintZero1.Entities;
 using SprintZero1.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace SprintZero1.Controllers
 {
-    public delegate void PausedStateUpdater();
+    public delegate void PausedStateUpdater(Game1 game);
     internal class KeyboardController : IController
     {
         private Dictionary<Keys, ICommand> _keyboardMap;
@@ -60,23 +61,28 @@ namespace SprintZero1.Controllers
                 _keyboardMap[keyRef].Execute();
             }
         }
-
-        public void LoadControls()
+        /// <summary>
+        /// Load the controls for the specific player.
+        /// </summary>
+        /// <param name="player">The player the controls will be loaded for</param>
+        public void LoadControls(IEntity player)
         {
-            _keyboardMap = ControlsManager.GetKeyboardControls();
+            _keyboardMap = ControlsManager.GetKeyboardControls(player);
         }
 
-        public void PausedStateUpdater()
+        public void PausedStateUpdate(Game1 game)
         {
             KeyboardState currentKeyboardState = Keyboard.GetState();
             Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
+
             foreach (Keys key in pressedKeys)
             {
-                if (key == Keys.U)
+                if (key == Keys.Escape && !_previouslyPressedKeys.Contains(key))
                 {
-                    _keyboardMap[key].Execute();
+                    game.GameState.ChangeGameState(Enums.GameState.Playing);
                 }
             }
+            _previouslyPressedKeys = pressedKeys.ToList();
         }
 
         public void Update()

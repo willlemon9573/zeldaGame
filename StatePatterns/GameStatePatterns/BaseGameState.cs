@@ -11,7 +11,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
     public abstract class BaseGameState : IGameState
     {
-        private readonly Game1 _game;
+        protected readonly Game1 _game;
         public BaseGameState(Game1 game)
         {
             _game = game;

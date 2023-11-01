@@ -18,7 +18,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            LevelManager.Draw(spriteBatch);
+            ProgramManager.Draw(spriteBatch);
         }
 
         public override void Handle()
@@ -32,7 +32,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            LevelManager.Update(gameTime);
+            ProgramManager.Update(gameTime);
         }
     }
 }
