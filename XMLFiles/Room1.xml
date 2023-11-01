@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Room>
-	
 	<Floor>
 		<Name>entrance</Name>
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
-	
 	<Wall>
 		<Quad>1</Quad>
 		<X>199</X>
