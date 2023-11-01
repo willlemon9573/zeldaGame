@@ -17,32 +17,22 @@ namespace SprintZero1.Managers
         private static IEntity projectileHandler;
         // List of available Controllers
         static List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
-        static readonly IController[] controllers = new IController[]
-
-        #region
-        {
-            new KeyboardController(),
-            new GamepadController(0),
-            new GamepadController(1),
-            new GamepadController(2),
-            new GamepadController(3)
-        };
-        #endregion
+        static readonly List<IController> controllers = new List<IController>();
 
         static PlayerEntity player;
         public static PlayerEntity Player { get { return player; } }
 
         public static void Start(Game1 game)
         {
-            const string DOCUMENT_PATH = @"XMLFiles\PlayerXMLFiles\ControllerSettings.xml";
+            const string CONTROLS_DOCUMENT_PATH = @"XMLFiles\PlayerXMLFiles\ControllerSettings.xml";
+            const int PLAYER_ONE = 0;
             _game = game;
             player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
             playerList.Add(player);
             AddOnScreenEntity(player);
-            ControlsManager.CreateKeyboardControlsMap(DOCUMENT_PATH, player, _game.GameState);
-            controllers[0].LoadControls(player);
-            /*ControlsManager.CreateGamePadControlsMap(DOCUMENT_PATH, player, _game.GameState);
-            controllers[1].LoadControls(player);*/
+            controllers.Add(new KeyboardController());
+            ControlsManager.CreateKeyboardControlsMap(CONTROLS_DOCUMENT_PATH, player, _game.GameState);
+            controllers[PLAYER_ONE].LoadControls(player);
         }
 
         /// <summary>

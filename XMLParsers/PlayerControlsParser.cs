@@ -63,7 +63,6 @@ namespace SprintZero1.XMLParsers
             XElement menuAccessCommands = keyboardElement.Element(MENU_ACCESS_COMMANDS_ELEMENT);
             _parseTools.CheckIfElementNull(menuAccessCommands, MENU_ACCESS_COMMANDS_ELEMENT);
 
-
             /* Parse the file for commands that require the player and create the dictionary */
             Dictionary<Keys, ICommand> keyboardControlsMap = actionCommandsElement.Elements(KEYBOARD_KEY_ELEMENT).ToDictionary(
                     keyElement => _parseTools.ParseAttributeAsKeys(keyElement, KEYBOARD_KEYS_ATTRIBUTE),
@@ -85,13 +84,14 @@ namespace SprintZero1.XMLParsers
         public Dictionary<Buttons, ICommand> ParseGamePadControls(string gamePadElementString, ICombatEntity player, BaseGameState baseGameState)
         {
             /* Get the proper elements to parse */
-            /* check to make sure the proper elements exist */
-            _parseTools.CheckIfElementNull(_controllerDocument.Element(gamePadElementString), gamePadElementString);
-            XElement actionCommandsElement = _controllerDocument.Element(gamePadElementString).Element(ACTION_COMMANDS_ELEMENT);
+            XElement gamePadElement = _controllerDocument.Root.Element(gamePadElementString);
+            _parseTools.CheckIfElementNull(gamePadElement, gamePadElementString);
+
+            XElement actionCommandsElement = gamePadElement.Element(ACTION_COMMANDS_ELEMENT);
             _parseTools.CheckIfElementNull(actionCommandsElement, ACTION_COMMANDS_ELEMENT);
-            XElement menuAccessCommands = _controllerDocument.Element(MENU_ACCESS_COMMANDS_ELEMENT);
+
+            XElement menuAccessCommands = gamePadElement.Element(MENU_ACCESS_COMMANDS_ELEMENT);
             _parseTools.CheckIfElementNull(menuAccessCommands, MENU_ACCESS_COMMANDS_ELEMENT);
-            /* Parse the file for commands that require the player and create the dictionary */
             Dictionary<Buttons, ICommand> keyboardControlsMap = actionCommandsElement.Elements(GAMEPAD_BUTTON_ELEMENT).ToDictionary(
                     keyElement => _parseTools.ParseAttributeAsButton(keyElement, GAMEPAD_BUTTONS_ATTRIBUTE),
                     keyElement => _parseTools.ParsePlayerActionCommands(keyElement, ACTION_ATTRIBUTE, NAMESPACE, player));

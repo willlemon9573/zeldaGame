@@ -30,7 +30,7 @@
 			<button buttons="DPadLeft" action ="MoveLeftCommand"/>
 			<button buttons="DPadRight" action ="MoveRightCommand"/>
 			<button buttons="LeftThumbstickUp" action ="MoveUpCommand"/>
-			<button buttons="LeftThumbsticDown" action ="MoveDownCommand"/>
+			<button buttons="LeftThumbstickDown" action ="MoveDownCommand"/>
 			<button buttons="LeftThumbstickLeft" action ="MoveLeftCommand"/>
 			<button buttons="LeftThumbstickRight" action ="MoveRightCommand"/>
 			<button buttons="X" action="SwordAttackCommand"/>

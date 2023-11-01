@@ -71,26 +71,6 @@ namespace SprintZero1.Controllers
             gamepadMap = ControlsManager.GetGamePadControls(player);
         }
 
-        /*
-                public void LoadPlayerCommands(Game1 game, ICombatEntity playerEntity)
-                {
-                    *//* directional commands *//*
-                    gamepadMap.Add(Buttons.DPadUp, new MoveUpCommand(playerEntity));
-                    gamepadMap.Add(Buttons.DPadDown, new MoveDownCommand(playerEntity));
-                    gamepadMap.Add(Buttons.DPadLeft, new MoveLeftCommand(playerEntity));
-                    gamepadMap.Add(Buttons.DPadRight, new MoveRightCommand(playerEntity));
-                    gamepadMap.Add(Buttons.LeftThumbstickUp, new MoveUpCommand(playerEntity));
-                    gamepadMap.Add(Buttons.LeftThumbstickDown, new MoveDownCommand(playerEntity));
-                    gamepadMap.Add(Buttons.LeftThumbstickLeft, new MoveLeftCommand(playerEntity));
-                    gamepadMap.Add(Buttons.LeftThumbstickRight, new MoveRightCommand(playerEntity));
-
-                    *//* Attack Commands *//*
-                    gamepadMap.Add(Buttons.X, new SwordAttackCommand(playerEntity));
-                    *//* Other commands *//*
-                    gamepadMap.Add(Buttons.Back, new ExitCommand(game));
-
-                }*/
-
         public void Update()
         {
             List<Buttons> pressedButtons = GetPressedButtons(index);
