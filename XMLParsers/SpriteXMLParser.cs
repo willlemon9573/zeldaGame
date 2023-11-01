@@ -9,6 +9,7 @@ namespace SprintZero1.XMLParsers
 {
     /// <summary>
     /// Contains the functions for parsing XML Files that factories will need
+    /// @author Aaron Heishman
     /// </summary>
     internal class SpriteXMLParser
     {

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Controllers>
+	<Keyboard>
+		<!--The player action commands-->>
+		<ActionCommands>
+			<key keys="Up" action="MoveUpCommand"></key>
+			<key keys="Down" action="MoveDownCommand"></key>
+			<key keys="Left" action="MoveLeftCommand"></key>
+			<key keys="Right" action="MoveRightCommand"></key>
+			<key keys="W" action="MoveUpCommand"></key>
+			<key keys="S" action="MoveDownCommand"></key>
+			<key keys="A" action="MoveLeftCommand"></key>
+			<key keys="D" action="MoveRightCommand"></key>
+			<key keys="Z" action="SwordAttackCommand"></key>
+		</ActionCommands>
+		<!--Player commands to access menus - Removed unpause as it's handled by the pause menu -->
+		<MenuAccessCommands>
+			<key keys="Escape" action="PauseGameCommand"></key>
+		</MenuAccessCommands>
+		<!--Temporary placeholder until exit game command is set up for game state exiting-->
+		<misc>
+			<key keys="D0" action="ExitCommand"></key>
+		</misc>
+	</Keyboard>
+	<GamePad>
+		<!--The player action commands-->>
+		<ActionCommands>
+			<button buttons="DPadUp" action ="MoveUpCommand"/>
+			<button buttons="DPadDown" action ="MoveDownCommand"/>
+			<button buttons="DPadLeft" action ="MoveLeftCommand"/>
+			<button buttons="DPadRight" action ="MoveRightCommand"/>
+			<button buttons="LeftThumbstickUp" action ="MoveUpCommand"/>
+			<button buttons="LeftThumbstickDown" action ="MoveDownCommand"/>
+			<button buttons="LeftThumbstickLeft" action ="MoveLeftCommand"/>
+			<button buttons="LeftThumbstickRight" action ="MoveRightCommand"/>
+			<button buttons="X" action="SwordAttackCommand"/>
+		</ActionCommands>
+		<!--Player commands to access menus-->
+		<MenuAccessCommands>
+			<button buttons="Start" action="PauseGameCommand"></button>
+		</MenuAccessCommands>
+		<!--Temporary placeholder until exit game command is set up for game state exiting-->
+		<misc>
+			<button buttons="Select" action="ExitCommand"></button>
+		</misc>
+	</GamePad>
+</Controllers>

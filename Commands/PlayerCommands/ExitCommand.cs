@@ -1,4 +1,4 @@
-﻿namespace SprintZero1.Commands
+﻿namespace SprintZero1.Commands.PlayerCommands
 {
     public class ExitCommand : ICommand
     {

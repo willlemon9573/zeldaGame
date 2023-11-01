@@ -57,7 +57,7 @@ namespace SprintZero1.InventoryFiles
         /// <param name="amount">The amount of the item used</param>
         public void AddItem(StackableItems item, int amount)
         {
-            Debug.WriteLine(_StackableItemSlots.ContainsKey(item), $"Error: {item} is not a stackable item");
+            Debug.Assert(_StackableItemSlots.ContainsKey(item), $"Error: {item} is not a stackable item");
             _StackableItemSlots[item].PickedUpItem(amount);
         }
 

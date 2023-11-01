@@ -33,15 +33,6 @@ namespace SprintZero1.Managers
             _level1FloorSpriteSheet = contentManager.Load<Texture2D>("level1");
             _weaponSpriteSheet = contentManager.Load<Texture2D>("LinkSheet");
             _itemSpriteSheet = contentManager.Load<Texture2D>("itemSpriteSheet1");
-
-            /* Code for refactoring Texture2DManager refactoring to use one function rather than making constant new ones */
-            /* _textureDictionary = new Dictionary<string, Texture2D>() {
-                { "link", contentManager.Load<Texture2D>("8366") },
-                { "tiles", contentManager.Load<Texture2D>("TileSheet") },
-                { "dung_enemies", contentManager.Load<Texture2D>("DungeonEnemySpritesheet") },
-                { "boss_enemies", contentManager.Load<Texture2D>("BossSpriteSheet") },
-                { "floors", contentManager.Load<Texture2D>("level1") }
-            }; */
         }
 
         public static void LoadSpriteFonts(ContentManager contentManager)

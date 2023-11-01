@@ -61,10 +61,8 @@ namespace SprintZero1
             ItemSpriteFactory.Instance.LoadTextures();
             _mouseController = new MouseController(this);
             ItemSpriteFactory.Instance.LoadTextures();
-
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize(this);
-
         }
 
         protected override void Update(GameTime gameTime)
@@ -90,7 +88,6 @@ namespace SprintZero1
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(_newRenderTarget, _actualScreenRectangle, Color.White);
-
             _spriteBatch.End();
             base.Draw(gameTime);
         }

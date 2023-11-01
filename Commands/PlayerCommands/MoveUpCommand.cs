@@ -1,13 +1,13 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Enums;
 
-namespace SprintZero1.Commands
+namespace SprintZero1.Commands.PlayerCommands
 {
-    internal class MoveDownCommand : ICommand
+    internal class MoveUpCommand : ICommand
     {
         private readonly IMovableEntity _movableEntity;
 
-        public MoveDownCommand(IMovableEntity entity)
+        public MoveUpCommand(IMovableEntity entity)
         {
             /* Create a reference to the entity to access the move function */
             _movableEntity = entity;
@@ -15,9 +15,9 @@ namespace SprintZero1.Commands
 
         public void Execute()
         {
-            if (_movableEntity.Direction != Direction.South)
+            if (_movableEntity.Direction != Direction.North)
             {
-                _movableEntity.ChangeDirection(Direction.South);
+                _movableEntity.ChangeDirection(Direction.North);
             }
             _movableEntity.Move();
         }

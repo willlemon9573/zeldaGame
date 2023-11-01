@@ -8,8 +8,12 @@ namespace SprintZero1.Commands.PlayerCommands
         /// <summary>
         /// Command for pausing the game
         /// </summary>
-        /// <param name="gameState">Base Game State reference</param>
-        public PauseGameCommand(BaseGameState gameState) : base(gameState) { }
+        /// <param name="gameChangeStateHandler">Delegate that points to the state changing function</param>
+        /// <param name="gameStateHandler">Delegate that points to the state handling function</param>
+        public PauseGameCommand(GameChangeStateHandler gameChangeStateHandler, GameStateHandler gameStateHandler) : base(gameChangeStateHandler, gameStateHandler)
+        {
+        }
+
         /// <summary>
         /// Execute the command to pause the game
         /// </summary>

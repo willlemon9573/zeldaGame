@@ -6,10 +6,14 @@ namespace SprintZero1.Commands.PlayerCommands
     internal class ResetGameCommand : BaseChangeGameStateCommand
     {
         /// <summary>
-        /// Command used for resetting the game
+        /// Command for Resetting the game
         /// </summary>
-        /// <param name="gameState">Base Game State reference</param>
-        public ResetGameCommand(BaseGameState gameState) : base(gameState) { }
+        /// <param name="gameChangeStateHandler">Delegate that points to the state changing function</param>
+        /// <param name="gameStateHandler">Delegate that points to the state handling function</param>
+        public ResetGameCommand(GameChangeStateHandler gameChangeStateHandler, GameStateHandler gameStateHandler) : base(gameChangeStateHandler, gameStateHandler)
+        {
+        }
+
 
         /// <summary>
         /// Execute the command to handle resetting the game
