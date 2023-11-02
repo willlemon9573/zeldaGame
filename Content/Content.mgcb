@@ -55,6 +55,13 @@
 /processorParam:TextureFormat=Color
 /build:BossSpritesheet.png
 
+#begin DeathmatchFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:DeathmatchFont.spritefont
+
 #begin DungeonEnemySpritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -7,13 +7,14 @@ using SprintZero1.Entities;
 using SprintZero1.Enums;
 using System.Collections.Generic;
 using System.Linq;
+using SprintZero1.GameStateMenu;
 
 namespace SprintZero1.Managers
 {
     internal static class ProgramManager
     {
         public static Game1 _game;
-
+        private static ItemSelectionMenu _itemSelectionMenu;
         private static List<PlayerEntity> playerList = new List<PlayerEntity>();
         private static IEntity projectileHandler;
         // List of available Controllers
@@ -47,6 +48,7 @@ namespace SprintZero1.Managers
             _game = game;
 
             player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
+            _itemSelectionMenu = new ItemSelectionMenu(_game, player);
             playerList.Add(player);
             AddOnScreenEntity(player);
             controllers[0].LoadDefaultCommands(game, player);
@@ -128,6 +130,7 @@ namespace SprintZero1.Managers
                     player.Draw(spriteBatch);
                 }
             }
+            _itemSelectionMenu.Draw(spriteBatch);
         }
     }
 }

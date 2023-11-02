@@ -10,7 +10,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         private IGameStateMenu pauseGame;
         public GamePausedState(Game1 game) : base(game)
         {
-            pauseGame = new PauseMenu(game);
+            pauseGame = new GameOverMenu(game);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
