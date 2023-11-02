@@ -8,15 +8,12 @@ using System;
 using System.Linq;
 using System.Xml.Linq;
 
-
-
-
 namespace SprintZero1.GameStateMenu
 {
     internal class ItemSelectionMenu : GameStateAbstract
     {
-        private int item_weight;
-        private int item_height;
+        private const int item_width = 16;
+        private const int item_height = 16;
         private const int PADDING = 10;
         private const float SCALE = 1f;
         private const float ROTATION = 0f;
@@ -38,21 +35,45 @@ namespace SprintZero1.GameStateMenu
             XElement heartSourceRectElement = itemDataElement.Element("HeartSourceRect");
             heartSourceRect = _xDocTools.CreateRectangle(heartSourceRectElement);
 
+            int itemCount = equipmentData.Count;
+            int itemsPerRow = (int)Math.Ceiling(itemCount / (double)ROWS);
+            int totalWidth = itemsPerRow * (item_weight + PADDING) - PADDING;
+            int totalHeight = ROWS * (item_height + PADDING) - PADDING;
+
+            int startX = (WIDTH - totalWidth) / 2;
+            int startY = (HEIGHT - totalHeight) / 2;
+
+            int x = startX;
+            int y = startY;
+
+            int count = 0;
+
             foreach (XElement itemElement in itemsElement.Elements("Item"))
             {
                 Rectangle itemRec = _xDocTools.CreateRectangle(itemElement);
                 EquipmentItem equipmentItem = _xDocTools.ParseAttributeAsEquipmentItem(itemElement, "name");
-                equipmentData[equipmentItem] = new Tuple<Rectangle, Vector2>(
-                    itemRec, Vector2.Zero);
+
+                Vector2 position = new Vector2(x, y);
+                equipmentData[equipmentItem] = new Tuple<Rectangle, Vector2>(itemRec, position);
+
+                x += item_width + PADDING;
+                count++;
+
+                if (count == itemsPerRow)
+                {
+                    count = 0;
+                    x = startX;
+                    y += item_height + PADDING;
+                }
             }
         }
+
         public ItemSelectionMenu(Game1 game, PlayerInventory playerInventory, ICombatEntity player):base(game)
         {
             _overlay.SetData(new[] { Color.Blue });
             _playerInventory = playerInventory;
             _playerHealth = player.Health;
             largeTexture = Texture2DManager.GetItemSpriteSheet();
-            heartSourceRect = new Rectangle(74, 706, 14, 13);
             _font = game.Content.Load<SpriteFont>("PauseSetting");
             #region Equipment Data Initialization
             equipmentData = new Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>>();
