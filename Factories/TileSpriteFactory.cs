@@ -93,10 +93,10 @@ namespace SprintZero1.Factories
         /// </summary>
         /// <param name="quadrant">The quadrant related to where the wall will be placed</param>
         /// <returns></returns>
-        public ISprite CreateNewWallSprite(int quadrant)
+        public ISprite CreateNewWallSprite(String wallName)
         {
-            Debug.Assert(_wallSourceRectangles.ContainsKey(quadrant), "Incorrect Quadrant: " + quadrant);
-            return new NonAnimatedSprite(_wallSourceRectangles[quadrant], tileSpriteSheet);
+           // Debug.Assert(_wallSourceRectangles.ContainsKey(quadrant), "Incorrect Quadrant: " + quadrant);
+            return new NonAnimatedSprite(_tileSourceRectangles[wallName], tileSpriteSheet);
         }
         /// <summary>
         /// Create a sprite that will be the room specific floor sprite.

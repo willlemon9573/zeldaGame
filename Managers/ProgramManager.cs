@@ -48,7 +48,7 @@ namespace SprintZero1.Managers
         {
             _game = game;
 
-            player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
+            player = new PlayerEntity(new Vector2(126, 200), 6, Enums.Direction.North);
             playerList.Add(player);
             AddOnScreenEntity(player);
             controllers[0].LoadDefaultCommands(game, player);
@@ -83,7 +83,7 @@ namespace SprintZero1.Managers
         {
             IEntity player = playerList[0];
             EntityManager.LoadNextScreen(player);
-            player.Position = new Vector2(150, 150);
+            player.Position = new Vector2(126, 200);
         }
 
         public static void Update(GameTime gameTime)

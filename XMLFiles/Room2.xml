@@ -169,10 +169,10 @@
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
-	
-	
-	
-	
+
+
+
+	<Doors>
 	<Door>
 		<Name>open_north</Name>
 		<X>127</X>
@@ -213,4 +213,5 @@
 		<X>127</X>
 		<Y>224</Y>
 	</Door>
+	</Doors>
 </Room>
