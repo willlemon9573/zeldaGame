@@ -87,9 +87,9 @@ namespace SprintZero1.Managers
 
             EntityManager.Update(gameTime);
             List<IEntity> entities = EntityManager.OnScreenEntities();
-            foreach (IController controller in controllers)
+            for (int i = 0; i < controllers.Count; i++)
             {
-                controller.Update();
+                controllers[i].Update();
             }
             for (int i = 0; i < entities.Count; i++)
             {

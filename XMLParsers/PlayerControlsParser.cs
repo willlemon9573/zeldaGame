@@ -23,8 +23,6 @@ namespace SprintZero1.XMLParsers
         private readonly string NAMESPACE = "SprintZero1.Commands.PlayerCommands";
         private const string ACTION_COMMANDS_ELEMENT = "ActionCommands";
         private const string MENU_ACCESS_COMMANDS_ELEMENT = "MenuAccessCommands";
-        private const string KEYBOARD_ELEMENT = "Keyboard";
-        private const string GAMEPAD_ELEMENT = "GamePad";
         /* ----------------------------- Private Members ----------------------------- */
         private readonly XDocument _controllerDocument;
         private readonly XDocTools _parseTools;
@@ -74,10 +72,9 @@ namespace SprintZero1.XMLParsers
                 ICommand playerCommand = _parseTools.ParsePlayerMenuCommands(keyboardKeyElement, ACTION_ATTRIBUTE, NAMESPACE, game);
                 keyboardControlsMap.Add(keyboardKey, playerCommand);
             }
-
-
             return keyboardControlsMap;
         }
+
         /// <summary>
         /// 
         /// </summary>

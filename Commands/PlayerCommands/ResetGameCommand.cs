@@ -16,6 +16,7 @@ namespace SprintZero1.Commands.PlayerCommands
         public override void Execute()
         {
             _game.GameState.ChangeGameState(GameState.Reset);
+            _game.GameState.Handle();
         }
     }
 }
