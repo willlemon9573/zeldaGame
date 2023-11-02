@@ -150,6 +150,7 @@ namespace SprintZero1.InventoryFiles
         {
             return _equipmentSlots.ContainsKey(item);
         }
+
         /// <summary>
         /// Check if a dungeon utility item like the compass or map are in the player's inventory
         /// </summary>
@@ -178,6 +179,24 @@ namespace SprintZero1.InventoryFiles
         public List<Tuple<ISprite, int>> GetStackableItemSpritesAndCount()
         {
             return _StackableItemSlots.Select(kvp => new Tuple<ISprite, int>(kvp.Value.ItemSprite, kvp.Value.CurrentStock)).ToList();
+        }
+
+        /// <summary>
+        /// Get a list of the equipment the player currently has
+        /// </summary>
+        /// <returns>A list of enums related to the items in the player equipment inventory</returns>
+        public List<EquipmentItem> GetEquipmentList()
+        {
+            return _equipmentSlots.Keys.ToList();
+        }
+
+        /// <summary>
+        /// Get the list of dungeon items owned by the player
+        /// </summary>
+        /// <returns>A list of the dungeon utility items the player has</returns>
+        public List<DungeonItems> GetDungeonItems()
+        {
+            return _DungeonUtilityItemSlots;
         }
     }
 }

@@ -48,7 +48,6 @@ namespace SprintZero1.XMLParsers
         /// </summary>
         /// <param name="keyboardElementString">The element name that contains all the elements and attributes for creating the controller map</param>
         /// <param name="player">The player who will use the commands</param>
-        /// <param name="baseGameState">the game state that is affected by the commands</param>
         /// <returns></returns>
         public Dictionary<Keys, ICommand> ParseKeyboardControls(string keyboardElementString, ICombatEntity player, Game1 game)
         {
@@ -79,7 +78,13 @@ namespace SprintZero1.XMLParsers
 
             return keyboardControlsMap;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gamePadElementString"></param>
+        /// <param name="player"></param>
+        /// <param name="game"></param>
+        /// <returns></returns>
         public Dictionary<Buttons, ICommand> ParseGamePadControls(string gamePadElementString, ICombatEntity player, Game1 game)
         {
             /* Get the proper elements to parse */
