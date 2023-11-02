@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Enums;
-using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
 using System.Collections.Generic;
@@ -20,26 +19,29 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
                 { () => ProgramManager.Reset() },
                 { () => EntityManager.Reset() },
                 { () => PlayerInventoryManager.Reset() },
-                { () => ControlsManager.Reset() }
-
+                { () => ControlsManager.Reset() },
+                { () => GameStatesManager.Reset() },
             };
         }
 
         public override void Draw(SpriteBatch spriteBatch) { }
-
+        /// <summary>
+        /// Handles resetting the game to its initial values
+        /// </summary>
         public override void Handle()
         {
             foreach (var action in _resetList)
             {
                 action();
             }
-            _game.GameState = GameStateFactory.GetGameState(GameState.Playing);
             LevelManager.Initialize(_game);
+            GameStatesManager.InitializeGameStateMap(_game);
+            _game.GameState = GameStatesManager.GetGameState(GameState.Playing);
         }
 
         public override void Update(GameTime gameTime)
         {
-            Handle();
+
         }
     }
 }

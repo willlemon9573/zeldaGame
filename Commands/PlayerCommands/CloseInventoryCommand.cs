@@ -1,5 +1,5 @@
 ﻿using SprintZero1.Enums;
-using SprintZero1.Factories;
+using SprintZero1.Managers;
 
 namespace SprintZero1.Commands.PlayerCommands
 {
@@ -19,7 +19,7 @@ namespace SprintZero1.Commands.PlayerCommands
         /// </summary>
         public override void Execute()
         {
-            _game.GameState = GameStateFactory.GetGameState(GameState.Playing);
+            _game.GameState = GameStatesManager.GetGameState(GameState.Playing);
         }
     }
 }

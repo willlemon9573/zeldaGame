@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Enums;
-using SprintZero1.Factories;
+using SprintZero1.Managers;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
@@ -15,12 +15,12 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _game = game;
         }
 
-        public abstract void Handle();
-
         public virtual void ChangeGameState(GameState newState)
         {
-            _game.GameState = GameStateFactory.GetGameState(newState);
+            _game.GameState = GameStatesManager.GetGameState(newState);
         }
+
+        public abstract void Handle();
 
         public abstract void Draw(SpriteBatch spriteBatch);
 
