@@ -1,21 +1,19 @@
 ﻿namespace SprintZero1.Commands.PlayerCommands
 {
-    public class ExitCommand : ICommand
+    public class ExitCommand : BaseChangeGameStateCommand
     {
-        private readonly Game1 myGame;
 
         /// <summary>
-        /// Construct a new Exit Command object
+        /// Command for exiting the game
         /// </summary>
-        /// <param name="game">The game object</param>
-        public ExitCommand(Game1 game)
+        /// <param name="game">The current game instance</param>
+        public ExitCommand(Game1 game) : base(game)
         {
-            myGame = game;
         }
 
-        public void Execute()
+        public override void Execute()
         {
-            myGame.Exit(); // close the game
+            _game.Exit();
         }
     }
 }

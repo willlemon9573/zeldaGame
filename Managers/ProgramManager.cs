@@ -31,10 +31,16 @@ namespace SprintZero1.Managers
             playerList.Add(player);
             AddOnScreenEntity(player);
             controllers.Add(new KeyboardController());
-            ControlsManager.CreateKeyboardControlsMap(CONTROLS_DOCUMENT_PATH, player, _game.GameState);
+            ControlsManager.CreateKeyboardControlsMap(CONTROLS_DOCUMENT_PATH, player, game);
             controllers[PLAYER_ONE].LoadControls(player);
         }
 
+        public static void Reset()
+        {
+            playerList.Clear();
+            controllers.Clear();
+            onScreenEnemyController.Clear();
+        }
         /// <summary>
         /// Add an entity to the screen
         /// </summary>

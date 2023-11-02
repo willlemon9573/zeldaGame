@@ -6,9 +6,6 @@ using SprintZero1.StatePatterns.StatePatternInterfaces;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
-    public delegate void GameChangeStateHandler(GameState state);
-    public delegate void GameStateHandler();
-
     public abstract class BaseGameState : IGameState
     {
         protected readonly Game1 _game;

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using SprintZero1.Entities;
-using SprintZero1.StatePatterns.GameStatePatterns;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -51,7 +50,7 @@ namespace SprintZero1.XMLParsers
         /// <param name="player">The player who will use the commands</param>
         /// <param name="baseGameState">the game state that is affected by the commands</param>
         /// <returns></returns>
-        public Dictionary<Keys, ICommand> ParseKeyboardControls(string keyboardElementString, ICombatEntity player, BaseGameState baseGameState)
+        public Dictionary<Keys, ICommand> ParseKeyboardControls(string keyboardElementString, ICombatEntity player, Game1 game)
         {
             /* Check to make sure the keyboard element exists */
             XElement keyboardElement = _controllerDocument.Root.Element(keyboardElementString);
@@ -73,7 +72,7 @@ namespace SprintZero1.XMLParsers
             foreach (XElement keyboardKeyElement in menuAccessCommands.Elements(KEYBOARD_KEY_ELEMENT))
             {
                 Keys keyboardKey = _parseTools.ParseAttributeAsKeys(keyboardKeyElement, KEYBOARD_KEYS_ATTRIBUTE);
-                ICommand playerCommand = _parseTools.ParsePlayerMenuCommands(keyboardKeyElement, ACTION_ATTRIBUTE, NAMESPACE, baseGameState);
+                ICommand playerCommand = _parseTools.ParsePlayerMenuCommands(keyboardKeyElement, ACTION_ATTRIBUTE, NAMESPACE, game);
                 keyboardControlsMap.Add(keyboardKey, playerCommand);
             }
 
@@ -81,7 +80,7 @@ namespace SprintZero1.XMLParsers
             return keyboardControlsMap;
         }
 
-        public Dictionary<Buttons, ICommand> ParseGamePadControls(string gamePadElementString, ICombatEntity player, BaseGameState baseGameState)
+        public Dictionary<Buttons, ICommand> ParseGamePadControls(string gamePadElementString, ICombatEntity player, Game1 game)
         {
             /* Get the proper elements to parse */
             XElement gamePadElement = _controllerDocument.Root.Element(gamePadElementString);
@@ -99,7 +98,7 @@ namespace SprintZero1.XMLParsers
             foreach (XElement keyElement in menuAccessCommands.Elements(GAMEPAD_BUTTON_ELEMENT))
             {
                 Buttons gamepadButton = _parseTools.ParseAttributeAsButton(keyElement, GAMEPAD_BUTTONS_ATTRIBUTE);
-                ICommand playerCommand = _parseTools.ParsePlayerMenuCommands(keyElement, ACTION_ATTRIBUTE, NAMESPACE, baseGameState);
+                ICommand playerCommand = _parseTools.ParsePlayerMenuCommands(keyElement, ACTION_ATTRIBUTE, NAMESPACE, game);
                 keyboardControlsMap.Add(gamepadButton, playerCommand);
             }
             return keyboardControlsMap;

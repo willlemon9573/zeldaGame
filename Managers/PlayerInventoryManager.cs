@@ -113,5 +113,10 @@ namespace SprintZero1.Managers
         {
             return _playerInventoryMap[player].GetStackableItemCount(item);
         }
+
+        public static void Reset()
+        {
+            _playerInventoryMap.Clear();
+        }
     }
 }

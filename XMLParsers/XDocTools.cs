@@ -5,7 +5,6 @@ using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 using System.Xml.Linq;
 
@@ -175,13 +174,11 @@ namespace SprintZero1.XMLParsers
         /// <param name="nameSpace">the namespace of the command being added (excluding the command name itself)</param>
         /// <param name="baseGameState">the name of the attribute to look for</param>
         /// <returns>The command related to the value found in the attribute</returns>
-        public ICommand ParsePlayerMenuCommands(XElement element, string attributeName, string nameSpace, BaseGameState baseGameState)
+        public ICommand ParsePlayerMenuCommands(XElement element, string attributeName, string nameSpace, Game1 game)
         {
             XAttribute command = element.Attribute(attributeName);
             CheckAttribute(command);
-            GameChangeStateHandler gcsh = baseGameState.ChangeGameState;
-            GameStateHandler gsh = baseGameState.Handle;
-            return (ICommand)Activator.CreateInstance(Type.GetType($"{nameSpace}.{command.Value}"), gcsh, gsh);
+            return (ICommand)Activator.CreateInstance(Type.GetType($"{nameSpace}.{command.Value}"), game);
         }
     }
 }
