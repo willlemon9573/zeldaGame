@@ -32,6 +32,7 @@ namespace SprintZero1.GameStateMenu
             // Initialize the command to unpause the game
             _unPauseGame = new UnpauseCommand((BaseGameState)game.GameState);
             // Initialize the list to keep track of previously pressed keys
+
         }
 
         public override void Update(GameTime gameTime)

@@ -52,13 +52,6 @@ namespace SprintZero1.Factories
             wallSourceRectangles.Add(QUAD_THREE, new Rectangle((int)spriteOrigin.X - X_OFFSET, (int)spriteOrigin.Y + Y_OFFSET, WIDTH, LENGTH));
             // Bottom Right Wall (Quadrant 4)
             wallSourceRectangles.Add(QUAD_FOUR, new Rectangle((int)spriteOrigin.X, (int)spriteOrigin.Y + Y_OFFSET, WIDTH, LENGTH));
-            /* should be deleted, but saving this for when we refactor */
-            /*foreach (var kvp in wallSourceRectangles)
-            {
-                Debug.WriteLine("<Sprite quadrant=\"" + kvp.Key + "\">");
-                Debug.WriteLine("\t<Rectangle x='" + kvp.Value.X + "' y='" + kvp.Value.Y + "' width='" + WIDTH + "' height='" + LENGTH + "'/>");
-                Debug.WriteLine("</Sprite>");
-            }*/
         }
 
         /// <summary>

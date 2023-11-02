@@ -1,5 +1,4 @@
 ﻿using SprintZero1.Enums;
-using SprintZero1.StatePatterns.GameStatePatterns;
 
 namespace SprintZero1.Commands.PlayerCommands
 {
@@ -8,15 +7,19 @@ namespace SprintZero1.Commands.PlayerCommands
         /// <summary>
         /// Command for pausing the game
         /// </summary>
-        /// <param name="gameState">Base Game State reference</param>
-        public PauseGameCommand(BaseGameState gameState) : base(gameState) { }
+        /// <param name="gameChangeStateHandler">Delegate that points to the state changing function</param>
+        /// <param name="gameStateHandler">Delegate that points to the state handling function</param>
+        public PauseGameCommand(Game1 game) : base(game)
+        {
+        }
+
         /// <summary>
         /// Execute the command to pause the game
         /// </summary>
         public override void Execute()
         {
-            _gameChangeStateHandler.Invoke(GameState.Paused);
-            _gameStateHandler.Invoke();
+            _game.GameState.ChangeGameState(GameState.Paused);
+            _game.GameState.Handle();
         }
     }
 }

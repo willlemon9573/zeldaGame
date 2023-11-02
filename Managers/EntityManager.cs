@@ -19,7 +19,12 @@ namespace SprintZero1.Managers
         {
             return entities;
         }
-
+        public static void Reset()
+        {
+            entities.Clear();
+            entitiesToAdd.Clear();
+            entitiesToRemove.Clear();
+        }
         /// <summary>
         /// Readies the next screen, removing
         /// all but the player

@@ -4,7 +4,6 @@ using SprintZero1.Colliders;
 using SprintZero1.Controllers;
 using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
-using SprintZero1.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using SprintZero1.GameStateMenu;
@@ -19,43 +18,31 @@ namespace SprintZero1.Managers
         private static IEntity projectileHandler;
         // List of available Controllers
         static List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
-        static readonly IController[] controllers = new IController[]
-
-        #region
-        {
-            new KeyboardController(),
-            new GamepadController(0),
-            new GamepadController(1),
-            new GamepadController(2),
-            new GamepadController(3)
-        };
-        #endregion
-
-        static KeyboardController k;
+        static readonly List<IController> controllers = new List<IController>();
 
         static PlayerEntity player;
         public static PlayerEntity Player { get { return player; } }
-        private static GameState gameState = GameState.Playing;
-
-        public static GameState GameState
-        {
-            get { return gameState; }
-            set { gameState = value; }
-        }
 
         public static void Start(Game1 game)
         {
+            const string CONTROLS_DOCUMENT_PATH = @"XMLFiles\PlayerXMLFiles\ControllerSettings.xml";
+            const int PLAYER_ONE = 0;
             _game = game;
-
             player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
             _itemSelectionMenu = new ItemSelectionMenu(_game, player);
             playerList.Add(player);
             AddOnScreenEntity(player);
-            controllers[0].LoadDefaultCommands(game, player);
-            k = (KeyboardController)controllers[0];
-
+            controllers.Add(new KeyboardController());
+            ControlsManager.CreateKeyboardControlsMap(CONTROLS_DOCUMENT_PATH, player, game);
+            controllers[PLAYER_ONE].LoadControls(player);
         }
 
+        public static void Reset()
+        {
+            playerList.Clear();
+            controllers.Clear();
+            onScreenEnemyController.Clear();
+        }
         /// <summary>
         /// Add an entity to the screen
         /// </summary>
@@ -89,8 +76,10 @@ namespace SprintZero1.Managers
 
         public static PausedStateUpdater GetPausedStateUpdater()
         {
-            return k.PausedStateUpdater;
+            KeyboardController k = (KeyboardController)controllers[0];
+            return k.PausedStateUpdate;
         }
+
         public static void Update(GameTime gameTime)
         {
             foreach (IEnemyMovementController enemyController in onScreenEnemyController)
@@ -110,7 +99,6 @@ namespace SprintZero1.Managers
             }
             //projectileHandler.Update(gameTime);
             ColliderManager.CheckCollisions(entities.OfType<ICollidableEntity>().ToList());
-
         }
 
         /// <summary>

@@ -34,27 +34,16 @@ namespace SprintZero1.GameStateMenu
         {
             XDocument doc = XDocument.Load("ItemData.xml");
             var itemDataElement = doc.Element("ItemData");
+            XDocTools _xDocTools = new XDocTools();
+            XElement heartSourceRectElement = itemDataElement.Element("HeartSourceRect");
+            heartSourceRect = _xDocTools.CreateRectangle(heartSourceRectElement);
 
-            var heartSourceRectElement = itemDataElement.Element("HeartSourceRect");
-            int heartX = (int)heartSourceRectElement.Attribute("x");
-            int heartY = (int)heartSourceRectElement.Attribute("y");
-            int heartWidth = (int)heartSourceRectElement.Attribute("width");
-            int heartHeight = (int)heartSourceRectElement.Attribute("height");
-            heartSourceRect = new Rectangle(heartX, heartY, heartWidth, heartHeight);
-
-            item_weight = (int)itemDataElement.Element("ItemWeight");
-            item_height = (int)itemDataElement.Element("ItemHeight");
-
-            var itemsElement = itemDataElement.Element("Items");
-            foreach (var itemElement in itemsElement.Elements("Item"))
+            foreach (XElement itemElement in itemsElement.Elements("Item"))
             {
-                string name = (string)itemElement.Attribute("name");
-                int x = (int)itemElement.Attribute("x");
-                int y = (int)itemElement.Attribute("y");
-                int width = (int)itemElement.Attribute("width");
-                EquipmentItem equipmentItem = (EquipmentItem)Enum.Parse(typeof(EquipmentItem), name);
+                Rectangle itemRec = _xDocTools.CreateRectangle(itemElement);
+                EquipmentItem equipmentItem = _xDocTools.ParseAttributeAsEquipmentItem(itemElement, "name");
                 equipmentData[equipmentItem] = new Tuple<Rectangle, Vector2>(
-                    new Rectangle(x, y, width, item_height), Vector2.Zero);
+                    itemRec, Vector2.Zero);
             }
         }
         public ItemSelectionMenu(Game1 game, PlayerInventory playerInventory, ICombatEntity player):base(game)
@@ -63,6 +52,7 @@ namespace SprintZero1.GameStateMenu
             _playerInventory = playerInventory;
             _playerHealth = player.Health;
             largeTexture = Texture2DManager.GetItemSpriteSheet();
+            heartSourceRect = new Rectangle(74, 706, 14, 13);
             _font = game.Content.Load<SpriteFont>("PauseSetting");
             #region Equipment Data Initialization
             equipmentData = new Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>>();

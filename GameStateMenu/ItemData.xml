@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ItemData>
 	<HeartSourceRect x="74" y="706" width="14" height="13" />
-	<ItemWeight>8</ItemWeight>
-	<ItemHeight>16</ItemHeight>
 	<Items>
-		<Item name="WoodenSword" x="136" y="665" width="8" />
-		<Item name="WhiteSword" x="145" y="665" width="8" />
-		<Item name="MagicalSword" x="154" y="665" width="8" />
-		<Item name="WoodenShield" x="165" y="665" width="8" />
-		<Item name="Boomerang" x="179" y="704" width="8" />
-		<Item name="BetterBoomerang" x="195" y="680" width="8" />
-		<Item name="Bomb" x="196" y="704" width="8" />
-		<Item name="Bow" x="212" y="704" width="13" />
-		<Item name="BetterBow" x="210" y="680" width="13" />
-		<Item name="MagicalRod" x="364" y="683" width="8" />
+		<Item name="WoodenSword" x="136" y="665" width="8" height="16" />
+		<Item name="WhiteSword" x="145" y="665" width="8"  height="16"/>
+		<Item name="MagicalSword" x="154" y="665" width="8" height="16" />
+		<Item name="WoodenShield" x="165" y="665" width="8"  height="16"/>
+		<Item name="Boomerang" x="179" y="704" width="8"  height="16"/>
+		<Item name="BetterBoomerang" x="195" y="680" width="8"  height="16"/>
+		<Item name="Bomb" x="196" y="704" width="8"  height="16"/>
+		<Item name="Bow" x="212" y="704" width="13"  height="16"/>
+		<Item name="BetterBow" x="210" y="680" width="13"  height="16"/>
+		<Item name="MagicalRod" x="364" y="683" width="8"  height="16"/>
 	</Items>
 </ItemData>

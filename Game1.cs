@@ -62,10 +62,8 @@ namespace SprintZero1
             ItemSpriteFactory.Instance.LoadTextures();
             _mouseController = new MouseController(this);
             ItemSpriteFactory.Instance.LoadTextures();
-
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize(this);
-
         }
 
         protected override void Update(GameTime gameTime)
