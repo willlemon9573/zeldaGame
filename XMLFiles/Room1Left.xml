@@ -53,56 +53,23 @@
 			<X>54</X>
 			<Y>185</Y>
 			<Health>1</Health>
-			<Frames>2</Frames>
-			<IsBoss>false</IsBoss>
-		</Enemy>
-		<Enemy>
-			<Name>dungeon_keese</Name>
-			<X>54</X>
-			<Y>185</Y>
-			<Health>1</Health>
-			<Frames>2</Frames>
-			<IsBoss>false</IsBoss>
+			<IsBoss>0</IsBoss>
 		</Enemy>
 		<Enemy>
 			<Name>dungeon_keese</Name>
 			<X>56</X>
 			<Y>121</Y>
 			<Health>1</Health>
-			<Frames>2</Frames>
-			<IsBoss>false</IsBoss>
-		</Enemy>
-		<Enemy>
-			<Name>dungeon_keese</Name>
-			<X>56</X>
-			<Y>121</Y>
-			<Health>1</Health>
-			<Frames>2</Frames>
-			<IsBoss>false</IsBoss>
+			<IsBoss>0</IsBoss>
 		</Enemy>
 		<Enemy>
 			<Name>dungeon_keese</Name>
 			<X>88</X>
 			<Y>137</Y>
-			<Health>1</Health>
-			<Frames>2</Frames>
-			<IsBoss>false</IsBoss>
-		</Enemy>
-		<Enemy>
-			<Name>dungeon_keese</Name>
-			<X>88</X>
-			<Y>137</Y>
-			<Health>1</Health>
-			<Frames>2</Frames>
-			<IsBoss>false</IsBoss>
+			<IsBoss>0</IsBoss>
 		</Enemy>
 	</Enemies>
 	<Items>
-		<Item>
-			<Name>key</Name>
-			<X>166</X>
-			<Y>199</Y>
-		</Item>
 		<Item>
 			<Name>key</Name>
 			<X>166</X>
@@ -114,27 +81,13 @@
 			<Name>doorless_north</Name>
 			<X>127</X>
 			<Y>80</Y>
-		</Door>
-		<Door>
-			<Name>doorless_north</Name>
-			<X>127</X>
-			<Y>80</Y>
+			<Destination>1</Destination>
 		</Door>
 		<Door>
 			<Name>doorless_west</Name>
 			<X>15</X>
 			<Y>152</Y>
-		</Door>
-		<Door>
-			<Name>doorless_west</Name>
-			<X>15</X>
-			<Y>152</Y>
-		</Door>
-		<Door>
-			<Name>open_east</Name>
-			<X>239</X>
-			<Y>152</Y>
-			<Destination>0</Destination>
+			<Destination>1</Destination>
 		</Door>
 		<Door>
 			<Name>open_east</Name>
@@ -146,11 +99,7 @@
 			<Name>doorless_south</Name>
 			<X>127</X>
 			<Y>224</Y>
-		</Door>
-		<Door>
-			<Name>doorless_south</Name>
-			<X>127</X>
-			<Y>224</Y>
+			<Destination>1</Destination>
 		</Door>
 	</Doors>
 </Room>

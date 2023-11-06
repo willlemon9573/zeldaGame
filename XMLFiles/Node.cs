@@ -10,14 +10,18 @@ namespace SprintZero1.XMLFiles
         public int X { get; set; }
         public int Y { get; set; }
         public string Name { get; set; }
-        public int Destination { get; set; }
+        public int DestinationOrHealth { get; set; }
+        public int frame { get; set; }
+        public int isBoss { get; set; }
 
-        public Node(int x, int y, string name, int destination = 2)
+        public Node(int x, int y, string name, int destination, int Frame, int Boss)
         {
             X = x;
             Y = y;
             Name = name;
-            Destination = destination;
+            DestinationOrHealth = destination;
+            frame = Frame;
+            isBoss = Boss;
         }
 
         public IEntity AddBlockToGame()
@@ -57,7 +61,7 @@ namespace SprintZero1.XMLFiles
         {   
             Vector2 entityPosition = new Vector2(X, Y);
             ISprite entitySprite = TileSpriteFactory.Instance.CreateNewTileSprite(Name);
-            return new LevelDoorEntity(entitySprite,entityPosition, Destination);
+            return new LevelDoorEntity(entitySprite,entityPosition, DestinationOrHealth);
         }
 
         public IEntity AddItemToGame()
@@ -71,7 +75,14 @@ namespace SprintZero1.XMLFiles
         public IEntity AddEnemyToGame()
         {
             Vector2 entityPosition = new Vector2(X, Y);
-            return new EnemyEntityWithoutDirection(entityPosition, 1, Name, false);
+            if (isBoss == 1)
+            {
+                return new EnemyEntityWithoutDirection(entityPosition, DestinationOrHealth, Name, true);
+            }
+            else {
+                return new EnemyEntityWithoutDirection(entityPosition, DestinationOrHealth, Name, false);
+            }
+            
         }
 
     }

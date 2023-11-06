@@ -43,8 +43,12 @@ namespace SprintZero1.XMLFiles
             _innerElements = new Dictionary<string, Action<XmlReader, Node>>() {
             { "X", (x, node) => node.X = x.ReadElementContentAsInt() },
             { "Y", (y, node) => node.Y = y.ReadElementContentAsInt() },
-            { "Name", (name, node) => node.Name = name.ReadElementContentAsString() }
-           };
+            { "Name", (name, node) => node.Name = name.ReadElementContentAsString() },
+            { "Destination", (x, node) => node.DestinationOrHealth = x.ReadElementContentAsInt()},
+            { "Frame", (x, node) => node.frame = x.ReadElementContentAsInt() },
+            { "IsBoss", (x, node) => node.isBoss = x.ReadElementContentAsInt() }
+
+                };
         }
 
         public void Parse(String fileName)
@@ -67,7 +71,7 @@ namespace SprintZero1.XMLFiles
 
         private void ParseFloor(XmlReader reader)
         {
-            Node data = new Node(0, 0, "");
+            Node data = new Node(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -88,7 +92,7 @@ namespace SprintZero1.XMLFiles
         }
         private void ParseBlock(XmlReader reader)
         {
-            Node data = new Node(0, 0, "");
+            Node data = new Node(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -114,7 +118,7 @@ namespace SprintZero1.XMLFiles
 
         private void ParseWall(XmlReader reader)
         {
-            Node data = new Node(0, 0, "");
+            Node data = new Node(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -139,7 +143,7 @@ namespace SprintZero1.XMLFiles
 
         private void ParseDoor(XmlReader reader)
         {
-            Node data = new Node(0, 0,  "");
+            Node data = new Node(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -165,7 +169,7 @@ namespace SprintZero1.XMLFiles
         private void ParseEnemy(XmlReader reader)
         {
 
-            Node data = new Node(0, 0, "");
+            Node data = new Node(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -191,7 +195,7 @@ namespace SprintZero1.XMLFiles
         private void ParseItem(XmlReader reader)
         {
 
-            Node data = new Node(0, 0, "");
+            Node data = new Node(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;
