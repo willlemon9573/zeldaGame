@@ -13,12 +13,12 @@ namespace SprintZero1.Managers
     internal static class ProgramManager
     {
         public static Game1 _game;
-        private static ItemSelectionMenu _itemSelectionMenu;
         private static List<PlayerEntity> playerList = new List<PlayerEntity>();
         private static IEntity projectileHandler;
         // List of available Controllers
         static List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
         static readonly List<IController> controllers = new List<IController>();
+        static IGameStateMenu gameStateMenu;
 
         static PlayerEntity player;
         public static PlayerEntity Player { get { return player; } }
@@ -29,7 +29,6 @@ namespace SprintZero1.Managers
             const int PLAYER_ONE = 0;
             _game = game;
             player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
-            _itemSelectionMenu = new ItemSelectionMenu(_game, player);
             playerList.Add(player);
             AddOnScreenEntity(player);
             controllers.Add(new KeyboardController());
@@ -118,7 +117,6 @@ namespace SprintZero1.Managers
                     player.Draw(spriteBatch);
                 }
             }
-            _itemSelectionMenu.Draw(spriteBatch);
         }
     }
 }

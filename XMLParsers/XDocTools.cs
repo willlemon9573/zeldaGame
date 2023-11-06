@@ -88,10 +88,10 @@ namespace SprintZero1.XMLParsers
 
         public Rectangle CreateRectangle(XElement rectangleElement)
         {
-            int x = ParseIntAttribute(rectangleElement, "x");
-            int y = ParseIntAttribute(rectangleElement, "y");
-            int width = ParseIntAttribute(rectangleElement, "width");
-            int height = ParseIntAttribute(rectangleElement, "height");
+            int x = ParseAttributeAsInt(rectangleElement, "x");
+            int y = ParseAttributeAsInt(rectangleElement, "y");
+            int width = ParseAttributeAsInt(rectangleElement, "width");
+            int height = ParseAttributeAsInt(rectangleElement, "height");
             return new Rectangle(x, y, width, height);
         }
 

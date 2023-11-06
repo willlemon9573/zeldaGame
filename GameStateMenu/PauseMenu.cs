@@ -30,7 +30,7 @@ namespace SprintZero1.GameStateMenu
             // Apply the overlay color
             _overlay.SetData(new[] { grayOverlay });
             // Initialize the command to unpause the game
-            _unPauseGame = new UnpauseCommand((BaseGameState)game.GameState);
+            _unPauseGame = new UnpauseGameCommand(game);
             // Initialize the list to keep track of previously pressed keys
 
         }
