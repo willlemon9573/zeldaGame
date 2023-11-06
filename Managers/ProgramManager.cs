@@ -69,7 +69,7 @@ namespace SprintZero1.Managers
         {
             IEntity player = playerList[0];
             EntityManager.LoadNextScreen(player);
-            player.Position = new Vector2(150, 150);
+            player.Position = new Vector2(126, 200);
         }
 
         public static PausedStateUpdater GetPausedStateUpdater()

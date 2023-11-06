@@ -25,12 +25,12 @@ namespace SprintZero1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            // N/A
+            _sprite.Draw(spriteBatch, _position, SpriteEffects.None, 0, 0.5f);
         }
 
         public void Update(GameTime gameTime)
         {
-            // N/A
+            _collider.Update(this);
         }
 
         ~InvisibleWallEntity()
