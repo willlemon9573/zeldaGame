@@ -21,11 +21,11 @@ namespace SprintZero1.XMLParsers
         /// <summary>
         /// Check if an atribute is null
         /// </summary>
-        /// <param name="attribute"></param>
-        /// <exception cref="Exception"></exception>
+        /// <param name="attribute">The attribute to check</param>
+        /// <exception cref="Exception">Throws an exception if attribute is null</exception>
         public void CheckAttribute(XAttribute attribute)
         {
-            if (string.IsNullOrEmpty(attribute.Value))
+            if (attribute == null || string.IsNullOrEmpty(attribute.Value))
             {
                 throw new Exception($"Inventory XML file missing key attribute direction or direction value is null");
             }
@@ -35,15 +35,16 @@ namespace SprintZero1.XMLParsers
         /// Checks if the XMLElements enumerable is null, then checks each element and verifies they match
         /// the name given in expectedElementsName
         /// </summary>
-        /// <param name="xmlElement">The specific element being checked</param>
-        /// <param name="filePath">the file path of the xml file being parsed</param>
-        /// <param name="expectedElementName">The expected name of the element being checked</param>
-        /// <exception cref="Exception">Throws an exception if there are is no element</exception>
+        /// <param name="xmlElement">The element to check</param>
+        /// <param name="expectedElementName">The expected name of the element</param>
+        /// <exception cref="Exception">
+        /// Throws an exception if the element is null or if the element's name does not match the expected element name
+        /// </exception>
         public void CheckIfElementNull(XElement xmlElement, string expectedElementName)
         {
             if (xmlElement == null || xmlElement.Name != expectedElementName)
             {
-                throw new Exception($"Error parsing file: Missing Element {expectedElementName} or element is null");
+                throw new Exception($"Error parsing file: Elemen name did not match {expectedElementName} or element is null");
             }
         }
 
@@ -61,48 +62,51 @@ namespace SprintZero1.XMLParsers
         }
 
         /// <summary>
-        /// Parses Element for the value of the direction attribute
+        /// Parses a direction enum from the given the element
         /// </summary>
-        /// <param name="keyElement">The element that contains a direction attribute</param>
-        /// <returns>The content of the directio enum with its corresponding enum type</returns>
-        public Direction ParseAttributeAsDirection(XElement keyElement, string attributeName)
+        /// <param name="element">The element that contains the attribute to parse</param>
+        /// <param name="attributeName">The name of the attribute that contains the value being parsed</param>
+        /// <returns>A Direction Enum</returns>
+        public Direction ParseAttributeAsDirection(XElement element, string attributeName)
         {
-            XAttribute direction = keyElement.Attribute(attributeName);
-            CheckAttribute(direction);
-            return (Direction)Enum.Parse(typeof(Direction), direction.Value, true);
+            XAttribute direction_attribute = element.Attribute(attributeName);
+            CheckAttribute(direction_attribute);
+            return (Direction)Enum.Parse(typeof(Direction), direction_attribute.Value, true);
         }
 
         /// <summary>
-        /// Parses the given element for the key attribute
+        /// Parses a direction enum from the given the element
         /// </summary>
-        /// <param name="itemElement"></param>
-        /// <returns></returns>
-        public StackableItems ParseAttributeAsStackableItem(XElement itemElement, string attributeName)
+        /// <param name="element">The element that contains the attribute to parse</param>
+        /// <param name="attributeName">The name of the attribute that contains the value being parsed</param>
+        /// <returns>A stackable item enum</returns>
+        public StackableItems ParseAttributeAsStackableItem(XElement element, string attributeName)
         {
-            XAttribute key = itemElement.Attribute(attributeName);
-            CheckAttribute(key);
-            return (StackableItems)Enum.Parse(typeof(StackableItems), key.Value, true);
+            XAttribute itemAttribute = element.Attribute(attributeName);
+            CheckAttribute(itemAttribute);
+            return (StackableItems)Enum.Parse(typeof(StackableItems), itemAttribute.Value, true);
         }
 
         /// <summary>
-        /// Parses element for the value of the sprite effects
+        /// Parses a Sprite Effect enum from the given element
         /// </summary>
-        /// <param name="keyElement">The element that contains the SpriteEffects attribute</param>
+        /// <param name="element">The element that contains the SpriteEffects attribute</param>
+        /// <param name="attributeName">The name of the attribute that contains the value being parsed</param>
         /// <returns>The content of the sprite effects attribute as its correspond enum type</returns>
-        public SpriteEffects ParseAttributeAsSpriteEffect(XElement keyElement, string attributeName)
+        public SpriteEffects ParseAttributeAsSpriteEffect(XElement element, string attributeName)
         {
-            XAttribute spriteEffect = keyElement.Attribute(attributeName);
-            CheckAttribute(spriteEffect);
-            return (SpriteEffects)Enum.Parse(typeof(SpriteEffects), spriteEffect.Value, true);
+            XAttribute spriteEffectAttribute = element.Attribute(attributeName);
+            CheckAttribute(spriteEffectAttribute);
+            return (SpriteEffects)Enum.Parse(typeof(SpriteEffects), spriteEffectAttribute.Value, true);
         }
 
         /// <summary>
-        /// Parses an element for Non Animated Item Spritei nformation
+        /// Parses a non animated item sprite from the given element
         /// </summary>
-        /// <param name="element">The element to be parsed</param>
-        /// <param name="attributeName">the attribute name</param>
-        /// <returns></returns>
-        public ISprite ParseAttributeAsSprite(XElement element, string attributeName)
+        /// <param name="element">The element that contains the Sprite attribute</param>
+        /// <param name="attributeName">The name of the attribute that contains the value being parsed</param>
+        /// <returns>The content of the sprite effects attribute as its correspond enum type</returns>
+        public ISprite ParseNonAnimatedItemSprite(XElement element, string attributeName)
         {
             XAttribute spriteAttribute = element.Attribute(attributeName);
             CheckAttribute(spriteAttribute);
@@ -110,11 +114,11 @@ namespace SprintZero1.XMLParsers
         }
 
         /// <summary>
-        /// Parses the element for the given attribute and returns it as an int
+        /// Parses an integer value from the given element
         /// </summary>
         /// <param name="element">the element that contains the attribute to be parsed</param>
-        /// <param name="attributeName">the attribute to name to parse</param>
-        /// <returns>an integer if successfull</returns>
+        /// <param name="attributeName">The name of the attribute that contains the value being parsed</param>
+        /// <returns>an integer if successful</returns>
         /// <exception cref="Exception">Throws exception if attribute cannot be parsed or is an invalid integer</exception>
         public int ParseAttributeAsInt(XElement element, string attributeName)
         {
@@ -128,11 +132,11 @@ namespace SprintZero1.XMLParsers
         }
 
         /// <summary>
-        /// Parses an element for the given attribute and returns it as a keys enum
+        /// Parses a keyboard keys enum from the given element
         /// </summary>
-        /// <param name="element">The element to parse</param>
-        /// <param name="attributeName">the name of the attribute to look for</param>
-        /// <returns>A Microsoft XNA Keys Enum</returns>
+        /// <param name="element">The element that contains the attribute to be parses</param>
+        /// <param name="attributeName">The name of the attribute that contains the value being parsed</param>
+        /// <returns>A Keys enum</returns>
         public Keys ParseAttributeAsKeys(XElement element, string attributeName)
         {
             XAttribute keys = element.Attribute(attributeName);
@@ -141,11 +145,11 @@ namespace SprintZero1.XMLParsers
         }
 
         /// <summary>
-        /// Parses an element for the given attribute and returns it as a button enum
+        /// Parses a gamepad buttons enum from the given element
         /// </summary>
-        /// <param name="element">The element to parse</param>
-        /// <param name="attributeName">the name of the attribute to look for</param>
-        /// <returns>A Microsoft XNA Button enum</returns>
+        /// <param name="element">The element that contains the attribute to be parses</param>
+        /// <param name="attributeName">The name of the attribute that contains the value being parsed</param>
+        /// <returns>A Button enum</returns>
         public Buttons ParseAttributeAsButton(XElement element, string attributeName)
         {
             XAttribute buttonAttribute = element.Attribute(attributeName);
@@ -154,11 +158,13 @@ namespace SprintZero1.XMLParsers
         }
 
         /// <summary>
-        /// Parse the player actions commands
+        ///  Parses an ICommand value related to player action commands from the given element
         /// </summary>
-        /// <param name="element">The elemnt to parse</param>
-        /// <param name="attributeName">the name of the attribute to look for</param>
-        /// <returns>The command related to the value found in the attribute</returns>
+        /// <param name="element">The element that contains the attribute for parsing</param>
+        /// <param name="attributeName">the attribute that contains the value being parsed</param>
+        /// <param name="nameSpace">The specific namespace of the class file being instantiated</param>
+        /// <param name="player">The player that will be using the command</param>
+        /// <returns>An instance of a class as an ICommand representing a player action command</returns>
         public ICommand ParsePlayerActionCommands(XElement element, string attributeName, string nameSpace, ICombatEntity player)
         {
             XAttribute command = element.Attribute(attributeName);
@@ -167,13 +173,13 @@ namespace SprintZero1.XMLParsers
         }
 
         /// <summary>
-        /// Parse the Player Menu commands (requires different values than action commands so has to be separate)
+        ///  Parses an ICommand value related to a menu action from the given element
         /// </summary>
-        /// <param name="element">the element to parse</param>
-        /// <param name="attributeName">the attribute name the parser looks for</param>
-        /// <param name="nameSpace">the namespace of the command being added (excluding the command name itself)</param>
-        /// <param name="baseGameState">the name of the attribute to look for</param>
-        /// <returns>The command related to the value found in the attribute</returns>
+        /// <param name="element">The element that contains the attribute for parsing</param>
+        /// <param name="attributeName">the attribute that contains the value being parsed</param>
+        /// <param name="nameSpace">The specific namespace of the class file being instantiated</param>
+        /// <param name="game">The player that will be using the command</param>
+        /// <returns>An instance of a class as an ICommand representing a player menu command</returns>
         public ICommand ParsePlayerMenuCommands(XElement element, string attributeName, string nameSpace, Game1 game)
         {
             XAttribute command = element.Attribute(attributeName);
