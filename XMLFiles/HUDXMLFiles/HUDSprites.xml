@@ -6,7 +6,7 @@
 	<Sprite name ="key">
 		<Rectangle x='346' y='43' width='8' height='8'/>
 	</Sprite>
-	<Sprite name ="blue">
+	<Sprite name ="bomb">
 		<Rectangle x='346' y='51' width='8' height='8'/>
 	</Sprite>
 	<Sprite name ="b_weapon">

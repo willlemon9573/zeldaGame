@@ -17,6 +17,7 @@ namespace SprintZero1.Managers
         private static Texture2D _level1FloorSpriteSheet;
         private static Texture2D _itemSpriteSheet;
         private static Texture2D _weaponSpriteSheet;
+        private static Texture2D _HUDSpriteSheet;
         /* for update */
         private static Dictionary<string, SpriteFont> spriteFontMap = new Dictionary<string, SpriteFont>();
 
@@ -33,15 +34,7 @@ namespace SprintZero1.Managers
             _level1FloorSpriteSheet = contentManager.Load<Texture2D>("level1");
             _weaponSpriteSheet = contentManager.Load<Texture2D>("LinkSheet");
             _itemSpriteSheet = contentManager.Load<Texture2D>("itemSpriteSheet1");
-
-            /* Code for refactoring Texture2DManager refactoring to use one function rather than making constant new ones */
-            /* _textureDictionary = new Dictionary<string, Texture2D>() {
-                { "link", contentManager.Load<Texture2D>("8366") },
-                { "tiles", contentManager.Load<Texture2D>("TileSheet") },
-                { "dung_enemies", contentManager.Load<Texture2D>("DungeonEnemySpritesheet") },
-                { "boss_enemies", contentManager.Load<Texture2D>("BossSpriteSheet") },
-                { "floors", contentManager.Load<Texture2D>("level1") }
-            }; */
+            _HUDSpriteSheet = contentManager.Load<Texture2D>("HUDSpritesheet");
         }
 
         public static void LoadSpriteFonts(ContentManager contentManager)
@@ -87,6 +80,7 @@ namespace SprintZero1.Managers
         /// <returns></returns>
         public static Texture2D GetItemSpriteSheet() { return _itemSpriteSheet; }
 
+        public static Texture2D GetHUDSpriteSheet() { return _HUDSpriteSheet; }
         public static SpriteFont GetSpriteFont(string spriteFontName)
         {
             Debug.Assert(spriteFontName != null, "spriteFontName cannot be null");

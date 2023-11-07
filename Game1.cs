@@ -4,7 +4,6 @@ using SprintZero1.Controllers;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
-using SprintZero1.GameStateMenu;
 
 namespace SprintZero1
 {
@@ -57,7 +56,7 @@ namespace SprintZero1
             ItemSpriteFactory.Instance.LoadTextures();
             _mouseController = new MouseController(this);
             ItemSpriteFactory.Instance.LoadTextures();
-
+            HUDManager.Initialize();
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize(this);
 
@@ -78,6 +77,7 @@ namespace SprintZero1
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
             LevelManager.Draw(_spriteBatch);
+            HUDManager.Draw(_spriteBatch);
             _spriteBatch.End();
 
             /* Rescale the window and draw sprite batch with new scale */
