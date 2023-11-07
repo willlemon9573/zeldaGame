@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+	<Sprite name ="rupee">
+		<Rectangle x='346' y='27' width='8' height='8'/>
+	</Sprite>
+	<Sprite name ="key">
+		<Rectangle x='346' y='43' width='8' height='8'/>
+	</Sprite>
+	<Sprite name ="blue">
+		<Rectangle x='346' y='51' width='8' height='8'/>
+	</Sprite>
+	<Sprite name ="b_weapon">
+		<Rectangle x='381' y='27' width='18' height='29'/>
+	</Sprite>
+	<Sprite name ="a_weapon">
+		<Rectangle x='405' y='27' width='18' height='29'/>
+	</Sprite>
+	<Sprite name ="life">
+		<Rectangle x='442' y='27' width='46' height='7'/>
+	</Sprite>
+	<Sprite name ="full_heart">
+		<Rectangle x='645' y='117' width='8' height='8'/>
+	</Sprite>
+	<Sprite name ="half_heart">
+		<Rectangle x='636' y='117' width='8' height='8'/>
+	</Sprite>
+	<Sprite name ="empty_heart">
+		<Rectangle x='627' y='117' width='8' height='8'/>
+	</Sprite>
+</Sprites>
