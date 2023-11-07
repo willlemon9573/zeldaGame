@@ -23,7 +23,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Handle()
         {
-
             // TODO: Update the player keyboard controls
         }
         /// <summary>

@@ -34,7 +34,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             {
                 action();
             }
-            LevelManager.Initialize(_game);
+            LevelManager.Initialize();
             GameStatesManager.InitializeGameStateMap(_game);
             _game.GameState = GameStatesManager.GetGameState(GameState.Playing);
         }

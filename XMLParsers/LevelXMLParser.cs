@@ -19,7 +19,7 @@ namespace SprintZero1.XMLParsers
         private const string OUTER_DOOR_ELEMENT = "Doors";
         private const string OUTER_FLOOR_ELEMENT = "Floor";
         private const string OUTER_ENEMIES_ELEMENT = "Enemies";
-        private const string OUTER_ITEM_ELEMENT = "Item";
+        private const string OUTER_ITEM_ELEMENT = "Items";
         private const string INNER_X_ELEMENT = "X";
         private const string INNER_Y_ELEMENT = "Y";
         private const string INNER_NAME_ELEMENT = "Name";
@@ -53,6 +53,7 @@ namespace SprintZero1.XMLParsers
             { INNER_FRAMES_ELEMENT, (frames, data) => (data as XMLEnemyEntity).EntityFrames = frames.ReadElementContentAsInt() }
             };
         }
+
         /// <summary>
         /// Parse The given file and return 
         /// </summary>
@@ -160,6 +161,11 @@ namespace SprintZero1.XMLParsers
             }
         }
 
+        /// <summary>
+        /// Parses the individual doors that will appear in the level
+        /// </summary>
+        /// <param name="reader">the xml reader</param>
+        /// <param name="dungeonRoom">The room to add the doors to</param>
         private void ParseDoor(XmlReader reader, DungeonRoom dungeonRoom)
         {
             IEntityParsingBuilder door = new XMLDoorEntity();
@@ -222,7 +228,7 @@ namespace SprintZero1.XMLParsers
         private void ParseItem(XmlReader reader, DungeonRoom dungeonRoom)
         {
             /* using block temporarily until we create an entity for items */
-            IEntityParsingBuilder item = new XMLBlockEntity();
+            IEntityParsingBuilder item = new XMLItemEntity();
             string innerItemElement = "Item";
             while (reader.Read())
             {

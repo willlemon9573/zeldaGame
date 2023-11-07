@@ -15,15 +15,15 @@ namespace SprintZero1.Entities
     /// </summary>
     internal abstract class BaseEnemyEntity : ICombatEntity, ICollidableEntity
     {
-        protected int _totalFrame;
+        protected float _totalFrame;
         protected float _attackCooldown;
         protected readonly EnemySpriteFactory _EnemyFactory = EnemySpriteFactory.Instance;
         protected float _timeElapsed;
         protected readonly float _timeToReset = 1f / 7;
         protected ISprite _enemySprite;
         protected Direction _enemyDirection = Direction.South;
-        protected int _enemyHealth;
-        protected readonly int _enemyHealthMax;
+        protected float _enemyHealth;
+        protected readonly float _enemyHealthMax;
         protected readonly Vector2 _enemyDefaultPosition;
         protected string _enemyName;
         protected Vector2 _enemyPosition;
@@ -31,7 +31,7 @@ namespace SprintZero1.Entities
         public ISprite EnemySprite { get { return _enemySprite; } set { _enemySprite = value; } }
         public string EnemyName { get { return _enemyName; } set { _enemyName = value; } }
         public Vector2 Position { get { return _enemyPosition; } set { _enemyPosition = value; _collider.Update(this); } }
-        public int Health { get { return _enemyHealth; } set { _enemyHealth = value; } }
+        public float Health { get { return _enemyHealth; } set { _enemyHealth = value; } }
         public Direction Direction { get { return _enemyDirection; } set { _enemyDirection = value; } }
         public IEnemyState EnemyState { get { return _enemyState; } set { _enemyState = value; } }
         private ICollider _collider;
@@ -45,7 +45,7 @@ namespace SprintZero1.Entities
         /// <param name="startingPosition">The starting position of the entity</param>
         /// <param name="startingHealth">the starting health of the entity</param>
         /// <param name="enemyName">the name of the entity</param>
-        protected BaseEnemyEntity(ISprite enemySprite, Vector2 startingPosition, int startingHealth, string enemyName)
+        protected BaseEnemyEntity(ISprite enemySprite, Vector2 startingPosition, float startingHealth, string enemyName)
         {
             _enemyHealth = startingHealth;
             _enemyHealthMax = startingHealth;

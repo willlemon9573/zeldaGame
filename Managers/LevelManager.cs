@@ -1,49 +1,37 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.LevelFiles;
+﻿using SprintZero1.LevelFiles;
 using SprintZero1.XMLParsers;
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace SprintZero1.Managers
 {
-    public static class LevelManager
+    internal static class LevelManager
     {
         public static Game1 game;
-
-        private static int totalRooms;
-        private static int index;
         private static Dictionary<string, DungeonRoom> _dungeonRoomMap = new Dictionary<string, DungeonRoom>();
 
-
-        public static void Initialize(Game1 game)
+        public static void Initialize()
         {
             LevelXMLParser parser = new LevelXMLParser();
-
             string LevelFolderPath = @"XMLFiles/LevelXmlFiles";
             foreach (var filePath in Directory.EnumerateFiles(LevelFolderPath))
             {
                 DungeonRoom room = parser.Parse(filePath);
                 _dungeonRoomMap.Add(room.RoomName, room);
             }
-            ProgramManager.Start(game);
         }
 
-        public static void LoadNewRoom(String xmlFile)
+        /// <summary>
+        /// Returns the desired dungeon room that contains all the information about that room
+        /// </summary>
+        /// <param name="roomName">the name of the room to use</param>
+        /// <returns>the instance of the dungeon room with its current data</returns>
+        public static DungeonRoom GetDungeonRoom(string roomName)
         {
-            ProgramManager.RemoveNonPlayerEntities();
-
-        }
-
-        public static void Update(GameTime gameTime)
-        {
-            ProgramManager.Update(gameTime);
-        }
-
-        public static void Draw(SpriteBatch spriteBatch)
-        {
-            ProgramManager.Draw(spriteBatch);
+            Debug.Assert(roomName != null, "roomName cannot be null");
+            Debug.Assert(_dungeonRoomMap.ContainsKey(roomName));
+            return _dungeonRoomMap[roomName];
         }
     }
 }

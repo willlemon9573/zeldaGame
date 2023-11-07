@@ -39,4 +39,7 @@
 	<Sprite name="arrow">
 		<Rectangle x='3' y='185' width='5' height='16'/>
 	</Sprite>
+	<Sprite name="key">
+		<Rectangle x="228" y="703" width="11" height="17" />
+	</Sprite>
 </Sprites>

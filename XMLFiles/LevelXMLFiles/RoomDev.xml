@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <Room>
 	<Floor>
-		<Name>floorFour</Name>
+		<Name>floorDev</Name>
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
@@ -46,9 +46,6 @@
 		<X>199</X>
 		<Y>204</Y>
 	</Wall>
-
-
-
 	<Block>
 		<Name>pyramid</Name>
 		<X>71</X>

@@ -19,7 +19,7 @@ namespace SprintZero1.Entities
     internal class PlayerEntity : ICombatEntity, ICollidableEntity
     {
         /* Player Components */
-        private int _playerHealth;
+        private float _playerHealth;
         private ISprite _playerSprite;
         private Direction _playerDirection;
         private Vector2 _playerPosition;
@@ -32,7 +32,7 @@ namespace SprintZero1.Entities
         private bool _attackingWithSword = false;
         private readonly PlayerInventory _playerInventory;
         /* Public properties to modify the player's private members */
-        public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
+        public float Health { get { return _playerHealth; } set { _playerHealth = value; } }
         public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
         public ISprite PlayerSprite { get { return _playerSprite; } set { _playerSprite = value; } }
         public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
@@ -47,7 +47,7 @@ namespace SprintZero1.Entities
         /// <param name="position">The position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        public PlayerEntity(Vector2 position, int startingHealth, Direction startingDirection)
+        public PlayerEntity(Vector2 position, float startingHealth, Direction startingDirection)
         {
             /* Default values for player upon game start */
             _playerDirection = startingDirection;

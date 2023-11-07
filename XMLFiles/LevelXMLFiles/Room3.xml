@@ -48,23 +48,11 @@
 		</Wall>
 	</Walls>
 
+	<Blocks>
 	<Block>
 		<Name>pyramid</Name>
 		<X>71</X>
 		<Y>136</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>71</X>
-		<Y>136</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-
-	<Block>
-		<Name>pyramid</Name>
-		<X>71</X>
-		<Y>168</Y>
 		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
@@ -82,43 +70,16 @@
 	<Block>
 		<Name>pyramid</Name>
 		<X>183</X>
-		<Y>136</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-
-	<Block>
-		<Name>pyramid</Name>
-		<X>183</X>
 		<Y>168</Y>
 		<IsCollidable>true</IsCollidable>
 	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>183</X>
-		<Y>168</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-
+	</Blocks>
+		
+	<Enemies>
 	<Enemy>
 		<Name>dungeon_stalfos</Name>
 		<X>88</X>
 		<Y>174</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>0</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_stalfos</Name>
-		<X>88</X>
-		<Y>174</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>0</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_stalfos</Name>
-		<X>136</X>
-		<Y>157</Y>
 		<Health>1</Health>
 		<Frames>2</Frames>
 		<IsBoss>0</IsBoss>
@@ -141,22 +102,6 @@
 	</Enemy>
 	<Enemy>
 		<Name>dungeon_stalfos</Name>
-		<X>111</X>
-		<Y>134</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>0</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_stalfos</Name>
-		<X>152</X>
-		<Y>140</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>0</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_stalfos</Name>
 		<X>152</X>
 		<Y>140</Y>
 		<Health>1</Health>
@@ -171,51 +116,42 @@
 		<Frames>2</Frames>
 		<IsBoss>0</IsBoss>
 	</Enemy>
-	<Enemy>
-		<Name>dungeon_stalfos</Name>
-		<X>162</X>
-		<Y>102</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>0</IsBoss>
-	</Enemy>
-
+	</Enemies>
+	<Items>
 	<Item>
 		<Name>key</Name>
 		<X>134</X>
 		<Y>119</Y>
 	</Item>
-	<Item>
-		<Name>key</Name>
-		<X>134</X>
-		<Y>119</Y>
-	</Item>
-	<Door>
-		<Name>hole_north</Name>
-		<X>127</X>
-		<Y>80</Y>
-		<PointX>0</PointX>
-		<PointY>0</PointY>
-	</Door>
-	<Door>
-		<Name>open_west</Name>
-		<X>15</X>
-		<Y>152</Y>
-		<PointX>0</PointX>
-		<PointY>0</PointY>
-	</Door>
-	<Door>
-		<Name>open_east</Name>
-		<X>239</X>
-		<Y>152</Y>
-		<PointX>0</PointX>
-		<PointY>0</PointY>
-	</Door>
-	<Door>
-		<Name>open_south</Name>
-		<X>127</X>
-		<Y>224</Y>
-		<PointX>0</PointX>
-		<PointY>0</PointY>
-	</Door>
+	</Items>
+	<Doors>
+		<Door>
+			<Name>hole_north</Name>
+			<X>127</X>
+			<Y>80</Y>
+			<PointX>0</PointX>
+			<PointY>0</PointY>
+		</Door>
+		<Door>
+			<Name>open_west</Name>
+			<X>15</X>
+			<Y>152</Y>
+			<PointX>0</PointX>
+			<PointY>0</PointY>
+		</Door>
+		<Door>
+			<Name>open_east</Name>
+			<X>239</X>
+			<Y>152</Y>
+			<PointX>0</PointX>
+			<PointY>0</PointY>
+		</Door>
+		<Door>
+			<Name>open_south</Name>
+			<X>127</X>
+			<Y>224</Y>
+			<PointX>0</PointX>
+			<PointY>0</PointY>
+		</Door>
+	</Doors>
 </Room>	

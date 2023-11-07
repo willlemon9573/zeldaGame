@@ -16,13 +16,13 @@ namespace SprintZero1.LevelFiles
 
         /* --------------------------Private fields-------------------------- */
         /* enemy entity list is separate because we need to remove enemies from the file if they die */
-        private List<IEntity> _liveEnemyList;
-        private List<IEntity> _deadEnemyList;
+        private readonly List<IEntity> _liveEnemyList;
+        private readonly List<IEntity> _deadEnemyList;
         /* Holds all the architecture of the level (blocks, walls, doors, floor) */
-        private List<IEntity> archituectureList;
-        private IEntity roomItem;
-        private Dictionary<Direction, Vector2> _playerStartingPositionMap;
+        private readonly List<IEntity> _architechtureList;
+        private readonly Dictionary<Direction, Vector2> _playerStartingPositionMap;
         private string _roomName; /* identification for the room */
+        private IEntity _roomItem;
 
         /* --------------------------Public properties-------------------------- */
         /// <summary>
@@ -33,7 +33,7 @@ namespace SprintZero1.LevelFiles
         /// <summary>
         /// Get the room item if there exists one
         /// </summary>
-        public IEntity RoomItem { get { return roomItem; } }
+        public IEntity RoomItem { get { return _roomItem; } }
 
         /// <summary>
         /// Get and Set the room name
@@ -48,9 +48,8 @@ namespace SprintZero1.LevelFiles
         public DungeonRoom()
         {
             _liveEnemyList = new List<IEntity>();
-            archituectureList = new List<IEntity>();
+            _architechtureList = new List<IEntity>();
             _playerStartingPositionMap = new Dictionary<Direction, Vector2>();
-
         }
 
         /// <summary>
@@ -81,7 +80,7 @@ namespace SprintZero1.LevelFiles
         /// <param name="entity">The </param>
         public void AddArchitecturalEntity(IEntity entity)
         {
-            archituectureList.Add(entity);
+            _architechtureList.Add(entity);
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace SprintZero1.LevelFiles
         /// <param name="item">The item to be added</param>
         public void AddRoomItem(IEntity item)
         {
-            roomItem = item;
+            _roomItem = item;
         }
 
         /// <summary>
@@ -132,6 +131,18 @@ namespace SprintZero1.LevelFiles
         {
             Debug.Assert(_playerStartingPositionMap.ContainsKey(direction), $"Room does not contain a starting position for {direction}");
             return _playerStartingPositionMap[direction];
+        }
+
+        public List<IEntity> GetEntityList()
+        {
+            List<IEntity> entities = new List<IEntity>();
+            entities.AddRange(_liveEnemyList);
+            entities.AddRange(_architechtureList);
+            if (_roomItem != null)
+            {
+                entities.Add(_roomItem);
+            }
+            return entities;
         }
     }
 }

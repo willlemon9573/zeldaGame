@@ -40,34 +40,34 @@ namespace SprintZero1
             _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
             _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
             _gameState = new GamePlayingState(this);
+            LoadTextures();
             base.Initialize();
         }
 
-        protected override void LoadContent()
+        private void LoadTextures()
         {
-
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2DManager.LoadAllTextures(this.Content);
             Texture2DManager.LoadSpriteFonts(this.Content);
-            /* 
-             * Factories are missing a lot of comments. To be added in Sprint 4 
-             * May also be loading textures specifically Program Manager rather than in game1.cs
-             */
             EnemySpriteFactory.Instance.LoadTextures();
             LinkSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
+
+        }
+
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
             _mouseController = new MouseController(this);
-            ItemSpriteFactory.Instance.LoadTextures();
             /*ProgramManager.Start(this);*/
-            LevelManager.Initialize(this);
+            LevelManager.Initialize();
+            ProgramManager.Start(this);
             GameStatesManager.InitializeGameStateMap(this);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            // LevelManager.Update(gameTime);
             _gameState.Update(gameTime);
             _mouseController.Update();
             base.Update(gameTime);
@@ -80,7 +80,6 @@ namespace SprintZero1
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
-            // LevelManager.Draw(_spriteBatch);
             _gameState.Draw(_spriteBatch);
             _spriteBatch.End();
 

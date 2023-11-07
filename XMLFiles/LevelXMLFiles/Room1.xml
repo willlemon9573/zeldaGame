@@ -55,23 +55,23 @@
 		</Block>
 		<Block>
 			<Name>statue1</Name>
-			<X>55</X>
-			<Y>184</Y>
-		</Block>
-		<Block>
-			<Name>statue1</Name>
 			<X>103</X>
-			<Y>152</Y>
-		</Block>
-		<Block>
-			<Name>statue1</Name>
-			<X>55</X>
 			<Y>152</Y>
 		</Block>
 		<Block>
 			<Name>statue1</Name>
 			<X>103</X>
 			<Y>120</Y>
+		</Block>
+		<Block>
+			<Name>statue1</Name>
+			<X>55</X>
+			<Y>184</Y>
+		</Block>
+		<Block>
+			<Name>statue1</Name>
+			<X>55</X>
+			<Y>152</Y>
 		</Block>
 		<Block>
 			<Name>statue1</Name>
