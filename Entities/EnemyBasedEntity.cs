@@ -23,6 +23,8 @@ namespace SprintZero1.Entities
         protected ISprite _enemySprite;
         protected Direction _enemyDirection = Direction.South;
         protected int _enemyHealth;
+        protected readonly int _enemyHealthMax;
+        protected readonly Vector2 _enemyDefaultPosition;
         protected string _enemyName;
         protected Vector2 _enemyPosition;
         protected IEnemyState _enemyState;
@@ -46,12 +48,19 @@ namespace SprintZero1.Entities
         protected BaseEnemyEntity(ISprite enemySprite, Vector2 startingPosition, int startingHealth, string enemyName)
         {
             _enemyHealth = startingHealth;
+            _enemyHealthMax = startingHealth;
+            _enemyDefaultPosition = startingPosition;
             _enemyPosition = startingPosition;
             _enemyName = enemyName;
             _enemyState = new EnemyIdleState(this);
             _collider = new DynamicCollider(new Rectangle((int)startingPosition.X, (int)startingPosition.Y, 16, 16));
         }
 
+        public void Reset()
+        {
+            _enemyPosition = _enemyDefaultPosition;
+            _enemyHealth = _enemyHealthMax;
+        }
 
         public virtual void Move()
         {

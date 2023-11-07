@@ -13,7 +13,7 @@ namespace SprintZero1.Managers
         public static LevelXMLParser xmlParser;
         private static int totalRooms;
         private static int index;
-
+        //private Dictionary<Point, LevelFiles>
         public static void Initialize(Game1 game)
         {
             xmlParser = new LevelXMLParser();
