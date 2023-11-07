@@ -5,7 +5,7 @@ using SprintZero1.Sprites;
 
 namespace SprintZero1.XMLParsers.XMLEntityBuilder
 {
-    internal class XMLFloor : EntityBase
+    internal class XMLFloorEntity : EntityBase
     {
         private int _originPointX;
         private int _originPointY;
@@ -26,6 +26,14 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
         public Point GetOrigin()
         {
             return new Point(_originPointX, _originPointY);
+        }
+        /// <summary>
+        /// Temprorary until we get point system set up. Returns the name of the floor
+        /// </summary>
+        /// <returns>The name of the floor</returns>
+        public string GetName()
+        {
+            return _entityName;
         }
     }
 }

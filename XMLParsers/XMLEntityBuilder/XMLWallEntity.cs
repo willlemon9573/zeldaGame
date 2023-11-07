@@ -6,7 +6,7 @@ using SprintZero1.Sprites;
 
 namespace SprintZero1.XMLParsers.XMLEntityBuilder
 {
-    internal class XMLWall : EntityBase
+    internal class XMLWallEntity : EntityBase
     {
         public override IEntity CreateEntity()
         {

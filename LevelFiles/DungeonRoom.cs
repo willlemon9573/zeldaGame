@@ -36,21 +36,21 @@ namespace SprintZero1.LevelFiles
         public IEntity RoomItem { get { return roomItem; } }
 
         /// <summary>
-        /// Get the room's name
+        /// Get and Set the room name
         /// </summary>
-        public string RoomName { get { return RoomName; } }
+        public string RoomName { get { return _roomName; } set { _roomName = value; } }
 
         /* --------------------------Public methods-------------------------- */
         /// <summary>
         /// Construct a new room object that will hold the information for the room.
         /// </summary>
         /// <param name="roomName">The name of the room</param>
-        public DungeonRoom(string roomName)
+        public DungeonRoom()
         {
             _liveEnemyList = new List<IEntity>();
             archituectureList = new List<IEntity>();
             _playerStartingPositionMap = new Dictionary<Direction, Vector2>();
-            _roomName = roomName;
+
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace SprintZero1.LevelFiles
         /// <summary>
         /// Check if any enemy is dead and remove them from the live enemy list and add to the dead enemy list
         /// </summary>
-        private void EnemyIsDead()
+        private void CheckEnemyIsDead()
         {
             List<IEntity> deadEnemyList = _liveEnemyList.Where(entity => (entity as ICombatEntity).Health <= 0).ToList();
             foreach (var entity in deadEnemyList)
@@ -92,6 +92,7 @@ namespace SprintZero1.LevelFiles
         {
             roomItem = item;
         }
+
         /// <summary>
         /// Resets all enemies back to their original health and positions
         /// </summary>

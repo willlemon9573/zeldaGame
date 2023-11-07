@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace SprintZero1.XMLParsers.XMLEntityBuilder
 {
-    internal class XMLEnemy : EntityBase
+    internal class XMLEnemyEntity : EntityBase
     {
         private int _entityHealth;
         private int _spriteFrames;

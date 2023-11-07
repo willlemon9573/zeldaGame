@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace SprintZero1.XMLParsers.XMLEntityBuilder
 {
-    internal class XMLBlock : EntityBase
+    internal class XMLBlockEntity : EntityBase
     {
         public override IEntity CreateEntity()
         {

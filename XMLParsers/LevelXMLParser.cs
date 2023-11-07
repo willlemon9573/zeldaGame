@@ -1,35 +1,32 @@
-﻿using SprintZero1.Entities;
-using SprintZero1.Managers;
+﻿using SprintZero1.LevelFiles;
 using SprintZero1.XMLParsers.XMLEntityBuilder;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Xml;
 
 namespace SprintZero1.XMLParsers
 {
-    public class LevelXMLParser
+    internal class LevelXMLParser
     {
         /* ------------------------------Private Members--------------------------------- */
-        private Dictionary<string, Action<XmlReader>> _outerElements;
+        private Dictionary<string, Action<XmlReader, DungeonRoom>> _outerElements;
         private Dictionary<string, Action<XmlReader, IEntityParsingBuilder>> _innerElements;
-        private XmlReader reader;
         private readonly XmlNodeType END_ELEMENT_TYPE = XmlNodeType.EndElement;
         private readonly XmlNodeType ELEMENT_TYPE = XmlNodeType.Element;
         /* ------------------------------Constants--------------------------------- */
-        private const string WALL_ELEMENT = "Walls";
-        private const string BLOCK_ELEMENT = "Blocks";
-        private const string DOOR_ELEMENT = "Doors";
-        private const string FLOOR_ELEMENT = "Floor";
-        private const string ENEMY_ELEMENT = "Enemies";
-        private const string ITEM_ELEMENT = "Item";
-        private const string X_ELEMENT = "X";
-        private const string Y_ELEMENT = "Y";
-        private const string NAME_ELEMENT = "Name";
-        private const string POINT_X_ELEMENT = "PointX";
-        private const string POINT_Y_ELEMENT = "PointY";
-        private const string HEALTH_ELEMENT = "Health";
-        private const string FRAMES_ELEMENT = "Frames";
+        private const string OUTER_WALL_ELEMENT = "Walls";
+        private const string OUTER_BLOCK_ELEMENT = "Blocks";
+        private const string OUTER_DOOR_ELEMENT = "Doors";
+        private const string OUTER_FLOOR_ELEMENT = "Floor";
+        private const string OUTER_ENEMIES_ELEMENT = "Enemies";
+        private const string OUTER_ITEM_ELEMENT = "Item";
+        private const string INNER_X_ELEMENT = "X";
+        private const string INNER_Y_ELEMENT = "Y";
+        private const string INNER_NAME_ELEMENT = "Name";
+        private const string INNER_DOOR_POINT_X_ELEMENT = "PointX";
+        private const string INNER_DOOR_POINT_Y_ELEMENT = "PointY";
+        private const string INNER_HEALTH_ELEMENT = "Health";
+        private const string INNER_FRAMES_ELEMENT = "Frames";
         /* ------------------------------Public Functions--------------------------------- */
         /// <summary>
         /// Constructor for a new instance of LevelXmlParser
@@ -37,66 +34,81 @@ namespace SprintZero1.XMLParsers
         public LevelXMLParser()
         {
             // set up dictionary for outer elements
-            _outerElements = new Dictionary<string, Action<XmlReader>>() {
-            { WALL_ELEMENT, val => ParseWall(reader)},
-            { FLOOR_ELEMENT, val => ParseFloor(reader)},
-            { BLOCK_ELEMENT, val => ParseBlock(reader)},
-            { DOOR_ELEMENT, val => ParseDoor(reader)},
-            { ENEMY_ELEMENT, val => ParseEnemy(reader)},
-            { ITEM_ELEMENT, val => ParseItem(reader)}
+            _outerElements = new Dictionary<string, Action<XmlReader, DungeonRoom>>() {
+            { OUTER_WALL_ELEMENT, (reader, room) => ParseWall(reader, room)},
+            { OUTER_FLOOR_ELEMENT, (reader, room) => ParseFloor(reader, room)},
+            { OUTER_BLOCK_ELEMENT, (reader, room) => ParseBlock(reader, room)},
+            { OUTER_DOOR_ELEMENT, (reader, room) => ParseDoor(reader, room)},
+            { OUTER_ENEMIES_ELEMENT, (reader, room) => ParseEnemy(reader, room)},
+            { OUTER_ITEM_ELEMENT, (reader, room) => ParseItem(reader, room)}
            };
             // set up dictionary for inner elements
             _innerElements = new Dictionary<string, Action<XmlReader, IEntityParsingBuilder>>() {
-            { X_ELEMENT, (x, data) => data.EntityPositionX = x.ReadElementContentAsInt() },
-            { Y_ELEMENT, (y, data) => data.EntityPositionY = y.ReadElementContentAsInt() },
-            { NAME_ELEMENT, (name, data) => data.EntityName = name.ReadElementContentAsString() },
-            { POINT_X_ELEMENT, (x, data) => { XMLDoor door = (XMLDoor)data; door.DestPointX = x.ReadElementContentAsInt();  } },
-            { POINT_Y_ELEMENT, (y, data) => { XMLDoor door = (XMLDoor)data; door.DestPointY = y.ReadElementContentAsInt();  } },
-            { HEALTH_ELEMENT, (health, data) => { XMLEnemy enemy = (XMLEnemy)data; enemy.EntityHealth = health.ReadContentAsInt(); } },
-            {FRAMES_ELEMENT, (frames, data) => { XMLEnemy enemy = (XMLEnemy)data; enemy.EntityFrames = frames.ReadContentAsInt(); } },
+            { INNER_X_ELEMENT, (x, data) => data.EntityPositionX = x.ReadElementContentAsInt() },
+            { INNER_Y_ELEMENT, (y, data) => data.EntityPositionY = y.ReadElementContentAsInt() },
+            { INNER_NAME_ELEMENT, (name, data) => data.EntityName = name.ReadElementContentAsString() },
+            { INNER_DOOR_POINT_X_ELEMENT, (x, data) => (data as XMLDoorEntity).DestPointX = x.ReadElementContentAsInt() },
+            { INNER_DOOR_POINT_Y_ELEMENT, (y, data) => (data as XMLDoorEntity).DestPointY = y.ReadElementContentAsInt() },
+            { INNER_HEALTH_ELEMENT, (health, data) =>  (data as XMLEnemyEntity).EntityHealth = health.ReadElementContentAsInt()  },
+            { INNER_FRAMES_ELEMENT, (frames, data) => (data as XMLEnemyEntity).EntityFrames = frames.ReadElementContentAsInt() }
             };
         }
-
-        public void Parse(string fileName)
+        /// <summary>
+        /// Parse The given file and return 
+        /// </summary>
+        /// <param name="path">The path to the file being parsed</param>
+        public DungeonRoom Parse(string path)
         {
-            string workingDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "/" + fileName;
-
-            reader = XmlReader.Create(workingDirectory);
+            DungeonRoom dungeonRoom = new DungeonRoom();
+            XmlReader reader = XmlReader.Create(path);
 
             while (reader.Read())
             {
                 if (reader.NodeType == ELEMENT_TYPE && _outerElements.ContainsKey(reader.Name))
                 {
-                    _outerElements[reader.Name].Invoke(reader);
+                    _outerElements[reader.Name].Invoke(reader, dungeonRoom);
                 }
             }
 
             reader.Close();
+            return dungeonRoom;
         }
-
-        private void ParseFloor(XmlReader reader)
+        /// <summary>
+        /// Parses the floor textures required for the room
+        /// </summary>
+        /// <param name="reader">The xml reader</param>
+        /// <param name="dungeonRoom">the dungeon room the floor is added to</param>
+        private void ParseFloor(XmlReader reader, DungeonRoom dungeonRoom)
         {
-            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            IEntityParsingBuilder floor = new XMLFloorEntity();
+            string floorElement = "Floor";
             while (reader.Read())
             {
                 var element_name = reader.Name;
                 var reader_type = reader.NodeType;
 
-                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
+                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var action))
                 {
-                    parsedValue(reader, data);
+                    action(reader, floor);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == "Floor")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == floorElement)
                 {
                     break;
                 }
             }
-            IEntity floor = data.AddFloorToGame();
-            ProgramManager.AddOnScreenEntity(floor);
+            dungeonRoom.RoomName = (floor as XMLFloorEntity).GetName();
+            dungeonRoom.AddArchitecturalEntity(floor.CreateEntity());
         }
-        private void ParseBlock(XmlReader reader)
+
+        /// <summary>
+        /// Parses the list of blocks from the xml file and adds them all to the list of entities in the dungeon room
+        /// </summary>
+        /// <param name="reader">the xml reader</param>
+        /// <param name="dungeonRoom">the dungeon room to add the blocks to</param>
+        private void ParseBlock(XmlReader reader, DungeonRoom dungeonRoom)
         {
-            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            IEntityParsingBuilder block = new XMLBlockEntity();
+            string innerBlockElement = "Block";
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -104,25 +116,29 @@ namespace SprintZero1.XMLParsers
 
                 if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
-                    parsedValue(reader, data);
+                    parsedValue(reader, block);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == "Block")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == innerBlockElement)
                 {
                     //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
-                    IEntity block = data.AddBlockToGame();
-                    ProgramManager.AddOnScreenEntity(block);
+                    dungeonRoom.AddArchitecturalEntity(block.CreateEntity());
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == "Blocks")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_BLOCK_ELEMENT)
                 {
                     break;
                 }
             }
 
         }
-
-        private void ParseWall(XmlReader reader)
+        /// <summary>
+        /// Parses the list of blocks from the xml file and adds them all to the list of entities in the dungeon room
+        /// </summary>
+        /// <param name="reader">the xml reader</param>
+        /// <param name="dungeonRoom">the dungeon room to add the blocks to</param>
+        private void ParseWall(XmlReader reader, DungeonRoom dungeonRoom)
         {
-            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            IEntityParsingBuilder wall = new XMLWallEntity();
+            string innerWallElement = "Wall";
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -130,24 +146,24 @@ namespace SprintZero1.XMLParsers
 
                 if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
-                    parsedValue(reader, data);
+                    parsedValue(reader, wall);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == "Wall")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == innerWallElement)
                 {
                     //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
-                    IEntity wall = data.AddWallToGame();
-                    ProgramManager.AddOnScreenEntity(wall);
+                    dungeonRoom.AddArchitecturalEntity(wall.CreateEntity());
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == "Walls")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_WALL_ELEMENT)
                 {
                     break;
                 }
             }
         }
 
-        private void ParseDoor(XmlReader reader)
+        private void ParseDoor(XmlReader reader, DungeonRoom dungeonRoom)
         {
-            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            IEntityParsingBuilder door = new XMLDoorEntity();
+            string innerDoorElement = "Door";
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -155,25 +171,28 @@ namespace SprintZero1.XMLParsers
 
                 if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
-                    parsedValue(reader, data);
+                    parsedValue(reader, door);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == "Door")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == innerDoorElement)
                 {
                     //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
-                    IEntity door = data.AddDoorToGame();
-                    ProgramManager.AddOnScreenEntity(door);
+                    dungeonRoom.AddArchitecturalEntity(door.CreateEntity());
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == "Doors")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_DOOR_ELEMENT)
                 {
                     break;
                 }
             }
         }
 
-        private void ParseEnemy(XmlReader reader)
+        /// <summary>
+        /// Parses the list of enemies  from the xml file and adds them all to the list of entities in the dungeon room
+        /// </summary>
+        /// <param name="reader">the xml reader</param>
+        /// <param name="dungeonRoom">the dungeon room to add the enemies to</param>
+        private void ParseEnemy(XmlReader reader, DungeonRoom dungeonRoom)
         {
-
-            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            IEntityParsingBuilder enemy = new XMLEnemyEntity();
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -181,13 +200,12 @@ namespace SprintZero1.XMLParsers
 
                 if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
-                    parsedValue(reader, data);
+                    parsedValue(reader, enemy);
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == "Enemy")
                 {
                     //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
-                    IEntity enemy = data.AddEnemyToGame();
-                    ProgramManager.AddOnScreenEntity(enemy);
+                    dungeonRoom.AddEnemy(enemy.CreateEntity());
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == "Enemies")
                 {
@@ -196,10 +214,16 @@ namespace SprintZero1.XMLParsers
             }
         }
 
-        private void ParseItem(XmlReader reader)
+        /// <summary>
+        /// Parses the list of blocks from the xml file and adds them all to the list of entities in the dungeon room
+        /// </summary>
+        /// <param name="reader">the xml reader</param>
+        /// <param name="dungeonRoom">the dungeon room to add the items to</param>
+        private void ParseItem(XmlReader reader, DungeonRoom dungeonRoom)
         {
-
-            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            /* using block temporarily until we create an entity for items */
+            IEntityParsingBuilder item = new XMLBlockEntity();
+            string innerItemElement = "Item";
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -207,15 +231,14 @@ namespace SprintZero1.XMLParsers
 
                 if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
-                    parsedValue(reader, data);
+                    parsedValue(reader, item);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == "Item")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == innerItemElement)
                 {
                     //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
-                    IEntity item = data.AddItemToGame();
-                    ProgramManager.AddOnScreenEntity(item);
+                    dungeonRoom.AddRoomItem(item.CreateEntity());
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == "Items")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_ITEM_ELEMENT)
                 {
                     break;
                 }

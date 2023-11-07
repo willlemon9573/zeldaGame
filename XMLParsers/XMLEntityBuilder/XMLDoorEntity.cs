@@ -5,7 +5,7 @@ using SprintZero1.Sprites;
 
 namespace SprintZero1.XMLParsers.XMLEntityBuilder
 {
-    internal class XMLDoor : EntityBase
+    internal class XMLDoorEntity : EntityBase
     {
         private int _destPointX;
 
