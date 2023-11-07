@@ -49,25 +49,30 @@ namespace SprintZero1.Factories
         /// Creates the enemy sprite
         /// </summary>
         /// <param name="enemyName">The name of the enemy/param>
-        /// <param name="totalFrames">The maximum amount of frames for the sprite</param>
         /// <returns>An animated sprite of the enemy</returns>
         public ISprite CreateEnemySprite(string enemyName, Direction direction)
         {
             Debug.Assert(enemyName != null, "enemyName is null");
-            //Debug.Assert(totalFrames >= 0, "totalFrames must be positive");
             Debug.Assert(enemySpriteDictionary.ContainsKey(enemyName), "Enemy not found: " + enemyName);
             return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, enemySpriteDictionary[enemyName].Count);
         }
+
+        public ISprite CreateAnimatedEnemySpriteDirectionless(string enemyName)
+        {
+            Debug.Assert(enemyName != null, "enemyName is null");
+            Debug.Assert(enemySpriteDictionary.ContainsKey(enemyName), "Enemy not found: " + enemyName);
+            return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, enemySpriteDictionary[enemyName].Count);
+        }
+
         /// <summary>
         /// Creates a boss sprite
         /// </summary>
         /// <param name="bossName">The name of the boss/param>
         /// <param name="totalFrames">The maximum amount of frames for the sprite</param>
         /// <returns>An animated sprite of the boss</returns>
-        public ISprite CreateBossSprite(string bossName, Direction direction)
+        public ISprite CreateBossSprite(string bossName)
         {
             Debug.Assert(bossName != null, "bossName is null");
-            //Debug.Assert(totalFrames >= 0, "totalFrames must be positive");
             Debug.Assert(bossEnemySpriteDictionary.ContainsKey(bossName), "Boss not found: " + bossName);
             return new AnimatedSprite(bossEnemySpriteDictionary[bossName], bossSpriteSheet, bossEnemySpriteDictionary[bossName].Count);
         }

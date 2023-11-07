@@ -1,46 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.XMLFiles;
+using SprintZero1.XMLParsers;
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 
 namespace SprintZero1.Managers
 {
     public static class LevelManager
     {
         public static Game1 game;
-        public static XMLParser xmlParser;
-        private static readonly int totalRooms;
+        public static LevelXMLParser xmlParser;
+        private static int totalRooms;
         private static int index;
-        static List<String> levelList = new List<String> { "XMLFiles/Room1.xml", "XMLFiles/Room1Left.xml", "XMLFiles/Room1Right.xml", "XMLFiles/Room2.xml",
-        "XMLFiles/Room3.xml", "XMLFiles/Room3Left.xml", "XMLFiles/Room3Right.xml", "XMLFiles/Room4.xml", "XMLFiles/Room4Left.xml", "XMLFiles/Room4Leftest.xml",
-                "XMLFiles/Room4Right.xml", "XMLFiles/Room4Rightest.xml", "XMLFiles/Room5.xml", "XMLFiles/Room5Right.xml", "XMLFiles/Room5Rightest.xml",
-                "XMLFiles/Room6.xml","XMLFiles/Room6Left.xml","XMLFiles/RoomSecret.xml" , "XMLFiles/RoomDev.xml"};
-
-        private static int levelListIndex = 0;
-
-        public static List<string> LevelList
-        {
-            get { return levelList; }
-        }
-
-        public static int LevelListIndex
-        {
-            get { return levelListIndex; }
-            set { levelListIndex = value; }
-        }
-
-        static LevelManager()
-        {
-            totalRooms = levelList.Count;
-            index = LevelListIndex;
-            xmlParser = new XMLParser();
-        }
 
         public static void Initialize(Game1 game)
         {
+            xmlParser = new LevelXMLParser();
+
+            string path = @"XMLFiles\LevelXMLFiles";
+            foreach (string f in Directory.EnumerateFiles(path))
+            {
+                Debug.WriteLine(f);
+            }
             ProgramManager.Start(game);
-            LoadNewRoom(levelList[0]);
         }
 
         public static void LoadNewRoom(String xmlFile)

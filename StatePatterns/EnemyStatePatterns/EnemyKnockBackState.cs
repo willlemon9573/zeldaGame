@@ -9,7 +9,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
     /// </summary>
 	internal class EnemyKnockBackState : BaseEnemyState
     {
-        public EnemyKnockBackState(EnemyBasedEntity enemyEntity) : base(enemyEntity)
+        public EnemyKnockBackState(BaseEnemyEntity enemyEntity) : base(enemyEntity)
         {
             //TODO: Implement logic
         }

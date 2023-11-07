@@ -14,7 +14,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
     /// </summary>
     internal abstract class BaseEnemyState : IEnemyState
     {
-        protected EnemyBasedEntity _enemyEntity;
+        protected BaseEnemyEntity _enemyEntity;
         private readonly Dictionary<State, Func<IEnemyState>> _stateTransitionMap;
         protected EnemySpriteFactory _enemySpriteFactory = EnemySpriteFactory.Instance;
         protected bool _blockTransition = false; // false by default
@@ -25,7 +25,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
         /// EnemyEntity to the constructor is allowed
         /// </summary>
         /// <param name="enemyEntity">The specific EnemyEntity that uses the State Pattern</param>
-        public BaseEnemyState(EnemyBasedEntity enemyEntity)
+        public BaseEnemyState(BaseEnemyEntity enemyEntity)
         {
             this._enemyEntity = enemyEntity;
             _stateTransitionMap = new Dictionary<State, Func<IEnemyState>>()

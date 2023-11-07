@@ -15,7 +15,7 @@ namespace SprintZero1.Commands
             if (e2 != null)
             {
                 nextLevel = e2._nextLevel;
-                levelList = LevelManager.LevelList;
+
                 Execute();
             }
         }

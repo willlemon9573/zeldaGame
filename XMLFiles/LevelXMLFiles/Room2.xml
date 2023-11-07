@@ -124,7 +124,6 @@
 			<PointX>0</PointX>
 			<PointY>0</PointY>
 		</Door>
-	
 		<Door>
 			<Name>doorless_east</Name>
 			<X>239</X>

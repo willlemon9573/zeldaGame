@@ -1,5 +1,4 @@
-﻿using SprintZero1.Managers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace SprintZero1.Commands
@@ -12,15 +11,11 @@ namespace SprintZero1.Commands
 
         public GetNextLevelCommand()
         {
-            levelList = LevelManager.LevelList;
-            totalRooms = levelList.Count;
-            index = LevelManager.LevelListIndex;
+
         }
         public void Execute()
         {
-            index = (index + 1) % totalRooms;
-            LevelManager.LevelListIndex = index;
-            LevelManager.LoadNewRoom(levelList[index]);
+
         }
     }
 }

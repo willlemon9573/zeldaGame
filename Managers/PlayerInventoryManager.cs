@@ -1,6 +1,8 @@
-﻿using SprintZero1.Entities;
+﻿using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.InventoryFiles;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -122,7 +124,10 @@ namespace SprintZero1.Managers
         /// <returns>A list of enums related to the items in the player equipment inventory</returns>
         public static List<EquipmentItem> GetPlayerEquipmentList(IEntity player)
         {
+            Dictionary<StackableItem, Tuple<SpriteFont, int>> itemWithCount = new Dictionary<StackableItem, Tuple<SpriteFont, int>>();
+
             return _playerInventoryMap[player].GetEquipmentList();
+
         }
 
         /// <summary>
