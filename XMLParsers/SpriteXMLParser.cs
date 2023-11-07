@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Enums;
+using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -200,6 +202,28 @@ namespace SprintZero1.XMLParsers
                     spriteElement => GetDirectionAttributeAsEnum(spriteElement, filePath),
                     spriteElement => CreateRectangle(spriteElement.Element(RectangleElement), filePath)
                  );
+        }
+
+        public Dictionary<string, ISprite> ParseHUDSprites(string filePath, Texture2D hudSpriteSheet)
+        {
+            XDocument document = XDocument.Load(filePath);
+            XElement root = document.Root; /* get root */
+            XDocTools xDocTools = new XDocTools();
+            Dictionary<string, ISprite> hudSprites = new Dictionary<string, ISprite>();
+            foreach (XElement sprite in root.Elements("Sprite"))
+            {
+                /* Get the sprite name */
+                string name = xDocTools.ParseAttributeAsString(sprite.Attribute("name"));
+                /* Get the rectangle Element */
+                XElement rectangleElement = sprite.Element("Rectangle");
+                /* Parse the Rectangle Element */
+                Rectangle sourceRect = xDocTools.ParseRectangleElement(rectangleElement);
+                /* Create Sprite */
+                ISprite hudElementSprite = new NonAnimatedSprite(sourceRect, hudSpriteSheet);
+                /* Add to Dictionary */
+                hudSprites[name] = hudElementSprite;
+            }
+            return hudSprites;
         }
     }
 }
