@@ -11,11 +11,9 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
         protected string _entityName;
         protected int _entityPositionX;
         protected int _entityPositionY;
-        private int _destPointX;
-        private int _destPointY;
 
-        public int EntityPositionX { set => _destPointX = value; }
-        public int EntityPositionY { set => _destPointY = value; }
+        public int EntityPositionX { set => _entityPositionX = value; }
+        public int EntityPositionY { set => _entityPositionY = value; }
         public string EntityName { set => _entityName = value; }
 
         public abstract IEntity CreateEntity();

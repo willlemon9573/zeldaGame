@@ -67,5 +67,15 @@ namespace SprintZero1.Factories
         {
             return new NonAnimatedSprite(_levelOneSourceRectangles[floor], levelOneSpriteSheet);
         }
+
+        /// <summary>
+        /// Get the dimensions of a specific sprite for colliders
+        /// </summary>
+        /// <param name="tileName">The specific tile that the dimensions are for</param>
+        /// <returns>A rectanle that contains the dimensions of the sprite</returns>
+        public Rectangle GetSpriteDimensions(string tileName)
+        {
+            return _tileSourceRectangles[tileName];
+        }
     }
 }

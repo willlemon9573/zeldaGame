@@ -10,22 +10,33 @@ namespace SprintZero1.XMLParsers
 {
     public class LevelXMLParser
     {
+        /* ------------------------------Private Members--------------------------------- */
         private Dictionary<string, Action<XmlReader>> _outerElements;
-        private Dictionary<string, Action<XmlReader, EntityBase>> _innerElements;
+        private Dictionary<string, Action<XmlReader, IEntityParsingBuilder>> _innerElements;
+        private XmlReader reader;
+        private readonly XmlNodeType END_ELEMENT_TYPE = XmlNodeType.EndElement;
+        private readonly XmlNodeType ELEMENT_TYPE = XmlNodeType.Element;
+        /* ------------------------------Constants--------------------------------- */
         private const string WALL_ELEMENT = "Walls";
         private const string BLOCK_ELEMENT = "Blocks";
         private const string DOOR_ELEMENT = "Doors";
         private const string FLOOR_ELEMENT = "Floor";
         private const string ENEMY_ELEMENT = "Enemies";
         private const string ITEM_ELEMENT = "Item";
-
-        private XmlReader reader;
-        private readonly XmlNodeType END_ELEMENT_TYPE = XmlNodeType.EndElement;
-        private readonly XmlNodeType ELEMENT_TYPE = XmlNodeType.Element;
-        public XmlReader XMLTextReader { get; private set; }
-
+        private const string X_ELEMENT = "X";
+        private const string Y_ELEMENT = "Y";
+        private const string NAME_ELEMENT = "Name";
+        private const string POINT_X_ELEMENT = "PointX";
+        private const string POINT_Y_ELEMENT = "PointY";
+        private const string HEALTH_ELEMENT = "Health";
+        private const string FRAMES_ELEMENT = "Frames";
+        /* ------------------------------Public Functions--------------------------------- */
+        /// <summary>
+        /// Constructor for a new instance of LevelXmlParser
+        /// </summary>
         public LevelXMLParser()
         {
+            // set up dictionary for outer elements
             _outerElements = new Dictionary<string, Action<XmlReader>>() {
             { WALL_ELEMENT, val => ParseWall(reader)},
             { FLOOR_ELEMENT, val => ParseFloor(reader)},
@@ -34,16 +45,15 @@ namespace SprintZero1.XMLParsers
             { ENEMY_ELEMENT, val => ParseEnemy(reader)},
             { ITEM_ELEMENT, val => ParseItem(reader)}
            };
-
-
-            Dictionary<string, Action<XmlReader, Type>>
-
-            _innerElements = new Dictionary<string, Action<XmlReader, EntityBase>>() {
-            { "X", (x, data) => data.X = x.ReadElementContentAsInt() },
-            { "Y", (y, data) => data.Y = y.ReadElementContentAsInt() },
-            { "Name", (name, data) => data.Name = name.ReadElementContentAsString() },
-            { "Destination", (x, data) => data.DestinationOrHealth = x.ReadElementContentAsInt()},
-            { "Frame", (x, data) => data = x.ReadElementContentAsInt() },
+            // set up dictionary for inner elements
+            _innerElements = new Dictionary<string, Action<XmlReader, IEntityParsingBuilder>>() {
+            { X_ELEMENT, (x, data) => data.EntityPositionX = x.ReadElementContentAsInt() },
+            { Y_ELEMENT, (y, data) => data.EntityPositionY = y.ReadElementContentAsInt() },
+            { NAME_ELEMENT, (name, data) => data.EntityName = name.ReadElementContentAsString() },
+            { POINT_X_ELEMENT, (x, data) => { XMLDoor door = (XMLDoor)data; door.DestPointX = x.ReadElementContentAsInt();  } },
+            { POINT_Y_ELEMENT, (y, data) => { XMLDoor door = (XMLDoor)data; door.DestPointY = y.ReadElementContentAsInt();  } },
+            { HEALTH_ELEMENT, (health, data) => { XMLEnemy enemy = (XMLEnemy)data; enemy.EntityHealth = health.ReadContentAsInt(); } },
+            {FRAMES_ELEMENT, (frames, data) => { XMLEnemy enemy = (XMLEnemy)data; enemy.EntityFrames = frames.ReadContentAsInt(); } },
             };
         }
 
