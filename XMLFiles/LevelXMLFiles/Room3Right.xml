@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?> 
 <Room>
 	<Floor>
-		<Name>floorThreeLeft</Name>
+		<Name>floorThreeRight</Name>
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
@@ -48,105 +48,59 @@
 
 	<Block>
 		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>136</Y>
+		<X>71</X>
+		<Y>120</Y>
 		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>136</Y>
+		<X>71</X>
+		<Y>120</Y>
+		<IsCollidable>true</IsCollidable>
+	</Block>
+
+	<Block>
+		<Name>pyramid</Name>
+		<X>71</X>
+		<Y>184</Y>
 		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>136</Y>
+		<X>71</X>
+		<Y>184</Y>
 		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>136</Y>
+		<X>183</X>
+		<Y>120</Y>
 		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>152</Y>
+		<X>183</X>
+		<Y>120</Y>
+		<IsCollidable>true</IsCollidable>
+	</Block>
+
+	<Block>
+		<Name>pyramid</Name>
+		<X>183</X>
+		<Y>184</Y>
 		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
 		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>152</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>152</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>152</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>168</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>168</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>168</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>168</Y>
+		<X>183</X>
+		<Y>184</Y>
 		<IsCollidable>true</IsCollidable>
 	</Block>
 
 	<Enemy>
 		<Name>dungeon_keese</Name>
-		<X>56</X>
-		<Y>186</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>false</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_keese</Name>
-		<X>56</X>
-		<Y>186</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>false</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_keese</Name>
-		<X>41</X>
-		<Y>150</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>false</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_keese</Name>
-		<X>41</X>
-		<Y>150</Y>
+		<X>88</X>
+		<Y>101</Y>
 		<Health>1</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
@@ -154,31 +108,39 @@
 	<Enemy>
 		<Name>dungeon_keese</Name>
 		<X>88</X>
-		<Y>164</Y>
+		<Y>101</Y>
 		<Health>1</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
 	<Enemy>
 		<Name>dungeon_keese</Name>
-		<X>88</X>
-		<Y>164</Y>
+		<X>135</X>
+		<Y>166</Y>
 		<Health>1</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
 	<Enemy>
 		<Name>dungeon_keese</Name>
-		<X>91</X>
-		<Y>132</Y>
+		<X>135</X>
+		<Y>166</Y>
 		<Health>1</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
 	<Enemy>
 		<Name>dungeon_keese</Name>
-		<X>91</X>
-		<Y>132</Y>
+		<X>135</X>
+		<Y>133</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>135</X>
+		<Y>133</Y>
 		<Health>1</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
@@ -186,7 +148,7 @@
 	<Enemy>
 		<Name>dungeon_keese</Name>
 		<X>167</X>
-		<Y>198</Y>
+		<Y>167</Y>
 		<Health>1</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
@@ -194,65 +156,113 @@
 	<Enemy>
 		<Name>dungeon_keese</Name>
 		<X>167</X>
-		<Y>198</Y>
+		<Y>167</Y>
 		<Health>1</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
 	<Enemy>
 		<Name>dungeon_keese</Name>
-		<X>171</X>
-		<Y>106</Y>
+		<X>168</X>
+		<Y>133</Y>
 		<Health>1</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
 	<Enemy>
 		<Name>dungeon_keese</Name>
-		<X>171</X>
-		<Y>106</Y>
+		<X>168</X>
+		<Y>133</Y>
 		<Health>1</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>199</X>
+		<Y>181</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>199</X>
+		<Y>181</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>200</X>
+		<Y>119</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>200</X>
+		<Y>119</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>215</X>
+		<Y>150</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_keese</Name>
+		<X>215</X>
+		<Y>150</Y>
+		<Health>1</Health>
+		<Frames>2</Frames>
+		<IsBoss>false</IsBoss>
+	</Enemy>
+	<Item>
+		<Name>compass</Name>
+		<X>198</X>
+		<Y>151</Y>
+	</Item>
+	<Item>
+		<Name>compass</Name>
+		<X>198</X>
+		<Y>151</Y>
+	</Item>
+
 	<Door>
-		<Name>open_north</Name>
+		<Name>hole_north</Name>
 		<X>127</X>
 		<Y>80</Y>
+		<PointX>0</PointX>
+		<PointY>0</PointY>
 	</Door>
 	<Door>
-		<Name>open_north</Name>
-		<X>127</X>
-		<Y>80</Y>
-	</Door>
-	<Door>
-		<Name>doorless_west</Name>
+		<Name>open_west</Name>
 		<X>15</X>
 		<Y>152</Y>
+		<PointX>0</PointX>
+		<PointY>0</PointY>
 	</Door>
 	<Door>
-		<Name>doorless_west</Name>
-		<X>15</X>
-		<Y>152</Y>
-	</Door>
-	<Door>
-		<Name>open_east</Name>
+		<Name>doorless_east</Name>
 		<X>239</X>
 		<Y>152</Y>
+		<PointX>0</PointX>
+		<PointY>0</PointY>
 	</Door>
 	<Door>
-		<Name>open_east</Name>
-		<X>239</X>
-		<Y>152</Y>
-	</Door>
-	<Door>
-		<Name>doorless_south</Name>
+		<Name>open_south</Name>
 		<X>127</X>
 		<Y>224</Y>
-	</Door>
-	<Door>
-		<Name>doorless_south</Name>
-		<X>127</X>
-		<Y>224</Y>
+		<PointX>0</PointX>
+		<PointY>0</PointY>
 	</Door>
 </Room>

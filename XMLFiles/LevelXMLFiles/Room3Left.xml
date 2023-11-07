@@ -45,7 +45,6 @@
 		<X>199</X>
 		<Y>204</Y>
 	</Wall>
-
 	<Block>
 		<Name>pyramid</Name>
 		<X>119</X>
@@ -219,40 +218,28 @@
 		<Name>open_north</Name>
 		<X>127</X>
 		<Y>80</Y>
-	</Door>
-	<Door>
-		<Name>open_north</Name>
-		<X>127</X>
-		<Y>80</Y>
+		<PointX>0</PointX>
+		<PointY>0</PointY>
 	</Door>
 	<Door>
 		<Name>doorless_west</Name>
 		<X>15</X>
 		<Y>152</Y>
-	</Door>
-	<Door>
-		<Name>doorless_west</Name>
-		<X>15</X>
-		<Y>152</Y>
+		<PointX>0</PointX>
+		<PointY>0</PointY>
 	</Door>
 	<Door>
 		<Name>open_east</Name>
 		<X>239</X>
 		<Y>152</Y>
-	</Door>
-	<Door>
-		<Name>open_east</Name>
-		<X>239</X>
-		<Y>152</Y>
+		<PointX>0</PointX>
+		<PointY>0</PointY>
 	</Door>
 	<Door>
 		<Name>doorless_south</Name>
 		<X>127</X>
 		<Y>224</Y>
-	</Door>
-	<Door>
-		<Name>doorless_south</Name>
-		<X>127</X>
-		<Y>224</Y>
+		<PointX>0</PointX>
+		<PointY>0</PointY>
 	</Door>
 </Room>
