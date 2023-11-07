@@ -81,25 +81,29 @@
 			<Name>doorless_north</Name>
 			<X>127</X>
 			<Y>80</Y>
-			<Destination>1</Destination>
+			<PointX>0</PointX>
+			<PointY>0</PointY>
 		</Door>
 		<Door>
 			<Name>doorless_west</Name>
 			<X>15</X>
 			<Y>152</Y>
-			<Destination>1</Destination>
+			<PointX>0</PointX>
+			<PointY>0</PointY>
 		</Door>
 		<Door>
 			<Name>open_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<Destination>0</Destination>
+			<PointX>0</PointX>
+			<PointY>0</PointY>
 		</Door>
 		<Door>
 			<Name>doorless_south</Name>
 			<X>127</X>
 			<Y>224</Y>
-			<Destination>1</Destination>
+			<PointX>0</PointX>
+			<PointY>0</PointY>
 		</Door>
 	</Doors>
 </Room>

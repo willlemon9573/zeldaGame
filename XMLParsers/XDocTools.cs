@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using SprintZero1.Entities;
@@ -155,6 +156,32 @@ namespace SprintZero1.XMLParsers
             XAttribute buttonAttribute = element.Attribute(attributeName);
             CheckAttribute(buttonAttribute);
             return (Buttons)Enum.Parse(typeof(Buttons), buttonAttribute.Value, true);
+        }
+
+        /// <summary>
+        /// Parses a Rectangle from the given XElement
+        /// </summary>
+        /// <param name="rectangleElement">The element containing the attirbutes to parse</param>
+        /// <returns>a Rectangle with the correct values</returns>
+        public Rectangle ParseRectangleElement(XElement rectangleElement)
+        {
+            int x = ParseAttributeAsInt(rectangleElement, "x");
+            int y = ParseAttributeAsInt(rectangleElement, "y");
+            int width = ParseAttributeAsInt(rectangleElement, "width");
+            int height = ParseAttributeAsInt(rectangleElement, "height");
+            return new Rectangle(x, y, width, height);
+        }
+
+        /// <summary>
+        /// Parse a Vector2 from the given XElement
+        /// </summary>
+        /// <param name="vectorElement">The element that contains the attributes to parse</param>
+        /// <returns>A new instance of a vector2 object</returns>
+        public Vector2 ParseVector2Element(XElement vectorElement)
+        {
+            int x = ParseAttributeAsInt(vectorElement, "x");
+            int y = ParseAttributeAsInt(vectorElement, "y");
+            return new Vector2(x, y);
         }
 
         /// <summary>

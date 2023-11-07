@@ -1,5 +1,6 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Managers;
+using SprintZero1.XMLParsers.XMLEntityBuilder;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +11,7 @@ namespace SprintZero1.XMLParsers
     public class LevelXMLParser
     {
         private Dictionary<string, Action<XmlReader>> _outerElements;
-        private Dictionary<string, Action<XmlReader, EntityData>> _innerElements;
+        private Dictionary<string, Action<XmlReader, EntityBase>> _innerElements;
         private const string WALL_ELEMENT = "Walls";
         private const string BLOCK_ELEMENT = "Blocks";
         private const string DOOR_ELEMENT = "Doors";
@@ -34,12 +35,15 @@ namespace SprintZero1.XMLParsers
             { ITEM_ELEMENT, val => ParseItem(reader)}
            };
 
-            _innerElements = new Dictionary<string, Action<XmlReader, EntityData>>() {
+
+            Dictionary<string, Action<XmlReader, Type>>
+
+            _innerElements = new Dictionary<string, Action<XmlReader, EntityBase>>() {
             { "X", (x, data) => data.X = x.ReadElementContentAsInt() },
             { "Y", (y, data) => data.Y = y.ReadElementContentAsInt() },
             { "Name", (name, data) => data.Name = name.ReadElementContentAsString() },
             { "Destination", (x, data) => data.DestinationOrHealth = x.ReadElementContentAsInt()},
-            { "Frame", (x, data) => data.Frame = x.ReadElementContentAsInt() },
+            { "Frame", (x, data) => data = x.ReadElementContentAsInt() },
             };
         }
 
@@ -53,8 +57,7 @@ namespace SprintZero1.XMLParsers
             {
                 if (reader.NodeType == ELEMENT_TYPE && _outerElements.ContainsKey(reader.Name))
                 {
-                    var readerName = reader.Name;
-                    _outerElements[readerName].Invoke(reader);
+                    _outerElements[reader.Name].Invoke(reader);
                 }
             }
 
@@ -63,7 +66,7 @@ namespace SprintZero1.XMLParsers
 
         private void ParseFloor(XmlReader reader)
         {
-            EntityData data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -83,7 +86,7 @@ namespace SprintZero1.XMLParsers
         }
         private void ParseBlock(XmlReader reader)
         {
-            EntityData data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -109,7 +112,7 @@ namespace SprintZero1.XMLParsers
 
         private void ParseWall(XmlReader reader)
         {
-            EntityData data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -134,7 +137,7 @@ namespace SprintZero1.XMLParsers
 
         private void ParseDoor(XmlReader reader)
         {
-            EntityData data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -160,7 +163,7 @@ namespace SprintZero1.XMLParsers
         private void ParseEnemy(XmlReader reader)
         {
 
-            EntityData data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -186,7 +189,7 @@ namespace SprintZero1.XMLParsers
         private void ParseItem(XmlReader reader)
         {
 
-            EntityData data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
+            EntityBase data = new BlockEntityBuilder(0, 0, "", 0, 0, 0);
             while (reader.Read())
             {
                 var element_name = reader.Name;

@@ -57,11 +57,11 @@ namespace SprintZero1.Factories
             return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, enemySpriteDictionary[enemyName].Count);
         }
 
-        public ISprite CreateAnimatedEnemySpriteDirectionless(string enemyName)
+        public ISprite CreateAnimatedEnemySpriteDirectionless(string enemyName, int frameCount)
         {
             Debug.Assert(enemyName != null, "enemyName is null");
             Debug.Assert(enemySpriteDictionary.ContainsKey(enemyName), "Enemy not found: " + enemyName);
-            return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, enemySpriteDictionary[enemyName].Count);
+            return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, frameCount);
         }
 
         /// <summary>

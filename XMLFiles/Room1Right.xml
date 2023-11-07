@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Room>
-
 	<Floor>
 		<Name>entranceRight</Name>
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
-
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>
@@ -123,7 +121,6 @@
 			<IsCollidable>true</IsCollidable>
 		</Block>
 	</Blocks>
-
 	<Enemies>
 	<Enemy>
 		<Name>dungeon_stalfos</Name>
@@ -166,8 +163,6 @@
 		<IsBoss>0</IsBoss>
 	</Enemy>
 </Enemies>
-
-
 	<Doors>
 	<Door>
 		<Name>doorless_north</Name>
@@ -186,7 +181,6 @@
 		<X>239</X>
 		<Y>152</Y>
 		<Destination>2</Destination>
-
 	</Door>
 	<Door>
 		<Name>doorless_south</Name>
