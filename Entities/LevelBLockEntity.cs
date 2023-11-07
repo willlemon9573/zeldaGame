@@ -22,7 +22,5 @@ namespace SprintZero1.Entities
             int height = 16, width = 16;
             collider = new LevelBlockCollider(new Rectangle((int)pos.X, (int)pos.Y, height, width));
         }
-
-
     }
 }

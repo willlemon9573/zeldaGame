@@ -109,6 +109,7 @@ namespace SprintZero1.LevelFiles
                 (entity as BaseEnemyEntity).Reset();
             }
         }
+
         /// <summary>
         /// Add the position for the player to be placed whenever they do a
         /// room transition

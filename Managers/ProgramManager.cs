@@ -8,6 +8,7 @@ using SprintZero1.Enums;
 using SprintZero1.LevelFiles;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SprintZero1.Managers
@@ -37,6 +38,7 @@ namespace SprintZero1.Managers
             keyboardController.LoadControls(player);
             _playerList.Add(new Tuple<IEntity, IController>(player, keyboardController));
         }
+
         /// <summary>
         /// Start the program manager and all components that follow
         /// </summary>
@@ -48,6 +50,7 @@ namespace SprintZero1.Managers
             string entrance_room = "entrance";
             ChangeRooms(entrance_room);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -64,7 +67,12 @@ namespace SprintZero1.Managers
         {
             _currentRoom = LevelManager.GetDungeonRoom(roomName);
             _nonPlayerEntityList = _currentRoom.GetEntityList();
+            foreach (var npc in _nonPlayerEntityList)
+            {
+                Debug.WriteLine($"{npc}");
+            }
         }
+
         /// <summary>
         /// TODO: Fill out
         /// </summary>
@@ -110,13 +118,30 @@ namespace SprintZero1.Managers
             ColliderManager.CheckCollisions(x);
         }
 
+        private static void DrawPlayers(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < _playerList.Count; i++)
+            {
+                _playerList[i].Item1.Draw(spriteBatch);
+            }
+        }
+
+        private static void DrawNPCs(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < _nonPlayerEntityList.Count; ++i)
+            {
+                _nonPlayerEntityList[i].Draw(spriteBatch);
+            }
+        }
+
         /// <summary>
         /// Run Draw on Program Manager
         /// </summary>
         /// <param name="spriteBatch"></param>
         public static void Draw(SpriteBatch spriteBatch)
         {
-
+            DrawPlayers(spriteBatch);
+            DrawNPCs(spriteBatch);
         }
     }
 }
