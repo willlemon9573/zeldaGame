@@ -196,6 +196,8 @@ namespace SprintZero1.XMLParsers
         private void ParseEnemy(XmlReader reader, DungeonRoom dungeonRoom)
         {
             IEntityParsingBuilder enemy = new XMLEnemyEntity();
+            string innerEnemyElement = "Enemy";
+            string innerBossElement = "Boss";
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -205,9 +207,16 @@ namespace SprintZero1.XMLParsers
                 {
                     parsedValue(reader, enemy);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == "Enemy")
+                else if (reader_type == END_ELEMENT_TYPE && (element_name == innerEnemyElement || element_name == innerBossElement))
                 {
-                    dungeonRoom.AddEnemy(enemy.CreateEntity());
+                    if (element_name == innerBossElement)
+                    {
+                        dungeonRoom.AddEnemy((enemy as XMLEnemyEntity).CreateBossEntity());
+                    }
+                    else
+                    {
+                        dungeonRoom.AddEnemy(enemy.CreateEntity());
+                    }
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == "Enemies")
                 {
@@ -226,6 +235,7 @@ namespace SprintZero1.XMLParsers
             /* using block temporarily until we create an entity for items */
             IEntityParsingBuilder item = new XMLItemEntity();
             string innerItemElement = "Item";
+            string innerAnimatedItemElement = "AnimatedElement";
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -235,9 +245,16 @@ namespace SprintZero1.XMLParsers
                 {
                     parsedValue(reader, item);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == innerItemElement)
+                else if (reader_type == END_ELEMENT_TYPE && (element_name == innerItemElement || element_name == innerAnimatedItemElement))
                 {
-                    dungeonRoom.AddArchitecturalEntity(item.CreateEntity());
+                    if (innerItemElement == innerAnimatedItemElement)
+                    {
+                        dungeonRoom.AddArchitecturalEntity((item as XMLItemEntity).CreateAnimatedEntity());
+                    }
+                    else
+                    {
+                        dungeonRoom.AddArchitecturalEntity(item.CreateEntity());
+                    }
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_ITEM_ELEMENT)
                 {

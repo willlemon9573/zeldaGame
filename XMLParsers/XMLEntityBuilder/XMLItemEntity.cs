@@ -18,5 +18,13 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
             // using levelBlockEntity until we make something ofr items
             return new LevelBlockEntity(itemSprite, position);
         }
+
+        public IEntity CreateAnimatedEntity()
+        {
+            ISprite itemSprite = ItemSpriteFactory.Instance.CreateAnimatedItemSprite(_entityName);
+            Vector2 position = new Vector2(_entityPositionX, _entityPositionY);
+            // using levelBlockEntity until we make something ofr items
+            return new LevelBlockEntity(itemSprite, position);
+        }
     }
 }

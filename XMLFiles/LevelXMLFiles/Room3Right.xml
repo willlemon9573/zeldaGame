@@ -163,7 +163,7 @@
 			<PointY>0</PointY>
 		</Door>
 		<Door>
-			<Name>open_south</Name>
+			<Name>doorless_south</Name>
 			<X>127</X>
 			<Y>224</Y>
 			<PointX>0</PointX>

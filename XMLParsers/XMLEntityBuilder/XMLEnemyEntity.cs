@@ -18,5 +18,12 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
             Vector2 position = new Vector2(_entityPositionX, _entityPositionY);
             return new EnemyEntityWithoutDirection(entitySprite, position, _entityHealth, _entityName);
         }
+
+        public IEntity CreateBossEntity()
+        {
+            ISprite bossSprite = EnemySpriteFactory.Instance.CreateBossSprite(_entityName);
+            Vector2 position = new Vector2(_entityPositionX, _entityPositionY);
+            return new EnemyEntityWithoutDirection(bossSprite, position, _entityHealth, _entityName);
+        }
     }
 }
