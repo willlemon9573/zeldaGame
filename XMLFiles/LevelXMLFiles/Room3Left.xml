@@ -47,36 +47,11 @@
 			<Y>224</Y>
 		</Wall>
 	</Walls>
-
 	<Blocks>
 	<Block>
 		<Name>pyramid</Name>
 		<X>119</X>
 		<Y>136</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>136</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>152</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>152</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>168</Y>
 		<IsCollidable>true</IsCollidable>
 	</Block>
 	<Block>
@@ -92,14 +67,6 @@
 		<Name>dungeon_keese</Name>
 		<X>56</X>
 		<Y>186</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>false</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_keese</Name>
-		<X>41</X>
-		<Y>150</Y>
 		<Health>1</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
@@ -137,7 +104,6 @@
 		<IsBoss>false</IsBoss>
 	</Enemy>
 	</Enemies>
-
 	<Doors>
 	<Door>
 		<Name>open_north</Name>

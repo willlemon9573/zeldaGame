@@ -121,7 +121,6 @@ namespace SprintZero1.XMLParsers
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == innerBlockElement)
                 {
-                    //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
                     dungeonRoom.AddArchitecturalEntity(block.CreateEntity());
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_BLOCK_ELEMENT)
@@ -151,7 +150,6 @@ namespace SprintZero1.XMLParsers
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == innerWallElement)
                 {
-                    //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
                     dungeonRoom.AddArchitecturalEntity(wall.CreateEntity());
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_WALL_ELEMENT)
@@ -181,7 +179,6 @@ namespace SprintZero1.XMLParsers
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == innerDoorElement)
                 {
-                    //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
                     dungeonRoom.AddArchitecturalEntity(door.CreateEntity());
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_DOOR_ELEMENT)
@@ -210,7 +207,6 @@ namespace SprintZero1.XMLParsers
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == "Enemy")
                 {
-                    //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
                     dungeonRoom.AddEnemy(enemy.CreateEntity());
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == "Enemies")
@@ -241,7 +237,6 @@ namespace SprintZero1.XMLParsers
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == innerItemElement)
                 {
-                    //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
                     dungeonRoom.AddArchitecturalEntity(item.CreateEntity());
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_ITEM_ELEMENT)
