@@ -37,6 +37,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
             };
         }
 
+
         /// <summary>
         /// Changes the direction of the enemy based on the current state
         /// </summary>

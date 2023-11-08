@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Enums;
 //using SprintZero1.StatePatterns.CombatStatePatterns;
 //using SprintZero1.StatePatterns.MovingStatePatterns;
 //using SprintZero1.StatePatterns.StatePatternInterfaces;
@@ -7,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace SprintZero1.Entities
 {
 
-    internal class EnemyEntityWithoutDirection : EnemyBasedEntity
+    internal class EnemyEntityWithProjectile : EnemyBasedEntity
     {
 
         /// <summary>
@@ -16,27 +17,27 @@ namespace SprintZero1.Entities
         /// <param name="position">The position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        public EnemyEntityWithoutDirection(Vector2 position, int startingHealth, string enemyName, bool isBoss = false)
-        : base(position, startingHealth, enemyName, isBoss)
+        public EnemyEntityWithProjectile(Vector2 position, int startingHealth, string enemyName)
+        : base(position, startingHealth, enemyName)
         {
             //no special constructor thing
-
         }
+
 
 
         public override void PerformAttack()
         {
-            //do this later
-        }
-        public override void Update(GameTime gameTime)
-        {
-            _enemyState.Update(gameTime);
-            //projectileSprite.Update(gameTime);
+            /*if (_enemyName.Equals("dungeon_zol"))
+            {
+                ICommand fireBoomerangCommand = new FireBoomerangCommand(this, projectileSprite);
+                fireBoomerangCommand.Execute();
+            }
+            else if (_enemyName.Equals("aquamentus"))
+            {
+                ICommand FireAquamentusWeaponCommand = new FireAquamentusWeaponCommand(this, projectileSprite);
+                FireAquamentusWeaponCommand.Execute();
+            }*/
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            _enemyState.Draw(spriteBatch);
-        }
     }
 }

@@ -20,6 +20,10 @@ namespace SprintZero1.Controllers.EnemyControllers
         private double _currentMoveTime = 0;
         private double _currentStopTime = 0;
         private bool _isMoving = true;
+        private const int BlockSize = 16;
+        private double _directionChangeCooldown = 0.5; 
+        private double _timeSinceLastDirectionChange = 0; 
+
 
         public SmartEnemyMovementController(ICombatEntity enemyEntity, IEntity playerEntity)
         {
@@ -48,6 +52,8 @@ namespace SprintZero1.Controllers.EnemyControllers
             double elapsed = gameTime.ElapsedGameTime.TotalSeconds;
             _timeSinceLastPathCalculation += elapsed;
             _currentMoveTime += elapsed;
+            _timeSinceLastDirectionChange += elapsed;  // Track the time since last direction change
+
             if (_timeSinceLastPathCalculation >= _pathCalculationInterval && !isPathBeingCalculated)
             {
                 pathfinder.StartFindingPath(_enemyEntity.Position, _playerEntity.Position);
@@ -74,8 +80,15 @@ namespace SprintZero1.Controllers.EnemyControllers
                     Vector2 nextStep = currentPath.Peek();
                     Vector2 moveDirection = nextStep - _enemyEntity.Position;
                     moveDirection.Normalize();
-                    Direction direction = CalculateDirection(moveDirection);
-                    _enemyEntity.ChangeDirection(direction);
+                    Direction newDirection = CalculateDirection(moveDirection);
+
+                    // Check if enough time has passed since the last direction change
+                    if (_timeSinceLastDirectionChange >= _directionChangeCooldown)
+                    {
+                        _enemyEntity.ChangeDirection(newDirection);
+                        _timeSinceLastDirectionChange = 0;  // Reset the direction change timer
+                    }
+
                     _enemyEntity.Move();
 
                     if (Vector2.Distance(_enemyEntity.Position, nextStep) < 1.0f)
@@ -94,6 +107,7 @@ namespace SprintZero1.Controllers.EnemyControllers
                 }
             }
         }
+
 
 
     }

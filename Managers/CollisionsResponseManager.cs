@@ -14,7 +14,7 @@ namespace SprintZero1.Managers
         {
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(LevelBlockEntity) ), new PushBackCommand(null, null) },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(LevelDoorEntity) ), new EnterNextLevelCommand(null, null) },
-            { new Tuple<Type, Type>(typeof(SwordEntity), typeof(EnemyEntityWithDirection)), new DestroyEntity(null, null) }
+            { new Tuple<Type, Type>(typeof(SwordEntity), typeof(EnemyEntityWithoutProjectile)), new DestroyEntity(null, null) }
         };
 
         public static void CollisionResponse(ICollidableEntity e1, ICollidableEntity e2)

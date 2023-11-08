@@ -293,7 +293,7 @@ namespace SprintZero1.XMLFiles
                     //parse the data -> get the sprites draw the thing entity
 
 
-                    ICombatEntity enemy = new EnemyEntityWithDirection(new Vector2(X, Y), health, name, isBoss);
+                    ICombatEntity enemy = new EnemyEntityWithoutProjectile(new Vector2(X, Y), health, name);
                     if (enemy != null)
                     {
                         ProgramManager.AddOnScreenEntity(enemy);
