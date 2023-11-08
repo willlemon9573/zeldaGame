@@ -242,7 +242,7 @@ namespace SprintZero1.XMLParsers
                 else if (reader_type == END_ELEMENT_TYPE && element_name == innerItemElement)
                 {
                     //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
-                    dungeonRoom.AddRoomItem(item.CreateEntity());
+                    dungeonRoom.AddArchitecturalEntity(item.CreateEntity());
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_ITEM_ELEMENT)
                 {

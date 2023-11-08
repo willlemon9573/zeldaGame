@@ -53,6 +53,7 @@ namespace SprintZero1.Entities
             _enemyPosition = startingPosition;
             _enemyName = enemyName;
             _enemyState = new EnemyIdleState(this);
+            _enemySprite = enemySprite;
             _collider = new DynamicCollider(new Rectangle((int)startingPosition.X, (int)startingPosition.Y, 16, 16));
         }
 

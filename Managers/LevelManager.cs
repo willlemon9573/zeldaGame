@@ -3,13 +3,17 @@ using SprintZero1.XMLParsers;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace SprintZero1.Managers
 {
     internal static class LevelManager
     {
-        public static Game1 game;
         private static Dictionary<string, DungeonRoom> _dungeonRoomMap = new Dictionary<string, DungeonRoom>();
+        /* for mouse commands */
+        private static int currentRoomIndex = 0;
+        public static List<string> DungeonRoomList { get { return _dungeonRoomMap.Keys.ToList(); } }
+        public static int CurrentRoomIndex { get { return currentRoomIndex; } set { currentRoomIndex = value; } }
 
         public static void Initialize()
         {

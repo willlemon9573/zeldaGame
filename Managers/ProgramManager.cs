@@ -8,7 +8,6 @@ using SprintZero1.Enums;
 using SprintZero1.LevelFiles;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace SprintZero1.Managers
@@ -67,10 +66,6 @@ namespace SprintZero1.Managers
         {
             _currentRoom = LevelManager.GetDungeonRoom(roomName);
             _nonPlayerEntityList = _currentRoom.GetEntityList();
-            foreach (var npc in _nonPlayerEntityList)
-            {
-                Debug.WriteLine($"{npc}");
-            }
         }
 
         /// <summary>
@@ -112,10 +107,9 @@ namespace SprintZero1.Managers
         {
             UpdatePlayers(gameTime);
             UpdateNPCs(gameTime);
-            List<ICollidableEntity> x = new List<ICollidableEntity>();
-            x.AddRange(_nonPlayerEntityList.OfType<ICollidableEntity>());
-            x.AddRange(_playerList.OfType<ICollidableEntity>());
-            ColliderManager.CheckCollisions(x);
+            List<ICollidableEntity> collidableEntities = _playerList.Where(tuple => tuple.Item1 is ICollidableEntity).Select(tuple => tuple.Item1 as ICollidableEntity).ToList();
+            collidableEntities.AddRange(_nonPlayerEntityList.Where(entity => entity is ICollidableEntity).Select(entity => entity as ICollidableEntity).ToList());
+            ColliderManager.CheckCollisions(collidableEntities);
         }
 
         private static void DrawPlayers(SpriteBatch spriteBatch)

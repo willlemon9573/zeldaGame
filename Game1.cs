@@ -59,11 +59,12 @@ namespace SprintZero1
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _mouseController = new MouseController(this);
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize();
             ProgramManager.Start(this);
+            _mouseController = new MouseController(this);
             GameStatesManager.InitializeGameStateMap(this);
+
         }
 
         protected override void Update(GameTime gameTime)
