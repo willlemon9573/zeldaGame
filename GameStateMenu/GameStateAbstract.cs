@@ -13,13 +13,15 @@ namespace SprintZero1.GameStateMenu
         protected SpriteFont _font;
         protected Texture2D _overlay;
         protected GraphicsDeviceManager graphics;
-        protected const int WIDTH = 256;
-        protected const int HEIGHT = 256;
+        protected const int WIDTH = 255;
+        protected const int HEIGHT = 240;
+        protected GraphicsDevice _GraphicsDevice;
 
         public GameStateAbstract(Game1 game)
         {
             graphics = game.Graphics;
-            _overlay = new Texture2D(game.GraphicsDevice, 1, 1);
+            _GraphicsDevice = game.GraphicsDevice;
+            _overlay = new Texture2D(_GraphicsDevice, 1, 1);
         }
 
         public abstract void Update(GameTime gameTime);

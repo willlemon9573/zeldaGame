@@ -9,22 +9,26 @@ using System.Linq;
 using System.Xml.Linq;
 using SprintZero1.InventoryFiles;
 using SprintZero1.XMLParsers;
+using System.Diagnostics;
 
 namespace SprintZero1.GameStateMenu
 {
     internal class ItemSelectionMenu : GameStateAbstract
     {
         private double elapsedTime = 0;
-        private double interval = 0.5; // 0.5 seconds
+        private double interval = 0.3; // 0.3 seconds
         private bool toggle = false; // This will toggle between true and false
         private const int item_width = 16;
         private const int item_height = 16;
-        private const int PADDING = 10;
+        private const int WidthPADDING = 4;
+        private const int HeightPADDING = 2;
         private const float SCALE = 1f;
         private const float ROTATION = 0f;
         private const float LAYER_DEPTH = 0.01f;
-        private const float OVER_LAYER_DEPTH = 0.02f;
-        private const int ROWS = 2;
+        private const float OVER_LAYER_DEPTH = 0.1f;
+        private const int BACKGROUNDHEIGH = 88;
+        private const int INTERVAL_BETWEEN_BACKGROUND = 30;
+        private const int ROWS = 1;
         private readonly PlayerInventory _playerInventory;
         private  Rectangle ChooseRectFir;
         private  Rectangle ChooseRectSec;
@@ -32,14 +36,18 @@ namespace SprintZero1.GameStateMenu
         private Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>> equipmentData;
         //private readonly ICombatEntity _player; //not sure whether need _player or not
         private  Texture2D largeTexture;
-        private  Texture2D itemChooseScrene;
+        private  Texture2D itemChooseScreen;
         private List<EquipmentItem> _playerEquipment;
         private EquipmentItem currentWeapon;
+        private Vector2 currentWeaponPosition =  new Vector2(63, 48);
+        private Rectangle currectWeaponRec;
         private Vector2 ChooseRecPosition;
+        private Rectangle topBackGround;
+        private Rectangle botBackGround;
 
         private void LoadItemData()
         {
-
+            equipmentData = new Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>>();
             XDocument doc = XDocument.Load("ItemData.xml");
             var itemDataElement = doc.Element("ItemData");
             XDocTools _xDocTools = new XDocTools();
@@ -47,50 +55,66 @@ namespace SprintZero1.GameStateMenu
             ChooseRectFir = _xDocTools.CreateRectangle(ChooseRecFirRectElement);
             XElement ChooseRecSecRectElement = itemDataElement.Element("ChooseRecSecSprite");
             ChooseRectSec = _xDocTools.CreateRectangle(ChooseRecSecRectElement);
+            XElement topBackGroundElement = itemDataElement.Element("BackGroundFirst");
+            topBackGround = _xDocTools.CreateRectangle(topBackGroundElement);
+            XElement botBackGroundElement = itemDataElement.Element("BackGroundSecond");
+            botBackGround = _xDocTools.CreateRectangle(botBackGroundElement);
 
-            int itemCount = equipmentData.Count;
-            int itemsPerRow = (int)Math.Ceiling(itemCount / (double)ROWS);
-            int totalWidth = itemsPerRow * (item_width + PADDING) - PADDING;
-            int totalHeight = ROWS * (item_height + PADDING) - PADDING;
+            int boxX = 120;
+            int boxY = 47;
+            int boxWidth = 90;
+            int boxHeight = 33;
 
-            int startX = (WIDTH - totalWidth) / 2;
-            int startY = (HEIGHT - totalHeight) / 2;
-
+            int itemsPerRow = 4;
+            int startX = boxX + (boxWidth - (itemsPerRow * item_width + (itemsPerRow - 1) * HeightPADDING)) / 2;
             int x = startX;
-            int y = startY;
+            int y = boxY + (boxHeight / ROWS - item_height) / 2;
 
             int count = 0;
-
             foreach (XElement itemElement in itemDataElement.Elements("Item"))
             {
+                Debug.WriteLine(itemElement);
                 Rectangle itemRec = _xDocTools.CreateRectangle(itemElement);
                 EquipmentItem equipmentItem = _xDocTools.ParseAttributeAsEquipmentItem(itemElement, "name");
 
-                Vector2 position = new Vector2(x, y);
-                equipmentData[equipmentItem] = new Tuple<Rectangle, Vector2>(itemRec, position);
+                Debug.WriteLine(equipmentItem);
 
-                x += item_width + PADDING;
+                if (count > 0)
+                {
+                    x += item_width + WidthPADDING;
+                }
                 count++;
 
-                if (count == itemsPerRow)
+                Vector2 position = new Vector2(x, y);
+                equipmentData.Add(equipmentItem, new Tuple<Rectangle, Vector2>(itemRec, position));
+            }
+            foreach (XElement betterItemElement in itemDataElement.Elements("BetterItem"))
+            {
+                EquipmentItem betterEquipmentItem = _xDocTools.ParseAttributeAsEquipmentItem(betterItemElement, "name");
+
+                string baseItemName = betterEquipmentItem.ToString().Replace("Better", "");
+
+                EquipmentItem baseEquipmentItem = equipmentData.Keys
+                    .SingleOrDefault(item => item.ToString() == baseItemName);
+
+                if (!baseEquipmentItem.Equals(default(EquipmentItem)) && !baseEquipmentItem.Equals(EquipmentItem.WoodenSword))
                 {
-                    count = 0;
-                    x = startX;
-                    y += item_height + PADDING;
+                    Rectangle betterItemRec = _xDocTools.CreateRectangle(betterItemElement);
+                    Vector2 basePosition = equipmentData[baseEquipmentItem].Item2;
+                    equipmentData.Add(betterEquipmentItem, new Tuple<Rectangle, Vector2>(betterItemRec, basePosition));
                 }
             }
-        }
 
-        public ItemSelectionMenu(Game1 game, PlayerInventory playerInventory):base(game)
+
+        }
+        public ItemSelectionMenu(Game1 game, PlayerInventory playerInventory) :base(game)
         {
-            
-            _overlay.SetData(new[] { Color.Blue });
+            _overlay.SetData(new[] { Color.Black });
             _playerInventory = playerInventory;
             largeTexture = Texture2DManager.GetItemSpriteSheet();
-            itemChooseScrene = Texture2DManager.GetPauseScreneSheet();
+            itemChooseScreen = Texture2DManager.GetPauseScreenSheet();
             _font = Texture2DManager.GetSpriteFont("PauseSetting");
             #region Equipment Data Initialization
-            equipmentData = new Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>>();
             LoadItemData();
             #endregion
             _playerEquipment = _playerInventory.GetEquipmentList();
@@ -100,11 +124,21 @@ namespace SprintZero1.GameStateMenu
 
         }
 
+
         public override void Update(GameTime gameTime)
         {
             SynchronizeInventory();
             updateChooseRecPosition();
-            updateChooseRecPosition();
+            SetCurrectWeaponRec();
+            AnimateChooseRec(gameTime);
+        }
+
+        private void SetCurrectWeaponRec()
+        {
+            if (equipmentData.TryGetValue(currentWeapon, out Tuple<Rectangle, Vector2> equipmentInfo))
+            {
+                currectWeaponRec = equipmentInfo.Item1;
+            }
         }
 
         private void SynchronizeInventory()
@@ -146,14 +180,19 @@ namespace SprintZero1.GameStateMenu
             }
             else
             {
-                throw new KeyNotFoundException("The currentWeapon does not exist in the equipment data.");
+                var availableKeys = string.Join(", ", equipmentData.Keys.Select(k => k.ToString()));
+                System.Diagnostics.Debug.WriteLine($"Available keys: {availableKeys}");
+                System.Diagnostics.Debug.WriteLine($"Current weapon: {currentWeapon}");
+                throw new KeyNotFoundException($"The currentWeapon '{currentWeapon}' does not exist in the equipment data. Available keys: {availableKeys}");
             }
         }
 
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-           // spriteBatch.Draw(_overlay, new Rectangle(0, 0, WIDTH, HEIGHT), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, OVER_LAYER_DEPTH);
+            spriteBatch.Draw(_overlay, new Rectangle(0, 0, WIDTH, HEIGHT), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, OVER_LAYER_DEPTH);
+            spriteBatch.Draw(largeTexture, currentWeaponPosition, currectWeaponRec, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
+            DrawbackGround(spriteBatch);
             DrawDifferentItem(spriteBatch);
             DrawChooseRec(spriteBatch);
 
@@ -161,7 +200,30 @@ namespace SprintZero1.GameStateMenu
 
         private void DrawChooseRec(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(itemChooseScrene, ChooseRecPosition, ChooseRect, Color.White, ROTATION, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
+            Debug.WriteLine(ChooseRecPosition);
+            spriteBatch.Draw(itemChooseScreen, ChooseRecPosition, ChooseRect, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
+        }
+        private void DrawbackGround(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(
+                itemChooseScreen,
+                destinationRectangle:  new Rectangle(0, 0, WIDTH, BACKGROUNDHEIGH),
+                sourceRectangle: topBackGround,
+                color: Color.White,
+                rotation: 0f,
+                origin: Vector2.Zero,
+                effects: SpriteEffects.None,
+                layerDepth: 0.05f);
+
+            spriteBatch.Draw(
+                itemChooseScreen,
+                destinationRectangle: new Rectangle(0, BACKGROUNDHEIGH + INTERVAL_BETWEEN_BACKGROUND, WIDTH, BACKGROUNDHEIGH),
+                sourceRectangle: botBackGround,
+                color: Color.White,
+                rotation: 0f,
+                origin: Vector2.Zero,
+                effects: SpriteEffects.None,
+                layerDepth: 0.05f);
         }
 
         private void DrawDifferentItem(SpriteBatch spriteBatch)
@@ -180,7 +242,8 @@ namespace SprintZero1.GameStateMenu
                 }
 
             }
-            
+
+
         }
 
     }

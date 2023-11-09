@@ -17,7 +17,7 @@ namespace SprintZero1.Managers
         private static Texture2D _level1FloorSpriteSheet;
         private static Texture2D _itemSpriteSheet;
         private static Texture2D _weaponSpriteSheet;
-        private static Texture2D _PauseScrenSheet;
+        private static Texture2D _PauseScreenSheet;
         /* for update */
         private static Dictionary<string, SpriteFont> spriteFontMap = new Dictionary<string, SpriteFont>();
 
@@ -34,7 +34,7 @@ namespace SprintZero1.Managers
             _level1FloorSpriteSheet = contentManager.Load<Texture2D>("level1");
             _weaponSpriteSheet = contentManager.Load<Texture2D>("LinkSheet");
             _itemSpriteSheet = contentManager.Load<Texture2D>("itemSpriteSheet1");
-            _PauseScrenSheet = contentManager.Load<Texture2D>("NES_-_The_Legend_of_Zelda_-_HUD__Pause_Screen1");
+            _PauseScreenSheet = contentManager.Load<Texture2D>("NES_-_The_Legend_of_Zelda_-_HUD__Pause_Screen1");
         }
 
         public static void LoadSpriteFonts(ContentManager contentManager)
@@ -84,7 +84,7 @@ namespace SprintZero1.Managers
         /// Get the PauseScren sheet 
         /// </summary>
         /// <returns></returns>
-        public static Texture2D GetPauseScreneSheet() { return _PauseScrenSheet; }
+        public static Texture2D GetPauseScreenSheet() { return _PauseScreenSheet; }
 
         public static SpriteFont GetSpriteFont(string spriteFontName)
         {

@@ -11,7 +11,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         private IGameStateMenu pauseGame;
         public GamePausedState(Game1 game) : base(game)
         {
-            pauseGame = new GameOverMenu(game);
+            pauseGame = new PauseMenu(game);
 
         }
 
