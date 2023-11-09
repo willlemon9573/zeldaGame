@@ -1,0 +1,8 @@
+Author of review: Will Lemon
+Date of review: 11/8/2023
+Sprint #: 4
+File being review: ItemSelectionMenu.cs
+Author of PauseMenu.cs: Herz
+Time taken to review: 15 minutes
+
+At the beginning of the file, Hertz uses a lot of magic numbers to declare his initial values. I would have liked to see more comments throughout the file, Hertz uses them every now and then though. I can see that Herz is looking towards sprint 5 for implementing potential new items by making the code data driven.
