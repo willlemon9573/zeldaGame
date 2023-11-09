@@ -40,7 +40,6 @@ namespace SprintZero1
             _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
             _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
             _gameState = new GamePlayingState(this);
-            LoadTextures();
             base.Initialize();
         }
 
@@ -53,18 +52,17 @@ namespace SprintZero1
             TileSpriteFactory.Instance.LoadTextures();
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
-
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            LoadTextures();
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize();
             ProgramManager.Start(this);
             _mouseController = new MouseController(this);
             GameStatesManager.InitializeGameStateMap(this);
-
         }
 
         protected override void Update(GameTime gameTime)

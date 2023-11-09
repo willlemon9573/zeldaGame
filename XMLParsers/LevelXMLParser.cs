@@ -25,8 +25,9 @@ namespace SprintZero1.XMLParsers
         private const string INNER_NAME_ELEMENT = "Name";
         private const string INNER_DOOR_POINT_X_ELEMENT = "PointX";
         private const string INNER_DOOR_POINT_Y_ELEMENT = "PointY";
-        private const string INNER_HEALTH_ELEMENT = "Health";
-        private const string INNER_FRAMES_ELEMENT = "Frames";
+        private const string INNER_ENEMY_HEALTH_ELEMENT = "Health";
+        private const string INNER_ENEMEY_FRAMES_ELEMENT = "Frames";
+        private const string INNER_ITEM_FRAMES_ELEMENT = "ItemFrames";
         /* ------------------------------Public Functions--------------------------------- */
         /// <summary>
         /// Constructor for a new instance of LevelXmlParser
@@ -47,10 +48,11 @@ namespace SprintZero1.XMLParsers
             { INNER_X_ELEMENT, (x, data) => data.EntityPositionX = x.ReadElementContentAsInt() },
             { INNER_Y_ELEMENT, (y, data) => data.EntityPositionY = y.ReadElementContentAsInt() },
             { INNER_NAME_ELEMENT, (name, data) => data.EntityName = name.ReadElementContentAsString() },
-            { INNER_DOOR_POINT_X_ELEMENT, (x, data) => (data as XMLDoorEntity).DestPointX = x.ReadElementContentAsInt() },
-            { INNER_DOOR_POINT_Y_ELEMENT, (y, data) => (data as XMLDoorEntity).DestPointY = y.ReadElementContentAsInt() },
-            { INNER_HEALTH_ELEMENT, (health, data) =>  (data as XMLEnemyEntity).EntityHealth = health.ReadElementContentAsInt()  },
-            { INNER_FRAMES_ELEMENT, (frames, data) => (data as XMLEnemyEntity).EntityFrames = frames.ReadElementContentAsInt() }
+            { INNER_DOOR_POINT_X_ELEMENT, (door, data) => (data as XMLDoorEntity).DestPointX = door.ReadElementContentAsInt() },
+            { INNER_DOOR_POINT_Y_ELEMENT, (door, data) => (data as XMLDoorEntity).DestPointY = door.ReadElementContentAsInt() },
+            { INNER_ITEM_FRAMES_ELEMENT, (item, data) => (data as XMLItemEntity).ItemFrames = item.ReadElementContentAsInt() },
+            { INNER_ENEMY_HEALTH_ELEMENT, (enemy, data) =>  (data as XMLEnemyEntity).EntityHealth = enemy.ReadElementContentAsInt()  },
+            { INNER_ENEMEY_FRAMES_ELEMENT, (enemy, data) => (data as XMLEnemyEntity).EntityFrames = enemy.ReadElementContentAsInt() },
             };
         }
 
@@ -235,7 +237,7 @@ namespace SprintZero1.XMLParsers
             /* using block temporarily until we create an entity for items */
             IEntityParsingBuilder item = new XMLItemEntity();
             string innerItemElement = "Item";
-            string innerAnimatedItemElement = "AnimatedElement";
+            string innerAnimatedItemElement = "AnimatedItem";
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -247,7 +249,7 @@ namespace SprintZero1.XMLParsers
                 }
                 else if (reader_type == END_ELEMENT_TYPE && (element_name == innerItemElement || element_name == innerAnimatedItemElement))
                 {
-                    if (innerItemElement == innerAnimatedItemElement)
+                    if (element_name == innerAnimatedItemElement)
                     {
                         dungeonRoom.AddArchitecturalEntity((item as XMLItemEntity).CreateAnimatedEntity());
                     }

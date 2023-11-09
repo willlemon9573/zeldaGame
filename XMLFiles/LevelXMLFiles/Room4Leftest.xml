@@ -52,11 +52,13 @@
 			<Name>fire</Name>
 			<X>174</X>
 			<Y>135</Y>
+			<ItemFrames>2</ItemFrames>
 		</AnimatedItem>
 		<AnimatedItem>
 			<Name>fire</Name>
 			<X>74</X>
 			<Y>135</Y>
+			<ItemFrames>2</ItemFrames>
 		</AnimatedItem>
 	</Items>
 	<Doors>

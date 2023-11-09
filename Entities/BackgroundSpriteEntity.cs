@@ -22,7 +22,7 @@ namespace SprintZero1.Entities
             Position = position;
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             // Update Logic 
         }

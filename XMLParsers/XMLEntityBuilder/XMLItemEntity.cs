@@ -1,12 +1,15 @@
-﻿using SprintZero1.Entities;
+﻿using Microsoft.Xna.Framework;
+using SprintZero1.Entities;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using System.Numerics;
 
 namespace SprintZero1.XMLParsers.XMLEntityBuilder
 {
     internal class XMLItemEntity : EntityBase
     {
+        int _itemFrames;
+
+        public int ItemFrames { set => _itemFrames = value; }
         /// <summary>
         /// Create the item entity
         /// </summary>
@@ -21,10 +24,11 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
 
         public IEntity CreateAnimatedEntity()
         {
-            ISprite itemSprite = ItemSpriteFactory.Instance.CreateAnimatedItemSprite(_entityName);
+            ISprite itemSprite = ItemSpriteFactory.Instance.CreateAnimatedItemSprite(_entityName, _itemFrames);
             Vector2 position = new Vector2(_entityPositionX, _entityPositionY);
+            Rectangle dimensions = ItemSpriteFactory.Instance.GetAnimatedSpriteDimensions(_entityName);
             // using levelBlockEntity until we make something ofr items
-            return new LevelBlockEntity(itemSprite, position);
+            return new FireTrapEntity(itemSprite, position, dimensions);
         }
     }
 }

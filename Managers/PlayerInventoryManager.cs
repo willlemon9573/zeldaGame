@@ -127,7 +127,6 @@ namespace SprintZero1.Managers
             Dictionary<StackableItem, Tuple<SpriteFont, int>> itemWithCount = new Dictionary<StackableItem, Tuple<SpriteFont, int>>();
 
             return _playerInventoryMap[player].GetEquipmentList();
-
         }
 
         /// <summary>
