@@ -13,6 +13,8 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
             ISprite wallSprite = TileSpriteFactory.Instance.CreateNewTileSprite(_entityName);
             Vector2 position = new Vector2(_entityPositionX, _entityPositionY);
             Rectangle dimensions = TileSpriteFactory.Instance.GetSpriteDimensions(_entityName);
+            dimensions.X = (int)position.X;
+            dimensions.Y = (int)position.Y;
             return new DungeonWallEntity(wallSprite, position, dimensions);
         }
     }

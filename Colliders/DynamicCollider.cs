@@ -19,7 +19,7 @@ namespace SprintZero1.Colliders
         /// <param name="delta">The size offset</param>
         public DynamicCollider(Rectangle _collider, int delta = 0)
         {
-            this._collider = new Rectangle(_collider.X - delta, _collider.Y - delta, _collider.Width + delta, _collider.Height + delta);
+            this._collider = new Rectangle(_collider.X - delta - (_collider.Width / 2), _collider.Y - delta - (_collider.Height / 2), _collider.Width + delta, _collider.Height + delta);
             Delta = delta;
         }
 
@@ -29,8 +29,8 @@ namespace SprintZero1.Colliders
         /// <param name="gameTime">The GameTime object</param>
         public void Update(IEntity parent)
         {
-            _collider.X = (int)parent.Position.X - _delta;
-            _collider.Y = (int)parent.Position.Y - _delta;
+            _collider.X = (int)parent.Position.X - (((Collider.Width / 2) - Delta)/2) - 1 ;
+            _collider.Y = (int)parent.Position.Y - (((Collider.Height / 2) - Delta) / 2) - 1;
         }
     }
 }
