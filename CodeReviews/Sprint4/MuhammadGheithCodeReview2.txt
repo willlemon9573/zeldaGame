@@ -1,0 +1,11 @@
+EntityBase
+Code by Will Lemonu
+Review for maitainability
+Team Enter Game
+Review EntityBase on level-building-update
+
+The code is very lean and simple, a good use of an Abstract class. This gives all "EntityBase" objects access to the created code variables.
+
+I believe that the requirement of overloading the "CreateEntity" function could be replaced with a virtual implementation- ie perhaps there can be a baseline object that gets rendered if the object has not yet implemented its own version. This could be useful for bugtesting.
+
+The code will be easy to manage thanks to its abstract nature.
