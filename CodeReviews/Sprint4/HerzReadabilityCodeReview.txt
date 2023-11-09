@@ -1,0 +1,23 @@
+﻿ColliderManager for Readability
+Author of code review: Zihe Wang
+Date of the code review: 11/8/2023
+Name of the .cs file being reviewed: ColliderManager.cs
+Author of the .cs file being reviewed: Muhammad Gheith
+Time taken: 15 minutes
+Comments:
+
+Naming Conventions:
+The naming of classes and methods is mostly clear. ColliderManager, AddStaticCollider, CheckStaticAgainstDynamicCollisions, etc., are descriptive and intuitive.
+Code Structure:
+The methods are structured logically and are grouped by functionality.
+Access modifiers are used correctly (internal and public), indicating thought towards encapsulation.
+The static nature of ColliderManager implies that it is intended to be a singleton or a service without state that should persist. This might be intentional, but it’s worth confirming if a static class is indeed the best design choice.
+The ParseColliders method should ideally be called before CheckCollisions. Currently, it's called inside CheckCollisions which is not obvious from the method names and could cause confusion..
+Consistency:
+The methods CheckStaticAgainstDynamicCollisions and CheckDynamicAgainstDynamicCollisions are consistent in their approach, iterating through entities and checking for intersections.
+Suggestions for Improvements:
+Redundant Calls: The staticColliderEntities.Clear(); and dynamicColliderEntities.Clear(); calls at the start of the CheckCollisions method might be redundant as they are also called at the end of the method. It depends on whether ParseColliders is expected to only work with non-empty lists. If those lines are necessary, it would be helpful to include a comment explaining why.
+Method RemoveAllExcept: This method clears all colliders and adds a single dynamic collider. The naming does not make it clear that it doesn’t preserve the specified entity if it is a static collider. A more descriptive name or comment could help clarify its behavior.
+Error Checking: None of the methods contain error checking. For instance, what happens if a null entity is passed to any of the Add or Remove methods? Defensive programming can prevent unexpected behavior at runtime.
+Efficiency: The RemoveCollider method removes the entity from both the static and dynamic lists. If the lists get large, this could be inefficient. It may be better to know which list to remove from.
+Code Redundancy: The logic to check collisions between entities is repeated. Consider refactoring the collision check into a separate method that both CheckStaticAgainstDynamicCollisions and CheckDynamicAgainstDynamicCollisions can call.
