@@ -1,0 +1,11 @@
+Author of the code review: Chih-Hsiang Tseng
+Date of the code review: 11/8/2023
+Sprint number: 4
+Name of the .cs file being reviewed: EntityManager.cs
+Author of the .cs file being reviewed: Muhummad Gheith
+Specific comments on code quality: 
+-There is high cohesion, and low coupling with the functions in the code, which is great implementation
+-I would think about chanigng some of the method names to be more informative of what their use is, some methods have the same name such as "Remove" which can be confusing (Ex: RemoveEntity, RemoveListEntity, etc) similar with the Add methods
+-Maybe add a line of comment for the variables and maybe for some of the method bodies to keep documentation consistent and allow others to understand what is going on beneath the method calls
+A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change:
+Adding more entities would still allow EntityManager to handle them just fine because it is implemeneted in a way where the entities are stored in a list and these methods can always be called to add/remove them when used during the game.
