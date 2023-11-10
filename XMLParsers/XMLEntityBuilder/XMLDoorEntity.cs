@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
+using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 
@@ -21,7 +22,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
             Point destinationPoint = new Point(_destPointX, _destPointY);
             //return new LevelDoorEntity(doorSprite, position, destinationPoint);
             /* to be replaced with the above constructor when we get updated colliders */
-            return new LevelDoorEntity(doorSprite, position, 0);
+            return new OpenDoorEntity(doorSprite, position, destinationPoint, Enums.Direction.South);
         }
     }
 }

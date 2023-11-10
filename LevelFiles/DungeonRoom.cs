@@ -18,6 +18,8 @@ namespace SprintZero1.LevelFiles
         /* enemy entity list is separate because we need to remove enemies from the file if they die */
         private readonly List<IEntity> _liveEnemyList;
         private readonly List<IEntity> _deadEnemyList;
+        /* Dropepd Item List */
+        private readonly List<IEntity> _floorItems;
         /* Holds all the architecture of the level (blocks, walls, doors, floor) */
         private readonly List<IEntity> _architechtureList;
         private readonly Dictionary<Direction, Vector2> _playerStartingPositionMap;
@@ -50,6 +52,7 @@ namespace SprintZero1.LevelFiles
             _liveEnemyList = new List<IEntity>();
             _architechtureList = new List<IEntity>();
             _playerStartingPositionMap = new Dictionary<Direction, Vector2>();
+            _floorItems = new List<IEntity>();
         }
 
         /// <summary>
@@ -84,12 +87,13 @@ namespace SprintZero1.LevelFiles
         }
 
         /// <summary>
-        /// If the room has an item to be displayed then adds that to the room's data
+        /// Add an item to the room item list for dropped items, items that should be on stage, or items
+        /// that appear after an event happens
         /// </summary>
         /// <param name="item">The item to be added</param>
         public void AddRoomItem(IEntity item)
         {
-            _roomItem = item;
+            _floorItems.Add(item);
         }
 
         /// <summary>
@@ -139,9 +143,9 @@ namespace SprintZero1.LevelFiles
             List<IEntity> entities = new List<IEntity>();
             entities.AddRange(_liveEnemyList);
             entities.AddRange(_architechtureList);
-            if (_roomItem != null)
+            if (_floorItems.Count > 0)
             {
-                entities.Add(_roomItem);
+                entities.AddRange(_floorItems);
             }
             return entities;
         }

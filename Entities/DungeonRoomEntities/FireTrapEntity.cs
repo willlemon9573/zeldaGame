@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Sprites;
 
-namespace SprintZero1.Entities
+namespace SprintZero1.Entities.DungeonRoomEntities
 {
     /// <summary>
     /// Entity for the fire trap in one of the secret rooms
@@ -46,7 +46,7 @@ namespace SprintZero1.Entities
         /// <param name="spriteBatch">The sprite batch that the entity will be drawn in</param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            _entitySprite.Draw(spriteBatch, this.Position, _spriteEffects, _spriteRotation, _layerDepth);
+            _entitySprite.Draw(spriteBatch, Position, _spriteEffects, _spriteRotation, _layerDepth);
         }
         /// <summary>
         /// Updates the entity's animation and collider

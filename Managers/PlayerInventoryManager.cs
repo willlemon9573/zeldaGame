@@ -8,6 +8,9 @@ using System.Diagnostics;
 
 namespace SprintZero1.Managers
 {
+    delegate void StackableItemHandler(IEntity player, StackableItems item, int amount);
+    delegate void EquipmentItemHandler(IEntity player, EquipmentItem equipment, IWeaponEntity newEquipment);
+    delegate void UtilityPickupHandler(IEntity player, DungeonItems item);
     /// <summary>
     /// A manager to handle all the players inventory management needs.
     /// </summary>
@@ -59,7 +62,7 @@ namespace SprintZero1.Managers
         /// <param name="player">the player who looted the item</param>
         /// <param name="item">the item that was looted</param>
         /// <param name="amount">the total amount of the item</param>
-        public static void AddItemToInventory(IEntity player, StackableItems item, int amount)
+        public static void AddStackableItemToInventory(IEntity player, StackableItems item, int amount)
         {
             Debug.Assert(player != null, "Error: Player is null.");
             _playerInventoryMap[player].AddItem(item, amount);

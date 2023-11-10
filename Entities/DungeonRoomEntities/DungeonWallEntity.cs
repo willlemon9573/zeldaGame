@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Sprites;
 
-namespace SprintZero1.Entities
+namespace SprintZero1.Entities.DungeonRoomEntities
 {
     internal class DungeonWallEntity : ICollidableEntity
     {

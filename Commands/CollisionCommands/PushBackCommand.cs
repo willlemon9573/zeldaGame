@@ -2,7 +2,7 @@
 using SprintZero1.Entities;
 using System.Collections.Generic;
 
-namespace SprintZero1.Commands
+namespace SprintZero1.Commands.CollisionCommands
 {
     internal class PushBackCommand : ICommand
     {
@@ -11,14 +11,13 @@ namespace SprintZero1.Commands
 
         public PushBackCommand(ICollidableEntity c1, ICollidableEntity c2)
         {
-            this.e1 = c1;
-            this.e2 = c2;
-            if (c1 != null && c2 != null)
-                Execute();
+            e1 = c1;
+            e2 = c2;
         }
 
         public void Execute()
         {
+            if (e1 == null || e2 == null) { return; }
             PriorityQueue<Vector2, float> colliderDistances = new PriorityQueue<Vector2, float>();
             Rectangle intersection = Rectangle.Intersect(e1.Collider.Collider, e2.Collider.Collider);
             if (intersection.Width > intersection.Height)

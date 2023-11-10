@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
+using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers.XMLEntityBuilder;
 
@@ -20,7 +21,7 @@ namespace SprintZero1.Factories
             ISprite doorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(_entityName);
             // return new LevelDoorEntity(doorSprite, position, destinationPoint);
             /* temporary return */
-            return new LevelDoorEntity(doorSprite, position, 0);
+            return new OpenDoorEntity(doorSprite, position, destinationPoint, Enums.Direction.South);
         }
     }
 }

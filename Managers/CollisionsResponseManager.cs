@@ -1,5 +1,8 @@
 ﻿using SprintZero1.Commands;
+using SprintZero1.Commands.CollisionCommands;
 using SprintZero1.Entities;
+using SprintZero1.Entities.DungeonRoomEntities;
+using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -13,7 +16,7 @@ namespace SprintZero1.Managers
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(LevelBlockEntity) ), new PushBackCommand(null, null) },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(DungeonWallEntity) ), new PushBackCommand(null, null) },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(FireTrapEntity) ), new PushBackCommand(null, null) },
-            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(LevelDoorEntity) ), new EnterNextLevelCommand(null, null) },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(OpenDoorEntity) ), new EnterNextLevelCommand(null, null) },
             { new Tuple<Type, Type>(typeof(SwordEntity), typeof(EnemyEntityWithDirection)), new DestroyEntity(null, null) }
         };
 
@@ -23,7 +26,8 @@ namespace SprintZero1.Managers
             if (collisionResponseDictionary.ContainsKey(generic))
             {
                 ConstructorInfo constructorInfoObj = collisionResponseDictionary[generic].GetType().GetConstructor(new[] { generic.Item1, generic.Item2 });
-                constructorInfoObj.Invoke(new object[] { e1, e2 });
+                ICommand collisionCommand = (ICommand)constructorInfoObj.Invoke(new object[] { e1, e2 });
+                collisionCommand.Execute();
             }
         }
     }

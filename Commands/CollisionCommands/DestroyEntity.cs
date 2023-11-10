@@ -1,7 +1,7 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Managers;
 
-namespace SprintZero1.Commands
+namespace SprintZero1.Commands.CollisionCommands
 {
     internal class DestroyEntity : ICommand
     {
@@ -10,7 +10,6 @@ namespace SprintZero1.Commands
         public DestroyEntity(IEntity entityToLive, IEntity entityToDIE)
         {
             deadEntityWalking = entityToDIE;
-            Execute();
         }
 
         public void Execute()

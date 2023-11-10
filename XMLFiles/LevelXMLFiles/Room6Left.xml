@@ -135,22 +135,6 @@
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
-		<Enemy>
-			<Name>dungeon_bladetrap</Name>
-			<X>116</X>
-			<Y>102</Y>
-			<Health>1</Health>
-			<Frames>2</Frames>
-			<IsBoss>false</IsBoss>
-		</Enemy>
-		<Enemy>
-			<Name>dungeon_bladetrap</Name>
-			<X>116</X>
-			<Y>198</Y>
-			<Health>1</Health>
-			<Frames>2</Frames>
-			<IsBoss>false</IsBoss>
-		</Enemy>
 	</Enemies>
 	<Doors>
 		<Door>
