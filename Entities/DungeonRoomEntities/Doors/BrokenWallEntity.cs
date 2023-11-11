@@ -6,7 +6,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
 {
     internal class BrokenWallEntity : BaseDoorEntity
     {
-        public BrokenWallEntity(ISprite entitySprite, Vector2 position, Point destination, Direction direction) : base(entitySprite, position, destination, direction)
+        public BrokenWallEntity(ISprite entitySprite, Vector2 position, string destination, Direction direction) : base(entitySprite, position, destination, direction)
         {
         }
     }

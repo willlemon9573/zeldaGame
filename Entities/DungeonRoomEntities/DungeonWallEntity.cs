@@ -25,7 +25,6 @@ namespace SprintZero1.Entities.DungeonRoomEntities
         /// <param name="dimensions">The specific dimensions of the wall entity for collision</param>
         public DungeonWallEntity(ISprite sprite, Vector2 position, Rectangle dimensions)
         {
-
             _wallCollider = new StaticCollider(dimensions);
             _entitySprite = sprite;
             _entityPosition = position;
