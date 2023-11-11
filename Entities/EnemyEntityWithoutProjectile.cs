@@ -6,28 +6,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SprintZero1.Entities
 {
-
+    /// <summary>
+    /// Represents an enemy entity that does not have a projectile attack.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     internal class EnemyEntityWithoutProjectile : EnemyBasedEntity
     {
-
         /// <summary>
-        /// Construct a new player entity
+        /// Constructs a new enemy entity without projectile capabilities.
         /// </summary>
-        /// <param name="position">The position of the player entity</param>
-        /// <param name="startingHealth">The starting health of the player entity</param>
-        /// <param name="startingDirection">The starting direction the player entity will be facing</param>
+        /// <param name="position">The position of the enemy entity.</param>
+        /// <param name="startingHealth">The starting health of the enemy entity.</param>
+        /// <param name="enemyName">The name of the enemy.</param>
         public EnemyEntityWithoutProjectile(Vector2 position, int startingHealth, string enemyName)
-        : base(position, startingHealth, enemyName)
+            : base(position, startingHealth, enemyName)
         {
-            //no special constructor thing
-
+            // No specific construction logic required
         }
-
 
         public override void PerformAttack()
         {
-            //do this later
+            // Attack implementation will be added later
         }
-
     }
 }

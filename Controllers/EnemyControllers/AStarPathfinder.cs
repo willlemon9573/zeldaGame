@@ -5,15 +5,19 @@ using System.Threading.Tasks;
 
 namespace SprintZero1.Controllers.EnemyControllers
 {
+    /// <summary>
+    /// The AStarPathfinder class implements the A* pathfinding algorithm to find the shortest path
+    /// from a start point to an end point in a game environment.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     public class AStarPathfinder
     {
-        private PriorityQueue<Node, float> OpenList;
-        private List<Node> ClosedList;
-        private Task pathfindingTask;
-        private Stack<Vector2> pathResult;
-        private bool isPathfindingDone;
-        private const int BlockSize = 16;
-
+        private PriorityQueue<Node, float> OpenList; // List of nodes to be evaluated
+        private List<Node> ClosedList; // List of nodes already evaluated
+        private Task pathfindingTask; // Task for running pathfinding in the background
+        private Stack<Vector2> pathResult; // Resulting path from start to end
+        private bool isPathfindingDone; // Flag to indicate if pathfinding is complete
+        private const int BlockSize = 16; // Size of each grid block
 
         public AStarPathfinder()
         {
@@ -23,6 +27,11 @@ namespace SprintZero1.Controllers.EnemyControllers
             pathResult = null;
         }
 
+        /// <summary>
+        /// Starts the pathfinding process from a start point to an end point asynchronously.
+        /// </summary>
+        /// <param name="start">Starting point of the path.</param>
+        /// <param name="end">End point of the path.</param>
         public void StartFindingPath(Vector2 start, Vector2 end)
         {
             isPathfindingDone = false;
@@ -34,6 +43,12 @@ namespace SprintZero1.Controllers.EnemyControllers
             });
         }
 
+        /// <summary>
+        /// Core method for finding the path using the A* algorithm.
+        /// </summary>
+        /// <param name="start">Starting point of the path.</param>
+        /// <param name="end">End point of the path.</param>
+        /// <returns>A stack representing the path from start to end.</returns>
         public Stack<Vector2> FindPath(Vector2 start, Vector2 end)
         {
             Node startNode = new Node(start);
@@ -83,6 +98,12 @@ namespace SprintZero1.Controllers.EnemyControllers
             }
             return null;
         }
+
+        /// <summary>
+        /// Smooths the path to remove unnecessary detours.
+        /// </summary>
+        /// <param name="path">The initial path stack to be smoothed.</param>
+        /// <returns>A smoothed path stack.</returns>
         private Stack<Vector2> SmoothPath(Stack<Vector2> path)
         {
             if (path == null || path.Count < 3) // A path with less than 3 nodes is already "smooth"
@@ -115,19 +136,31 @@ namespace SprintZero1.Controllers.EnemyControllers
         }
 
 
+        /// <summary>
+        /// Checks if the pathfinding task is complete.
+        /// </summary>
+        /// <returns>True if pathfinding is complete, false otherwise.</returns>
         public bool Update()
         {
             return isPathfindingDone;
         }
 
 
+        /// <summary>
+        /// Retrieves the resulting path, if pathfinding is complete.
+        /// </summary>
+        /// <returns>The path stack if pathfinding is complete; otherwise, null.</returns>
         public Stack<Vector2> GetPath()
         {
             if (!isPathfindingDone) return null;
             return pathResult;
         }
 
-
+        /// <summary>
+        /// Generates a list of neighboring nodes around a given node.
+        /// </summary>
+        /// <param name="node">The node to find neighbors for.</param>
+        /// <returns>A list of neighboring nodes.</returns>
         private List<Node> GetNeighbors(Node node)
         {
             var neighbors = new List<Node>();
@@ -147,6 +180,12 @@ namespace SprintZero1.Controllers.EnemyControllers
         }
 
 
+        /// <summary>
+        /// Calculates the distance between two nodes.
+        /// </summary>
+        /// <param name="nodeA">The first node.</param>
+        /// <param name="nodeB">The second node.</param>
+        /// <returns>The distance between the two nodes.</returns>
         private float GetDistance(Node nodeA, Node nodeB)
         {
             return Vector2.Distance(nodeA.Position, nodeB.Position);

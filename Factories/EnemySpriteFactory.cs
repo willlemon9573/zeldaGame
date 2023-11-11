@@ -55,7 +55,7 @@ namespace SprintZero1.Factories
                             { Direction.East, new List<Rectangle> { new Rectangle(257, 11, 13, 16), new Rectangle(275, 11, 14, 16) } }
                         }
 
-                        /*"dungeon_goriya", new Dictionary<Direction, List<Rectangle>>
+                        /*"dungeon_wallmaster", new Dictionary<Direction, List<Rectangle>>
                         {
                             { Direction.North, new List<Rectangle> { new Rectangle(241, 11, 13, 16), new Rectangle(308, 11, 13, 16) } },
                             { Direction.South, new List<Rectangle> { new Rectangle(224, 11, 13, 16), new Rectangle(292, 11, 13, 16) } },
@@ -63,7 +63,7 @@ namespace SprintZero1.Factories
                             { Direction.East, new List<Rectangle> { new Rectangle(257, 11, 13, 16), new Rectangle(275, 11, 14, 16) } }
                         }*/
                     }
-                    
+
                 };
         }
 

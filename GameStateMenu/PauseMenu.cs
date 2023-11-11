@@ -10,6 +10,11 @@ using System.Diagnostics;
 
 namespace SprintZero1.GameStateMenu
 {
+    /// <summary>
+    /// Represents the pause menu in the game.
+    /// This class extends GameStateAbstract and manages the display and functionality of the pause menu.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     public class PauseMenu : GameStateAbstract
     {
         private readonly ICommand _unPauseGame;

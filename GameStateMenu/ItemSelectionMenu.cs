@@ -13,11 +13,18 @@ using System.Diagnostics;
 
 namespace SprintZero1.GameStateMenu
 {
+    /// <summary>
+    /// Represents the item selection menu in the game.
+    /// This class extends GameStateAbstract and manages the display and interaction within the item selection menu.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     internal class ItemSelectionMenu : GameStateAbstract
     {
         private double elapsedTime = 0;
-        private double interval = 0.3; // 0.3 seconds
-        private bool toggle = false; // This will toggle between true and false
+        private double interval = 0.3; // 0.3 seconds for toggling
+        private bool toggle = false; // Toggle between true and false for selection
+
+        // Constants for UI dimensions and styling
         private const int item_width = 16;
         private const int item_height = 16;
         private const int WidthPADDING = 4;
@@ -29,22 +36,56 @@ namespace SprintZero1.GameStateMenu
         private const int BACKGROUNDHEIGH = 88;
         private const int INTERVAL_BETWEEN_BACKGROUND = 30;
         private const int ROWS = 1;
-        private readonly PlayerInventory _playerInventory;
-        private  Rectangle ChooseRectFir;
-        private  Rectangle ChooseRectSec;
+
+        // Rectangles for UI elements
+        private Rectangle ChooseRectFir;
+        private Rectangle ChooseRectSec;
         private Rectangle ChooseRect;
-        private Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>> equipmentData;
-        //private readonly ICombatEntity _player; //not sure whether need _player or not
-        private  Texture2D largeTexture;
-        private  Texture2D itemChooseScreen;
-        private List<EquipmentItem> _playerEquipment;
-        private EquipmentItem currentWeapon;
-        private Vector2 currentWeaponPosition =  new Vector2(63, 48);
-        private Rectangle currectWeaponRec;
-        private Vector2 ChooseRecPosition;
+        private Rectangle currentWeaponRec;
         private Rectangle topBackGround;
         private Rectangle botBackGround;
 
+        // Textures
+        private Texture2D largeTexture;
+        private Texture2D itemChooseScreen;
+
+        // Equipment and selection data
+        private Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>> equipmentData;
+        private List<EquipmentItem> _playerEquipment;
+        private EquipmentItem currentWeapon;
+        private Vector2 currentWeaponPosition = new Vector2(63, 48);
+        private Vector2 ChooseRecPosition;
+
+        // Entity references
+        private readonly IEntity _player;
+
+        // Property for current weapon
+        public EquipmentItem CurrentWeapon { get { return currentWeapon; } }
+
+
+        /// <summary>
+        /// Constructor for the ItemSelectionMenu. Initializes textures, fonts, and loads item data.
+        /// </summary>
+        /// <param name="game">Reference to the game object for accessing content.</param>
+        /// <param name="Player">Reference to the player entity.</param>
+        public ItemSelectionMenu(Game1 game, IEntity Player) : base(game)
+        {
+            _player = Player;
+            _overlay.SetData(new[] { Color.Black });
+            largeTexture = Texture2DManager.GetItemSpriteSheet();
+            itemChooseScreen = Texture2DManager.GetPauseScreenSheet();
+            _font = Texture2DManager.GetSpriteFont("PauseSetting");
+            #region Equipment Data Initialization
+            LoadItemData();
+            #endregion
+            _playerEquipment = PlayerInventoryManager.GetPlayerEquipmentList(_player);
+            currentWeapon = _playerEquipment.FirstOrDefault();
+            ChooseRect = ChooseRectFir;
+        }
+
+        /// <summary>
+        /// Loads item data from an XML file into the equipmentData dictionary.
+        /// </summary>
         private void LoadItemData()
         {
             equipmentData = new Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>>();
@@ -71,6 +112,7 @@ namespace SprintZero1.GameStateMenu
             int y = boxY + (boxHeight / ROWS - item_height) / 2;
 
             int count = 0;
+
             foreach (XElement itemElement in itemDataElement.Elements("Item"))
             {
                 Debug.WriteLine(itemElement);
@@ -88,6 +130,7 @@ namespace SprintZero1.GameStateMenu
                 Vector2 position = new Vector2(x, y);
                 equipmentData.Add(equipmentItem, new Tuple<Rectangle, Vector2>(itemRec, position));
             }
+
             foreach (XElement betterItemElement in itemDataElement.Elements("BetterItem"))
             {
                 EquipmentItem betterEquipmentItem = _xDocTools.ParseAttributeAsEquipmentItem(betterItemElement, "name");
@@ -105,47 +148,74 @@ namespace SprintZero1.GameStateMenu
                 }
             }
 
-
-        }
-        public ItemSelectionMenu(Game1 game, PlayerInventory playerInventory) :base(game)
-        {
-            _overlay.SetData(new[] { Color.Black });
-            _playerInventory = playerInventory;
-            largeTexture = Texture2DManager.GetItemSpriteSheet();
-            itemChooseScreen = Texture2DManager.GetPauseScreenSheet();
-            _font = Texture2DManager.GetSpriteFont("PauseSetting");
-            #region Equipment Data Initialization
-            LoadItemData();
-            #endregion
-            _playerEquipment = _playerInventory.GetEquipmentList();
-            currentWeapon = _playerEquipment.First();
-            ChooseRect = ChooseRectFir;
-
-
         }
 
-
+        /// <summary>
+        /// Updates the state of the item selection menu.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            SynchronizeInventory();
             updateChooseRecPosition();
-            SetCurrectWeaponRec();
+            SetCurrentWeaponRec();
             AnimateChooseRec(gameTime);
         }
 
-        private void SetCurrectWeaponRec()
+        /// <summary>
+        /// Sets the next weapon in the equipment list as the current weapon.
+        /// </summary>
+        public void SetNextWeapon()
         {
+            int currentIndex = _playerEquipment.IndexOf(currentWeapon);
+            int nextIndex = (currentIndex + 1) % _playerEquipment.Count;
+            EquipmentItem nextWeapon = _playerEquipment[nextIndex];
+            currentWeapon = nextWeapon;
+        }
+
+        /// <summary>
+        /// Sets the previous weapon in the equipment list as the current weapon.
+        /// </summary>
+        public void SetPreviousWeapon()
+        {
+            int currentIndex = _playerEquipment.IndexOf(currentWeapon);
+            int PreviousIndex = (currentIndex - 1 + _playerEquipment.Count) % _playerEquipment.Count;
+            EquipmentItem PreviousWeapon = _playerEquipment[PreviousIndex];
+            currentWeapon = PreviousWeapon;
+        }
+
+        /// <summary>
+        /// Sets the current weapon's Rectangle based on the current weapon.
+        /// </summary>
+        private void SetCurrentWeaponRec()
+        {
+            if (currentWeapon == null) return; // Return early if currentWeapon is null
+
             if (equipmentData.TryGetValue(currentWeapon, out Tuple<Rectangle, Vector2> equipmentInfo))
             {
-                currectWeaponRec = equipmentInfo.Item1;
+                currentWeaponRec = equipmentInfo.Item1;
             }
         }
 
-        private void SynchronizeInventory()
+        /// <summary>
+        /// Synchronizes the inventory with the player's current equipment.
+        /// </summary>
+        public void SynchronizeInventory()
         {
-            _playerEquipment = _playerInventory.GetEquipmentList();
+            if (currentWeapon == null)
+            {
+                _playerEquipment = PlayerInventoryManager.GetPlayerEquipmentList(_player);
+                currentWeapon = _playerEquipment.FirstOrDefault();
+            }
+            else
+            {
+                _playerEquipment = PlayerInventoryManager.GetPlayerEquipmentList(_player);
+            }
         }
 
+        /// <summary>
+        /// Animates the selection rectangle by toggling its appearance over time.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values for animation.</param>
         private void AnimateChooseRec(GameTime gameTime)
         {
             elapsedTime += gameTime.ElapsedGameTime.TotalSeconds;
@@ -162,6 +232,9 @@ namespace SprintZero1.GameStateMenu
             }
         }
 
+        /// <summary>
+        /// Updates the position of the selection rectangle based on the current weapon.
+        /// </summary>
         private void updateChooseRecPosition()
         {
             if (equipmentData.TryGetValue(currentWeapon, out Tuple<Rectangle, Vector2> data))
@@ -187,27 +260,40 @@ namespace SprintZero1.GameStateMenu
             }
         }
 
-
+        /// <summary>
+        /// Draws the item selection menu and its components.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used for drawing.</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_overlay, new Rectangle(0, 0, WIDTH, HEIGHT), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, OVER_LAYER_DEPTH);
-            spriteBatch.Draw(largeTexture, currentWeaponPosition, currectWeaponRec, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
             DrawbackGround(spriteBatch);
             DrawDifferentItem(spriteBatch);
+            if (currentWeapon == null) return;
+            spriteBatch.Draw(largeTexture, currentWeaponPosition, currentWeaponRec, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
             DrawChooseRec(spriteBatch);
 
         }
 
+        /// <summary>
+        /// Draws the selection rectangle.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used for drawing.</param>
         private void DrawChooseRec(SpriteBatch spriteBatch)
         {
             Debug.WriteLine(ChooseRecPosition);
             spriteBatch.Draw(itemChooseScreen, ChooseRecPosition, ChooseRect, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
         }
+
+        /// <summary>
+        /// Draws the background of the item selection menu.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used for drawing.</param>
         private void DrawbackGround(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(
                 itemChooseScreen,
-                destinationRectangle:  new Rectangle(0, 0, WIDTH, BACKGROUNDHEIGH),
+                destinationRectangle: new Rectangle(0, 0, WIDTH, BACKGROUNDHEIGH),
                 sourceRectangle: topBackGround,
                 color: Color.White,
                 rotation: 0f,
@@ -226,6 +312,10 @@ namespace SprintZero1.GameStateMenu
                 layerDepth: 0.05f);
         }
 
+        /// <summary>
+        /// Draws different items in the item selection menu.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used for drawing.</param>
         private void DrawDifferentItem(SpriteBatch spriteBatch)
         {
 
@@ -240,12 +330,7 @@ namespace SprintZero1.GameStateMenu
                     // Draw the item using the retrieved source rectangle and position
                     spriteBatch.Draw(largeTexture, position, sourceRect, Color.White, ROTATION, Vector2.Zero, SCALE, SpriteEffects.None, LAYER_DEPTH);
                 }
-
             }
-
-
         }
-
     }
-
 }

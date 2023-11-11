@@ -8,33 +8,40 @@ using System.Collections.Generic;
 namespace SprintZero1.Entities
 {
     /// <summary>
-    /// Entity for the projectile the player will use.
-    /// @Author - Aaron ZiheWang
+    /// Represents an abstract base class for projectile entities used by the player.
+    /// This class defines common properties and methods for different types of projectiles.
     /// </summary>
+    /// <author>Aaron, Zihe Wang</author>
     internal abstract class ProjectileEntity : IWeaponEntity
     {
-        // TODO: Clean up code for modularity purposes
-        protected readonly string _weaponName;
-        protected Vector2 PlayerWeaponSprite;
-        protected float _rotation;
-        protected ISprite ProjectileSprite;
-        protected ISprite ImpactEffectSprite;
-        protected float movingSpeed;
-        /* Holds the specific values for properly flipping and placing sword in player's hands */
+        // Variables to control projectile's behavior and appearance
+        protected readonly string _weaponName; // Name of the weapon
+        protected Vector2 PlayerWeaponSprite; // Sprite for the weapon used by the player
+        protected float _rotation; // Rotation of the projectile
+        protected ISprite ProjectileSprite; // Current sprite representing the projectile
+        protected ISprite ImpactEffectSprite; // Sprite for the projectile's impact effect
+        protected float movingSpeed; // Moving speed of the projectile
+
+        // Dictionaries to hold sprite effect and positioning based on direction
         protected readonly Dictionary<Direction, Tuple<SpriteEffects, Vector2>> _spriteEffectsDictionary;
         protected readonly Dictionary<Direction, Vector2> _spriteMovingDictionary;
-        /* Sprite effect for flipping the weapon */
+
+        // Sprite effect for flipping the weapon
         protected SpriteEffects _currentSpriteEffect = SpriteEffects.None;
-        protected Vector2 _weaponPosition;
-        public Vector2 Position { get { return _weaponPosition; } set { _weaponPosition = value; } }
+        protected Vector2 _weaponPosition; // Position of the weapon
+
+        public Vector2 Position
+        {
+            get { return _weaponPosition; }
+            set { _weaponPosition = value; }
+        }
 
         protected ProjectileEntity(String weaponName)
         {
             _rotation = 0;
             _weaponName = weaponName;
-            /* This might be able to be passed by the player / xml / or mathematically */
+            // Initialize dictionaries for sprite effects and movements
             _spriteEffectsDictionary = new Dictionary<Direction, Tuple<SpriteEffects, Vector2>>()
-
             {
                 { Direction.North, Tuple.Create(SpriteEffects.None, new Vector2(0, -11)) },
                 { Direction.South, Tuple.Create(SpriteEffects.FlipVertically, new Vector2(0, 11)) },
@@ -44,16 +51,15 @@ namespace SprintZero1.Entities
             _spriteMovingDictionary = new Dictionary<Direction, Vector2>()
             {
                 { Direction.North, new Vector2(0, -1) },
-                { Direction.South, new Vector2(0, 1)},
-                { Direction.East,  new Vector2(1, 0)},
-                { Direction.West,  new Vector2(-1, 0) }
+                { Direction.South, new Vector2(0, 1) },
+                { Direction.East, new Vector2(1, 0) },
+                { Direction.West, new Vector2(-1, 0) }
             };
         }
+
+        // Abstract methods that must be implemented by derived classes
         public abstract void UseWeapon(Direction direction, Vector2 position);
-
         public abstract void Draw(SpriteBatch spriteBatch);
-
         public abstract void Update(GameTime gameTime);
-
     }
 }

@@ -33,7 +33,7 @@
     <None Update="XMLFiles\FactoryXMLFiles\BossSprites.XML">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="XMLFiles\FactoryXMLFiles\DoorAndTileSprites.xml">
+    <None Update="XMLFiles\FactoryXMLFiles\ArchitecturalSprites.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLFiles\FactoryXMLFiles\EnemySprites.xml">

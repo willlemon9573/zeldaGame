@@ -8,36 +8,49 @@ using System.Collections.Generic;
 
 namespace SprintZero1.Entities.BombEntityFolder
 {
+    /// <summary>
+    /// Represents a bomb weapon entity in the game.
+    /// This class handles the behavior and rendering of a bomb used by the player.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     internal class BombEntity : IWeaponEntity
     {
-        private double timer = 0; // Timer to track how long the bomb has been active
-        private readonly double waitingTime = 600; // The time in milliseconds before the bomb explodes
+        private double timer; // Timer to track how long the bomb has been active
+        private readonly double waitingTime = 600; // Time in milliseconds before the bomb explodes
         private readonly string _weaponName;
         private Vector2 _weaponPosition;
-        private ISprite _weaponSprite;
-        private ISprite ImpactEffectSprite;
-        private const SpriteEffects _currentSpriteEffect = SpriteEffects.None;
-        private readonly Dictionary<Direction, Vector2> _spriteEffectsDictionary;
-        public Vector2 Position { get { return _weaponPosition; } set { _weaponPosition = value; } }
-        /// <summary>
-        /// Entity for the Boomerang the player will use.
-        /// @Author - ZiheWang
-        /// </summary>
-        public BombEntity(String weaponName)
+        private ISprite _weaponSprite; // Current sprite representing the bomb
+        private ISprite ImpactEffectSprite; // Sprite for the bomb's impact effect
+        private const SpriteEffects _currentSpriteEffect = SpriteEffects.None; // Sprite effect for rendering
+        private readonly Dictionary<Direction, Vector2> _spriteEffectsDictionary; // Effects based on direction
+
+        public Vector2 Position
         {
-            _weaponName = weaponName;
-            /* This might be able to be passed by the player / xml / or mathematically */
-            _spriteEffectsDictionary = new Dictionary<Direction, Vector2>()
-            {
-                { Direction.North,  new Vector2(0, -11) },
-                { Direction.South,  new Vector2(0, 11) },
-                { Direction.East,   new Vector2(11, 0) },
-                { Direction.West,   new Vector2(-11, 0) }
-            };
-            //no constructor needed
+            get { return _weaponPosition; }
+            set { _weaponPosition = value; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the BombEntity with a specific weapon name.
+        /// </summary>
+        /// <param name="weaponName">The name of the weapon.</param>
+        public BombEntity(string weaponName)
+        {
+            _weaponName = weaponName;
+            _spriteEffectsDictionary = new Dictionary<Direction, Vector2>()
+            {
+                { Direction.North, new Vector2(0, -11) },
+                { Direction.South, new Vector2(0, 11) },
+                { Direction.East, new Vector2(11, 0) },
+                { Direction.West, new Vector2(-11, 0) }
+            };
+        }
 
+        /// <summary>
+        /// Activates the bomb weapon with a specified direction and position.
+        /// </summary>
+        /// <param name="direction">The direction of the bomb.</param>
+        /// <param name="position">The position where the bomb is used.</param>
         public void UseWeapon(Direction direction, Vector2 position)
         {
             timer = 0;
@@ -46,6 +59,11 @@ namespace SprintZero1.Entities.BombEntityFolder
             Vector2 SpriteAdditions = _spriteEffectsDictionary[direction];
             _weaponPosition = position + SpriteAdditions;
         }
+
+        /// <summary>
+        /// Draws the bomb sprite on the screen.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used for drawing.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             if (_weaponSprite == null)
@@ -55,6 +73,10 @@ namespace SprintZero1.Entities.BombEntityFolder
             _weaponSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, 0);
         }
 
+        /// <summary>
+        /// Updates the state of the bomb entity.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public void Update(GameTime gameTime)
         {
             if (_weaponSprite == null)
@@ -63,17 +85,18 @@ namespace SprintZero1.Entities.BombEntityFolder
             }
             _weaponSprite.Update(gameTime);
             Animate(gameTime);
-
-
         }
+
+        /// <summary>
+        /// Handles the animation of the bomb, including transitioning to the impact effect.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values for animation.</param>
         private void Animate(GameTime gameTime)
         {
             timer += gameTime.ElapsedGameTime.TotalMilliseconds;
-
             if (timer >= waitingTime)
             {
-                // When the timer exceeds the waiting time, set the projectile sprite to the ending sprite
-                _weaponSprite = ImpactEffectSprite;
+                _weaponSprite = ImpactEffectSprite; // Change to impact effect sprite after timer
             }
         }
     }

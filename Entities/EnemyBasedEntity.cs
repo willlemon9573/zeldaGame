@@ -6,17 +6,14 @@ using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.EnemyStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
-//using SprintZero1.StatePatterns.CombatStatePatterns;
-//using SprintZero1.StatePatterns.MovingStatePatterns;
-//using SprintZero1.StatePatterns.StatePatternInterfaces;
 
 
 namespace SprintZero1.Entities
 {
     /// <summary>
-    /// Player Entity class used to control and update player.
-    /// @Author Zihe Wang
+    /// EnemyBasedEntity class: An abstract class used to control and update enemy entities.
     /// </summary>
+    /// <author>Zihe Wang</author>
     internal abstract class EnemyBasedEntity : ICombatEntity, ICollidableEntity
     {
         //Enemy Components
@@ -52,30 +49,14 @@ namespace SprintZero1.Entities
         private ICollider _collider;
         public ICollider Collider { get { return _collider; } }
 
-        /*protected IMovingEntityState _enemyMovingState;
-        public IMovingEntityState State { get { return _playerStates.Item1; } set {; } }*/
-
-        /*        private void Reset(float deltaTime)
-                {
-                    _timeElapsed += deltaTime;
-                    if (_timeElapsed >= _timeToReset)
-                    {
-                        _enemySprite = _EnemyFactory.GetLinkSprite(_playerDirection);
-                        _enemyStateMachine.ChangeState(State.Idle);
-                        _enemyStateMachine.UnblockTransition();
-                        _timeElapsed = 0f;
-                    }
-                }*/
-
         /// <summary>
-        /// Construct a new enemy entity
+        /// Constructs a new enemy entity.
         /// </summary>
-        /// <param name="position">The position of the player entity</param>
-        /// <param name="startingHealth">The starting health of the player entity</param>
-        /// <param name="startingDirection">The starting direction the player entity will be facing</param>
+        /// <param name="position">The position of the enemy entity.</param>
+        /// <param name="startingHealth">The starting health of the enemy entity.</param>
+        /// <param name="enemyName">The name of the enemy.</param>
         protected EnemyBasedEntity(Vector2 position, int startingHealth, string enemyName)
         {
-
             _enemyHealthMax = startingHealth;
             _enemyDefaultPosition = position;
             ResetEnemy();

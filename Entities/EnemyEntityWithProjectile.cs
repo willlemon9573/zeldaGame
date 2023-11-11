@@ -7,16 +7,18 @@ using SprintZero1.Enums;
 
 namespace SprintZero1.Entities
 {
-
+    /// <summary>
+    /// Represents an enemy entity that has projectile attack capabilities.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     internal class EnemyEntityWithProjectile : EnemyBasedEntity
     {
-
         /// <summary>
-        /// Construct a new player entity
+        /// Constructs a new enemy entity with projectile capabilities.
         /// </summary>
-        /// <param name="position">The position of the player entity</param>
-        /// <param name="startingHealth">The starting health of the player entity</param>
-        /// <param name="startingDirection">The starting direction the player entity will be facing</param>
+        /// <param name="position">The position of the enemy entity.</param>
+        /// <param name="startingHealth">The starting health of the enemy entity.</param>
+        /// <param name="enemyName">The name of the enemy.</param>
         public EnemyEntityWithProjectile(Vector2 position, int startingHealth, string enemyName)
         : base(position, startingHealth, enemyName)
         {

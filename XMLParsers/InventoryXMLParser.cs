@@ -66,7 +66,7 @@ namespace SprintZero1.XMLParsers
             _parseTools.CheckIfElementNull(paramElement, PARAM_ELEMENT);
             int startingStock = _parseTools.ParseAttributeAsInt(paramElement, STARTING_STOCK_ATTRIBUTE);
             int maxStock = _parseTools.ParseAttributeAsInt(paramElement, MAX_STOCK_ATTRIBUTE);
-            ISprite itemSprite = _parseTools.ParseAttributeAsSprite(paramElement, SPRITE_ATTRIBUTE);
+            ISprite itemSprite = _parseTools.ParseNonAnimatedItemSprite(paramElement, SPRITE_ATTRIBUTE);
             return new StackableItem(startingStock, maxStock, new InventoryEntityTest(), itemSprite);
         }
 
