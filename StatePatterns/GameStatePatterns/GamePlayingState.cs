@@ -12,14 +12,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// </summary>
         /// <param name="game">The game</param>
         public GamePlayingState(Game1 game) : base(game) { }
-        /// <summary>
-        /// Handles Drawing The entire game
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            ProgramManager.Draw(spriteBatch);
-        }
 
         public override void Handle()
         {
@@ -32,6 +24,15 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public override void Update(GameTime gameTime)
         {
             ProgramManager.Update(gameTime);
+        }
+
+        /// <summary>
+        /// Handles Drawing The entire game
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            ProgramManager.Draw(spriteBatch);
         }
     }
 }
