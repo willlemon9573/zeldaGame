@@ -7,14 +7,8 @@ namespace SprintZero1.Entities.DungeonRoomEntities
 {
     internal class LockDoorEntity : BaseDoorEntity
     {
-        public LockDoorEntity(ISprite entitySprite, Vector2 position, Point destination, Direction direction) : base(entitySprite, position, destination, direction)
+        public LockDoorEntity(ISprite entitySprite, Vector2 position, string destination, Direction direction) : base(entitySprite, position, destination, direction)
         {
-
-        }
-
-        public override void Open()
-        {
-
         }
     }
 }

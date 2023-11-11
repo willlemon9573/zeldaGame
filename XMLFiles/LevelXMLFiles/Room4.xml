@@ -163,29 +163,33 @@
 			<Name>open_north</Name>
 			<X>127</X>
 			<Y>80</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>floorFive</Destination>
+			<Direction>North</Direction>
+			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>open_west</Name>
 			<X>15</X>
 			<Y>152</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>floorFourLeft</Destination>
+			<Direction>West</Direction>
+			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>open_east</Name>
+			<Name>locked_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>floorFourRight</Destination>
+			<Direction>East</Direction>
+			<DoorType>LockedDoorEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>hole_south</Name>
+			<Name>doorless_south</Name>
 			<X>127</X>
 			<Y>224</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>floorThree</Destination>
+			<Direction>South</Direction>
+			<DoorType>BreakableWallEntity</DoorType>
 		</Door>
 	</Doors>
 </Room>

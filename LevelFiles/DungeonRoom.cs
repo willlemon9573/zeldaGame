@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
+using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Enums;
+using SprintZero1.Factories;
+using SprintZero1.Sprites;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -64,10 +67,11 @@ namespace SprintZero1.LevelFiles
             _liveEnemyList.Add(enemy);
         }
 
+
         /// <summary>
         /// Check if any enemy is dead and remove them from the live enemy list and add to the dead enemy list
         /// </summary>
-        private void CheckEnemyIsDead()
+        public void CheckEnemyIsDead()
         {
             List<IEntity> deadEnemyList = _liveEnemyList.Where(entity => (entity as ICombatEntity).Health <= 0).ToList();
             foreach (var entity in deadEnemyList)
@@ -75,6 +79,20 @@ namespace SprintZero1.LevelFiles
                 _liveEnemyList.Remove(entity);
                 deadEnemyList.Add(entity);
             }
+        }
+
+        /// <summary>
+        /// Handles unlocking a door that may have been locked
+        /// </summary>
+        /// <param name="lockedDoor">The door that is opening</param>
+        public void UnlockDoor(LockedDoorEntity lockedDoor)
+        {
+            string doorType = $"open_{lockedDoor.DoorDirection}";
+            Vector2 position = lockedDoor.Position;
+            string destination = lockedDoor.DoorDestination;
+            ISprite openDoorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(doorType);
+            _architechtureList.Remove(lockedDoor);
+            _architechtureList.Add(new LockedDoorEntity(openDoorSprite, position, destination, lockedDoor.DoorDirection));
         }
 
         /// <summary>

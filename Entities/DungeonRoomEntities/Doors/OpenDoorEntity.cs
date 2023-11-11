@@ -6,14 +6,8 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
 {
     internal class OpenDoorEntity : BaseDoorEntity
     {
-        public OpenDoorEntity(ISprite entitySprite, Vector2 position, Point destination, Direction direction) : base(entitySprite, position, destination, direction)
+        public OpenDoorEntity(ISprite entitySprite, Vector2 position, string destination, Direction direction) : base(entitySprite, position, destination, direction)
         {
-            /* Opened doors uses the base class */
-        }
-
-        public override void Open()
-        {
-            /* opened doors are opened by default */
         }
     }
 }

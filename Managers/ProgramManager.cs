@@ -4,6 +4,7 @@ using SprintZero1.Colliders;
 using SprintZero1.Controllers;
 using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
+using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Enums;
 using SprintZero1.LevelFiles;
 using System;
@@ -56,6 +57,18 @@ namespace SprintZero1.Managers
         public static void Reset()
         {
             // TODO
+        }
+
+        public static bool UnlockDoor(IEntity player, LockedDoorEntity lockedDoor)
+        {
+            StackableItems key = StackableItems.DungeonKey;
+            if (PlayerInventoryManager.GetStackableItemCount(player, key) > 0)
+            {
+                _currentRoom.UnlockDoor(lockedDoor);
+                PlayerInventoryManager.UseStackableItem(player, key, 1);
+                return true;
+            }
+            return false;
         }
 
         /// <summary>

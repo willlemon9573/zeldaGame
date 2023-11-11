@@ -11,17 +11,17 @@ namespace SprintZero1.Entities.LootableItemEntity
 
         public override void Pickup(IEntity Player, int amt = 0)
         {
-            throw new System.NotImplementedException();
+
         }
 
         public override void Remove()
         {
-            throw new System.NotImplementedException();
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new System.NotImplementedException();
+
         }
     }
 }

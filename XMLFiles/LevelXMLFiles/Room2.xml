@@ -114,29 +114,33 @@
 			<Name>open_north</Name>
 			<X>127</X>
 			<Y>80</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>floorThree</Destination>
+			<Direction>North</Direction>
+			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>doorless_west</Name>
 			<X>15</X>
 			<Y>152</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>none</Destination>
+			<Direction>West</Direction>
+			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>doorless_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>none</Destination>
+			<Direction>East</Direction>
+			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>open_south</Name>
 			<X>127</X>
 			<Y>224</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>entrance</Destination>
+			<Direction>South</Direction>
+			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 	</Doors>
 </Room>

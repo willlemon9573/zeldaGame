@@ -9,8 +9,11 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
 {
     /// <summary>
     /// Base abstract implemention for each door.
+    /// Note that due to how collisions work I am forced to create a new type of door
+    /// for each collider, but each derived class will be used as a different way to recognize
+    /// collision
     /// </summary>
-    internal abstract class BaseDoorEntity : IDoorEntity
+    internal abstract class BaseDoorEntity : ICollidableEntity
     {
         /* The default dimensions for each door in the game */
         protected readonly Size DoorDimensions = new Size(16, 16);
@@ -18,19 +21,33 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
         protected ICollider _doorCollider;
         protected Vector2 _doorPosition;
         protected ISprite _doorSprite;
-        protected Point _doorDestination;
-        protected Direction _doorDirectionLocation;
+        protected string _doorDestination;
+        protected Direction _doorDirection;
+        /// <summary>
+        /// Get the collider
+        /// </summary>
         public ICollider Collider { get { return _doorCollider; } }
-
+        /// <summary>
+        /// Get and set the position of the door
+        /// </summary>
         public Vector2 Position { get { return _doorPosition; } set { _doorPosition = value; } }
+        /// <summary>
+        /// Get the destination for the new destination the door will lead to
+        /// </summary>
+        public string DoorDestination { get { return _doorDestination; } }
+        /// <summary>
+        /// Get the door direction for replacing a door
+        /// </summary>
+        public Direction DoorDirection { get { return _doorDirection; } }
 
-        protected BaseDoorEntity(ISprite entitySprite, Vector2 position, Point destination, Direction direction)
+        protected BaseDoorEntity(ISprite entitySprite, Vector2 position, string destination, Direction direction)
         {
             this._doorPosition = position;
             this._doorSprite = entitySprite;
             Rectangle colliderDimensions = new Rectangle((int)position.X, (int)position.Y, DoorDimensions.Width, DoorDimensions.Height);
             this._doorCollider = new StaticCollider(colliderDimensions);
-            this._doorDirectionLocation = direction;
+            this._doorDirection = direction;
+            this._doorDestination = destination;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -42,7 +59,5 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
         {
             _doorCollider.Update(this);
         }
-
-        public abstract void Open();
     }
 }
