@@ -44,7 +44,7 @@ namespace SprintZero1.Controllers
             _game = game;
             _player = player;
             _itemSelectionMenu = itemSelectionMenu;
-            _previouslyPressedKeys = new List<Keys>();
+            _previouslyPressedKeys = new List<Keys>() { Keys.Escape, Keys.I };
             _ItemSelectionKeyList = new List<Keys>() { Keys.Left, Keys.Right, Keys.Z, Keys.Escape };
             _keyboardMap = new Dictionary<Keys, ICommand>();
             LoadControls(player);
@@ -67,8 +67,9 @@ namespace SprintZero1.Controllers
             // Map keys to their respective commands
             _keyboardMap[Keys.Left] = getPreviousWeaponCommand;
             _keyboardMap[Keys.Right] = getNextWeaponCommand;
-            _keyboardMap[Keys.Z] = setCurrentWeaponToPlayerCommand;
+            _keyboardMap[Keys.B] = setCurrentWeaponToPlayerCommand;
             _keyboardMap[Keys.Escape] = unpauseGameCommand;
+            _keyboardMap[Keys.I] = unpauseGameCommand;
         }
 
         /// <summary>

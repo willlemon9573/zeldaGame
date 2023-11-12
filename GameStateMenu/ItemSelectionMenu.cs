@@ -21,7 +21,7 @@ namespace SprintZero1.GameStateMenu
     internal class ItemSelectionMenu : GameStateAbstract
     {
         private double elapsedTime = 0;
-        private double interval = 0.3; // 0.3 seconds for toggling
+        private double interval = 0.2; // 0.2 seconds for toggling
         private bool toggle = false; // Toggle between true and false for selection
 
         // Constants for UI dimensions and styling

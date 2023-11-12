@@ -37,7 +37,7 @@ namespace SprintZero1.GameStateMenu
         }
 
         public override void Update(GameTime gameTime)
-        {  
+        {
             // Get the current state of the keyboard
             KeyboardState currentKeyboardState = Keyboard.GetState();
             // Get the list of currently pressed keys
@@ -76,5 +76,5 @@ namespace SprintZero1.GameStateMenu
 
 
     }
-    
+
 }

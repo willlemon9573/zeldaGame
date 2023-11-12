@@ -19,7 +19,7 @@ namespace SprintZero1.Commands.PlayerCommands
         /// </summary>
         public override void Execute()
         {
-            _game.GameState.ChangeGameState(GameState.ItemSelectionScreen);
+            _game.GameState.ChangeGameState(GameState.Playing);
             _game.GameState.Handle();
         }
     }
