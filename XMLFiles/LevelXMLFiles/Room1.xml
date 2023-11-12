@@ -11,7 +11,7 @@
 			<X>15</X>
 			<Y>100</Y>
 		</Wall>
-		<Wall>
+		<Wall>m 
 			<Name>bl_vertical_wall</Name>
 			<X>15</X>
 			<Y>204</Y>

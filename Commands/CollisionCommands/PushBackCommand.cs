@@ -17,7 +17,6 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
-            if (e1 == null || e2 == null) { return; }
             PriorityQueue<Vector2, float> colliderDistances = new PriorityQueue<Vector2, float>();
             Rectangle intersection = Rectangle.Intersect(e1.Collider.Collider, e2.Collider.Collider);
             if (intersection.Width > intersection.Height)

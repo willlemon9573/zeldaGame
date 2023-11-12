@@ -36,7 +36,6 @@ namespace SprintZero1.XMLParsers
         /// <exception cref="Exception">Throws exception if attribute is missing or null</exception>
         private Direction GetDirectionAttributeAsEnum(XElement spriteElement, string filePath)
         {
-            // (Direction)Enum.Parse(typeof(Direction), spriteElement.Attribute(DIRECTION).Value)
             CheckIfNull(spriteElement, filePath, SpriteElement);
             XAttribute directionAttribute = spriteElement.Attribute(SpriteDirectionAttribute);
             if (directionAttribute == null || string.IsNullOrEmpty(directionAttribute.Value))
@@ -45,6 +44,7 @@ namespace SprintZero1.XMLParsers
             }
             return (Direction)Enum.Parse(typeof(Direction), directionAttribute.Value);
         }
+
         /// <summary>
         /// Gets the sprite name from the XElement and returns it as a string
         /// </summary>

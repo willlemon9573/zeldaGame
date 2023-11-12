@@ -1,22 +1,20 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
-using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
     internal class EnterNextLevelCommand : ICommand
     {
-        readonly int nextLevel;
-        private readonly List<string> levelList;
-
-        public EnterNextLevelCommand(PlayerEntity player, OpenDoorEntity e2)
+        private string _destination;
+        public EnterNextLevelCommand(ICollidableEntity playerEntity, ICollidableEntity doorEntity)
         {
-
+            _destination = (doorEntity as OpenDoorEntity).DoorDestination;
         }
 
         public void Execute()
         {
-
+            Debug.WriteLine(_destination);
         }
     }
 }
