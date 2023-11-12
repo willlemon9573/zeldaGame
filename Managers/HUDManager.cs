@@ -18,12 +18,10 @@ namespace SprintZero1.Managers
         private static List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
         const int MAX_ATTAINABLE_HEALTH = 13;
         private static List<Tuple<ISprite, Vector2>> healthList = new List<Tuple<ISprite, Vector2>>();
-
         const float STARTING_HEALTH = 6f;
         const float FULL_HEART = 1f;
         const float HALF_HEART = 0.5f;
         const float EMPTY_HEART = 0f;
-                        
 
         
         public static void Initialize()
@@ -50,11 +48,12 @@ namespace SprintZero1.Managers
 
                 if ((name.Contains("heart")))
                 {
-                   
 
-                   
+
+
                 }
-                else {
+                else
+                {
 
                     /* Add to List */
                     spriteAndPosList.Add(new Tuple<ISprite, Vector2>(HUDSprite, position));
@@ -229,9 +228,24 @@ namespace SprintZero1.Managers
 
         }
 
+        public static void updateMarker(int direction) {
+           
+            Vector2 markerPos = new Vector2(0,0);
+            ISprite posMarker =  HUDSpriteFactory.Instance.CreateHUDSprite("player");
+            foreach(var sprite in spriteAndPosList)
+            {
+                if (sprite.Item1 == posMarker) {
+                    markerPos = sprite.Item2;
+                }
+            }
+            Tuple<ISprite, Vector2> remover = new Tuple<ISprite, Vector2>(posMarker, markerPos);
+            spriteAndPosList.Remove(remover);
+            markerPos.X = markerPos.X + 5f;
+        }
 
         public static void Update(GameTime gameTime) 
         {
+              
             foreach (var sprite in healthList)
             {
                 sprite.Item1.Update(gameTime);
