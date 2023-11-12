@@ -17,15 +17,12 @@ namespace SprintZero1.GameStateMenu
     /// <author>Zihe Wang</author>
     public class PauseMenu : GameStateAbstract
     {
-        private readonly ICommand _unPauseGame;
         private const int RGB_BLACK = 0;
         private const int RGB_ALPHA = 225;
         private readonly string pauseText;
-        private List<Keys> _previouslyPressedKeys;
 
         public PauseMenu(Game1 game) : base(game)
         {
-            _previouslyPressedKeys = new List<Keys> { Keys.Escape };
             // Load the font used for displaying pause text
             _font = game.Content.Load<SpriteFont>("PauseSetting");
             // Set the text to be displayed during pause
@@ -35,37 +32,13 @@ namespace SprintZero1.GameStateMenu
             // Apply the overlay color
             _overlay.SetData(new[] { grayOverlay });
             // Initialize the command to unpause the game
-            _unPauseGame = new UnpauseGameCommand(game);
             // Initialize the list to keep track of previously pressed keys
 
         }
 
         public override void Update(GameTime gameTime)
-        {  
-            // Get the current state of the keyboard
-            KeyboardState currentKeyboardState = Keyboard.GetState();
-            // Get the list of currently pressed keys
-            Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
-
-            // Iterate through the pressed keys
-            foreach (Keys key in pressedKeys)
-            {
-                // For debugging purposes, log the key and its previous state
-                Debug.WriteLine(key.ToString());
-                Debug.WriteLine(_previouslyPressedKeys.Contains(key));
-
-                // Check if 'Escape' key is pressed and was not pressed in the previous frame
-                if (key == Keys.Escape && !_previouslyPressedKeys.Contains(key))
-                {
-                    // Execute the unpause command
-                    _unPauseGame.Execute();
-                    // Log the execution of unpause for debugging
-                    Debug.WriteLine("Unpause executed");
-                }
-            }
-
-            // Update the list of previously pressed keys
-            _previouslyPressedKeys = pressedKeys.ToList();
+        {
+            //no implementation
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

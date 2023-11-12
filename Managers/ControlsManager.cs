@@ -16,7 +16,7 @@ namespace SprintZero1.Managers
 
         private static readonly Dictionary<IEntity, Dictionary<Keys, ICommand>> _playerKeyboardControlsMap = new Dictionary<IEntity, Dictionary<Keys, ICommand>>();
         private static readonly Dictionary<IEntity, Dictionary<Buttons, ICommand>> _playerGamePadControlsMap = new Dictionary<IEntity, Dictionary<Buttons, ICommand>>();
-
+        private static readonly Dictionary<IEntity, Dictionary<Keys, ICommand>> _playerKeyboardControlsMapForItemSelection = new Dictionary<IEntity, Dictionary<Keys, ICommand>>();
 
         /// <summary>
         /// Creates the keyboard controls map for the player to access if they are using keyboard controls
@@ -52,6 +52,7 @@ namespace SprintZero1.Managers
         {
             return _playerKeyboardControlsMap[player];
         }
+
         /// <summary>
         /// Gets the player's controls map for gamepad controls
         /// </summary>

@@ -188,7 +188,7 @@ namespace SprintZero1.GameStateMenu
         /// </summary>
         private void SetCurrentWeaponRec()
         {
-            if (currentWeapon == null) return; // Return early if currentWeapon is null
+            if (currentWeapon == EquipmentItem.WoodenSword) return; // Return early if currentWeapon is null
 
             if (equipmentData.TryGetValue(currentWeapon, out Tuple<Rectangle, Vector2> equipmentInfo))
             {
@@ -201,7 +201,7 @@ namespace SprintZero1.GameStateMenu
         /// </summary>
         public void SynchronizeInventory()
         {
-            if (currentWeapon == null)
+            if (currentWeapon == EquipmentItem.WoodenSword)
             {
                 _playerEquipment = PlayerInventoryManager.GetPlayerEquipmentList(_player);
                 currentWeapon = _playerEquipment.FirstOrDefault();
@@ -269,7 +269,7 @@ namespace SprintZero1.GameStateMenu
             spriteBatch.Draw(_overlay, new Rectangle(0, 0, WIDTH, HEIGHT), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, OVER_LAYER_DEPTH);
             DrawbackGround(spriteBatch);
             DrawDifferentItem(spriteBatch);
-            if (currentWeapon == null) return;
+            if (currentWeapon == EquipmentItem.WoodenSword) return;
             spriteBatch.Draw(largeTexture, currentWeaponPosition, currentWeaponRec, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
             DrawChooseRec(spriteBatch);
 

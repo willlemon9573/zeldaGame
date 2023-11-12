@@ -26,7 +26,7 @@ namespace SprintZero1.Entities
         //protected readonly EnemyStateMachine _enemyStateMachine;
         protected readonly EnemySpriteFactory _EnemyFactory = EnemySpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
         //controls the attacking state
-        protected float _timeElapsed;
+        //protected float _timeElapsed;
         //protected readonly string _weapon;
         protected readonly float _timeToReset = 1f / 7;
         protected ISprite _enemySprite;
