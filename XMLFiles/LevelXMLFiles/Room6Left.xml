@@ -148,12 +148,12 @@
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>open_east</Name>
+			<Name>locked_east</Name>
 			<X>239</X>
 			<Y>152</Y>
 			<Destination>none</Destination>
 			<Direction>North</Direction>
-			<DoorType>DoorlessEntity</DoorType>
+			<DoorType>LockedDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>doorless_south</Name>

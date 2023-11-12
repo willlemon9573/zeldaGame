@@ -135,12 +135,12 @@
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>open_south</Name>
+			<Name>locked_south</Name>
 			<X>127</X>
 			<Y>224</Y>
 			<Destination>entrance</Destination>
 			<Direction>South</Direction>
-			<DoorType>OpenDoorEntity</DoorType>
+			<DoorType>LockedDoorEntity</DoorType>
 		</Door>
 	</Doors>
 </Room>

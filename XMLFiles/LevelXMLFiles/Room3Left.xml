@@ -135,7 +135,7 @@
 		<Y>224</Y>
 		<Destination>none</Destination>
 		<Direction>South</Direction>
-		<DoorType>DorlessEntity</DoorType>
+		<DoorType>DoorlessEntity</DoorType>
 	</Door>
 	</Doors>
 </Room>

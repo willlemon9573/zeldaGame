@@ -142,7 +142,7 @@
 	</Items>
 	<Doors>
 		<Door>
-			<Name>dorless_north</Name>
+			<Name>doorless_north</Name>
 			<X>127</X>
 			<Y>80</Y>
 			<Destination>floorFourRight</Destination>

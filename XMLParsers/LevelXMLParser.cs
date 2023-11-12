@@ -24,6 +24,8 @@ namespace SprintZero1.XMLParsers
         private const string INNER_Y_ELEMENT = "Y";
         private const string INNER_NAME_ELEMENT = "Name";
         private const string INNER_DOOR_DESTINATION = "Destination";
+        private const string INNER_DOOR_DIRECTION = "Direction";
+        private const string INNER_DOOR_TYPE = "DoorType";
         private const string INNER_ENEMY_HEALTH_ELEMENT = "Health";
         private const string INNER_ENEMEY_FRAMES_ELEMENT = "Frames";
         private const string INNER_ITEM_FRAMES_ELEMENT = "ItemFrames";
@@ -48,8 +50,11 @@ namespace SprintZero1.XMLParsers
             { INNER_Y_ELEMENT, (y, data) => data.EntityPositionY = y.ReadElementContentAsInt() },
             { INNER_NAME_ELEMENT, (name, data) => data.EntityName = name.ReadElementContentAsString() },
             { INNER_ITEM_FRAMES_ELEMENT, (item, data) => (data as XMLItemEntity).ItemFrames = item.ReadElementContentAsInt() },
-            { INNER_ENEMY_HEALTH_ELEMENT, (enemy, data) =>  (data as XMLEnemyEntity).EntityHealth = enemy.ReadElementContentAsInt()  },
+            { INNER_ENEMY_HEALTH_ELEMENT, (enemy, data) =>  (data as XMLEnemyEntity).EntityHealth = enemy.ReadElementContentAsInt() },
             { INNER_ENEMEY_FRAMES_ELEMENT, (enemy, data) => (data as XMLEnemyEntity).EntityFrames = enemy.ReadElementContentAsInt() },
+            { INNER_DOOR_DESTINATION, (door, data) => (data as XMLDoorEntity).Destination = door.ReadElementContentAsString() },
+            { INNER_DOOR_DIRECTION, (door, data) => (data as XMLDoorEntity).DoorDirection = door.ReadElementContentAsString() },
+            { INNER_DOOR_TYPE,  (door, data) => (data as XMLDoorEntity).DoorType = door.ReadElementContentAsString() }
             };
         }
 
