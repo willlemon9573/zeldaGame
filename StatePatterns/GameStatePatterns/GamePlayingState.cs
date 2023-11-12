@@ -72,9 +72,10 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             //ProgramManager.Update(gameTime);
             EntityManager.Update(gameTime);
-            foreach(IEntity entity in EntityManager.OnScreenEntities())
+            List<IEntity> entities = EntityManager.OnScreenEntities();
+            for(int i =  0; i < entities.Count; i++) 
             {
-                entity.Update(gameTime);
+                entities[i].Update(gameTime);
             }
             ColliderManager.CheckCollisions(EntityManager.OnScreenEntities().OfType<ICollidableEntity>().ToList());
         }
@@ -86,9 +87,10 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public override void Draw(SpriteBatch spriteBatch)
         {
             //ProgramManager.Draw(spriteBatch);
-            foreach (IEntity entity in EntityManager.OnScreenEntities())
+            List<IEntity> entities = EntityManager.OnScreenEntities();
+            for(int i = 0; i < entities.Count; i++) 
             {
-                entity.Draw(spriteBatch);
+                entities[i].Draw(spriteBatch);
             }
         }
     }

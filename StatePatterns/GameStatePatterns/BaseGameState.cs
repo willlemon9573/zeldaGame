@@ -28,6 +28,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             _game = game;
             EntityManager = new EntityManager();
+            Controllers = new List<IController>();
         }
 
         public virtual void AddController(IController controller)
