@@ -9,26 +9,26 @@ namespace SprintZero1.XMLParsers
     internal class LevelXMLParser
     {
         /* ------------------------------Private Members--------------------------------- */
-        private Dictionary<string, Action<XmlReader, DungeonRoom>> _outerElements;
-        private Dictionary<string, Action<XmlReader, IEntityParsingBuilder>> _innerElements;
-        private readonly XmlNodeType END_ELEMENT_TYPE = XmlNodeType.EndElement;
-        private readonly XmlNodeType ELEMENT_TYPE = XmlNodeType.Element;
+        private readonly Dictionary<string, Action<XmlReader, DungeonRoom>> _outerElements;
+        private readonly Dictionary<string, Action<XmlReader, IEntityParsingBuilder>> _innerElements;
+        private readonly XmlNodeType EndElementType = XmlNodeType.EndElement;
+        private readonly XmlNodeType ElementType = XmlNodeType.Element;
         /* ------------------------------Constants--------------------------------- */
-        private const string OUTER_WALL_ELEMENT = "Walls";
-        private const string OUTER_BLOCK_ELEMENT = "Blocks";
-        private const string OUTER_DOOR_ELEMENT = "Doors";
-        private const string OUTER_FLOOR_ELEMENT = "Floor";
-        private const string OUTER_ENEMIES_ELEMENT = "Enemies";
-        private const string OUTER_ITEM_ELEMENT = "Items";
-        private const string INNER_X_ELEMENT = "X";
-        private const string INNER_Y_ELEMENT = "Y";
-        private const string INNER_NAME_ELEMENT = "Name";
-        private const string INNER_DOOR_DESTINATION = "Destination";
-        private const string INNER_DOOR_DIRECTION = "Direction";
-        private const string INNER_DOOR_TYPE = "DoorType";
-        private const string INNER_ENEMY_HEALTH_ELEMENT = "Health";
-        private const string INNER_ENEMEY_FRAMES_ELEMENT = "Frames";
-        private const string INNER_ITEM_FRAMES_ELEMENT = "ItemFrames";
+        private const string OuterWallsElement = "Walls";
+        private const string OuterBlocksElement = "Blocks";
+        private const string OuterDoorsElement = "Doors";
+        private const string OutFloorElement = "Floor";
+        private const string OuterEnemiesElement = "Enemies";
+        private const string OuterItemsElement = "Items";
+        private const string InnerXPositionElement = "X";
+        private const string InnerYPositionElement = "Y";
+        private const string InnerNameElement = "Name";
+        private const string InnerDoorDestinationElement = "Destination";
+        private const string InnerDoorDirectionElement = "Direction";
+        private const string InnerDoorTypeElement = "DoorType";
+        private const string InnerElementHealthElement = "Health";
+        private const string InnerEnemyFramesElement = "Frames";
+        private const string InnerItemFramesElement = "ItemFrames";
         /* ------------------------------Public Functions--------------------------------- */
         /// <summary>
         /// Constructor for a new instance of LevelXmlParser
@@ -37,24 +37,24 @@ namespace SprintZero1.XMLParsers
         {
             // set up dictionary for outer elements
             _outerElements = new Dictionary<string, Action<XmlReader, DungeonRoom>>() {
-            { OUTER_WALL_ELEMENT, (reader, room) => ParseWall(reader, room)},
-            { OUTER_FLOOR_ELEMENT, (reader, room) => ParseFloor(reader, room)},
-            { OUTER_BLOCK_ELEMENT, (reader, room) => ParseBlock(reader, room)},
-            { OUTER_DOOR_ELEMENT, (reader, room) => ParseDoor(reader, room)},
-            { OUTER_ENEMIES_ELEMENT, (reader, room) => ParseEnemy(reader, room)},
-            { OUTER_ITEM_ELEMENT, (reader, room) => ParseItem(reader, room)}
+            { OuterWallsElement, (reader, room) => ParseWall(reader, room)},
+            { OutFloorElement, (reader, room) => ParseFloor(reader, room)},
+            { OuterBlocksElement, (reader, room) => ParseBlock(reader, room)},
+            { OuterDoorsElement, (reader, room) => ParseDoor(reader, room)},
+            { OuterEnemiesElement, (reader, room) => ParseEnemy(reader, room)},
+            { OuterItemsElement, (reader, room) => ParseItem(reader, room)}
            };
             // set up dictionary for inner elements
             _innerElements = new Dictionary<string, Action<XmlReader, IEntityParsingBuilder>>() {
-            { INNER_X_ELEMENT, (x, data) => data.EntityPositionX = x.ReadElementContentAsInt() },
-            { INNER_Y_ELEMENT, (y, data) => data.EntityPositionY = y.ReadElementContentAsInt() },
-            { INNER_NAME_ELEMENT, (name, data) => data.EntityName = name.ReadElementContentAsString() },
-            { INNER_ITEM_FRAMES_ELEMENT, (item, data) => (data as XMLItemEntity).ItemFrames = item.ReadElementContentAsInt() },
-            { INNER_ENEMY_HEALTH_ELEMENT, (enemy, data) =>  (data as XMLEnemyEntity).EntityHealth = enemy.ReadElementContentAsInt() },
-            { INNER_ENEMEY_FRAMES_ELEMENT, (enemy, data) => (data as XMLEnemyEntity).EntityFrames = enemy.ReadElementContentAsInt() },
-            { INNER_DOOR_DESTINATION, (door, data) => (data as XMLDoorEntity).Destination = door.ReadElementContentAsString() },
-            { INNER_DOOR_DIRECTION, (door, data) => (data as XMLDoorEntity).DoorDirection = door.ReadElementContentAsString() },
-            { INNER_DOOR_TYPE,  (door, data) => (data as XMLDoorEntity).DoorType = door.ReadElementContentAsString() }
+            { InnerXPositionElement, (x, data) => data.EntityPositionX = x.ReadElementContentAsInt() },
+            { InnerYPositionElement, (y, data) => data.EntityPositionY = y.ReadElementContentAsInt() },
+            { InnerNameElement, (name, data) => data.EntityName = name.ReadElementContentAsString() },
+            { InnerItemFramesElement, (item, data) => (data as XMLItemEntity).ItemFrames = item.ReadElementContentAsInt() },
+            { InnerElementHealthElement, (enemy, data) =>  (data as XMLEnemyEntity).EntityHealth = enemy.ReadElementContentAsInt() },
+            { InnerEnemyFramesElement, (enemy, data) => (data as XMLEnemyEntity).EntityFrames = enemy.ReadElementContentAsInt() },
+            { InnerDoorDestinationElement, (door, data) => (data as XMLDoorEntity).Destination = door.ReadElementContentAsString() },
+            { InnerDoorDirectionElement, (door, data) => (data as XMLDoorEntity).DoorDirection = door.ReadElementContentAsString() },
+            { InnerDoorTypeElement,  (door, data) => (data as XMLDoorEntity).DoorType = door.ReadElementContentAsString() }
             };
         }
 
@@ -69,7 +69,7 @@ namespace SprintZero1.XMLParsers
 
             while (reader.Read())
             {
-                if (reader.NodeType == ELEMENT_TYPE && _outerElements.ContainsKey(reader.Name))
+                if (reader.NodeType == ElementType && _outerElements.ContainsKey(reader.Name))
                 {
                     _outerElements[reader.Name].Invoke(reader, dungeonRoom);
                 }
@@ -92,11 +92,11 @@ namespace SprintZero1.XMLParsers
                 var element_name = reader.Name;
                 var reader_type = reader.NodeType;
 
-                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var action))
+                if (reader_type == ElementType && _innerElements.TryGetValue(element_name, out var action))
                 {
                     action(reader, floor);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == floorElement)
+                else if (reader_type == EndElementType && element_name == floorElement)
                 {
                     break;
                 }
@@ -119,15 +119,15 @@ namespace SprintZero1.XMLParsers
                 var element_name = reader.Name;
                 var reader_type = reader.NodeType;
 
-                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
+                if (reader_type == ElementType && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
                     parsedValue(reader, block);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == innerBlockElement)
+                else if (reader_type == EndElementType && element_name == innerBlockElement)
                 {
                     dungeonRoom.AddArchitecturalEntity(block.CreateEntity());
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_BLOCK_ELEMENT)
+                else if (reader_type == EndElementType && element_name == OuterBlocksElement)
                 {
                     break;
                 }
@@ -148,15 +148,15 @@ namespace SprintZero1.XMLParsers
                 var element_name = reader.Name;
                 var reader_type = reader.NodeType;
 
-                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
+                if (reader_type == ElementType && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
                     parsedValue(reader, wall);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == innerWallElement)
+                else if (reader_type == EndElementType && element_name == innerWallElement)
                 {
                     dungeonRoom.AddArchitecturalEntity(wall.CreateEntity());
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_WALL_ELEMENT)
+                else if (reader_type == EndElementType && element_name == OuterWallsElement)
                 {
                     break;
                 }
@@ -177,15 +177,15 @@ namespace SprintZero1.XMLParsers
                 var element_name = reader.Name;
                 var reader_type = reader.NodeType;
 
-                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
+                if (reader_type == ElementType && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
                     parsedValue(reader, door);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == innerDoorElement)
+                else if (reader_type == EndElementType && element_name == innerDoorElement)
                 {
                     dungeonRoom.AddArchitecturalEntity(door.CreateEntity());
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_DOOR_ELEMENT)
+                else if (reader_type == EndElementType && element_name == OuterDoorsElement)
                 {
                     break;
                 }
@@ -207,11 +207,11 @@ namespace SprintZero1.XMLParsers
                 var element_name = reader.Name;
                 var reader_type = reader.NodeType;
 
-                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
+                if (reader_type == ElementType && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
                     parsedValue(reader, enemy);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && (element_name == innerEnemyElement || element_name == innerBossElement))
+                else if (reader_type == EndElementType && (element_name == innerEnemyElement || element_name == innerBossElement))
                 {
                     if (element_name == innerBossElement)
                     {
@@ -222,7 +222,7 @@ namespace SprintZero1.XMLParsers
                         dungeonRoom.AddEnemy(enemy.CreateEntity());
                     }
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == "Enemies")
+                else if (reader_type == EndElementType && element_name == "Enemies")
                 {
                     break;
                 }
@@ -245,11 +245,11 @@ namespace SprintZero1.XMLParsers
                 var element_name = reader.Name;
                 var reader_type = reader.NodeType;
 
-                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
+                if (reader_type == ElementType && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
                     parsedValue(reader, item);
                 }
-                else if (reader_type == END_ELEMENT_TYPE && (element_name == innerItemElement || element_name == innerAnimatedItemElement))
+                else if (reader_type == EndElementType && (element_name == innerItemElement || element_name == innerAnimatedItemElement))
                 {
                     if (element_name == innerAnimatedItemElement)
                     {
@@ -260,7 +260,7 @@ namespace SprintZero1.XMLParsers
                         dungeonRoom.AddArchitecturalEntity(item.CreateEntity());
                     }
                 }
-                else if (reader_type == END_ELEMENT_TYPE && element_name == OUTER_ITEM_ELEMENT)
+                else if (reader_type == EndElementType && element_name == OuterItemsElement)
                 {
                     break;
                 }

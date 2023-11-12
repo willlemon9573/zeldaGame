@@ -59,16 +59,9 @@ namespace SprintZero1.Managers
             // TODO
         }
 
-        public static bool UnlockDoor(IEntity player, LockedDoorEntity lockedDoor)
+        public static void UnlockDoor(LockedDoorEntity lockedDoor)
         {
-            StackableItems key = StackableItems.DungeonKey;
-            if (PlayerInventoryManager.GetStackableItemCount(player, key) > 0)
-            {
-                _currentRoom.UnlockDoor(lockedDoor);
-                PlayerInventoryManager.UseStackableItem(player, key, 1);
-                return true;
-            }
-            return false;
+            _currentRoom.UnlockDoor(lockedDoor);
         }
 
         /// <summary>

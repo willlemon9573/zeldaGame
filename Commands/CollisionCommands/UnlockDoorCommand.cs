@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
-using SprintZero1.Entities.DungeonRoomEntities.Doors;
+using SprintZero1.Enums;
 using SprintZero1.Managers;
 using System.Collections.Generic;
 
@@ -8,11 +8,17 @@ namespace SprintZero1.Commands.CollisionCommands
 {
     internal class UnlockDoorCommand : ICommand
     {
-        const int Zero = 0;
-        const int One = 1;
         private readonly ICollidableEntity _player;
         private readonly ICollidableEntity _door;
 
+        private bool TryUnlockDoor()
+        {
+            int keyCount = PlayerInventoryManager.GetStackableItemCount(_player, StackableItems.DungeonKey);
+            if (keyCount < 1) { return false; }
+
+
+            return true;
+        }
 
         /// <summary>
         /// Using Muhammed's implementation of push back to push the player back if the door is locked and
@@ -36,6 +42,7 @@ namespace SprintZero1.Commands.CollisionCommands
             _player.Position += colliderDistances.Dequeue();
             _player.Collider.Update(_player);
         }
+
         /// <summary>
         /// Create a new instance of the unlock door command
         /// </summary>
@@ -52,9 +59,8 @@ namespace SprintZero1.Commands.CollisionCommands
         /// </summary>
         public void Execute()
         {
-            /* if the door can be unlocked then return */
-            if (ProgramManager.UnlockDoor(_player, (LockedDoorEntity)_door)) { return; }
-            /* push link back if the door cannot be unlocked */
+
+            if (TryUnlockDoor()) { return; }
             PushBack();
         }
     }

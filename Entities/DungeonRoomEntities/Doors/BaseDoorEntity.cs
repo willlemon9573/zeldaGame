@@ -40,7 +40,13 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
         /// Get the door direction for replacing a door
         /// </summary>
         public Direction DoorDirection { get { return _doorDirection; } }
-
+        /// <summary>
+        /// Constructor for a new door entity
+        /// </summary>
+        /// <param name="entitySprite">The sprite of the door</param>
+        /// <param name="position">The position the door will be drawn at</param>
+        /// <param name="destination">The destination where the door leads</param>
+        /// <param name="direction">The direction that the door is placed</param>
         protected BaseDoorEntity(ISprite entitySprite, Vector2 position, string destination, Direction direction)
         {
             this._doorPosition = position;
@@ -50,12 +56,18 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
             this._doorDirection = direction;
             this._doorDestination = destination;
         }
-
-        public void Draw(SpriteBatch spriteBatch)
+        /// <summary>
+        /// Draws the door's sprite and any other values
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             _doorSprite.Draw(spriteBatch, _doorPosition);
         }
-
+        /// <summary>
+        /// Updates the entity collider
+        /// </summary>
+        /// <param name="gameTime">The current state of the game time</param>
         public void Update(GameTime gameTime)
         {
             _doorCollider.Update(this);
