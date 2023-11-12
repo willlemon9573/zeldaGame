@@ -42,9 +42,9 @@ namespace SprintZero1.Entities.LootableItemEntity
         /// <summary>
         /// Add the item to the player inventory
         /// </summary>
-        /// <param name="Player">The player that picked up the item</param>
+        /// <param name="player">The player that picked up the item</param>
         /// <param name="amt">The amount of the item (optional)</param>
-        public abstract void Pickup(IEntity Player, int amt = 0);
+        public abstract void Pickup(IEntity player, int amt = 0);
         /// <summary>
         /// remove this item from the current room
         /// </summary>

@@ -9,6 +9,11 @@ namespace SprintZero1.Commands.CollisionCommands
         private readonly IEntity _player;
         private readonly ILootableEntity _item;
 
+        /// <summary>
+        /// Constructor for picking up stackable items
+        /// </summary>
+        /// <param name="player">The player picking up the item</param>
+        /// <param name="stackableItem">The item being picked up</param>
         public PickUpStackableItemCommand(IEntity player, IEntity stackableItem)
         {
             _player = player;
