@@ -23,6 +23,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
         protected ISprite _doorSprite;
         protected string _doorDestination;
         protected Direction _doorDirection;
+
         /// <summary>
         /// Get the collider
         /// </summary>
