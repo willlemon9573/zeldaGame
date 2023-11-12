@@ -66,6 +66,7 @@ namespace SprintZero1
         protected override void Update(GameTime gameTime)
         {
             LevelManager.Update(gameTime);
+            HUDManager.Update(gameTime);
             _mouseController.Update();
             base.Update(gameTime);
         }

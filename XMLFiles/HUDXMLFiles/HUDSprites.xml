@@ -30,4 +30,10 @@
 	<Sprite name ="level">
 		<Rectangle x='584' y='1' width='48' height='8'/>
 	</Sprite>
+	<Sprite name = "map">
+		<Rectangle x='693' y='64' width='51' height='27'/>
+	</Sprite>
+	<Sprite name = "player">
+		<Rectangle x='618' y='126' width='3' height='3'/>
+	</Sprite>
 </Sprites>

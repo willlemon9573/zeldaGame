@@ -14,6 +14,8 @@ namespace SprintZero1.Controllers
         private MouseState _oldMouseState;
         private GetPreviousLevelCommand _getPreviousRoom;
         private GetNextLevelCommand _getNextRoom;
+        private DecrementHealthCommand _decrementHealthCommand;
+        private IncrementHealthCommand _incrementHealthCommand;
         private readonly Game1 _game;
         private readonly Rectangle _windowRegion;
 
@@ -43,6 +45,8 @@ namespace SprintZero1.Controllers
         {
             _getNextRoom = new GetNextLevelCommand();
             _getPreviousRoom = new GetPreviousLevelCommand();
+            _decrementHealthCommand = new DecrementHealthCommand();
+            _incrementHealthCommand = new IncrementHealthCommand();
             _game = myGame;
             /* setup window region rectangle for checking if the mouse is in the window or not */
             int _gameHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
@@ -59,7 +63,8 @@ namespace SprintZero1.Controllers
         /// <param name="mouseLocation">XY coordinates of the current mouse position</param>
         private void ExecuteLeftMouseCommands()
         {
-            _getPreviousRoom.Execute();
+            _decrementHealthCommand.Execute();
+
         }
 
         /// <summary>
@@ -67,7 +72,7 @@ namespace SprintZero1.Controllers
         /// </summary>
         private void ExecuteRightMouseCommand()
         {
-            _getNextRoom.Execute();
+            _incrementHealthCommand.Execute();
         }
 
         public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity)

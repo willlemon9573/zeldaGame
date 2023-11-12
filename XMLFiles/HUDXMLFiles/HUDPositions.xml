@@ -21,7 +21,19 @@
 	<Sprite name ="full_heart">
 		<Vector2 x='180' y='40'/>
 	</Sprite>
+	<Sprite name ="half_heart">
+		<Vector2 x='189' y='40'/>
+	</Sprite>
+	<Sprite name ="empty_heart">
+		<Vector2 x='198' y='40'/>
+	</Sprite>
 	<Sprite name ="level">
 		<Vector2 x='40' y='16'/>
+	</Sprite>
+	<Sprite name = "map">
+		<Vector2 x='40' y='35'/>
+	</Sprite>
+	<Sprite name = "player">
+		<Vector2 x='36' y='45'/>
 	</Sprite>
 </Sprites>
