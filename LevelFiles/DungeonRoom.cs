@@ -52,6 +52,7 @@ namespace SprintZero1.LevelFiles
             _architechtureList = new List<IEntity>();
             _playerStartingPositionMap = new Dictionary<Direction, Vector2>();
             _floorItems = new List<IEntity>();
+            _itemCollector = new List<IEntity>();
         }
 
         /// <summary>
