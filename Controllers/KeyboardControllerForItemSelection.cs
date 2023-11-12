@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SprintZero1.GameStateMenu;
+using System.Diagnostics;
 
 namespace SprintZero1.Controllers
 {
@@ -45,6 +46,8 @@ namespace SprintZero1.Controllers
             _itemSelectionMenu = itemSelectionMenu;
             _previouslyPressedKeys = new List<Keys>();
             _ItemSelectionKeyList = new List<Keys>() { Keys.Left, Keys.Right, Keys.Z, Keys.Escape };
+            _keyboardMap = new Dictionary<Keys, ICommand>();
+            LoadControls(player);
         }
 
         /// <summary>
@@ -54,6 +57,7 @@ namespace SprintZero1.Controllers
         /// <param name="itemSelectionMenu">The item selection menu used in control mapping.</param>
         public void LoadControls(IEntity player)
         {
+            Debug.WriteLine("load controller");
             // Instantiate command objects for each key action
             var getPreviousWeaponCommand = new GetPreviousWeaponCommand(_itemSelectionMenu);
             var getNextWeaponCommand = new GetNextWeaponCommand(_itemSelectionMenu);

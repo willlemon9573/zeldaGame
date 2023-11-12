@@ -175,6 +175,32 @@ namespace SprintZero1.XMLParsers
         }
 
         /// <summary>
+        /// Parses a Rectangle from the given XElement
+        /// </summary>
+        /// <param name="rectangleElement">The element containing the attirbutes to parse</param>
+        /// <returns>a Rectangle with the correct values</returns>
+        public Rectangle ParseRectangleElement(XElement rectangleElement)
+        {
+            int x = ParseAttributeAsInt(rectangleElement, "x");
+            int y = ParseAttributeAsInt(rectangleElement, "y");
+            int width = ParseAttributeAsInt(rectangleElement, "width");
+            int height = ParseAttributeAsInt(rectangleElement, "height");
+            return new Rectangle(x, y, width, height);
+        }
+
+        /// <summary>
+        /// Parse a Vector2 from the given XElement
+        /// </summary>
+        /// <param name="vectorElement">The element that contains the attributes to parse</param>
+        /// <returns>A new instance of a vector2 object</returns>
+        public Vector2 ParseVector2Element(XElement vectorElement)
+        {
+            int x = ParseAttributeAsInt(vectorElement, "x");
+            int y = ParseAttributeAsInt(vectorElement, "y");
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
         ///  Parses an ICommand value related to player action commands from the given element
         /// </summary>
         /// <param name="element">The element that contains the attribute for parsing</param>

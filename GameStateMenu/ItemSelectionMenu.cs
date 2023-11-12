@@ -115,11 +115,8 @@ namespace SprintZero1.GameStateMenu
 
             foreach (XElement itemElement in itemDataElement.Elements("Item"))
             {
-                Debug.WriteLine(itemElement);
                 Rectangle itemRec = _xDocTools.CreateRectangle(itemElement);
                 EquipmentItem equipmentItem = _xDocTools.ParseAttributeAsEquipmentItem(itemElement, "name");
-
-                Debug.WriteLine(equipmentItem);
 
                 if (count > 0)
                 {
@@ -166,6 +163,7 @@ namespace SprintZero1.GameStateMenu
         /// </summary>
         public void SetNextWeapon()
         {
+            Debug.WriteLine("SetNextWeapon");
             int currentIndex = _playerEquipment.IndexOf(currentWeapon);
             int nextIndex = (currentIndex + 1) % _playerEquipment.Count;
             EquipmentItem nextWeapon = _playerEquipment[nextIndex];
@@ -237,6 +235,7 @@ namespace SprintZero1.GameStateMenu
         /// </summary>
         private void updateChooseRecPosition()
         {
+            if (currentWeapon == EquipmentItem.WoodenSword) return;
             if (equipmentData.TryGetValue(currentWeapon, out Tuple<Rectangle, Vector2> data))
             {
                 int chooseRectWidth = ChooseRect.Width;
@@ -281,7 +280,6 @@ namespace SprintZero1.GameStateMenu
         /// <param name="spriteBatch">The sprite batch used for drawing.</param>
         private void DrawChooseRec(SpriteBatch spriteBatch)
         {
-            Debug.WriteLine(ChooseRecPosition);
             spriteBatch.Draw(itemChooseScreen, ChooseRecPosition, ChooseRect, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
         }
 

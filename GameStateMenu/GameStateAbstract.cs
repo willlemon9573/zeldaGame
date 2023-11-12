@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace SprintZero1.GameStateMenu
 {
+
     /// <summary>
     /// Abstract base class for different game state menus.
     /// This class provides common properties and methods used by various game states.

@@ -28,7 +28,6 @@ namespace SprintZero1.Colliders
             dynamicColliderEntities.Add(entity);
         }
 
-
         public static void RemoveAllExcept(ICollidableEntity entity)
         {
             staticColliderEntities.Clear();

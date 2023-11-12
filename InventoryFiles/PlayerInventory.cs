@@ -20,8 +20,11 @@ namespace SprintZero1.InventoryFiles
         private const int MAX_EQUIPMENT_SLOTS = 8;
         private const int MAX_UTILITY_SLOTS = 2; // set to two just because we only have 1 map and 1 compass to get
         private readonly PlayerEntity _inventoryOwner; // need the player as base state to not have to add a whole new interface to access weapon slots
+        // slots for ruppees, bombs, etc
         private Dictionary<StackableItems, IStackableItems> _StackableItemSlots;
+        // slots for the secondary items
         private readonly Dictionary<EquipmentItem, IWeaponEntity> _equipmentSlots = new Dictionary<EquipmentItem, IWeaponEntity>();
+        // slots for the compass and map
         private readonly List<DungeonItems> _DungeonUtilityItemSlots = new List<DungeonItems>();
 
         /* ---------------------------------------- Private functions ---------------------------------------- */
@@ -139,6 +142,7 @@ namespace SprintZero1.InventoryFiles
         {
             Debug.Assert(_equipmentSlots.ContainsKey(newEquipment), $"The player does not contain {newEquipment} in their inventory.");
             _inventoryOwner.EquipmentSlot = _equipmentSlots[newEquipment];
+            Debug.WriteLine(_inventoryOwner.EquipmentSlot);
         }
 
         /// <summary>

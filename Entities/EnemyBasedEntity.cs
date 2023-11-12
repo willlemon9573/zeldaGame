@@ -15,10 +15,9 @@ namespace SprintZero1.Entities
     /// </summary>
     /// <author>Zihe Wang</author>
     internal abstract class EnemyBasedEntity : ICombatEntity, ICollidableEntity
+
     {
-        //Enemy Components
-        //protected IProjectileEntity projectileSprite;
-        protected int _totalFrame;
+        protected float _totalFrame;
         protected float _attackCooldown;
         protected int _enemyHealthMax;
         protected Vector2 _enemyDefaultPosition;
@@ -30,22 +29,17 @@ namespace SprintZero1.Entities
         //protected readonly string _weapon;
         protected readonly float _timeToReset = 1f / 7;
         protected ISprite _enemySprite;
-        public ISprite EnemySprite { get { return _enemySprite; } set { _enemySprite = value; } }
-        protected string _enemyName;
-        public string EnemyName { get { return _enemyName; } set { _enemyName = value; } }
-
-        protected Vector2 _enemyPosition;
-        public Vector2 Position { get { return _enemyPosition; } set { _enemyPosition = value; _collider.Update(this); } }
-
-        protected int _enemyHealth;
-        public int Health { get { return _enemyHealth; } set { _enemyHealth = value; } }
-
         protected Direction _enemyDirection = Direction.South;
-        public Direction Direction { get { return _enemyDirection; } set { _enemyDirection = value; } }
-
+        protected float _enemyHealth;
+        protected string _enemyName;
+        protected Vector2 _enemyPosition;
         protected IEnemyState _enemyState;
+        public ISprite EnemySprite { get { return _enemySprite; } set { _enemySprite = value; } }
+        public string EnemyName { get { return _enemyName; } set { _enemyName = value; } }
+        public Vector2 Position { get { return _enemyPosition; } set { _enemyPosition = value; _collider.Update(this); } }
+        public float Health { get { return _enemyHealth; } set { _enemyHealth = value; } }
+        public Direction Direction { get { return _enemyDirection; } set { _enemyDirection = value; } }
         public IEnemyState EnemyState { get { return _enemyState; } set { _enemyState = value; } }
-
         private ICollider _collider;
         public ICollider Collider { get { return _collider; } }
 
@@ -76,9 +70,6 @@ namespace SprintZero1.Entities
             if (_enemyState is not EnemyMovingState) { TransitionToState(State.Moving); }
             _enemyState.Request();
         }
-        /*if (_playerState is not PlayerMovingState) { TransitionToState(State.Moving); }
-        _playerState.Request();*/
-
 
         public virtual void TransitionToState(State newState)
         {
@@ -91,7 +82,6 @@ namespace SprintZero1.Entities
         }
 
         public abstract void PerformAttack();
-
 
         public virtual void TakeDamage(int damage)
         {
@@ -117,7 +107,6 @@ namespace SprintZero1.Entities
         public virtual void Update(GameTime gameTime)
         {
             _enemyState.Update(gameTime);
-
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

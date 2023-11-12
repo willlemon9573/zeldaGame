@@ -24,7 +24,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Handle()
         {
-
         }
         /// <summary>
         /// Handles updating the game

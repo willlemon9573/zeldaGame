@@ -4,6 +4,10 @@ using System;
 using SprintZero1.GameStateMenu;
 using SprintZero1.Managers;
 using SprintZero1.Controllers;
+using SprintZero1.Enums;
+using SprintZero1.Entities.BowAndMagicFireEntity;
+using SprintZero1.Entities;
+using SprintZero1.Entities.BoomerangEntity;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
@@ -13,14 +17,24 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         private IController controllerForItemSelection;
         public GameItemSelectionState(Game1 game) : base(game)
         {
-            itemSelectionMenu = new ItemSelectionMenu(game, ProgramManager.Player);
-            controllerForItemSelection = new KeyboardControllerForItemSelection(game, ProgramManager.Player, itemSelectionMenu);
+            itemSelectionMenu = new ItemSelectionMenu(game, ProgramManager.player);
+            IWeaponEntity newEquipment = new RegularBowEntity("Bow");
+            PlayerInventoryManager.AddEquipmentItemToInventory(ProgramManager.player,EquipmentItem.Bow, newEquipment);
+            IWeaponEntity newEquipment2 = new RegularBoomerangEntity("Boomerang", ProgramManager.player);
+            PlayerInventoryManager.AddEquipmentItemToInventory(ProgramManager.player, EquipmentItem.Boomerang, newEquipment2);
+            IWeaponEntity newEquipment3 = new BetterBowEntity("BetterBow");
+            PlayerInventoryManager.UpgradeEquipment(ProgramManager.player, EquipmentItem.Bow, EquipmentItem.BetterBow, newEquipment3);
+           /* IWeaponEntity newEquipment4 = new BetterBoomerangEntity("BetterBoomerang", ProgramManager.player);
+            PlayerInventoryManager.UpgradeEquipment(ProgramManager.player, EquipmentItem.Boomerang, EquipmentItem.BetterBoomerang, newEquipment4);*/
+            controllerForItemSelection = new KeyboardControllerForItemSelection(game, ProgramManager.player, itemSelectionMenu);
+
         }
 
         public override void Update(GameTime gameTime)
         {
             controllerForItemSelection.Update();
             itemSelectionMenu.Update(gameTime);
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)

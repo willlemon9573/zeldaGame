@@ -28,4 +28,8 @@
 		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
 		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
 	</Sprite>
+	<Sprite name ="aquamentus">
+		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
+		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
+	</Sprite>
 </Sprites>

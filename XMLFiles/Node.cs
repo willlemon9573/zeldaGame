@@ -1,4 +1,4 @@
-﻿using SprintZero1.Entities;
+﻿/*using SprintZero1.Entities;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using System.Numerics;
@@ -68,7 +68,7 @@ namespace SprintZero1.XMLFiles
         {
             Vector2 entityPosition = new Vector2(X, Y);
             
-             ISprite entitySprite = ItemSpriteFactory.Instance.CreateAnimatedItemSprite(Name);
+             ISprite entitySprite = ItemSpriteFactory.Instance.CreateAnimatedItemSprite(Name,5);
             
             return new LevelBlockEntity(entitySprite, entityPosition);
         }
@@ -88,3 +88,4 @@ namespace SprintZero1.XMLFiles
 
     }
 }
+*/

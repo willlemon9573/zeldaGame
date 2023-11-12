@@ -12,13 +12,13 @@
 			<key keys="A" action="MoveLeftCommand"></key>
 			<key keys="D" action="MoveRightCommand"></key>
 			<key keys="Z" action="SwordAttackCommand"></key>
-			
 		</ActionCommands>
 		<!--Player commands to access menus - Removed unpause as it's handled by the pause menu -->
 		<MenuAccessCommands>
 			<key keys="D0" action="ExitCommand"></key>
 			<key keys="Escape" action="PauseGameCommand"></key>
 			<key keys="R" action="ResetGameCommand"></key>
+			<key keys="I" action="OpenInventoryCommand"></key>
 		</MenuAccessCommands>
 		<!--Temporary placeholder until exit game command is set up for game state exiting-->
 	</Keyboard>

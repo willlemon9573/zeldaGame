@@ -10,7 +10,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 {
     internal class GameResetState : BaseGameState
     {
-        private List<Action> _resetList;
+        /* Need to update these */
+        private readonly List<Action> _resetList;
         public GameResetState(Game1 game) : base(game)
         {
             _resetList = new List<Action>()
@@ -34,7 +35,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             {
                 action();
             }
-            LevelManager.Initialize(_game);
+            LevelManager.Initialize();
             GameStatesManager.InitializeGameStateMap(_game);
             _game.GameState = GameStatesManager.GetGameState(GameState.Playing);
         }
