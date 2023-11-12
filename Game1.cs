@@ -79,7 +79,6 @@ namespace SprintZero1
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
             LevelManager.Draw(_spriteBatch);
             HUDManager.Draw(_spriteBatch);
-            HUDManager.incrementRupees(24, _spriteBatch);
             _spriteBatch.End();
 
             /* Rescale the window and draw sprite batch with new scale */

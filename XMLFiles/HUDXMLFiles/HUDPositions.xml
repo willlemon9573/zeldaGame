@@ -36,4 +36,23 @@
 	<Sprite name ="x1">
 		<Vector2 x='100' y='48'/>
 	</Sprite>
+	<NumPosition name ="rupeePosition0">
+		<Vector2 x='108' y='24'/>
+	</NumPosition>
+	<NumPosition name ="rupeePosition1">
+		<Vector2 x='116' y='24'/>
+	</NumPosition>
+	<NumPosition name ="keyPosition0">
+		<Vector2 x='108' y='40'/>
+	</NumPosition>
+	<NumPosition name ="keyPosition1">
+		<Vector2 x='116' y='40'/>
+	</NumPosition>
+	<NumPosition name ="bombPosition0">
+		<Vector2 x='108' y='48'/>
+	</NumPosition>
+	<NumPosition name ="bombPosition1">
+		<Vector2 x='116' y='48'/>
+	</NumPosition>
 </Sprites>
+
