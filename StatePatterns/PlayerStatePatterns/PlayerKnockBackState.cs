@@ -5,10 +5,13 @@ using SprintZero1.Enums;
 namespace SprintZero1.StatePatterns.PlayerStatePatterns
 {
     /// <summary>
-    /// To be implemented in Sprint 4
+    /// Knockback the player 
     /// </summary>
 	internal class PlayerKnockBackState : BasePlayerState
     {
+        // Track time 
+        private float _stateElapsedTime = 0f;
+        private readonly float _timeToResetState = 1 / 7f;
         public PlayerKnockBackState(PlayerEntity playerEntity) : base(playerEntity)
         {
             //TODO: Implement logic

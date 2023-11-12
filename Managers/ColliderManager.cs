@@ -11,6 +11,12 @@ namespace SprintZero1.Colliders
         // Static list of Dynamic colliders
         static List<ICollidableEntity> dynamicColliderEntities = new List<ICollidableEntity>();
 
+        public static void Reset()
+        {
+            staticColliderEntities.Clear();
+            dynamicColliderEntities.Clear();
+        }
+
         // Add Static Collider to List
         public static void AddStaticCollider(ICollidableEntity entity)
         {
@@ -21,7 +27,6 @@ namespace SprintZero1.Colliders
         {
             dynamicColliderEntities.Add(entity);
         }
-
 
         public static void RemoveAllExcept(ICollidableEntity entity)
         {

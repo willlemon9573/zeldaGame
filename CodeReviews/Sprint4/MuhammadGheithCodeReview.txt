@@ -1,0 +1,11 @@
+﻿Code Review for XMLParser by Muhammad Gheith
+11/3/2023
+Sprint4
+XMLParser.cs
+Will
+10 minutes
+
+The code is readable on a design level. A Dictionary is made with function calls stored as values via lambadas. Thia makes the main while-loop call in the "Parse(string)" function quite clear.
+Each function is clearly named, and their code is lean. This will make the code easy to update since it can be focused on adding new functions.
+However there's a lack of comments in the code which can make it hard to debug. There are if-statements could probably be replaced with Debug.Asserts(), or maybe more Labmda functions.
+

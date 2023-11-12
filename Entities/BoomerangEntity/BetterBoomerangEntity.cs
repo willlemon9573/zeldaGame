@@ -6,21 +6,28 @@ using System;
 
 namespace SprintZero1.Entities.BoomerangEntity
 {
+    /// <summary>
+    /// Represents a more advanced version of the boomerang weapon in the game.
+    /// This class extends BoomerangBasedEntity and customizes the behavior for the better boomerang.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     internal class BetterBoomerangEntity : BoomerangBasedEntity
     {
         // Constants defining the maximum distance the boomerang can travel and its moving speed
         private const int BetterBoomerangMaxDistance = 100;
         private const float BetterBoomerangMovingSpeed = 3.5f;
+
         /// <summary>
         /// Initializes a new instance of the BetterBoomerangEntity class.
         /// </summary>
         /// <param name="weaponName">The name of the weapon.</param>
-        /// <param name="player">The player entity.</param>
+        /// <param name="player">The player entity using the boomerang.</param>
         public BetterBoomerangEntity(String weaponName, IMovableEntity player) : base(weaponName, player)
         {
             _maxDistance = BetterBoomerangMaxDistance;
             movingSpeed = BetterBoomerangMovingSpeed;
         }
+
         /// <summary>
         /// Prepares the weapon for use by setting its initial state and sprite.
         /// </summary>
@@ -40,6 +47,5 @@ namespace SprintZero1.Entities.BoomerangEntity
             _currentSpriteEffect = SpriteEffects.None;
             _weaponPosition = position + spriteAdditions.Item2;
         }
-
     }
 }

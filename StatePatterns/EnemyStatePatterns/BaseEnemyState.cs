@@ -37,6 +37,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
             };
         }
 
+
         /// <summary>
         /// Changes the direction of the enemy based on the current state
         /// </summary>
@@ -69,7 +70,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
             SpriteEffects spriteEffects = _enemyEntity.Direction == Direction.West
                 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             // draw sprite
-            _enemyEntity.EnemySprite.Draw(spriteBatch, _enemyEntity.Position, spriteEffects);
+            _enemyEntity.EnemySprite.Draw(spriteBatch, _enemyEntity.Position, spriteEffects, 0, 0.1f);
         }
 
 

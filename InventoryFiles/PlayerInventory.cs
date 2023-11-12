@@ -20,8 +20,11 @@ namespace SprintZero1.InventoryFiles
         private const int MAX_EQUIPMENT_SLOTS = 8;
         private const int MAX_UTILITY_SLOTS = 2; // set to two just because we only have 1 map and 1 compass to get
         private readonly PlayerEntity _inventoryOwner; // need the player as base state to not have to add a whole new interface to access weapon slots
+        // slots for ruppees, bombs, etc
         private Dictionary<StackableItems, IStackableItems> _StackableItemSlots;
+        // slots for the secondary items
         private readonly Dictionary<EquipmentItem, IWeaponEntity> _equipmentSlots = new Dictionary<EquipmentItem, IWeaponEntity>();
+        // slots for the compass and map
         private readonly List<DungeonItems> _DungeonUtilityItemSlots = new List<DungeonItems>();
 
         /* ---------------------------------------- Private functions ---------------------------------------- */
@@ -57,7 +60,7 @@ namespace SprintZero1.InventoryFiles
         /// <param name="amount">The amount of the item used</param>
         public void AddItem(StackableItems item, int amount)
         {
-            Debug.WriteLine(_StackableItemSlots.ContainsKey(item), $"Error: {item} is not a stackable item");
+            Debug.Assert(_StackableItemSlots.ContainsKey(item), $"Error: {item} is not a stackable item");
             _StackableItemSlots[item].PickedUpItem(amount);
         }
 
@@ -139,6 +142,7 @@ namespace SprintZero1.InventoryFiles
         {
             Debug.Assert(_equipmentSlots.ContainsKey(newEquipment), $"The player does not contain {newEquipment} in their inventory.");
             _inventoryOwner.EquipmentSlot = _equipmentSlots[newEquipment];
+            Debug.WriteLine(_inventoryOwner.EquipmentSlot);
         }
 
         /// <summary>
@@ -150,6 +154,7 @@ namespace SprintZero1.InventoryFiles
         {
             return _equipmentSlots.ContainsKey(item);
         }
+
         /// <summary>
         /// Check if a dungeon utility item like the compass or map are in the player's inventory
         /// </summary>
@@ -178,6 +183,24 @@ namespace SprintZero1.InventoryFiles
         public List<Tuple<ISprite, int>> GetStackableItemSpritesAndCount()
         {
             return _StackableItemSlots.Select(kvp => new Tuple<ISprite, int>(kvp.Value.ItemSprite, kvp.Value.CurrentStock)).ToList();
+        }
+
+        /// <summary>
+        /// Get a list of the equipment the player currently has
+        /// </summary>
+        /// <returns>A list of enums related to the items in the player equipment inventory</returns>
+        public List<EquipmentItem> GetEquipmentList()
+        {
+            return _equipmentSlots.Keys.ToList();
+        }
+
+        /// <summary>
+        /// Get the list of dungeon items owned by the player
+        /// </summary>
+        /// <returns>A list of the dungeon utility items the player has</returns>
+        public List<DungeonItems> GetDungeonItems()
+        {
+            return _DungeonUtilityItemSlots;
         }
     }
 }

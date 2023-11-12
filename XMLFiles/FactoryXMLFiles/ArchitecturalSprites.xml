@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+	<Sprite name="flat">
+		<Rectangle x='984' y='11' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="pyramid">
+		<Rectangle x='1001' y='11' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="statue1">
+		<Rectangle x='1018' y='11' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="statue2">
+		<Rectangle x='1035' y='11' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="hole">
+		<Rectangle x='984' y='28' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="spackled">
+		<Rectangle x='1001' y='28' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="blueflat">
+		<Rectangle x='1018' y='28' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="stairs">
+		<Rectangle x='1035' y='28' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="greybrick">
+		<Rectangle x='984' y='45' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="greystriped">
+		<Rectangle x='1001' y='45' width='16' height='16'/>
+	</Sprite>
+	<Sprite name="doorless_north">
+		<Rectangle x='815' y='11' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="doorless_west">
+		<Rectangle x='815' y='44' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="doorless_east">
+		<Rectangle x='815' y='77' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="doorless_south">
+		<Rectangle x='815' y='110' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="open_north">
+		<Rectangle x='848' y='11' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="open_west">
+		<Rectangle x='848' y='44' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="open_east">
+		<Rectangle x='848' y='77' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="open_south">
+		<Rectangle x='848' y='110' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="locked_north">
+		<Rectangle x='881' y='11' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="locked_west">
+		<Rectangle x='881' y='44' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="locked_east">
+		<Rectangle x='881' y='77' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="locked_south">
+		<Rectangle x='881' y='110' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="blocked_north">
+		<Rectangle x='914' y='11' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="blocked_west">
+		<Rectangle x='914' y='44' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="blocked_east">
+		<Rectangle x='914' y='77' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="blocked_south">
+		<Rectangle x='914' y='110' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="hole_north">
+		<Rectangle x='947' y='11' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="hole_west">
+		<Rectangle x='947' y='44' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="hole_east">
+		<Rectangle x='947' y='77' width='32' height='32'/>
+	</Sprite>
+	<Sprite name="hole_south">
+		<Rectangle x='947' y='110' width='32' height='32'/>
+	</Sprite>
+	<!--tl = top left, bl = bottom left, tr = top right, br = bottom right-->
+	<Sprite name="tl_vertical_wall">
+		<Rectangle x='521' y='11' width='32' height='72'/>
+	</Sprite>
+	<Sprite name="bl_vertical_wall">
+		<Rectangle x='521' y='115' width='32' height='72'/>
+	</Sprite>
+	<Sprite name="tr_vertical_wall">
+		<Rectangle x='745' y='11' width='32' height='72'/>
+	</Sprite>
+	<Sprite name="br_vertical_wall">
+		<Rectangle x='745' y='115' width='32' height='72'/>
+	</Sprite>
+	<Sprite name="tl_horizontal_wall">
+		<Rectangle x="553" y="11" width="80" height="32"/>
+	</Sprite>
+	<Sprite name="bl_horizontal_wall">
+		<Rectangle x="553" y="155" width="80" height="32"/>
+	</Sprite>
+	<Sprite name="tr_horizontal_wall">
+		<Rectangle x="665" y="11" width="80" height="32"/>
+	</Sprite>
+	<Sprite name="br_horizontal_wall">
+		<Rectangle x="665" y="155" width="80" height="32"/>
+	</Sprite>
+</Sprites>

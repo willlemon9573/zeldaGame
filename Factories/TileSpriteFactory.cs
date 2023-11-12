@@ -11,13 +11,12 @@ namespace SprintZero1.Factories
 {
     public class TileSpriteFactory
     {
-        private const string DOOR_TILE_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\DoorAndTileSprites.xml";
+        private const string DOOR_TILE_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\ArchitecturalSprites.xml";
         private const string LEVEL_ONE_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\Level1FloorSprites.xml";
         private Texture2D tileSpriteSheet;
         private Texture2D levelOneSpriteSheet;
-        private readonly Dictionary<string, Rectangle> tileSourceRectangles;
-        private readonly Dictionary<int, Rectangle> wallSourceRectangles;
-        private readonly Dictionary<String, Rectangle> levelOneSourceRectangles;
+        private readonly Dictionary<string, Rectangle> _tileSourceRectangles;
+        private readonly Dictionary<String, Rectangle> _levelOneSourceRectangles;
         private static readonly TileSpriteFactory instance = new TileSpriteFactory();
 
         /// <summary>
@@ -29,48 +28,13 @@ namespace SprintZero1.Factories
         }
 
         /// <summary>
-        /// Tile Factory Property to get the current tile list
-        /// </summary>
-
-
-        /// <summary>
-        /// Adds the coordinates of the walls from the sprite sheet into the dictionary
-        /// </summary>
-        private void AddWallSourceRectangles()
-        {
-            //TODO: Create an XML File to parse - In discussion with Will/Jarek on how we want to handle walls
-            const int WIDTH = 112, LENGTH = 72;
-            const int QUAD_ONE = 1, QUAD_TWO = 2, QUAD_THREE = 3, QUAD_FOUR = 4;
-            // used to set the offset of coordinates between each quadrant
-            const int X_OFFSET = 144, Y_OFFSET = 104;
-            Vector2 spriteOrigin = new Vector2(665, 11);
-            // Top Right Wall (Quadrant 1)
-            wallSourceRectangles.Add(QUAD_ONE, new Rectangle((int)spriteOrigin.X, (int)spriteOrigin.Y, WIDTH, LENGTH));
-            // Top Left Wall (Quadrant 2);
-            wallSourceRectangles.Add(QUAD_TWO, new Rectangle((int)spriteOrigin.X - X_OFFSET, (int)spriteOrigin.Y, WIDTH, LENGTH));
-            // bottom left wall (Quadrant 3);
-            wallSourceRectangles.Add(QUAD_THREE, new Rectangle((int)spriteOrigin.X - X_OFFSET, (int)spriteOrigin.Y + Y_OFFSET, WIDTH, LENGTH));
-            // Bottom Right Wall (Quadrant 4)
-            wallSourceRectangles.Add(QUAD_FOUR, new Rectangle((int)spriteOrigin.X, (int)spriteOrigin.Y + Y_OFFSET, WIDTH, LENGTH));
-            /* should be deleted, but saving this for when we refactor */
-            /*foreach (var kvp in wallSourceRectangles)
-            {
-                Debug.WriteLine("<Sprite quadrant=\"" + kvp.Key + "\">");
-                Debug.WriteLine("\t<Rectangle x='" + kvp.Value.X + "' y='" + kvp.Value.Y + "' width='" + WIDTH + "' height='" + LENGTH + "'/>");
-                Debug.WriteLine("</Sprite>");
-            }*/
-        }
-
-        /// <summary>
         /// Private constructor to prevent instation of a new tile factory
         /// </summary>
         private TileSpriteFactory()
         {
             SpriteXMLParser spriteParser = new SpriteXMLParser();
-            tileSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(DOOR_TILE_DOCUMENT_PATH);
-            wallSourceRectangles = new Dictionary<int, Rectangle>();
-            levelOneSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(LEVEL_ONE_DOCUMENT_PATH);
-            AddWallSourceRectangles();
+            _tileSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(DOOR_TILE_DOCUMENT_PATH);
+            _levelOneSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(LEVEL_ONE_DOCUMENT_PATH);
         }
 
         /// <summary>
@@ -89,21 +53,11 @@ namespace SprintZero1.Factories
         public ISprite CreateNewTileSprite(string tileName)
         {
             Debug.Assert(tileName != null, "tile is null");
-            Debug.Assert(tileSourceRectangles.ContainsKey(tileName), "Source Rectangle does not contain the tile named: " + tileName);
-            return new NonAnimatedSprite(tileSourceRectangles[tileName], tileSpriteSheet);
+            Debug.Assert(_tileSourceRectangles.ContainsKey(tileName), "Source Rectangle does not contain the tile named: " + tileName);
+            return new NonAnimatedSprite(_tileSourceRectangles[tileName], tileSpriteSheet);
 
         }
 
-        /// <summary>
-        /// Create and return a new wall sprite based on the desired qudrant [1, 2, 3, 4]
-        /// </summary>
-        /// <param name="quadrant">The quadrant related to where the wall will be placed</param>
-        /// <returns></returns>
-        public ISprite CreateNewWallSprite(int quadrant)
-        {
-            Debug.Assert(wallSourceRectangles.ContainsKey(quadrant), "Incorrect Quadrant: " + quadrant);
-            return new NonAnimatedSprite(wallSourceRectangles[quadrant], tileSpriteSheet);
-        }
         /// <summary>
         /// Create a sprite that will be the room specific floor sprite.
         /// </summary>
@@ -111,7 +65,17 @@ namespace SprintZero1.Factories
         /// <returns></returns>
         public ISprite CreateFloorSprite(string floor)
         {
-            return new NonAnimatedSprite(levelOneSourceRectangles[floor], levelOneSpriteSheet);
+            return new NonAnimatedSprite(_levelOneSourceRectangles[floor], levelOneSpriteSheet);
+        }
+
+        /// <summary>
+        /// Get the dimensions of a specific sprite for colliders
+        /// </summary>
+        /// <param name="tileName">The specific tile that the dimensions are for</param>
+        /// <returns>A rectanle that contains the dimensions of the sprite</returns>
+        public Rectangle GetSpriteDimensions(string tileName)
+        {
+            return _tileSourceRectangles[tileName];
         }
     }
 }

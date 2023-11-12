@@ -24,16 +24,16 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="StatePatterns\PlayerStatePatterns\" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Update="Content\Pause.spritefont">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="XMLFiles\FactoryXMLFiles\AnimatedItemSprites.XML">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLFiles\FactoryXMLFiles\BossSprites.XML">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="XMLFiles\FactoryXMLFiles\DoorAndTileSprites.xml">
+    <None Update="XMLFiles\FactoryXMLFiles\ArchitecturalSprites.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLFiles\FactoryXMLFiles\EnemySprites.xml">
@@ -55,6 +55,66 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLFiles\FactoryXMLFiles\ProjectileSprites.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room1Left.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room1Right.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room3Left.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room3Right.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room4.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room4Left.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room4Leftest.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room4Right.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room4Rightest.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room5.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room5Right.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room5Rightest.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room6.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\Room6Left.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\RoomDev.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\LevelXMLFiles\RoomSecret.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\PlayerXMLFiles\ControllerSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XMLFiles\PlayerXMLFiles\StartingInventory.xml">

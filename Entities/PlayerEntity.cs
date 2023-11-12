@@ -9,6 +9,7 @@ using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
+using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {
@@ -19,7 +20,7 @@ namespace SprintZero1.Entities
     internal class PlayerEntity : ICombatEntity, ICollidableEntity
     {
         /* Player Components */
-        private int _playerHealth;
+        private float _playerHealth;
         private ISprite _playerSprite;
         private Direction _playerDirection;
         private Vector2 _playerPosition;
@@ -27,11 +28,12 @@ namespace SprintZero1.Entities
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
         private IWeaponEntity _playerSwordSlot;
         private IWeaponEntity _playerEquipmentSlot;
+        private readonly PlayerStateFactory _playerStateFactory;
         private IPlayerState _playerState;
         private bool _attackingWithSword = false;
-        private PlayerInventory _playerInventory;
+        private readonly PlayerInventory _playerInventory;
         /* Public properties to modify the player's private members */
-        public int Health { get { return _playerHealth; } set { _playerHealth = value; } }
+        public float Health { get { return _playerHealth; } set { _playerHealth = value; } }
         public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
         public ISprite PlayerSprite { get { return _playerSprite; } set { _playerSprite = value; } }
         public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
@@ -46,7 +48,7 @@ namespace SprintZero1.Entities
         /// <param name="position">The position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        public PlayerEntity(Vector2 position, int startingHealth, Direction startingDirection)
+        public PlayerEntity(Vector2 position, float startingHealth, Direction startingDirection)
         {
             /* Default values for player upon game start */
             _playerDirection = startingDirection;
@@ -56,6 +58,7 @@ namespace SprintZero1.Entities
             _playerCollider = new PlayerCollider(new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
             _playerState = new PlayerIdleState(this);
             _playerInventory = new PlayerInventory(this);
+            _playerStateFactory = new PlayerStateFactory(this);
             PlayerInventoryManager.AddPlayerInventory(this, _playerInventory);
         }
 
@@ -70,12 +73,13 @@ namespace SprintZero1.Entities
         /// <param name="newState">the new state the player will transition to</param>
         public void TransitionToState(State newState)
         {
-            _playerState.TransitionState(newState);
+            _playerState.TransitionState(_playerStateFactory.GetPlayerState(newState));
         }
 
         public void Attack(string weaponName)
         {
             if (_playerState is not PlayerAttackingState) { TransitionToState(State.Attacking); }
+            Debug.WriteLine($"Current position: {_playerPosition}");
             if (weaponName == "sword")
             {
                 _attackingWithSword = true;
@@ -101,6 +105,7 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
+
             _playerState.Update(gameTime);
             _playerCollider.Update(this);
             if (_playerState is not PlayerIdleState && Keyboard.GetState().GetPressedKeyCount() == 0)

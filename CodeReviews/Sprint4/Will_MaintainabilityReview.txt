@@ -1,0 +1,8 @@
+Author of code review: Will Lemon
+Date: 11/3/2023
+Sprint: 4
+Name of .cs file: SoundFactory.cs:
+Author of .cs file: Jerek
+Time reviewed: 25 minutes
+
+	Jereks File was very easy to read and understand. Jerek did an excellent job commenting on all of his code and making sure that the variables are named appropriately. While this may be more about maintainability than readability, the SoundFactory method is very repetitive and could probably be simplified down to a dictionary so the method is not as long and more readable and maintainable. Besides that, Jerek’s file seems all good to me. 

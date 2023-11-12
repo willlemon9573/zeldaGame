@@ -1,26 +1,28 @@
 ﻿using SprintZero1.Managers;
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SprintZero1.Commands
 {
     public class GetNextLevelCommand : ICommand
     {
-        private readonly List<String> levelList;
+        private readonly List<string> levelList;
         private readonly int totalRooms;
         private int index;
 
         public GetNextLevelCommand()
         {
-            levelList = LevelManager.LevelList;
+            levelList = LevelManager.DungeonRoomList;
             totalRooms = levelList.Count;
-            index = LevelManager.LevelListIndex;
         }
         public void Execute()
         {
+            index = LevelManager.CurrentRoomIndex;
             index = (index + 1) % totalRooms;
-            LevelManager.LevelListIndex = index;
-            LevelManager.LoadNewRoom(levelList[index]);
+            LevelManager.CurrentRoomIndex = index;
+            string nextLevel = levelList[index];
+            Debug.WriteLine(nextLevel);
+            ProgramManager.ChangeRooms(nextLevel);
         }
     }
 }

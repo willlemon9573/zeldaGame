@@ -13,7 +13,6 @@ namespace SprintZero1.Entities
         ICollider _collider;
         public ICollider Collider { get { return _collider; } }
 
-
         //192long 112high
         public InvisibleWallEntity(ISprite sprite, Vector2 position, Vector2 dimensions)
         {
@@ -25,12 +24,15 @@ namespace SprintZero1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            // N/A
+            SpriteEffects effects = SpriteEffects.None;
+            float rotation = 0f;
+            float layerScale = 0.5f;
+            _sprite.Draw(spriteBatch, _position, effects, rotation, layerScale);
         }
 
         public void Update(GameTime gameTime)
         {
-            // N/A
+            _collider.Update(this);
         }
 
         ~InvisibleWallEntity()

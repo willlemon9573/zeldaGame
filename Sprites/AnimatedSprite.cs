@@ -70,7 +70,7 @@ namespace SprintZero1.Sprites
              */
             Color colorMask = Color.White;
             Vector2 origin = new Vector2(width / 2, height / 2); /* origin of the drawing in the middle for rotation */
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, (int)(width), (int)(height));
+            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
             spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, colorMask, rotation, origin, spriteEffects, layerDepth);
         }
 

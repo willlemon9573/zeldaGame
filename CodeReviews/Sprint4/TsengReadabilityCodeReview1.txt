@@ -1,0 +1,20 @@
+Author of the code review: Chih-Hsiang Jarek Tseng
+Date of the code review: 11/1/2023
+Sprint number: 4
+Name of the .cs file being reviewed: PlayerInventory.cs
+Author of the .cs file being reviewed: Aaron Heishman
+Number of minutes taken to complete the review: 10 minutes
+Specific comments on what is readable and what is not:
+First glance at the class file it seems very consistent, the constant 
+variables are all in all caps, there are comments in place to ackknowledge different 
+functions, or methods, and there are documentation on top of each function/method 
+stating what it does and what parameters are needed. There is also error handling in place
+which is great practice and good for maintainability too. 
+Some things that can be improved upon is making sure that the documentation stays consistent, 
+I see some functions that don't have any description for the parameters and/or return values.
+Another action that may prove to be helpful is creating a class-level description for
+the whole class and its purposes so that it is easy to tell what the class intended uses are.
+Overall, the code is well documented and organized, there could be more added groupings for the 
+functions such as the Add methods, Upgrade methods, bool methods/isininventory methods, and getstackablecount 
+methods to make it even more organized and complete but that is just a suggestion. The code is very readable 
+already and is documented very well.
