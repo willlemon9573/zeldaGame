@@ -16,14 +16,13 @@ namespace SprintZero1.Managers
     {
         private static List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
         public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
-        private const int LeftDigitIndex = 0;
-        private const int RightDigitIndex = 1;
         private const string Zero = "0";
         private static List<ISprite> rupeeDigits = new List<ISprite>();
         private static List<ISprite> keyDigits = new List<ISprite>();
         private static List<ISprite> bombDigits = new List<ISprite>();
         private static Dictionary<String, Vector2> positionDictionary = new Dictionary<String, Vector2>();
-
+        private const int LeftDigitIndex = 0;
+        private const int RightDigitIndex = 1;
 
         public static void Initialize()
         {
@@ -73,78 +72,47 @@ namespace SprintZero1.Managers
             
         }
 
-        public static void UpdateRupeeCount(int amount, SpriteBatch spriteBatch)
+        public static void UpdateRupeeCount(int amount)
         {
-            string amountString = amount.ToString();
-            string firstDigit = amountString[0].ToString();
-            Vector2 position0 = positionDictionary["rupeePosition0"];
-            Vector2 position1 = positionDictionary["rupeePosition1"];
-
-            if (amountString.Length == 2)
-            {
-                string secondDigit = amountString[1].ToString();
-
-                rupeeDigits[0] = HUDSpriteFactoryInstance.CreateHUDSprite(firstDigit);
-                rupeeDigits[1] = HUDSpriteFactoryInstance.CreateHUDSprite(secondDigit);
-            } 
-            else
-            {
-                rupeeDigits[0] = HUDSpriteFactoryInstance.CreateHUDSprite(Zero);
-                rupeeDigits[1] = HUDSpriteFactoryInstance.CreateHUDSprite(firstDigit);
-            }
-
-            rupeeDigits[0].Draw(spriteBatch, position0);
-            rupeeDigits[1].Draw(spriteBatch, position1);
+            int leftDigit = amount / 10;
+            int rightDigit = amount % 10;
+            rupeeDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
+            rupeeDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
-        public static void UpdateKeyCount(int amount, SpriteBatch spriteBatch)
+        public static void UpdateKeyCount(int amount)
         {
-            string amountString = amount.ToString();
-            string firstDigit = amountString[0].ToString();
-            Vector2 position0 = positionDictionary["keyPosition0"];
-            Vector2 position1 = positionDictionary["keyPosition1"];
-
-            if (amountString.Length == 2)
-            {
-                string secondDigit = amountString[1].ToString();
-
-                keyDigits[0] = HUDSpriteFactoryInstance.CreateHUDSprite(firstDigit);
-                keyDigits[1] = HUDSpriteFactoryInstance.CreateHUDSprite(secondDigit);
-            }
-            else
-            {
-                keyDigits[0] = HUDSpriteFactoryInstance.CreateHUDSprite(Zero);
-                keyDigits[1] = HUDSpriteFactoryInstance.CreateHUDSprite(firstDigit);
-            }
-
-            keyDigits[0].Draw(spriteBatch, position0);
-            keyDigits[1].Draw(spriteBatch, position1);
+            int leftDigit = amount / 10;
+            int rightDigit = amount % 10;
+            keyDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
+            keyDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
-        public static void UpdateBombCount(int amount, SpriteBatch spriteBatch)
+        public static void UpdateBombCount(int amount)
         {
-            string amountString = amount.ToString();
-            string firstDigit = amountString[0].ToString();
-            Vector2 position0 = positionDictionary["bombPosition0"];
-            Vector2 position1 = positionDictionary["bombPosition1"];
-
-            if (amountString.Length == 2)
-            {
-                string secondDigit = amountString[1].ToString();
-
-                bombDigits[0] = HUDSpriteFactoryInstance.CreateHUDSprite(firstDigit);
-                bombDigits[1] = HUDSpriteFactoryInstance.CreateHUDSprite(secondDigit);
-            }
-            else
-            {
-                bombDigits[0] = HUDSpriteFactoryInstance.CreateHUDSprite(Zero);
-                bombDigits[1] = HUDSpriteFactoryInstance.CreateHUDSprite(firstDigit);
-            }
-
-            bombDigits[0].Draw(spriteBatch, position0);
-            bombDigits[1].Draw(spriteBatch, position1);
+            int leftDigit = amount / 10;
+            int rightDigit = amount % 10;
+            bombDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
+            bombDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
+        public static void DrawRupeeCount(SpriteBatch spriteBatch)
+        {
+            rupeeDigits[LeftDigitIndex].Draw(spriteBatch, positionDictionary["rupeePosition0"]);
+            rupeeDigits[RightDigitIndex].Draw(spriteBatch, positionDictionary["rupeePosition1"]);
+        }
+
+        public static void DrawKeyCount(SpriteBatch spriteBatch)
+        {
+            keyDigits[LeftDigitIndex].Draw(spriteBatch, positionDictionary["keyPosition0"]);
+            keyDigits[RightDigitIndex].Draw(spriteBatch, positionDictionary["keyPosition1"]);
+        }
+
+        public static void DrawBombCount(SpriteBatch spriteBatch)
+        {
+            bombDigits[LeftDigitIndex].Draw(spriteBatch, positionDictionary["bombPosition0"]);
+            bombDigits[RightDigitIndex].Draw(spriteBatch, positionDictionary["bombPosition1"]);
+        }
 
         public static void Draw(SpriteBatch spriteBatch)
         {
@@ -161,12 +129,9 @@ namespace SprintZero1.Managers
             {
                 sprite.Item1.Draw(spriteBatch, sprite.Item2);
             }
-            int rupeeCount = 99;
-            int keyCount = 99;
-            int bombCount = 99;
-            UpdateRupeeCount(rupeeCount, spriteBatch);
-            UpdateKeyCount(keyCount, spriteBatch);
-            UpdateBombCount(bombCount, spriteBatch);
+            DrawRupeeCount(spriteBatch);
+            DrawKeyCount(spriteBatch);
+            DrawBombCount(spriteBatch);
         }
     }
 }
