@@ -14,8 +14,12 @@ namespace SprintZero1.Managers
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(LevelBlockEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute()},
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(DungeonWallEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(FireTrapEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
-            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(OpenDoorEntity)), (entity1, entity2) => new EnterNextLevelCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(OpenDoorEntity)), (entity1, entity2) => new EnterNextRoomCommand(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(LockedDoorEntity)), (entity1, entity2) => new UnlockDoorCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(DoorlessEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(BlockedDoorEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(StairEntity)), (entity1, entity2) => new EnterNextRoomCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(BreakableWallEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(EnemyEntityWithDirection)), (entity1, entity2) => new DestroyEntity(entity1, entity2).Execute() },
         };
 

@@ -14,13 +14,14 @@ namespace SprintZero1.Commands.CollisionCommands
 
         private bool TryUnlockDoor()
         {
-            PushBack();
+
             int keyCount = PlayerInventoryManager.GetStackableItemCount(_player, StackableItems.DungeonKey);
             if (keyCount < 1)
             {
                 PlayerInventoryManager.AddStackableItemToInventory(_player, StackableItems.DungeonKey, 1);
                 return false;
             }
+            PushBack();
             /* push player back */
 
             /* using a cheap trick to unlock the door of the current room

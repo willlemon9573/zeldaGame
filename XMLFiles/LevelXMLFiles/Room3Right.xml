@@ -153,7 +153,7 @@
 			<Name>open_west</Name>
 			<X>15</X>
 			<Y>152</Y>
-			<Destination>floorFlour</Destination>
+			<Destination>floorThree</Destination>
 			<Direction>West</Direction>
 			<DoorType>OpenDoorEntity</DoorType>
 		</Door>

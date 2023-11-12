@@ -15,13 +15,11 @@ namespace SprintZero1.Entities.LootableItemEntity
 
         public Vector2 Position { get { return _entityPosition; } set { _entityPosition = value; } }
         /// <summary>
-        /// Abstract constructor for 
+        /// 
         /// </summary>
-        /// <param name="entitySprite">The entities sprite</param>
-        /// <param name="entityCollider"></param>
-        /// <param name="position"></param>
-        /// <param name="dimensions"></param>
-        public LootableItemBase(ISprite entitySprite, Vector2 position)
+        /// <param name="entitySprite">The sprite of the entity</param>
+        /// <param name="position">where the entity is placed</param>
+        public LootableItemBase(ISprite entitySprite, Vector2 position, )
         {
             _entitySprite = entitySprite;
             _entityPosition = position;

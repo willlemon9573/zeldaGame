@@ -17,10 +17,5 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
             Rectangle colliderDimensions = new Rectangle((int)position.X, (int)position.Y, DoorDimensions.Width, DoorDimensions.Height);
             this._doorCollider = new LockedDoorCollider(colliderDimensions);
         }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            this._doorSprite.Draw(spriteBatch, this._doorPosition, this.SpriteEffect, this.rotation, this.layerDepth);
-        }
     }
 }

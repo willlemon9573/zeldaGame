@@ -85,12 +85,6 @@
 			<IsCollidable>true</IsCollidable>
 		</Block>
 		<Block>
-			<Name>stairs</Name>
-			<X>183</X>
-			<Y>184</Y>
-			<IsCollidable>true</IsCollidable>
-		</Block>
-		<Block>
 			<Name>greybrick</Name>
 			<X>199</X>
 			<Y>184</Y>
@@ -191,6 +185,15 @@
 			<Destination>floorDev</Destination>
 			<Direction>South</Direction>
 			<DoorType>BrokenWallEntity</DoorType>
+		</Door>
+		<Door>
+			<Name>stairs</Name>
+			<X>183</X>
+			<Y>184</Y>
+			<IsCollidable>true</IsCollidable>
+			<Destination>floorDev</Destination>
+			<Direction>South</Direction>
+			<DoorType>StairEntity</DoorType>
 		</Door>
 	</Doors>
 </Room>

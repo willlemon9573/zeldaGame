@@ -178,8 +178,8 @@
 		<X>15</X>
 		<Y>152</Y>
 		<Destination>entrance</Destination>
-		<Direction>South</Direction>
-		<DoorType>DoorlessEntity</DoorType>
+		<Direction>West</Direction>
+		<DoorType>OpenDoorEntity</DoorType>
 	</Door>
 	<Door>
 		<Name>doorless_east</Name>

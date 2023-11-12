@@ -23,7 +23,10 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
         protected ISprite _doorSprite;
         protected string _doorDestination;
         protected Direction _doorDirection;
-
+        protected readonly int offset = 16; /* used for offsetting the doors that aren't open */
+        private readonly SpriteEffects SpriteEffect = SpriteEffects.None;
+        private readonly float rotation = 0f;
+        private readonly float layerDepth = 0.5f;
         /// <summary>
         /// Get the collider
         /// </summary>
@@ -49,12 +52,12 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
         /// <param name="direction">The direction that the door is placed</param>
         protected BaseDoorEntity(ISprite entitySprite, Vector2 position, string destination, Direction direction)
         {
-            this._doorPosition = position;
-            this._doorSprite = entitySprite;
+            _doorPosition = position;
+            _doorSprite = entitySprite;
             Rectangle colliderDimensions = new Rectangle((int)position.X, (int)position.Y, DoorDimensions.Width, DoorDimensions.Height);
-            this._doorCollider = new StaticCollider(colliderDimensions);
-            this._doorDirection = direction;
-            this._doorDestination = destination;
+            _doorCollider = new LockedDoorCollider(colliderDimensions);
+            _doorDirection = direction;
+            _doorDestination = destination;
         }
         /// <summary>
         /// Draws the door's sprite and any other values
@@ -62,7 +65,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
         /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            _doorSprite.Draw(spriteBatch, _doorPosition);
+            _doorSprite.Draw(spriteBatch, _doorPosition, SpriteEffect, rotation, layerDepth);
         }
         /// <summary>
         /// Updates the entity collider

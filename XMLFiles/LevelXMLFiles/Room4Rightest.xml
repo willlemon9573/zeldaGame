@@ -219,7 +219,7 @@
 			<Name>locked_north</Name>
 			<X>127</X>
 			<Y>80</Y>
-			<Destination>roomFiveRight</Destination>
+			<Destination>floorFiveRight</Destination>
 			<Direction>North</Direction>
 			<DoorType>LockedDoorEntity</DoorType>
 		</Door>

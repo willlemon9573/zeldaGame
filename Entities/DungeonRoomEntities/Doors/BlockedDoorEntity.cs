@@ -13,6 +13,8 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
 
         public BlockedDoorEntity(ISprite entitySprite, Vector2 position, string destination, Direction direction) : base(entitySprite, position, destination, direction)
         {
+
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
