@@ -16,6 +16,11 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
     {
         public Game1 _game;
         public DungeonRoom _currentRoom;
+
+        /// <summary>
+        /// List of players
+        /// </summary>
+        public List<PlayerEntity> _players = new List<PlayerEntity>();
         // Note: Base variable is EntityManager
         
 
@@ -28,12 +33,21 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _game = game;
         }
 
+
+        /// <summary>
+        /// Updates all controllers in State
+        /// </summary>
         public override void Handle()
         {
             foreach (IController controller in Controllers)
             {
                 controller.Update();
             }
+        }
+
+        public void AddPlayer(PlayerEntity player)
+        {
+            _players.Add(player);
         }
 
         /// <summary>
@@ -46,6 +60,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             DungeonRoom nextRoom = LevelManager.GetDungeonRoom(nextRoomName);
             EntityManager.ParseDungeonRoom(nextRoom);
+            EntityManager.Add(_players.OfType<IEntity>().ToList());
             _currentRoom = nextRoom;
         }
 

@@ -50,9 +50,10 @@ namespace SprintZero1.Managers
         {
             GamePlayingState _startingState = (GamePlayingState)_gameStateMap[GameState.Playing];
             PlayerEntity player = new PlayerEntity(new Vector2(200, 100), 6, Direction.North);
+            _startingState.AddPlayer(player);
             KeyboardController controller = new KeyboardController();
             controller.LoadControls(player);
-            _startingState.EntityManager.Add(player);
+            _startingState.AddController(controller);
             _startingState.LoadDungeonRoom("entrance");
             _gameState = _startingState;
         }

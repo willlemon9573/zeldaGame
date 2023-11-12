@@ -32,7 +32,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public virtual void AddController(IController controller)
         {
-
+            Controllers.Add(controller);
         }
 
         public virtual void ChangeGameState(GameState newState)

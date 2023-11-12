@@ -30,6 +30,7 @@ namespace SprintZero1.Managers
             entitiesToAdd.Clear();
             entitiesToRemove.Clear();
         }
+
         /// <summary>
         /// Readies the next screen, removing
         /// all but the player
@@ -94,6 +95,15 @@ namespace SprintZero1.Managers
         }
 
         /// <summary>
+        /// Queues a list of entities to be added next Update()
+        /// </summary>
+        /// <param name="entitiesToAdd">List of entities to add</param>
+        public void Add(List<IEntity> entitiesToAdd)
+        {
+            this.entitiesToAdd.AddRange(entitiesToAdd);
+        }
+
+        /// <summary>
         /// Immediately add to entities list (during current update)
         /// </summary>
         /// <param name="entity">Entity to add</param>
@@ -111,13 +121,6 @@ namespace SprintZero1.Managers
             entities.Remove(entity);
         }
 
-        /// <summary>
-        /// Queues a list of entities to be added next Update()
-        /// </summary>
-        /// <param name="entitiesToAdd">List of entities to add</param>
-        public void Add(List<IEntity> entitiesToAdd)
-        {
-            this.entitiesToAdd.AddRange(entitiesToAdd);
-        }
+        
     }
 }
