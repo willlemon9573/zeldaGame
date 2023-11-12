@@ -9,10 +9,19 @@ namespace SprintZero1.Managers
 {
     internal static class LevelManager
     {
-        private static Dictionary<string, DungeonRoom> _dungeonRoomMap = new Dictionary<string, DungeonRoom>();
+        /// <summary>
+        /// Holds all the dungeon room information
+        /// </summary>
+        private static readonly Dictionary<string, DungeonRoom> _dungeonRoomMap = new Dictionary<string, DungeonRoom>();
         /* for mouse commands */
         private static int currentRoomIndex = 0;
+        /// <summary>
+        /// Get the room list
+        /// </summary>
         public static List<string> DungeonRoomList { get { return _dungeonRoomMap.Keys.ToList(); } }
+        /// <summary>
+        /// Get the current room index and set the current index
+        /// </summary>
         public static int CurrentRoomIndex { get { return currentRoomIndex; } set { currentRoomIndex = value; } }
 
         public static void Load()
@@ -37,5 +46,6 @@ namespace SprintZero1.Managers
             Debug.Assert(_dungeonRoomMap.ContainsKey(roomName));
             return _dungeonRoomMap[roomName];
         }
+
     }
 }

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
-    public abstract class BaseGameState : IGameState
+    internal abstract class BaseGameState : IGameState
     {
         /// <summary>
         /// Game 1

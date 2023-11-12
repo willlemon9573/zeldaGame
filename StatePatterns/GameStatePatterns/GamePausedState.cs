@@ -5,7 +5,7 @@ using SprintZero1.Managers;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
-    public class GamePausedState : BaseGameState
+    internal class GamePausedState : BaseGameState
     {
         private readonly PausedStateUpdater _updater;
         public GamePausedState(Game1 game) : base(game)

@@ -96,12 +96,6 @@
 			<Y>168</Y>
 			<IsCollidable>true</IsCollidable>
 		</Block>
-		<Block>
-			<Name>stairs</Name>
-			<X>135</X>
-			<Y>152</Y>
-			<IsCollidable>true</IsCollidable>
-		</Block>
 	</Blocks>
 	<Enemies>
 		<Enemy>
@@ -141,29 +135,42 @@
 			<Name>doorless_north</Name>
 			<X>127</X>
 			<Y>80</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>none</Destination>
+			<Direction>North</Direction>
+			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>doorless_west</Name>
 			<X>15</X>
 			<Y>152</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>none</Destination>
+			<Direction>North</Direction>
+			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>open_east</Name>
+			<Name>locked_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>none</Destination>
+			<Direction>North</Direction>
+			<DoorType>LockedDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>doorless_south</Name>
 			<X>127</X>
 			<Y>224</Y>
-			<PointX>0</PointX>
-			<PointY>0</PointY>
+			<Destination>none</Destination>
+			<Direction>North</Direction>
+			<DoorType>DoorlessEntity</DoorType>
+		</Door>
+		<Door>
+			<Name>stairs</Name>
+			<X>135</X>
+			<Y>152</Y>
+			<Destination>floorSecret</Destination>
+			<!-- Doesn't use a direction -->
+			<Direction>North</Direction>
+			<DoorType>StairEntity</DoorType>
 		</Door>
 	</Doors>
 </Room>

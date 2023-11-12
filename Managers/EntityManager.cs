@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SprintZero1.Managers
 {
-    public class EntityManager
+    internal class EntityManager
     {
         private List<IEntity> entities = new List<IEntity>();
         private List<IEntity> entitiesToAdd = new List<IEntity>();

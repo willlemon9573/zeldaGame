@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.StatePatternInterfaces
 {
-    public interface IGameState
+    internal interface IGameState
     {
         /// <summary>
         /// Returns the EntityManager of the State
