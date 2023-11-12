@@ -10,6 +10,7 @@ using System.Linq;
 
 namespace SprintZero1.LevelFiles
 {
+    delegate void RemoveDelegate(IEntity entity);
     /// <summary>
     /// A class that is used to hold the information for individual levels
     /// @author Aaron Heishman
@@ -23,22 +24,17 @@ namespace SprintZero1.LevelFiles
         private readonly List<IEntity> _deadEnemyList;
         /* Dropepd Item List */
         private readonly List<IEntity> _floorItems;
+        private readonly List<IEntity> _itemCollector;
         /* Holds all the architecture of the level (blocks, walls, doors, floor) */
         private readonly List<IEntity> _architechtureList;
         private readonly Dictionary<Direction, Vector2> _playerStartingPositionMap;
         private string _roomName; /* identification for the room */
-        private IEntity _roomItem;
 
         /* --------------------------Public properties-------------------------- */
         /// <summary>
         /// Get the live enemy list
         /// </summary>
         public List<IEntity> LiveEnemyList { get { return _liveEnemyList; } }
-        /* these gets are set up just in case they have a use, if not will then be deleted */
-        /// <summary>
-        /// Get the room item if there exists one
-        /// </summary>
-        public IEntity RoomItem { get { return _roomItem; } }
 
         /// <summary>
         /// Get and Set the room name
@@ -156,16 +152,31 @@ namespace SprintZero1.LevelFiles
             Debug.Assert(_playerStartingPositionMap.ContainsKey(direction), $"Room does not contain a starting position for {direction}");
             return _playerStartingPositionMap[direction];
         }
+        /// <summary>
+        /// Used for removing items from the room when they are picked up.
+        /// </summary>
+        /// <param name="entity">The entity to be removed</param>
+        public void RemoveItem(IEntity entity)
+        {
+            _floorItems.Remove(entity);
+            /* adding item to be removed from list*/
+            _itemCollector.Add(entity);
+        }
+
+        /// <summary>
+        /// Clear any of this rooms objects that were added to the item collector.
+        /// </summary>
+        public void ClearTrash()
+        {
+            _itemCollector.Clear();
+        }
 
         public List<IEntity> GetEntityList()
         {
             List<IEntity> entities = new List<IEntity>();
             entities.AddRange(_liveEnemyList);
             entities.AddRange(_architechtureList);
-            if (_floorItems.Count > 0)
-            {
-                entities.AddRange(_floorItems);
-            }
+            entities.AddRange(_floorItems);
             return entities;
         }
     }

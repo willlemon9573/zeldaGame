@@ -4,8 +4,11 @@ using SprintZero1.Colliders;
 using SprintZero1.Controllers;
 using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
+using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
+using SprintZero1.Factories;
 using SprintZero1.LevelFiles;
+using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +53,10 @@ namespace SprintZero1.Managers
             InitializePlayers();
             string entrance_room = "entrance";
             ChangeRooms(entrance_room);
+            ISprite rupee = ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite("rupee");
+            ILootableEntity rup = new StackableItemEntity(rupee, new Vector2(120, 120), _currentRoom.RemoveItem, PlayerInventoryManager.AddStackableItemToInventory, StackableItems.Rupee);
+            _currentRoom.AddRoomItem(rup);
+            UpdateRoomEntities();
         }
 
         /// <summary>

@@ -41,14 +41,6 @@ namespace SprintZero1.Entities
             const int X = 11, Y = 11;
             /* This might be able to be passed by the player / xml / or mathematically */
             _spriteEffectsDictionary = spriteEffectsMap;
-
-            /*                new Dictionary<Direction, Tuple<SpriteEffects, Vector2>>()
-                        {
-                            { Direction.North, Tuple.Create(SpriteEffects.None, new Vector2(0, -11)) },
-                            { Direction.South, Tuple.Create(SpriteEffects.FlipVertically, new Vector2(0, 11)) },
-                            { Direction.East, Tuple.Create(SpriteEffects.None, new Vector2(11, 0)) },
-                            { Direction.West, Tuple.Create(SpriteEffects.FlipHorizontally, new Vector2(-11, 0)) }
-                        };*/
             _colliderRectanglesDictionary = new Dictionary<Direction, Rectangle>()
             {
                 {Direction.North, new Rectangle(5, Y*-1, 7, 16) },
