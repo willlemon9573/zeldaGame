@@ -15,7 +15,7 @@ namespace SprintZero1.Managers
         public static List<string> DungeonRoomList { get { return _dungeonRoomMap.Keys.ToList(); } }
         public static int CurrentRoomIndex { get { return currentRoomIndex; } set { currentRoomIndex = value; } }
 
-        public static void Initialize()
+        public static void Load()
         {
             LevelXMLParser parser = new LevelXMLParser();
             string LevelFolderPath = @"XMLFiles/LevelXmlFiles";

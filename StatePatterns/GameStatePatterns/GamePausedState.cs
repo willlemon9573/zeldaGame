@@ -10,12 +10,12 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         private readonly PausedStateUpdater _updater;
         public GamePausedState(Game1 game) : base(game)
         {
-            _updater = ProgramManager.GetPausedStateUpdater();
+            //_updater = ProgramManager.GetPausedStateUpdater();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            ProgramManager.Draw(spriteBatch);
+            //ProgramManager.Draw(spriteBatch);
             //drawing screen here
         }
 
@@ -26,7 +26,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Update(GameTime gameTime)
         {
-            _updater.Invoke(_game);
+            //_updater.Invoke(_game);
         }
     }
 }

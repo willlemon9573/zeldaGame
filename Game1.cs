@@ -30,6 +30,7 @@ namespace SprintZero1
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
         }
 
+
         /// Initialize all components required to run the game
         /// </summary>
         protected override void Initialize()
@@ -37,8 +38,18 @@ namespace SprintZero1
             // code for window rescaling
             _newRenderTarget = new RenderTarget2D(GraphicsDevice, 255, 240);
             _actualScreenRectangle = new Rectangle(0, 0, 255 * WINDOW_SCALE, 240 * WINDOW_SCALE);
-            GameStatesManager.ChangeGameState(Enums.GameState.Playing);
+            GameStatesManager.InitializeGameStateMap(this);
             base.Initialize();
+        }
+
+
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            LoadTextures();
+            LevelManager.Load();
+            GameStatesManager.Start();
+            _mouseController = new MouseController(this);
         }
 
         private void LoadTextures()
@@ -52,16 +63,7 @@ namespace SprintZero1
             ItemSpriteFactory.Instance.LoadTextures();
         }
 
-        protected override void LoadContent()
-        {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            LoadTextures();
-            /*ProgramManager.Start(this);*/
-            LevelManager.Initialize();
-            ProgramManager.Start(this);
-            _mouseController = new MouseController(this);
-            GameStatesManager.InitializeGameStateMap(this);
-        }
+        
 
         protected override void Update(GameTime gameTime)
         {

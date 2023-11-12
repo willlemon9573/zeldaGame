@@ -11,7 +11,7 @@ namespace SprintZero1.LevelFiles
     /// A class that is used to hold the information for individual levels
     /// @author Aaron Heishman
     /// </summary>
-    internal class DungeonRoom
+    public class DungeonRoom
     {
 
         /* --------------------------Private fields-------------------------- */

@@ -122,7 +122,7 @@ namespace SprintZero1.Entities
             else if (_playerState is not PlayerAttackingState && _attackingWithSword)
             {
                 _attackingWithSword = false;
-                EntityManager.RemoveImmediately(_playerSwordSlot);
+                GameStatesManager.CurrentState.EntityManager.RemoveImmediately(_playerSwordSlot);
             }
             _playerState.Draw(spriteBatch);
 

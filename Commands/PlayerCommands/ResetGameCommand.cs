@@ -1,4 +1,6 @@
 ﻿using SprintZero1.Enums;
+using SprintZero1.Managers;
+
 namespace SprintZero1.Commands.PlayerCommands
 {
     internal class ResetGameCommand : BaseChangeGameStateCommand
@@ -15,8 +17,8 @@ namespace SprintZero1.Commands.PlayerCommands
         /// </summary>
         public override void Execute()
         {
-            _game.GameState.ChangeGameState(GameState.Reset);
-            _game.GameState.Handle();
+            GameStatesManager.ChangeGameState(GameState.Reset);
+            GameStatesManager.CurrentState.Handle();
         }
     }
 }
