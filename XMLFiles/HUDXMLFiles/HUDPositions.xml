@@ -24,4 +24,16 @@
 	<Sprite name ="level">
 		<Vector2 x='40' y='16'/>
 	</Sprite>
+	<Sprite name ="1">
+		<Vector2 x='70' y='16'/>
+	</Sprite>
+	<Sprite name ="x1">
+		<Vector2 x='100' y='24'/>
+	</Sprite>
+	<Sprite name ="x1">
+		<Vector2 x='100' y='40'/>
+	</Sprite>
+	<Sprite name ="x1">
+		<Vector2 x='100' y='48'/>
+	</Sprite>
 </Sprites>

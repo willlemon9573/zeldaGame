@@ -13,16 +13,14 @@ namespace SprintZero1.Managers
 {
     internal static class HUDManager
     {
-        private static float heartsToDraw = 3;
-        private static List<ISprite> heartSprites = new List<ISprite>();
         private static List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
+        public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
         public static void Initialize()
         {
             string path = @"XMLFiles\HUDXMLFiles\HUDPositions.xml";
             XDocument document = XDocument.Load(path);
             XElement root = document.Root; /* get root */
             XDocTools xDocTools = new XDocTools();
-            HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
 
             foreach (XElement sprite in root.Elements("Sprite"))
             {
@@ -49,7 +47,24 @@ namespace SprintZero1.Managers
             
         }
 
-        public static void incrementRupees(int amount)
+        public static void incrementRupees(int amount, SpriteBatch spriteBatch)
+        {
+            string amountString = amount.ToString();
+
+            if(amountString.Length == 2)
+            {
+                string firstDigit = amountString[0].ToString();
+                string secondDigit = amountString[1].ToString();
+
+                ISprite firstDigitSprite = HUDSpriteFactoryInstance.CreateHUDSprite(firstDigit);
+                ISprite secondDigitSprite = HUDSpriteFactoryInstance.CreateHUDSprite(secondDigit);
+
+                firstDigitSprite.Draw(spriteBatch, new Vector2(108, 24));
+                secondDigitSprite.Draw(spriteBatch, new Vector2(116, 24));
+            }
+        }
+
+        public static void decrementRupees(int amount)
         {
 
         }
@@ -59,7 +74,17 @@ namespace SprintZero1.Managers
 
         }
 
+        public static void decrementBombs(int amount)
+        {
+
+        }
+
         public static void incrementKeys(int amount)
+        {
+
+        }
+
+        public static void decrementKeys(int amount)
         {
 
         }
