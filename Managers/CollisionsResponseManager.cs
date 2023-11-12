@@ -24,7 +24,9 @@ namespace SprintZero1.Managers
         public static void CollisionResponse(ICollidableEntity e1, ICollidableEntity e2)
         {
             /* New Implementation is now lazy implementation similar to a flyweight pattern where 
-             * each command is created only when it is needed, and not repeatedly created and executed */
+             * each command is created only when it is needed, and not repeatedly created and executed 
+             * - Aaron
+             */
             Tuple<Type, Type> generic = new Tuple<Type, Type>(e1.GetType(), e2.GetType());
             /* Check if the collider contains the following collision happening */
             if (!collisionResponseDictionary.ContainsKey(generic) && colliderDict.TryGetValue(generic, out var command))

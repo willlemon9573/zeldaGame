@@ -29,7 +29,7 @@ namespace SprintZero1.Colliders
         /// <param name="gameTime">The GameTime object</param>
         public void Update(IEntity parent)
         {
-            _collider.X = (int)parent.Position.X - (((Collider.Width / 2) - Delta)/2) - 1 ;
+            _collider.X = (int)parent.Position.X - (((Collider.Width / 2) - Delta) / 2) - 1;
             _collider.Y = (int)parent.Position.Y - (((Collider.Height / 2) - Delta) / 2) - 1;
         }
     }

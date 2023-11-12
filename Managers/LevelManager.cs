@@ -49,5 +49,16 @@ namespace SprintZero1.Managers
             return _dungeonRoomMap[roomName];
         }
 
+        /// <summary>
+        /// Unlocks a specific door based on the destination where the door leads
+        /// </summary>
+        /// <param name="roomName">The door to unlock</param>
+        public static void UnlockDoor(string roomToFind, string destinationToLookFor)
+        {
+            if (_dungeonRoomMap.TryGetValue(roomToFind, out DungeonRoom room))
+            {
+                room.UnlockDoor(destinationToLookFor);
+            }
+        }
     }
 }

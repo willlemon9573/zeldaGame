@@ -4,7 +4,6 @@ using SprintZero1.Colliders;
 using SprintZero1.Controllers;
 using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
-using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Enums;
 using SprintZero1.LevelFiles;
 using System;
@@ -21,6 +20,8 @@ namespace SprintZero1.Managers
         private static List<IEntity> _nonPlayerEntityList = new List<IEntity>();
         private static List<Tuple<IEntity, IController>> _playerList = new List<Tuple<IEntity, IController>>();
         private static DungeonRoom _currentRoom;
+
+        public static DungeonRoom CurrentRoom { get { return _currentRoom; } }
 
         /// <summary>
         /// Create the list of Players and their keyboards
@@ -59,10 +60,7 @@ namespace SprintZero1.Managers
             // TODO
         }
 
-        public static void UnlockDoor(LockedDoorEntity lockedDoor)
-        {
-            _currentRoom.UnlockDoor(lockedDoor);
-        }
+
 
         /// <summary>
         /// Change the current room the player is in
@@ -73,6 +71,15 @@ namespace SprintZero1.Managers
             _currentRoom = LevelManager.GetDungeonRoom(roomName);
             _nonPlayerEntityList = _currentRoom.GetEntityList();
         }
+        /// <summary>
+        /// For use when doors change / entities die
+        /// </summary>
+        public static void UpdateRoomEntities()
+        {
+            _nonPlayerEntityList = _currentRoom.GetEntityList();
+        }
+
+
 
         /// <summary>
         /// TODO: Fill out

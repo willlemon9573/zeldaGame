@@ -82,17 +82,18 @@ namespace SprintZero1.LevelFiles
         }
 
         /// <summary>
-        /// Handles unlocking a door that may have been locked
+        /// Handles updating a locked door if the door can be unlocked
         /// </summary>
-        /// <param name="lockedDoor">The door that is opening</param>
-        public void UnlockDoor(LockedDoorEntity lockedDoor)
+        /// <param name="destination">The new destination for the door</param>
+        public void UnlockDoor(string destination)
         {
+
+            LockedDoorEntity lockedDoor = _architechtureList.OfType<LockedDoorEntity>().FirstOrDefault(door => door.DoorDestination == destination);
+            if (lockedDoor == null) { return; }
             string doorType = $"open_{lockedDoor.DoorDirection}";
-            Vector2 position = lockedDoor.Position;
-            string destination = lockedDoor.DoorDestination;
-            ISprite openDoorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(doorType);
+            ISprite openDoorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(doorType.ToLower());
             _architechtureList.Remove(lockedDoor);
-            _architechtureList.Add(new LockedDoorEntity(openDoorSprite, position, destination, lockedDoor.DoorDirection));
+            _architechtureList.Add(new OpenDoorEntity(openDoorSprite, lockedDoor.Position, lockedDoor.DoorDestination, lockedDoor.DoorDirection));
         }
 
         /// <summary>
