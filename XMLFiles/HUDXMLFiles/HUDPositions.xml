@@ -36,4 +36,7 @@
 	<Sprite name = "player">
 		<Vector2 x='36' y='45'/>
 	</Sprite>
+	<Sprite name = "triforce">
+		<Vector2 x='60' y='29'/>
+	</Sprite>
 </Sprites>
