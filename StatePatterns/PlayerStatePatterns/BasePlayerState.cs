@@ -4,8 +4,6 @@ using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
-using System;
-using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.PlayerStatePatterns
 {
@@ -16,7 +14,6 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
     internal abstract class BasePlayerState : IPlayerState
     {
         protected PlayerEntity _playerEntity;
-        private readonly Dictionary<State, Func<IPlayerState>> _stateTransitionMap;
         protected LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
         protected bool _blockTransition = false; // false by default
 
@@ -29,24 +26,21 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         public BasePlayerState(PlayerEntity playerEntity)
         {
             this._playerEntity = playerEntity;
-            _stateTransitionMap = new Dictionary<State, Func<IPlayerState>>()
-            {
-                {State.Moving, () => new PlayerMovingState(_playerEntity) },
-                {State.Attacking, () => new PlayerAttackingState(_playerEntity) },
-                {State.Idle, () => new PlayerIdleState(_playerEntity) }
-                // Add more states as needed
-            };
         }
         /// <summary>
         /// Changes the direction of the player based on the current state
         /// </summary>
         /// <param name="newDirection">the new direction the player will face</param>
-        public abstract void ChangeDirection(Direction newDirection);
+        public virtual void ChangeDirection(Direction newDirection)
+        {
+            _playerEntity.Direction = newDirection;
+            _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(newDirection);
+        }
 
-        public virtual void TransitionState(State newState)
+        public virtual void TransitionState(IPlayerState newState)
         {
             if (_blockTransition) { return; }
-            _playerEntity.PlayerState = _stateTransitionMap[newState].Invoke();
+            _playerEntity.PlayerState = newState;
         }
 
         /// <summary>
@@ -72,7 +66,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             SpriteEffects spriteEffects = _playerEntity.Direction == Direction.West
                 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             // draw sprite
-            _playerEntity.PlayerSprite.Draw(spriteBatch, _playerEntity.Position, spriteEffects);
+            _playerEntity.PlayerSprite.Draw(spriteBatch, _playerEntity.Position, spriteEffects, 0, 0.1f);
         }
 
         /// <summary>

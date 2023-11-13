@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Managers;
 
 namespace SprintZero1.Sprites
 {
@@ -16,10 +15,10 @@ namespace SprintZero1.Sprites
         public NonAnimatedSprite(Rectangle sourceRectangle, Texture2D spriteSheet)
         {
             _sourceRectangle = sourceRectangle;
-             _spriteSheet = spriteSheet;
-             //_spriteSheet = Texture2DManager.GetTileSheet();
+            _spriteSheet = spriteSheet;
+            //_spriteSheet = Texture2DManager.GetTileSheet();
         }
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0f)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0.5f)
         {
             int width = _sourceRectangle.Width;
             int height = _sourceRectangle.Height;

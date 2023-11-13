@@ -1,122 +1,30 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Enums;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
+using SprintZero1.XMLParsers;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace SprintZero1.Factories
 {
 
     public class EnemySpriteFactory
     {
+        private const string ENEMY_SPRITE_PATH = @"XMLFiles\FactoryXMLFiles\EnemySprites.xml";
+        private const string BOSS_SPRITE_PATH = @"XMLFiles\FactoryXMLFiles\BossSprites.xml";
         private Texture2D dungeonEnemySpriteSheet, bossSpriteSheet;
-        private readonly Dictionary<string, List<Rectangle>> enemySpriteDictionary;
+        private readonly Dictionary<string, List<Rectangle>> enemySpriteWithoutDirectionDictionary;
+        private readonly Dictionary<string, Dictionary<Direction, List<Rectangle>>> enemySpriteWithDirectionDictionary;
         private readonly Dictionary<string, List<Rectangle>> bossEnemySpriteDictionary;
         private static readonly EnemySpriteFactory instance = new EnemySpriteFactory();
-        const int HEIGHT = 16, WIDTH = 16;
-
+        /// <summary>
+        /// Get the Enemy Sprite Factory instance
+        /// </summary>
         public static EnemySpriteFactory Instance
         {
             get { return instance; }
-        }
-        /// <summary>
-        /// Get the regular enemy names as a list 
-        /// </summary>
-        public List<string> EnemyNamesList
-        {
-            get { return enemySpriteDictionary.Keys.ToList<string>(); }
-        }
-        /// <summary>
-        /// Get the boss enemy names as a list 
-        /// </summary>
-        public List<string> BossNameList
-        {
-            get { return bossEnemySpriteDictionary.Keys.ToList<string>(); }
-        }
-        /// <summary>
-        /// Creates the rectangles required for each frame of each enemy and places in the proper dictionary
-        /// </summary>
-        private void CreateEnemySpriteDictionary()
-        {
-            //DUNGEON ENEMY SPRITESHEET
-            //gel
-            enemySpriteDictionary["dungeon_gel"] = new List<Rectangle>
-            {
-                new Rectangle(1, 11, 8, HEIGHT),
-                new Rectangle(10, 11, 8, HEIGHT)
-            };
-
-            //zol
-            enemySpriteDictionary["dungeon_zol"] = new List<Rectangle>
-            {
-                new Rectangle(77, 11, WIDTH, HEIGHT),
-                new Rectangle(94, 11, WIDTH, HEIGHT)
-            };
-            //keese
-
-            enemySpriteDictionary["dungeon_keese"] = new List<Rectangle>
-            {
-                new Rectangle(183, 11, WIDTH, HEIGHT),
-                new Rectangle(200, 11, WIDTH, HEIGHT)
-            };
-
-            //wallmaster
-            enemySpriteDictionary["dungeon_wallmaster"] = new List<Rectangle>
-            {
-                new Rectangle(393, 11, WIDTH, HEIGHT),
-                new Rectangle(410, 11, WIDTH, HEIGHT)
-            };
-
-            //Stalfo
-            enemySpriteDictionary["dungeon_stalfos"] = new List<Rectangle>
-            {
-                new Rectangle(1, 59, WIDTH, HEIGHT),
-                 new Rectangle(1, 59, WIDTH, HEIGHT)
-            };
-            enemySpriteDictionary["dungeon_goriya"] = new List<Rectangle>
-            {
-                new Rectangle(256, 11, WIDTH, HEIGHT),
-                new Rectangle(273, 11, WIDTH, HEIGHT)
-            };
-            enemySpriteDictionary["dungeon_bladetrap"] = new List<Rectangle>
-            {
-                new Rectangle(164, 59, WIDTH, HEIGHT),
-                new Rectangle(164, 59, WIDTH, HEIGHT)
-            };
-        }
-        /// <summary>
-        /// Creates the rectangles required for each frame of each boss and places in the proper dictionary
-        /// </summary>
-        private void CreateBossDictionary()
-        {
-            bossEnemySpriteDictionary["aquamentus"] = new List<Rectangle>
-            {
-                new Rectangle(1, 11, 24, 32),
-                new Rectangle(26, 11, 24, 32),
-                new Rectangle(51, 11, 24, 32),
-                new Rectangle(76, 11, 24, 32)
-            };
-
-            bossEnemySpriteDictionary["digdogger"] = new List<Rectangle>
-            {
-                new Rectangle(196, 58, 32, 32),
-                new Rectangle(229, 58, 32, 32),
-                new Rectangle(262, 58, 32, 32),
-                new Rectangle(295, 58, 32, 32),
-                new Rectangle(328, 58, 32, 32)
-            };
-
-            bossEnemySpriteDictionary["ganon"] = new List<Rectangle>
-            {
-                new Rectangle(40, 154, 32, 32),
-                new Rectangle(73, 154, 32, 32),
-                new Rectangle(106, 154, 32, 32),
-                new Rectangle(139, 154, 32, 32),
-                new Rectangle(172, 154, 32, 32),
-                new Rectangle(205, 154, 32, 32)
-            };
         }
 
         /// <summary>
@@ -133,35 +41,74 @@ namespace SprintZero1.Factories
         /// </summary>
         private EnemySpriteFactory()
         {
-            enemySpriteDictionary = new Dictionary<string, List<Rectangle>>();
-            bossEnemySpriteDictionary = new Dictionary<string, List<Rectangle>>();
-            CreateEnemySpriteDictionary();
-            CreateBossDictionary();
+            SpriteXMLParser spriteParser = new SpriteXMLParser();
+            enemySpriteWithoutDirectionDictionary = spriteParser.ParseAnimatedSpriteXML(ENEMY_SPRITE_PATH);
+            bossEnemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(BOSS_SPRITE_PATH);
+            /* Implementation was changed, so parsing my dictionary doesn't work now, so this has to do */
+            enemySpriteWithDirectionDictionary = new Dictionary<string, Dictionary<Direction, List<Rectangle>>>
+            {
+                {
+                    "dungeon_goriya", new Dictionary<Direction, List<Rectangle>>
+                    {
+                        { Direction.North, new List<Rectangle> { new Rectangle(241, 11, 13, 16), new Rectangle(308, 11, 13, 16) } },
+                        { Direction.South, new List<Rectangle> { new Rectangle(224, 11, 13, 16), new Rectangle(292, 11, 13, 16) } },
+                        { Direction.West, new List<Rectangle> { new Rectangle(257, 11, 13, 16), new Rectangle(275, 11, 14, 16) } },
+                        { Direction.East, new List<Rectangle> { new Rectangle(257, 11, 13, 16), new Rectangle(275, 11, 14, 16) } }
+                    }
+                },
+                {
+                    "dungeon_wallmaster", new Dictionary<Direction, List<Rectangle>>
+                    {
+                        { Direction.North, new List<Rectangle> { new Rectangle(393, 11, 16, 16), new Rectangle(411, 11, 16, 16) } },
+                        { Direction.South, new List<Rectangle> { new Rectangle(393, 11, 16, 16), new Rectangle(411, 11, 16, 16) } },
+                        { Direction.West, new List<Rectangle> { new Rectangle(393, 11, 16, 16), new Rectangle(411, 11, 16, 16) } },
+                        { Direction.East, new List<Rectangle> { new Rectangle(393, 11, 16, 16), new Rectangle(411, 11, 16, 16) } }
+                    }
+                }
+            };
         }
-        
+
+
         /// <summary>
         /// Creates the enemy sprite
         /// </summary>
         /// <param name="enemyName">The name of the enemy/param>
-        /// <param name="totalFrames">The maximum amount of frames for the sprite</param>
         /// <returns>An animated sprite of the enemy</returns>
-        public ISprite CreateEnemySprite(string enemyName, int totalFrames)
+        public ISprite CreateEnemySprite(string enemyName, Direction direction)
         {
             Debug.Assert(enemyName != null, "enemyName is null");
-
-            Debug.Assert(enemySpriteDictionary.ContainsKey(enemyName), "Enemy not found: " + enemyName);
-            return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, totalFrames);
+            //Debug.Assert(totalFrames >= 0, "totalFrames must be positive");
+            //Debug.Assert(enemySpriteWithoutDirectionDictionary.ContainsKey(enemyName), "Enemy not found: " + enemyName);
+            if (enemyName == "dungeon_goriya" || enemyName == "dungeon_wallmaster")
+            {
+                Dictionary<Direction, List<Rectangle>> DirectionRec = enemySpriteWithDirectionDictionary[enemyName];
+                return new AnimatedSprite(DirectionRec[direction], dungeonEnemySpriteSheet, enemySpriteWithoutDirectionDictionary[enemyName].Count);
+            }
+            else if (enemyName == "aquamentus")
+            {
+                /* shouldn't need to do this. */
+                return CreateBossSprite(enemyName);
+            }
+            else
+            {
+                {
+                    return new AnimatedSprite(enemySpriteWithoutDirectionDictionary[enemyName], dungeonEnemySpriteSheet, enemySpriteWithoutDirectionDictionary[enemyName].Count);
+                }
+            }
         }
+
         /// <summary>
         /// Creates a boss sprite
         /// </summary>
         /// <param name="bossName">The name of the boss/param>
         /// <param name="totalFrames">The maximum amount of frames for the sprite</param>
         /// <returns>An animated sprite of the boss</returns>
-        public ISprite CreateBossSprite(string bossName, int totalFrames)
+        public ISprite CreateBossSprite(string bossName)
         {
+            Debug.Assert(bossName != null, "bossName is null");
             Debug.Assert(bossEnemySpriteDictionary.ContainsKey(bossName), "Boss not found: " + bossName);
-            return new AnimatedSprite(bossEnemySpriteDictionary[bossName], bossSpriteSheet, totalFrames);
+            return new AnimatedSprite(bossEnemySpriteDictionary[bossName], bossSpriteSheet, bossEnemySpriteDictionary[bossName].Count);
         }
     }
 }
+

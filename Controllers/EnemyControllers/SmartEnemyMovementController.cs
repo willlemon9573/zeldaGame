@@ -6,20 +6,28 @@ using System.Collections.Generic;
 
 namespace SprintZero1.Controllers.EnemyControllers
 {
+    /// <summary>
+    /// The SmartEnemyMovementController class handles intelligent movement for an enemy entity
+    /// in relation to the player's position, using A* pathfinding.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     internal class SmartEnemyMovementController : IEnemyMovementController
     {
         private readonly ICombatEntity _enemyEntity;
-        private double _timeSinceLastPathCalculation;
-        private readonly double _pathCalculationInterval = 2.0;
         private readonly IEntity _playerEntity;
-        private Stack<Vector2> currentPath;
         private readonly AStarPathfinder pathfinder;
+        private Stack<Vector2> currentPath;
         private bool isPathBeingCalculated;
+        private readonly double _pathCalculationInterval = 2.0;
+        private double _timeSinceLastPathCalculation;
         private readonly double _moveTime = 4.0;
-        private readonly double _stopTime = 1.0; //unite is s
         private double _currentMoveTime = 0;
+        private readonly double _stopTime = 1.0; // Unit is seconds
         private double _currentStopTime = 0;
         private bool _isMoving = true;
+        private const int BlockSize = 16;
+        private readonly double _directionChangeCooldown = 0.5;
+        private double _timeSinceLastDirectionChange = 0;
 
         public SmartEnemyMovementController(ICombatEntity enemyEntity, IEntity playerEntity)
         {
@@ -32,6 +40,7 @@ namespace SprintZero1.Controllers.EnemyControllers
 
         private Direction CalculateDirection(Vector2 moveDirection)
         {
+            // Determines the direction based on the vector to the next step
             if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
             {
                 return moveDirection.X > 0 ? Direction.East : Direction.West;
@@ -47,7 +56,9 @@ namespace SprintZero1.Controllers.EnemyControllers
             double elapsed = gameTime.ElapsedGameTime.TotalSeconds;
             _timeSinceLastPathCalculation += elapsed;
             _currentMoveTime += elapsed;
+            _timeSinceLastDirectionChange += elapsed;  // Track time since last direction change
 
+            // Trigger pathfinding at regular intervals
             if (_timeSinceLastPathCalculation >= _pathCalculationInterval && !isPathBeingCalculated)
             {
                 pathfinder.StartFindingPath(_enemyEntity.Position, _playerEntity.Position);
@@ -55,21 +66,14 @@ namespace SprintZero1.Controllers.EnemyControllers
                 _timeSinceLastPathCalculation = 0;
             }
 
-            if (isPathBeingCalculated && _isMoving)
-            {
-                Vector2 moveDirection = _playerEntity.Position - _enemyEntity.Position;
-                moveDirection.Normalize();
-                Direction direction = CalculateDirection(moveDirection);
-                _enemyEntity.ChangeDirection(direction);
-                _enemyEntity.Move();
-            }
-
+            // Update path once calculated
             if (isPathBeingCalculated && pathfinder.Update())
             {
                 currentPath = pathfinder.GetPath();
                 isPathBeingCalculated = false;
             }
 
+            // Handle movement and stopping intervals
             if (_isMoving)
             {
                 if (_currentMoveTime >= _moveTime)
@@ -82,15 +86,19 @@ namespace SprintZero1.Controllers.EnemyControllers
                 {
                     Vector2 nextStep = currentPath.Peek();
                     Vector2 moveDirection = nextStep - _enemyEntity.Position;
-
                     moveDirection.Normalize();
+                    Direction newDirection = CalculateDirection(moveDirection);
 
-                    Direction direction = CalculateDirection(moveDirection);
-
-                    _enemyEntity.ChangeDirection(direction);
+                    // Change direction after cooldown
+                    if (_timeSinceLastDirectionChange >= _directionChangeCooldown)
+                    {
+                        _enemyEntity.ChangeDirection(newDirection);
+                        _timeSinceLastDirectionChange = 0;
+                    }
 
                     _enemyEntity.Move();
 
+                    // Pop the next step off the path once reached
                     if (Vector2.Distance(_enemyEntity.Position, nextStep) < 1.0f)
                     {
                         currentPath.Pop();
@@ -99,18 +107,13 @@ namespace SprintZero1.Controllers.EnemyControllers
             }
             else
             {
-
                 _currentStopTime += elapsed;
-
-
                 if (_currentStopTime >= _stopTime)
                 {
                     _isMoving = true;
                     _currentStopTime = 0;
                 }
-
             }
         }
-
     }
 }

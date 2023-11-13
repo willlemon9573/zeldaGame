@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+	<Sprite name="aquamentus">
+		<Rectangle x="1" y="11" width="24" height="32" />
+		<Rectangle x="26" y="11" width="24" height="32" />
+		<Rectangle x="51" y="11" width="24" height="32" />
+		<Rectangle x="76" y="11" width="24" height="32" />
+	</Sprite>
+	<Sprite name="digdogger">
+		<Rectangle x="196" y="58" width="32" height="32" />
+		<Rectangle x="229" y="58" width="32" height="32" />
+		<Rectangle x="262" y="58" width="32" height="32" />
+		<Rectangle x="295" y="58" width="32" height="32" />
+		<Rectangle x="328" y="58" width="32" height="32" />
+	</Sprite>
+	<Sprite name ="ganon">
+		<Rectangle x ="40" y ="154" width ="32" height ="32"/>
+		<Rectangle x ="73" y ="154" width ="32" height ="32"/>
+		<Rectangle x ="106" y ="154" width ="32" height ="32"/>
+		<Rectangle x ="139" y ="154" width ="32" height ="32"/>
+		<Rectangle x ="172" y ="154" width ="32" height ="32"/>
+		<Rectangle x ="205" y ="154" width ="32" height ="32"/>
+	</Sprite>
+</Sprites>

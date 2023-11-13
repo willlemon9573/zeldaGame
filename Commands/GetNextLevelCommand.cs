@@ -1,26 +1,31 @@
-﻿using SprintZero1.Managers;
-using System;
+﻿using SprintZero1.Enums;
+using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using System.Collections.Generic;
 
 namespace SprintZero1.Commands
 {
     public class GetNextLevelCommand : ICommand
     {
-        private readonly List<String> levelList;
+        private readonly List<string> levelList;
         private readonly int totalRooms;
         private int index;
+        readonly GamePlayingState gameState;
 
         public GetNextLevelCommand()
         {
-            levelList = LevelManager.LevelList;
+            levelList = LevelManager.DungeonRoomList;
             totalRooms = levelList.Count;
-            index = LevelManager.LevelListIndex;
+            gameState = GameStatesManager.GetGameState(GameState.Playing) as GamePlayingState;
+
         }
         public void Execute()
         {
+            index = LevelManager.CurrentRoomIndex;
             index = (index + 1) % totalRooms;
-            LevelManager.LevelListIndex = index;
-            LevelManager.LoadNewRoom(levelList[index]);
+            LevelManager.CurrentRoomIndex = index;
+            string nextLevel = levelList[index];
+            gameState.LoadDungeonRoom(nextLevel);
         }
     }
 }

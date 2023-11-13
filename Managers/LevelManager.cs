@@ -1,62 +1,62 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.XMLFiles;
-using System;
+﻿using SprintZero1.LevelFiles;
+using SprintZero1.XMLParsers;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 
 namespace SprintZero1.Managers
 {
-    public static class LevelManager
+    internal static class LevelManager
     {
-        public static Game1 game;
-        public static XMLParser xmlParser;
-        private static readonly int totalRooms;
-        private static int index;
-        static List<String> levelList = new List<String> { "XMLFiles/Room1.xml", "XMLFiles/Room1Left.xml", "XMLFiles/Room1Right.xml", "XMLFiles/Room2.xml",
-        "XMLFiles/Room3.xml", "XMLFiles/Room3Left.xml", "XMLFiles/Room3Right.xml", "XMLFiles/Room4.xml", "XMLFiles/Room4Left.xml", "XMLFiles/Room4Leftest.xml",
-                "XMLFiles/Room4Right.xml", "XMLFiles/Room4Rightest.xml", "XMLFiles/Room5.xml", "XMLFiles/Room5Right.xml", "XMLFiles/Room5Rightest.xml",
-                "XMLFiles/Room6.xml","XMLFiles/Room6Left.xml","XMLFiles/RoomSecret.xml" , "XMLFiles/RoomDev.xml"};
+        /// <summary>
+        /// Holds all the dungeon room information
+        /// </summary>
+        private static readonly Dictionary<string, DungeonRoom> _dungeonRoomMap = new Dictionary<string, DungeonRoom>();
+        /* for mouse commands */
+        private static int currentRoomIndex = 0;
+        /// <summary>
+        /// Get the room list
+        /// </summary>
+        public static List<string> DungeonRoomList { get { return _dungeonRoomMap.Keys.ToList(); } }
+        /// <summary>
+        /// Get the current room index and set the current index
+        /// </summary>
+        public static int CurrentRoomIndex { get { return currentRoomIndex; } set { currentRoomIndex = value; } }
 
-        private static int levelListIndex = 0;
-
-        public static List<string> LevelList
+        public static void Load()
         {
-            get { return levelList; }
+            LevelXMLParser parser = new LevelXMLParser();
+            string LevelFolderPath = @"XMLFiles/LevelXmlFiles";
+            foreach (var filePath in Directory.EnumerateFiles(LevelFolderPath))
+            {
+                DungeonRoom room = parser.Parse(filePath);
+                _dungeonRoomMap.Add(room.RoomName, room);
+            }
         }
 
-        public static int LevelListIndex
+        /// <summary>
+        /// Returns the desired dungeon room that contains all the information about that room
+        /// </summary>
+        /// <param name="roomName">the name of the room to use</param>
+        /// <returns>the instance of the dungeon room with its current data</returns>
+        public static DungeonRoom GetDungeonRoom(string roomName)
         {
-            get { return levelListIndex; }
-            set { levelListIndex = value; }
+            Debug.Assert(roomName != null, "roomName cannot be null");
+            Debug.Assert(_dungeonRoomMap.ContainsKey(roomName));
+            return _dungeonRoomMap[roomName];
         }
 
-        static LevelManager()
+        /// <summary>
+        /// Unlocks a specific door based on the destination where the door leads
+        /// </summary>
+        /// <param name="roomName">The door to unlock</param>
+        public static void UnlockDoor(string roomToFind, string destinationToLookFor)
         {
-            totalRooms = levelList.Count;
-            index = LevelListIndex;
-            xmlParser = new XMLParser();
-        }
-
-        public static void Initialize(Game1 game)
-        {
-            ProgramManager.Start(game);
-            LoadNewRoom(levelList[1]);
-        }
-
-        public static void LoadNewRoom(String xmlFile)
-        {
-            ProgramManager.RemoveNonLinkEntities();
-            xmlParser.Parse(xmlFile);
-        }
-
-        public static void Update(GameTime gameTime)
-        {
-            ProgramManager.Update(gameTime);
-        }
-
-        public static void Draw(SpriteBatch spriteBatch)
-        {
-            ProgramManager.Draw(spriteBatch);
+            if (_dungeonRoomMap.TryGetValue(roomToFind, out DungeonRoom room))
+            {
+                room.UnlockDoor(destinationToLookFor);
+            }
         }
     }
 }

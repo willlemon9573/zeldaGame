@@ -1,149 +1,116 @@
-﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
+﻿/*using SprintZero1.Entities;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Numerics;
 using System.Xml;
 
 namespace SprintZero1.XMLFiles
 {
     public class XMLParser
     {
-        public XMLParser() { }
+        private Dictionary<string, Action<XmlReader>> _outerElements;
+        private Dictionary<string, Action<XmlReader, Node>> _innerElements;
+        private const string WALL_ELEMENT = "Walls";
+        private const string BLOCK_ELEMENT = "Blocks";
+        private const string DOOR_ELEMENT = "Doors";
+        private const string FLOOR_ELEMENT = "Floor";
+        private const string ENEMY_ELEMENT = "Enemies";
+        private const string ITEM_ELEMENT = "Item";
+
+        private XmlReader reader;
+        XmlNodeType END_ELEMENT_TYPE = XmlNodeType.EndElement;
+        XmlNodeType ELEMENT_TYPE = XmlNodeType.Element;
+        public XmlReader XMLTextReader { get; private set; }
+
+
+
+        public XMLParser()
+        {
+            _outerElements = new Dictionary<string, Action<XmlReader>>() {
+            { "Walls", val => ParseWall(reader)},
+            { "Floor", val => ParseFloor(reader)},
+            { "Blocks", val => ParseBlock(reader)},
+            { "Doors", val => ParseDoor(reader)},
+            { "Enemies", val => ParseEnemy(reader)},
+            { "Items", val => ParseItem(reader)}
+           };
+
+            _innerElements = new Dictionary<string, Action<XmlReader, Node>>() {
+            { "X", (x, node) => node.X = x.ReadElementContentAsInt() },
+            { "Y", (y, node) => node.Y = y.ReadElementContentAsInt() },
+            { "Name", (name, node) => node.Name = name.ReadElementContentAsString() },
+            { "Destination", (x, node) => node.DestinationOrHealth = x.ReadElementContentAsInt()},
+            { "Frame", (x, node) => node.frame = x.ReadElementContentAsInt() },
+            { "IsBoss", (x, node) => node.isBoss = x.ReadElementContentAsInt() }
+
+                };
+        }
 
         public void Parse(String fileName)
         {
-            String workingDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
-            using (XmlReader reader = new XmlTextReader(workingDirectory + "/" + fileName))
+            String workingDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "/" + fileName;
+
+            reader = XmlReader.Create(workingDirectory);
+
+            while (reader.Read())
             {
-                while (reader.Read())
+                if (reader.NodeType == ELEMENT_TYPE && _outerElements.ContainsKey(reader.Name))
                 {
-                    if (reader.NodeType == XmlNodeType.Element)
-                    {
-                        switch (reader.Name)
-                        {
-                            case "Floor":
-                                ParseFloor(reader);
-                                break;
-                            case "Block":
-                                ParseBlock(reader);
-                                break;
-                            case "Wall":
-                                ParseWall(reader);
-                                break;
-                            case "Door":
-                                ParseDoor(reader);
-                                break;
-                            case "Enemy":
-                                ParseEnemy(reader);
-                                break;
-                            case "Item":
-                                ParseItem(reader);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
+                    var readerName = reader.Name;
+                    _outerElements[readerName].Invoke(reader);
                 }
             }
+
+            reader.Close();
         }
 
         private void ParseFloor(XmlReader reader)
         {
-            string name = "";
-            int X = 0;
-            int Y = 0;
-            bool keepLooping = true;
-            while (reader.Read() && keepLooping)
+            Node data = new Node(0, 0, "", 0, 0, 0);
+            while (reader.Read())
             {
-                if (reader.NodeType == XmlNodeType.Element)
+                var element_name = reader.Name;
+                var reader_type = reader.NodeType;
+
+                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
-                    switch (reader.Name)
-                    {
-                        case "Name":
-                            name = reader.ReadElementContentAsString();
-                            break;
-                        case "X":
-                            X = reader.ReadElementContentAsInt();
-                            break;
-                        case "Y":
-                            Y = reader.ReadElementContentAsInt();
-                            break;
-                        default:
-                            //not needed really since we write the xml files
-                            //report error in xml file
-
-                            keepLooping = false;
-                            break;
-                    }
-
+                    parsedValue(reader, data);
                 }
-                else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Floor")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == "Floor")
                 {
-
-                    Vector2 pos = new Vector2(X, Y);
-
-                    ISprite newFloorSprite = TileSpriteFactory.Instance.CreateFloorSprite(name);
-                    IEntity floor = new BackgroundSpriteEntity(newFloorSprite, pos);
-
-                    if (floor != null)
-                    {
-                        ProgramManager.AddOnScreenEntity(floor);
-                    }
-
+                    break;
                 }
             }
-
+            //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
+            IEntity floor = data.AddFloorToGame();
+            ProgramManager.AddOnScreenEntity(floor);
         }
         private void ParseBlock(XmlReader reader)
         {
-            string name = "";
-            int X = 0;
-            int Y = 0;
-            bool isCollidable = false;
-            bool keepLooping = true;
-            while (reader.Read() && keepLooping)
+            Node data = new Node(0, 0, "", 0, 0, 0);
+            while (reader.Read())
             {
-                if (reader.NodeType == XmlNodeType.Element)
+                var element_name = reader.Name;
+                var reader_type = reader.NodeType;
+
+                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
-                    switch (reader.Name)
-                    {
-                        case "Name":
-                            name = reader.ReadElementContentAsString();
-                            break;
-                        case "X":
-                            X = reader.ReadElementContentAsInt();
-                            break;
-                        case "Y":
-                            Y = reader.ReadElementContentAsInt();
-                            break;
-                        case "IsCollidable":
-                            isCollidable = reader.ReadElementContentAsBoolean();
-                            break;
-                        default:
-                            //not needed really since we write the xml files
-                            //report error in xml file
-                            Vector2 pos = new Vector2(X, Y);
-
-                            ISprite newblockSprite = TileSpriteFactory.Instance.CreateNewTileSprite(name);
-                            IEntity block = new LevelBlockEntity(newblockSprite, pos, isCollidable);
-
-                            if (block != null)
-                            {
-                                ProgramManager.AddOnScreenEntity(block);
-                            }
-                            keepLooping = false;
-                            break;
-                    }
-
+                    parsedValue(reader, data);
                 }
-                else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Block")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == "Block")
                 {
-
-
-
+                    //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
+                    IEntity block = data.AddBlockToGame();
+                    //ProgramManager.AddOnScreenEntity(block);
+                }
+                else if (reader_type == END_ELEMENT_TYPE && element_name == "Blocks")
+                {
+                    break;
                 }
             }
 
@@ -151,204 +118,106 @@ namespace SprintZero1.XMLFiles
 
         private void ParseWall(XmlReader reader)
         {
-            int quad = 0;
-            int X = 0;
-            int Y = 0;
-
-            bool keepLooping = true;
-            while (reader.Read() && keepLooping)
+            Node data = new Node(0, 0, "", 0, 0, 0);
+            while (reader.Read())
             {
-                if (reader.NodeType == XmlNodeType.Element)
-                {
-                    switch (reader.Name)
-                    {
-                        case "Quad":
-                            quad = reader.ReadElementContentAsInt();
-                            break;
-                        case "X":
-                            X = reader.ReadElementContentAsInt();
-                            break;
-                        case "Y":
-                            Y = reader.ReadElementContentAsInt();
-                            break;
-                        default:
-                            //not needed really since we write the xml files
-                            //report error in xml file
+                var element_name = reader.Name;
+                var reader_type = reader.NodeType;
 
-                            keepLooping = false;
-                            break;
-                    }
+                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
+                {
+                    parsedValue(reader, data);
                 }
-                else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Wall")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == "Wall")
                 {
-                    //parse the data -> get the sprites draw the thing entity
-                    Vector2 pos = new Vector2(X, Y);
-                    Vector2 hitbox = new Vector2(1, 1);
-                    ISprite newWallSprite = TileSpriteFactory.Instance.CreateNewWallSprite(quad);
-                    IEntity wall = new LevelBlockEntity(newWallSprite, pos, false);
-
-                    if (wall != null)
-                    {
-                        ProgramManager.AddOnScreenEntity(wall);
-                    }
-
-
+                    //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
+                    IEntity wall = data.AddWallToGame();
+                    ProgramManager.AddOnScreenEntity(wall);
+                }
+                else if (reader_type == END_ELEMENT_TYPE && element_name == "Walls")
+                {
+                    break;
                 }
             }
-
         }
 
         private void ParseDoor(XmlReader reader)
         {
-            string name = "";
-            int X = 0, Y = 0;
-            string type = "";
-            bool keepLooping = true;
-            while (reader.Read() && keepLooping)
+            Node data = new Node(0, 0, "", 0, 0, 0);
+            while (reader.Read())
             {
-                if (reader.NodeType == XmlNodeType.Element)
-                {
-                    //Checks what entity is current
-                    switch (reader.Name)
-                    {
-                        case "Name":
-                            name = reader.ReadElementContentAsString();
-                            break;
-                        case "X":
-                            X = reader.ReadElementContentAsInt();
-                            break;
-                        case "Y":
-                            Y = reader.ReadElementContentAsInt();
-                            break;
-                        case "Type":
-                            type = reader.ReadElementContentAsString();
-                            break;
-                        default:
-                            //not needed really since we write the xml files
-                            //report error in xml file
+                var element_name = reader.Name;
+                var reader_type = reader.NodeType;
 
-                            keepLooping = false;
-                            break;
-                    }
-                }
-                else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Door")
+                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
-                    //parse the data -> get the sprites draw the thing entity
-                    Vector2 pos = new Vector2(X, Y);
-                    ISprite newDoorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(name);
-                    IEntity Door = new LevelBlockEntity(newDoorSprite, pos, false);
-                    if (Door != null)
-                    {
-                        ProgramManager.AddOnScreenEntity(Door);
-                    }
+                    parsedValue(reader, data);
+                }
+                else if (reader_type == END_ELEMENT_TYPE && element_name == "Door")
+                {
+                    //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
+                    IEntity door = data.AddDoorToGame();
+                    //ProgramManager.AddOnScreenEntity(door);
+                }
+                else if (reader_type == END_ELEMENT_TYPE && element_name == "Doors")
+                {
+                    break;
                 }
             }
-
         }
 
         private void ParseEnemy(XmlReader reader)
         {
-            string name = "";
-            int X = 0, Y = 0, health = 0, frames = 0;
-            bool isBoss = false;
-            bool keepLooping = true;
-            while (reader.Read() && keepLooping)
+
+            Node data = new Node(0, 0, "", 0, 0, 0);
+            while (reader.Read())
             {
-                if (reader.NodeType == XmlNodeType.Element)
+                var element_name = reader.Name;
+                var reader_type = reader.NodeType;
+
+                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
-                    switch (reader.Name)
-                    {
-                        case "Name":
-                            name = reader.ReadElementContentAsString();
-                            break;
-                        case "X":
-                            X = reader.ReadElementContentAsInt();
-                            break;
-                        case "Y":
-                            Y = reader.ReadElementContentAsInt();
-                            break;
-                        case "Health":
-                            health = reader.ReadElementContentAsInt();
-                            break;
-                        case "Frames":
-                            frames = reader.ReadElementContentAsInt();
-                            break;
-                        case "IsBoss":
-                            isBoss = reader.ReadElementContentAsBoolean();
-                            break;
-                        default:
-                            //not needed really since we write the xml files
-                            //report error in xml file
-                            keepLooping = false;
-                            break;
-                    }
+                    parsedValue(reader, data);
                 }
-                else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Enemy")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == "Enemy")
                 {
-                    //parse the data -> get the sprites draw the thing entity
 
-
-                    IEntity enemy = new EnemyEntityWithDirection(new Vector2(X, Y), health, name, frames, isBoss);
-                    if (enemy != null)
-                    {
-                        ProgramManager.AddOnScreenEntity(enemy);
-                    }
-
-                    /* 
-                     * what to use for adding enemies in xml file skeleton
-                     * <Enemy>
-                     *  <Name></Name>
-                     *  <X></X>
-                     *  <Y></Y>
-                     *  <Health></Health>
-                     *  <Frames></Frames>
-                     *  <IsBoss></IsBoss>
-                     * </Enemy>
-                     */
+                    //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
+                    IEntity enemy = data.AddEnemyToGame();
+                    //ProgramManager.AddOnScreenEntity(enemy);
+                }
+                else if (reader_type == END_ELEMENT_TYPE && element_name == "Enemies")
+                {
+                    break;
                 }
             }
-
         }
 
         private void ParseItem(XmlReader reader)
         {
-            string name = "";
-            int X = 0, Y = 0;
-            bool keepLooping = true;
-            while (reader.Read() && keepLooping)
+
+            Node data = new Node(0, 0, "", 0, 0, 0);
+            while (reader.Read())
             {
-                if (reader.NodeType == XmlNodeType.Element)
+                var element_name = reader.Name;
+                var reader_type = reader.NodeType;
+
+                if (reader_type == ELEMENT_TYPE && _innerElements.TryGetValue(element_name, out var parsedValue))
                 {
-                    switch (reader.Name)
-                    {
-                        case "Name":
-                            name = reader.ReadElementContentAsString();
-                            break;
-                        case "X":
-                            X = reader.ReadElementContentAsInt();
-                            break;
-                        case "Y":
-                            Y = reader.ReadElementContentAsInt();
-                            break;
-                        default:
-                            //not needed really since we write the xml files
-                            //report error in xml file
-                            keepLooping = false;
-                            break;
-                    }
+                    parsedValue(reader, data);
                 }
-                else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Item")
+                else if (reader_type == END_ELEMENT_TYPE && element_name == "Item")
                 {
-                    //parse the data -> get the sprites draw the thing entity
-                    ISprite itemSprite = ItemSpriteFactory.Instance.CreateItemSprite(name);
-                    IEntity item = new LevelBlockEntity(itemSprite, new Vector2(X, Y), false);
-                    if (item != null)
-                    {
-                        ProgramManager.AddOnScreenEntity(item);
-                    }
+                    //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
+                    IEntity item = data.AddItemToGame();
+                    //ProgramManager.AddOnScreenEntity(item);
+                }
+                else if (reader_type == END_ELEMENT_TYPE && element_name == "Items")
+                {
+                    break;
                 }
             }
-
         }
     }
 }
+*/

@@ -9,15 +9,13 @@ namespace SprintZero1
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
+        public GraphicsDeviceManager _graphics;
         private MouseController _mouseController;
         private SpriteBatch _spriteBatch;
         /* Variables for window rescaling */
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
-
-
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -30,6 +28,7 @@ namespace SprintZero1
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
         }
 
+
         /// Initialize all components required to run the game
         /// </summary>
         protected override void Initialize()
@@ -40,29 +39,34 @@ namespace SprintZero1
             base.Initialize();
         }
 
+
         protected override void LoadContent()
         {
-
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            LoadTextures();
+            LevelManager.Load();
+            GameStatesManager.InitializeGameStateMap(this);
+            GameStatesManager.Start();
+            _mouseController = new MouseController(this);
+        }
+
+        private void LoadTextures()
+        {
             Texture2DManager.LoadAllTextures(this.Content);
-            /* Factories are missing a lot of comments. To be added in Sprint 4 
-                May also be loading textures specifically Program Manager rather than in game1.cs
-            */
+            Texture2DManager.LoadSpriteFonts(this.Content);
             EnemySpriteFactory.Instance.LoadTextures();
             LinkSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
-            _mouseController = new MouseController(this);
-            WeaponSpriteFactory.Instance.LoadTextures();
+            HUDSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
-            /*ProgramManager.Start(this);*/
-            LevelManager.Initialize(this);
+            HUDManager.Initialize();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            LevelManager.Update(gameTime);
+            GameStatesManager.Update(gameTime);
             _mouseController.Update();
             base.Update(gameTime);
         }
@@ -73,8 +77,8 @@ namespace SprintZero1
             GraphicsDevice.SetRenderTarget(this._newRenderTarget);
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin();
-            LevelManager.Draw(_spriteBatch);
+            _spriteBatch.Begin(SpriteSortMode.BackToFront);
+            GameStatesManager.Draw(_spriteBatch);
             _spriteBatch.End();
 
             /* Rescale the window and draw sprite batch with new scale */

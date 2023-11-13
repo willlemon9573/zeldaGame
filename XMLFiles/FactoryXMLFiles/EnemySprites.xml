@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+	<Sprite name="dungeon_gel">
+		<Rectangle x="1" y="11" width="8" height="16" />
+		<Rectangle x="10" y="11" width="8" height="16" />
+	</Sprite>
+	<Sprite name="dungeon_zol">
+		<Rectangle x="77" y="11" width="16" height="16" />
+		<Rectangle x="94" y="11" width="16" height="16" />
+	</Sprite>
+	<Sprite name="dungeon_keese">
+		<Rectangle x="183" y="11" width="16" height="16" />
+		<Rectangle x="200" y="11" width="16" height="16" />
+	</Sprite>
+	<Sprite name="dungeon_wallmaster">
+		<Rectangle x="393" y="11" width="16" height="16" />
+		<Rectangle x="410" y="11" width="16" height="16" />
+	</Sprite>
+	<Sprite name="dungeon_stalfos">
+		<Rectangle x="1" y="59" width="16" height="16" />
+		<Rectangle x="53" y="42" width="16" height="16" />
+	</Sprite>
+	<Sprite name="dungeon_goriya">
+		<Rectangle x="256" y="11" width="16" height="16"/>
+		<Rectangle x="273" y="11" width="16" height="16"/>
+	</Sprite>
+	<Sprite name ="dungeon_bladetrap">
+		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
+		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
+	</Sprite>
+	<Sprite name ="aquamentus">
+		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
+		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
+	</Sprite>
+</Sprites>

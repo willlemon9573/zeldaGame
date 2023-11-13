@@ -53,6 +53,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             TrackStateTime(deltaTime);
         }
+
         /// <summary>
         /// Changes direction of player
         /// </summary>

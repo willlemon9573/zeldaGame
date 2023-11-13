@@ -2,77 +2,140 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Controllers;
+using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
+using SprintZero1.Enums;
+using SprintZero1.LevelFiles;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SprintZero1.Managers
 {
     internal static class ProgramManager
     {
         public static Game1 _game;
-#pragma warning disable IDE0090 // Use 'new(...)'
-        static readonly List<IEntity> onScreenEntities = new List<IEntity>();
-#pragma warning restore IDE0090 // Use 'new(...)'
-        private static PlayerEntity player;
-        private static IEntity projectileHandler;
         // List of available Controllers
-        static readonly IController[] controllers = new IController[]
-        #region
-        {
-            new KeyboardController()
-        };
-        #endregion
+        private static readonly List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
+        private static List<IEntity> _nonPlayerEntityList = new List<IEntity>();
+        private static List<Tuple<IEntity, IController>> _playerList = new List<Tuple<IEntity, IController>>();
+        private static DungeonRoom _currentRoom;
+        public static PlayerEntity player;
+        public static DungeonRoom CurrentRoom { get { return _currentRoom; } }
 
+        /// <summary>
+        /// Create the list of Players and their keyboards
+        /// </summary>
+        private static void InitializePlayers()
+        {
+            const string CONTROLS_DOCUMENT_PATH = @"XMLFiles\PlayerXMLFiles\ControllerSettings.xml";
+            int startingX = 176;
+            int startingY = 170;
+            float startingHealth = 3f;
+            Direction startingDirection = Direction.North;
+            player = new PlayerEntity(new Vector2(startingX, startingY), startingHealth, startingDirection);
+            ControlsManager.CreateKeyboardControlsMap(CONTROLS_DOCUMENT_PATH, player, _game);
+            IController keyboardController = new KeyboardController();
+            keyboardController.LoadControls(player);
+            _playerList.Add(new Tuple<IEntity, IController>(player, keyboardController));
+        }
+
+        /// <summary>
+        /// Start the program manager and all components that follow
+        /// </summary>
+        /// <param name="game">The current game</param>
         public static void Start(Game1 game)
         {
             _game = game;
-            player = new PlayerEntity(new Vector2(176, 170), 6, Enums.Direction.North);
-            projectileHandler = new ProjectileEntity();
-            AddOnScreenEntity(player);
-            controllers[0].LoadDefaultCommands(game, player, projectileHandler);
-
+            InitializePlayers();
+            string entrance_room = "entrance";
+            ChangeRooms(entrance_room);
         }
 
         /// <summary>
-        /// Add an entity to the screen
+        /// 
         /// </summary>
-        /// <param name="entity">Entity to be added</param>
-        public static void AddOnScreenEntity(IEntity entity)
+        public static void Reset()
         {
-            onScreenEntities.Add(entity);
+            // TODO
         }
 
         /// <summary>
-        /// Remove Entity from the list
+        /// Change the current room the player is in
         /// </summary>
-        /// <param name="entity">Entity to remove</param>
-        public static void RemoveOnScreenEntity(IEntity entity)
+        /// <param name="roomName">the next room to change to</param>
+        public static void ChangeRooms(string roomName)
         {
-            onScreenEntities.Remove(entity);
+            _currentRoom = LevelManager.GetDungeonRoom(roomName);
+            _nonPlayerEntityList = _currentRoom.GetEntityList();
+        }
+        /// <summary>
+        /// For use when doors change / entities die
+        /// </summary>
+        public static void UpdateRoomEntities()
+        {
+            _nonPlayerEntityList = _currentRoom.GetEntityList();
         }
 
-        public static void RemoveNonLinkEntities()
+        /// <summary>
+        /// TODO: Fill out
+        /// </summary>
+        /// <param name="enemyController"></param>
+        public static void AddOnScreenEnemyController(IEnemyMovementController enemyController)
         {
-            ColliderManager.RemoveAllExcept(player.PlayerCollider);
-            onScreenEntities.Clear();
-            onScreenEntities.Add(player);
-            player.Position = new Vector2(150, 150);
+            onScreenEnemyController.Add(enemyController);
+        }
+
+        /// <summary>
+        /// Temporary
+        /// </summary>
+        /// <returns></returns>
+        public static PausedStateUpdater GetPausedStateUpdater()
+        {
+            KeyboardController k = _playerList[0].Item2 as KeyboardController;
+            return k.PausedStateUpdate;
+        }
+
+        private static void UpdatePlayers(GameTime gameTime)
+        {
+            for (int i = 0; i < _playerList.Count; i++)
+            {
+                _playerList[i].Item1.Update(gameTime);
+                _playerList[i].Item2.Update();
+            }
+        }
+
+        private static void UpdateNPCs(GameTime gameTime)
+        {
+            for (int i = 0; i < _nonPlayerEntityList.Count; i++)
+            {
+                _nonPlayerEntityList[i].Update(gameTime);
+            }
         }
 
         public static void Update(GameTime gameTime)
         {
+            UpdatePlayers(gameTime);
+            UpdateNPCs(gameTime);
+            List<ICollidableEntity> collidableEntities = _playerList.Where(tuple => tuple.Item1 is ICollidableEntity).Select(tuple => tuple.Item1 as ICollidableEntity).ToList();
+            collidableEntities.AddRange(_nonPlayerEntityList.Where(entity => entity is ICollidableEntity).Select(entity => entity as ICollidableEntity).ToList());
+            ColliderManager.CheckCollisions(collidableEntities);
+        }
 
-            foreach (IController controller in controllers)
+        private static void DrawPlayers(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < _playerList.Count; i++)
             {
-                controller.Update();
+                _playerList[i].Item1.Draw(spriteBatch);
             }
-            foreach (IEntity entity in onScreenEntities)
-            {
-                entity.Update(gameTime);
+        }
 
+        private static void DrawNPCs(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < _nonPlayerEntityList.Count; ++i)
+            {
+                _nonPlayerEntityList[i].Draw(spriteBatch);
             }
-            projectileHandler.Update(gameTime);
-            ColliderManager.Update();
         }
 
         /// <summary>
@@ -81,17 +144,9 @@ namespace SprintZero1.Managers
         /// <param name="spriteBatch"></param>
         public static void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 1; i < onScreenEntities.Count; i++)
-            {
-                onScreenEntities[i].Draw(spriteBatch);
-                if (i == 5)
-                {
-                    // draw player/projectile here to have player be drawn "under" doors and for project to be "under" link
-                    projectileHandler.Draw(spriteBatch);
-                    player.Draw(spriteBatch);
-                }
-            }
-
+            DrawPlayers(spriteBatch);
+            DrawNPCs(spriteBatch);
+            // sprites drawn
         }
     }
 }

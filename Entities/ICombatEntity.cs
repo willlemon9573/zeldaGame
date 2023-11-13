@@ -8,7 +8,7 @@
         /// <summary>
         /// Get and set the combat entity's health
         /// </summary>
-        int Health { get; set; }
+        float Health { get; set; }
         /* need to give a combat entity weapons */
         /// <summary>
         /// Executes the attack action.

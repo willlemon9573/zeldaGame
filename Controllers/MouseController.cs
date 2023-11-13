@@ -1,6 +1,8 @@
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using SprintZero1.Entities;
+using System.Drawing;
 
 namespace SprintZero1.Controllers
 {
@@ -9,13 +11,44 @@ namespace SprintZero1.Controllers
     /// </summary>
     internal class MouseController : IController
     {
-        private MouseState oldState;
-        private GetPreviousLevelCommand getPreviousLevelCommand;
-        private GetNextLevelCommand getNextLevelCommand;
+        private MouseState _oldMouseState;
+        private readonly GetPreviousLevelCommand _getPreviousRoom;
+        private readonly GetNextLevelCommand _getNextRoom;
+        private readonly Game1 _game;
+        private readonly Rectangle _windowRegion;
+
+
+        /// <summary>
+        /// Check if the mouse is currently in the window or not
+        /// </summary>
+        /// <param name="mouseState">The current state of the mouse</param>
+        /// <returns>true if the mouse is in the window, false otherwise</returns>
+        private bool IsInWindow(MouseState mouseState)
+        {
+            int x = mouseState.X;
+            int y = mouseState.Y;
+            return _windowRegion.Contains(x, y);
+        }
+        /// <summary>
+        /// Check if the left or right button is currently pressed
+        /// </summary>
+        /// <param name="mouseButton">The left or right mouse button</param>
+        /// <returns>true if the button is down, false othersise</returns>
+        private bool IsButtonDown(ButtonState mouseButton)
+        {
+            return mouseButton == ButtonState.Pressed;
+        }
+
         public MouseController(Game1 myGame)
         {
-            getNextLevelCommand = new GetNextLevelCommand();
-            getPreviousLevelCommand = new GetPreviousLevelCommand();
+            _getNextRoom = new GetNextLevelCommand();
+            _getPreviousRoom = new GetPreviousLevelCommand();
+            _game = myGame;
+            /* setup window region rectangle for checking if the mouse is in the window or not */
+            int _gameHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            int _gameWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            const int x = 0, y = 0;
+            _windowRegion = new Rectangle(x, y, _gameWidth, _gameHeight);
         }
 
         /// <summary>
@@ -26,7 +59,7 @@ namespace SprintZero1.Controllers
         /// <param name="mouseLocation">XY coordinates of the current mouse position</param>
         private void ExecuteLeftMouseCommands()
         {
-            getPreviousLevelCommand.Execute();
+            _getNextRoom.Execute();
         }
 
         /// <summary>
@@ -34,26 +67,32 @@ namespace SprintZero1.Controllers
         /// </summary>
         private void ExecuteRightMouseCommand()
         {
-            getNextLevelCommand.Execute();
+            _getPreviousRoom.Execute();
         }
 
-        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity, IEntity projectileEntity)
+        public void LoadControls(IEntity player)
         {
-            // Unimplemented for this - will update for Sprint 4
+            // Not needed for this
         }
 
         public void Update()
         {
-            MouseState newState = Mouse.GetState();
-            if (newState.LeftButton == ButtonState.Pressed && oldState.LeftButton == ButtonState.Released)
+            MouseState currentMouseState = Mouse.GetState();
+            /* if the game is not active just return */
+            if (_game.IsActive == false) { return; }
+            /*
+             * Execute command only if a player's mouse is in the window and only after they click and let go of the mouse button.
+             */
+            if (IsInWindow(currentMouseState) && IsButtonDown(_oldMouseState.LeftButton) && !IsButtonDown(currentMouseState.LeftButton))
             {
                 ExecuteLeftMouseCommands();
             }
-            else if (newState.RightButton == ButtonState.Pressed && oldState.RightButton == ButtonState.Released)
+            else if (IsInWindow(currentMouseState) && IsButtonDown(_oldMouseState.RightButton) && !IsButtonDown(currentMouseState.RightButton))
             {
                 ExecuteRightMouseCommand();
             }
-            oldState = newState;
+
+            _oldMouseState = currentMouseState;
         }
 
 

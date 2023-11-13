@@ -4,20 +4,23 @@ using System;
 
 namespace SprintZero1.Sprites
 {
+    /// <summary>
+    /// Represents an animation that can be controlled in terms of its duration and stopping condition.
+    /// This class provides functionality to animate a sprite for a specified number of frames.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     [Serializable]
     public class ControlledAnimation : ISprite
     {
-        private readonly AnimatedSprite _animatedSprite;
-        private bool _shouldStop;
-        private float _timeToUpdate;
-        private readonly int _maxFrames;
-        private float _totalElapsedTime = 0f;
+        private readonly AnimatedSprite _animatedSprite; // The underlying animated sprite
+        private bool _shouldStop; // Flag to indicate whether the animation should stop
+        private float _timeToUpdate; // Time interval for updating the animation frame
+        private readonly int _maxFrames; // Maximum number of frames for the animation
+        private float _totalElapsedTime = 0f; // Total elapsed time for the animation
+
         private int FramesPerSecond
         {
-            set
-            {
-                _timeToUpdate = (1f / value);
-            }
+            set { _timeToUpdate = (1f / value); }
         }
 
         public ControlledAnimation(AnimatedSprite animatedSprite, int maxFrames)
@@ -25,7 +28,7 @@ namespace SprintZero1.Sprites
             _animatedSprite = animatedSprite;
             _shouldStop = false;
             _maxFrames = maxFrames;
-            FramesPerSecond = 8;
+            FramesPerSecond = 8; // Default frame rate
         }
 
         public void Update(GameTime gameTime)
@@ -51,5 +54,4 @@ namespace SprintZero1.Sprites
             }
         }
     }
-
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
 
 namespace SprintZero1.Colliders
 {
@@ -10,10 +9,10 @@ namespace SprintZero1.Colliders
         /// </summary>
         /// <param name="entity">Parent Entity</param>
         /// <param name="_collider">Collider Rectangle</param>
-        public LevelBlockCollider(IEntity entity, Rectangle _collider) : base(entity, _collider)
+        public LevelBlockCollider(Rectangle _collider, int delta = 0) : base(_collider, delta)
         {
-            this.Parent = entity;
-            this.Collider = _collider;
+            this.Collider = new Rectangle(_collider.X - delta - (_collider.Width / 2), _collider.Y - delta - (_collider.Height / 2), _collider.Width + delta, _collider.Height + delta);
+            this.Delta = delta;
         }
     }
 }

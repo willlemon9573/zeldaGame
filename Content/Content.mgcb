@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin 03 Underworld BGM.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:03 Underworld BGM.mp3
+
 #begin 8366.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -49,6 +55,13 @@
 /processorParam:TextureFormat=Color
 /build:BossSpritesheet.png
 
+#begin DeathmatchFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:DeathmatchFont.spritefont
+
 #begin DungeonEnemySpritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -60,6 +73,25 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:DungeonEnemySpritesheet.png
+
+#begin HUDSpritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HUDSpritesheet.png
+
+#begin ItemCount.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ItemCount.spritefont
 
 #begin itemSpriteSheet1.png
 /importer:TextureImporter
@@ -97,6 +129,18 @@
 /processorParam:TextureFormat=Color
 /build:LinkSheet.png
 
+#begin NES_-_The_Legend_of_Zelda_-_HUD__Pause_Screen1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:NES_-_The_Legend_of_Zelda_-_HUD__Pause_Screen1.png
+
 #begin OverworldEnemySpritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -108,6 +152,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:OverworldEnemySpritesheet.png
+
+#begin PauseSetting.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:PauseSetting.spritefont
 
 #begin TileSheet.png
 /importer:TextureImporter
