@@ -19,6 +19,8 @@
 	Room events were not implemented (pushing blocks to open door for example)
 	Link using secondary weapon not implemented
 	Most of Link's state transitions did not get implemented for the same reason as combat not being implemented
+	Hud doesn't display player weapons
+	Inventory doesn't draw map / compass and other items
 
 # Known Bugs 
 	Pausing the game and opening the inventory can be accessed at the same time
