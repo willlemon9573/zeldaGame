@@ -1,27 +1,30 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.GameStateMenu;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
     internal class GameBeatState : BaseGameState
     {
+        IGameStateMenu endingState;
         public GameBeatState(Game1 game) : base(game)
         {
+            endingState = new GameBeatMenu(game);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            throw new System.NotImplementedException();
+            endingState.Draw(spriteBatch);
         }
 
         public override void Handle()
         {
-            throw new System.NotImplementedException();
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new System.NotImplementedException();
+            endingState.Update(gameTime);
         }
     }
 }

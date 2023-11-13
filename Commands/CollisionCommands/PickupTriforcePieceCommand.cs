@@ -26,6 +26,7 @@ namespace SprintZero1.Commands.CollisionCommands
             /* don't know if this is implemented */
             _player.TransitionToState(State.InteractingWithItem);
             _state.UpdateRoomEntities();
+            _state.ChangeGameState(GameState.LevelCompleted);
         }
     }
 }
