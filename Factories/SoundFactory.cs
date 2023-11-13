@@ -1,11 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
+using SprintZero1.XMLParsers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SprintZero1.Factories
 {
@@ -22,26 +24,35 @@ namespace SprintZero1.Factories
         /// <param name="content">Content Manager</param>
         public SoundFactory(ContentManager content)
         {
-            //Background music
-            backgroundMusic.Add("Dungeon_Music", content.Load<Song>("DungeonMusic"));
-            //Add sound effects to dictionary
-            soundEffects.Add("Bomb", content.Load<SoundEffect>("LOZ_Bomb_Blow"));
-            soundEffects.Add("Boss_Scream", content.Load<SoundEffect>("LOZ_Boss_Scream1"));
-            soundEffects.Add("Candle", content.Load<SoundEffect>("LOZ_Candle"));
-            soundEffects.Add("Door_Unlock", content.Load<SoundEffect>("LOZ_Door_Unlock"));
-            soundEffects.Add("Fanfare", content.Load<SoundEffect>("LOZ_Fanfare"));
-            soundEffects.Add("Heart", content.Load<SoundEffect>("LOZ_Get_Heart"));
-            soundEffects.Add("Item", content.Load<SoundEffect>("LOZ_Get_Item"));
-            soundEffects.Add("Link_Die", content.Load<SoundEffect>("LOZ_Link_Die"));
-            soundEffects.Add("Link_Hurt", content.Load<SoundEffect>("LOZ_Link_Hurt"));
-            soundEffects.Add("Low_health", content.Load<SoundEffect>("LOZ_LowHealth"));
-            soundEffects.Add("Magical_Rod", content.Load<SoundEffect>("LOZ_MagicalRod"));
-            soundEffects.Add("Recorder", content.Load<SoundEffect>("LOZ_Recorder"));
-            soundEffects.Add("Secret", content.Load<SoundEffect>("LOZ_Secret"));
-            soundEffects.Add("Shield", content.Load<SoundEffect>("LOZ_Shield"));
-            soundEffects.Add("Shore", content.Load<SoundEffect>("LOZ_Shore"));
-            soundEffects.Add("Stairs", content.Load<SoundEffect>("LOZ_Stairs"));
-            soundEffects.Add("Sword", content.Load<SoundEffect>("LOZ_Sword_Combined"));
+            string path = @"XMLFiles\Sound.xml";
+            XDocument document = XDocument.Load(path);
+            XElement root = document.Root;
+            XDocTools xDocTools = new XDocTools();
+
+            foreach (XElement sound_effect in root.Elements("Sound"))
+            {
+                /* Get the sound effect name */
+                string name = xDocTools.ParseAttributeAsString(sound_effect.Attribute("name"));
+                XElement soundEffect = sound_effect.Element("SoundEffect");
+                string soundWavName = xDocTools.ParseAttributeAsString(soundEffect.Attribute("sound"));
+                SoundEffect sound = content.Load<SoundEffect>(soundWavName);
+                soundEffects.Add(name, sound);
+            }
+
+            foreach (XElement song in root.Elements("Song"))
+            {
+                string name = xDocTools.ParseAttributeAsString(song.Attribute("name"));
+                XElement background_music = song.Element("SoundEffect");
+                string songMP3 = xDocTools.ParseAttributeAsString(background_music.Attribute("song"));
+                Song songLoad = content.Load<Song>(songMP3);
+                backgroundMusic.Add(name, songLoad);
+            }
+
+        }
+
+        public void Initialize(ContentManager content)
+        {
+            
         }
 
         /// <summary>
