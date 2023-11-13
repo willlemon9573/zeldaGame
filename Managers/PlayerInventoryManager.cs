@@ -74,7 +74,7 @@ namespace SprintZero1.Managers
         public static void AddUtilityItemToInventory(IEntity player, DungeonItems item)
         {
             Debug.Assert(player != null, "Error: Player is null.");
-            Debug.Assert(_playerInventoryMap[player].IsInInventory(item), $"Error player already contains {item}");
+            Debug.Assert(!_playerInventoryMap[player].IsInInventory(item), $"Error player already contains {item}");
             _playerInventoryMap[player].AddDungeonUtilityItem(item);
         }
 

@@ -16,11 +16,7 @@ namespace SprintZero1.Commands.CollisionCommands
         {
 
             int keyCount = PlayerInventoryManager.GetStackableItemCount(_player, StackableItems.DungeonKey);
-            if (keyCount < 1)
-            {
-                PlayerInventoryManager.AddStackableItemToInventory(_player, StackableItems.DungeonKey, 1);
-                return false;
-            }
+            if (keyCount < 1) { return false; }
             PushBack();
             /* push player back */
 
@@ -34,6 +30,7 @@ namespace SprintZero1.Commands.CollisionCommands
             LevelManager.UnlockDoor(nextRoom, currentRoom);
             /* Update the room entities before the next draw so the doors will then be open */
             ProgramManager.UpdateRoomEntities();
+            PlayerInventoryManager.UseStackableItem(_player, StackableItems.DungeonKey, 1);
             return true;
         }
 

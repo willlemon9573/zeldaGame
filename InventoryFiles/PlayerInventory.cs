@@ -70,7 +70,7 @@ namespace SprintZero1.InventoryFiles
         /// <param name="dungeonItem">The item to add to the player inventory</param>
         public void AddDungeonUtilityItem(DungeonItems dungeonItem)
         {
-            Debug.Assert(_DungeonUtilityItemSlots.Contains(dungeonItem), $"Player already contains {dungeonItem} in their inventory.");
+            Debug.Assert(!_DungeonUtilityItemSlots.Contains(dungeonItem), $"Player already contains {dungeonItem} in their inventory.");
             Debug.Assert(_DungeonUtilityItemSlots.Count < MAX_UTILITY_SLOTS, "Player Utility Item Slots are full.");
             _DungeonUtilityItemSlots.Add(dungeonItem);
         }

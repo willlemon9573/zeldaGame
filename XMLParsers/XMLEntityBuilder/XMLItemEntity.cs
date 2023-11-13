@@ -25,7 +25,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
         public int ItemFrames { set => _itemFrames = value; }
         public string EnumName { set => _enumName = value; }
         public string ItemType { set => _itemType = value; }
-        public RemoveDelegate RemoveDelegateHandler { set => _removeDelegate = value; }
+        public RemoveDelegate RemoveDelegateHandler { set { _removeDelegate = value; } }
 
         private Dictionary<string, Func<ILootableEntity>> entityCreationMethods;
 

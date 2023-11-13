@@ -1,6 +1,5 @@
 ﻿using SprintZero1.Managers;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace SprintZero1.Commands
 {
@@ -21,7 +20,6 @@ namespace SprintZero1.Commands
             index = (index + 1) % totalRooms;
             LevelManager.CurrentRoomIndex = index;
             string nextLevel = levelList[index];
-            Debug.WriteLine(nextLevel);
             ProgramManager.ChangeRooms(nextLevel);
         }
     }

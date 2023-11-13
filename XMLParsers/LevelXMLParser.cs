@@ -244,7 +244,7 @@ namespace SprintZero1.XMLParsers
             IEntityParsingBuilder item = new XMLItemEntity();
             string innerItemElement = "Item";
             string innerAnimatedItemElement = "AnimatedItem";
-            (item as XMLItemEntity).RemoveDelegateHandler = dungeonRoom.RemoveItem;
+
             while (reader.Read())
             {
                 var element_name = reader.Name;
@@ -262,7 +262,8 @@ namespace SprintZero1.XMLParsers
                     }
                     else
                     {
-                        dungeonRoom.AddArchitecturalEntity(item.CreateEntity());
+                        (item as XMLItemEntity).RemoveDelegateHandler = dungeonRoom.RemoveItem;
+                        dungeonRoom.AddRoomItem(item.CreateEntity());
                     }
                 }
                 else if (reader_type == EndElementType && element_name == OuterItemsElement)

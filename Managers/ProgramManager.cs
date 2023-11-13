@@ -4,14 +4,10 @@ using SprintZero1.Colliders;
 using SprintZero1.Controllers;
 using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
-using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
-using SprintZero1.Factories;
 using SprintZero1.LevelFiles;
-using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace SprintZero1.Managers
@@ -20,7 +16,7 @@ namespace SprintZero1.Managers
     {
         public static Game1 _game;
         // List of available Controllers
-        private static List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
+        private static readonly List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
         private static List<IEntity> _nonPlayerEntityList = new List<IEntity>();
         private static List<Tuple<IEntity, IController>> _playerList = new List<Tuple<IEntity, IController>>();
         private static DungeonRoom _currentRoom;
@@ -54,12 +50,6 @@ namespace SprintZero1.Managers
             InitializePlayers();
             string entrance_room = "entrance";
             ChangeRooms(entrance_room);
-            ISprite rupee = ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite("rupee");
-
-            ILootableEntity rup = new StackableItemEntity(rupee, new Vector2(120, 120), _currentRoom.RemoveItem, PlayerInventoryManager.AddStackableItemToInventory, StackableItems.Rupee);
-            Debug.WriteLine($"{rup.GetType()}");
-            _currentRoom.AddRoomItem(rup);
-            UpdateRoomEntities();
         }
 
         /// <summary>
@@ -69,8 +59,6 @@ namespace SprintZero1.Managers
         {
             // TODO
         }
-
-
 
         /// <summary>
         /// Change the current room the player is in
@@ -88,8 +76,6 @@ namespace SprintZero1.Managers
         {
             _nonPlayerEntityList = _currentRoom.GetEntityList();
         }
-
-
 
         /// <summary>
         /// TODO: Fill out

@@ -14,9 +14,9 @@ namespace SprintZero1.Commands.CollisionCommands
         /// </summary>
         /// <param name="player">The player picking up the item</param>
         /// <param name="stackableItem">The item being picked up</param>
-        public PickUpStackableItemCommand(IEntity player, IEntity stackableItem)
+        public PickUpStackableItemCommand(ICollidableEntity player, ICollidableEntity stackableItem)
         {
-            _player = player;
+            _player = player as IEntity;
             _item = stackableItem as ILootableEntity;
         }
 

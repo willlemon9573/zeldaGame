@@ -9,7 +9,6 @@ using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
-using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {
@@ -79,7 +78,7 @@ namespace SprintZero1.Entities
         public void Attack(string weaponName)
         {
             if (_playerState is not PlayerAttackingState) { TransitionToState(State.Attacking); }
-            Debug.WriteLine($"Current position: {_playerPosition}");
+
             if (weaponName == "sword")
             {
                 _attackingWithSword = true;

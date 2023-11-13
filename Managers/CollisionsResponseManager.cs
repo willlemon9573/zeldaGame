@@ -22,7 +22,10 @@ namespace SprintZero1.Managers
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(StairEntity)), (entity1, entity2) => new EnterNextRoomCommand(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(BreakableWallEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(EnemyEntityWithDirection)), (entity1, entity2) => new DestroyEntity(entity1, entity2).Execute() },
-            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(StackableItemEntity)), (entity1, entity2) => new PickUpStackableItemCommand(entity1, entity2).Execute()}
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(StackableItemEntity)), (entity1, entity2) => new PickUpStackableItemCommand(entity1, entity2).Execute()},
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(DungeonItemEntity)), (entity1, entity2) => new PickupDungeonItemCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(EquipmentItemWithPlayerEntity)), (entity1, entity2) => new PickupEquipmentWithPlayer(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(EquipmentItemWithoutPlayerEntity)), (entity1, entity2) => new PickupEquipmentWithoutPlayer(entity1, entity2).Execute() }
         };
 
         private static readonly Dictionary<Tuple<Type, Type>, Action<ICollidableEntity, ICollidableEntity>> collisionResponseDictionary = new Dictionary<Tuple<Type, Type>, Action<ICollidableEntity, ICollidableEntity>>();

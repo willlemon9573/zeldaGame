@@ -6,20 +6,18 @@ using SprintZero1.Sprites;
 
 namespace SprintZero1.Entities.LootableItemEntity
 {
-    internal class EquipmentItemEntity : LootableItemBase
+    internal class EquipmentItemWithoutPlayerEntity : LootableItemBase
     {
         private readonly EquipmentItem _equipmentItem;
-        private readonly RemoveDelegate _remove;
         private readonly EquipmentItemHandler _pickupHandler;
         /// <summary>
         /// Get the type of the equipment item
         /// </summary>
         public EquipmentItem ItemType { get { return _equipmentItem; } }
 
-        public EquipmentItemEntity(ISprite entitySprite, Vector2 position, RemoveDelegate removeDelegate, EquipmentItemHandler pickupHandler, EquipmentItem itemType) : base(entitySprite, position, removeDelegate)
+        public EquipmentItemWithoutPlayerEntity(ISprite entitySprite, Vector2 position, RemoveDelegate removeDelegate, EquipmentItemHandler pickupHandler, EquipmentItem itemType) : base(entitySprite, position, removeDelegate)
         {
             _equipmentItem = itemType;
-            _remove = removeDelegate;
             _pickupHandler = pickupHandler;
         }
         /// <summary>

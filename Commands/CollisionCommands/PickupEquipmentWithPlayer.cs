@@ -5,11 +5,11 @@ using SprintZero1.Managers;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
-    internal class PickupEquipmentWithoutPlayer : ICommand
+    internal class PickupEquipmentWithPlayer : ICommand
     {
         IEntity _player;
         ILootableEntity _equipment;
-        public PickupEquipmentWithoutPlayer(ICollidableEntity player, ICollidableEntity equipmentItem)
+        public PickupEquipmentWithPlayer(ICollidableEntity player, ICollidableEntity equipmentItem)
         {
             _player = player;
             _equipment = equipmentItem as ILootableEntity;
@@ -18,7 +18,7 @@ namespace SprintZero1.Commands.CollisionCommands
         public void Execute()
         {
             EquipmentItem equipment = (_equipment as EquipmentItemWithPlayerEntity).ItemType;
-            IWeaponEntity weapon = WeaponEntityBuilder.CreateWeaponEntity(equipment);
+            IWeaponEntity weapon = WeaponEntityBuilder.CreateWeaponEntity(equipment, _player as IMovableEntity);
             _equipment.Pickup(_player, weapon);
             _equipment.Remove();
             ProgramManager.UpdateRoomEntities();
