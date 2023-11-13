@@ -17,6 +17,8 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
         private const string StackableItem = "StackableItemEntity";
         private const string EquipmenItem = "EquipmentItemWithoutPlayerEntity";
         private const string DungeonItem = "DungeonItemEntity";
+        private const string HeartContainer = "HeartContainerEntity";
+        private const string TriforcePiece = "TriforceEntity";
         private const string EntityNameSpace = "SprintZero1.Entities.LootableItemEntity";
         private int _itemFrames;
         private string _enumName;
@@ -27,9 +29,16 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
         public string ItemType { set => _itemType = value; }
         public RemoveDelegate RemoveDelegateHandler { set { _removeDelegate = value; } }
 
-        private Dictionary<string, Func<ILootableEntity>> entityCreationMethods;
+        private readonly Dictionary<string, Func<ILootableEntity>> entityCreationMethods;
 
-
+        /// <summary>
+        /// This specific function creates entities that do not require a delegate
+        /// </summary>
+        /// <returns></returns>
+        private ILootableEntity CreateMiscEntity()
+        {
+            return (ILootableEntity)Activator.CreateInstance(CreateEntityType(), CreateSprite(), CreatePosition(), _removeDelegate);
+        }
         private ILootableEntity CreateStackableEntity()
         {
             StackableItemHandler stackableItemhandler = PlayerInventoryManager.AddStackableItemToInventory;
@@ -73,6 +82,8 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
                 { StackableItem, this.CreateStackableEntity },
                 { DungeonItem, this.CreateDungeonItemEntity },
                 { EquipmenItem, this.CreateEquipmentEntity },
+                { HeartContainer, this.CreateMiscEntity },
+                { TriforcePiece, this.CreateMiscEntity }
             };
         }
 

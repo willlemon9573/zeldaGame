@@ -51,7 +51,7 @@
 		<Block>
 			<Name>pyramid</Name>
 			<X>103</X>
-			<Y>152</Y>
+			<Y>136</Y>
 			<IsCollidable>true</IsCollidable>
 		</Block>
 		<Block>

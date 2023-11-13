@@ -169,6 +169,14 @@
 			<IsCollidable>true</IsCollidable>
 		</Block>
 	</Blocks>
+	<Items>
+		<Item>
+			<Name>heartcontainer</Name>
+			<X>214</X>
+			<Y>151</Y>
+			<Type>HeartContainerEntity</Type>
+		</Item>
+	</Items>
 	<Enemies>
 		<Boss>
 			<Name>aquamentus</Name>
