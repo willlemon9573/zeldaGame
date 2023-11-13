@@ -97,7 +97,11 @@ namespace SprintZero1.Entities
 
         public void TakeDamage(int damage)
         {
-            // TODO: Implement in Sprint 4
+           
+                HUDManager.decrementHearts(damage,_playerHealth);
+            
+            _playerHealth -= damage;
+           
         }
 
         public void Die()

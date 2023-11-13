@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+	<Sprite name ="rupee">
+		<Vector2 x='92' y='24'/>
+	</Sprite>
+	<Sprite name ="key">
+		<Vector2 x='92' y='40'/>
+	</Sprite>
+	<Sprite name ="bomb">
+		<Vector2 x='92' y='48'/>
+	</Sprite>
+	<Sprite name ="b_weapon">
+		<Vector2 x='132' y='34'/>
+	</Sprite>
+	<Sprite name ="a_weapon">
+		<Vector2 x='156' y='34'/>
+	</Sprite>
+	<Sprite name ="life">
+		<Vector2 x='207' y='24'/>
+	</Sprite>
+	<Sprite name ="full_heart">
+		<Vector2 x='180' y='40'/>
+	</Sprite>
+	<Sprite name ="half_heart">
+		<Vector2 x='189' y='40'/>
+	</Sprite>
+	<Sprite name ="empty_heart">
+		<Vector2 x='198' y='40'/>
+	</Sprite>
+	<Sprite name ="level">
+		<Vector2 x='40' y='16'/>
+	</Sprite>
+	<Sprite name = "map">
+		<Vector2 x='40' y='35'/>
+	</Sprite>
+	<Sprite name = "player">
+		<Vector2 x='36' y='45'/>
+	</Sprite>
+</Sprites>

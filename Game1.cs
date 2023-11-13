@@ -61,9 +61,13 @@ namespace SprintZero1
             TileSpriteFactory.Instance.LoadTextures();
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
-        }
+            HUDSpriteFactory.Instance.LoadTextures();
+            _mouseController = new MouseController(this);
+            ItemSpriteFactory.Instance.LoadTextures();
+            HUDManager.Initialize();
+            /*ProgramManager.Start(this);*/
 
-        
+        }
 
         protected override void Update(GameTime gameTime)
         {
