@@ -15,8 +15,10 @@ namespace SprintZero1.Factories
     {
 
         private const string HUD_SPRITE_PATH = @"XMLFiles\HUDXMLFiles\HUDSprites.xml";
+        private const string ANIMATED_HUD_PATH=@"XMLFiles\HUDXMLFiles\HUDAnimatedSprites.xml";
         public Texture2D hudSpriteSheet;
         private Dictionary<string, ISprite> HUDSpriteDictionary;
+        private  Dictionary<string, List<Rectangle>> animatedHUDSpriteMap;
         private static readonly HUDSpriteFactory instance = new HUDSpriteFactory();
 
         public static HUDSpriteFactory Instance
@@ -29,6 +31,7 @@ namespace SprintZero1.Factories
             hudSpriteSheet = Texture2DManager.GetHUDSpriteSheet();
             SpriteXMLParser spriteParser = new SpriteXMLParser();
             HUDSpriteDictionary = spriteParser.ParseHUDSprites(HUD_SPRITE_PATH, hudSpriteSheet);
+            //animatedHUDSpriteMap = spriteParser.ParseAnimatedSpriteXML(ANIMATED_HUD_PATH);
         }
 
 
@@ -36,6 +39,9 @@ namespace SprintZero1.Factories
         {
             return HUDSpriteDictionary[name];
         }
-
+        public ISprite CreateAnimatedItemSprite(string name)
+        {
+            return new AnimatedSprite(animatedHUDSpriteMap[name], hudSpriteSheet,2);
+        }
     }
 }

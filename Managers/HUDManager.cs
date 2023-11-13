@@ -17,11 +17,12 @@ namespace SprintZero1.Managers
         private static List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
         const int MAX_ATTAINABLE_HEALTH = 13;
         private static List<Tuple<ISprite, Vector2>> healthList = new List<Tuple<ISprite, Vector2>>();
+        private static Dictionary<String,Tuple<ISprite, Vector2>> specialCaseDict = new Dictionary<String, Tuple<ISprite, Vector2>>();
         const float STARTING_HEALTH = 6f;
         const float FULL_HEART = 1f;
         const float HALF_HEART = 0.5f;
         const float EMPTY_HEART = 0f;
-
+        
         
         public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
         private const string Zero = "0";
@@ -57,16 +58,17 @@ namespace SprintZero1.Managers
                 /* Create Sprite */
                 ISprite HUDSprite = HUDSpriteFactoryInstance.CreateHUDSprite(name);
 
-                if ((name.Contains("heart")))
-                {
-
+                if (!name.Contains("heart"))
+                {    if (name.Contains("map") || name.Contains("triforce"))
+                    {
+                        specialCaseDict.Add(name, new Tuple<ISprite, Vector2>(HUDSprite, position));
+                    }
+                    else
+                    {
+                        /* Add to List */
+                        spriteAndPosList.Add(new Tuple<ISprite, Vector2>(HUDSprite, position));
+                    }
                 }
-                else
-                {
-                    /* Add to List */
-                    spriteAndPosList.Add(new Tuple<ISprite, Vector2>(HUDSprite, position));
-                }
-                
 
                 /*Initialize hearts*/
                 createHealth(startingPos); 
@@ -276,6 +278,18 @@ namespace SprintZero1.Managers
             bombDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
+        //makes the map visible
+        public static void addMap() {
+            spriteAndPosList.Add(specialCaseDict["map"]);
+
+        }
+
+        //makes the triforce marker visible
+        public static void addTriforceMarker() {
+            spriteAndPosList.Add(specialCaseDict["triforce"]);
+        }
+
+        //move the player marker depending on which room the player enters
         public static void updateMarker(int direction) {
            
             Vector2 markerPos = new Vector2(0,0);

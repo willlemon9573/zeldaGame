@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+	<Sprite name="triforce">
+		<Rectangle x="623" y="126" width="3" height="3" />
+		<Rectangle x="628" y="126" width="3" height="3" />
+	</Sprite>
+</Sprites>

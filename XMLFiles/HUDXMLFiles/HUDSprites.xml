@@ -69,4 +69,7 @@
 	<Sprite name = "player">
 		<Rectangle x='618' y='126' width='3' height='3'/>
 	</Sprite>
+	<Sprite name="triforce">
+		<Rectangle x="623" y="126" width="3" height="3" />
+	</Sprite>
 </Sprites>
