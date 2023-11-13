@@ -1,7 +1,6 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
-using SprintZero1.Managers;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
@@ -21,7 +20,6 @@ namespace SprintZero1.Commands.CollisionCommands
             IWeaponEntity weapon = WeaponEntityBuilder.CreateWeaponEntity(equipment);
             _equipment.Pickup(_player, weapon);
             _equipment.Remove();
-            ProgramManager.UpdateRoomEntities();
         }
     }
 }

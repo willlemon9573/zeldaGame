@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
+﻿using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
-using SprintZero1.Managers;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
@@ -17,8 +15,7 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
-            _playerEntity.Position = new Vector2(120, 120);
-            ProgramManager.ChangeRooms(_destination);
+
         }
     }
 }

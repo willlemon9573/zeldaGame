@@ -205,12 +205,12 @@
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>blocked_east</Name>
+			<Name>open_east</Name>
 			<X>239</X>
 			<Y>152</Y>
 			<Destination>floorFiveRightest</Destination>
 			<Direction>East</Direction>
-			<DoorType>BlockedDoorEntity</DoorType>
+			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>locked_south</Name>
