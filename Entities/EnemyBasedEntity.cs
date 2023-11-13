@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
+using SprintZero1.Controllers;
+using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
@@ -42,6 +44,7 @@ namespace SprintZero1.Entities
         public IEnemyState EnemyState { get { return _enemyState; } set { _enemyState = value; } }
         private ICollider _collider;
         public ICollider Collider { get { return _collider; } }
+        private IEnemyMovementController _enemyController;
 
         /// <summary>
         /// Constructs a new enemy entity.
@@ -58,6 +61,7 @@ namespace SprintZero1.Entities
             _enemyState = new EnemyIdleState(this);
             _collider = new DynamicCollider(new Rectangle((int)position.X, (int)position.Y, 16, 16));
             _enemySprite = _EnemyFactory.CreateEnemySprite(enemyName, _enemyDirection);
+            _enemyController = new SmartEnemyMovementController(this);
         }
         public void ResetEnemy()
         {
@@ -106,6 +110,7 @@ namespace SprintZero1.Entities
 
         public virtual void Update(GameTime gameTime)
         {
+            _enemyController.Update(gameTime);
             _enemyState.Update(gameTime);
         }
 

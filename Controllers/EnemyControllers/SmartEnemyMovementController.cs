@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
+using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 using System.Collections.Generic;
 
@@ -14,7 +16,7 @@ namespace SprintZero1.Controllers.EnemyControllers
     internal class SmartEnemyMovementController : IEnemyMovementController
     {
         private readonly ICombatEntity _enemyEntity;
-        private readonly IEntity _playerEntity;
+        private IEntity _playerEntity;
         private readonly AStarPathfinder pathfinder;
         private Stack<Vector2> currentPath;
         private bool isPathBeingCalculated;
@@ -29,10 +31,9 @@ namespace SprintZero1.Controllers.EnemyControllers
         private readonly double _directionChangeCooldown = 0.5;
         private double _timeSinceLastDirectionChange = 0;
 
-        public SmartEnemyMovementController(ICombatEntity enemyEntity, IEntity playerEntity)
+        public SmartEnemyMovementController(ICombatEntity enemyEntity)
         {
             _enemyEntity = enemyEntity;
-            _playerEntity = playerEntity;
             pathfinder = new AStarPathfinder();
             currentPath = new Stack<Vector2>();
             isPathBeingCalculated = false;
@@ -53,6 +54,7 @@ namespace SprintZero1.Controllers.EnemyControllers
 
         public void Update(GameTime gameTime)
         {
+            _playerEntity = (GameStatesManager.GetGameState(GameState.Playing) as GamePlayingState).ReturnMainPlayer();
             double elapsed = gameTime.ElapsedGameTime.TotalSeconds;
             _timeSinceLastPathCalculation += elapsed;
             _currentMoveTime += elapsed;

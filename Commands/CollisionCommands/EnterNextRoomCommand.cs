@@ -1,5 +1,8 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
+using SprintZero1.LevelFiles;
+using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
@@ -15,7 +18,7 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
-
+            (GameStatesManager.GetGameState(Enums.GameState.Playing) as GamePlayingState).LoadDungeonRoom(_destination, Enums.Direction.North);
         }
     }
 }

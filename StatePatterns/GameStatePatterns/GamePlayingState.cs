@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Controllers;
 using SprintZero1.Entities;
+using SprintZero1.Enums;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
 using System.Collections.Generic;
@@ -20,6 +21,14 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// </summary>
         private List<PlayerEntity> _players = new List<PlayerEntity>();
         // Note: Base variable is EntityManager
+
+        private Dictionary<Direction, Vector2> RoomStartPositions = new Dictionary<Direction, Vector2>
+        {
+            {Direction.North, new Vector2(128, 114) },
+            {Direction.East, new Vector2(220, 160) },
+            {Direction.South, new Vector2(128, 210)},
+            {Direction.West, new Vector2(40, 160)}
+        };
 
         public DungeonRoom CurrentRoom { get { return _currentRoom; } }
 
@@ -60,12 +69,26 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// _currentRoom then is set to nextRoom
         /// </summary>
         /// <param name="nextRoomName"></param>
-        public void LoadDungeonRoom(string nextRoomName)
+        /// <param name="dir">Direction you entered door from</param>
+        public void LoadDungeonRoom(string nextRoomName, Direction dir)
         {
+            foreach (PlayerEntity player in _players)
+            {
+                player.Position = RoomStartPositions[dir + 2];
+            }
             DungeonRoom nextRoom = LevelManager.GetDungeonRoom(nextRoomName);
             EntityManager.ParseDungeonRoom(nextRoom);
             EntityManager.Add(_players.OfType<IEntity>().ToList());
             _currentRoom = nextRoom;
+        }
+
+        /// <summary>
+        /// Return the main player in the gameplaying state
+        /// </summary>
+        /// <returns></returns>
+        public PlayerEntity ReturnMainPlayer()
+        {
+            return _players[0];
         }
 
         /// <summary>

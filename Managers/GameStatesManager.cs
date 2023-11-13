@@ -59,7 +59,7 @@ namespace SprintZero1.Managers
             controller.LoadControls(player);
             _startingState.AddController(controller);
             _gameStateMap[Enums.GameState.Paused].AddController(controller);
-            _startingState.LoadDungeonRoom("entrance");
+            _startingState.LoadDungeonRoom("entrance", Direction.North);
             _gameState = _startingState;
         }
 

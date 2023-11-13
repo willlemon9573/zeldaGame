@@ -25,7 +25,7 @@ namespace SprintZero1.Commands
             _index = ((_index - 1) + _totalRooms) % _totalRooms;
             LevelManager.CurrentRoomIndex = _index;
             string nextLevel = _levelList[_index];
-            _gameState.LoadDungeonRoom(nextLevel);
+            _gameState.LoadDungeonRoom(nextLevel, Direction.South);
         }
     }
 }
