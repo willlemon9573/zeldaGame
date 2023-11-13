@@ -9,6 +9,7 @@ using SprintZero1.LevelFiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SprintZero1.GameStateMenu;
 
 namespace SprintZero1.Managers
 {
@@ -20,7 +21,7 @@ namespace SprintZero1.Managers
         private static List<IEntity> _nonPlayerEntityList = new List<IEntity>();
         private static List<Tuple<IEntity, IController>> _playerList = new List<Tuple<IEntity, IController>>();
         private static DungeonRoom _currentRoom;
-
+        public static PlayerEntity player;
         public static DungeonRoom CurrentRoom { get { return _currentRoom; } }
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace SprintZero1.Managers
             int startingY = 170;
             float startingHealth = 3f;
             Direction startingDirection = Direction.North;
-            PlayerEntity player = new PlayerEntity(new Vector2(startingX, startingY), startingHealth, startingDirection);
+            player = new PlayerEntity(new Vector2(startingX, startingY), startingHealth, startingDirection);
             ControlsManager.CreateKeyboardControlsMap(CONTROLS_DOCUMENT_PATH, player, _game);
             IController keyboardController = new KeyboardController();
             keyboardController.LoadControls(player);
@@ -85,6 +86,7 @@ namespace SprintZero1.Managers
         {
             onScreenEnemyController.Add(enemyController);
         }
+
         /// <summary>
         /// Temporary
         /// </summary>

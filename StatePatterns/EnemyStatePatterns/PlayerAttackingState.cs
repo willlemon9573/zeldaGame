@@ -30,7 +30,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
         /// Constructor for the state transition Player Attacking State
         /// </summary>
         /// <param name="playerEntity">The player entering the state</param>
-        public EnemyAttackingState(BaseEnemyEntity enemyEntity) : base(enemyEntity)
+        public EnemyAttackingState(EnemyBasedEntity enemyEntity) : base(enemyEntity)
         {
             /* Transition to state updates player state after invoking method. Track the previous state beforehand */
         }

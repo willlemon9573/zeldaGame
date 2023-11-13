@@ -1,30 +1,48 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using SprintZero1.StatePatterns.GameStatePatterns;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace SprintZero1.GameStateMenu
 {
+
+    /// <summary>
+    /// Abstract base class for different game state menus.
+    /// This class provides common properties and methods used by various game states.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     public abstract class GameStateAbstract : IGameStateMenu
     {
-        protected SpriteFont _font;
-        protected Texture2D _overlay;
-        protected string pauseText;
+        protected SpriteFont _font; // Font for text rendering
+        protected Texture2D _overlay; // Texture for rendering overlays
+        protected GraphicsDeviceManager graphics; // Graphics device manager for handling graphics
+        protected const int WIDTH = 255; // Width for the overlay and rendering
+        protected const int HEIGHT = 240; // Height for the overlay and rendering
+        protected GraphicsDevice _GraphicsDevice; // Graphics device for rendering
 
-
-        public GameStateAbstract(SpriteFont font, GraphicsDevice graphicsDevice)
+        /// <summary>
+        /// Initializes a new instance of the GameStateAbstract class.
+        /// </summary>
+        /// <param name="game">Reference to the main game class for accessing graphics properties.</param>
+        public GameStateAbstract(Game1 game)
         {
-            _font = font;
-            _overlay = new Texture2D(graphicsDevice, 1, 1);
+            graphics = game._graphics;
+            _GraphicsDevice = game.GraphicsDevice;
+            _overlay = new Texture2D(_GraphicsDevice, 1, 1); // Initialize overlay texture
         }
 
+        /// <summary>
+        /// Abstract method for updating the game state.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public abstract void Update(GameTime gameTime);
 
-        public void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
-        {
-            spriteBatch.Draw(_overlay, new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
-            Vector2 textSize = _font.MeasureString(pauseText);
-            Vector2 textPosition = new Vector2((graphics.PreferredBackBufferWidth - textSize.X) / 2, (graphics.PreferredBackBufferHeight - textSize.Y) / 2);
-            spriteBatch.DrawString(_font, pauseText, textPosition, Color.White);
-            ;
-        }
+        /// <summary>
+        /// Abstract method for drawing the game state.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used for drawing.</param>
+        public abstract void Draw(SpriteBatch spriteBatch);
     }
 }

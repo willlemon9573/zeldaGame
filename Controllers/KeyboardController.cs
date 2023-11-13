@@ -79,7 +79,7 @@ namespace SprintZero1.Controllers
             {
                 if (key == Keys.Escape && !_previouslyPressedKeys.Contains(key))
                 {
-                    game.GameState.ChangeGameState(Enums.GameState.Playing);
+                    GameStatesManager.ChangeGameState(Enums.GameState.Playing);
                 }
             }
             _previouslyPressedKeys = pressedKeys.ToList();

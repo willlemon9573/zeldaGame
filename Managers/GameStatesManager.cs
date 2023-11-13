@@ -1,13 +1,33 @@
-﻿using SprintZero1.Enums;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Commands.PlayerCommands;
+using SprintZero1.Enums;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System.Collections.Generic;
+using SprintZero1.Entities;
+using SprintZero1.Controllers;
+using System.Xml.Linq;
+using System.Runtime.CompilerServices;
 
 namespace SprintZero1.Managers
 {
     internal static class GameStatesManager
     {
+        /// <summary>
+        /// Map of IGameState's
+        /// </summary>
         private static Dictionary<GameState, IGameState> _gameStateMap;
+
+        private static Game1 _game;
+
+        /// <summary>
+        /// Current game state. Will be be called for Update and Draw
+        /// </summary>
+        private static IGameState _gameState;
+        public static IGameState CurrentState { get { return _gameState; } }
+
+
 
         /// <summary>
         /// Creates the map that will contain the required functions for game state changing
@@ -15,6 +35,7 @@ namespace SprintZero1.Managers
         /// <param name="game">The current game</param>
         public static void InitializeGameStateMap(Game1 game)
         {
+            _game = game;
             _gameStateMap = new Dictionary<GameState, IGameState>()
             {
                 { GameState.GameOver, new GameOverState(game) },
@@ -25,6 +46,33 @@ namespace SprintZero1.Managers
                 { GameState.Reset, new GameResetState(game) },
                 { GameState.RoomTransition, new GameRoomTransitionState(game) }
             };
+        }
+
+        /// <summary>
+        /// Set logic for game start
+        /// </summary>
+        public static void Start()
+        {
+            GamePlayingState _startingState = (GamePlayingState)_gameStateMap[GameState.Playing];
+            PlayerEntity player = new PlayerEntity(new Vector2(200, 100), 6, Direction.North);
+            _startingState.AddPlayer(player);
+            const string CONTROLS_DOCUMENT_PATH = @"XMLFiles\PlayerXMLFiles\ControllerSettings.xml";
+            ControlsManager.CreateKeyboardControlsMap(CONTROLS_DOCUMENT_PATH, player, _game);
+            KeyboardController controller = new KeyboardController();
+            controller.LoadControls(player);
+            _startingState.AddController(controller);
+            _gameStateMap[Enums.GameState.Paused].AddController(controller);
+            _startingState.LoadDungeonRoom("entrance");
+            _gameState = _startingState;
+        }
+
+        /// <summary>
+        /// Change the global _gameState 
+        /// </summary>
+        /// <param name="newState"></param>
+        public static void ChangeGameState(GameState newState)
+        {
+            _gameState = _gameStateMap[newState];
         }
 
         /// <summary>
@@ -40,6 +88,25 @@ namespace SprintZero1.Managers
         public static void Reset()
         {
             _gameStateMap.Clear();
+        }
+
+        /// <summary>
+        /// Update the CurrentState GameState
+        /// </summary>
+        /// <param name="gameTime">Gametime</param>
+        public static void Update(GameTime gameTime)
+        {
+            CurrentState.Handle();
+            CurrentState.Update(gameTime);
+        }
+
+        /// <summary>
+        /// Draw the CurrentState GameState
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public static void Draw(SpriteBatch spriteBatch)
+        {
+            CurrentState.Draw(spriteBatch);
         }
     }
 }

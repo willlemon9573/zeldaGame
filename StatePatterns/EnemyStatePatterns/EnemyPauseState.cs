@@ -9,7 +9,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
     /// </summary>
     internal class EnemyPauseState : BaseEnemyState
     {
-        public EnemyPauseState(BaseEnemyEntity enemyEntity) : base(enemyEntity)
+        public EnemyPauseState(EnemyBasedEntity enemyEntity) : base(enemyEntity)
         {
             //TODO: Implement logic here
         }

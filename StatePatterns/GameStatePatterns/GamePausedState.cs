@@ -1,32 +1,55 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
+using SprintZero1.GameStateMenu;
 using SprintZero1.Managers;
+
+using SprintZero1.Controllers;
+using SprintZero1.Entities;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
-    public class GamePausedState : BaseGameState
+    internal class GamePausedState : BaseGameState
     {
-        private readonly PausedStateUpdater _updater;
+        private ItemSelectionMenu itemSelectionMenu;
+        private IGameStateMenu pauseGame;
+        private IController controllerForItemSelection;
+        private PausedStateUpdater _updater;
+        private Game1 game;
         public GamePausedState(Game1 game) : base(game)
         {
-            _updater = ProgramManager.GetPausedStateUpdater();
+            this.game = game;
         }
+
+        public void AssignToPlayer(PlayerEntity player)
+        {
+            itemSelectionMenu = new ItemSelectionMenu(game, player);
+            pauseGame = new PauseMenu(game);
+            controllerForItemSelection = new KeyboardControllerForItemSelection(game, player, itemSelectionMenu);
+        }
+        
+        public override void AddController(IController controller)
+        {
+            KeyboardController k = controller as KeyboardController;
+            _updater = k.PausedStateUpdate;
+        }
+        
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            ProgramManager.Draw(spriteBatch);
-            //drawing screen here
+            pauseGame.Draw(spriteBatch);
+            GameStatesManager.GetGameState(Enums.GameState.Playing).Draw(spriteBatch);
         }
 
         public override void Handle()
         {
-
+            
         }
 
         public override void Update(GameTime gameTime)
         {
-            _updater.Invoke(_game);
+            pauseGame.Update(gameTime);
+            controllerForItemSelection.Update();
         }
     }
 }

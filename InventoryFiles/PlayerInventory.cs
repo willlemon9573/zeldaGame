@@ -141,6 +141,7 @@ namespace SprintZero1.InventoryFiles
         {
             Debug.Assert(_equipmentSlots.ContainsKey(newEquipment), $"The player does not contain {newEquipment} in their inventory.");
             _inventoryOwner.EquipmentSlot = _equipmentSlots[newEquipment];
+            Debug.WriteLine(_inventoryOwner.EquipmentSlot);
         }
 
         /// <summary>

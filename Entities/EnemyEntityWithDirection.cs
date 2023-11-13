@@ -6,9 +6,9 @@ using SprintZero1.Sprites;
 namespace SprintZero1.Entities
 {
 
-    internal class EnemyEntityWithDirection : BaseEnemyEntity
+    internal class EnemyEntityWithDirection : EnemyBasedEntity
     {
-        public EnemyEntityWithDirection(ISprite enemySprite, Vector2 startingPosition, int startingHealth, string enemyName) : base(enemySprite, startingPosition, startingHealth, enemyName)
+        public EnemyEntityWithDirection(Vector2 startingPosition, int startingHealth, string enemyName) : base( startingPosition, startingHealth, enemyName)
         {
         }
 

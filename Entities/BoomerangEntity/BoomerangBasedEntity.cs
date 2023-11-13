@@ -4,6 +4,11 @@ using System;
 
 namespace SprintZero1.Entities.BoomerangEntity
 {
+    /// <summary>
+    /// Represents the base functionality for boomerang-based entities.
+    /// This abstract class provides common behaviors and properties used by all boomerang entities.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     internal abstract class BoomerangBasedEntity : ProjectileEntity
     {
         // Variables to control the boomerang's behavior and state.

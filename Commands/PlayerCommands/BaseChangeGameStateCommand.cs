@@ -16,6 +16,7 @@
         /// <param name="gameState">base game state class reference</param>
         public BaseChangeGameStateCommand(Game1 game)
         {
+
             _game = game;
         }
 

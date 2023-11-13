@@ -1,10 +1,12 @@
 ﻿using SprintZero1.Enums;
 using SprintZero1.Managers;
+using SprintZero1.StatePatterns;
 
 namespace SprintZero1.Commands.PlayerCommands
 {
     internal class CloseInventoryCommand : BaseChangeGameStateCommand
     {
+
         /// <summary>
         /// Command for closing the player inventory
         /// </summary>
@@ -19,7 +21,7 @@ namespace SprintZero1.Commands.PlayerCommands
         /// </summary>
         public override void Execute()
         {
-            _game.GameState = GameStatesManager.GetGameState(GameState.Playing);
+            GameStatesManager.ChangeGameState(GameState.Playing);
         }
     }
 }

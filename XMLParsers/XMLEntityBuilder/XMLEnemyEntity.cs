@@ -14,16 +14,16 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
         public int EntityFrames { set => _spriteFrames = value; }
         public override IEntity CreateEntity()
         {
-            ISprite entitySprite = EnemySpriteFactory.Instance.CreateAnimatedEnemySpriteDirectionless(_entityName, _spriteFrames);
+            //ISprite entitySprite = EnemySpriteFactory.Instance.CreateAnimatedEnemySpriteDirectionless(_entityName, _spriteFrames);
             Vector2 position = new Vector2(_entityPositionX, _entityPositionY);
-            return new EnemyEntityWithoutDirection(entitySprite, position, _entityHealth, _entityName);
+            return new EnemyEntityWithoutDirection(position, _entityHealth, _entityName);
         }
 
         public IEntity CreateBossEntity()
         {
-            ISprite bossSprite = EnemySpriteFactory.Instance.CreateBossSprite(_entityName);
+            //ISprite bossSprite = EnemySpriteFactory.Instance.CreateBossSprite(_entityName);
             Vector2 position = new Vector2(_entityPositionX, _entityPositionY);
-            return new EnemyEntityWithoutDirection(bossSprite, position, _entityHealth, _entityName);
+            return new EnemyEntityWithoutDirection(position, _entityHealth, _entityName);
         }
     }
 }

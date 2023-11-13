@@ -7,24 +7,30 @@ using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.EnemyStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 
+
 namespace SprintZero1.Entities
 {
     /// <summary>
-    /// Player Entity class used to control and update player.
-    /// @Author Zihe Wang
+    /// EnemyBasedEntity class: An abstract class used to control and update enemy entities.
     /// </summary>
-    internal abstract class BaseEnemyEntity : ICombatEntity, ICollidableEntity
+    /// <author>Zihe Wang</author>
+    internal abstract class EnemyBasedEntity : ICombatEntity, ICollidableEntity
+
     {
         protected float _totalFrame;
         protected float _attackCooldown;
-        protected readonly EnemySpriteFactory _EnemyFactory = EnemySpriteFactory.Instance;
-        protected float _timeElapsed;
+        protected int _enemyHealthMax;
+        protected Vector2 _enemyDefaultPosition;
+        //protected EnemyCollider _enemyCollider;
+        //protected readonly EnemyStateMachine _enemyStateMachine;
+        protected readonly EnemySpriteFactory _EnemyFactory = EnemySpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
+        //controls the attacking state
+        //protected float _timeElapsed;
+        //protected readonly string _weapon;
         protected readonly float _timeToReset = 1f / 7;
         protected ISprite _enemySprite;
         protected Direction _enemyDirection = Direction.South;
         protected float _enemyHealth;
-        protected readonly float _enemyHealthMax;
-        protected readonly Vector2 _enemyDefaultPosition;
         protected string _enemyName;
         protected Vector2 _enemyPosition;
         protected IEnemyState _enemyState;
@@ -37,30 +43,26 @@ namespace SprintZero1.Entities
         private ICollider _collider;
         public ICollider Collider { get { return _collider; } }
 
-
         /// <summary>
-        /// Base abstract enemy constructor
+        /// Constructs a new enemy entity.
         /// </summary>
-        /// <param name="enemySprite">The sprite the entity will use</param>
-        /// <param name="startingPosition">The starting position of the entity</param>
-        /// <param name="startingHealth">the starting health of the entity</param>
-        /// <param name="enemyName">the name of the entity</param>
-        protected BaseEnemyEntity(ISprite enemySprite, Vector2 startingPosition, float startingHealth, string enemyName)
+        /// <param name="position">The position of the enemy entity.</param>
+        /// <param name="startingHealth">The starting health of the enemy entity.</param>
+        /// <param name="enemyName">The name of the enemy.</param>
+        protected EnemyBasedEntity(Vector2 position, int startingHealth, string enemyName)
         {
-            _enemyHealth = startingHealth;
             _enemyHealthMax = startingHealth;
-            _enemyDefaultPosition = startingPosition;
-            _enemyPosition = startingPosition;
+            _enemyDefaultPosition = position;
+            ResetEnemy();
             _enemyName = enemyName;
             _enemyState = new EnemyIdleState(this);
-            _enemySprite = enemySprite;
-            _collider = new DynamicCollider(new Rectangle((int)startingPosition.X, (int)startingPosition.Y, 16, 16));
+            _collider = new DynamicCollider(new Rectangle((int)position.X, (int)position.Y, 16, 16));
+            _enemySprite = _EnemyFactory.CreateEnemySprite(enemyName, _enemyDirection);
         }
-
-        public void Reset()
+        public void ResetEnemy()
         {
-            _enemyPosition = _enemyDefaultPosition;
             _enemyHealth = _enemyHealthMax;
+            _enemyPosition = _enemyDefaultPosition;
         }
 
         public virtual void Move()
@@ -101,8 +103,15 @@ namespace SprintZero1.Entities
         }
         //_enemyDirection = direction;
 
-        public abstract void Update(GameTime gameTime);
 
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public virtual void Update(GameTime gameTime)
+        {
+            _enemyState.Update(gameTime);
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            _enemyState.Draw(spriteBatch);
+        }
     }
 }

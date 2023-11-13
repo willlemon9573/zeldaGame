@@ -75,6 +75,7 @@ namespace SprintZero1.XMLParsers
             return (Direction)Enum.Parse(typeof(Direction), direction_attribute.Value, true);
         }
 
+
         /// <summary>
         /// Parses a direction enum from the given the element
         /// </summary>
@@ -88,6 +89,21 @@ namespace SprintZero1.XMLParsers
             return (StackableItems)Enum.Parse(typeof(StackableItems), itemAttribute.Value, true);
         }
 
+        public Rectangle CreateRectangle(XElement rectangleElement)
+        {
+            int x = ParseAttributeAsInt(rectangleElement, "x");
+            int y = ParseAttributeAsInt(rectangleElement, "y");
+            int width = ParseAttributeAsInt(rectangleElement, "width");
+            int height = ParseAttributeAsInt(rectangleElement, "height");
+            return new Rectangle(x, y, width, height);
+        }
+
+        public EquipmentItem ParseAttributeAsEquipmentItem(XElement element, string attributeName)
+        {
+            XAttribute key = element.Attribute(attributeName);
+            CheckAttribute(key);
+            return (EquipmentItem)Enum.Parse(typeof(EquipmentItem), key.Value, true);
+        }
         /// <summary>
         /// Parses a Sprite Effect enum from the given element
         /// </summary>

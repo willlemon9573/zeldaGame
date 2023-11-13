@@ -6,7 +6,11 @@ using System;
 
 namespace SprintZero1.Entities.BoomerangEntity
 {
-    // Definition of the RegularBoomerangEntity class which is a type of BoomerangBasedEntity
+    /// <summary>
+    /// Represents a regular boomerang weapon entity in the game.
+    /// This class extends BoomerangBasedEntity and defines the behavior for a standard boomerang.
+    /// </summary>
+    /// <author>Zihe Wang</author>
     internal class RegularBoomerangEntity : BoomerangBasedEntity
     {
         // Constants defining the maximum distance the boomerang can travel and its moving speed
@@ -17,10 +21,9 @@ namespace SprintZero1.Entities.BoomerangEntity
         /// Initializes a new instance of the RegularBoomerangEntity class.
         /// </summary>
         /// <param name="weaponName">The name of the weapon.</param>
-        /// <param name="player">The player entity.</param>
+        /// <param name="player">The player entity using the boomerang.</param>
         public RegularBoomerangEntity(String weaponName, IMovableEntity player) : base(weaponName, player)
         {
-            // Initializing the maximum distance and moving speed of the boomerang
             _maxDistance = RegularBoomerangMaxDistance;
             movingSpeed = RegularBoomerangMovingSpeed;
         }

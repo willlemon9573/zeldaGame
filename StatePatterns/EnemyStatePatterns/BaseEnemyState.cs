@@ -14,7 +14,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
     /// </summary>
     internal abstract class BaseEnemyState : IEnemyState
     {
-        protected BaseEnemyEntity _enemyEntity;
+        protected EnemyBasedEntity _enemyEntity;
         private readonly Dictionary<State, Func<IEnemyState>> _stateTransitionMap;
         protected EnemySpriteFactory _enemySpriteFactory = EnemySpriteFactory.Instance;
         protected bool _blockTransition = false; // false by default
@@ -25,7 +25,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
         /// EnemyEntity to the constructor is allowed
         /// </summary>
         /// <param name="enemyEntity">The specific EnemyEntity that uses the State Pattern</param>
-        public BaseEnemyState(BaseEnemyEntity enemyEntity)
+        public BaseEnemyState(EnemyBasedEntity enemyEntity)
         {
             this._enemyEntity = enemyEntity;
             _stateTransitionMap = new Dictionary<State, Func<IEnemyState>>()
@@ -36,6 +36,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
                 // Add more states as needed
             };
         }
+
 
         /// <summary>
         /// Changes the direction of the enemy based on the current state
@@ -69,7 +70,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
             SpriteEffects spriteEffects = _enemyEntity.Direction == Direction.West
                 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             // draw sprite
-            _enemyEntity.EnemySprite.Draw(spriteBatch, _enemyEntity.Position, spriteEffects);
+            _enemyEntity.EnemySprite.Draw(spriteBatch, _enemyEntity.Position, spriteEffects, 0, 0.1f);
         }
 
 

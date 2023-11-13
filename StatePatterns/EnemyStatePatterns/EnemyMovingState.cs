@@ -12,7 +12,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
     internal class EnemyMovingState : BaseEnemyState
     {
         private readonly Dictionary<Direction, Vector2> _velocityMap;
-        public EnemyMovingState(BaseEnemyEntity enemyEntity) : base(enemyEntity)
+        public EnemyMovingState(EnemyBasedEntity enemyEntity) : base(enemyEntity)
         {
             _velocityMap = new Dictionary<Direction, Vector2>()
             {

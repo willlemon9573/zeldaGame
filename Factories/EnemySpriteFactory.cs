@@ -15,7 +15,8 @@ namespace SprintZero1.Factories
         private const string ENEMY_SPRITE_PATH = @"XMLFiles\FactoryXMLFiles\EnemySprites.xml";
         private const string BOSS_SPRITE_PATH = @"XMLFiles\FactoryXMLFiles\BossSprites.xml";
         private Texture2D dungeonEnemySpriteSheet, bossSpriteSheet;
-        private readonly Dictionary<string, List<Rectangle>> enemySpriteDictionary;
+        private readonly Dictionary<string, List<Rectangle>> enemySpriteWithoutDirectionDictionary;
+        private readonly Dictionary<string, Dictionary<Direction, List<Rectangle>>> enemySpriteWithDirectionDictionary;
         private readonly Dictionary<string, List<Rectangle>> bossEnemySpriteDictionary;
         private static readonly EnemySpriteFactory instance = new EnemySpriteFactory();
         /// <summary>
@@ -41,9 +42,31 @@ namespace SprintZero1.Factories
         private EnemySpriteFactory()
         {
             SpriteXMLParser spriteParser = new SpriteXMLParser();
-            enemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(ENEMY_SPRITE_PATH);
+            enemySpriteWithoutDirectionDictionary = spriteParser.ParseAnimatedSpriteXML(ENEMY_SPRITE_PATH);
             bossEnemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(BOSS_SPRITE_PATH);
+            enemySpriteWithDirectionDictionary = new Dictionary<string, Dictionary<Direction, List<Rectangle>>>
+            {
+                {
+                    "dungeon_goriya", new Dictionary<Direction, List<Rectangle>>
+                    {
+                        { Direction.North, new List<Rectangle> { new Rectangle(241, 11, 13, 16), new Rectangle(308, 11, 13, 16) } },
+                        { Direction.South, new List<Rectangle> { new Rectangle(224, 11, 13, 16), new Rectangle(292, 11, 13, 16) } },
+                        { Direction.West, new List<Rectangle> { new Rectangle(257, 11, 13, 16), new Rectangle(275, 11, 14, 16) } },
+                        { Direction.East, new List<Rectangle> { new Rectangle(257, 11, 13, 16), new Rectangle(275, 11, 14, 16) } }
+                    }
+                },
+                {
+                    "dungeon_wallmaster", new Dictionary<Direction, List<Rectangle>>
+                    {
+                        { Direction.North, new List<Rectangle> { new Rectangle(241, 11, 13, 16), new Rectangle(308, 11, 13, 16) } },
+                        { Direction.South, new List<Rectangle> { new Rectangle(224, 11, 13, 16), new Rectangle(292, 11, 13, 16) } },
+                        { Direction.West, new List<Rectangle> { new Rectangle(257, 11, 13, 16), new Rectangle(275, 11, 14, 16) } },
+                        { Direction.East, new List<Rectangle> { new Rectangle(257, 11, 13, 16), new Rectangle(275, 11, 14, 16) } }
+                    }
+                }
+            };
         }
+
 
         /// <summary>
         /// Creates the enemy sprite
@@ -53,15 +76,17 @@ namespace SprintZero1.Factories
         public ISprite CreateEnemySprite(string enemyName, Direction direction)
         {
             Debug.Assert(enemyName != null, "enemyName is null");
-            Debug.Assert(enemySpriteDictionary.ContainsKey(enemyName), "Enemy not found: " + enemyName);
-            return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, enemySpriteDictionary[enemyName].Count);
-        }
-
-        public ISprite CreateAnimatedEnemySpriteDirectionless(string enemyName, int frameCount)
-        {
-            Debug.Assert(enemyName != null, "enemyName is null");
-            Debug.Assert(enemySpriteDictionary.ContainsKey(enemyName), "Enemy not found: " + enemyName);
-            return new AnimatedSprite(enemySpriteDictionary[enemyName], dungeonEnemySpriteSheet, frameCount);
+            //Debug.Assert(totalFrames >= 0, "totalFrames must be positive");
+            //Debug.Assert(enemySpriteWithoutDirectionDictionary.ContainsKey(enemyName), "Enemy not found: " + enemyName);
+            if (enemyName == "dungeon_goriya" || enemyName == "dungeon_wallmaster")
+            {
+                Dictionary<Direction, List<Rectangle>> DirectionRec = enemySpriteWithDirectionDictionary[enemyName];
+                return new AnimatedSprite(DirectionRec[direction], dungeonEnemySpriteSheet, enemySpriteWithoutDirectionDictionary[enemyName].Count);
+            }
+            else
+            {
+                return new AnimatedSprite(enemySpriteWithoutDirectionDictionary[enemyName], dungeonEnemySpriteSheet, enemySpriteWithoutDirectionDictionary[enemyName].Count);
+            }
         }
 
         /// <summary>
@@ -73,7 +98,7 @@ namespace SprintZero1.Factories
         public ISprite CreateBossSprite(string bossName)
         {
             Debug.Assert(bossName != null, "bossName is null");
-            Debug.Assert(bossEnemySpriteDictionary.ContainsKey(bossName), "Boss not found: " + bossName);
+            //Debug.Assert(bossEnemySpriteDictionary.ContainsKey(bossName), "Boss not found: " + bossName);
             return new AnimatedSprite(bossEnemySpriteDictionary[bossName], bossSpriteSheet, bossEnemySpriteDictionary[bossName].Count);
         }
     }

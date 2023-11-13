@@ -126,7 +126,7 @@ namespace SprintZero1.LevelFiles
             /* reset each enemy back to their original positions and health */
             foreach (var entity in _liveEnemyList)
             {
-                (entity as BaseEnemyEntity).Reset();
+                (entity as EnemyBasedEntity).ResetEnemy();
             }
         }
 

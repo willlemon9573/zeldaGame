@@ -7,6 +7,7 @@ using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System.Diagnostics;
@@ -61,6 +62,10 @@ namespace SprintZero1.Entities
             _playerInventory = new PlayerInventory(this);
             _playerStateFactory = new PlayerStateFactory(this);
             PlayerInventoryManager.AddPlayerInventory(this, _playerInventory);
+            GameItemSelectionState itemState = GameStatesManager.GetGameState(GameState.ItemSelectionScreen) as GameItemSelectionState;
+            itemState.AssignToPlayer(this);
+            GamePausedState pausedState = GameStatesManager.GetGameState(GameState.Paused) as GamePausedState;
+            pausedState.AssignToPlayer(this);
         }
 
         public void Move()
@@ -107,6 +112,7 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
+
             _playerState.Update(gameTime);
             _playerCollider.Update(this);
             if (_playerState is not PlayerIdleState && Keyboard.GetState().GetPressedKeyCount() == 0)
@@ -124,7 +130,7 @@ namespace SprintZero1.Entities
             else if (_playerState is not PlayerAttackingState && _attackingWithSword)
             {
                 _attackingWithSword = false;
-                EntityManager.RemoveImmediately(_playerSwordSlot);
+                GameStatesManager.CurrentState.EntityManager.RemoveImmediately(_playerSwordSlot);
             }
             _playerState.Draw(spriteBatch);
         }
