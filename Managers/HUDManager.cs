@@ -60,12 +60,9 @@ namespace SprintZero1.Managers
                 if ((name.Contains("heart")))
                 {
 
-
-
                 }
                 else
                 {
-
                     /* Add to List */
                     spriteAndPosList.Add(new Tuple<ISprite, Vector2>(HUDSprite, position));
                 }
@@ -75,6 +72,25 @@ namespace SprintZero1.Managers
                 createHealth(startingPos); 
                
             }
+
+
+            foreach (XElement numPosition in root.Elements("NumPosition"))
+            {
+                /* Get the name */
+                string name = xDocTools.ParseAttributeAsString(numPosition.Attribute("name"));
+                /* Get the position Element */
+                XElement positionElement = numPosition.Element("Vector2");
+                /* Parse the Vector2 position Element */
+                Vector2 position = xDocTools.ParseVector2Element(positionElement);
+                positionDictionary.Add(name, position);
+            }
+            //initialize the digits as 00 for HUD initialization
+            rupeeDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
+            rupeeDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
+            keyDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
+            keyDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
+            bombDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
+            bombDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
         }
 
         public static void createHealth(Vector2 startingPos)
