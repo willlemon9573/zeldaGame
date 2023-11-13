@@ -62,7 +62,6 @@ namespace SprintZero1
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
             HUDSpriteFactory.Instance.LoadTextures();
-            _mouseController = new MouseController(this);
             ItemSpriteFactory.Instance.LoadTextures();
             HUDManager.Initialize();
             /*ProgramManager.Start(this);*/

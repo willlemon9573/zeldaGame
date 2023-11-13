@@ -76,6 +76,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             //ProgramManager.Update(gameTime);
             EntityManager.Update(gameTime);
+            HUDManager.Update(gameTime);
             List<IEntity> entities = EntityManager.OnScreenEntities();
             foreach (IController controller in Controllers)
             {
@@ -95,6 +96,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public override void Draw(SpriteBatch spriteBatch)
         {
             //ProgramManager.Draw(spriteBatch);
+            HUDManager.Draw(spriteBatch);
             List<IEntity> entities = EntityManager.OnScreenEntities();
             for (int i = 0; i < entities.Count; i++)
             {

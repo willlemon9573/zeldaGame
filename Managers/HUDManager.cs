@@ -254,7 +254,10 @@ namespace SprintZero1.Managers
         /// <param name="amount">New amount of bombs</param>
         public static void UpdateBombCount(int amount)
         {
-
+            int leftDigit = amount / 10;
+            int rightDigit = amount % 10;
+            bombDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
+            bombDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
         public static void updateMarker(int direction) {
@@ -283,10 +286,7 @@ namespace SprintZero1.Managers
             {
                 sprite.Item1.Update(gameTime);
             }
-            int leftDigit = amount / 10;
-            int rightDigit = amount % 10;
-            bombDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
-            bombDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
+            
         }
 
         /// <summary>
