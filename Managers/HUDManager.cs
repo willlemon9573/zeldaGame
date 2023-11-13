@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Entities;
 using SprintZero1.Factories;
+using SprintZero1.InventoryFiles;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
 using System;
@@ -13,8 +14,6 @@ namespace SprintZero1.Managers
 {
     internal static class HUDManager
     {
-        private static float heartsToDraw = 3;
-        private static List<ISprite> heartSprites = new List<ISprite>();
         private static List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
         const int MAX_ATTAINABLE_HEALTH = 13;
         private static List<Tuple<ISprite, Vector2>> healthList = new List<Tuple<ISprite, Vector2>>();
@@ -24,6 +23,19 @@ namespace SprintZero1.Managers
         const float EMPTY_HEART = 0f;
 
         
+        public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
+        private const string Zero = "0";
+        private static List<ISprite> rupeeDigits = new List<ISprite>();
+        private static List<ISprite> keyDigits = new List<ISprite>();
+        private static List<ISprite> bombDigits = new List<ISprite>();
+        private static Dictionary<String, Vector2> positionDictionary = new Dictionary<String, Vector2>();
+        private const int LeftDigitIndex = 0; //array index 0
+        private const int RightDigitIndex = 1; //array index 1
+
+
+        /// <summary>
+        /// Initialize lists and dictionaries needed for HUD by parsing
+        /// </summary>
         public static void Initialize()
         {
 
@@ -33,7 +45,6 @@ namespace SprintZero1.Managers
             XDocument document = XDocument.Load(path);
             XElement root = document.Root; /* get root */
             XDocTools xDocTools = new XDocTools();
-            HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
 
             foreach (XElement sprite in root.Elements("Sprite"))
             {
@@ -213,17 +224,35 @@ namespace SprintZero1.Managers
 
         }
 
-        public static void incrementRupees(int amount)
+        /// <summary>
+        /// Updates Rupee count to "amount" in HUD
+        /// </summary>
+        /// <param name="amount">New amount of rupees</param>
+        public static void UpdateRupeeCount(int amount)
         {
-
+            int leftDigit = amount / 10;
+            int rightDigit = amount % 10;
+            rupeeDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
+            rupeeDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
-        public static void incrementBombs(int amount)
+        /// <summary>
+        /// Updates key count to "amount" in HUD
+        /// </summary>
+        /// <param name="amount">New amount of keys</param>
+        public static void UpdateKeyCount(int amount)
         {
-
+            int leftDigit = amount / 10;
+            int rightDigit = amount % 10;
+            keyDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
+            keyDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
-
-        public static void incrementKeys(int amount)
+        
+        /// <summary>
+        /// Updates bomb count to "amount" in HUD
+        /// </summary>
+        /// <param name="amount">New amount of bombs</param>
+        public static void UpdateBombCount(int amount)
         {
 
         }
@@ -254,20 +283,18 @@ namespace SprintZero1.Managers
             {
                 sprite.Item1.Update(gameTime);
             }
-
+            int leftDigit = amount / 10;
+            int rightDigit = amount % 10;
+            bombDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
+            bombDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
+        /// <summary>
+        /// Draw everything in HUD
+        /// </summary>
+        /// <param name="spriteBatch">SpriteBatch spritebatch</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
-            /*Drawing Example*/
-            //Vector2 v = new Vector2(10, 15);
-            /* Hearts will be drawn */
-            //foreach (var sprite in keyValuePairs.Values)
-            //{
-                //sprite.Draw(spriteBatch, v);
-                //v.X += 30;
-            //}
-            // Option 2 drawing with Tuple
             foreach (var sprite in healthList)
             {
                 sprite.Item1.Draw(spriteBatch, sprite.Item2);
@@ -277,6 +304,12 @@ namespace SprintZero1.Managers
                 sprite.Item1.Draw(spriteBatch, sprite.Item2);
             }
 
+            for (int i = 0; i < 2; i++)
+            {
+                rupeeDigits[i].Draw(spriteBatch, positionDictionary[$"rupeePosition{i}"]);
+                keyDigits[i].Draw(spriteBatch, positionDictionary[$"keyPosition{i}"]);
+                bombDigits[i].Draw(spriteBatch, positionDictionary[$"bombPosition{i}"]);
+            }
         }
     }
 }
