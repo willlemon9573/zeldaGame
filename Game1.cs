@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Audio;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
+using SprintZero1.GameStateMenu;
 
 namespace SprintZero1
 {
@@ -63,6 +64,8 @@ namespace SprintZero1
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
             _mouseController = new MouseController(this);
+            ItemSpriteFactory.Instance.LoadTextures();
+
             /*ProgramManager.Start(this);*/
             LevelManager.Initialize(this);
 
@@ -89,6 +92,7 @@ namespace SprintZero1
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(_newRenderTarget, _actualScreenRectangle, Color.White);
+
             _spriteBatch.End();
             base.Draw(gameTime);
         }
