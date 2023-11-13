@@ -1,5 +1,8 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Entities.LootableItemEntity;
+using SprintZero1.Enums;
+using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
@@ -10,6 +13,7 @@ namespace SprintZero1.Commands.CollisionCommands
     {
         private readonly ILootableEntity _heart;
         private readonly PlayerEntity _player;
+        private readonly GamePlayingState _state;
 
         /// <summary>
         /// Constructor for picking up heart containers
@@ -20,6 +24,7 @@ namespace SprintZero1.Commands.CollisionCommands
         {
             _player = player as PlayerEntity;
             _heart = heartContainer as ILootableEntity;
+            _state = GameStatesManager.GetGameState(GameState.Playing) as GamePlayingState;
         }
 
         public void Execute()
@@ -27,6 +32,7 @@ namespace SprintZero1.Commands.CollisionCommands
             _player.MaxHealth++;
             _player.Health = _player.MaxHealth;
             _heart.Remove();
+            _state.UpdateRoomEntities();
         }
     }
 }

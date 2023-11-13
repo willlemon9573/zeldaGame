@@ -1,36 +1,34 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Colliders;
+using SprintZero1.Controllers;
+using SprintZero1.Entities;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
-using SprintZero1.Entities;
 using System.Collections.Generic;
-using SprintZero1.Colliders;
 using System.Linq;
-using System;
-using SprintZero1.Controllers;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
 
     internal class GamePlayingState : BaseGameState
     {
-        public Game1 _game;
-        public DungeonRoom _currentRoom;
+        private DungeonRoom _currentRoom;
 
         /// <summary>
         /// List of players
         /// </summary>
-        public List<PlayerEntity> _players = new List<PlayerEntity>();
+        private List<PlayerEntity> _players = new List<PlayerEntity>();
         // Note: Base variable is EntityManager
-        
+
+        public DungeonRoom CurrentRoom { get { return _currentRoom; } }
 
         /// <summary>
         /// The state of the game when the game is running
         /// </summary>
         /// <param name="game">The game</param>
-        public GamePlayingState(Game1 game) : base(game) 
+        public GamePlayingState(Game1 game) : base(game)
         {
-            _game = game;
         }
 
 
@@ -39,15 +37,18 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// </summary>
         public override void Handle()
         {
-            foreach (IController controller in Controllers)
-            {
-                controller.Update();
-            }
         }
 
         public void AddPlayer(PlayerEntity player)
         {
             _players.Add(player);
+        }
+
+        public void UpdateRoomEntities()
+        {
+            List<IEntity> entities = _currentRoom.GetEntityList();
+            entities.AddRange(_players);
+            EntityManager.UpdateEntities(entities);
         }
 
         /// <summary>
@@ -73,7 +74,11 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             //ProgramManager.Update(gameTime);
             EntityManager.Update(gameTime);
             List<IEntity> entities = EntityManager.OnScreenEntities();
-            for(int i =  0; i < entities.Count; i++) 
+            foreach (IController controller in Controllers)
+            {
+                controller.Update();
+            }
+            for (int i = 0; i < entities.Count; i++)
             {
                 entities[i].Update(gameTime);
             }
@@ -88,7 +93,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             //ProgramManager.Draw(spriteBatch);
             List<IEntity> entities = EntityManager.OnScreenEntities();
-            for(int i = 0; i < entities.Count; i++) 
+            for (int i = 0; i < entities.Count; i++)
             {
                 entities[i].Draw(spriteBatch);
             }

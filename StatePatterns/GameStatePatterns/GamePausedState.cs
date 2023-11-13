@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
+using SprintZero1.Entities;
 using SprintZero1.GameStateMenu;
 using SprintZero1.Managers;
-
-using SprintZero1.Controllers;
-using SprintZero1.Entities;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
@@ -27,13 +25,13 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             pauseGame = new PauseMenu(game);
             controllerForItemSelection = new KeyboardControllerForItemSelection(game, player, itemSelectionMenu);
         }
-        
+
         public override void AddController(IController controller)
         {
             KeyboardController k = controller as KeyboardController;
             _updater = k.PausedStateUpdate;
         }
-        
+
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -43,7 +41,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Handle()
         {
-            
+
         }
 
         public override void Update(GameTime gameTime)

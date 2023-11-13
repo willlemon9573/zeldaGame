@@ -43,6 +43,11 @@ namespace SprintZero1.Managers
             entitiesToAdd.Add(player);
         }
 
+        public void UpdateEntities(List<IEntity> update)
+        {
+            entities = update;
+        }
+
         /// <summary>
         /// Change room entities to DungeonRoom entities
         /// </summary>
@@ -82,7 +87,7 @@ namespace SprintZero1.Managers
         /// <param name="entitiesToRemove">List of entities to remove</param>
         public void Remove(List<IEntity> entitiesToRemove)
         {
-           this.entitiesToRemove.AddRange(entitiesToRemove);
+            this.entitiesToRemove.AddRange(entitiesToRemove);
         }
 
         /// <summary>
@@ -120,7 +125,5 @@ namespace SprintZero1.Managers
         {
             entities.Remove(entity);
         }
-
-        
     }
 }

@@ -1,5 +1,4 @@
 ﻿using SprintZero1.Entities;
-using SprintZero1.Managers;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
