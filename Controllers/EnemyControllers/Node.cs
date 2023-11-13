@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using System.Threading;
 using System;
+using System.Threading;
 
 namespace SprintZero1.Controllers.EnemyControllers
 {

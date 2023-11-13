@@ -139,10 +139,10 @@ namespace SprintZero1.GameStateMenu
                 fullBlackTexture.SetData(new[] { Color.Black });
                 spriteBatch.Draw(fullBlackTexture, new Rectangle(0, 0, WIDTH, HEIGHT), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.01f);
 
-                if (!creditsRolled) 
+                if (!creditsRolled)
                 {
                     Vector2 textPosition = new Vector2(20, scrollPosition);
-                    spriteBatch.DrawString(creditsFont, creditsText, textPosition, Color.White,0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(creditsFont, creditsText, textPosition, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
                     scrollPosition -= 1;
                     if (scrollPosition < -creditsFont.MeasureString(creditsText).Y)

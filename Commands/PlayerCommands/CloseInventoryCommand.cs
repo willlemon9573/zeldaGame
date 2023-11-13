@@ -1,6 +1,5 @@
 ﻿using SprintZero1.Enums;
 using SprintZero1.Managers;
-using SprintZero1.StatePatterns;
 
 namespace SprintZero1.Commands.PlayerCommands
 {

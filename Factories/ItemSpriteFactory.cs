@@ -1,4 +1,4 @@
-﻿     using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
