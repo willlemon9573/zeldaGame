@@ -7,6 +7,10 @@ using Size = System.Drawing.Size;
 
 namespace SprintZero1.Entities.LootableItemEntity
 {
+    /// <summary>
+    /// The base implementation for a lootable item
+    /// @author Aaron Heishman
+    /// </summary>
     internal abstract class LootableItemBase : ILootableEntity
     {
         private const float Rotation = 0f;
@@ -17,14 +21,17 @@ namespace SprintZero1.Entities.LootableItemEntity
         protected ICollider _entityCollider;
         protected Vector2 _entityPosition;
         protected RemoveDelegate _removeFromRoom;
+
         /// <summary>
         /// Get this item's collider
         /// </summary>
         public ICollider Collider { get { return _entityCollider; } }
+
         /// <summary>
         /// Get and set this item's position
         /// </summary>
         public Vector2 Position { get { return _entityPosition; } set { _entityPosition = value; } }
+
         /// <summary>
         /// Constructor for base lootable items
         /// </summary>
@@ -39,12 +46,17 @@ namespace SprintZero1.Entities.LootableItemEntity
             Rectangle colliderDimensions = new Rectangle((int)position.X, (int)position.Y, _entityDimensions.Width, _entityDimensions.Height);
             _entityCollider = new StaticCollider(colliderDimensions);
         }
+
         /// <summary>
-        /// Add the item to the player inventory
+        /// When overriden updates player inventory to contain the amount given of the item
         /// </summary>
         /// <param name="player">The player that picked up the item</param>
         /// <param name="amt">The amount of the item (optional)</param>
-        public abstract void Pickup(IEntity player, int amt = 0);
+        public virtual void Pickup(IEntity player, int amt = 0)
+        {
+            /* To be overriden by derived class */
+        }
+
         /// <summary>
         /// remove this item from the current room
         /// </summary>
@@ -52,6 +64,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         {
             _removeFromRoom(this);
         }
+
         /// <summary>
         /// Draw's this item into the room
         /// </summary>
@@ -60,6 +73,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         {
             this._entitySprite.Draw(spriteBatch, _entityPosition, EntitySpriteEffects, Rotation, LayerDepth);
         }
+
         /// <summary>
         /// Update this item if it needs to be updated
         /// </summary>
@@ -68,5 +82,6 @@ namespace SprintZero1.Entities.LootableItemEntity
         {
             _entityCollider.Update(this);
         }
+
     }
 }

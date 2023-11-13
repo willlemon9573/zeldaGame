@@ -105,7 +105,6 @@ namespace SprintZero1.InventoryFiles
          * Note on upgrading. In the original game some images show the game tracks the old items, but they aren't in a usable state
          * As we are only doing a single level it's up to the team whether we want to do this or not.
          */
-
         /// <summary>
         /// Upgrade a player's equipment
         /// </summary>

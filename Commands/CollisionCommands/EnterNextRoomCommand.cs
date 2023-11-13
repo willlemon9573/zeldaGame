@@ -2,7 +2,6 @@
 using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Managers;
-using System.Diagnostics;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
@@ -20,7 +19,6 @@ namespace SprintZero1.Commands.CollisionCommands
         {
             _playerEntity.Position = new Vector2(120, 120);
             ProgramManager.ChangeRooms(_destination);
-            Debug.WriteLine($"Now in room:{_destination} ");
         }
     }
 }

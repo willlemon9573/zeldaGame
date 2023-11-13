@@ -8,7 +8,7 @@ namespace SprintZero1.Managers
 {
     delegate void StackableItemHandler(IEntity player, StackableItems item, int amount);
     delegate void EquipmentItemHandler(IEntity player, EquipmentItem equipment, IWeaponEntity newEquipment);
-    delegate void UtilityPickupHandler(IEntity player, DungeonItems item);
+    delegate void UtilityItemHandler(IEntity player, DungeonItems item);
     /// <summary>
     /// A manager to handle all the players inventory management needs.
     /// </summary>

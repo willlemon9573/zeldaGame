@@ -120,6 +120,10 @@
 		<Name>key</Name>
 		<X>134</X>
 		<Y>119</Y>
+		<Type>StackableItemEntity</Type>
+		<!-- Unfortunately the item name in these files are different than the item names I used for enums -->
+		<Enum>DungeonKey</Enum>
+		<Delegate>StackableItemHandler</Delegate>
 	</Item>
 	</Items>
 	<Doors>
