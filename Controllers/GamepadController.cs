@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using SprintZero1.Entities;
+using SprintZero1.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace SprintZero1.Controllers
 {
     internal class GamepadController : IController
     {
-        private readonly Dictionary<Buttons, ICommand> gamepadMap;
+        private Dictionary<Buttons, ICommand> gamepadMap;
         private readonly List<Buttons> _movementButtonList;
         private List<Buttons> _previousPressedButtons;
         private readonly Stack<Buttons> movementButtonStack;
@@ -65,23 +66,9 @@ namespace SprintZero1.Controllers
             }
         }
 
-        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity)
+        public void LoadControls(IEntity player)
         {
-            /* directional commands */
-            gamepadMap.Add(Buttons.DPadUp, new MoveUpCommand(playerEntity));
-            gamepadMap.Add(Buttons.DPadDown, new MoveDownCommand(playerEntity));
-            gamepadMap.Add(Buttons.DPadLeft, new MoveLeftCommand(playerEntity));
-            gamepadMap.Add(Buttons.DPadRight, new MoveRightCommand(playerEntity));
-            gamepadMap.Add(Buttons.LeftThumbstickUp, new MoveUpCommand(playerEntity));
-            gamepadMap.Add(Buttons.LeftThumbstickDown, new MoveDownCommand(playerEntity));
-            gamepadMap.Add(Buttons.LeftThumbstickLeft, new MoveLeftCommand(playerEntity));
-            gamepadMap.Add(Buttons.LeftThumbstickRight, new MoveRightCommand(playerEntity));
-
-            /* Attack Commands */
-            gamepadMap.Add(Buttons.X, new SwordAttackCommand(playerEntity));
-            /* Other commands */
-            gamepadMap.Add(Buttons.Back, new ExitCommand(game));
-
+            gamepadMap = ControlsManager.GetGamePadControls(player);
         }
 
         public void Update()
@@ -110,8 +97,6 @@ namespace SprintZero1.Controllers
 
             _previousPressedButtons = pressedButtons.ToList<Buttons>();
         }
-
-
 
         /// <summary>
         /// Return list of currently pressed buttons,

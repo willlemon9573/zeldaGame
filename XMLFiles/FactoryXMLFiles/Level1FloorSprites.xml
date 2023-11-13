@@ -51,6 +51,9 @@
 	<Sprite name = "floorSixLeft">
 		<Rectangle x = "278" y = "21" width = "216" height = "135"/>
 	</Sprite>
+	<Sprite name="floorDev">
+		<Rectangle x="535" y="375" width="216" height="135"/>
+	</Sprite>
 	<Sprite name = "floorSecret">
 		<Rectangle x = "1" y = "1" width = "255" height = "159"/>
 	</Sprite>

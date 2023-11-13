@@ -18,13 +18,17 @@
 	</Sprite>
 	<Sprite name="dungeon_stalfos">
 		<Rectangle x="1" y="59" width="16" height="16" />
-		<Rectangle x="1" y="59" width="16" height="16" />
+		<Rectangle x="53" y="42" width="16" height="16" />
 	</Sprite>
 	<Sprite name="dungeon_goriya">
 		<Rectangle x="256" y="11" width="16" height="16"/>
 		<Rectangle x="273" y="11" width="16" height="16"/>
 	</Sprite>
 	<Sprite name ="dungeon_bladetrap">
+		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
+		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
+	</Sprite>
+	<Sprite name ="aquamentus">
 		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
 		<Rectangle x ="164" y ="59" width ="16" height ="16"/>
 	</Sprite>

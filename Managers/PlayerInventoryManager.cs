@@ -6,6 +6,9 @@ using System.Diagnostics;
 
 namespace SprintZero1.Managers
 {
+    delegate void StackableItemHandler(IEntity player, StackableItems item, int amount);
+    delegate void EquipmentItemHandler(IEntity player, EquipmentItem equipment, IWeaponEntity newEquipment);
+    delegate void UtilityPickupHandler(IEntity player, DungeonItems item);
     /// <summary>
     /// A manager to handle all the players inventory management needs.
     /// </summary>
@@ -57,7 +60,7 @@ namespace SprintZero1.Managers
         /// <param name="player">the player who looted the item</param>
         /// <param name="item">the item that was looted</param>
         /// <param name="amount">the total amount of the item</param>
-        public static void AddItemToInventory(IEntity player, StackableItems item, int amount)
+        public static void AddStackableItemToInventory(IEntity player, StackableItems item, int amount)
         {
             Debug.Assert(player != null, "Error: Player is null.");
             _playerInventoryMap[player].AddItem(item, amount);
@@ -73,6 +76,7 @@ namespace SprintZero1.Managers
             Debug.Assert(_playerInventoryMap[player].IsInInventory(item), $"Error player already contains {item}");
             _playerInventoryMap[player].AddDungeonUtilityItem(item);
         }
+
         /// <summary>
         /// Add an equipment item to the palyer's inventory
         /// </summary>
@@ -103,6 +107,7 @@ namespace SprintZero1.Managers
             Debug.Assert(!_playerInventoryMap[player].IsInInventory(upgradedEquipment), $"Error adding to invnetory, {player} already contains {upgradedEquipment}");
             _playerInventoryMap[player].UpgradeEquipment(oldEquipment, upgradedEquipment, upgradedEquipmentEntity);
         }
+
         /// <summary>
         /// Gets the current amount an item in the player's inventory
         /// </summary>
@@ -112,6 +117,32 @@ namespace SprintZero1.Managers
         public static int GetStackableItemCount(IEntity player, StackableItems item)
         {
             return _playerInventoryMap[player].GetStackableItemCount(item);
+        }
+
+        /// <summary>
+        /// Get a list of the equipment the player currently has
+        /// </summary>
+        /// <returns>A list of enums related to the items in the player equipment inventory</returns>
+        public static List<EquipmentItem> GetPlayerEquipmentList(IEntity player)
+        {
+            return _playerInventoryMap[player].GetEquipmentList();
+        }
+
+        /// <summary>
+        /// Get the list of dungeon items owned by the player
+        /// </summary>
+        /// <returns>A list of the dungeon utility items the player has</returns>
+        public static List<DungeonItems> GetPlayerDungeonItems(IEntity player)
+        {
+            return _playerInventoryMap[player].GetDungeonItems();
+        }
+
+        /// <summary>
+        /// Resets all player inventories
+        /// </summary>
+        public static void Reset()
+        {
+            _playerInventoryMap.Clear();
         }
     }
 }

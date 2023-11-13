@@ -1,4 +1,4 @@
-﻿using SprintZero1.Entities;
+﻿/*using SprintZero1.Entities;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
@@ -106,7 +106,7 @@ namespace SprintZero1.XMLFiles
                 {
                     //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
                     IEntity block = data.AddBlockToGame();
-                    ProgramManager.AddOnScreenEntity(block);
+                    //ProgramManager.AddOnScreenEntity(block);
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == "Blocks")
                 {
@@ -157,7 +157,7 @@ namespace SprintZero1.XMLFiles
                 {
                     //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
                     IEntity door = data.AddDoorToGame();
-                    ProgramManager.AddOnScreenEntity(door);
+                    //ProgramManager.AddOnScreenEntity(door);
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == "Doors")
                 {
@@ -181,9 +181,10 @@ namespace SprintZero1.XMLFiles
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == "Enemy")
                 {
+
                     //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
                     IEntity enemy = data.AddEnemyToGame();
-                    ProgramManager.AddOnScreenEntity(enemy);
+                    //ProgramManager.AddOnScreenEntity(enemy);
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == "Enemies")
                 {
@@ -209,7 +210,7 @@ namespace SprintZero1.XMLFiles
                 {
                     //Debug.WriteLine($"X: {data.X}, Y: {data.Y}, name: {data.Name}");
                     IEntity item = data.AddItemToGame();
-                    ProgramManager.AddOnScreenEntity(item);
+                    //ProgramManager.AddOnScreenEntity(item);
                 }
                 else if (reader_type == END_ELEMENT_TYPE && element_name == "Items")
                 {
@@ -219,3 +220,4 @@ namespace SprintZero1.XMLFiles
         }
     }
 }
+*/

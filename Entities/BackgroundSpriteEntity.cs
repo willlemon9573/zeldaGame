@@ -22,12 +22,12 @@ namespace SprintZero1.Entities
             Position = position;
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             // Update Logic 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             _sprite.Draw(spriteBatch, _position, SpriteEffects.None, 0, 0.5f);
         }

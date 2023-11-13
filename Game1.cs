@@ -6,14 +6,15 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
+using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System;
-using SprintZero1.GameStateMenu;
 
 namespace SprintZero1
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
+        public GraphicsDeviceManager _graphics;
         private MouseController _mouseController;
         private SpriteBatch _spriteBatch;
         /* Variables for window rescaling */
@@ -33,6 +34,7 @@ namespace SprintZero1
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
         }
 
+
         /// Initialize all components required to run the game
         /// </summary>
         protected override void Initialize()
@@ -43,10 +45,19 @@ namespace SprintZero1
             base.Initialize();
         }
 
+
         protected override void LoadContent()
         {
-
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            LoadTextures();
+            LevelManager.Load();
+            GameStatesManager.InitializeGameStateMap(this);
+            GameStatesManager.Start();
+            _mouseController = new MouseController(this);
+        }
+
+        private void LoadTextures()
+        {
             Texture2DManager.LoadAllTextures(this.Content);
             Texture2DManager.LoadSpriteFonts(this.Content);
 
@@ -63,17 +74,13 @@ namespace SprintZero1
             TileSpriteFactory.Instance.LoadTextures();
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
-            _mouseController = new MouseController(this);
-            ItemSpriteFactory.Instance.LoadTextures();
-
-            /*ProgramManager.Start(this);*/
-            LevelManager.Initialize(this);
-
         }
+
+        
 
         protected override void Update(GameTime gameTime)
         {
-            LevelManager.Update(gameTime);
+            GameStatesManager.Update(gameTime);
             _mouseController.Update();
             base.Update(gameTime);
         }
@@ -85,14 +92,13 @@ namespace SprintZero1
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
-            LevelManager.Draw(_spriteBatch);
+            GameStatesManager.Draw(_spriteBatch);
             _spriteBatch.End();
 
             /* Rescale the window and draw sprite batch with new scale */
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(_newRenderTarget, _actualScreenRectangle, Color.White);
-
             _spriteBatch.End();
             base.Draw(gameTime);
         }

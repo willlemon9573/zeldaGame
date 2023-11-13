@@ -48,9 +48,9 @@ namespace SprintZero1.Factories
         /// </summary>
         /// <param name="itemName">The name of the specific item</param>
         /// <returns></returns>
-        public ISprite CreateAnimatedItemSprite(string itemName)
+        public ISprite CreateAnimatedItemSprite(string itemName, int maxFrames)
         {
-            return new AnimatedSprite(AnimatedItemSpriteMap[itemName], itemSpriteSheet, 2);
+            return new AnimatedSprite(AnimatedItemSpriteMap[itemName], itemSpriteSheet, maxFrames);
         }
 
         /// <summary>
@@ -61,6 +61,19 @@ namespace SprintZero1.Factories
         public ISprite CreateNonAnimatedItemSprite(string itemName)
         {
             return new NonAnimatedSprite(NonAnimatedItemSpriteMap[itemName], itemSpriteSheet);
+        }
+
+        /// <summary>
+        /// Gets the dimensions of the specific animated item for use with collision
+        /// </summary>
+        /// <param name="itemName">The item to obtain the dimensions of</param>
+        /// <returns>A rectangle containing the dimensions of the item being requested</returns>
+        public Rectangle GetAnimatedSpriteDimensions(string itemName)
+        {
+            int firstFrame = 0;
+            // get the first rectangle of the sprite as this should contain the proper dimensions
+            Rectangle spriteDimensions = AnimatedItemSpriteMap[itemName][firstFrame];
+            return spriteDimensions;
         }
     }
 }

@@ -12,14 +12,14 @@ namespace SprintZero1.Controllers
     internal class MouseController : IController
     {
         private MouseState _oldMouseState;
-        private GetPreviousLevelCommand _getPreviousRoom;
-        private GetNextLevelCommand _getNextRoom;
+        private readonly GetPreviousLevelCommand _getPreviousRoom;
+        private readonly GetNextLevelCommand _getNextRoom;
         private readonly Game1 _game;
         private readonly Rectangle _windowRegion;
 
 
         /// <summary>
-        /// Check if the mouse is current in the window or not
+        /// Check if the mouse is currently in the window or not
         /// </summary>
         /// <param name="mouseState">The current state of the mouse</param>
         /// <returns>true if the mouse is in the window, false otherwise</returns>
@@ -70,9 +70,9 @@ namespace SprintZero1.Controllers
             _getNextRoom.Execute();
         }
 
-        public void LoadDefaultCommands(Game1 game, ICombatEntity playerEntity)
+        public void LoadControls(IEntity player)
         {
-            // TODO: Unused - going to make parser for commands later
+            // Not needed for this
         }
 
         public void Update()
@@ -94,5 +94,7 @@ namespace SprintZero1.Controllers
 
             _oldMouseState = currentMouseState;
         }
+
+
     }
 }

@@ -10,7 +10,7 @@ namespace SprintZero1.StatePatterns.StatePatternInterfaces
         /// Handles transitioning to a new state
         /// </summary>
         /// <param name="newState">The new state to change to</param>
-        void TransitionState(State newState);
+        void TransitionState(IPlayerState newState);
         /// <summary>
         /// Handles directional state changes
         /// </summary>
