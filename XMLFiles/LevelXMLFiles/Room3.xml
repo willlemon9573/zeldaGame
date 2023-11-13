@@ -120,6 +120,9 @@
 		<Name>key</Name>
 		<X>134</X>
 		<Y>119</Y>
+		<Type>StackableItemEntity</Type>
+		<!-- Unfortunately the item name in these files are different than the item names I used for enums -->
+		<Enum>DungeonKey</Enum>
 	</Item>
 	</Items>
 	<Doors>
@@ -143,7 +146,7 @@
 			<Name>open_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<Destination>floorFourRight</Destination>
+			<Destination>floorThreeRight</Destination>
 			<Direction>West</Direction>
 			<DoorType>OpenDoorEntity</DoorType>
 		</Door>

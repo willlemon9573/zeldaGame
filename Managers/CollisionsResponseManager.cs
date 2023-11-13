@@ -2,6 +2,7 @@
 using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
+using SprintZero1.Entities.LootableItemEntity;
 using System;
 using System.Collections.Generic;
 
@@ -14,9 +15,20 @@ namespace SprintZero1.Managers
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(LevelBlockEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute()},
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(DungeonWallEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(FireTrapEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
-            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(OpenDoorEntity)), (entity1, entity2) => new EnterNextLevelCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(OpenDoorEntity)), (entity1, entity2) => new EnterNextRoomCommand(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(LockedDoorEntity)), (entity1, entity2) => new UnlockDoorCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(DoorlessEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(BlockedDoorEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(StairEntity)), (entity1, entity2) => new EnterNextRoomCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(BreakableWallEntity)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(EnemyEntityWithDirection)), (entity1, entity2) => new DestroyEntity(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(StackableItemEntity)), (entity1, entity2) => new PickUpStackableItemCommand(entity1, entity2).Execute()},
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(DungeonItemEntity)), (entity1, entity2) => new PickupDungeonItemCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(EquipmentItemWithPlayerEntity)), (entity1, entity2) => new PickupEquipmentWithPlayer(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(EquipmentItemWithoutPlayerEntity)), (entity1, entity2) => new PickupEquipmentWithoutPlayer(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(HeartContainerEntity)), (entity1, entity2) => new PickUpHeartContainer(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(TriforceEntity)), (entity1, entity2) => new PickupTriforcePieceCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(ReplenishingHeartEntity)), (entity1, entity2) => new PickupReplenishingHeartCommand(entity1, entity2).Execute() }
         };
 
         private static readonly Dictionary<Tuple<Type, Type>, Action<ICollidableEntity, ICollidableEntity>> collisionResponseDictionary = new Dictionary<Tuple<Type, Type>, Action<ICollidableEntity, ICollidableEntity>>();

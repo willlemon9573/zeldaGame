@@ -102,7 +102,7 @@
 			<Name>open_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<Destination>floorFourEast</Destination>
+			<Destination>floorFour</Destination>
 			<Direction>East</Direction>
 			<DoorType>OpenDoorEntity</DoorType>
 		</Door>

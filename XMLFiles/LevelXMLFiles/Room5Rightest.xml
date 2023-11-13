@@ -217,6 +217,14 @@
 			<IsCollidable>true</IsCollidable>
 		</Block>
 	</Blocks>
+	<Items>
+		<Item>
+			<Name>triforcepiece</Name>
+			<X>127</X>
+			<Y>135</Y>
+			<Type>TriforceEntity</Type>
+		</Item>
+	</Items>
 	<Doors>
 		<Door>
 			<Name>doorless_north</Name>

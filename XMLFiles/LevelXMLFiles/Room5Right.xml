@@ -169,6 +169,14 @@
 			<IsCollidable>true</IsCollidable>
 		</Block>
 	</Blocks>
+	<Items>
+		<Item>
+			<Name>heartcontainer</Name>
+			<X>214</X>
+			<Y>151</Y>
+			<Type>HeartContainerEntity</Type>
+		</Item>
+	</Items>
 	<Enemies>
 		<Boss>
 			<Name>aquamentus</Name>
@@ -197,12 +205,12 @@
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>blocked_east</Name>
+			<Name>open_east</Name>
 			<X>239</X>
 			<Y>152</Y>
 			<Destination>floorFiveRightest</Destination>
 			<Direction>East</Direction>
-			<DoorType>BlockedDoorEntity</DoorType>
+			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>locked_south</Name>

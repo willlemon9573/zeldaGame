@@ -51,7 +51,7 @@
 		<Block>
 			<Name>pyramid</Name>
 			<X>103</X>
-			<Y>152</Y>
+			<Y>136</Y>
 			<IsCollidable>true</IsCollidable>
 		</Block>
 		<Block>
@@ -144,15 +144,15 @@
 			<X>15</X>
 			<Y>152</Y>
 			<Destination>none</Destination>
-			<Direction>North</Direction>
+			<Direction>West</Direction>
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>locked_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<Destination>none</Destination>
-			<Direction>North</Direction>
+			<Destination>floorSix</Destination>
+			<Direction>East</Direction>
 			<DoorType>LockedDoorEntity</DoorType>
 		</Door>
 		<Door>
@@ -160,7 +160,7 @@
 			<X>127</X>
 			<Y>224</Y>
 			<Destination>none</Destination>
-			<Direction>North</Direction>
+			<Direction>South</Direction>
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>

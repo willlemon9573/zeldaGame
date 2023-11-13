@@ -212,6 +212,9 @@
 			<Name>key</Name>
 			<X>166</X>
 			<Y>199</Y>
+			<Type>StackableItemEntity</Type>
+			<!-- Unfortunately the item name in these files are different than the item names I used for enums -->
+			<Enum>DungeonKey</Enum>
 		</Item>
 	</Items>
 	<Doors>
@@ -219,7 +222,7 @@
 			<Name>locked_north</Name>
 			<X>127</X>
 			<Y>80</Y>
-			<Destination>roomFiveRight</Destination>
+			<Destination>floorFiveRight</Destination>
 			<Direction>North</Direction>
 			<DoorType>LockedDoorEntity</DoorType>
 		</Door>

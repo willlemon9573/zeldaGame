@@ -48,4 +48,7 @@
 	<Sprite name="map">
 		<Rectangle x="245" y="703" width="11" height="17" />
 	</Sprite>
+	<Sprite name="triforcepiece">
+		<Rectangle x="280" y="710" width="10" height="10" />
+	</Sprite>
 </Sprites>

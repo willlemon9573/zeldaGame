@@ -1,13 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using SprintZero1.GameStateMenu;
-using SprintZero1.Managers;
 using SprintZero1.Controllers;
-using SprintZero1.Enums;
-using SprintZero1.Entities.BowAndMagicFireEntity;
 using SprintZero1.Entities;
-using SprintZero1.Entities.BoomerangEntity;
+using SprintZero1.GameStateMenu;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
@@ -35,14 +30,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public void AssignToPlayer(PlayerEntity player)
         {
             itemSelectionMenu = new ItemSelectionMenu(game, player);
-            IWeaponEntity newEquipment = new RegularBowEntity("Bow");
-            PlayerInventoryManager.AddEquipmentItemToInventory(player, EquipmentItem.Bow, newEquipment);
-            IWeaponEntity newEquipment2 = new RegularBoomerangEntity("Boomerang", player);
-            PlayerInventoryManager.AddEquipmentItemToInventory(player, EquipmentItem.Boomerang, newEquipment2);
-            IWeaponEntity newEquipment3 = new BetterBowEntity("BetterBow");
-            PlayerInventoryManager.UpgradeEquipment(player, EquipmentItem.Bow, EquipmentItem.BetterBow, newEquipment3);
-            /* IWeaponEntity newEquipment4 = new BetterBoomerangEntity("BetterBoomerang", ProgramManager.player);
-             PlayerInventoryManager.UpgradeEquipment(ProgramManager.player, EquipmentItem.Boomerang, EquipmentItem.BetterBoomerang, newEquipment4);*/
             controllerForItemSelection = new KeyboardControllerForItemSelection(game, player, itemSelectionMenu);
         }
 

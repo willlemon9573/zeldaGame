@@ -21,6 +21,7 @@ namespace SprintZero1.Entities
     internal class PlayerEntity : ICombatEntity, ICollidableEntity
     {
         /* Player Components */
+        private float _playerMaxHealth = 3; /* Link starts with 3 hearts */
         private float _playerHealth;
         private ISprite _playerSprite;
         private Direction _playerDirection;
@@ -42,7 +43,7 @@ namespace SprintZero1.Entities
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; Collider.Update(this); } }
         public IWeaponEntity SwordSlot { get { return _playerSwordSlot; } set { _playerSwordSlot = value; } }
         public IWeaponEntity EquipmentSlot { get { return _playerEquipmentSlot; } set { _playerEquipmentSlot = value; } }
-
+        public float MaxHealth { get { return _playerMaxHealth; } set { _playerHealth = value; } }
         /// <summary>
         /// Construct a new player entity
         /// </summary>
@@ -84,9 +85,10 @@ namespace SprintZero1.Entities
         public void Attack(string weaponName)
         {
             if (_playerState is not PlayerAttackingState) { TransitionToState(State.Attacking); }
-            Debug.WriteLine($"Current position: {_playerPosition}");
+
             if (weaponName == "sword")
             {
+                Debug.WriteLine($"{_playerPosition}");
                 _attackingWithSword = true;
                 _playerSwordSlot.UseWeapon(_playerDirection, _playerPosition);
             }
@@ -131,7 +133,6 @@ namespace SprintZero1.Entities
                 GameStatesManager.CurrentState.EntityManager.RemoveImmediately(_playerSwordSlot);
             }
             _playerState.Draw(spriteBatch);
-
         }
     }
 }

@@ -17,7 +17,7 @@ namespace SprintZero1.Managers
     {
         public static Game1 _game;
         // List of available Controllers
-        private static List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
+        private static readonly List<IEnemyMovementController> onScreenEnemyController = new List<IEnemyMovementController>();
         private static List<IEntity> _nonPlayerEntityList = new List<IEntity>();
         private static List<Tuple<IEntity, IController>> _playerList = new List<Tuple<IEntity, IController>>();
         private static DungeonRoom _currentRoom;
@@ -61,8 +61,6 @@ namespace SprintZero1.Managers
             // TODO
         }
 
-
-
         /// <summary>
         /// Change the current room the player is in
         /// </summary>
@@ -79,8 +77,6 @@ namespace SprintZero1.Managers
         {
             _nonPlayerEntityList = _currentRoom.GetEntityList();
         }
-
-
 
         /// <summary>
         /// TODO: Fill out
@@ -141,12 +137,6 @@ namespace SprintZero1.Managers
             {
                 _nonPlayerEntityList[i].Draw(spriteBatch);
             }
-        }
-
-        private static void UpdateRuppees(int amount)
-        {
-            // increment some value that represents ruppes
-            // get the new sprites
         }
 
         /// <summary>

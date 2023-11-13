@@ -122,7 +122,7 @@
 			<Name>open_west</Name>
 			<X>15</X>
 			<Y>152</Y>
-			<Destination>floorOneLeft</Destination>
+			<Destination>entranceLeft</Destination>
 			<Direction>West</Direction>
 			<DoorType>OpenDoorEntity</DoorType>
 		</Door>	
@@ -130,7 +130,7 @@
 			<Name>open_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<Destination>florOneRight</Destination>
+			<Destination>entranceRight</Destination>
 			<Direction>East</Direction>
 			<DoorType>OpenDoorEntity</DoorType>
 		</Door>	

@@ -9,6 +9,7 @@ namespace SprintZero1.Sprites
     /// </summary>
     public class AnimatedSprite : ISprite
     {
+        private const int MaxFPS = 8;
         private readonly List<Rectangle> _sourceRectangles;
         private readonly Texture2D _spriteSheet;
         private readonly int _maxFrames;
@@ -56,7 +57,7 @@ namespace SprintZero1.Sprites
             _spriteSheet = spriteSheet;
             _maxFrames = maxFrames;
             _currentFrame = 0; // The initial starting frame for the animated sprite
-            FramesPerSecond = 8; // to remove this magic number we will need to make sure all classes that have created Animated sprites will also add this parameter.
+            FramesPerSecond = MaxFPS;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0f)

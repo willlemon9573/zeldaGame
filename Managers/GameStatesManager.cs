@@ -1,14 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Commands.PlayerCommands;
+using SprintZero1.Controllers;
+using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System.Collections.Generic;
-using SprintZero1.Entities;
-using SprintZero1.Controllers;
-using System.Xml.Linq;
-using System.Runtime.CompilerServices;
 
 namespace SprintZero1.Managers
 {
@@ -96,7 +93,6 @@ namespace SprintZero1.Managers
         /// <param name="gameTime">Gametime</param>
         public static void Update(GameTime gameTime)
         {
-            CurrentState.Handle();
             CurrentState.Update(gameTime);
         }
 
