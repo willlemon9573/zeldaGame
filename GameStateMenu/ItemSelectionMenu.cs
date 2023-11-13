@@ -1,15 +1,14 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using SprintZero1.Managers;
-using SprintZero1.Enums;
 using SprintZero1.Entities;
+using SprintZero1.Enums;
+using SprintZero1.Managers;
+using SprintZero1.XMLParsers;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
-using SprintZero1.InventoryFiles;
-using SprintZero1.XMLParsers;
-using System.Diagnostics;
 
 namespace SprintZero1.GameStateMenu
 {
@@ -89,7 +88,7 @@ namespace SprintZero1.GameStateMenu
         private void LoadItemData()
         {
             equipmentData = new Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>>();
-            XDocument doc = XDocument.Load("ItemData.xml");
+            XDocument doc = XDocument.Load(@"GameStateMenu\ItemData.xml");
             var itemDataElement = doc.Element("ItemData");
             XDocTools _xDocTools = new XDocTools();
             XElement ChooseRecFirRectElement = itemDataElement.Element("ChooseRecFirSprite");
