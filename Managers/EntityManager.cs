@@ -43,9 +43,13 @@ namespace SprintZero1.Managers
             entitiesToAdd.Add(player);
         }
 
-        public void UpdateEntities(List<IEntity> update)
+        /// <summary>
+        /// Update the current on screen entities.
+        /// </summary>
+        /// <param name="updatedEntities">The list of updated entities</param>
+        public void UpdateEntities(List<IEntity> updatedEntities)
         {
-            entities = update;
+            entities = updatedEntities;
         }
 
         /// <summary>

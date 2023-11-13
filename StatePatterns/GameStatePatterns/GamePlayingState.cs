@@ -44,6 +44,9 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _players.Add(player);
         }
 
+        /// <summary>
+        /// Update Room Entities after something is removed when player isn't leaving the room
+        /// </summary>
         public void UpdateRoomEntities()
         {
             List<IEntity> entities = _currentRoom.GetEntityList();
