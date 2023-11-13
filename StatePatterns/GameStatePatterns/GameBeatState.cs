@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
-    public class GameBeatState : BaseGameState
+    internal class GameBeatState : BaseGameState
     {
         public GameBeatState(Game1 game) : base(game)
         {

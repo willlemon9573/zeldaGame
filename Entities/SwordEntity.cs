@@ -67,7 +67,7 @@ namespace SprintZero1.Entities
             _collider = new DynamicCollider(colliderRectangle);
             _currentSpriteEffect = SpriteAdditions.Item1;
             _weaponPosition = position + SpriteAdditions.Item2;
-            EntityManager.AddImmediately(this);
+            GameStatesManager.CurrentState.EntityManager.AddImmediately(this);
         }
 
         public void Draw(SpriteBatch spriteBatch)

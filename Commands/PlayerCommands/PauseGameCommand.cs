@@ -1,4 +1,5 @@
 ﻿using SprintZero1.Enums;
+using SprintZero1.Managers;
 
 namespace SprintZero1.Commands.PlayerCommands
 {
@@ -18,8 +19,8 @@ namespace SprintZero1.Commands.PlayerCommands
         /// </summary>
         public override void Execute()
         {
-            _game.GameState.ChangeGameState(GameState.Paused);
-            _game.GameState.Handle();
+            GameStatesManager.ChangeGameState(GameState.Paused);
+            GameStatesManager.CurrentState.Handle();
         }
     }
 }

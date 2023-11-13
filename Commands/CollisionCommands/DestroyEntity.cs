@@ -14,7 +14,7 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
-            EntityManager.Remove(deadEntityWalking);
+            // Replace with kill entity code
         }
     }
 }

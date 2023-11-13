@@ -35,9 +35,9 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             {
                 action();
             }
-            LevelManager.Initialize();
+            LevelManager.Load();
             GameStatesManager.InitializeGameStateMap(_game);
-            _game.GameState = GameStatesManager.GetGameState(GameState.Playing);
+            GameStatesManager.ChangeGameState(GameState.Playing);
         }
 
         public override void Update(GameTime gameTime)

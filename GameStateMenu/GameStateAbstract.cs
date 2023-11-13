@@ -28,7 +28,7 @@ namespace SprintZero1.GameStateMenu
         /// <param name="game">Reference to the main game class for accessing graphics properties.</param>
         public GameStateAbstract(Game1 game)
         {
-            graphics = game.Graphics;
+            graphics = game._graphics;
             _GraphicsDevice = game.GraphicsDevice;
             _overlay = new Texture2D(_GraphicsDevice, 1, 1); // Initialize overlay texture
         }

@@ -23,10 +23,8 @@ namespace SprintZero1.Managers
         /// Get the current room index and set the current index
         /// </summary>
         public static int CurrentRoomIndex { get { return currentRoomIndex; } set { currentRoomIndex = value; } }
-        /// <summary>
-        /// Initializes the level manager
-        /// </summary>
-        public static void Initialize()
+
+        public static void Load()
         {
             LevelXMLParser parser = new LevelXMLParser();
             string LevelFolderPath = @"XMLFiles/LevelXmlFiles";

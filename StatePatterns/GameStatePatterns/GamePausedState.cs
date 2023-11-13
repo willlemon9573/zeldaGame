@@ -1,33 +1,49 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Controllers;
 using SprintZero1.GameStateMenu;
 using SprintZero1.Managers;
 
 using SprintZero1.Controllers;
+using SprintZero1.Entities;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
-    public class GamePausedState : BaseGameState
+    internal class GamePausedState : BaseGameState
     {
         private ItemSelectionMenu itemSelectionMenu;
         private IGameStateMenu pauseGame;
         private IController controllerForItemSelection;
+        private PausedStateUpdater _updater;
+        private Game1 game;
         public GamePausedState(Game1 game) : base(game)
         {
-            itemSelectionMenu = new ItemSelectionMenu(game, ProgramManager.player);
-            pauseGame = new PauseMenu(game);
-            controllerForItemSelection = new KeyboardControllerForItemSelection(game, ProgramManager.player, itemSelectionMenu);
+            this.game = game;
         }
+
+        public void AssignToPlayer(PlayerEntity player)
+        {
+            itemSelectionMenu = new ItemSelectionMenu(game, player);
+            pauseGame = new PauseMenu(game);
+            controllerForItemSelection = new KeyboardControllerForItemSelection(game, player, itemSelectionMenu);
+        }
+        
+        public override void AddController(IController controller)
+        {
+            KeyboardController k = controller as KeyboardController;
+            _updater = k.PausedStateUpdate;
+        }
+        
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            ProgramManager.Draw(spriteBatch);
             pauseGame.Draw(spriteBatch);
+            GameStatesManager.GetGameState(Enums.GameState.Playing).Draw(spriteBatch);
         }
 
         public override void Handle()
         {
-
+            
         }
 
         public override void Update(GameTime gameTime)
