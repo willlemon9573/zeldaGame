@@ -8,7 +8,10 @@ using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.EnemyStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
-
+using SprintZero1.Managers;
+using System;
+using SprintZero1.StatePatterns.GameStatePatterns;
+using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {
@@ -89,16 +92,20 @@ namespace SprintZero1.Entities
 
         public virtual void TakeDamage(int damage)
         {
-            /* _enemyHealth -= damage;
-             if (_enemyHealth <= 0)
-             {
-                 Die();
-             }*/
+            TransitionToState(Enums.State.KnockedBack);
+            if (_enemyHealth <= 0)
+            {
+                Die();
+            }
         }
 
+        /// <summary>
+        /// Kill the enemy by removing them
+        /// </summary>
         public virtual void Die()
         {
-            // not implemented yet
+            Console.WriteLine("Dead Eneny");
+            (GameStatesManager.GetGameState(GameState.Playing) as GamePlayingState).EntityManager.Remove(this);
         }
 
         public virtual void ChangeDirection(Direction direction)
