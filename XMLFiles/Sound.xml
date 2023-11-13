@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sounds>
+	<Sound name="Bomb">
+		<SoundEffect sound="LOZ_Bomb"/>
+	</Sound>
+</Sounds>

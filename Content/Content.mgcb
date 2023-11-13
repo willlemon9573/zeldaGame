@@ -110,11 +110,29 @@
 /processorParam:TextureFormat=Color
 /build:LinkSheet.png
 
+#begin LOZ_Arrow_Boomerang.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Arrow_Boomerang.wav
+
 #begin LOZ_Bomb_Blow.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:LOZ_Bomb_Blow.wav
+
+#begin LOZ_Bomb_Drop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Bomb_Drop.wav
+
+#begin LOZ_Boss_Hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Boss_Hit.wav
 
 #begin LOZ_Boss_Scream1.wav
 /importer:WavImporter
@@ -134,6 +152,18 @@
 /processorParam:Quality=Best
 /build:LOZ_Door_Unlock.wav
 
+#begin LOZ_Enemy_Die.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Enemy_Die.wav
+
+#begin LOZ_Enemy_Hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Enemy_Hit.wav
+
 #begin LOZ_Fanfare.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -151,6 +181,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:LOZ_Get_Item.wav
+
+#begin LOZ_Get_Rupee.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Get_Rupee.wav
+
+#begin LOZ_Key_Appear.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Key_Appear.wav
 
 #begin LOZ_Link_Die.wav
 /importer:WavImporter
@@ -211,6 +253,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:LOZ_Sword_Combined.wav
+
+#begin LOZ_Sword_Shoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Sword_Shoot.wav
+
+#begin LOZ_Sword_Slash.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Sword_Slash.wav
 
 #begin OverworldEnemySpritesheet.png
 /importer:TextureImporter
