@@ -78,13 +78,14 @@ namespace SprintZero1.InventoryFiles
             String name = dungeonItem.ToString();
             if (name.Contains("Map"))
             {
-                HUDManager.addMap();
+                HUDManager.AddMap();
             }
-            else if (name.Contains("Compass")) {
+            else if (name.Contains("Compass"))
+            {
 
-                HUDManager.addTriforceMarker(); 
+                HUDManager.AddTriforceMarker();
             }
-            
+
 
 
             _DungeonUtilityItemSlots.Add(dungeonItem);

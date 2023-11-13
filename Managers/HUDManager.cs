@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Entities;
 using SprintZero1.Factories;
-using SprintZero1.InventoryFiles;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
 using System;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using System.Xml.Linq;
 
 namespace SprintZero1.Managers
@@ -17,13 +14,13 @@ namespace SprintZero1.Managers
         private static List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
         const int MAX_ATTAINABLE_HEALTH = 13;
         private static List<Tuple<ISprite, Vector2>> healthList = new List<Tuple<ISprite, Vector2>>();
-        private static Dictionary<String,Tuple<ISprite, Vector2>> specialCaseDict = new Dictionary<String, Tuple<ISprite, Vector2>>();
+        private static Dictionary<String, Tuple<ISprite, Vector2>> specialCaseDict = new Dictionary<String, Tuple<ISprite, Vector2>>();
         const float STARTING_HEALTH = 6f;
         const float FULL_HEART = 1f;
         const float HALF_HEART = 0.5f;
         const float EMPTY_HEART = 0f;
-        
-        
+
+
         public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
         private const string Zero = "0";
         private static List<ISprite> rupeeDigits = new List<ISprite>();
@@ -40,7 +37,7 @@ namespace SprintZero1.Managers
         public static void Initialize()
         {
 
-            Vector2 startingPos = new Vector2(180,40);
+            Vector2 startingPos = new Vector2(180, 40);
             float[] _hearts = new float[MAX_ATTAINABLE_HEALTH];
             string path = @"XMLFiles\HUDXMLFiles\HUDPositions.xml";
             XDocument document = XDocument.Load(path);
@@ -59,7 +56,8 @@ namespace SprintZero1.Managers
                 ISprite HUDSprite = HUDSpriteFactoryInstance.CreateHUDSprite(name);
 
                 if (!name.Contains("heart"))
-                {    if (name.Contains("map") || name.Contains("triforce"))
+                {
+                    if (name.Contains("map") || name.Contains("triforce"))
                     {
                         specialCaseDict.Add(name, new Tuple<ISprite, Vector2>(HUDSprite, position));
                     }
@@ -71,8 +69,8 @@ namespace SprintZero1.Managers
                 }
 
                 /*Initialize hearts*/
-                createHealth(startingPos); 
-               
+                CreateHealth(startingPos);
+
             }
 
 
@@ -95,27 +93,28 @@ namespace SprintZero1.Managers
             bombDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
         }
 
-        public static void createHealth(Vector2 startingPos)
+        public static void CreateHealth(Vector2 startingPos)
         {
             //creates the position for the first heart in the health bar
             Vector2 pos = startingPos;
             //creates the full heart sprites bbeing used
             ISprite fullHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("full_heart");
             //adds all the hearts to the list to late be updated and drawn
-            for (int i = 0; i < STARTING_HEALTH; i++) {
-                healthList.Add(new Tuple<ISprite, Vector2>(fullHeartSprite,pos));
-                pos.X = pos.X + 9; 
+            for (int i = 0; i < STARTING_HEALTH; i++)
+            {
+                healthList.Add(new Tuple<ISprite, Vector2>(fullHeartSprite, pos));
+                pos.X = pos.X + 9;
             }
         }
 
-        public static void decrementHearts(float amount, int health)
+        public static void DecrementHealth(float amount, int health)
         {
             //creates sprites for different hearts that will be used
             ISprite halfHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("half_heart");
             ISprite emptyHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("empty_heart");
             //initializes things that will be used later
             Vector2 prevTemp = new Vector2(0, 0);
-            Vector2 temp = new Vector2(0,0);
+            Vector2 temp = new Vector2(0, 0);
             ISprite prevTempSprite = halfHeartSprite;
             ISprite tempSprite = halfHeartSprite;
             float maxvalue = 0;
@@ -123,15 +122,17 @@ namespace SprintZero1.Managers
             if (fltHealth > 0f)
             {
                 //finds the lats heart in heartlist that isnt an empty heart
-                foreach (var sprite  in healthList) {
-                    if (sprite.Item2.X > maxvalue && sprite.Item1 != emptyHeartSprite) {
+                foreach (var sprite in healthList)
+                {
+                    if (sprite.Item2.X > maxvalue && sprite.Item1 != emptyHeartSprite)
+                    {
                         prevTemp = temp;
                         prevTempSprite = tempSprite;
                         temp = sprite.Item2;
                         maxvalue = temp.X;
                         tempSprite = sprite.Item1;
                     }
-               
+
                 }
                 //removes the last heart from the list
                 Tuple<ISprite, Vector2> removerTup = new Tuple<ISprite, Vector2>(tempSprite, temp);
@@ -148,7 +149,8 @@ namespace SprintZero1.Managers
                     amount -= 0.5f;
                     //STARTING_HEALTH -= 0.5f;
                 }
-                else if (tempSprite == halfHeartSprite && amount % 1 != 0.5) {
+                else if (tempSprite == halfHeartSprite && amount % 1 != 0.5)
+                {
                     healthList.Remove(potentialRemoverTup);
 
                     Tuple<ISprite, Vector2> tempTup = new Tuple<ISprite, Vector2>(emptyHeartSprite, temp);
@@ -174,13 +176,9 @@ namespace SprintZero1.Managers
                     }
                 }
             }
-            
-            
-            
-           
         }
 
-        public static void incrementHearts(float amount, int health)
+        public static void IncrementHearts(float amount, int health)
         {
             ISprite halfHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("half_heart");
             ISprite emptyHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("empty_heart");
@@ -194,7 +192,7 @@ namespace SprintZero1.Managers
             float fltHealth = (float)health;
             float minvalue = 9999;
 
-           
+
             //finds the lats heart in heartlist that isnt a full heart
             foreach (var sprite in healthList)
             {
@@ -218,7 +216,8 @@ namespace SprintZero1.Managers
                 Tuple<ISprite, Vector2> tempTup = new Tuple<ISprite, Vector2>(fullHeartSprite, temp);
                 healthList.Add(tempTup);
             }
-            else if (tempSprite == halfHeartSprite && amount % 1 != 0.5) {
+            else if (tempSprite == halfHeartSprite && amount % 1 != 0.5)
+            {
                 Tuple<ISprite, Vector2> tempTup = new Tuple<ISprite, Vector2>(emptyHeartSprite, temp);
                 Tuple<ISprite, Vector2> prevTempTup = new Tuple<ISprite, Vector2>(halfHeartSprite, prevTemp);
                 healthList.Add(prevTempTup);
@@ -265,7 +264,7 @@ namespace SprintZero1.Managers
             keyDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
             keyDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
-        
+
         /// <summary>
         /// Updates bomb count to "amount" in HUD
         /// </summary>
@@ -278,25 +277,30 @@ namespace SprintZero1.Managers
             bombDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
+
         //makes the map visible
-        public static void addMap() {
+        public static void AddMap()
+        {
             spriteAndPosList.Add(specialCaseDict["map"]);
 
         }
 
         //makes the triforce marker visible
-        public static void addTriforceMarker() {
+        public static void AddTriforceMarker()
+        {
             spriteAndPosList.Add(specialCaseDict["triforce"]);
         }
 
         //move the player marker depending on which room the player enters
-        public static void updateMarker(int direction) {
-           
-            Vector2 markerPos = new Vector2(0,0);
-            ISprite posMarker =  HUDSpriteFactory.Instance.CreateHUDSprite("player");
-            foreach(var sprite in spriteAndPosList)
+        public static void UpdateMarker(int direction)
+        {
+
+            Vector2 markerPos = new Vector2(0, 0);
+            ISprite posMarker = HUDSpriteFactory.Instance.CreateHUDSprite("player");
+            foreach (var sprite in spriteAndPosList)
             {
-                if (sprite.Item1 == posMarker) {
+                if (sprite.Item1 == posMarker)
+                {
                     markerPos = sprite.Item2;
                 }
             }
@@ -305,9 +309,9 @@ namespace SprintZero1.Managers
             markerPos.X = markerPos.X + 5f;
         }
 
-        public static void Update(GameTime gameTime) 
+        public static void Update(GameTime gameTime)
         {
-              
+
             foreach (var sprite in healthList)
             {
                 sprite.Item1.Update(gameTime);
@@ -316,7 +320,6 @@ namespace SprintZero1.Managers
             {
                 sprite.Item1.Update(gameTime);
             }
-            
         }
 
         /// <summary>

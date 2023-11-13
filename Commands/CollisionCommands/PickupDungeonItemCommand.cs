@@ -21,7 +21,8 @@ namespace SprintZero1.Commands.CollisionCommands
             _state = GameStatesManager.GetGameState(GameState.Playing) as GamePlayingState;
             handler = new Dictionary<DungeonItems, Action>()
             {
-                { DungeonItems.Level1Map, () => HUDManager.addMap() }
+                { DungeonItems.Level1Map, () => HUDManager.AddMap() },
+                { DungeonItems.Level1Compass, () => HUDManager.AddTriforceMarker() }
             };
         }
         public void Execute()

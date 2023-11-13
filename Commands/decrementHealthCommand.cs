@@ -12,7 +12,7 @@ namespace SprintZero1.Commands
         public DecrementHealthCommand() { }
         public void Execute() {
             float h = 4f;
-         HUDManager.decrementHearts(h, 4);
+         HUDManager.DecrementHealth(h, 4);
             
         }
     }

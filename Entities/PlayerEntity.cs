@@ -96,7 +96,7 @@ namespace SprintZero1.Entities
         public void TakeDamage(int damage)
         {
 
-            HUDManager.decrementHearts(damage, (int)_playerHealth);
+            HUDManager.DecrementHealth(damage, (int)_playerHealth);
 
             _playerHealth -= damage;
 
