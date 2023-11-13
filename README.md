@@ -59,7 +59,11 @@ Code Metrics ran 11/13/2023
 
 
 # Sprint 4 Reflection:
-	This sprint has been a journey of learning and growth for our team. Despite the hurdles we encountered, it brought us closer as a unit. The challenge of game development in the absence of effective communication became evident during this sprint. We strived to meet each deadline, but regrettably, we fell short of fulfilling all the prerequisites. We experimented with new task management strategies, which proved to be quite effective. However, as the sprint progressed, we discovered unanticipated object interactions that necessitated the creation of additional components to ensure seamless integration. Sprint 4 served as a reality check for our team, humbling us all. As we look forward to Sprint 5, our goal is to have all implementations functioning smoothly, in addition to incorporating the extra features we proposed.
+	This sprint has been a journey of learning and growth for our team. Despite the hurdles we encountered, it brought us closer as a unit. The challenge of game development
+	in the absence of effective communication became evident during this sprint. We strived to meet each deadline, but regrettably, we fell short of fulfilling all the
+	prerequisites. We experimented with new task management strategies, which proved to be quite effective. However, as the sprint progressed, we discovered unanticipated
+	object interactions that necessitated the creation of additional components to ensure seamless integration. Sprint 4 served as a reality check for our team, humbling us
+	all. As we look forward to Sprint 5, our goal is to have all implementations functioning smoothly, in addition to incorporating the extra features we proposed.
 
 # Extra Notes regarding commits:
 - Just a note for the graders as suggested by Aaron Post. There's going to be a bunch of Commits from me (Aaron Heishman) that are going to include a bunch of changes made to the repo itself due to how I incorrectly uploaded my Sprint0 source
