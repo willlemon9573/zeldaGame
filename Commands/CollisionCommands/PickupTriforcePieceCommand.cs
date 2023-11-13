@@ -6,8 +6,8 @@ namespace SprintZero1.Commands.CollisionCommands
 {
     internal class PickupTriforcePieceCommand : ICommand
     {
-        PlayerEntity _player;
-        ILootableEntity _triforcePiece;
+        private readonly PlayerEntity _player;
+        private readonly ILootableEntity _triforcePiece;
         public PickupTriforcePieceCommand(ICollidableEntity playerEntity, ICollidableEntity triforcePiece)
         {
             _player = playerEntity as PlayerEntity;

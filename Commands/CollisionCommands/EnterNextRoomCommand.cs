@@ -5,8 +5,8 @@ namespace SprintZero1.Commands.CollisionCommands
 {
     internal class EnterNextRoomCommand : ICommand
     {
-        private string _destination;
-        ICollidableEntity _playerEntity;
+        private readonly string _destination;
+        private readonly ICollidableEntity _playerEntity;
         public EnterNextRoomCommand(ICollidableEntity playerEntity, ICollidableEntity doorEntity)
         {
             _destination = (doorEntity as BaseDoorEntity).DoorDestination;

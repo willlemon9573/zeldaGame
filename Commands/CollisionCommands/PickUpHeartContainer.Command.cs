@@ -10,6 +10,7 @@ namespace SprintZero1.Commands.CollisionCommands
     {
         private readonly ILootableEntity _heart;
         private readonly PlayerEntity _player;
+
         /// <summary>
         /// Constructor for picking up heart containers
         /// </summary>

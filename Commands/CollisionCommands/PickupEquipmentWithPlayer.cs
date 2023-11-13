@@ -6,8 +6,8 @@ namespace SprintZero1.Commands.CollisionCommands
 {
     internal class PickupEquipmentWithPlayer : ICommand
     {
-        IEntity _player;
-        ILootableEntity _equipment;
+        private readonly IEntity _player;
+        private readonly ILootableEntity _equipment;
         public PickupEquipmentWithPlayer(ICollidableEntity player, ICollidableEntity equipmentItem)
         {
             _player = player;

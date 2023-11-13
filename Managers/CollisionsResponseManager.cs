@@ -27,7 +27,8 @@ namespace SprintZero1.Managers
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(EquipmentItemWithPlayerEntity)), (entity1, entity2) => new PickupEquipmentWithPlayer(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(EquipmentItemWithoutPlayerEntity)), (entity1, entity2) => new PickupEquipmentWithoutPlayer(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(HeartContainerEntity)), (entity1, entity2) => new PickUpHeartContainer(entity1, entity2).Execute() },
-            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(TriforceEntity)), (entity1, entity2) => new PickupTriforcePieceCommand(entity1, entity2).Execute() }
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(TriforceEntity)), (entity1, entity2) => new PickupTriforcePieceCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(PlayerEntity), typeof(ReplenishingHeartEntity)), (entity1, entity2) => new PickupReplenishingHeartCommand(entity1, entity2).Execute() }
         };
 
         private static readonly Dictionary<Tuple<Type, Type>, Action<ICollidableEntity, ICollidableEntity>> collisionResponseDictionary = new Dictionary<Tuple<Type, Type>, Action<ICollidableEntity, ICollidableEntity>>();
