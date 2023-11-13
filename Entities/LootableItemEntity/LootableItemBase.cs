@@ -56,6 +56,15 @@ namespace SprintZero1.Entities.LootableItemEntity
         {
             /* To be overriden by derived class */
         }
+        /// <summary>
+        /// When overriden updates player inventory to contain the weapon given
+        /// </summary>
+        /// <param name="player">The player that picked up the item</param>
+        /// <param name="weapon">The weapon the player will be given(optional)</param>
+        public virtual void Pickup(IEntity player, IWeaponEntity weapon)
+        {
+            /* To be overriden by derived class */
+        }
 
         /// <summary>
         /// remove this item from the current room
@@ -82,6 +91,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         {
             _entityCollider.Update(this);
         }
+
 
     }
 }

@@ -11,6 +11,10 @@ namespace SprintZero1.Entities.LootableItemEntity
         private readonly EquipmentItem _equipmentItem;
         private readonly RemoveDelegate _remove;
         private readonly EquipmentItemHandler _pickupHandler;
+        /// <summary>
+        /// Get the type of the equipment item
+        /// </summary>
+        public EquipmentItem ItemType { get { return _equipmentItem; } }
 
         public EquipmentItemEntity(ISprite entitySprite, Vector2 position, RemoveDelegate removeDelegate, EquipmentItemHandler pickupHandler, EquipmentItem itemType) : base(entitySprite, position, removeDelegate)
         {
@@ -18,10 +22,14 @@ namespace SprintZero1.Entities.LootableItemEntity
             _remove = removeDelegate;
             _pickupHandler = pickupHandler;
         }
-
-        public override void Pickup(IEntity player, int amt = 0)
+        /// <summary>
+        /// Controls what happens when the player picks up an equipment
+        /// </summary>
+        /// <param name="player">The player picking up the equipment</param>
+        /// <param name="weapon">The weapon to be picked up</param>
+        public override void Pickup(IEntity player, IWeaponEntity weapon)
         {
-
+            _pickupHandler(player, _equipmentItem, weapon);
         }
     }
 }

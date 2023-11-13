@@ -156,6 +156,9 @@
 			<Name>map</Name>
 			<X>198</X>
 			<Y>151</Y>
+			<Type>DungeonItemEntity</Type>
+			<!-- Unfortunately the item name in these files are different than the item names I used for enums -->
+			<Enum>Level1Map</Enum>
 		</Item>
 	</Items>
 	<Doors>

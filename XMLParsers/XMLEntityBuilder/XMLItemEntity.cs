@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities;
+using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.LevelFiles;
@@ -13,49 +14,67 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
 {
     internal class XMLItemEntity : EntityBase
     {
+        private const string StackableItem = "StackableItemEntity";
+        private const string EquipmenItem = "EquipmentItemEntity";
+        private const string DungeonItem = "DungeonItemEntity";
         private const string EntityNameSpace = "SprintZero1.Entities.LootableItemEntity";
         private int _itemFrames;
-        private static string _enumName;
+        private string _enumName;
         private string _itemType;
-        private DungeonRoom _room;
+        private RemoveDelegate _removeDelegate;
         public int ItemFrames { set => _itemFrames = value; }
         public string EnumName { set => _enumName = value; }
         public string ItemType { set => _itemType = value; }
-        public DungeonRoom DungeonRoom { set => _room = value; }
+        public RemoveDelegate RemoveDelegateHandler { set => _removeDelegate = value; }
+
+        private Dictionary<string, Func<ILootableEntity>> entityCreationMethods;
 
 
-        private readonly Dictionary<string, Action> delegateMap = new Dictionary<string, Action>()
+        private ILootableEntity CreateStackableEntity()
         {
-            { "StackableItemEntity", () => GetStackableItemHandler() },
-            { "DungeonItemEntity", () => GetUtilityItemHandler() },
-            { "EquipmentItemEntity", () => GetEquipmentItemHandler() },
-        };
-
-        private readonly Dictionary<string, Action<Enum>> enumMap = new Dictionary<string, Action<Enum>>()
-        {
-            { "StackableItemEntity", item =>  item = (DungeonItems)Enum.Parse(typeof(EquipmentItem), _enumName, true) },
-            { "EquipmentItemEntity", item => item = (EquipmentItem)Enum.Parse(typeof(EquipmentItem), _enumName, true) },
-            { "DungeonItemEntity", item => item = (EquipmentItem)Enum.Parse(typeof(EquipmentItem), _enumName, true)}
-        };
-
-
-        private static StackableItemHandler GetStackableItemHandler()
-        {
-            return PlayerInventoryManager.AddStackableItemToInventory;
+            StackableItemHandler stackableItemhandler = PlayerInventoryManager.AddStackableItemToInventory;
+            StackableItems dungeonItem = (StackableItems)Enum.Parse(typeof(StackableItems), _enumName, true);
+            return (ILootableEntity)Activator.CreateInstance(CreateEntityType(), CreateSprite(), CreatePosition(), _removeDelegate, stackableItemhandler, dungeonItem);
         }
 
-        private static UtilityItemHandler GetUtilityItemHandler()
+        private ILootableEntity CreateEquipmentEntity()
         {
-            return PlayerInventoryManager.AddUtilityItemToInventory;
+            EquipmentItemHandler equipmentItemhandler = PlayerInventoryManager.AddEquipmentItemToInventory;
+            EquipmentItem equipmentItem = (EquipmentItem)Enum.Parse(typeof(EquipmentItem), _enumName, true);
+            return (ILootableEntity)Activator.CreateInstance(CreateEntityType(), CreateSprite(), CreatePosition(), _removeDelegate, equipmentItemhandler, equipmentItem);
         }
 
-        private static EquipmentItemHandler GetEquipmentItemHandler()
+        private ILootableEntity CreateDungeonItemEntity()
         {
-
-            return PlayerInventoryManager.AddEquipmentItemToInventory;
+            UtilityItemHandler utilityItemHandler = PlayerInventoryManager.AddUtilityItemToInventory;
+            DungeonItems dungeonItem = (DungeonItems)Enum.Parse(typeof(DungeonItems), _enumName, true);
+            return (ILootableEntity)Activator.CreateInstance(CreateEntityType(), CreateSprite(), CreatePosition(), _removeDelegate, utilityItemHandler, dungeonItem);
         }
 
+        private ISprite CreateSprite()
+        {
+            return ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite(_entityName);
+        }
 
+        private Vector2 CreatePosition()
+        {
+            return new Vector2(_entityPositionX, _entityPositionY);
+        }
+
+        private Type CreateEntityType()
+        {
+            return Type.GetType($"{EntityNameSpace}.{_itemType}");
+        }
+
+        public XMLItemEntity()
+        {
+            entityCreationMethods = new Dictionary<string, Func<ILootableEntity>>()
+            {
+                { StackableItem, this.CreateStackableEntity },
+                { DungeonItem, this.CreateDungeonItemEntity },
+                { EquipmenItem, this.CreateEquipmentEntity },
+            };
+        }
 
         /// <summary>
         /// Create the item entity
@@ -63,13 +82,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
         /// <returns>a new instance of the item entity</returns>
         public override IEntity CreateEntity()
         {
-            ISprite itemSprite = ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite(_entityName);
-            Vector2 position = new Vector2(_entityPositionX, _entityPositionY);
-            RemoveDelegate itemRemval = _room.RemoveItem;
-            Type entityType = Type.GetType($"{EntityNameSpace}.{_itemType}");
-            object instance = Activator.CreateInstance(entityType, itemSprite, position, itemRemval, delegateMap[_itemType], enumMap[_itemType]);
-            // using levelBlockEntity until we make something of items
-            return (IEntity)instance;
+            return entityCreationMethods[_itemType].Invoke();
         }
 
         // technically shouldn't be in here, but will be removed soon

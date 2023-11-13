@@ -138,10 +138,9 @@
 			<Name>compass</Name>
 			<X>198</X>
 			<Y>151</Y>
-			<Type>StackableItemEntity</Type>
+			<Type>DungeonItemEntity</Type>
 			<!-- Unfortunately the item name in these files are different than the item names I used for enums -->
-			<Enum>DungeonKey</Enum>
-			<Delegate>StackableItemHandler</Delegate>
+			<Enum>Level1Compass</Enum>
 		</Item>
 	</Items>
 	<Doors>

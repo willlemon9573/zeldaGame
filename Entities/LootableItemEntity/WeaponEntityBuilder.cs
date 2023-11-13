@@ -9,7 +9,8 @@ using System.Diagnostics;
 namespace SprintZero1.Entities.LootableItemEntity
 {
     /// <summary>
-    /// Handles creating the equipment item objects for the player after the items are picked up
+    /// This class is meant to handle the creation of the weapon entity after the user picks it up. It's not meant for drawing any of these entities specifically. 
+    /// @author Aaron Heishman
     /// </summary>
     internal static class WeaponEntityBuilder
     {
@@ -27,7 +28,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         };
 
         /// <summary>
-        /// Creates The desires Weapon Entity
+        /// Creates The desired weapon entity that does not require a player as a parameter
         /// </summary>
         /// <param name="equipment">The equipment that is being created</param>
         /// <returns>A new instance of the weapon entity</returns>
@@ -37,6 +38,12 @@ namespace SprintZero1.Entities.LootableItemEntity
             return equipmentWithoutPlayerMap[equipment].Invoke($"{equipment}");
         }
 
+        /// <summary>
+        /// Creates the desired WeaponEntity that requires the player as a parameter
+        /// </summary>
+        /// <param name="equipment">The equipment that is being created</param>
+        /// <param name="player">The player that uses the weapon</param>
+        /// <returns>a new instance of the desired weapon entity</returns>
         public static IWeaponEntity CreateWeaponEntity(EquipmentItem equipment, IMovableEntity player)
         {
             Debug.Assert(equipmentWithoutPlayerMap.ContainsKey(equipment), $"Dictionary does not contain {equipment} as a key");

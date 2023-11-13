@@ -11,6 +11,7 @@ using SprintZero1.LevelFiles;
 using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SprintZero1.Managers
@@ -54,7 +55,9 @@ namespace SprintZero1.Managers
             string entrance_room = "entrance";
             ChangeRooms(entrance_room);
             ISprite rupee = ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite("rupee");
+
             ILootableEntity rup = new StackableItemEntity(rupee, new Vector2(120, 120), _currentRoom.RemoveItem, PlayerInventoryManager.AddStackableItemToInventory, StackableItems.Rupee);
+            Debug.WriteLine($"{rup.GetType()}");
             _currentRoom.AddRoomItem(rup);
             UpdateRoomEntities();
         }

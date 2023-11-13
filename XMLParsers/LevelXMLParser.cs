@@ -29,6 +29,8 @@ namespace SprintZero1.XMLParsers
         private const string InnerElementHealthElement = "Health";
         private const string InnerEnemyFramesElement = "Frames";
         private const string InnerItemFramesElement = "ItemFrames";
+        private const string InnerItemEnumElement = "Enum";
+        private const string InnerItemTypeElement = "Type";
         /* ------------------------------Public Functions--------------------------------- */
         /// <summary>
         /// Constructor for a new instance of LevelXmlParser
@@ -50,11 +52,13 @@ namespace SprintZero1.XMLParsers
             { InnerYPositionElement, (y, data) => data.EntityPositionY = y.ReadElementContentAsInt() },
             { InnerNameElement, (name, data) => data.EntityName = name.ReadElementContentAsString() },
             { InnerItemFramesElement, (item, data) => (data as XMLItemEntity).ItemFrames = item.ReadElementContentAsInt() },
+            { InnerItemTypeElement, (item, data) => (data as XMLItemEntity).ItemType = item.ReadElementContentAsString() },
+            { InnerItemEnumElement, (item, data) => (data as XMLItemEntity).EnumName = item.ReadElementContentAsString() },
             { InnerElementHealthElement, (enemy, data) =>  (data as XMLEnemyEntity).EntityHealth = enemy.ReadElementContentAsInt() },
             { InnerEnemyFramesElement, (enemy, data) => (data as XMLEnemyEntity).EntityFrames = enemy.ReadElementContentAsInt() },
             { InnerDoorDestinationElement, (door, data) => (data as XMLDoorEntity).Destination = door.ReadElementContentAsString() },
             { InnerDoorDirectionElement, (door, data) => (data as XMLDoorEntity).DoorDirection = door.ReadElementContentAsString() },
-            { InnerDoorTypeElement,  (door, data) => (data as XMLDoorEntity).DoorType = door.ReadElementContentAsString() }
+            { InnerDoorTypeElement,  (door, data) => (data as XMLDoorEntity).DoorType = door.ReadElementContentAsString() },
             };
         }
 
@@ -240,6 +244,7 @@ namespace SprintZero1.XMLParsers
             IEntityParsingBuilder item = new XMLItemEntity();
             string innerItemElement = "Item";
             string innerAnimatedItemElement = "AnimatedItem";
+            (item as XMLItemEntity).RemoveDelegateHandler = dungeonRoom.RemoveItem;
             while (reader.Read())
             {
                 var element_name = reader.Name;
