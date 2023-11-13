@@ -58,7 +58,7 @@ namespace SprintZero1.Managers
             KeyboardController controller = new KeyboardController();
             controller.LoadControls(player);
             _startingState.AddController(controller);
-            _gameStateMap[Enums.GameState.Paused].AddController(controller);
+            _gameStateMap[GameState.Paused].AddController(controller);
             _startingState.LoadDungeonRoom("entrance");
             _gameState = _startingState;
         }

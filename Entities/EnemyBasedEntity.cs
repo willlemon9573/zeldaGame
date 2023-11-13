@@ -101,7 +101,6 @@ namespace SprintZero1.Entities
         {
             _enemyState.ChangeDirection(direction);
         }
-        //_enemyDirection = direction;
 
 
         public virtual void Update(GameTime gameTime)

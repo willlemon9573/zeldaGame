@@ -1,6 +1,4 @@
-using SprintZero1.Entities;
 using SprintZero1.GameStateMenu;
-using System.Diagnostics;
 
 namespace SprintZero1.Commands.MenuCommandsFolder
 {
@@ -31,8 +29,6 @@ namespace SprintZero1.Commands.MenuCommandsFolder
         public void Execute()
         {
             // Calls the method to set the next weapon in the item selection menu
-            Debug.WriteLine("getNextWeapon");
-
             _itemSelectionMenu.SetNextWeapon();
         }
     }

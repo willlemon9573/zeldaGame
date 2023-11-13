@@ -44,6 +44,7 @@ namespace SprintZero1.Factories
             SpriteXMLParser spriteParser = new SpriteXMLParser();
             enemySpriteWithoutDirectionDictionary = spriteParser.ParseAnimatedSpriteXML(ENEMY_SPRITE_PATH);
             bossEnemySpriteDictionary = spriteParser.ParseAnimatedSpriteXML(BOSS_SPRITE_PATH);
+            /* Implementation was changed, so parsing my dictionary doesn't work now, so this has to do */
             enemySpriteWithDirectionDictionary = new Dictionary<string, Dictionary<Direction, List<Rectangle>>>
             {
                 {
@@ -58,10 +59,10 @@ namespace SprintZero1.Factories
                 {
                     "dungeon_wallmaster", new Dictionary<Direction, List<Rectangle>>
                     {
-                        { Direction.North, new List<Rectangle> { new Rectangle(241, 11, 13, 16), new Rectangle(308, 11, 13, 16) } },
-                        { Direction.South, new List<Rectangle> { new Rectangle(224, 11, 13, 16), new Rectangle(292, 11, 13, 16) } },
-                        { Direction.West, new List<Rectangle> { new Rectangle(257, 11, 13, 16), new Rectangle(275, 11, 14, 16) } },
-                        { Direction.East, new List<Rectangle> { new Rectangle(257, 11, 13, 16), new Rectangle(275, 11, 14, 16) } }
+                        { Direction.North, new List<Rectangle> { new Rectangle(393, 11, 16, 16), new Rectangle(411, 11, 16, 16) } },
+                        { Direction.South, new List<Rectangle> { new Rectangle(393, 11, 16, 16), new Rectangle(411, 11, 16, 16) } },
+                        { Direction.West, new List<Rectangle> { new Rectangle(393, 11, 16, 16), new Rectangle(411, 11, 16, 16) } },
+                        { Direction.East, new List<Rectangle> { new Rectangle(393, 11, 16, 16), new Rectangle(411, 11, 16, 16) } }
                     }
                 }
             };
@@ -83,9 +84,16 @@ namespace SprintZero1.Factories
                 Dictionary<Direction, List<Rectangle>> DirectionRec = enemySpriteWithDirectionDictionary[enemyName];
                 return new AnimatedSprite(DirectionRec[direction], dungeonEnemySpriteSheet, enemySpriteWithoutDirectionDictionary[enemyName].Count);
             }
+            else if (enemyName == "aquamentus")
+            {
+                /* shouldn't need to do this. */
+                return CreateBossSprite(enemyName);
+            }
             else
             {
-                return new AnimatedSprite(enemySpriteWithoutDirectionDictionary[enemyName], dungeonEnemySpriteSheet, enemySpriteWithoutDirectionDictionary[enemyName].Count);
+                {
+                    return new AnimatedSprite(enemySpriteWithoutDirectionDictionary[enemyName], dungeonEnemySpriteSheet, enemySpriteWithoutDirectionDictionary[enemyName].Count);
+                }
             }
         }
 
@@ -98,8 +106,9 @@ namespace SprintZero1.Factories
         public ISprite CreateBossSprite(string bossName)
         {
             Debug.Assert(bossName != null, "bossName is null");
-            //Debug.Assert(bossEnemySpriteDictionary.ContainsKey(bossName), "Boss not found: " + bossName);
+            Debug.Assert(bossEnemySpriteDictionary.ContainsKey(bossName), "Boss not found: " + bossName);
             return new AnimatedSprite(bossEnemySpriteDictionary[bossName], bossSpriteSheet, bossEnemySpriteDictionary[bossName].Count);
         }
     }
 }
+

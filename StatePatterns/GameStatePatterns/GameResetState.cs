@@ -18,8 +18,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             {
                 { () => ColliderManager.Reset() },
                 { () => ProgramManager.Reset() },
-
-                { () => EntityManager.Reset() },
                 { () => PlayerInventoryManager.Reset() },
                 { () => ControlsManager.Reset() },
                 { () => GameStatesManager.Reset() },

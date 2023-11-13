@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
-using SprintZero1.Controllers;
 using SprintZero1.Entities;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
@@ -18,9 +17,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <summary>
         /// List of players
         /// </summary>
-        private List<PlayerEntity> _players = new List<PlayerEntity>();
+        private readonly List<PlayerEntity> _players = new List<PlayerEntity>();
         // Note: Base variable is EntityManager
-
         public DungeonRoom CurrentRoom { get { return _currentRoom; } }
 
         /// <summary>
@@ -31,12 +29,9 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
         }
 
-
-        /// <summary>
-        /// Updates all controllers in State
-        /// </summary>
         public override void Handle()
         {
+            _currentRoom.UpdateEnemyController(_players[0]);
         }
 
         public void AddPlayer(PlayerEntity player)
@@ -51,7 +46,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             List<IEntity> entities = _currentRoom.GetEntityList();
             entities.AddRange(_players);
-            EntityManager.UpdateEntities(entities);
         }
 
         /// <summary>
@@ -63,8 +57,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public void LoadDungeonRoom(string nextRoomName)
         {
             DungeonRoom nextRoom = LevelManager.GetDungeonRoom(nextRoomName);
-            EntityManager.ParseDungeonRoom(nextRoom);
-            EntityManager.Add(_players.OfType<IEntity>().ToList());
             _currentRoom = nextRoom;
         }
 
@@ -75,18 +67,13 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public override void Update(GameTime gameTime)
         {
             //ProgramManager.Update(gameTime);
-            EntityManager.Update(gameTime);
             HUDManager.Update(gameTime);
-            List<IEntity> entities = EntityManager.OnScreenEntities();
-            foreach (IController controller in Controllers)
-            {
-                controller.Update();
-            }
-            for (int i = 0; i < entities.Count; i++)
-            {
-                entities[i].Update(gameTime);
-            }
-            ColliderManager.CheckCollisions(EntityManager.OnScreenEntities().OfType<ICollidableEntity>().ToList());
+            Controllers.ForEach(controller => controller.Update());
+            _currentRoom.Update(gameTime);
+            _players.ForEach(player => player.Update(gameTime));
+            List<IEntity> collidableEntities = _currentRoom.GetEntityList();
+            collidableEntities.AddRange(_players);
+            ColliderManager.CheckCollisions(collidableEntities.OfType<ICollidableEntity>().ToList());
         }
 
         /// <summary>
@@ -95,13 +82,9 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //ProgramManager.Draw(spriteBatch);
             HUDManager.Draw(spriteBatch);
-            List<IEntity> entities = EntityManager.OnScreenEntities();
-            for (int i = 0; i < entities.Count; i++)
-            {
-                entities[i].Draw(spriteBatch);
-            }
+            _players.ForEach(player => player.Draw(spriteBatch));
+            _currentRoom.Draw(spriteBatch);
         }
     }
 }

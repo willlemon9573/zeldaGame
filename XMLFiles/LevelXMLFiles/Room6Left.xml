@@ -170,7 +170,7 @@
 			<Destination>floorSecret</Destination>
 			<!-- Doesn't use a direction -->
 			<Direction>North</Direction>
-			<DoorType>StairEntity</DoorType>
+			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 	</Doors>
 </Room>

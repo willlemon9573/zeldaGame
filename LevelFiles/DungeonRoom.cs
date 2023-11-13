@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Enums;
@@ -22,6 +24,7 @@ namespace SprintZero1.LevelFiles
         /* enemy entity list is separate because we need to remove enemies from the file if they die */
         private readonly List<IEntity> _liveEnemyList;
         private readonly List<IEntity> _deadEnemyList;
+        private readonly List<IEnemyMovementController> _enemyControllerList;
         /* Dropepd Item List */
         private readonly List<IEntity> _floorItems;
         private readonly List<IEntity> _itemCollector;
@@ -29,6 +32,7 @@ namespace SprintZero1.LevelFiles
         private readonly List<IEntity> _architechtureList;
         private readonly Dictionary<Direction, Vector2> _playerStartingPositionMap;
         private string _roomName; /* identification for the room */
+        private int enemyCount;
 
         /* --------------------------Public properties-------------------------- */
         /// <summary>
@@ -49,6 +53,8 @@ namespace SprintZero1.LevelFiles
         public DungeonRoom()
         {
             _liveEnemyList = new List<IEntity>();
+            _deadEnemyList = new List<IEntity>();
+            _enemyControllerList = new List<IEnemyMovementController>();
             _architechtureList = new List<IEntity>();
             _playerStartingPositionMap = new Dictionary<Direction, Vector2>();
             _floorItems = new List<IEntity>();
@@ -62,6 +68,7 @@ namespace SprintZero1.LevelFiles
         public void AddEnemy(IEntity enemy)
         {
             _liveEnemyList.Add(enemy);
+            enemyCount++;
         }
 
 
@@ -75,6 +82,7 @@ namespace SprintZero1.LevelFiles
             {
                 _liveEnemyList.Remove(entity);
                 deadEnemyList.Add(entity);
+                enemyCount--;
             }
         }
 
@@ -84,7 +92,6 @@ namespace SprintZero1.LevelFiles
         /// <param name="destination">The new destination for the door</param>
         public void UnlockDoor(string destination)
         {
-
             LockedDoorEntity lockedDoor = _architechtureList.OfType<LockedDoorEntity>().FirstOrDefault(door => door.DoorDestination == destination);
             if (lockedDoor == null) { return; }
             string doorType = $"open_{lockedDoor.DoorDirection}";
@@ -172,13 +179,43 @@ namespace SprintZero1.LevelFiles
             _itemCollector.Clear();
         }
 
+        public List<IEntity> GetLiveEnemyList()
+        {
+            return _liveEnemyList;
+        }
+
+        public void UpdateEnemyController(IEntity player)
+        {
+            if (_enemyControllerList.Count > 0 && _liveEnemyList.Count == enemyCount) { return; }
+            _liveEnemyList.ForEach(x => _enemyControllerList.Add(new SmartEnemyMovementController(x as ICombatEntity, player)));
+        }
+
         public List<IEntity> GetEntityList()
         {
             List<IEntity> entities = new List<IEntity>();
-            entities.AddRange(_liveEnemyList);
             entities.AddRange(_architechtureList);
+            entities.AddRange(_liveEnemyList);
             entities.AddRange(_floorItems);
             return entities;
         }
+
+        public void Update(GameTime gameTime)
+        {
+            _architechtureList.ForEach(entity => entity.Update(gameTime));
+            _liveEnemyList.ForEach(entity => entity.Update(gameTime));
+            _architechtureList.ForEach(entity => entity.Update(gameTime));
+            _enemyControllerList.ForEach(entity => entity.Update(gameTime));
+            _floorItems.ForEach(entity => entity.Update(gameTime));
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            _architechtureList.ForEach(entity => entity.Draw(spriteBatch));
+            _liveEnemyList.ForEach(entity => entity.Draw(spriteBatch));
+            _architechtureList.ForEach(entity => entity.Draw(spriteBatch));
+            _floorItems.ForEach(entity => entity.Draw(spriteBatch));
+        }
+
+
     }
 }

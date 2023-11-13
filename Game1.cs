@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
-using SprintZero1.StatePatterns.GameStatePatterns;
-using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System;
 
 namespace SprintZero1
@@ -64,8 +62,6 @@ namespace SprintZero1
             HUDSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
             HUDManager.Initialize();
-            /*ProgramManager.Start(this);*/
-
         }
 
         protected override void Update(GameTime gameTime)

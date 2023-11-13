@@ -13,6 +13,7 @@ namespace SprintZero1.Entities.LootableItemEntity
     {
         private readonly DungeonItems _itemType;
         private readonly UtilityItemHandler _pickupHandler;
+        public DungeonItems ItemType { get { return _itemType; } }
         /// <summary>
         /// Construct a new object that is a dungeon item entity
         /// </summary>

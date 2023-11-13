@@ -59,7 +59,7 @@ namespace SprintZero1.Controllers
         /// <param name="mouseLocation">XY coordinates of the current mouse position</param>
         private void ExecuteLeftMouseCommands()
         {
-
+            _getNextRoom.Execute();
         }
 
         /// <summary>
@@ -67,6 +67,7 @@ namespace SprintZero1.Controllers
         /// </summary>
         private void ExecuteRightMouseCommand()
         {
+            _getPreviousRoom.Execute();
         }
 
         public void LoadControls(IEntity player)
