@@ -16,6 +16,10 @@ namespace SprintZero1.Entities
     /// </summary>
     internal class SwordEntity : IWeaponEntity, ICollidableEntity
     {
+        const int COLLIDER_X = 5;
+        const int COLLIDER_Y = 11;
+        const int COLLIDER_WIDTH = 15;
+        const int COLLIDER_HEIGHT = 20;
         // TODO: Clean up code for modularity purposes
         private readonly string _weaponName;
         private Vector2 _weaponPosition;
@@ -38,15 +42,17 @@ namespace SprintZero1.Entities
         public SwordEntity(String weaponName, Dictionary<Direction, Tuple<SpriteEffects, Vector2>> spriteEffectsMap)
         {
             _weaponName = weaponName;
-            const int X = 11, Y = 11;
-            /* This might be able to be passed by the player / xml / or mathematically */
             _spriteEffectsDictionary = spriteEffectsMap;
+            /* 
+             * the values of this rectangle change based on the direction of the sword which is why each collider is also different 
+             * I don't have time right now to add this to the parser to make just yet
+            */
             _colliderRectanglesDictionary = new Dictionary<Direction, Rectangle>()
             {
-                {Direction.North, new Rectangle(5, Y*-1, 7, 16) },
-                {Direction.South, new Rectangle(5, Y, 7, 16) },
-                {Direction.East, new Rectangle(X, 5, 16, 7) },
-                {Direction.West, new Rectangle(-X, 5, 16, 7) },
+                {Direction.North, new Rectangle(COLLIDER_X, -COLLIDER_Y, COLLIDER_WIDTH, COLLIDER_HEIGHT) },
+                {Direction.South, new Rectangle(COLLIDER_X, COLLIDER_Y, COLLIDER_WIDTH, COLLIDER_HEIGHT) },
+                {Direction.East, new Rectangle(COLLIDER_Y, COLLIDER_X, COLLIDER_HEIGHT, COLLIDER_WIDTH) },
+                {Direction.West, new Rectangle(-COLLIDER_Y, COLLIDER_X, COLLIDER_HEIGHT, COLLIDER_WIDTH) },
             };
         }
 

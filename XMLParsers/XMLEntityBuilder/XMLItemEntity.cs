@@ -15,7 +15,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
     internal class XMLItemEntity : EntityBase
     {
         private const string StackableItem = "StackableItemEntity";
-        private const string EquipmenItem = "EquipmentItemEntity";
+        private const string EquipmenItem = "EquipmentItemWithoutPlayerEntity";
         private const string DungeonItem = "DungeonItemEntity";
         private const string EntityNameSpace = "SprintZero1.Entities.LootableItemEntity";
         private int _itemFrames;

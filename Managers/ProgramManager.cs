@@ -137,12 +137,6 @@ namespace SprintZero1.Managers
             }
         }
 
-        private static void UpdateRuppees(int amount)
-        {
-            // increment some value that represents ruppes
-            // get the new sprites
-        }
-
         /// <summary>
         /// Run Draw on Program Manager
         /// </summary>

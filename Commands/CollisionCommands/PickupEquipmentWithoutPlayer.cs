@@ -17,7 +17,7 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
-            EquipmentItem equipment = (_equipment as EquipmentItemWithPlayerEntity).ItemType;
+            EquipmentItem equipment = (_equipment as EquipmentItemWithoutPlayerEntity).ItemType;
             IWeaponEntity weapon = WeaponEntityBuilder.CreateWeaponEntity(equipment);
             _equipment.Pickup(_player, weapon);
             _equipment.Remove();

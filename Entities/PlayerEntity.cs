@@ -9,6 +9,7 @@ using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
+using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {
@@ -81,6 +82,7 @@ namespace SprintZero1.Entities
 
             if (weaponName == "sword")
             {
+                Debug.WriteLine($"{_playerPosition}");
                 _attackingWithSword = true;
                 _playerSwordSlot.UseWeapon(_playerDirection, _playerPosition);
             }
