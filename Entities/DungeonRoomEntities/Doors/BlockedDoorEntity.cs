@@ -15,7 +15,8 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
 
         public BlockedDoorEntity(ISprite entitySprite, Vector2 position, string destination, Direction direction) : base(entitySprite, position, destination, direction)
         {
-            this._doorCollider = new BlockedDoorCollider(position, new System.Drawing.Size(entitySprite.Width, entitySprite.Height), ScaleFactor);
+            Vector2 offsets = _colliderOffsetDictionary[DoorDirection];
+            this._doorCollider = new BlockedDoorCollider(position, new System.Drawing.Size(entitySprite.Width, entitySprite.Height));
         }
 
         public override void Draw(SpriteBatch spriteBatch)
