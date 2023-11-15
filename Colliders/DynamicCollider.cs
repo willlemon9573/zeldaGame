@@ -22,7 +22,7 @@ namespace SprintZero1.Colliders
         /// </summary>
         /// <param name="position">The initial position of the collider in 2D space.</param>
         /// <param name="dimensions">The size of the collider.</param>
-        /// <param name="scaleFactor">The scale factor of the collider, defaulting to 0.8f.</param>
+        /// <param name="scaleFactor">The scale factor of the collider, defaulting to 1f.</param>
         /// <param name="offsetX">The horizontal offset of the collider, defaulting to 0.</param>
         /// <param name="offsetY">The vertical offset of the collider, defaulting to 0.</param>
         public DynamicCollider(Vector2 position, Size dimensions, float scaleFactor = 1f, int offsetX = 0, int offsetY = 0)
