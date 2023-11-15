@@ -1,21 +1,26 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Colliders;
+using SprintZero1.Colliders.DoorColliders;
 using SprintZero1.Enums;
+using SprintZero1.Factories;
 using SprintZero1.Sprites;
 
 namespace SprintZero1.Entities.DungeonRoomEntities.Doors
 {
+
     internal class LockedDoorEntity : BaseDoorEntity
     {
-        private readonly SpriteEffects SpriteEffect = SpriteEffects.None;
-        private readonly float rotation = 0f;
-        private readonly float layerDepth = 0.5f;
-
+        private const float ScaleFactor = 0.9f;
         public LockedDoorEntity(ISprite entitySprite, Vector2 position, string destination, Direction direction) : base(entitySprite, position, destination, direction)
         {
-            Rectangle colliderDimensions = new Rectangle((int)position.X, (int)position.Y, DoorDimensions.Width, DoorDimensions.Height);
-            this._doorCollider = new LockedDoorCollider(colliderDimensions);
+            _doorCollider = new LockedDoorCollider(position, new System.Drawing.Size(entitySprite.Width, entitySprite.Height), ScaleFactor);
+        }
+
+        public override void OpenDoor()
+        {
+            string doorType = $"open_{this.DoorDirection}";
+            this._doorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(doorType.ToLower());
+            Vector2 offset = _colliderOffsetDictionary[DoorDirection];
+            this._doorCollider = new OpenDoorCollider(_doorPosition, new System.Drawing.Size(_doorSprite.Width, _doorSprite.Height), ScaleFactor, (int)offset.X, (int)offset.Y);
         }
     }
 }

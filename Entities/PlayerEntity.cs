@@ -56,7 +56,8 @@ namespace SprintZero1.Entities
             _playerHealth = startingHealth;
             _playerPosition = position;
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
-            _playerCollider = new PlayerCollider(new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
+            float scalefactor = 0.9f;
+            _playerCollider = new PlayerCollider(position, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);
             _playerInventory = new PlayerInventory(this);
             _playerStateFactory = new PlayerStateFactory(this);
@@ -135,6 +136,7 @@ namespace SprintZero1.Entities
                 GameStatesManager.CurrentState.EntityManager.RemoveImmediately(_playerSwordSlot);
             }
             _playerState.Draw(spriteBatch);
+
         }
     }
 }

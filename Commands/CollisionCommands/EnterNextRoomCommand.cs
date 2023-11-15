@@ -10,12 +10,12 @@ namespace SprintZero1.Commands.CollisionCommands
 {
     internal class EnterNextRoomCommand : ICommand
     {
-        private const int PositionOffsetOne = 115;
-        private const int PositionOffsetTwo = 195;
+        private const int PositionOffsetOne = 110;
+        private const int PositionOffsetTwo = 190;
         private Vector2 _playerSecretRoomPosition = new Vector2(56, 95); /* temporary fix until we can update the XML files to contain the player positions */
         private readonly ICollidableEntity _playerEntity;
         private readonly GamePlayingState _playingState;
-        private readonly OpenDoorEntity _openDoor;
+        private readonly IDoorEntity _openDoor;
         private const string SecretRoom = "floorSecret";
 
         public Dictionary<Direction, Vector2> _directionMap;
@@ -24,7 +24,7 @@ namespace SprintZero1.Commands.CollisionCommands
         {
             _playerEntity = playerEntity;
             _playingState = GameStatesManager.GetGameState(GameState.Playing) as GamePlayingState;
-            _openDoor = doorEntity as OpenDoorEntity;
+            _openDoor = doorEntity as IDoorEntity;
             _directionMap = new Dictionary<Direction, Vector2>() {
                 { Direction.North, new Vector2(0, PositionOffsetOne) },
                 { Direction.South, new Vector2(0, -PositionOffsetOne) },
@@ -47,6 +47,7 @@ namespace SprintZero1.Commands.CollisionCommands
                 playerCurrentPosition = _playerSecretRoomPosition;
             }
             _playerEntity.Position = playerCurrentPosition;
+            _playerEntity.Collider.Update(_playerEntity);
             _playingState.LoadDungeonRoom(destination);
             _playingState.Handle();
         }

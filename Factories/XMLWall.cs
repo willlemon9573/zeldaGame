@@ -10,12 +10,9 @@ namespace SprintZero1.Factories
     {
         public override IEntity CreateEntity()
         {
-            Rectangle dimensions = TileSpriteFactory.Instance.GetSpriteDimensions(_entityName);
             Vector2 position = new Vector2(_entityPositionX, _entityPositionY);
             ISprite doorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(_entityName);
-            // return new LevelDoorEntity(doorSprite, position, destinationPoint);
-            /* temporary return */
-            return new DungeonWallEntity(doorSprite, position, dimensions);
+            return new DungeonWallEntity(doorSprite, position);
         }
     }
 }

@@ -19,6 +19,7 @@ namespace SprintZero1.Managers
         private static Texture2D _weaponSpriteSheet;
         private static Texture2D _HUDSpriteSheet;
         private static Texture2D _PauseScreenSheet;
+        private static Texture2D _box;
         /* for update */
         private static Dictionary<string, SpriteFont> spriteFontMap = new Dictionary<string, SpriteFont>();
 
@@ -37,6 +38,7 @@ namespace SprintZero1.Managers
             _itemSpriteSheet = contentManager.Load<Texture2D>("itemSpriteSheet1");
             _PauseScreenSheet = contentManager.Load<Texture2D>("NES_-_The_Legend_of_Zelda_-_HUD__Pause_Screen1");
             _HUDSpriteSheet = contentManager.Load<Texture2D>("HUDSpritesheet");
+            _box = contentManager.Load<Texture2D>("box");
         }
 
         public static void LoadSpriteFonts(ContentManager contentManager)
@@ -95,5 +97,7 @@ namespace SprintZero1.Managers
             Debug.Assert(spriteFontMap.ContainsKey(spriteFontName), $"{spriteFontMap} is an invalid key");
             return spriteFontMap[spriteFontName];
         }
+
+        public static Texture2D GetBox() { return _box; }
     }
 }

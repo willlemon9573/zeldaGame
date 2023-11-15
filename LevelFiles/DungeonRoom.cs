@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers.EnemyControllers;
+using SprintZero1.DebuggingTools;
 using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Enums;
-using SprintZero1.Factories;
-using SprintZero1.Sprites;
+using SprintZero1.Managers;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -33,12 +33,9 @@ namespace SprintZero1.LevelFiles
         private readonly Dictionary<Direction, Vector2> _playerStartingPositionMap;
         private string _roomName; /* identification for the room */
         private int enemyCount;
+        private SpriteDebuggingTools _spriteDebugger;
 
         /* --------------------------Public properties-------------------------- */
-        /// <summary>
-        /// Get the live enemy list
-        /// </summary>
-        public List<IEntity> LiveEnemyList { get { return _liveEnemyList; } }
 
         /// <summary>
         /// Get and Set the room name
@@ -49,7 +46,6 @@ namespace SprintZero1.LevelFiles
         /// <summary>
         /// Construct a new room object that will hold the information for the room.
         /// </summary>
-        /// <param name="roomName">The name of the room</param>
         public DungeonRoom()
         {
             _liveEnemyList = new List<IEntity>();
@@ -59,6 +55,7 @@ namespace SprintZero1.LevelFiles
             _playerStartingPositionMap = new Dictionary<Direction, Vector2>();
             _floorItems = new List<IEntity>();
             _itemCollector = new List<IEntity>();
+            _spriteDebugger = new SpriteDebuggingTools(GameStatesManager.ThisGame);
         }
 
         /// <summary>
@@ -71,11 +68,10 @@ namespace SprintZero1.LevelFiles
             enemyCount++;
         }
 
-
         /// <summary>
         /// Check if any enemy is dead and remove them from the live enemy list and add to the dead enemy list
         /// </summary>
-        public void CheckEnemyIsDead()
+        public void RemoveDeadEnemies()
         {
             List<IEntity> deadEnemyList = _liveEnemyList.Where(entity => (entity as ICombatEntity).Health <= 0).ToList();
             foreach (var entity in deadEnemyList)
@@ -87,19 +83,27 @@ namespace SprintZero1.LevelFiles
         }
 
         /// <summary>
-        /// Handles updating a locked door if the door can be unlocked
+        /// Handles unlocking doors based on door destination for locked doors
         /// </summary>
         /// <param name="destination">The new destination for the door</param>
-        public void UnlockDoor(string destination)
+        public void UnlockDoor(Direction direction)
         {
-            LockedDoorEntity lockedDoor = _architechtureList.OfType<LockedDoorEntity>().FirstOrDefault(door => door.DoorDestination == destination);
-            if (lockedDoor == null) { return; }
-            string doorType = $"open_{lockedDoor.DoorDirection}";
-            ISprite openDoorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(doorType.ToLower());
-            _architechtureList.Remove(lockedDoor);
-            _architechtureList.Add(new OpenDoorEntity(openDoorSprite, lockedDoor.Position, lockedDoor.DoorDestination, lockedDoor.DoorDirection));
+            IDoorEntity door = _architechtureList.OfType<IDoorEntity>().FirstOrDefault(door => door.DoorDirection == direction);
+            Debug.Assert(door != null, $"Testing to make sure door is not null");
+            door.OpenDoor();
+            Debug.Assert(door != null);
         }
 
+        /// <summary>
+        /// Replaces the given door with the new door
+        /// </summary>
+        /// <param name="blockedDoor">The old door to be removed from the list</param>
+        /// <param name="openDoor">the new door to add to the list</param>
+        public void UpdateDoor(IEntity blockedDoor, IEntity openDoor)
+        {
+            _architechtureList.Remove(blockedDoor);
+            _architechtureList.Add(openDoor);
+        }
         /// <summary>
         /// Add any architectural objects like walls, blocks, floors, etc
         /// </summary>
@@ -161,14 +165,23 @@ namespace SprintZero1.LevelFiles
             return _playerStartingPositionMap[direction];
         }
         /// <summary>
-        /// Used for removing items from the room when they are picked up.
+        /// Remove an item from the room items list and save them in the room's item collector
         /// </summary>
         /// <param name="entity">The entity to be removed</param>
-        public void RemoveItem(IEntity entity)
+        public void RemoveAndSaveItem(IEntity entity)
         {
             _floorItems.Remove(entity);
             /* adding item to be removed from list*/
             _itemCollector.Add(entity);
+        }
+
+        /// <summary>
+        /// Remove an entity from the room items list that does not need to be saved in the room's item collector
+        /// </summary>
+        /// <param name="entity">The entity to be removed</param>
+        public void RemoveFromRoom(IEntity entity)
+        {
+            _floorItems.Remove(entity);
         }
 
         /// <summary>
@@ -177,11 +190,6 @@ namespace SprintZero1.LevelFiles
         public void ClearTrash()
         {
             _itemCollector.Clear();
-        }
-
-        public List<IEntity> GetLiveEnemyList()
-        {
-            return _liveEnemyList;
         }
 
         public void UpdateEnemyController(IEntity player)
@@ -214,6 +222,23 @@ namespace SprintZero1.LevelFiles
             _liveEnemyList.ForEach(entity => entity.Draw(spriteBatch));
             _architechtureList.ForEach(entity => entity.Draw(spriteBatch));
             _floorItems.ForEach(entity => entity.Draw(spriteBatch));
+            foreach (IEntity entity in _architechtureList)
+            {
+                if (entity is ICollidableEntity)
+                {
+                    Rectangle collider = (entity as ICollidableEntity).Collider.Collider;
+                    Color r = Color.White;
+                    if (entity is IDoorEntity)
+                    {
+                        r = Color.White;
+                    }
+                    else
+                    {
+                        r = Color.Blue;
+                    }
+                    _spriteDebugger.DrawRectangle(collider, r, spriteBatch);
+                }
+            }
         }
 
 

@@ -56,8 +56,8 @@ namespace SprintZero1.Entities
             ResetEnemy();
             _enemyName = enemyName;
             _enemyState = new EnemyIdleState(this);
-            _collider = new DynamicCollider(new Rectangle((int)position.X, (int)position.Y, 16, 16));
             _enemySprite = _EnemyFactory.CreateEnemySprite(enemyName, _enemyDirection);
+            _collider = new DynamicCollider(position, new System.Drawing.Size(_enemySprite.Width, _enemySprite.Height));
         }
         public void ResetEnemy()
         {

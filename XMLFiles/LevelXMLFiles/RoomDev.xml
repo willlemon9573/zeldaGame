@@ -184,7 +184,7 @@
 			<Y>224</Y>
 			<Destination>floorDev</Destination>
 			<Direction>South</Direction>
-			<DoorType>BrokenWallEntity</DoorType>
+			<DoorType>BreakableWallEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>stairs</Name>

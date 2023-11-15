@@ -8,7 +8,6 @@ namespace SprintZero1.Commands.CollisionCommands
     {
         ICollidableEntity e1;
         ICollidableEntity e2;
-
         public PushBackCommand(ICollidableEntity c1, ICollidableEntity c2)
         {
             e1 = c1;
@@ -30,6 +29,7 @@ namespace SprintZero1.Commands.CollisionCommands
                 colliderDistances.Enqueue(new Vector2(-1, 0), System.Math.Abs(intersection.Center.X - e2.Collider.Collider.Left));
             }
             // Insert Pushback Code Here
+
             e1.Position += colliderDistances.Dequeue();
             e1.Collider.Update(e1);
         }

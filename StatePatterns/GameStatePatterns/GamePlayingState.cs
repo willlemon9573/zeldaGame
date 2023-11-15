@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
+using SprintZero1.DebuggingTools;
 using SprintZero1.Entities;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
@@ -20,13 +21,14 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         private readonly List<PlayerEntity> _players = new List<PlayerEntity>();
         // Note: Base variable is EntityManager
         public DungeonRoom CurrentRoom { get { return _currentRoom; } }
-
+        SpriteDebuggingTools _spriteDebugger;
         /// <summary>
         /// The state of the game when the game is running
         /// </summary>
         /// <param name="game">The game</param>
         public GamePlayingState(Game1 game) : base(game)
         {
+            _spriteDebugger = new SpriteDebuggingTools(game);
         }
 
         public override void Handle()
@@ -66,7 +68,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            //ProgramManager.Update(gameTime);
             HUDManager.Update(gameTime);
             Controllers.ForEach(controller => controller.Update());
             _currentRoom.Update(gameTime);
@@ -83,6 +84,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public override void Draw(SpriteBatch spriteBatch)
         {
             HUDManager.Draw(spriteBatch);
+            _spriteDebugger.DrawRectangle((_players[0] as ICollidableEntity).Collider.Collider, Color.Red, spriteBatch);
             _players.ForEach(player => player.Draw(spriteBatch));
             _currentRoom.Draw(spriteBatch);
         }

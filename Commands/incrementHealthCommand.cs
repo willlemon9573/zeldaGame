@@ -9,7 +9,6 @@ namespace SprintZero1.Commands
         {
             float h = 1f;
             HUDManager.IncrementHearts(h, 4);
-
         }
     }
 }

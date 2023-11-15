@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
+using Size = System.Drawing.Size;
 
 namespace SprintZero1.Colliders
 {
@@ -11,26 +12,36 @@ namespace SprintZero1.Colliders
         private int _delta;
         public Rectangle Collider { get { return _collider; } set { _collider = value; } }
 
+        private readonly int _offsetX;
+        private int _offsetY;
+        Size _colliderDimensions;
+        private readonly float _scaleFactor;
+
         /// <summary>
-        /// DynamicCollider Constructor
+        /// Initializes a new instance of the DynamicCollider class.
         /// </summary>
-        /// <param name="parent">The Parent Entity</param>
-        /// <param name="_collider">The Collider Rectangle</param>
-        /// <param name="delta">The size offset</param>
-        public DynamicCollider(Rectangle _collider, int delta = 0)
+        /// <param name="position">The initial position of the collider in 2D space.</param>
+        /// <param name="dimensions">The size of the collider.</param>
+        /// <param name="scaleFactor">The scale factor of the collider, defaulting to 0.8f.</param>
+        /// <param name="offsetX">The horizontal offset of the collider, defaulting to 0.</param>
+        /// <param name="offsetY">The vertical offset of the collider, defaulting to 0.</param>
+        public DynamicCollider(Vector2 position, Size dimensions, float scaleFactor = 1f, int offsetX = 0, int offsetY = 0)
         {
-            this._collider = new Rectangle(_collider.X - delta - (_collider.Width / 2), _collider.Y - delta - (_collider.Height / 2), _collider.Width + delta, _collider.Height + delta);
-            Delta = delta;
+            _scaleFactor = scaleFactor;
+            _offsetX = offsetX;
+            _offsetY = offsetY;
+            _colliderDimensions = new Size((int)(dimensions.Width * _scaleFactor), (int)(dimensions.Height * _scaleFactor));
+            _collider = new Rectangle((int)position.X - (_colliderDimensions.Width / 2) + _offsetX, (int)position.Y - (_colliderDimensions.Height / 2) + _offsetY, _colliderDimensions.Width, _colliderDimensions.Height);
         }
 
         /// <summary>
-        /// Updates Collider to center point based on delta
+        /// Updates this collider
         /// </summary>
-        /// <param name="gameTime">The GameTime object</param>
+        /// <param name="parent"></param>
         public void Update(IEntity parent)
         {
-            _collider.X = (int)parent.Position.X - (((Collider.Width / 2) - Delta) / 2) - 1;
-            _collider.Y = (int)parent.Position.Y - (((Collider.Height / 2) - Delta) / 2) - 1;
+            _collider.X = (int)parent.Position.X - (_colliderDimensions.Width / 2) + _offsetX;
+            _collider.Y = (int)parent.Position.Y - (_colliderDimensions.Height / 2) + _offsetY;
         }
     }
 }

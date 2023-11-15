@@ -8,7 +8,6 @@ namespace SprintZero1.Entities.DungeonRoomEntities
     internal class LevelBlockEntity : BackgroundSpriteEntity, ICollidableEntity
     {
         StaticCollider collider;
-
         public ICollider Collider { get { return collider; } }
         private const float LAYER_DEPTH = 0.3f;
         /// <summary>
@@ -20,8 +19,8 @@ namespace SprintZero1.Entities.DungeonRoomEntities
         {
             _sprite = sprite;
             _position = pos;
-            int height = 16, width = 16;
-            collider = new LevelBlockCollider(new Rectangle((int)pos.X, (int)pos.Y, height, width));
+            float scaleFactor = 0.9f;
+            collider = new PushBackCollider(_position, new System.Drawing.Size(sprite.Width, sprite.Height), scaleFactor);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

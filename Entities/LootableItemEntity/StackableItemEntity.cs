@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
+using System.Drawing;
 
 namespace SprintZero1.Entities.LootableItemEntity
 {
@@ -22,6 +24,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         {
             _pickupHandler = pickupHandler;
             _itemType = itemType;
+            _entityCollider = new LootableItemCollider(_entityPosition, new Size(entitySprite.Width, entitySprite.Height));
         }
 
         public override void Pickup(IEntity player, int amt = 0)

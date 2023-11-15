@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Sprites;
+using Size = System.Drawing.Size;
 
 namespace SprintZero1.Entities.DungeonRoomEntities
 {
@@ -23,9 +24,10 @@ namespace SprintZero1.Entities.DungeonRoomEntities
         /// <param name="sprite">The sprite the wall entity will use</param>
         /// <param name="position">The position to draw the wall entity</param>
         /// <param name="dimensions">The specific dimensions of the wall entity for collision</param>
-        public DungeonWallEntity(ISprite sprite, Vector2 position, Rectangle dimensions)
+        public DungeonWallEntity(ISprite sprite, Vector2 position)
         {
-            _wallCollider = new StaticCollider(dimensions);
+
+            _wallCollider = new PushBackCollider(_entityPosition, new Size(sprite.Width, sprite.Height));
             _entitySprite = sprite;
             _entityPosition = position;
         }

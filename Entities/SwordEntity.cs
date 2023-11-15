@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
-using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
@@ -60,18 +59,14 @@ namespace SprintZero1.Entities
         {
             _weaponSprite = WeaponSpriteFactory.Instance.GetSwordSprite(direction);
             Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];
-            Rectangle colliderRectangle = _colliderRectanglesDictionary[direction];
-            colliderRectangle.Location += position.ToPoint();
-            _collider = new DynamicCollider(colliderRectangle);
+            _collider = new DynamicCollider(position, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
             _currentSpriteEffect = SpriteAdditions.Item1;
             _weaponPosition = position + SpriteAdditions.Item2;
-            GameStatesManager.CurrentState.EntityManager.AddImmediately(this);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             _weaponSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, 0, 0.2f);
-
         }
 
         public void Update(GameTime gameTime)

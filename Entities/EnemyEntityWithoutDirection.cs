@@ -8,6 +8,7 @@ namespace SprintZero1.Entities
     {
         public EnemyEntityWithoutDirection(Vector2 startingPosition, int startingHealth, string enemyName) : base(startingPosition, startingHealth, enemyName)
         {
+
         }
 
         public override void PerformAttack()

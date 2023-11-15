@@ -16,6 +16,7 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -44,8 +45,9 @@ namespace SprintZero1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             LoadTextures();
-            LevelManager.Load();
+
             GameStatesManager.InitializeGameStateMap(this);
+            LevelManager.Load();
             GameStatesManager.Start();
             _mouseController = new MouseController(this);
         }

@@ -262,7 +262,7 @@ namespace SprintZero1.XMLParsers
                     }
                     else
                     {
-                        (item as XMLItemEntity).RemoveDelegateHandler = dungeonRoom.RemoveItem;
+                        (item as XMLItemEntity).RemoveDelegateHandler = dungeonRoom.RemoveAndSaveItem;
                         dungeonRoom.AddRoomItem(item.CreateEntity());
                     }
                 }
