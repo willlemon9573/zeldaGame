@@ -15,11 +15,14 @@ namespace SprintZero1.Managers
         const int MAX_ATTAINABLE_HEALTH = 13;
         private static List<Tuple<ISprite, Vector2>> healthList = new List<Tuple<ISprite, Vector2>>();
         private static Dictionary<String, Tuple<ISprite, Vector2>> specialCaseDict = new Dictionary<String, Tuple<ISprite, Vector2>>();
+        //private static Dictionary<int, >
         const float STARTING_HEALTH = 6f;
         const float FULL_HEART = 1f;
         const float HALF_HEART = 0.5f;
         const float EMPTY_HEART = 0f;
-
+        private static int keyCount = 0;
+        private static int bombCount = 0;
+        private static int rupeeCount = 0;
 
         public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
         private const string Zero = "0";
@@ -107,6 +110,29 @@ namespace SprintZero1.Managers
             }
         }
 
+        //This function creates a new empty heart sprite and then heals the plaer by 1
+        public static void addNewHeart()
+        {
+            Vector2 pos = new Vector2(0,0);
+            ISprite emptyHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("empty_heart");
+            float maxvalue = 0;
+            //finding the last position of a heart
+            foreach (var sprite in healthList)
+            {
+                if (sprite.Item2.X > maxvalue)
+                {
+                    pos = sprite.Item2;
+                    maxvalue = pos.X;                    
+                }
+            }
+            //creates the position for the new heart and then adding it to be drawn
+            pos.X += 9;
+            healthList.Add(new Tuple<ISprite, Vector2>(emptyHeartSprite, pos));
+            //heals the player by 1;
+            IncrementHearts(1f);
+
+        }
+
         public static void DecrementHealth(float amount, int health)
         {
             //creates sprites for different hearts that will be used
@@ -178,7 +204,7 @@ namespace SprintZero1.Managers
             }
         }
 
-        public static void IncrementHearts(float amount, int health)
+        public static void IncrementHearts(float amount)
         {
             ISprite halfHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("half_heart");
             ISprite emptyHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("empty_heart");
@@ -189,7 +215,7 @@ namespace SprintZero1.Managers
             ISprite prevTempSprite = halfHeartSprite;
             ISprite tempSprite = halfHeartSprite;
 
-            float fltHealth = (float)health;
+            
             float minvalue = 9999;
 
 
@@ -242,37 +268,44 @@ namespace SprintZero1.Managers
         }
 
         /// <summary>
-        /// Updates Rupee count to "amount" in HUD
+        /// Updates Rupee count to count + "amount" in HUD
         /// </summary>
         /// <param name="amount">New amount of rupees</param>
         public static void UpdateRupeeCount(int amount)
         {
-            int leftDigit = amount / 10;
-            int rightDigit = amount % 10;
+            rupeeCount += amount;
+            int leftDigit = rupeeCount / 10;
+            int rightDigit = rupeeCount % 10;
+
             rupeeDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
             rupeeDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
         /// <summary>
-        /// Updates key count to "amount" in HUD
+        /// Updates key count to count + "amount" in HUD
         /// </summary>
         /// <param name="amount">New amount of keys</param>
         public static void UpdateKeyCount(int amount)
         {
-            int leftDigit = amount / 10;
-            int rightDigit = amount % 10;
+            keyCount += amount;
+            int leftDigit = keyCount / 10;
+            int rightDigit = keyCount % 10;
+           
+           
+           
             keyDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
             keyDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
         /// <summary>
-        /// Updates bomb count to "amount" in HUD
+        /// Updates bomb count to count + "amount" in HUD
         /// </summary>
         /// <param name="amount">New amount of bombs</param>
         public static void UpdateBombCount(int amount)
         {
-            int leftDigit = amount / 10;
-            int rightDigit = amount % 10;
+            bombCount += amount;
+            int leftDigit = bombCount / 10;
+            int rightDigit = bombCount % 10;
             bombDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
             bombDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
