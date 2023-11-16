@@ -5,6 +5,7 @@ using SprintZero1.DebuggingTools;
 using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Enums;
+using SprintZero1.LevelFiles.RoomEvents;
 using SprintZero1.Managers;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,10 +31,12 @@ namespace SprintZero1.LevelFiles
         private readonly List<IEntity> _itemCollector;
         /* Holds all the architecture of the level (blocks, walls, doors, floor) */
         private readonly List<IEntity> _architechtureList;
+        private readonly List<IEntity> _allEntitiesList;
         private readonly Dictionary<Direction, Vector2> _playerStartingPositionMap;
         private string _roomName; /* identification for the room */
         private int enemyCount;
-        private SpriteDebuggingTools _spriteDebugger;
+        private readonly SpriteDebuggingTools _spriteDebugger;
+        private readonly List<IRoomEvent> _roomEvents;
 
         /* --------------------------Public properties-------------------------- */
 
@@ -56,6 +59,17 @@ namespace SprintZero1.LevelFiles
             _floorItems = new List<IEntity>();
             _itemCollector = new List<IEntity>();
             _spriteDebugger = new SpriteDebuggingTools(GameStatesManager.ThisGame);
+            _roomEvents = new List<IRoomEvent>();
+            _allEntitiesList = new List<IEntity>();
+        }
+
+        /// <summary>
+        /// Add a room even to this specific room
+        /// </summary>
+        /// <param name="roomEvent">The event that should be added to the room</param>
+        public void AddRoomEvent(IRoomEvent roomEvent)
+        {
+            _roomEvents.Add(roomEvent);
         }
 
         /// <summary>
@@ -77,7 +91,7 @@ namespace SprintZero1.LevelFiles
             foreach (var entity in deadEnemyList)
             {
                 _liveEnemyList.Remove(entity);
-                deadEnemyList.Add(entity);
+                _deadEnemyList.Add(entity);
                 enemyCount--;
             }
         }
@@ -192,12 +206,20 @@ namespace SprintZero1.LevelFiles
             _itemCollector.Clear();
         }
 
+        /// <summary>
+        /// Updates the controller that controls each enemy
+        /// </summary>
+        /// <param name="player"></param>
         public void UpdateEnemyController(IEntity player)
         {
             if (_enemyControllerList.Count > 0 && _liveEnemyList.Count == enemyCount) { return; }
             _liveEnemyList.ForEach(x => _enemyControllerList.Add(new SmartEnemyMovementController(x as ICombatEntity, player)));
         }
 
+        /// <summary>
+        /// Get the entire list of entities currently in the room
+        /// </summary>
+        /// <returns>A list of all entities in the room</returns>
         public List<IEntity> GetEntityList()
         {
             List<IEntity> entities = new List<IEntity>();

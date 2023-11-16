@@ -6,6 +6,8 @@ namespace SprintZero1.Colliders
 {
     internal class DynamicCollider : ICollider
     {
+        private const float MinScaleFactor = 0.1f; // Prevents the collider from becoming too small
+        private const float MaxScaleFactor = 2f; // prevents the collider from becoming too big
         Rectangle _collider;
 
         public int Delta { get { return _delta; } set { _delta = value; } }
@@ -13,9 +15,20 @@ namespace SprintZero1.Colliders
         public Rectangle Collider { get { return _collider; } set { _collider = value; } }
 
         private readonly int _offsetX;
-        private int _offsetY;
+        private readonly int _offsetY;
         Size _colliderDimensions;
-        private readonly float _scaleFactor;
+
+        /// <summary>
+        /// Create the entities collider
+        /// </summary>
+        /// <param name="position">The position of the collider</param>
+        /// <returns>The entities collider</returns>
+        private void CreateCollider(Vector2 position)
+        {
+            int x = (int)position.X - (_colliderDimensions.Width / 2) + _offsetX;
+            int y = (int)position.Y - (_colliderDimensions.Height / 2) + _offsetY;
+            _collider = new Rectangle(x, y, _colliderDimensions.Width, _colliderDimensions.Height);
+        }
 
         /// <summary>
         /// Initializes a new instance of the DynamicCollider class.
@@ -25,13 +38,17 @@ namespace SprintZero1.Colliders
         /// <param name="scaleFactor">The scale factor of the collider, defaulting to 1f.</param>
         /// <param name="offsetX">The horizontal offset of the collider, defaulting to 0.</param>
         /// <param name="offsetY">The vertical offset of the collider, defaulting to 0.</param>
-        public DynamicCollider(Vector2 position, Size dimensions, float scaleFactor = 1f, int offsetX = 0, int offsetY = 0)
+        public DynamicCollider(Vector2 position, Size dimensions, float scaleFactor = 1, int offsetX = 0, int offsetY = 0)
         {
-            _scaleFactor = scaleFactor;
+            /* Verify scale factor is in range [0.1, 2.00] */
+            float _scaleFactor = MathHelper.Max(MinScaleFactor, MathHelper.Min(MaxScaleFactor, scaleFactor));
+            /* set offsets for collider position */
             _offsetX = offsetX;
             _offsetY = offsetY;
+            /* Modifies the dimensions by the scale factor. */
             _colliderDimensions = new Size((int)(dimensions.Width * _scaleFactor), (int)(dimensions.Height * _scaleFactor));
-            _collider = new Rectangle((int)position.X - (_colliderDimensions.Width / 2) + _offsetX, (int)position.Y - (_colliderDimensions.Height / 2) + _offsetY, _colliderDimensions.Width, _colliderDimensions.Height);
+
+            CreateCollider(position);
         }
 
         /// <summary>
