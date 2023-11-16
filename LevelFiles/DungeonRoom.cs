@@ -36,8 +36,13 @@ namespace SprintZero1.LevelFiles
         private string _roomName; /* identification for the room */
         private int enemyCount;
         private readonly SpriteDebuggingTools _spriteDebugger;
-        private List<IRoomEvent> _roomEvents;
+        private readonly List<IRoomEvent> _roomEvents;
         private ColliderManager _colliderManagerRef;
+
+        public DungeonRoom(ColliderManager colliderManagerRef)
+        {
+            _colliderManagerRef = colliderManagerRef;
+        }
 
         public ColliderManager ColliderManager { set { _colliderManagerRef = value; } }
 
@@ -186,8 +191,8 @@ namespace SprintZero1.LevelFiles
         /// <param name="entity">The entity to be removed</param>
         public void RemoveAndSaveItem(IEntity entity)
         {
-            _floorItems.Remove(entity);
             _colliderManagerRef.RemoveCollidableEntity(entity);
+            _floorItems.Remove(entity);
             /* adding item to be removed from list*/
             _itemCollector.Add(entity);
         }
@@ -198,8 +203,8 @@ namespace SprintZero1.LevelFiles
         /// <param name="entity">The entity to be removed</param>
         public void RemoveFromRoom(IEntity entity)
         {
-            _floorItems.Remove(entity);
             _colliderManagerRef.RemoveCollidableEntity(entity);
+            _floorItems.Remove(entity);
         }
 
         /// <summary>
@@ -229,6 +234,15 @@ namespace SprintZero1.LevelFiles
             return entities;
         }
 
+        private void CheckRoomEvents()
+        {
+
+        }
+
+        /// <summary>
+        /// Update the room entities
+        /// </summary>
+        /// <param name="gameTime"> The current state of the game time</param>
         public void Update(GameTime gameTime)
         {
             _architechtureList.ForEach(entity => entity.Update(gameTime));
@@ -236,8 +250,13 @@ namespace SprintZero1.LevelFiles
             _architechtureList.ForEach(entity => entity.Update(gameTime));
             _enemyControllerList.ForEach(entity => entity.Update(gameTime));
             _floorItems.ForEach(entity => entity.Update(gameTime));
+
         }
 
+        /// <summary>
+        /// Draw the room entities
+        /// </summary>
+        /// <param name="spriteBatch">The current sprite batch</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             _architechtureList.ForEach(entity => entity.Draw(spriteBatch));

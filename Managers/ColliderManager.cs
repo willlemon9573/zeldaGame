@@ -138,7 +138,6 @@ namespace SprintZero1.Colliders
         /// <summary>
         /// Checks Collisions on all types and fires collisions from Collisions Response
         /// </summary>
-        /// <param name="entities"> List of ICollidableEntities</param>
         public void CheckCollisions()
         {
             CheckStaticAgainstDynamicCollisions();

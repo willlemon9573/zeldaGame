@@ -4,9 +4,12 @@ using System.Collections.Generic;
 
 namespace SprintZero1.DebuggingTools
 {
+    /// <summary>
+    /// Simple debugging tool for sprites and objects
+    /// </summary>
     internal class SpriteDebuggingTools
     {
-        Texture2D _pixels;
+        readonly Texture2D _pixels;
         public SpriteDebuggingTools(Game game)
         {
             _pixels = new Texture2D(game.GraphicsDevice, 1, 1);

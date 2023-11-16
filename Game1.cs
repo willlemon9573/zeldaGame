@@ -4,6 +4,7 @@ using SprintZero1.Controllers;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
+using System.Diagnostics;
 
 namespace SprintZero1
 {
@@ -22,6 +23,7 @@ namespace SprintZero1
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            Debug.WriteLine($"{GraphicsDeviceManager.DefaultBackBufferWidth}, {GraphicsDeviceManager.DefaultBackBufferHeight}");
             // Code for Window rescaling
             _graphics.PreferredBackBufferWidth = 256 * WINDOW_SCALE;
             _graphics.PreferredBackBufferHeight = 240 * WINDOW_SCALE;
@@ -69,7 +71,7 @@ namespace SprintZero1
         protected override void Update(GameTime gameTime)
         {
             GameStatesManager.Update(gameTime);
-            _mouseController.Update();
+            //_mouseController.Update();
             base.Update(gameTime);
         }
 
@@ -79,7 +81,7 @@ namespace SprintZero1
             GraphicsDevice.SetRenderTarget(this._newRenderTarget);
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin(SpriteSortMode.BackToFront);
+            _spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
             GameStatesManager.Draw(_spriteBatch);
             _spriteBatch.End();
 

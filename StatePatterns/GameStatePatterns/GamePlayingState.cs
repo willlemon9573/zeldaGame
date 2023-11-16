@@ -23,6 +23,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         // Note: Base variable is EntityManager
         public DungeonRoom CurrentRoom { get { return _currentRoom; } }
         SpriteDebuggingTools _spriteDebugger;
+        MouseTools _mouseController;
         /// <summary>
         /// The state of the game when the game is running
         /// </summary>
@@ -30,6 +31,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public GamePlayingState(Game1 game) : base(game)
         {
             _colliderManager = new ColliderManager();
+            _mouseController = new MouseTools(game.GraphicsDevice);
         }
 
         public override void Handle()
@@ -60,6 +62,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _currentRoom = LevelManager.GetDungeonRoom(nextRoomName);
             _colliderManager.AddCollidableEntities(_currentRoom.GetEntityList());
             _colliderManager.AddCollidableEntities(_players);
+            _currentRoom.ColliderManager = _colliderManager;
         }
 
         /// <summary>
@@ -68,6 +71,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
+            _mouseController.UpdateCoordinates();
             HUDManager.Update(gameTime);
             Controllers.ForEach(controller => controller.Update());
             _currentRoom.Update(gameTime);
@@ -83,6 +87,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
+            _mouseController.DrawCoordinates(spriteBatch);
+            _mouseController.DrawClickedRectangleCoordinates(spriteBatch);
             HUDManager.Draw(spriteBatch);
             _players.ForEach(player => player.Draw(spriteBatch));
             _currentRoom.Draw(spriteBatch);

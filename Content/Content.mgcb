@@ -105,6 +105,13 @@
 /processorParam:TextureFormat=Compressed
 /build:ItemCount.spritefont
 
+#begin itemfont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:itemfont.spritefont
+
 #begin itemSpriteSheet1.png
 /importer:TextureImporter
 /processor:TextureProcessor

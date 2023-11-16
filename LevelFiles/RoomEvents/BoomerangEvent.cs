@@ -12,7 +12,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
         const int DropPositionX = 150;
         const int DropPositionY = 40;
         private bool _eventTriggered;
-        private readonly RoomWithEvent _dungeonRoom;
+        private readonly DungeonRoom _dungeonRoom;
 
         /// <summary>
         /// Creates the boomerang as a lootable entity
@@ -31,7 +31,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
         /// Constructor for a room event to handle dropping a map in the given map
         /// </summary>i
         /// <param name="dungeonRoom">The room where the </param>
-        public DropBoomerangEvent(RoomWithEvent dungeonRoom)
+        public DropBoomerangEvent(DungeonRoom dungeonRoom)
         {
             _eventTriggered = false;
             _dungeonRoom = dungeonRoom;
