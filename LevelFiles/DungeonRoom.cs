@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Colliders;
 using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.DebuggingTools;
 using SprintZero1.Entities;
@@ -31,12 +32,14 @@ namespace SprintZero1.LevelFiles
         private readonly List<IEntity> _itemCollector;
         /* Holds all the architecture of the level (blocks, walls, doors, floor) */
         private readonly List<IEntity> _architechtureList;
-        private readonly List<IEntity> _allEntitiesList;
         private readonly Dictionary<Direction, Vector2> _playerStartingPositionMap;
         private string _roomName; /* identification for the room */
         private int enemyCount;
         private readonly SpriteDebuggingTools _spriteDebugger;
-        private readonly List<IRoomEvent> _roomEvents;
+        private List<IRoomEvent> _roomEvents;
+        private ColliderManager _colliderManagerRef;
+
+        public ColliderManager ColliderManager { set { _colliderManagerRef = value; } }
 
         /* --------------------------Public properties-------------------------- */
 
@@ -60,7 +63,6 @@ namespace SprintZero1.LevelFiles
             _itemCollector = new List<IEntity>();
             _spriteDebugger = new SpriteDebuggingTools(GameStatesManager.ThisGame);
             _roomEvents = new List<IRoomEvent>();
-            _allEntitiesList = new List<IEntity>();
         }
 
         /// <summary>
@@ -91,7 +93,7 @@ namespace SprintZero1.LevelFiles
             foreach (var entity in deadEnemyList)
             {
                 _liveEnemyList.Remove(entity);
-                _deadEnemyList.Add(entity);
+                deadEnemyList.Add(entity);
                 enemyCount--;
             }
         }
@@ -185,6 +187,7 @@ namespace SprintZero1.LevelFiles
         public void RemoveAndSaveItem(IEntity entity)
         {
             _floorItems.Remove(entity);
+            _colliderManagerRef.RemoveCollidableEntity(entity);
             /* adding item to be removed from list*/
             _itemCollector.Add(entity);
         }
@@ -196,6 +199,7 @@ namespace SprintZero1.LevelFiles
         public void RemoveFromRoom(IEntity entity)
         {
             _floorItems.Remove(entity);
+            _colliderManagerRef.RemoveCollidableEntity(entity);
         }
 
         /// <summary>
@@ -206,10 +210,6 @@ namespace SprintZero1.LevelFiles
             _itemCollector.Clear();
         }
 
-        /// <summary>
-        /// Updates the controller that controls each enemy
-        /// </summary>
-        /// <param name="player"></param>
         public void UpdateEnemyController(IEntity player)
         {
             if (_enemyControllerList.Count > 0 && _liveEnemyList.Count == enemyCount) { return; }

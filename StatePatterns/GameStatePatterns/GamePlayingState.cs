@@ -6,7 +6,6 @@ using SprintZero1.Entities;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
@@ -18,7 +17,9 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <summary>
         /// List of players
         /// </summary>
-        private readonly List<PlayerEntity> _players = new List<PlayerEntity>();
+        private readonly List<IEntity> _players = new List<IEntity>();
+
+        private readonly ColliderManager _colliderManager;
         // Note: Base variable is EntityManager
         public DungeonRoom CurrentRoom { get { return _currentRoom; } }
         SpriteDebuggingTools _spriteDebugger;
@@ -28,7 +29,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <param name="game">The game</param>
         public GamePlayingState(Game1 game) : base(game)
         {
-            _spriteDebugger = new SpriteDebuggingTools(game);
+            _colliderManager = new ColliderManager();
         }
 
         public override void Handle()
@@ -39,15 +40,12 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public void AddPlayer(PlayerEntity player)
         {
             _players.Add(player);
+            _colliderManager.AddCollidableEntity(player);
         }
 
-        /// <summary>
-        /// Update Room Entities after something is removed when player isn't leaving the room
-        /// </summary>
-        public void UpdateRoomEntities()
+        public void RemoveCollider(IEntity entity)
         {
-            List<IEntity> entities = _currentRoom.GetEntityList();
-            entities.AddRange(_players);
+            _colliderManager.RemoveCollidableEntity(entity);
         }
 
         /// <summary>
@@ -58,8 +56,10 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <param name="nextRoomName"></param>
         public void LoadDungeonRoom(string nextRoomName)
         {
-            DungeonRoom nextRoom = LevelManager.GetDungeonRoom(nextRoomName);
-            _currentRoom = nextRoom;
+            _colliderManager.ClearCollidableEntities();
+            _currentRoom = LevelManager.GetDungeonRoom(nextRoomName);
+            _colliderManager.AddCollidableEntities(_currentRoom.GetEntityList());
+            _colliderManager.AddCollidableEntities(_players);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _players.ForEach(player => player.Update(gameTime));
             List<IEntity> collidableEntities = _currentRoom.GetEntityList();
             collidableEntities.AddRange(_players);
-            ColliderManager.CheckCollisions(collidableEntities.OfType<ICollidableEntity>().ToList());
+            _colliderManager.CheckCollisions();
         }
 
         /// <summary>
@@ -84,7 +84,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public override void Draw(SpriteBatch spriteBatch)
         {
             HUDManager.Draw(spriteBatch);
-            _spriteDebugger.DrawRectangle((_players[0] as ICollidableEntity).Collider.Collider, Color.Red, spriteBatch);
             _players.ForEach(player => player.Draw(spriteBatch));
             _currentRoom.Draw(spriteBatch);
         }

@@ -86,10 +86,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         /// Update this item if it needs to be updated
         /// </summary>
         /// <param name="gameTime"></param>
-        public virtual void Update(GameTime gameTime)
-        {
-            _entityCollider.Update(this);
-        }
+        public abstract void Update(GameTime gameTime);
 
 
     }

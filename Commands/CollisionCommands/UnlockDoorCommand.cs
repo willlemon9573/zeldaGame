@@ -19,22 +19,17 @@ namespace SprintZero1.Commands.CollisionCommands
 
             int keyCount = PlayerInventoryManager.GetStackableItemCount(_player, StackableItems.DungeonKey);
             if (keyCount < 1) { return false; }
+            /* push player back so they dont walk into the door as it's opening */
             PushBack();
-            /* push player back */
 
-            /* using a cheap trick to unlock the door of the current room
-             * and then unlock the door of the next room
-             */
+            _door.OpenDoor();
             int maxDirections = 4;
-            string currentRoom = _state.CurrentRoom.RoomName;
             string nextRoom = _door.DoorDestination;
             int oppositeDirectionIndex = ((int)_door.DoorDirection + 2) % maxDirections;
             Direction oppositeDoorDirection = (Direction)oppositeDirectionIndex;
             // unlock the current room's door first, then unlock the room the door the leads to the current room from the next room
-            LevelManager.OpenDoor(currentRoom, _door.DoorDirection);
+
             LevelManager.OpenDoor(nextRoom, oppositeDoorDirection);
-            /* Update the room entities before the next draw so the doors will then be open */
-            _state.UpdateRoomEntities();
             PlayerInventoryManager.UseStackableItem(_player, StackableItems.DungeonKey, 1);
             return true;
         }

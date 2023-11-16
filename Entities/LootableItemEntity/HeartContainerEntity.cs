@@ -16,5 +16,14 @@ namespace SprintZero1.Entities.LootableItemEntity
         {
         }
         /* Note that this one doesn't need a pickup handler as the player health will be modified directly by the command */
+
+        /// <summary>
+        /// Update this item if it needs to be updated
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
+        {
+            _entityCollider.Update(this);
+        }
     }
 }
