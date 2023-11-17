@@ -3,16 +3,15 @@ using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
-using SprintZero1.StatePatterns.GameStatePatterns;
 using System.Collections.Generic;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
     internal class UnlockDoorCommand : ICommand
     {
+        private const int MaxDirections = 4;
         private readonly ICollidableEntity _player;
         private readonly LockedDoorEntity _door;
-        private readonly GamePlayingState _state;
 
         private bool TryUnlockDoor()
         {
@@ -23,9 +22,9 @@ namespace SprintZero1.Commands.CollisionCommands
             PushBack();
 
             _door.OpenDoor();
-            int maxDirections = 4;
+
             string nextRoom = _door.DoorDestination;
-            int oppositeDirectionIndex = ((int)_door.DoorDirection + 2) % maxDirections;
+            int oppositeDirectionIndex = ((int)_door.DoorDirection + 2) % MaxDirections;
             Direction oppositeDoorDirection = (Direction)oppositeDirectionIndex;
             // unlock the current room's door first, then unlock the room the door the leads to the current room from the next room
 
@@ -66,7 +65,6 @@ namespace SprintZero1.Commands.CollisionCommands
         {
             _player = player;
             _door = door as LockedDoorEntity;
-            _state = GameStatesManager.GetGameState(GameState.Playing) as GamePlayingState;
         }
 
         /// <summary>

@@ -16,6 +16,7 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
+            /* calculates which side the player is colliding with the block to push the player back in the correct direction */
             PriorityQueue<Vector2, float> colliderDistances = new PriorityQueue<Vector2, float>();
             Rectangle intersection = Rectangle.Intersect(e1.Collider.Collider, e2.Collider.Collider);
             if (intersection.Width > intersection.Height)

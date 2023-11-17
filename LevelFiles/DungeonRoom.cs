@@ -100,6 +100,7 @@ namespace SprintZero1.LevelFiles
                 _liveEnemyList.Remove(entity);
                 deadEnemyList.Add(entity);
                 enemyCount--;
+                _colliderManagerRef.RemoveCollidableEntity(entity);
             }
         }
 
@@ -234,10 +235,7 @@ namespace SprintZero1.LevelFiles
             return entities;
         }
 
-        private void CheckRoomEvents()
-        {
 
-        }
 
         /// <summary>
         /// Update the room entities

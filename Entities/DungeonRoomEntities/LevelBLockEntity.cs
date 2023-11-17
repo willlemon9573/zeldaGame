@@ -5,27 +5,37 @@ using SprintZero1.Sprites;
 
 namespace SprintZero1.Entities.DungeonRoomEntities
 {
-    internal class LevelBlockEntity : BackgroundSpriteEntity, ICollidableEntity
+    internal class LevelBlockEntity : ICollidableEntity
     {
-        StaticCollider collider;
-        public ICollider Collider { get { return collider; } }
-        private const float LAYER_DEPTH = 0.3f;
+        protected const float _scaleFactor = 0.9f;
+        protected ICollider _collider;
+        protected ISprite _sprite;
+        protected Vector2 _position;
+        protected const float LAYER_DEPTH = 0.3f;
+        public ICollider Collider { get { return _collider; } }
+
+        public Vector2 Position { get { return _position; } set { _position = value; } }
+
         /// <summary>
         /// Constructor for simple level tile
         /// </summary>
         /// <param name="sprite">Block ISprite</param>
         /// <param name="pos">Block position</param>
-        public LevelBlockEntity(ISprite sprite, Vector2 pos) : base(sprite, pos)
+        public LevelBlockEntity(ISprite sprite, Vector2 pos)
         {
-            _sprite = sprite;
-            _position = pos;
-            float scaleFactor = 0.9f;
-            collider = new PushBackCollider(_position, new System.Drawing.Size(sprite.Width, sprite.Height), scaleFactor);
+            this._sprite = sprite;
+            this._position = pos;
+            this._collider = new PushBackCollider(_position, new System.Drawing.Size(sprite.Width, sprite.Height), _scaleFactor);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            _sprite.Draw(spriteBatch, _position, SpriteEffects.None, 0, LAYER_DEPTH);
+            this._sprite.Draw(spriteBatch, _position, SpriteEffects.None, 0, LAYER_DEPTH);
+        }
+
+        public virtual void Update(GameTime gameTime)
+        {
+            this._collider.Update(this);
         }
     }
 }

@@ -48,20 +48,43 @@
 		</Wall>
 	</Walls>
 	<Blocks>
-	<Block>
-		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>136</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>168</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>119</X>
+			<Y>136</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>119</X>
+			<Y>152</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>119</X>
+			<Y>168</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>135</X>
+			<Y>136</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>135</X>
+			<Y>152</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>135</X>
+			<Y>168</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
 	</Blocks>
-
 	<Enemies>
 	<Enemy>
 		<Name>dungeon_keese</Name>

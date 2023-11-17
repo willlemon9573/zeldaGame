@@ -29,7 +29,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
         }
 
         /// <summary>
-        /// 
+        /// Triggers the room event that unlocks the door
         /// </summary>
         public void TriggerEvent()
         {
