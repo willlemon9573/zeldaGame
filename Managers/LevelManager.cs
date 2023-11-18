@@ -34,7 +34,6 @@ namespace SprintZero1.Managers
                 DungeonRoom room = parser.Parse(filePath);
                 _dungeonRoomMap.Add(room.RoomName, room);
             }
-
         }
 
         /// <summary>

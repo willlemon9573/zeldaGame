@@ -1,5 +1,6 @@
 ﻿using SprintZero1.LevelFiles;
 using SprintZero1.XMLParsers.XMLEntityBuilder;
+using SprintZero1.XMLParsers.XMLEntityBuilder.EventParser;
 using System;
 using System.Collections.Generic;
 using System.Xml;
@@ -20,6 +21,7 @@ namespace SprintZero1.XMLParsers
         private const string OutFloorElement = "Floor";
         private const string OuterEnemiesElement = "Enemies";
         private const string OuterItemsElement = "Items";
+        private const string OuterEventsElement = "Events";
         private const string InnerXPositionElement = "X";
         private const string InnerYPositionElement = "Y";
         private const string InnerNameElement = "Name";
@@ -44,8 +46,10 @@ namespace SprintZero1.XMLParsers
             { OuterBlocksElement, (reader, room) => ParseBlock(reader, room)},
             { OuterDoorsElement, (reader, room) => ParseDoor(reader, room)},
             { OuterEnemiesElement, (reader, room) => ParseEnemy(reader, room)},
-            { OuterItemsElement, (reader, room) => ParseItem(reader, room)}
+            { OuterItemsElement, (reader, room) => ParseItem(reader, room)},
+            { OuterEventsElement, (reader, room) => ParseEvent(reader, room)},
            };
+
             // set up dictionary for inner elements
             _innerElements = new Dictionary<string, Action<XmlReader, IEntityParsingBuilder>>() {
             { InnerXPositionElement, (x, data) => data.EntityPositionX = x.ReadElementContentAsInt() },
@@ -136,7 +140,6 @@ namespace SprintZero1.XMLParsers
                     break;
                 }
             }
-
         }
         /// <summary>
         /// Parses the list of blocks from the xml file and adds them all to the list of entities in the dungeon room
@@ -267,6 +270,31 @@ namespace SprintZero1.XMLParsers
                     }
                 }
                 else if (reader_type == EndElementType && element_name == OuterItemsElement)
+                {
+                    break;
+                }
+            }
+        }
+        private void ParseEvent(XmlReader reader, DungeonRoom dungeonRoom)
+        {
+            EventParser parser = new EventParser();
+            string innerEventElement = "Event";
+            string innerNameElement = "Name";
+            string eventOne = "OpenDoorWithMovableBlock";
+            Dictionary<string, Action<XmlReader, DungeonRoom>> eventMap = new Dictionary<string, Action<XmlReader, DungeonRoom>>()
+            {
+                { eventOne, (reader, room) => parser.ParseOpenDoorWithBlockEvent(room, reader) }
+            };
+
+            while (reader.Read())
+            {
+                var element_name = reader.Name;
+                var reader_type = reader.NodeType;
+                if (reader_type == ElementType && element_name == innerNameElement && eventMap.TryGetValue(reader.ReadElementContentAsString(), out var eventFunction))
+                {
+                    eventFunction(reader, dungeonRoom);
+                }
+                else if (reader_type == EndElementType && element_name == innerEventElement)
                 {
                     break;
                 }

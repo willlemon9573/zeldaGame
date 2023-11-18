@@ -30,10 +30,10 @@ namespace SprintZero1.Entities.DungeonRoomEntities
         {
             _movementDict = new Dictionary<Direction, Vector2>()
             {
-                {Direction.North, new Vector2(0, -.5f)},
-                {Direction.South, new Vector2(.5f, 0)},
-                {Direction.West, new Vector2(0, .5f)},
-                {Direction.East, new Vector2(-.5f, 0)},
+                {Direction.North, new Vector2(0, -1f)},
+                {Direction.South, new Vector2(0, 1f)},
+                {Direction.West, new Vector2(-1f, 0)},
+                {Direction.East, new Vector2(1f, 0)},
             };
             this._movementDirection = direction;
             this._position = pos;
@@ -57,6 +57,11 @@ namespace SprintZero1.Entities.DungeonRoomEntities
         public void Move()
         {
             this._position += _movementDict[this._movementDirection];
+            if (this._position == _maxPosition)
+            {
+                _collider = new PushBackCollider(this._position, new System.Drawing.Size(_sprite.Width, _sprite.Height), _scaleFactor);
+            }
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)

@@ -38,10 +38,12 @@ namespace SprintZero1.LevelFiles
         private readonly SpriteDebuggingTools _spriteDebugger;
         private readonly List<IRoomEvent> _roomEvents;
         private ColliderManager _colliderManagerRef;
+        private SpriteFont _font;
 
         public DungeonRoom(ColliderManager colliderManagerRef)
         {
             _colliderManagerRef = colliderManagerRef;
+
         }
 
         public ColliderManager ColliderManager { set { _colliderManagerRef = value; } }
@@ -113,7 +115,6 @@ namespace SprintZero1.LevelFiles
             IDoorEntity door = _architechtureList.OfType<IDoorEntity>().FirstOrDefault(door => door.DoorDirection == direction);
             Debug.Assert(door != null, $"Testing to make sure door is not null");
             door.OpenDoor();
-            Debug.Assert(door != null);
         }
 
         /// <summary>
@@ -236,6 +237,17 @@ namespace SprintZero1.LevelFiles
         }
 
 
+        private void CheckEvents()
+        {
+            for (int i = 0; i < _roomEvents.Count; i++)
+            {
+                _roomEvents[i].TriggerEvent();
+                if (_roomEvents[i].CanTriggerEvent() == false)
+                {
+                    _roomEvents.RemoveAt(i);
+                }
+            }
+        }
 
         /// <summary>
         /// Update the room entities
@@ -243,12 +255,16 @@ namespace SprintZero1.LevelFiles
         /// <param name="gameTime"> The current state of the game time</param>
         public void Update(GameTime gameTime)
         {
+            _font ??= Texture2DManager.GetSpriteFont("itemfont");
             _architechtureList.ForEach(entity => entity.Update(gameTime));
             _liveEnemyList.ForEach(entity => entity.Update(gameTime));
             _architechtureList.ForEach(entity => entity.Update(gameTime));
             _enemyControllerList.ForEach(entity => entity.Update(gameTime));
             _floorItems.ForEach(entity => entity.Update(gameTime));
-
+            if (_roomEvents.Count > 0)
+            {
+                CheckEvents();
+            }
         }
 
         /// <summary>
@@ -261,6 +277,10 @@ namespace SprintZero1.LevelFiles
             _liveEnemyList.ForEach(entity => entity.Draw(spriteBatch));
             _architechtureList.ForEach(entity => entity.Draw(spriteBatch));
             _floorItems.ForEach(entity => entity.Draw(spriteBatch));
+            if (_font != null)
+            {
+                spriteBatch.DrawString(_font, _roomName, new Vector2(100, 50), Color.White);
+            }
             foreach (IEntity entity in _architechtureList)
             {
                 if (entity is ICollidableEntity)
@@ -273,13 +293,31 @@ namespace SprintZero1.LevelFiles
                     }
                     else
                     {
-                        r = Color.Blue;
+                        r = Color.Red;
                     }
                     _spriteDebugger.DrawRectangle(collider, r, spriteBatch);
                 }
             }
+
+            foreach (IEntity entity in _liveEnemyList)
+            {
+                if (entity is ICollidableEntity collidableEntity)
+                {
+                    Rectangle collider = collidableEntity.Collider.Collider;
+                    Color c = Color.Yellow;
+                    _spriteDebugger.DrawRectangle(collider, c, spriteBatch);
+                }
+            }
+
+            foreach (IEntity entity in _floorItems)
+            {
+                if (entity is ICollidableEntity collidableEntity)
+                {
+                    Rectangle collider = collidableEntity.Collider.Collider;
+                    Color c = Color.GreenYellow;
+                    _spriteDebugger.DrawRectangle(collider, c, spriteBatch);
+                }
+            }
         }
-
-
     }
 }

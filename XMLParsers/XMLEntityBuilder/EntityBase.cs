@@ -15,5 +15,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
         public int EntityPositionY { set => _entityPositionY = value; }
         public string EntityName { set => _entityName = value; }
         public abstract IEntity CreateEntity();
+
+
     }
 }
