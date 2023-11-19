@@ -50,11 +50,6 @@ namespace SprintZero1.Factories
 
         }
 
-        public void Initialize(ContentManager content)
-        {
-            
-        }
-
         /// <summary>
         /// Play sound given sound effect name
         /// </summary>
