@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
-using SprintZero1.Managers;
-using SprintZero1.StatePatterns.GameStatePatterns;
 
 namespace SprintZero1.StatePatterns.PlayerStatePatterns
 {
@@ -26,10 +24,6 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
                 _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(_playerEntity.Direction);
                 _blockTransition = false;
                 _playerEntity.TransitionToState(State.Idle);
-                if (GameStatesManager.CurrentState is GamePlayingState gameState)
-                {
-                    gameState.RemoveCollider(_playerEntity.SwordSlot);
-                }
             }
         }
         /// <summary>
@@ -48,10 +42,6 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             if (_blockTransition) { return; }
             _blockTransition = true;
             _playerEntity.PlayerSprite = _linkSpriteFactory.GetAttackingSprite(_playerEntity.Direction);
-            if (GameStatesManager.CurrentState is GamePlayingState gameState)
-            {
-                gameState.AddCollider(_playerEntity.SwordSlot);
-            }
         }
         /// <summary>
         /// Handles updating 

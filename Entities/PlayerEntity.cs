@@ -33,6 +33,7 @@ namespace SprintZero1.Entities
         private readonly PlayerStateFactory _playerStateFactory;
         private IPlayerState _playerState;
         private bool _attackingWithSword = false;
+        private IWeaponEntity currentAttackingWeapon;
         private readonly PlayerInventory _playerInventory;
         /* Public properties to modify the player's private members */
         public float Health { get { return _playerHealth; } set { _playerHealth = value; } }
@@ -118,7 +119,6 @@ namespace SprintZero1.Entities
         {
 
             _playerState.Update(gameTime);
-            _playerCollider.Update(this);
             if (_playerState is PlayerAttackingState && _attackingWithSword)
             {
                 _playerSwordSlot.Update(gameTime);
@@ -127,6 +127,7 @@ namespace SprintZero1.Entities
             {
                 TransitionToState(State.Idle);
             }
+            _playerCollider.Update(this);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -140,7 +141,6 @@ namespace SprintZero1.Entities
                 _attackingWithSword = false;
             }
             _playerState.Draw(spriteBatch);
-
         }
     }
 }
