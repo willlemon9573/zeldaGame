@@ -37,6 +37,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
             {
                 _roomWithEvent.AddRoomItem(CreateBoomerang());
                 _canTriggerEvent = false;
+                SoundFactory.PlaySound(SoundFactory.GetSound("secret"));
             }
         }
     }

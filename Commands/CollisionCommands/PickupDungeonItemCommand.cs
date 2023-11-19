@@ -1,6 +1,7 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
+using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace SprintZero1.Commands.CollisionCommands
             _item.Remove();
             _item.Pickup(_player);
             handler[(_item as DungeonItemEntity).ItemType].Invoke();
+            SoundFactory.PlaySound(SoundFactory.GetSound("get_item"));
         }
     }
 }

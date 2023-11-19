@@ -119,6 +119,10 @@ namespace SprintZero1.Entities
 
             _playerState.Update(gameTime);
             _playerCollider.Update(this);
+            if (_playerState is PlayerAttackingState && _attackingWithSword)
+            {
+                _playerSwordSlot.Update(gameTime);
+            }
             if (_playerState is not PlayerIdleState && Keyboard.GetState().GetPressedKeyCount() == 0)
             {
                 TransitionToState(State.Idle);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using SprintZero1.Entities;
+using SprintZero1.Factories;
 
 namespace SprintZero1.LevelFiles.RoomEvents
 {
@@ -37,8 +38,8 @@ namespace SprintZero1.LevelFiles.RoomEvents
         {
             if (_movableBlock.Position == _triggerPosition)
             {
-
                 _canTriggerEvent = false;
+                SoundFactory.PlaySound(SoundFactory.GetSound("secret"));
             }
         }
     }

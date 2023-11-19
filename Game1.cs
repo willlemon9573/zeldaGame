@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
 using SprintZero1.Controllers;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
@@ -17,7 +16,6 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
-        private SoundFactory _soundFactory;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -46,7 +44,7 @@ namespace SprintZero1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             LoadTextures();
-
+            SoundFactory.StartSoundFactory(this.Content);
             GameStatesManager.InitializeGameStateMap(this);
             LevelManager.Load();
             GameStatesManager.Start();
@@ -57,15 +55,6 @@ namespace SprintZero1
         {
             Texture2DManager.LoadAllTextures(this.Content);
             Texture2DManager.LoadSpriteFonts(this.Content);
-
-            //Sound Factory, play background music and load all sound effects
-            _soundFactory = new SoundFactory(this.Content);
-            Song backgroundMusic = _soundFactory.GetMusic("DungeonMusic");
-            _soundFactory.PlayMusic(backgroundMusic);
-            /* 
-             * Factories are missing a lot of comments. To be added in Sprint 4 
-             * May also be loading textures specifically Program Manager rather than in game1.cs
-             */
             EnemySpriteFactory.Instance.LoadTextures();
             LinkSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();

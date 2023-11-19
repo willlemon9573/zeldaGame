@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
@@ -20,10 +21,6 @@ namespace SprintZero1.Entities
     {
         const float Rotation = 0f;
         const float LayerDepth = 0.2f;
-        const int ColliderX = 5;
-        const int ColliderY = 11;
-        const int ColliderWidth = 15;
-        const int ColliderHeight = 20;
         private readonly string _weaponName;
         private Vector2 _weaponPosition;
         private ISprite _weaponSprite;
@@ -36,6 +33,9 @@ namespace SprintZero1.Entities
         public Vector2 Position { get { return _weaponPosition; } set { _weaponPosition = value; } }
         SpriteDebuggingTools spriteDebugger;
         private ICollider _collider;
+        SoundEffect _swordSlash;
+        private float _elapsedSoundTime;
+        private const float TotalSoundTime = 0.26f;
         /* Get collider */
         public ICollider Collider { get { return _collider; } }
         /// <summary>
@@ -46,18 +46,8 @@ namespace SprintZero1.Entities
         {
             _weaponName = weaponName;
             _spriteEffectsDictionary = spriteEffectsMap;
-            /* 
-             * the values of this rectangle change based on the direction of the sword which is why each collider is also different 
-             * I don't have time right now to add this to the parser to make just yet
-            */
-            _colliderRectanglesDictionary = new Dictionary<Direction, Rectangle>()
-            {
-                {Direction.North, new Rectangle(ColliderX, -ColliderY, ColliderWidth, ColliderHeight) },
-                {Direction.South, new Rectangle(ColliderX, ColliderY, ColliderWidth, ColliderHeight) },
-                {Direction.East, new Rectangle(ColliderY, ColliderX, ColliderHeight, ColliderWidth) },
-                {Direction.West, new Rectangle(-ColliderY, ColliderX, ColliderHeight, ColliderWidth) },
-            };
             spriteDebugger = new SpriteDebuggingTools(GameStatesManager.ThisGame);
+            _swordSlash = SoundFactory.GetSound("sword_slash");
         }
 
         public void UseWeapon(Direction direction, Vector2 position)
@@ -67,12 +57,14 @@ namespace SprintZero1.Entities
             _currentSpriteEffect = SpriteAdditions.Item1;
             _weaponPosition = position + SpriteAdditions.Item2;
             _collider = new PlayerSwordCollider(_weaponPosition, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
+            _swordSlash.Play();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             _weaponSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, Rotation, LayerDepth);
             spriteDebugger.DrawRectangle(_collider.Collider, Color.CornflowerBlue, spriteBatch);
+
         }
 
         public void Update(GameTime gameTime)

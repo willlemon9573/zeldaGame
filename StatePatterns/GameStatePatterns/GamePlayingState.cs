@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using SprintZero1.Colliders;
 using SprintZero1.DebuggingTools;
 using SprintZero1.Entities;
+using SprintZero1.Factories;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
 using System.Collections.Generic;
@@ -22,8 +24,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         private readonly ColliderManager _colliderManager;
         // Note: Base variable is EntityManager
         public DungeonRoom CurrentRoom { get { return _currentRoom; } }
-        SpriteDebuggingTools _spriteDebugger;
-        MouseTools _mouseController;
+        readonly MouseTools _mouseController; /* for debugging */
+        Song _dungeonMusic;
         /// <summary>
         /// The state of the game when the game is running
         /// </summary>
@@ -32,11 +34,15 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             _colliderManager = new ColliderManager();
             _mouseController = new MouseTools(game.GraphicsDevice);
+            _dungeonMusic = SoundFactory.GetMusic("DungeonMusic");
+            SoundFactory.AdjustMusicVolume(.3f);
+            SoundFactory.PlayMusic(_dungeonMusic);
         }
 
         public override void Handle()
         {
             _currentRoom.UpdateEnemyController(_players[0]);
+            SoundFactory.AdjustMusicVolume(0.3f);
         }
 
         public void AddPlayer(PlayerEntity player)

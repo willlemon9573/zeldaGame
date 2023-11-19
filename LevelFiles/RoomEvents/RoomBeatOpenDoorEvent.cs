@@ -1,4 +1,5 @@
 ﻿using SprintZero1.Enums;
+using SprintZero1.Factories;
 
 namespace SprintZero1.LevelFiles.RoomEvents
 {
@@ -18,6 +19,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
             {
                 this._roomWithEvent.UnlockDoor(_doorToUnlockDirection);
                 this._canTriggerEvent = false;
+                SoundFactory.PlaySound(SoundFactory.GetSound("secret"));
             }
         }
     }

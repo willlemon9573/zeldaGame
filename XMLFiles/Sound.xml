@@ -55,7 +55,7 @@
 		<SoundEffect sound="LOZ_Recorder"/>
 	</Sound>
 	<Sound name="secret">
-		<SoundEffect sound="LOZ_secret"/>
+		<SoundEffect sound="LOZ_Secret"/>
 	</Sound>
 	<Sound name="shield">
 		<SoundEffect sound="LOZ_Shield"/>

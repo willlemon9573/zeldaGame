@@ -1,5 +1,6 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Entities.LootableItemEntity;
+using SprintZero1.Factories;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
@@ -23,6 +24,7 @@ namespace SprintZero1.Commands.CollisionCommands
         {
             _item.Pickup(_player, 1);
             _item.Remove();
+            SoundFactory.PlaySound(SoundFactory.GetSound("get_item"));
         }
     }
 }

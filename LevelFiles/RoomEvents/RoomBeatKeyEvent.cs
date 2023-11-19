@@ -31,6 +31,8 @@ namespace SprintZero1.LevelFiles.RoomEvents
             {
                 _roomWithEvent.AddRoomItem(CreateKey());
                 _canTriggerEvent = false;
+                SoundFactory.AdjustSoundEffectsVolume(0.5f);
+                SoundFactory.PlaySound(SoundFactory.GetSound("key_appear"));
             }
         }
     }

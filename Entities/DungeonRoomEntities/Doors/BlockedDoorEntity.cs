@@ -26,6 +26,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
 
         public override void OpenDoor()
         {
+            SoundFactory.PlaySound(SoundFactory.GetSound("door_unlock"));
             string doorType = $"open_{this.DoorDirection}";
             this._doorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(doorType.ToLower());
             Vector2 offset = _colliderOffsetDictionary[DoorDirection];

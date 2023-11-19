@@ -1,4 +1,5 @@
-﻿using SprintZero1.Entities;
+﻿using Microsoft.Xna.Framework.Audio;
+using SprintZero1.Entities;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
 
@@ -8,6 +9,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
     {
         protected DungeonRoom _roomWithEvent;
         protected bool _canTriggerEvent;
+        protected SoundEffect _secretNoise;
         /// <summary>
         /// Inheritable function to for entities that are created through events
         /// so that they can be collided with for pickup

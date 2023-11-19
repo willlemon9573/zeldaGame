@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
+using SprintZero1.Factories;
 
 namespace SprintZero1.LevelFiles.RoomEvents
 {
@@ -29,6 +30,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
             _doorDirection = doorToOpenDirection;
             _movableBlock = movableBlock;
             _triggerPosition = triggerPosition;
+
         }
 
         public virtual bool CanTriggerEvent()
@@ -45,6 +47,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
             {
                 _room.UnlockDoor(_doorDirection);
                 _canTriggerEvent = false;
+                SoundFactory.PlaySound(SoundFactory.GetSound("secret"));
             }
         }
     }
