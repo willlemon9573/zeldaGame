@@ -10,4 +10,6 @@
 	<BetterItem name="BetterBoomerang" x="190" y="680" width="16"  height="16"/>
 	<BetterItem name="BetterBow" x="208" y="680" width="16"  height="16"/>
 	<Item name="MagicalRod" x="326" y="587" width="16"  height="16"/>
+	<DungeonItems name="Level1Map" x="601" y="156" width="8"  height="16"/>
+	<DungeonItems name="Level1Compass" x="612" y="156" width="16"  height="16"/>
 </ItemData>

@@ -6,6 +6,7 @@ using SprintZero1.Managers;
 using SprintZero1.XMLParsers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -49,9 +50,13 @@ namespace SprintZero1.GameStateMenu
 
         // Equipment and selection data
         private Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>> equipmentData;
+        private Dictionary<DungeonItems, Tuple<Rectangle, Vector2>> _dungeonItemsData;
+        private List<DungeonItems> _dungeonItems;
         private List<EquipmentItem> _playerEquipment;
         private EquipmentItem currentWeapon;
         private Vector2 currentWeaponPosition = new Vector2(63, 48);
+        private Vector2 mapPosition = new Vector2(48, 140);
+        private Vector2 compassPosition = new Vector2(45, 180);
         private Vector2 ChooseRecPosition;
 
         // Entity references
@@ -76,17 +81,37 @@ namespace SprintZero1.GameStateMenu
             #region Equipment Data Initialization
             LoadItemData();
             #endregion
+            _dungeonItems = PlayerInventoryManager.GetPlayerDungeonItems(_player);
             _playerEquipment = PlayerInventoryManager.GetPlayerEquipmentList(_player);
             currentWeapon = _playerEquipment.FirstOrDefault();
             ChooseRect = ChooseRectFir;
         }
 
+        private void createMapOrCompass(XElement itemDataElement, XDocTools _xDocTools)
+        {
+            foreach (XElement itemElement in itemDataElement.Elements("DungeonItems"))
+            {
+                Rectangle itemRec = _xDocTools.CreateRectangle(itemElement);
+                DungeonItems dungeonItems = _xDocTools.ParseAttributeADungeonItemsData(itemElement, "name");
+                Debug.WriteLine(dungeonItems);
+                Vector2 position = new Vector2(0, 0);
+                _dungeonItemsData.Add(dungeonItems, new Tuple<Rectangle, Vector2>(itemRec, position));
+            }
+            var currentMapTuple = _dungeonItemsData[DungeonItems.Level1Map];
+            var newMapTuple = new Tuple<Rectangle, Vector2>(currentMapTuple.Item1, mapPosition);
+            _dungeonItemsData[DungeonItems.Level1Map] = newMapTuple;
+
+            var currentCompassTuple = _dungeonItemsData[DungeonItems.Level1Compass];
+            var newCompassTuple = new Tuple<Rectangle, Vector2>(currentCompassTuple.Item1, compassPosition);
+            _dungeonItemsData[DungeonItems.Level1Compass] = newCompassTuple;
+        }
         /// <summary>
         /// Loads item data from an XML file into the equipmentData dictionary.
         /// </summary>
         private void LoadItemData()
         {
             equipmentData = new Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>>();
+            _dungeonItemsData = new Dictionary<DungeonItems, Tuple<Rectangle, Vector2>>();
             XDocument doc = XDocument.Load(@"GameStateMenu\ItemData.xml");
             var itemDataElement = doc.Element("ItemData");
             XDocTools _xDocTools = new XDocTools();
@@ -99,6 +124,7 @@ namespace SprintZero1.GameStateMenu
             XElement botBackGroundElement = itemDataElement.Element("BackGroundSecond");
             botBackGround = _xDocTools.CreateRectangle(botBackGroundElement);
 
+            createMapOrCompass(itemDataElement, _xDocTools);
             int boxX = 120;
             int boxY = 47;
             int boxWidth = 90;
@@ -161,7 +187,7 @@ namespace SprintZero1.GameStateMenu
         /// </summary>
         public void SetNextWeapon()
         {
-            if (_playerEquipment.Count < 1) { return; }
+            Debug.WriteLine("SetNextWeapon");
             int currentIndex = _playerEquipment.IndexOf(currentWeapon);
             int nextIndex = (currentIndex + 1) % _playerEquipment.Count;
             EquipmentItem nextWeapon = _playerEquipment[nextIndex];
@@ -173,7 +199,6 @@ namespace SprintZero1.GameStateMenu
         /// </summary>
         public void SetPreviousWeapon()
         {
-            if (_playerEquipment.Count < 1) { return; }
             int currentIndex = _playerEquipment.IndexOf(currentWeapon);
             int PreviousIndex = (currentIndex - 1 + _playerEquipment.Count) % _playerEquipment.Count;
             EquipmentItem PreviousWeapon = _playerEquipment[PreviousIndex];
@@ -207,6 +232,14 @@ namespace SprintZero1.GameStateMenu
             {
                 _playerEquipment = PlayerInventoryManager.GetPlayerEquipmentList(_player);
             }
+        }
+
+        /// <summary>
+        /// Synchronizes list of dungeon items owned by the player
+        /// </summary>
+        public void SynchronizeDungeonItems()
+        {
+            _dungeonItems = PlayerInventoryManager.GetPlayerDungeonItems(_player);
         }
 
         /// <summary>
@@ -252,6 +285,8 @@ namespace SprintZero1.GameStateMenu
             else
             {
                 var availableKeys = string.Join(", ", equipmentData.Keys.Select(k => k.ToString()));
+                System.Diagnostics.Debug.WriteLine($"Available keys: {availableKeys}");
+                System.Diagnostics.Debug.WriteLine($"Current weapon: {currentWeapon}");
                 throw new KeyNotFoundException($"The currentWeapon '{currentWeapon}' does not exist in the equipment data. Available keys: {availableKeys}");
             }
         }
@@ -265,6 +300,7 @@ namespace SprintZero1.GameStateMenu
             spriteBatch.Draw(_overlay, new Rectangle(0, 0, WIDTH, HEIGHT), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, OVER_LAYER_DEPTH);
             DrawbackGround(spriteBatch);
             DrawDifferentItem(spriteBatch);
+            DrawDifferentDungeonItems(spriteBatch);
             if (currentWeapon == EquipmentItem.WoodenSword) return;
             spriteBatch.Draw(largeTexture, currentWeaponPosition, currentWeaponRec, Color.White, 0, Vector2.Zero, SCALE, SpriteEffects.None, 0f);
             DrawChooseRec(spriteBatch);
@@ -324,6 +360,27 @@ namespace SprintZero1.GameStateMenu
 
                     // Draw the item using the retrieved source rectangle and position
                     spriteBatch.Draw(largeTexture, position, sourceRect, Color.White, ROTATION, Vector2.Zero, SCALE, SpriteEffects.None, LAYER_DEPTH);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Draws different items in the item selection menu.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used for drawing.</param>
+        private void DrawDifferentDungeonItems(SpriteBatch spriteBatch)
+        {
+
+            foreach (var dungeonItem in _dungeonItems)
+            {
+                if (_dungeonItemsData.TryGetValue(dungeonItem, out Tuple<Rectangle, Vector2> itemData))
+                {
+                    // Retrieve the source rectangle and position from the tuple
+                    Rectangle sourceRect = itemData.Item1;
+                    Vector2 position = itemData.Item2;
+
+                    // Draw the item using the retrieved source rectangle and position
+                    spriteBatch.Draw(itemChooseScreen, position, sourceRect, Color.White, ROTATION, Vector2.Zero, SCALE, SpriteEffects.None, LAYER_DEPTH);
                 }
             }
         }

@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
 using SprintZero1.Entities;
 using SprintZero1.GameStateMenu;
+using SprintZero1.Managers;
+using SprintZero1.Enums;
+using SprintZero1.Entities.BoomerangEntity;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
@@ -29,6 +32,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <param name="player">Player to assign</param>
         public void AssignToPlayer(PlayerEntity player)
         {
+            IWeaponEntity weaponEntity = new RegularBoomerangEntity("Boomerang", player);
+            PlayerInventoryManager.AddEquipmentItemToInventory(player, EquipmentItem.Boomerang, weaponEntity);
             itemSelectionMenu = new ItemSelectionMenu(game, player);
             controllerForItemSelection = new KeyboardControllerForItemSelection(game, player, itemSelectionMenu);
         }
@@ -48,6 +53,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public override void Handle()
         {
             (itemSelectionMenu as ItemSelectionMenu).SynchronizeInventory();
+            (itemSelectionMenu as ItemSelectionMenu).SynchronizeDungeonItems();
         }
 
     }
