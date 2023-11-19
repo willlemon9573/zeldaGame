@@ -273,6 +273,12 @@ namespace SprintZero1.XMLParsers
                 }
             }
         }
+
+        /// <summary>
+        /// Parses all Events that would be found in a single XML File
+        /// </summary>
+        /// <param name="reader">The XML Reader</param>
+        /// <param name="dungeonRoom">The current dungeon room being created</param>
         private void ParseEvent(XmlReader reader, DungeonRoom dungeonRoom)
         {
             EventParser parser = new EventParser();
