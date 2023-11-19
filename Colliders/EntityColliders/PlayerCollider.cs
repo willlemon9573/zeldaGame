@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Drawing;
 
-namespace SprintZero1.Colliders
+namespace SprintZero1.Colliders.EntityColliders
 {
     internal class PlayerCollider : DynamicCollider
     {

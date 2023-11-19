@@ -50,6 +50,11 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _colliderManager.RemoveCollidableEntity(entity);
         }
 
+        public void AddCollider(IEntity entity)
+        {
+            _colliderManager.AddCollidableEntity(entity);
+        }
+
         /// <summary>
         /// Load dungeon room from key string name.
         /// Transitions the current room to the next room.

@@ -5,6 +5,15 @@
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
+	<Events>
+		<Event>
+			<Name>RoomBeatKeyEvent</Name>
+			<EventInfo>
+				<TriggerX>134</TriggerX>
+				<TriggerY>151</TriggerY>
+			</EventInfo>
+		</Event>
+	</Events>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>

@@ -43,8 +43,9 @@ namespace SprintZero1.LevelFiles
         public DungeonRoom(ColliderManager colliderManagerRef)
         {
             _colliderManagerRef = colliderManagerRef;
-
         }
+
+        public List<IEntity> LiveEnemyList { get { return _liveEnemyList; } }
 
         public ColliderManager ColliderManager { set { _colliderManagerRef = value; } }
 
@@ -94,15 +95,12 @@ namespace SprintZero1.LevelFiles
         /// <summary>
         /// Check if any enemy is dead and remove them from the live enemy list and add to the dead enemy list
         /// </summary>
-        public void RemoveDeadEnemies()
+        public void RemoveDeadEnemies(IEntity enemy)
         {
-            List<IEntity> deadEnemyList = _liveEnemyList.Where(entity => (entity as ICombatEntity).Health <= 0).ToList();
-            foreach (var entity in deadEnemyList)
+            if (_liveEnemyList.Remove(enemy))
             {
-                _liveEnemyList.Remove(entity);
-                deadEnemyList.Add(entity);
-                enemyCount--;
-                _colliderManagerRef.RemoveCollidableEntity(entity);
+                _colliderManagerRef.RemoveCollidableEntity(enemy);
+                _deadEnemyList.Add(enemy);
             }
         }
 
@@ -144,6 +142,10 @@ namespace SprintZero1.LevelFiles
         public void AddRoomItem(IEntity item)
         {
             _floorItems.Add(item);
+            if (_colliderManagerRef != null)
+            {
+                _colliderManagerRef.AddCollidableEntity(item);
+            }
         }
 
         /// <summary>
@@ -220,7 +222,8 @@ namespace SprintZero1.LevelFiles
         public void UpdateEnemyController(IEntity player)
         {
             if (_enemyControllerList.Count > 0 && _liveEnemyList.Count == enemyCount) { return; }
-            _liveEnemyList.ForEach(x => _enemyControllerList.Add(new SmartEnemyMovementController(x as ICombatEntity, player)));
+            RemoveDelegate remover = this.RemoveDeadEnemies;
+            _liveEnemyList.ForEach(x => _enemyControllerList.Add(new SmartEnemyMovementController(x as ICombatEntity, player, remover)));
         }
 
         /// <summary>

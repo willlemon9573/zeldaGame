@@ -29,7 +29,6 @@ namespace SprintZero1.XMLParsers
         private const string InnerDoorDirectionElement = "Direction";
         private const string InnerDoorTypeElement = "DoorType";
         private const string InnerElementHealthElement = "Health";
-        private const string InnerEnemyFramesElement = "Frames";
         private const string InnerItemFramesElement = "ItemFrames";
         private const string InnerItemEnumElement = "Enum";
         private const string InnerItemTypeElement = "Type";
@@ -59,7 +58,6 @@ namespace SprintZero1.XMLParsers
             { InnerItemTypeElement, (item, data) => (data as XMLItemEntity).ItemType = item.ReadElementContentAsString() },
             { InnerItemEnumElement, (item, data) => (data as XMLItemEntity).EnumName = item.ReadElementContentAsString() },
             { InnerElementHealthElement, (enemy, data) =>  (data as XMLEnemyEntity).EntityHealth = enemy.ReadElementContentAsInt() },
-            { InnerEnemyFramesElement, (enemy, data) => (data as XMLEnemyEntity).EntityFrames = enemy.ReadElementContentAsInt() },
             { InnerDoorDestinationElement, (door, data) => (data as XMLDoorEntity).Destination = door.ReadElementContentAsString() },
             { InnerDoorDirectionElement, (door, data) => (data as XMLDoorEntity).DoorDirection = door.ReadElementContentAsString() },
             { InnerDoorTypeElement,  (door, data) => (data as XMLDoorEntity).DoorType = door.ReadElementContentAsString() },
@@ -281,9 +279,17 @@ namespace SprintZero1.XMLParsers
             string innerEventElement = "Event";
             string innerNameElement = "Name";
             string eventOne = "OpenDoorWithMovableBlock";
+            string eventFive = "OpenPathWithBlockEvent";
+            string eventTwo = "RoomBeatKeyEvent";
+            string eventThree = "RoomBeatBoomerangEvent";
+            string eventFour = "RoomBeatOpenDoorEvent";
             Dictionary<string, Action<XmlReader, DungeonRoom>> eventMap = new Dictionary<string, Action<XmlReader, DungeonRoom>>()
             {
-                { eventOne, (reader, room) => parser.ParseOpenDoorWithBlockEvent(room, reader) }
+                { eventOne, (reader, room) => parser.ParseOpenDoorWithBlockEvent(room, reader) },
+                { eventTwo, (reader, room) => parser.ParseRoomBeatKeyEvent(room, reader) },
+                { eventThree, (reader, room) => parser.ParseRoomBeatBoomerangEvent(room, reader) },
+                { eventFour, (reader, room) => parser.ParseRoomBeatOpenDoorEvent(room, reader) },
+                { eventFive, (reader, room) => parser.ParseOpenPathWithBlockEvent(room, reader) },
             };
 
             while (reader.Read())

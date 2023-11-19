@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities;
+using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers.XMLEntityBuilder;
 
-namespace SprintZero1.Factories
+namespace SprintZero1.XMLFiles.FactoryXMLFiles
 {
     internal class XMLWall : EntityBase
     {

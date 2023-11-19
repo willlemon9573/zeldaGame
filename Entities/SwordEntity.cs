@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
+using SprintZero1.Colliders.EntityColliders;
+using SprintZero1.DebuggingTools;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
+using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
@@ -15,11 +18,12 @@ namespace SprintZero1.Entities
     /// </summary>
     internal class SwordEntity : IWeaponEntity, ICollidableEntity
     {
-        const int COLLIDER_X = 5;
-        const int COLLIDER_Y = 11;
-        const int COLLIDER_WIDTH = 15;
-        const int COLLIDER_HEIGHT = 20;
-        // TODO: Clean up code for modularity purposes
+        const float Rotation = 0f;
+        const float LayerDepth = 0.2f;
+        const int ColliderX = 5;
+        const int ColliderY = 11;
+        const int ColliderWidth = 15;
+        const int ColliderHeight = 20;
         private readonly string _weaponName;
         private Vector2 _weaponPosition;
         private ISprite _weaponSprite;
@@ -30,7 +34,7 @@ namespace SprintZero1.Entities
         /* Sprite effect for flipping the weapon */
         private SpriteEffects _currentSpriteEffect = SpriteEffects.None;
         public Vector2 Position { get { return _weaponPosition; } set { _weaponPosition = value; } }
-
+        SpriteDebuggingTools spriteDebugger;
         private ICollider _collider;
         /* Get collider */
         public ICollider Collider { get { return _collider; } }
@@ -48,30 +52,32 @@ namespace SprintZero1.Entities
             */
             _colliderRectanglesDictionary = new Dictionary<Direction, Rectangle>()
             {
-                {Direction.North, new Rectangle(COLLIDER_X, -COLLIDER_Y, COLLIDER_WIDTH, COLLIDER_HEIGHT) },
-                {Direction.South, new Rectangle(COLLIDER_X, COLLIDER_Y, COLLIDER_WIDTH, COLLIDER_HEIGHT) },
-                {Direction.East, new Rectangle(COLLIDER_Y, COLLIDER_X, COLLIDER_HEIGHT, COLLIDER_WIDTH) },
-                {Direction.West, new Rectangle(-COLLIDER_Y, COLLIDER_X, COLLIDER_HEIGHT, COLLIDER_WIDTH) },
+                {Direction.North, new Rectangle(ColliderX, -ColliderY, ColliderWidth, ColliderHeight) },
+                {Direction.South, new Rectangle(ColliderX, ColliderY, ColliderWidth, ColliderHeight) },
+                {Direction.East, new Rectangle(ColliderY, ColliderX, ColliderHeight, ColliderWidth) },
+                {Direction.West, new Rectangle(-ColliderY, ColliderX, ColliderHeight, ColliderWidth) },
             };
+            spriteDebugger = new SpriteDebuggingTools(GameStatesManager.ThisGame);
         }
 
         public void UseWeapon(Direction direction, Vector2 position)
         {
             _weaponSprite = WeaponSpriteFactory.Instance.GetSwordSprite(direction);
             Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];
-            _collider = new DynamicCollider(position, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
             _currentSpriteEffect = SpriteAdditions.Item1;
             _weaponPosition = position + SpriteAdditions.Item2;
+            _collider = new PlayerSwordCollider(_weaponPosition, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _weaponSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, 0, 0.2f);
+            _weaponSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, Rotation, LayerDepth);
+            spriteDebugger.DrawRectangle(_collider.Collider, Color.CornflowerBlue, spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
-            // TODO: Add flashing effect if we want to have link shoot off projectile at full hearts
+            _collider.Update(this);
         }
     }
 }

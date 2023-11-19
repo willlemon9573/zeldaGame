@@ -8,7 +8,6 @@ namespace SprintZero1.Entities
     {
         public EnemyEntityWithoutDirection(Vector2 startingPosition, int startingHealth, string enemyName) : base(startingPosition, startingHealth, enemyName)
         {
-
         }
 
         public override void PerformAttack()
@@ -17,8 +16,8 @@ namespace SprintZero1.Entities
         }
         public override void Update(GameTime gameTime)
         {
+            this._collider.Update(this);
             _enemyState.Update(gameTime);
-            //projectileSprite.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

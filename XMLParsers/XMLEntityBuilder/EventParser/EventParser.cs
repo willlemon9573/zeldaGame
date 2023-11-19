@@ -14,7 +14,6 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
 {
     internal class EventParser
     {
-        private const string BlockElement = "Block";
         private const string StartXElement = "X";
         private const string StartYElement = "Y";
         private const string EndXElement = "X2";
@@ -26,7 +25,6 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
         private const string EventInfoElement = "EventInfo";
         private const string EventBlockElement = "EventBlock";
         private const string MovableDirection = "MovableDirection";
-        private const string EventElement = "Event";
 
         private readonly XmlNodeType EndElementType = XmlNodeType.EndElement;
         private readonly XmlNodeType ElementType = XmlNodeType.Element;
@@ -102,6 +100,11 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
             return new Vector2(x, y);
         }
 
+        /// <summary>
+        /// Creates the movable block for a movable block event room
+        /// </summary>
+        /// <param name="block">The object that contains information on the block</param>
+        /// <returns>A new instance of type movableBlock</returns>
         private IMovableEntity CreateMovableBlock(BlockInfo block)
         {
             ISprite blockSprite = TileSpriteFactory.Instance.CreateNewTileSprite(block.Name);
@@ -112,20 +115,75 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
         }
 
         /// <summary>
-        /// Parse an event that 
+        /// Parses an XML Element that contains the the information to create this event
         /// </summary>
-        /// <param name="roomWithEvent"></param>
-        /// <param name="reader"></param>
+        /// <param name="roomWithEvent">the room that will contain the event</param>
+        /// <param name="reader">the current xml reader</param>
         public void ParseOpenDoorWithBlockEvent(DungeonRoom roomWithEvent, XmlReader reader)
         {
-            EventInfo eventStruct = ParseEventInfo(reader);
-            BlockInfo blockStruct = ParseEventBlock(reader);
-            IMovableEntity blockEntity = CreateMovableBlock(blockStruct);
-            Vector2 triggerPosition = CreateVector(eventStruct.TriggerX, eventStruct.TriggerY);
-            Direction doorToOpenDirection = (Direction)Enum.Parse(typeof(Direction), eventStruct.DoorDirectionToOpen, true);
+            EventInfo eventInfo = ParseEventInfo(reader);
+            BlockInfo blockInfo = ParseEventBlock(reader);
+            IMovableEntity blockEntity = CreateMovableBlock(blockInfo);
+            Vector2 triggerPosition = CreateVector(eventInfo.TriggerX, eventInfo.TriggerY);
+            Direction doorToOpenDirection = (Direction)Enum.Parse(typeof(Direction), eventInfo.DoorDirectionToOpen, true);
             IRoomEvent roomEvent = new OpenDoorWithBlockEvent(roomWithEvent, blockEntity, triggerPosition, doorToOpenDirection);
             roomWithEvent.AddRoomEvent(roomEvent);
             roomWithEvent.AddArchitecturalEntity(blockEntity);
+        }
+
+        /// <summary>
+        /// Parses an XML Element that contains the the information to create this event
+        /// </summary>
+        /// <param name="roomWithEvent">the room that will contain the event</param>
+        /// <param name="reader">the current xml reader</param>
+        public void ParseOpenPathWithBlockEvent(DungeonRoom roomWithEvent, XmlReader reader)
+        {
+            EventInfo eventInfo = ParseEventInfo(reader);
+            BlockInfo blockInfo = ParseEventBlock(reader);
+            IMovableEntity blockEntity = CreateMovableBlock(blockInfo);
+            Vector2 triggerPosition = CreateVector(eventInfo.TriggerX, eventInfo.TriggerY);
+            IRoomEvent roomEvent = new OpenPathWithBlockEvent(blockEntity, triggerPosition);
+            roomWithEvent.AddRoomEvent(roomEvent);
+            roomWithEvent.AddArchitecturalEntity(blockEntity);
+        }
+
+        /// <summary>
+        /// Parses an XML Element that contains the the information to create this event
+        /// </summary>
+        /// <param name="roomWithEvent">the room that will contain the event</param>
+        /// <param name="reader">the current xml reader</param>
+        public void ParseRoomBeatKeyEvent(DungeonRoom roomWithEvent, XmlReader reader)
+        {
+            EventInfo eventInfo = ParseEventInfo(reader);
+            Vector2 dropPosition = CreateVector(eventInfo.TriggerX, eventInfo.TriggerY);
+            IRoomEvent roomEvent = new RoomBeatKeyEvent(roomWithEvent, dropPosition);
+            roomWithEvent.AddRoomEvent(roomEvent);
+        }
+
+        /// <summary>
+        /// Parses an XML Element that contains the the information to create this event
+        /// </summary>
+        /// <param name="roomWithEvent">the room that will contain the event</param>
+        /// <param name="reader">the current xml reader</param>
+        public void ParseRoomBeatBoomerangEvent(DungeonRoom roomWithEvent, XmlReader reader)
+        {
+            EventInfo eventInfo = ParseEventInfo(reader);
+            Vector2 dropPosition = CreateVector(eventInfo.TriggerX, eventInfo.TriggerY);
+            IRoomEvent roomEvent = new RoomBeatBoomerangEvent(roomWithEvent, dropPosition);
+            roomWithEvent.AddRoomEvent(roomEvent);
+        }
+
+        /// <summary>
+        /// Parses an XML Element that contains the the information to create this event
+        /// </summary>
+        /// <param name="roomWithEvent">the room that will contain the event</param>
+        /// <param name="reader">the current xml reader</param>
+        public void ParseRoomBeatOpenDoorEvent(DungeonRoom roomWithEvent, XmlReader reader)
+        {
+            EventInfo eventInfo = ParseEventInfo(reader);
+            Direction doorDirection = (Direction)Enum.Parse(typeof(Direction), eventInfo.DoorDirectionToOpen, true);
+            IRoomEvent roomEvent = new RoomBeatOpenDoorEvent(roomWithEvent, doorDirection);
+            roomWithEvent.AddRoomEvent(roomEvent);
         }
     }
 }

@@ -6,7 +6,6 @@ using SprintZero1.XMLParsers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Size = System.Drawing.Size;
 
 namespace SprintZero1.Factories
 {
@@ -19,7 +18,6 @@ namespace SprintZero1.Factories
         private readonly Dictionary<string, Rectangle> _tileSourceRectangles;
         private readonly Dictionary<String, Rectangle> _levelOneSourceRectangles;
         private static readonly TileSpriteFactory instance = new TileSpriteFactory();
-        private Texture2D box;
 
         /// <summary>
         /// Tile Factory is a singleton allowing access to call the Tile Factory whenever needed without creating a new concrete object
@@ -37,7 +35,6 @@ namespace SprintZero1.Factories
             SpriteXMLParser spriteParser = new SpriteXMLParser();
             _tileSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(DOOR_TILE_DOCUMENT_PATH);
             _levelOneSourceRectangles = spriteParser.ParseNonAnimatedSpriteXML(LEVEL_ONE_DOCUMENT_PATH);
-            _tileSourceRectangles.Add("box", new Rectangle(3, 3, 16, 16));
         }
 
         /// <summary>
@@ -47,7 +44,6 @@ namespace SprintZero1.Factories
         {
             tileSpriteSheet = Texture2DManager.GetTileSheet();
             levelOneSpriteSheet = Texture2DManager.GetLevelOneSpriteSheet();
-            box = Texture2DManager.GetBox();
         }
         /// <summary>
         /// Create and return a new tile sprite
@@ -70,22 +66,6 @@ namespace SprintZero1.Factories
         public ISprite CreateFloorSprite(string floor)
         {
             return new NonAnimatedSprite(_levelOneSourceRectangles[floor], levelOneSpriteSheet);
-        }
-
-        /// <summary>
-        /// Get the dimensions of a specific sprite for colliders
-        /// </summary>
-        /// <param name="tileName">The specific tile that the dimensions are for</param>
-        /// <returns>A rectanle that contains the dimensions of the sprite</returns>
-        public Size GetSpriteDimensions(string tileName)
-        {
-            Rectangle tile = _tileSourceRectangles[tileName];
-            return new Size(tile.Width, tile.Height);
-        }
-
-        public ISprite GetBox()
-        {
-            return new NonAnimatedSprite(_tileSourceRectangles["box"], box);
         }
     }
 }
