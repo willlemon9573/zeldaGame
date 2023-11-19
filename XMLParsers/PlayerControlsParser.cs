@@ -76,11 +76,11 @@ namespace SprintZero1.XMLParsers
         }
 
         /// <summary>
-        /// 
+        /// Parses gamepad controls for the player controller
         /// </summary>
-        /// <param name="gamePadElementString"></param>
-        /// <param name="player"></param>
-        /// <param name="game"></param>
+        /// <param name="gamePadElementString">The name of the element containing gamepad information</param>
+        /// <param name="player">The player that the controller will belong to</param>
+        /// <param name="game">The current game</param>
         /// <returns></returns>
         public Dictionary<Buttons, ICommand> ParseGamePadControls(string gamePadElementString, ICombatEntity player, Game1 game)
         {

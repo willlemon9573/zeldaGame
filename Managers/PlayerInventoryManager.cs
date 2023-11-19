@@ -8,7 +8,7 @@ namespace SprintZero1.Managers
 {
     delegate void StackableItemHandler(IEntity player, StackableItems item, int amount);
     delegate void EquipmentItemHandler(IEntity player, EquipmentItem equipment, IWeaponEntity newEquipment);
-    delegate void UtilityPickupHandler(IEntity player, DungeonItems item);
+    delegate void UtilityItemHandler(IEntity player, DungeonItems item);
     /// <summary>
     /// A manager to handle all the players inventory management needs.
     /// </summary>
@@ -46,11 +46,11 @@ namespace SprintZero1.Managers
         /// Change the player's usable weapon in item selection screen
         /// </summary>
         /// <param name="player">The player who's changing weapons</param>
-        /// <param name="weapon">The weapon to change to</param>
+        /// <param name="newEquipment">the new equipment the player is changing to</param>
         public static void ChangeEquipment(IEntity player, EquipmentItem newEquipment)
         {
             Debug.Assert(player != null, "Error: Player is null.");
-            Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Inventory manager could not find {player}");
+            Debug.Assert(!_playerInventoryMap.ContainsKey(player), $"Inventory manager could not find {player}");
             _playerInventoryMap[player].ChangeEquipmentItem(newEquipment);
         }
 
@@ -64,6 +64,7 @@ namespace SprintZero1.Managers
         {
             Debug.Assert(player != null, "Error: Player is null.");
             _playerInventoryMap[player].AddItem(item, amount);
+            int count = GetStackableItemCount(player, item);
         }
 
         /// <summary>
@@ -73,7 +74,8 @@ namespace SprintZero1.Managers
         public static void AddUtilityItemToInventory(IEntity player, DungeonItems item)
         {
             Debug.Assert(player != null, "Error: Player is null.");
-            Debug.Assert(_playerInventoryMap[player].IsInInventory(item), $"Error player already contains {item}");
+            Debug.WriteLine(_playerInventoryMap[player].IsInInventory(item));
+
             _playerInventoryMap[player].AddDungeonUtilityItem(item);
         }
 
@@ -89,6 +91,7 @@ namespace SprintZero1.Managers
             Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Inventory manager could not find {player}");
             Debug.Assert(!_playerInventoryMap[player].IsInInventory(equipment), $"Error adding to innventory, {player} already contains {equipment}");
             _playerInventoryMap[player].AddNewEquipment(equipment, newEquipment);
+
         }
 
         /// <summary>
@@ -104,7 +107,7 @@ namespace SprintZero1.Managers
             Debug.Assert(player != null || upgradedEquipmentEntity != null, "Error: Player or upgradedEquipmentEntity cannot be null.");
             Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Error Upgrading equipment. {player} not found in inventory manager.");
             Debug.Assert(_playerInventoryMap[player].IsInInventory(oldEquipment), $"Error upgrading equipment. {player} does not contain {oldEquipment} in their inventory.");
-            Debug.Assert(!_playerInventoryMap[player].IsInInventory(upgradedEquipment), $"Error adding to invnetory, {player} already contains {upgradedEquipment}");
+            Debug.Assert(!_playerInventoryMap[player].IsInInventory(upgradedEquipment), $"Error adding to inventory, {player} already contains {upgradedEquipment}");
             _playerInventoryMap[player].UpgradeEquipment(oldEquipment, upgradedEquipment, upgradedEquipmentEntity);
         }
 
@@ -113,7 +116,7 @@ namespace SprintZero1.Managers
         /// </summary>
         /// <param name="player">The player who's accessing their inventory</param>
         /// <param name="item">The item that the player will use</param>
-        /// <returns></returns>
+        /// <returns>The total count of the item specified from the player inventory</returns>
         public static int GetStackableItemCount(IEntity player, StackableItems item)
         {
             return _playerInventoryMap[player].GetStackableItemCount(item);

@@ -1,10 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Room>
-		<Floor>
-			<Name>entranceLeft</Name>
-			<X>127</X>
-			<Y>151</Y>
-		</Floor>
+	<Floor>
+		<Name>entranceLeft</Name>
+		<X>127</X>
+		<Y>151</Y>
+	</Floor>
+	<Events>
+		<Event>
+			<Name>RoomBeatKeyEvent</Name>
+			<EventInfo>
+				<TriggerX>166</TriggerX>
+				<TriggerY>199</TriggerY>
+			</EventInfo>
+		</Event>
+	</Events>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>
@@ -53,7 +62,6 @@
 			<X>54</X>
 			<Y>185</Y>
 			<Health>1</Health>
-			<IsBoss>0</IsBoss>
 		</Enemy>
 		<Enemy>
 			<Name>dungeon_keese</Name>
@@ -66,16 +74,9 @@
 			<Name>dungeon_keese</Name>
 			<X>88</X>
 			<Y>137</Y>
-			<IsBoss>0</IsBoss>
+			<Health>1</Health>
 		</Enemy>
 	</Enemies>
-	<Items>
-		<Item>
-			<Name>key</Name>
-			<X>166</X>
-			<Y>199</Y>
-		</Item>
-	</Items>
 	<Doors>
 		<Door>
 			<Name>doorless_north</Name>

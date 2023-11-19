@@ -60,6 +60,15 @@
     <None Update="XMLFiles\FactoryXMLFiles\ProjectileSprites.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="XMLFiles\HUDXMLFiles\HUDAnimatedSprites.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\HUDXMLFiles\HUDPositions.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="XMLFiles\HUDXMLFiles\HUDSprites.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="XMLFiles\LevelXMLFiles\Room1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

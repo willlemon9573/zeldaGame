@@ -70,7 +70,7 @@ namespace SprintZero1.InventoryFiles
         /// <param name="dungeonItem">The item to add to the player inventory</param>
         public void AddDungeonUtilityItem(DungeonItems dungeonItem)
         {
-            Debug.Assert(_DungeonUtilityItemSlots.Contains(dungeonItem), $"Player already contains {dungeonItem} in their inventory.");
+            Debug.Assert(!_DungeonUtilityItemSlots.Contains(dungeonItem), $"Player already contains {dungeonItem} in their inventory.");
             Debug.Assert(_DungeonUtilityItemSlots.Count < MAX_UTILITY_SLOTS, "Player Utility Item Slots are full.");
             _DungeonUtilityItemSlots.Add(dungeonItem);
         }
@@ -105,7 +105,6 @@ namespace SprintZero1.InventoryFiles
          * Note on upgrading. In the original game some images show the game tracks the old items, but they aren't in a usable state
          * As we are only doing a single level it's up to the team whether we want to do this or not.
          */
-
         /// <summary>
         /// Upgrade a player's equipment
         /// </summary>
@@ -142,7 +141,6 @@ namespace SprintZero1.InventoryFiles
         {
             Debug.Assert(_equipmentSlots.ContainsKey(newEquipment), $"The player does not contain {newEquipment} in their inventory.");
             _inventoryOwner.EquipmentSlot = _equipmentSlots[newEquipment];
-            Debug.WriteLine(_inventoryOwner.EquipmentSlot);
         }
 
         /// <summary>

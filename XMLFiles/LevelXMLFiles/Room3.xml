@@ -5,6 +5,15 @@
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
+	<Events>
+		<Event>
+			<Name>RoomBeatKeyEvent</Name>
+			<EventInfo>
+				<TriggerX>134</TriggerX>
+				<TriggerY>119</TriggerY>
+			</EventInfo>
+		</Event>
+	</Events>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>
@@ -115,13 +124,6 @@
 			<IsBoss>0</IsBoss>
 	</Enemy>
 	</Enemies>
-	<Items>
-	<Item>
-		<Name>key</Name>
-		<X>134</X>
-		<Y>119</Y>
-	</Item>
-	</Items>
 	<Doors>
 		<Door>
 			<Name>doorless_north</Name>
@@ -143,8 +145,8 @@
 			<Name>open_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<Destination>floorFourRight</Destination>
-			<Direction>West</Direction>
+			<Destination>floorThreeRight</Destination>
+			<Direction>East</Direction>
 			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 		<Door>

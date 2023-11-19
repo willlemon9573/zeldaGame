@@ -5,6 +5,14 @@
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
+	<Events>
+		<Event>
+			<Name>RoomBeatOpenDoorEvent</Name>
+			<EventInfo>
+				<DoorDirection>East</DoorDirection>
+			</EventInfo>
+		</Event>
+	</Events>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>
@@ -169,6 +177,14 @@
 			<IsCollidable>true</IsCollidable>
 		</Block>
 	</Blocks>
+	<Items>
+		<Item>
+			<Name>heartcontainer</Name>
+			<X>214</X>
+			<Y>151</Y>
+			<Type>HeartContainerEntity</Type>
+		</Item>
+	</Items>
 	<Enemies>
 		<Boss>
 			<Name>aquamentus</Name>

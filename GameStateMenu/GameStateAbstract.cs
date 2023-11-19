@@ -1,9 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SprintZero1.StatePatterns.GameStatePatterns;
-using System.Diagnostics;
-using System.Collections.Generic;
 
 namespace SprintZero1.GameStateMenu
 {

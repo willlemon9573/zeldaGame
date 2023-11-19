@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Sprites;
-using Size = System.Drawing.Size;
+using System.Collections.Generic;
 
 namespace SprintZero1.Entities.DungeonRoomEntities.Doors
 {
@@ -13,17 +13,38 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
     /// for each collider, but each derived class will be used as a different way to recognize
     /// collision
     /// </summary>
-    internal abstract class BaseDoorEntity : ICollidableEntity
+    internal abstract class BaseDoorEntity : IDoorEntity
     {
-        /* The default dimensions for each door in the game */
-        protected readonly Size DoorDimensions = new Size(16, 16);
+
+
+        protected const float ScaleFactor = 0.9f; // the scale factor to lower the size of the door collider to prevent unwanted collisions
+        /* Offset for the positions of colliders */
+        private const int NorthSouthOffsetX = 0;
+        private const int NorthSouthOffsetY = 5;
+        private const int EastWestOfffsetX = 5;
+        private const int EastWestOfffsetY = 0;
+        /// <summary>
+        /// Offset dictionary for colliders to move collider further back to prevent early room movement
+        /// </summary>
+        protected readonly Dictionary<Direction, Vector2> _colliderOffsetDictionary = new Dictionary<Direction, Vector2>()
+        {
+            { Direction.North, new Vector2(NorthSouthOffsetX, -NorthSouthOffsetY) },
+            { Direction.South, new Vector2(NorthSouthOffsetX, NorthSouthOffsetY) },
+            { Direction.East, new Vector2(EastWestOfffsetX, EastWestOfffsetY) },
+            { Direction.West, new Vector2(-EastWestOfffsetX, EastWestOfffsetY) },
+        };
+
         /* fields */
         protected ICollider _doorCollider;
         protected Vector2 _doorPosition;
         protected ISprite _doorSprite;
         protected string _doorDestination;
         protected Direction _doorDirection;
-
+        protected readonly int offset = 16; /* used for offsetting the doors that aren't open */
+        private readonly SpriteEffects SpriteEffect = SpriteEffects.None;
+        private readonly float rotation = 0f;
+        private readonly float layerDepth = 0.5f;
+        protected Rectangle _colliderDimmensions;
         /// <summary>
         /// Get the collider
         /// </summary>
@@ -51,8 +72,6 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
         {
             this._doorPosition = position;
             this._doorSprite = entitySprite;
-            Rectangle colliderDimensions = new Rectangle((int)position.X, (int)position.Y, DoorDimensions.Width, DoorDimensions.Height);
-            this._doorCollider = new StaticCollider(colliderDimensions);
             this._doorDirection = direction;
             this._doorDestination = destination;
         }
@@ -62,7 +81,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
         /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            _doorSprite.Draw(spriteBatch, _doorPosition);
+            _doorSprite.Draw(spriteBatch, _doorPosition, SpriteEffect, rotation, layerDepth);
         }
         /// <summary>
         /// Updates the entity collider
@@ -70,7 +89,15 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
         /// <param name="gameTime">The current state of the game time</param>
         public void Update(GameTime gameTime)
         {
-            _doorCollider.Update(this);
+            this._doorCollider.Update(this);
+        }
+
+        /// <summary>
+        /// Handles opening the door
+        /// </summary>
+        public virtual void OpenDoor()
+        {
+            /* base door does not open, set to virtual so all derived classes do not have to implement */
         }
     }
 }

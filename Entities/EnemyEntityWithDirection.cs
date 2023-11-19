@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Enums;
-using SprintZero1.Sprites;
 
 namespace SprintZero1.Entities
 {
 
     internal class EnemyEntityWithDirection : EnemyBasedEntity
     {
-        public EnemyEntityWithDirection(Vector2 startingPosition, int startingHealth, string enemyName) : base( startingPosition, startingHealth, enemyName)
+        public EnemyEntityWithDirection(Vector2 startingPosition, int startingHealth, string enemyName) : base(startingPosition, startingHealth, enemyName)
         {
         }
 

@@ -1,4 +1,3 @@
-using SprintZero1.Entities;
 using SprintZero1.GameStateMenu;
 
 namespace SprintZero1.Commands.MenuCommandsFolder

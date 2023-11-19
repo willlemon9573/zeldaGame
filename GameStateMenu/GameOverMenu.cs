@@ -3,10 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
 using SprintZero1.Commands.PlayerCommands;
-using SprintZero1.StatePatterns.GameStatePatterns;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
 
 namespace SprintZero1.GameStateMenu
 {
@@ -46,17 +44,12 @@ namespace SprintZero1.GameStateMenu
             // Iterate through the pressed keys
             foreach (Keys key in pressedKeys)
             {
-                // For debugging purposes, log the key and its previous state
-                Debug.WriteLine(key.ToString());
-                Debug.WriteLine(_previouslyPressedKeys.Contains(key));
 
                 // Check if 'Escape' key is pressed and was not pressed in the previous frame
                 if (key == Keys.Escape && !_previouslyPressedKeys.Contains(key))
                 {
                     // Execute the unpause command
                     _unPauseGame.Execute();
-                    // Log the execution of unpause for debugging
-                    Debug.WriteLine("Unpause executed");
                 }
             }
 

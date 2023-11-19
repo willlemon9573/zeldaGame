@@ -138,6 +138,9 @@
 			<Name>compass</Name>
 			<X>198</X>
 			<Y>151</Y>
+			<Type>DungeonItemEntity</Type>
+			<!-- Unfortunately the item name in these files are different than the item names I used for enums -->
+			<Enum>Level1Compass</Enum>
 		</Item>
 	</Items>
 	<Doors>
@@ -153,7 +156,7 @@
 			<Name>open_west</Name>
 			<X>15</X>
 			<Y>152</Y>
-			<Destination>floorFlour</Destination>
+			<Destination>floorThree</Destination>
 			<Direction>West</Direction>
 			<DoorType>OpenDoorEntity</DoorType>
 		</Door>

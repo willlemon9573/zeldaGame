@@ -1,14 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Commands.PlayerCommands;
+using SprintZero1.Controllers;
+using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System.Collections.Generic;
-using SprintZero1.Entities;
-using SprintZero1.Controllers;
-using System.Xml.Linq;
-using System.Runtime.CompilerServices;
 
 namespace SprintZero1.Managers
 {
@@ -28,6 +25,7 @@ namespace SprintZero1.Managers
         public static IGameState CurrentState { get { return _gameState; } }
 
 
+        public static Game ThisGame { get { return _game; } }
 
         /// <summary>
         /// Creates the map that will contain the required functions for game state changing
@@ -54,14 +52,14 @@ namespace SprintZero1.Managers
         public static void Start()
         {
             GamePlayingState _startingState = (GamePlayingState)_gameStateMap[GameState.Playing];
-            PlayerEntity player = new PlayerEntity(new Vector2(200, 100), 6, Direction.North);
+            PlayerEntity player = new PlayerEntity(new Vector2(127, 194), 6, Direction.North);
             _startingState.AddPlayer(player);
             const string CONTROLS_DOCUMENT_PATH = @"XMLFiles\PlayerXMLFiles\ControllerSettings.xml";
             ControlsManager.CreateKeyboardControlsMap(CONTROLS_DOCUMENT_PATH, player, _game);
             KeyboardController controller = new KeyboardController();
             controller.LoadControls(player);
             _startingState.AddController(controller);
-            _gameStateMap[Enums.GameState.Paused].AddController(controller);
+            _gameStateMap[GameState.Paused].AddController(controller);
             _startingState.LoadDungeonRoom("entrance");
             _gameState = _startingState;
         }
@@ -96,7 +94,6 @@ namespace SprintZero1.Managers
         /// <param name="gameTime">Gametime</param>
         public static void Update(GameTime gameTime)
         {
-            CurrentState.Handle();
             CurrentState.Update(gameTime);
         }
 

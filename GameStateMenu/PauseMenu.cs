@@ -1,12 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SprintZero1.Commands;
-using SprintZero1.Commands.PlayerCommands;
-using SprintZero1.StatePatterns.GameStatePatterns;
-using System.Collections.Generic;
-using System.Linq;
-using System.Diagnostics;
 
 namespace SprintZero1.GameStateMenu
 {
@@ -42,14 +35,10 @@ namespace SprintZero1.GameStateMenu
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_overlay, new Rectangle(0, 0, WIDTH, HEIGHT), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.01f);
-
+            spriteBatch.Draw(_overlay, new Rectangle(0, 0, WIDTH, HEIGHT), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.0f);
             Vector2 textSize = _font.MeasureString(pauseText);
             Vector2 textPosition = new Vector2((WIDTH - textSize.X) / 2, (HEIGHT - textSize.Y) / 2);
             spriteBatch.DrawString(_font, pauseText, textPosition, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-
-
-
         }
     }
 }

@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:BossSpritesheet.png
 
+#begin box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:box.png
+
 #begin DeathmatchFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -74,12 +86,31 @@
 /processorParam:Quality=Best
 /build:DungeonMusic.mp3
 
+#begin HUDSpritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HUDSpritesheet.png
+
 #begin ItemCount.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:ItemCount.spritefont
+
+#begin itemfont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:itemfont.spritefont
 
 #begin itemSpriteSheet1.png
 /importer:TextureImporter
@@ -117,7 +148,6 @@
 /processorParam:TextureFormat=Color
 /build:LinkSheet.png
 
-<<<<<<< HEAD
 #begin LOZ_Arrow_Boomerang.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -273,7 +303,7 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:LOZ_Sword_Slash.wav
-=======
+
 #begin NES_-_The_Legend_of_Zelda_-_HUD__Pause_Screen1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -285,7 +315,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:NES_-_The_Legend_of_Zelda_-_HUD__Pause_Screen1.png
->>>>>>> Sprint4
+
 
 #begin OverworldEnemySpritesheet.png
 /importer:TextureImporter
@@ -317,4 +347,3 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TileSheet.png
-

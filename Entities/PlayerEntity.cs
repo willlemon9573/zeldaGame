@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Colliders;
+using SprintZero1.Colliders.EntityColliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
@@ -10,7 +11,6 @@ using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
-using System.Diagnostics;
 
 namespace SprintZero1.Entities
 {
@@ -21,6 +21,7 @@ namespace SprintZero1.Entities
     internal class PlayerEntity : ICombatEntity, ICollidableEntity
     {
         /* Player Components */
+        private float _playerMaxHealth = 3; /* Link starts with 3 hearts */
         private float _playerHealth;
         private ISprite _playerSprite;
         private Direction _playerDirection;
@@ -42,7 +43,7 @@ namespace SprintZero1.Entities
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; Collider.Update(this); } }
         public IWeaponEntity SwordSlot { get { return _playerSwordSlot; } set { _playerSwordSlot = value; } }
         public IWeaponEntity EquipmentSlot { get { return _playerEquipmentSlot; } set { _playerEquipmentSlot = value; } }
-
+        public float MaxHealth { get { return _playerMaxHealth; } set { _playerHealth = value; } }
         /// <summary>
         /// Construct a new player entity
         /// </summary>
@@ -56,7 +57,8 @@ namespace SprintZero1.Entities
             _playerHealth = startingHealth;
             _playerPosition = position;
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
-            _playerCollider = new PlayerCollider(new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
+            float scalefactor = 0.9f;
+            _playerCollider = new PlayerCollider(position, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);
             _playerInventory = new PlayerInventory(this);
             _playerStateFactory = new PlayerStateFactory(this);
@@ -84,7 +86,7 @@ namespace SprintZero1.Entities
         public void Attack(string weaponName)
         {
             if (_playerState is not PlayerAttackingState) { TransitionToState(State.Attacking); }
-            Debug.WriteLine($"Current position: {_playerPosition}");
+
             if (weaponName == "sword")
             {
                 _attackingWithSword = true;
@@ -95,7 +97,11 @@ namespace SprintZero1.Entities
 
         public void TakeDamage(int damage)
         {
-            // TODO: Implement in Sprint 4
+
+            HUDManager.DecrementHealth(damage, (int)_playerHealth);
+
+            _playerHealth -= damage;
+
         }
 
         public void Die()
@@ -128,7 +134,6 @@ namespace SprintZero1.Entities
             else if (_playerState is not PlayerAttackingState && _attackingWithSword)
             {
                 _attackingWithSword = false;
-                GameStatesManager.CurrentState.EntityManager.RemoveImmediately(_playerSwordSlot);
             }
             _playerState.Draw(spriteBatch);
 

@@ -1,7 +1,8 @@
-﻿using SprintZero1.Entities;
+﻿using Microsoft.Xna.Framework;
+using SprintZero1.Entities;
+using SprintZero1.Entities.DungeonRoomEntities;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
-using System.Numerics;
 
 namespace SprintZero1.XMLParsers.XMLEntityBuilder
 {

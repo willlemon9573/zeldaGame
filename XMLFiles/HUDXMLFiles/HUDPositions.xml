@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+	<Sprite name ="rupee">
+		<Vector2 x='92' y='24'/>
+	</Sprite>
+	<Sprite name ="key">
+		<Vector2 x='92' y='40'/>
+	</Sprite>
+	<Sprite name ="bomb">
+		<Vector2 x='92' y='48'/>
+	</Sprite>
+	<Sprite name ="b_weapon">
+		<Vector2 x='132' y='34'/>
+	</Sprite>
+	<Sprite name ="a_weapon">
+		<Vector2 x='156' y='34'/>
+	</Sprite>
+	<Sprite name ="life">
+		<Vector2 x='207' y='24'/>
+	</Sprite>
+	<Sprite name ="full_heart">
+		<Vector2 x='180' y='40'/>
+	</Sprite>
+	<Sprite name ="half_heart">
+		<Vector2 x='189' y='40'/>
+	</Sprite>
+	<Sprite name ="empty_heart">
+		<Vector2 x='198' y='40'/>
+	</Sprite>
+	<Sprite name ="level">
+		<Vector2 x='40' y='16'/>
+	</Sprite>
+	<Sprite name = "map">
+		<Vector2 x='40' y='35'/>
+	</Sprite>
+	<Sprite name = "player">
+		<Vector2 x='36' y='45'/>
+	</Sprite>
+	<Sprite name ="1">
+		<Vector2 x='70' y='16'/>
+	</Sprite>
+	<Sprite name ="x1">
+		<Vector2 x='100' y='24'/>
+	</Sprite>
+	<Sprite name ="x1">
+		<Vector2 x='100' y='40'/>
+	</Sprite>
+	<Sprite name ="x1">
+		<Vector2 x='100' y='48'/>
+	</Sprite>
+	<NumPosition name ="rupeePosition0">
+		<Vector2 x='108' y='24'/>
+	</NumPosition>
+	<NumPosition name ="rupeePosition1">
+		<Vector2 x='116' y='24'/>
+	</NumPosition>
+	<NumPosition name ="keyPosition0">
+		<Vector2 x='108' y='40'/>
+	</NumPosition>
+	<NumPosition name ="keyPosition1">
+		<Vector2 x='116' y='40'/>
+	</NumPosition>
+	<NumPosition name ="bombPosition0">
+		<Vector2 x='108' y='48'/>
+	</NumPosition>
+	<NumPosition name ="bombPosition1">
+		<Vector2 x='116' y='48'/>
+	</NumPosition>
+	<Sprite name = "triforce">
+		<Vector2 x='60' y='29'/>
+	</Sprite>
+</Sprites>
+

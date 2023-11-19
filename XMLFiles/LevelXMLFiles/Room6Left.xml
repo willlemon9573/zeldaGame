@@ -5,6 +5,26 @@
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
+	<Events>
+		<Event>
+			<Name>OpenPathWithBlockEvent</Name>
+			<EventInfo>
+				<TriggerX>103</TriggerX>
+				<TriggerY>136</TriggerY>
+				<DoorDirection>West</DoorDirection>
+			</EventInfo>
+			<EventBlock type="MovableBlockEntity">
+				<Name>pyramid</Name>
+				<!-- Rpresents the starting position of the block -->
+				<X>103</X>
+				<Y>152</Y>
+				<!-- Represents the max position the object can move -->
+				<X2>103</X2>
+				<Y2>136</Y2>
+				<MovableDirection>North</MovableDirection>
+			</EventBlock>
+		</Event>
+	</Events>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>
@@ -48,12 +68,6 @@
 		</Wall>
 	</Walls>
 	<Blocks>
-		<Block>
-			<Name>pyramid</Name>
-			<X>103</X>
-			<Y>152</Y>
-			<IsCollidable>true</IsCollidable>
-		</Block>
 		<Block>
 			<Name>pyramid</Name>
 			<X>119</X>
@@ -144,15 +158,15 @@
 			<X>15</X>
 			<Y>152</Y>
 			<Destination>none</Destination>
-			<Direction>North</Direction>
+			<Direction>West</Direction>
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>locked_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<Destination>none</Destination>
-			<Direction>North</Direction>
+			<Destination>floorSix</Destination>
+			<Direction>East</Direction>
 			<DoorType>LockedDoorEntity</DoorType>
 		</Door>
 		<Door>
@@ -160,7 +174,7 @@
 			<X>127</X>
 			<Y>224</Y>
 			<Destination>none</Destination>
-			<Direction>North</Direction>
+			<Direction>South</Direction>
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
@@ -170,7 +184,7 @@
 			<Destination>floorSecret</Destination>
 			<!-- Doesn't use a direction -->
 			<Direction>North</Direction>
-			<DoorType>StairEntity</DoorType>
+			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 	</Doors>
 </Room>

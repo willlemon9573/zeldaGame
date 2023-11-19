@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
+using SprintZero1.Colliders.EntityColliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
@@ -40,7 +41,7 @@ namespace SprintZero1.Entities
         public float Health { get { return _enemyHealth; } set { _enemyHealth = value; } }
         public Direction Direction { get { return _enemyDirection; } set { _enemyDirection = value; } }
         public IEnemyState EnemyState { get { return _enemyState; } set { _enemyState = value; } }
-        private ICollider _collider;
+        protected ICollider _collider;
         public ICollider Collider { get { return _collider; } }
 
         /// <summary>
@@ -53,12 +54,13 @@ namespace SprintZero1.Entities
         {
             _enemyHealthMax = startingHealth;
             _enemyDefaultPosition = position;
-            ResetEnemy();
+            ResetEnemy(); /* why? */
             _enemyName = enemyName;
             _enemyState = new EnemyIdleState(this);
-            _collider = new DynamicCollider(new Rectangle((int)position.X, (int)position.Y, 16, 16));
             _enemySprite = _EnemyFactory.CreateEnemySprite(enemyName, _enemyDirection);
+            _collider = new EnemyCollider(position, new System.Drawing.Size(_enemySprite.Width, _enemySprite.Height));
         }
+
         public void ResetEnemy()
         {
             _enemyHealth = _enemyHealthMax;
@@ -85,11 +87,7 @@ namespace SprintZero1.Entities
 
         public virtual void TakeDamage(int damage)
         {
-            /* _enemyHealth -= damage;
-             if (_enemyHealth <= 0)
-             {
-                 Die();
-             }*/
+            _enemyHealth -= damage;
         }
 
         public virtual void Die()
@@ -101,12 +99,11 @@ namespace SprintZero1.Entities
         {
             _enemyState.ChangeDirection(direction);
         }
-        //_enemyDirection = direction;
-
 
         public virtual void Update(GameTime gameTime)
         {
             _enemyState.Update(gameTime);
+            _collider.Update(this);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

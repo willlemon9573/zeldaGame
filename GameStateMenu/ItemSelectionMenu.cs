@@ -6,7 +6,6 @@ using SprintZero1.Managers;
 using SprintZero1.XMLParsers;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -162,7 +161,7 @@ namespace SprintZero1.GameStateMenu
         /// </summary>
         public void SetNextWeapon()
         {
-            Debug.WriteLine("SetNextWeapon");
+            if (_playerEquipment.Count < 1) { return; }
             int currentIndex = _playerEquipment.IndexOf(currentWeapon);
             int nextIndex = (currentIndex + 1) % _playerEquipment.Count;
             EquipmentItem nextWeapon = _playerEquipment[nextIndex];
@@ -174,6 +173,7 @@ namespace SprintZero1.GameStateMenu
         /// </summary>
         public void SetPreviousWeapon()
         {
+            if (_playerEquipment.Count < 1) { return; }
             int currentIndex = _playerEquipment.IndexOf(currentWeapon);
             int PreviousIndex = (currentIndex - 1 + _playerEquipment.Count) % _playerEquipment.Count;
             EquipmentItem PreviousWeapon = _playerEquipment[PreviousIndex];
@@ -252,8 +252,6 @@ namespace SprintZero1.GameStateMenu
             else
             {
                 var availableKeys = string.Join(", ", equipmentData.Keys.Select(k => k.ToString()));
-                System.Diagnostics.Debug.WriteLine($"Available keys: {availableKeys}");
-                System.Diagnostics.Debug.WriteLine($"Current weapon: {currentWeapon}");
                 throw new KeyNotFoundException($"The currentWeapon '{currentWeapon}' does not exist in the equipment data. Available keys: {availableKeys}");
             }
         }

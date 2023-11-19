@@ -217,6 +217,14 @@
 			<IsCollidable>true</IsCollidable>
 		</Block>
 	</Blocks>
+	<Items>
+		<Item>
+			<Name>triforcepiece</Name>
+			<X>127</X>
+			<Y>135</Y>
+			<Type>TriforceEntity</Type>
+		</Item>
+	</Items>
 	<Doors>
 		<Door>
 			<Name>doorless_north</Name>
@@ -230,15 +238,15 @@
 			<Name>open_west</Name>
 			<X>15</X>
 			<Y>152</Y>
-			<Destination>none</Destination>
+			<Destination>floorFiveRight</Destination>
 			<Direction>West</Direction>
-			<DoorType>DoorlessEntity</DoorType>
+			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>doorless_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<Destination>floorFiveRight</Destination>
+			<Destination>none</Destination>
 			<Direction>East</Direction>
 			<DoorType>OpenDoorEntity</DoorType>
 		</Door>

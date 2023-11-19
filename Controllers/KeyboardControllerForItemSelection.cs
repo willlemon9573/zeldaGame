@@ -1,14 +1,11 @@
 using Microsoft.Xna.Framework.Input;
+using SprintZero1.Commands;
 using SprintZero1.Commands.MenuCommandsFolder;
 using SprintZero1.Commands.PlayerCommands;
-using SprintZero1.Commands;
 using SprintZero1.Entities;
-using SprintZero1.Managers;
-using System;
+using SprintZero1.GameStateMenu;
 using System.Collections.Generic;
 using System.Linq;
-using SprintZero1.GameStateMenu;
-using System.Diagnostics;
 
 namespace SprintZero1.Controllers
 {
@@ -57,7 +54,6 @@ namespace SprintZero1.Controllers
         /// <param name="itemSelectionMenu">The item selection menu used in control mapping.</param>
         public void LoadControls(IEntity player)
         {
-            Debug.WriteLine("load controller");
             // Instantiate command objects for each key action
             var getPreviousWeaponCommand = new GetPreviousWeaponCommand(_itemSelectionMenu);
             var getNextWeaponCommand = new GetNextWeaponCommand(_itemSelectionMenu);
