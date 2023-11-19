@@ -75,7 +75,7 @@
 	<Sound name="sword_slash">
 		<SoundEffect sound="LOZ_Sword_Slash"/>
 	</Sound>
-	<Song name="background_music1">
+	<Song name="DungeonMusic">
 		<song song="DungeonMusic"/>
 	</Song>
 </Sounds>

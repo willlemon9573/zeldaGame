@@ -1,9 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SprintZero1.Controllers;
 using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Audio;
+using SprintZero1.Controllers;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
@@ -19,11 +17,7 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
-<<<<<<< HEAD
         private SoundFactory _soundFactory;
-=======
-
->>>>>>> event-room-feature
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -66,7 +60,7 @@ namespace SprintZero1
 
             //Sound Factory, play background music and load all sound effects
             _soundFactory = new SoundFactory(this.Content);
-            Song backgroundMusic = _soundFactory.GetMusic("Dungeon_Music");
+            Song backgroundMusic = _soundFactory.GetMusic("DungeonMusic");
             _soundFactory.PlayMusic(backgroundMusic);
             /* 
              * Factories are missing a lot of comments. To be added in Sprint 4 

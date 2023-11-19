@@ -2,11 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
 using SprintZero1.XMLParsers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace SprintZero1.Factories
@@ -42,7 +38,7 @@ namespace SprintZero1.Factories
             foreach (XElement song in root.Elements("Song"))
             {
                 string name = xDocTools.ParseAttributeAsString(song.Attribute("name"));
-                XElement background_music = song.Element("SoundEffect");
+                XElement background_music = song.Element("song");
                 string songMP3 = xDocTools.ParseAttributeAsString(background_music.Attribute("song"));
                 Song songLoad = content.Load<Song>(songMP3);
                 backgroundMusic.Add(name, songLoad);
@@ -58,7 +54,7 @@ namespace SprintZero1.Factories
         {
             soundEffect.Play();
         }
-        
+
         /// <summary>
         /// Get sound effect via sound effect name
         /// </summary>
@@ -88,7 +84,7 @@ namespace SprintZero1.Factories
             return backgroundMusic[name];
         }
 
-       
+
         /// <summary>
         /// Stop background music
         /// </summary>
