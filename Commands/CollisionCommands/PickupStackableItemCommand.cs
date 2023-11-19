@@ -1,8 +1,6 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Entities.LootableItemEntity;
-using SprintZero1.Enums;
-using SprintZero1.Managers;
-using SprintZero1.StatePatterns.GameStatePatterns;
+using SprintZero1.Factories;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
@@ -10,7 +8,6 @@ namespace SprintZero1.Commands.CollisionCommands
     {
         private readonly IEntity _player;
         private readonly ILootableEntity _item;
-        private readonly GamePlayingState _state;
 
         /// <summary>
         /// Constructor for picking up stackable items
@@ -21,14 +18,13 @@ namespace SprintZero1.Commands.CollisionCommands
         {
             _player = player as IEntity;
             _item = stackableItem as ILootableEntity;
-            _state = GameStatesManager.GetGameState(GameState.Playing) as GamePlayingState;
         }
 
         public void Execute()
         {
             _item.Pickup(_player, 1);
             _item.Remove();
-            _state.UpdateRoomEntities();
+            SoundFactory.PlaySound(SoundFactory.GetSound("get_item"));
         }
     }
 }

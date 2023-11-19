@@ -17,15 +17,19 @@ namespace SprintZero1.Sprites
         private float _timeToUpdate; // Time interval for updating the animation frame
         private readonly int _maxFrames; // Maximum number of frames for the animation
         private float _totalElapsedTime = 0f; // Total elapsed time for the animation
-
         private int FramesPerSecond
         {
             set { _timeToUpdate = (1f / value); }
         }
 
+        public int Width { get => _animatedSprite.Width; }
+
+        public int Height { get => _animatedSprite.Height; }
+
         public ControlledAnimation(AnimatedSprite animatedSprite, int maxFrames)
         {
             _animatedSprite = animatedSprite;
+
             _shouldStop = false;
             _maxFrames = maxFrames;
             FramesPerSecond = 8; // Default frame rate

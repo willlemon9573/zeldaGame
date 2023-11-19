@@ -1,4 +1,5 @@
-﻿using SprintZero1.LevelFiles;
+﻿using SprintZero1.Enums;
+using SprintZero1.LevelFiles;
 using SprintZero1.XMLParsers;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -48,14 +49,15 @@ namespace SprintZero1.Managers
         }
 
         /// <summary>
-        /// Unlocks a specific door based on the destination where the door leads
+        /// Unlocks the given door in the room specified
         /// </summary>
-        /// <param name="roomName">The door to unlock</param>
-        public static void UnlockDoor(string roomToFind, string destinationToLookFor)
+        /// <param name="roomToFind">The room that has the door that needs opened</param>
+        /// <param name="doorDirection">The direction which the door is placed</param>
+        public static void OpenDoor(string roomToFind, Direction doorDirection)
         {
             if (_dungeonRoomMap.TryGetValue(roomToFind, out DungeonRoom room))
             {
-                room.UnlockDoor(destinationToLookFor);
+                room.UnlockDoor(doorDirection);
             }
         }
     }

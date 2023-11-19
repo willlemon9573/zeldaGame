@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sounds>
+	<Sound name="arrow_boomerang">
+		<SoundEffect sound="LOZ_Arrow_Boomerang"/>
+	</Sound>
+	<Sound name="bomb_blow">
+		<SoundEffect sound="LOZ_Bomb_Blow"/>
+	</Sound>
+	<Sound name="bomb_drop">
+		<SoundEffect sound="LOZ_Bomb_Drop"/>
+	</Sound>
+	<Sound name="boss_hit">
+		<SoundEffect sound="LOZ_Boss_Hit"/>
+	</Sound>
+	<Sound name="boss_scream">
+		<SoundEffect sound="LOZ_Boss_Scream1"/>
+	</Sound>
+	<Sound name="candle">
+		<SoundEffect sound="LOZ_Candle"/>
+	</Sound>
+	<Sound name="door_unlock">
+		<SoundEffect sound="LOZ_Door_Unlock"/>
+	</Sound>
+	<Sound name="enemy_death">
+		<SoundEffect sound="LOZ_Enemy_Die"/>
+	</Sound>
+	<Sound name="enemy_hit">
+		<SoundEffect sound="LOZ_Enemy_Hit"/>
+	</Sound>
+	<Sound name="fanfare">
+		<SoundEffect sound="LOZ_Fanfare"/>
+	</Sound>
+	<Sound name="get_heart">
+		<SoundEffect sound="LOZ_Get_Heart"/>
+	</Sound>
+	<Sound name="get_item">
+		<SoundEffect sound="LOZ_Get_Item"/>
+	</Sound>
+	<Sound name="get_rupee">
+		<SoundEffect sound="LOZ_Get_Rupee"/>
+	</Sound>
+	<Sound name="key_appear">
+		<SoundEffect sound="LOZ_Key_Appear"/>
+	</Sound>
+	<Sound name="link_death">
+		<SoundEffect sound="LOZ_Link_Die"/>
+	</Sound>
+	<Sound name="low_health">
+		<SoundEffect sound="LOZ_LowHealth"/>
+	</Sound>
+	<Sound name="magical_rod">
+		<SoundEffect sound="LOZ_MagicalRod"/>
+	</Sound>
+	<Sound name="recorder">
+		<SoundEffect sound="LOZ_Recorder"/>
+	</Sound>
+	<Sound name="secret">
+		<SoundEffect sound="LOZ_Secret"/>
+	</Sound>
+	<Sound name="shield">
+		<SoundEffect sound="LOZ_Shield"/>
+	</Sound>
+	<Sound name="shore">
+		<SoundEffect sound="LOZ_Shore"/>
+	</Sound>
+	<Sound name="stairs">
+		<SoundEffect sound="LOZ_Stairs"/>
+	</Sound>
+	<Sound name="sword_combined">
+		<SoundEffect sound="LOZ_Sword_Combined"/>
+	</Sound>
+	<Sound name="sword_shoot">
+		<SoundEffect sound="LOZ_Sword_Shoot"/>
+	</Sound>
+	<Sound name="sword_slash">
+		<SoundEffect sound="LOZ_Sword_Slash"/>
+	</Sound>
+	<Song name="DungeonMusic">
+		<song song="DungeonMusic"/>
+	</Song>
+</Sounds>

@@ -24,7 +24,6 @@ namespace SprintZero1.Commands.CollisionCommands
             IWeaponEntity weapon = WeaponEntityBuilder.CreateWeaponEntity(equipment);
             _equipment.Pickup(_player, weapon);
             _equipment.Remove();
-            _state.UpdateRoomEntities();
         }
     }
 }

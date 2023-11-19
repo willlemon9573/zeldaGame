@@ -20,7 +20,7 @@ namespace SprintZero1.Managers
         private static Texture2D _HUDSpriteSheet;
         private static Texture2D _PauseScreenSheet;
         /* for update */
-        private static Dictionary<string, SpriteFont> spriteFontMap = new Dictionary<string, SpriteFont>();
+        private static readonly Dictionary<string, SpriteFont> spriteFontMap = new Dictionary<string, SpriteFont>();
 
         /// <summary>
         /// Loads all the textures required to create sprites

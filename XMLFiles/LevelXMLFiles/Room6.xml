@@ -5,6 +5,15 @@
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
+	<Events>
+		<Event>
+			<Name>RoomBeatKeyEvent</Name>
+			<EventInfo>
+				<TriggerX>134</TriggerX>
+				<TriggerY>119</TriggerY>
+			</EventInfo>
+		</Event>
+	</Events>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>
@@ -193,16 +202,6 @@
 			<IsCollidable>true</IsCollidable>
 		</Block>
 	</Blocks>
-	<Items>
-		<Item>
-			<Name>key</Name>
-			<X>134</X>
-			<Y>119</Y>
-			<Type>StackableItemEntity</Type>
-			<!-- Unfortunately the item name in these files are different than the item names I used for enums -->
-			<Enum>DungeonKey</Enum>
-		</Item>
-	</Items>
 	<Enemies>
 		<Enemy>
 			<Name>dungeon_goriya</Name>

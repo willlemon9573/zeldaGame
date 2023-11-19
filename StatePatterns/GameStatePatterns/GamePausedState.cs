@@ -12,7 +12,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         private ItemSelectionMenu itemSelectionMenu;
         private IGameStateMenu pauseGame;
         private IController controllerForItemSelection;
-        private PausedStateUpdater _updater;
         private Game1 game;
         public GamePausedState(Game1 game) : base(game)
         {
@@ -29,7 +28,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public override void AddController(IController controller)
         {
             KeyboardController k = controller as KeyboardController;
-            _updater = k.PausedStateUpdate;
         }
 
 

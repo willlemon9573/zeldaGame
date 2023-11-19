@@ -7,8 +7,8 @@ namespace SprintZero1.Enums
     public enum Direction
     {
         North, // Represents the North direction
-        South, // Represents the South direction
         West,  // Represents the West direction
+        South, // Represents the South direction
         East   // Represents the East direction
     }
 

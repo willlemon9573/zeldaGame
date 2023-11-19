@@ -26,8 +26,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
             Direction doorDirection = (Direction)Enum.Parse(typeof(Direction), _facingDirection, ignoreCase);
             ISprite doorSprite = TileSpriteFactory.Instance.CreateNewTileSprite(_entityName);
             Vector2 position = new Vector2(_entityPositionX, _entityPositionY);
-
-            return (BaseDoorEntity)Activator.CreateInstance(Type.GetType($"{NameSpace}.{_doorType}"), doorSprite, position, _destination, doorDirection);
+            return (IDoorEntity)Activator.CreateInstance(Type.GetType($"{NameSpace}.{_doorType}"), doorSprite, position, _destination, doorDirection);
         }
     }
 }

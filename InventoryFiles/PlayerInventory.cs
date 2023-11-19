@@ -1,6 +1,5 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Enums;
-using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
 using System;
@@ -73,21 +72,6 @@ namespace SprintZero1.InventoryFiles
         {
             Debug.Assert(!_DungeonUtilityItemSlots.Contains(dungeonItem), $"Player already contains {dungeonItem} in their inventory.");
             Debug.Assert(_DungeonUtilityItemSlots.Count < MAX_UTILITY_SLOTS, "Player Utility Item Slots are full.");
-
-            //checking if compass or map to add to screen
-            String name = dungeonItem.ToString();
-            if (name.Contains("Map"))
-            {
-                HUDManager.AddMap();
-            }
-            else if (name.Contains("Compass"))
-            {
-
-                HUDManager.AddTriforceMarker();
-            }
-
-
-
             _DungeonUtilityItemSlots.Add(dungeonItem);
         }
 

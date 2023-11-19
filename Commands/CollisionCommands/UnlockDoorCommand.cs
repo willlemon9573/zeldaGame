@@ -3,35 +3,32 @@ using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
-using SprintZero1.StatePatterns.GameStatePatterns;
 using System.Collections.Generic;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
     internal class UnlockDoorCommand : ICommand
     {
+        private const int MaxDirections = 4;
         private readonly ICollidableEntity _player;
-        private readonly ICollidableEntity _door;
-        private readonly GamePlayingState _state;
+        private readonly LockedDoorEntity _door;
 
         private bool TryUnlockDoor()
         {
 
             int keyCount = PlayerInventoryManager.GetStackableItemCount(_player, StackableItems.DungeonKey);
             if (keyCount < 1) { return false; }
+            /* push player back so they dont walk into the door as it's opening */
             PushBack();
-            /* push player back */
 
-            /* using a cheap trick to unlock the door of the current room
-             * and then unlock the door of the next room
-             */
-            string currentRoom = _state.CurrentRoom.RoomName;
-            string nextRoom = (_door as LockedDoorEntity).DoorDestination;
+            _door.OpenDoor();
+
+            string nextRoom = _door.DoorDestination;
+            int oppositeDirectionIndex = ((int)_door.DoorDirection + 2) % MaxDirections;
+            Direction oppositeDoorDirection = (Direction)oppositeDirectionIndex;
             // unlock the current room's door first, then unlock the room the door the leads to the current room from the next room
-            LevelManager.UnlockDoor(currentRoom, nextRoom);
-            LevelManager.UnlockDoor(nextRoom, currentRoom);
-            /* Update the room entities before the next draw so the doors will then be open */
-            _state.UpdateRoomEntities();
+
+            LevelManager.OpenDoor(nextRoom, oppositeDoorDirection);
             PlayerInventoryManager.UseStackableItem(_player, StackableItems.DungeonKey, 1);
             return true;
         }
@@ -67,8 +64,7 @@ namespace SprintZero1.Commands.CollisionCommands
         public UnlockDoorCommand(ICollidableEntity player, ICollidableEntity door)
         {
             _player = player;
-            _door = door;
-            _state = GameStatesManager.GetGameState(GameState.Playing) as GamePlayingState;
+            _door = door as LockedDoorEntity;
         }
 
         /// <summary>

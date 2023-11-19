@@ -15,5 +15,14 @@ namespace SprintZero1.Entities.LootableItemEntity
         public TriforceEntity(ISprite entitySprite, Vector2 position, RemoveDelegate removeDelegate) : base(entitySprite, position, removeDelegate)
         {
         }
+
+        /// <summary>
+        /// Update this item if it needs to be updated
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
+        {
+            _entityCollider.Update(this);
+        }
     }
 }

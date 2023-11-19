@@ -5,6 +5,8 @@ namespace SprintZero1.Sprites
 {
     public interface ISprite
     {
+        public int Width { get; }
+        public int Height { get; }
         /// <summary>
         /// Draws the _sprite at the given position. Allows for _sprite effects, scaling and rotation
         /// </summary>
