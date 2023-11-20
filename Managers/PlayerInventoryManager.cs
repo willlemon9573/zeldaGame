@@ -50,7 +50,7 @@ namespace SprintZero1.Managers
         public static void ChangeEquipment(IEntity player, EquipmentItem newEquipment)
         {
             Debug.Assert(player != null, "Error: Player is null.");
-            Debug.Assert(!_playerInventoryMap.ContainsKey(player), $"Inventory manager could not find {player}");
+            Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Inventory manager could not find {player}");
             _playerInventoryMap[player].ChangeEquipmentItem(newEquipment);
         }
 
@@ -63,8 +63,14 @@ namespace SprintZero1.Managers
         public static void AddStackableItemToInventory(IEntity player, StackableItems item, int amount)
         {
             Debug.Assert(player != null, "Error: Player is null.");
+            int currentCount = _playerInventoryMap[player].GetStackableItemCount(item);
+            if (currentCount == 99) { return; }
+            if (currentCount + amount >= 99)
+            {
+                // adding to inventory
+            }
             _playerInventoryMap[player].AddItem(item, amount);
-            int count = GetStackableItemCount(player, item);
+
         }
 
         /// <summary>

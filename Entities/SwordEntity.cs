@@ -8,6 +8,7 @@ using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 using System.Collections.Generic;
 
@@ -22,20 +23,18 @@ namespace SprintZero1.Entities
         const float Rotation = 0f;
         const float LayerDepth = 0.2f;
         private readonly string _weaponName;
+        private float _stateElapsedTime = 0f;
+        private readonly float _timeToResetState = 1;
         private Vector2 _weaponPosition;
         private ISprite _weaponSprite;
         /* Holds the specific values for properly flipping and placing sword in player's hands */
         private readonly Dictionary<Direction, Tuple<SpriteEffects, Vector2>> _spriteEffectsDictionary;
-        /* Holds the Collider rectangles for all 4 directions */
-        private readonly Dictionary<Direction, Rectangle> _colliderRectanglesDictionary;
         /* Sprite effect for flipping the weapon */
         private SpriteEffects _currentSpriteEffect = SpriteEffects.None;
         public Vector2 Position { get { return _weaponPosition; } set { _weaponPosition = value; } }
         SpriteDebuggingTools spriteDebugger;
         private ICollider _collider;
-        SoundEffect _swordSlash;
-        private float _elapsedSoundTime;
-        private const float TotalSoundTime = 0.26f;
+        readonly SoundEffect _swordSlash;
         /* Get collider */
         public ICollider Collider { get { return _collider; } }
         /// <summary>
@@ -58,6 +57,11 @@ namespace SprintZero1.Entities
             _weaponPosition = position + SpriteAdditions.Item2;
             _collider = new PlayerSwordCollider(_weaponPosition, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
             _swordSlash.Play();
+            if (GameStatesManager.CurrentState is GamePlayingState gameState)
+            {
+                gameState.AddCollider(this);
+            }
+            _stateElapsedTime = 0f;
         }
 
         public void Draw(SpriteBatch spriteBatch)
