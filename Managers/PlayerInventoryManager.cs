@@ -63,8 +63,14 @@ namespace SprintZero1.Managers
         public static void AddStackableItemToInventory(IEntity player, StackableItems item, int amount)
         {
             Debug.Assert(player != null, "Error: Player is null.");
+            int currentCount = _playerInventoryMap[player].GetStackableItemCount(item);
+            if (currentCount == 99) { return; }
+            if (currentCount + amount >= 99)
+            {
+                // adding to inventory
+            }
             _playerInventoryMap[player].AddItem(item, amount);
-            int count = GetStackableItemCount(player, item);
+
         }
 
         /// <summary>
@@ -74,7 +80,8 @@ namespace SprintZero1.Managers
         public static void AddUtilityItemToInventory(IEntity player, DungeonItems item)
         {
             Debug.Assert(player != null, "Error: Player is null.");
-            Debug.Assert(!_playerInventoryMap[player].IsInInventory(item), $"Error player already contains {item}");
+            Debug.WriteLine(_playerInventoryMap[player].IsInInventory(item));
+
             _playerInventoryMap[player].AddDungeonUtilityItem(item);
         }
 
@@ -106,7 +113,7 @@ namespace SprintZero1.Managers
             Debug.Assert(player != null || upgradedEquipmentEntity != null, "Error: Player or upgradedEquipmentEntity cannot be null.");
             Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Error Upgrading equipment. {player} not found in inventory manager.");
             Debug.Assert(_playerInventoryMap[player].IsInInventory(oldEquipment), $"Error upgrading equipment. {player} does not contain {oldEquipment} in their inventory.");
-            Debug.Assert(!_playerInventoryMap[player].IsInInventory(upgradedEquipment), $"Error adding to invnetory, {player} already contains {upgradedEquipment}");
+            Debug.Assert(!_playerInventoryMap[player].IsInInventory(upgradedEquipment), $"Error adding to inventory, {player} already contains {upgradedEquipment}");
             _playerInventoryMap[player].UpgradeEquipment(oldEquipment, upgradedEquipment, upgradedEquipmentEntity);
         }
 

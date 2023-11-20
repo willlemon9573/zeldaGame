@@ -9,6 +9,9 @@ namespace SprintZero1.Sprites
     /// </summary>
     public class AnimatedSprite : ISprite
     {
+        private const int StartingSprite = 0;
+        private int _spriteWidth;
+        private int _spriteHeight;
         private const int MaxFPS = 8;
         private readonly List<Rectangle> _sourceRectangles;
         private readonly Texture2D _spriteSheet;
@@ -27,6 +30,10 @@ namespace SprintZero1.Sprites
                 _timeToUpdate = (1f / value);
             }
         }
+
+        public int Width { get => _spriteWidth; }
+
+        public int Height { get => _spriteHeight; }
 
         /// <summary>
         /// Handles the animation for the _sprite
@@ -58,20 +65,22 @@ namespace SprintZero1.Sprites
             _maxFrames = maxFrames;
             _currentFrame = 0; // The initial starting frame for the animated sprite
             FramesPerSecond = MaxFPS;
+            _spriteHeight = sourceRectangles[StartingSprite].Height;
+            _spriteWidth = sourceRectangles[StartingSprite].Width;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0f)
         {
             /* Build the source rectangle and destination rectangle to draw onto screen */
             Rectangle sourceRectangle = _sourceRectangles[_currentFrame];
-            int height = sourceRectangle.Height;
-            int width = sourceRectangle.Width;
+            _spriteHeight = sourceRectangle.Height;
+            _spriteWidth = sourceRectangle.Width;
             /* this overload of draw requires a color mask. Color.White maintains the original sprite color. This can be used to apply a 'tint' to the sprite if desired
              * May want to add a functionality to interface to allow to change color of sprite for things like entities taking damage 
              */
             Color colorMask = Color.White;
-            Vector2 origin = new Vector2(width / 2, height / 2); /* origin of the drawing in the middle for rotation */
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+            Vector2 origin = new Vector2(_spriteHeight / 2, _spriteWidth / 2); /* origin of the drawing in the middle for rotation */
+            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, _spriteWidth, _spriteHeight);
             spriteBatch.Draw(_spriteSheet, destinationRectangle, sourceRectangle, colorMask, rotation, origin, spriteEffects, layerDepth);
         }
 

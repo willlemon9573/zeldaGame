@@ -5,6 +5,14 @@
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
+	<Events>
+		<Event>
+			<Name>RoomBeatOpenDoorEvent</Name>
+			<EventInfo>
+				<DoorDirection>East</DoorDirection>
+			</EventInfo>
+		</Event>
+	</Events>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>
@@ -205,12 +213,12 @@
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>open_east</Name>
+			<Name>blocked_east</Name>
 			<X>239</X>
 			<Y>152</Y>
 			<Destination>floorFiveRightest</Destination>
 			<Direction>East</Direction>
-			<DoorType>OpenDoorEntity</DoorType>
+			<DoorType>BlockedDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>locked_south</Name>

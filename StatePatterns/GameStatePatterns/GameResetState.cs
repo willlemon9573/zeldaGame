@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
 using System;
@@ -16,8 +15,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             _resetList = new List<Action>()
             {
-                { () => ColliderManager.Reset() },
-                { () => ProgramManager.Reset() },
                 { () => PlayerInventoryManager.Reset() },
                 { () => ControlsManager.Reset() },
                 { () => GameStatesManager.Reset() },

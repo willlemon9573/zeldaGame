@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Colliders;
+using SprintZero1.Colliders.EntityColliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
@@ -32,6 +33,7 @@ namespace SprintZero1.Entities
         private readonly PlayerStateFactory _playerStateFactory;
         private IPlayerState _playerState;
         private bool _attackingWithSword = false;
+        private IWeaponEntity currentAttackingWeapon;
         private readonly PlayerInventory _playerInventory;
         /* Public properties to modify the player's private members */
         public float Health { get { return _playerHealth; } set { _playerHealth = value; } }
@@ -56,7 +58,8 @@ namespace SprintZero1.Entities
             _playerHealth = startingHealth;
             _playerPosition = position;
             _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
-            _playerCollider = new PlayerCollider(new Rectangle((int)Position.X, (int)Position.Y, 16, 16), -3);
+            float scalefactor = 0.9f;
+            _playerCollider = new PlayerCollider(position, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);
             _playerInventory = new PlayerInventory(this);
             _playerStateFactory = new PlayerStateFactory(this);
@@ -116,11 +119,15 @@ namespace SprintZero1.Entities
         {
 
             _playerState.Update(gameTime);
-            _playerCollider.Update(this);
+            if (_playerState is PlayerAttackingState && _attackingWithSword)
+            {
+                _playerSwordSlot.Update(gameTime);
+            }
             if (_playerState is not PlayerIdleState && Keyboard.GetState().GetPressedKeyCount() == 0)
             {
                 TransitionToState(State.Idle);
             }
+            _playerCollider.Update(this);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -132,7 +139,6 @@ namespace SprintZero1.Entities
             else if (_playerState is not PlayerAttackingState && _attackingWithSword)
             {
                 _attackingWithSword = false;
-                GameStatesManager.CurrentState.EntityManager.RemoveImmediately(_playerSwordSlot);
             }
             _playerState.Draw(spriteBatch);
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SprintZero1.Colliders.ItemColliders;
 using SprintZero1.Enums;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
@@ -19,6 +20,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         {
             _equipmentItem = itemType;
             _pickupHandler = pickupHandler;
+            _entityCollider = new EquipmentWithoutPlayerCollider(position, new System.Drawing.Size(entitySprite.Width, entitySprite.Height));
         }
         /// <summary>
         /// Controls what happens when the player picks up an equipment
@@ -28,6 +30,15 @@ namespace SprintZero1.Entities.LootableItemEntity
         public override void Pickup(IEntity player, IWeaponEntity weapon)
         {
             _pickupHandler(player, _equipmentItem, weapon);
+        }
+
+        /// <summary>
+        /// Update this item if it needs to be updated
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
+        {
+            _entityCollider.Update(this);
         }
     }
 }

@@ -44,8 +44,9 @@ namespace SprintZero1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             LoadTextures();
-            LevelManager.Load();
+            SoundFactory.StartSoundFactory(this.Content);
             GameStatesManager.InitializeGameStateMap(this);
+            LevelManager.Load();
             GameStatesManager.Start();
             _mouseController = new MouseController(this);
         }
@@ -77,7 +78,7 @@ namespace SprintZero1
             GraphicsDevice.SetRenderTarget(this._newRenderTarget);
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin(SpriteSortMode.BackToFront);
+            _spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
             GameStatesManager.Draw(_spriteBatch);
             _spriteBatch.End();
 

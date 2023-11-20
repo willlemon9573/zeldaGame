@@ -38,7 +38,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities
         {
             _entitySprite = sprite;
             _entityPosition = position;
-            _trapCollider = new StaticCollider(dimensions);
+            _trapCollider = new PushBackCollider(_entityPosition, new System.Drawing.Size(dimensions.Width, dimensions.Height));
         }
         /// <summary>
         /// Draws the entity

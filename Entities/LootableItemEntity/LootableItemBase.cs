@@ -43,8 +43,7 @@ namespace SprintZero1.Entities.LootableItemEntity
             _entitySprite = entitySprite;
             _entityPosition = position;
             _removeFromRoom = removeDelegate;
-            Rectangle colliderDimensions = new Rectangle((int)position.X, (int)position.Y, _entityDimensions.Width, _entityDimensions.Height);
-            _entityCollider = new StaticCollider(colliderDimensions);
+            _entityCollider = new StaticCollider(_entityPosition, new Size(entitySprite.Width, entitySprite.Height));
         }
 
         /// <summary>
@@ -87,10 +86,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         /// Update this item if it needs to be updated
         /// </summary>
         /// <param name="gameTime"></param>
-        public virtual void Update(GameTime gameTime)
-        {
-            _entityCollider.Update(this);
-        }
+        public abstract void Update(GameTime gameTime);
 
 
     }

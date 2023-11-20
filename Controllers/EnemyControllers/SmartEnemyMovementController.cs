@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
+using SprintZero1.LevelFiles;
 using System;
 using System.Collections.Generic;
 
@@ -28,14 +29,16 @@ namespace SprintZero1.Controllers.EnemyControllers
         private const int BlockSize = 16;
         private readonly double _directionChangeCooldown = 0.5;
         private double _timeSinceLastDirectionChange = 0;
+        private RemoveDelegate _remove;
 
-        public SmartEnemyMovementController(ICombatEntity enemyEntity, IEntity playerEntity)
+        public SmartEnemyMovementController(ICombatEntity enemyEntity, IEntity playerEntity, RemoveDelegate remover)
         {
             _enemyEntity = enemyEntity;
             _playerEntity = playerEntity;
             pathfinder = new AStarPathfinder();
             currentPath = new Stack<Vector2>();
             isPathBeingCalculated = false;
+            _remove = remover;
         }
 
         private Direction CalculateDirection(Vector2 moveDirection)
@@ -113,6 +116,11 @@ namespace SprintZero1.Controllers.EnemyControllers
                     _isMoving = true;
                     _currentStopTime = 0;
                 }
+            }
+
+            if (_enemyEntity.Health <= 0)
+            {
+                _remove(_enemyEntity);
             }
         }
     }

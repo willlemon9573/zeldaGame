@@ -32,7 +32,6 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         /// <param name="playerEntity">The player entering the state</param>
         public PlayerAttackingState(PlayerEntity playerEntity) : base(playerEntity)
         {
-            /* Transition to state updates player state after invoking method. Track the previous state beforehand */
         }
 
         /// <summary>
@@ -47,7 +46,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         /// <summary>
         /// Handles updating 
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">The current game time</param>
         public override void Update(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
