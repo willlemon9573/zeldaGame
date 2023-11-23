@@ -24,7 +24,7 @@ namespace SprintZero1.Entities
         const float LayerDepth = 0.2f;
         private readonly string _weaponName;
         private float _stateElapsedTime = 0f;
-        private readonly float _timeToResetState = 1;
+        private readonly float _timeToResetState = 1 / 7f;
         private Vector2 _weaponPosition;
         private ISprite _weaponSprite;
         /* Holds the specific values for properly flipping and placing sword in player's hands */
@@ -32,7 +32,8 @@ namespace SprintZero1.Entities
         /* Sprite effect for flipping the weapon */
         private SpriteEffects _currentSpriteEffect = SpriteEffects.None;
         public Vector2 Position { get { return _weaponPosition; } set { _weaponPosition = value; } }
-        SpriteDebuggingTools spriteDebugger;
+
+        private SpriteDebuggingTools spriteDebugger;
         private ICollider _collider;
         readonly SoundEffect _swordSlash;
         /* Get collider */
@@ -68,12 +69,17 @@ namespace SprintZero1.Entities
         {
             _weaponSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, Rotation, LayerDepth);
             spriteDebugger.DrawRectangle(_collider.Collider, Color.CornflowerBlue, spriteBatch);
-
         }
 
         public void Update(GameTime gameTime)
         {
             _collider.Update(this);
+            _stateElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_stateElapsedTime >= _timeToResetState && GameStatesManager.CurrentState is GamePlayingState gameState)
+            {
+                _stateElapsedTime = 0f;
+                gameState.RemoveCollider(this);
+            }
         }
     }
 }

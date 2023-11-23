@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
+using SprintZero1.Commands.PlayerCommands;
 using SprintZero1.Entities;
 using SprintZero1.Managers;
 using System;
@@ -14,6 +15,7 @@ namespace SprintZero1.Controllers
         private readonly List<Keys> _movementKeyList;
         private List<Keys> _previouslyPressedKeys;
         private readonly Stack<Keys> _movementKeyStack;
+        private ICommand _playerIdleCommand;
         /// <summary>
         /// Construct an object to control the keyboard
         /// </summary>
@@ -61,6 +63,7 @@ namespace SprintZero1.Controllers
                 _keyboardMap[keyRef].Execute();
             }
         }
+
         /// <summary>
         /// Load the controls for the specific player.
         /// </summary>
@@ -68,21 +71,7 @@ namespace SprintZero1.Controllers
         public void LoadControls(IEntity player)
         {
             _keyboardMap = ControlsManager.GetKeyboardControls(player);
-        }
-
-        public void PausedStateUpdate(Game1 game)
-        {
-            KeyboardState currentKeyboardState = Keyboard.GetState();
-            Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
-
-            foreach (Keys key in pressedKeys)
-            {
-                if (key == Keys.Escape && !_previouslyPressedKeys.Contains(key))
-                {
-                    GameStatesManager.ChangeGameState(Enums.GameState.Playing);
-                }
-            }
-            _previouslyPressedKeys = pressedKeys.ToList();
+            _playerIdleCommand = new PlayerIdleCommand(player as PlayerEntity);
         }
 
         public void Update()
@@ -101,7 +90,6 @@ namespace SprintZero1.Controllers
                 {
                     HandleMovementKey(key);
                     totalKeyCount++;
-
                 }
                 else if (_keyboardMap.ContainsKey(key) && !_previouslyPressedKeys.Contains(key))
                 {
@@ -120,6 +108,11 @@ namespace SprintZero1.Controllers
 
             /* store pressed keys as previously pressed keys */
             _previouslyPressedKeys = pressedKeys.ToList<Keys>();
+            /* Change player to idle state when there aren't any keys pressed */
+            if (_previouslyPressedKeys.Count == 0 && pressedKeys.Length == 0)
+            {
+                _playerIdleCommand.Execute();
+            }
         }
     }
 }

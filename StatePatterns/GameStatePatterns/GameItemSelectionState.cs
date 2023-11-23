@@ -37,7 +37,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             controllerForItemSelection.Update();
             itemSelectionMenu.Update(gameTime);
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)

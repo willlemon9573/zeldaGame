@@ -35,14 +35,17 @@ namespace SprintZero1.Entities
         protected string _enemyName;
         protected Vector2 _enemyPosition;
         protected IEnemyState _enemyState;
+        protected ICollider _collider;
         public ISprite EnemySprite { get { return _enemySprite; } set { _enemySprite = value; } }
         public string EnemyName { get { return _enemyName; } set { _enemyName = value; } }
         public Vector2 Position { get { return _enemyPosition; } set { _enemyPosition = value; _collider.Update(this); } }
         public float Health { get { return _enemyHealth; } set { _enemyHealth = value; } }
         public Direction Direction { get { return _enemyDirection; } set { _enemyDirection = value; } }
         public IEnemyState EnemyState { get { return _enemyState; } set { _enemyState = value; } }
-        protected ICollider _collider;
+
         public ICollider Collider { get { return _collider; } }
+
+
 
         /// <summary>
         /// Constructs a new enemy entity.
@@ -78,7 +81,7 @@ namespace SprintZero1.Entities
             _enemyState.TransitionState(newState);
         }
 
-        public virtual void Attack(string weaponName)
+        public virtual void Attack()
         {
             PerformAttack();
         }

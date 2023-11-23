@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 
 namespace SprintZero1.Entities.BoomerangEntity
@@ -53,6 +55,7 @@ namespace SprintZero1.Entities.BoomerangEntity
 
             // Update the sprite animation.
             ProjectileSprite.Update(gameTime);
+            _projectileCollider.Update(this);
 
             // Move the boomerang based on its current state.
             if (returning)
@@ -119,6 +122,10 @@ namespace SprintZero1.Entities.BoomerangEntity
             {
                 ProjectileSprite = null;
                 IsActive = false;
+                if (GameStatesManager.CurrentState is GamePlayingState gameState)
+                {
+                    gameState.RemoveProjectile(this);
+                }
             }
         }
     }

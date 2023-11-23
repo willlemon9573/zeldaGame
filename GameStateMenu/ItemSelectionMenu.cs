@@ -44,8 +44,8 @@ namespace SprintZero1.GameStateMenu
         private Rectangle botBackGround;
 
         // Textures
-        private Texture2D largeTexture;
-        private Texture2D itemChooseScreen;
+        private readonly Texture2D largeTexture;
+        private readonly Texture2D itemChooseScreen;
 
         // Equipment and selection data
         private Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>> equipmentData;
@@ -151,7 +151,7 @@ namespace SprintZero1.GameStateMenu
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            updateChooseRecPosition();
+            UpdateChooseRecPosition();
             SetCurrentWeaponRec();
             AnimateChooseRec(gameTime);
         }
@@ -232,7 +232,7 @@ namespace SprintZero1.GameStateMenu
         /// <summary>
         /// Updates the position of the selection rectangle based on the current weapon.
         /// </summary>
-        private void updateChooseRecPosition()
+        private void UpdateChooseRecPosition()
         {
             if (currentWeapon == EquipmentItem.WoodenSword) return;
             if (equipmentData.TryGetValue(currentWeapon, out Tuple<Rectangle, Vector2> data))

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 
@@ -11,7 +12,9 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
     internal class PlayerAttackingState : BasePlayerState
     {
         private float _stateElapsedTime = 0f;
-        private readonly float _timeToResetState = 1 / 7f;
+        private const float TimeToReset = 1 / 7f;
+        IWeaponEntity _playerCurrentWeapon;
+
         /// <summary>
         /// Keep track of the time in the state and reset back to idle state when finished
         /// </summary>
@@ -19,7 +22,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         private void TrackStateTime(float deltaTime)
         {
             _stateElapsedTime += deltaTime;
-            if (_stateElapsedTime >= _timeToResetState)
+            if (_stateElapsedTime >= TimeToReset)
             {
                 _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(_playerEntity.Direction);
                 _blockTransition = false;
@@ -42,6 +45,9 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             if (_blockTransition) { return; }
             _blockTransition = true;
             _playerEntity.PlayerSprite = _linkSpriteFactory.GetAttackingSprite(_playerEntity.Direction);
+            _stateElapsedTime = 0;
+            _playerCurrentWeapon = _playerEntity.CurrentUsableWeapon;
+            _playerCurrentWeapon.UseWeapon(_playerEntity.Direction, _playerEntity.Position);
         }
         /// <summary>
         /// Handles updating 
@@ -50,6 +56,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         public override void Update(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _playerCurrentWeapon.Update(gameTime);
             TrackStateTime(deltaTime);
         }
 
@@ -60,6 +67,18 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         public override void ChangeDirection(Direction newDirection)
         {
             // Uses parent implementation - can use if we want to spin link when attacking 
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            /* Check the direction of the player to see if we need to flip
+             * the player sprite
+             */
+            SpriteEffects spriteEffects = _playerEntity.Direction == Direction.West
+                ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            // draw sprite
+            _playerEntity.PlayerSprite.Draw(spriteBatch, _playerEntity.Position, spriteEffects, 0, 0.1f);
+            _playerCurrentWeapon.Draw(spriteBatch);
         }
     }
 }

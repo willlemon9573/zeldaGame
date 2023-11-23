@@ -30,7 +30,7 @@ namespace SprintZero1.Commands
         public void Execute()
         {
             // Triggers the attack method of the combat entity with a "MagicFire" parameter
-            combatEntity.Attack("MagicFire");
+            combatEntity.Attack();
         }
     }
 }
