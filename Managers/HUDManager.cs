@@ -15,7 +15,7 @@ namespace SprintZero1.Managers
         const int MAX_ATTAINABLE_HEALTH = 13;
         private static List<Tuple<ISprite, Vector2>> healthList = new List<Tuple<ISprite, Vector2>>();
         private static Dictionary<String, Tuple<ISprite, Vector2>> specialCaseDict = new Dictionary<String, Tuple<ISprite, Vector2>>();
-        const float STARTING_HEALTH = 6f;
+        const float MAX_HEALTH = 3f;
         const float FULL_HEART = 1f;
         const float HALF_HEART = 0.5f;
         const float EMPTY_HEART = 0f;
@@ -100,11 +100,20 @@ namespace SprintZero1.Managers
             //creates the full heart sprites bbeing used
             ISprite fullHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("full_heart");
             //adds all the hearts to the list to late be updated and drawn
-            for (int i = 0; i < STARTING_HEALTH; i++)
+            for (int i = 0; i < MAX_HEALTH; i++)
             {
                 healthList.Add(new Tuple<ISprite, Vector2>(fullHeartSprite, pos));
                 pos.X = pos.X + 9;
             }
+        }
+
+        public static void IncreasePlayerHealth()
+        {
+            ISprite health = HUDSpriteFactory.Instance.CreateHUDSprite("full_heart");
+            Vector2 pos = healthList[healthList.Count - 1].Item2;
+            int offset = 9;
+            pos.X += offset;
+            healthList.Add(new Tuple<ISprite, Vector2>(health, pos));
         }
 
         public static void DecrementHealth(float amount, int health)
