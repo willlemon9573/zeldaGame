@@ -25,7 +25,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         private readonly ColliderManager _colliderManager;
         // Note: Base variable is EntityManager
         public DungeonRoom CurrentRoom { get { return _currentRoom; } }
-        readonly MouseTools _mouseController; /* for debugging */
+
+        private readonly MouseTools _mouseController; /* for debugging */
         private Song _dungeonMusic;
         private SpriteDebuggingTools _spriteDebuggingTools;
         /// <summary>
@@ -82,11 +83,13 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public void AddProjectile(IEntity projectile)
         {
             _projectiles.Add(projectile);
+            AddCollider(projectile);
         }
 
         public void RemoveProjectile(IEntity projectile)
         {
             _projectiles.Remove(projectile);
+            RemoveCollider(projectile);
         }
 
         /// <summary>

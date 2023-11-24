@@ -4,7 +4,7 @@ namespace SprintZero1.Commands.PlayerCommands
 {
     internal class UsePlayerEquipmentCommand : ICommand
     {
-        PlayerEntity _player;
+        private PlayerEntity _player;
         public UsePlayerEquipmentCommand(IEntity player)
         {
             _player = player as PlayerEntity;

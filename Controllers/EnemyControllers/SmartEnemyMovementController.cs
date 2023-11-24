@@ -2,6 +2,7 @@
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.LevelFiles;
+using SprintZero1.StatePatterns.EnemyStatePatterns;
 using System;
 using System.Collections.Generic;
 

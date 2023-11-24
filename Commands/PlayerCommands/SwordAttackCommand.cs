@@ -3,8 +3,7 @@ namespace SprintZero1.Commands.PlayerCommands
 {
     internal class SwordAttackCommand : ICommand
     {
-
-        readonly PlayerEntity _combatEntity;
+        private readonly PlayerEntity _combatEntity;
         /// <summary>
         /// Create an object to handle when an entity needs to attack with a sword
         /// </summary>

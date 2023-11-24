@@ -9,8 +9,8 @@ namespace SprintZero1.Factories
 {
     internal class ItemSpriteFactory
     {
-        private const string ANIMATED_ITEMS_DOCUMENT_PATH = @"XMLFILES\FactoryXMLFiles\AnimatedItemSprites.xml";
-        private const string NONANIMATED_ITEMS_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\NonAnimatedItemSprites.xml";
+        private const string ANIMATED_ITEMS_DOCUMENT_PATH = @"XMLFILES/FactoryXMLFiles/AnimatedItemSprites.xml";
+        private const string NONANIMATED_ITEMS_DOCUMENT_PATH = @"XMLFiles/FactoryXMLFiles/NonAnimatedItemSprites.xml";
 
         private Texture2D itemSpriteSheet;
         private static readonly ItemSpriteFactory instance = new ItemSpriteFactory();

@@ -87,7 +87,7 @@ namespace SprintZero1.GameStateMenu
         private void LoadItemData()
         {
             equipmentData = new Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>>();
-            XDocument doc = XDocument.Load(@"GameStateMenu\ItemData.xml");
+            XDocument doc = XDocument.Load(@"GameStateMenu/ItemData.xml");
             var itemDataElement = doc.Element("ItemData");
             XDocTools _xDocTools = new XDocTools();
             XElement ChooseRecFirRectElement = itemDataElement.Element("ChooseRecFirSprite");

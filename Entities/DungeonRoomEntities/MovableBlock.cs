@@ -16,7 +16,8 @@ namespace SprintZero1.Entities.DungeonRoomEntities
         private Direction _movementDirection;
         private Vector2 _maxPosition;
         public Direction Direction { get { return _movementDirection; } set { _movementDirection = value; } }
-        readonly DungeonRoom _room;
+
+        private readonly DungeonRoom _room;
 
 
         /// <summary>

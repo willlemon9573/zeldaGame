@@ -12,7 +12,7 @@ namespace SprintZero1.Commands
     internal class BombAttackCommand : ICommand
     {
         // Field for storing the reference to the combat entity
-        readonly ICombatEntity combatEntity;
+        private readonly ICombatEntity combatEntity;
 
         /// <summary>
         /// Initializes a new instance of the BombAttackCommand class.

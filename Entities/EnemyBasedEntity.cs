@@ -93,6 +93,11 @@ namespace SprintZero1.Entities
             _enemyHealth -= damage;
         }
 
+        public void PauseEnemy() {
+            TransitionToState(State.Paused);
+            _enemyState.Request();
+        }
+
         public virtual void Die()
         {
             // not implemented yet

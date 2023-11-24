@@ -6,8 +6,8 @@ namespace SprintZero1.Commands.CollisionCommands
 {
     internal class PushBackCommand : ICommand
     {
-        ICollidableEntity e1;
-        ICollidableEntity e2;
+        private ICollidableEntity e1;
+        private ICollidableEntity e2;
         public PushBackCommand(ICollidableEntity c1, ICollidableEntity c2)
         {
             e1 = c1;

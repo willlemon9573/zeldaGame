@@ -49,7 +49,7 @@ namespace SprintZero1.Controllers
         /// Function to allow multiple movement buttons
         /// </summary>
         /// <param name="movementButton">the current movement button</param>
-        void HandleMovementButtons(Buttons movementButton)
+        private void HandleMovementButtons(Buttons movementButton)
         {
             /*
              * Add button to stack if its not already in the stack

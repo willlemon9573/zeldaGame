@@ -9,7 +9,7 @@ namespace SprintZero1.DebuggingTools
     /// </summary>
     internal class SpriteDebuggingTools
     {
-        readonly Texture2D _pixels;
+        private readonly Texture2D _pixels;
         public SpriteDebuggingTools(Game game)
         {
             _pixels = new Texture2D(game.GraphicsDevice, 1, 1);

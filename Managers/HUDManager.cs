@@ -12,13 +12,13 @@ namespace SprintZero1.Managers
     internal static class HUDManager
     {
         private static List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
-        const int MAX_ATTAINABLE_HEALTH = 13;
+        private const int MAX_ATTAINABLE_HEALTH = 13;
         private static List<Tuple<ISprite, Vector2>> healthList = new List<Tuple<ISprite, Vector2>>();
         private static Dictionary<String, Tuple<ISprite, Vector2>> specialCaseDict = new Dictionary<String, Tuple<ISprite, Vector2>>();
-        const float MAX_HEALTH = 3f;
-        const float FULL_HEART = 1f;
-        const float HALF_HEART = 0.5f;
-        const float EMPTY_HEART = 0f;
+        private const float MAX_HEALTH = 3f;
+        private const float FULL_HEART = 1f;
+        private const float HALF_HEART = 0.5f;
+        private const float EMPTY_HEART = 0f;
 
 
         public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
@@ -36,10 +36,9 @@ namespace SprintZero1.Managers
         /// </summary>
         public static void Initialize()
         {
-
             Vector2 startingPos = new Vector2(180, 40);
             float[] _hearts = new float[MAX_ATTAINABLE_HEALTH];
-            string path = @"XMLFiles\HUDXMLFiles\HUDPositions.xml";
+            string path = @"XMLFiles/HUDXMLFiles/HUDPositions.xml";
             XDocument document = XDocument.Load(path);
             XElement root = document.Root; /* get root */
             XDocTools xDocTools = new XDocTools();

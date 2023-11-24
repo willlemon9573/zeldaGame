@@ -13,7 +13,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
     {
         private float _stateElapsedTime = 0f;
         private const float TimeToReset = 1 / 7f;
-        IWeaponEntity _playerCurrentWeapon;
+        private IWeaponEntity _playerCurrentWeapon;
 
         /// <summary>
         /// Keep track of the time in the state and reset back to idle state when finished

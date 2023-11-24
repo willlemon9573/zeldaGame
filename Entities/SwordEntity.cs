@@ -20,8 +20,8 @@ namespace SprintZero1.Entities
     /// </summary>
     internal class SwordEntity : IWeaponEntity, ICollidableEntity
     {
-        const float Rotation = 0f;
-        const float LayerDepth = 0.2f;
+        private const float Rotation = 0f;
+        private const float LayerDepth = 0.2f;
         private readonly string _weaponName;
         private float _stateElapsedTime = 0f;
         private readonly float _timeToResetState = 1 / 7f;
@@ -35,7 +35,7 @@ namespace SprintZero1.Entities
 
         private SpriteDebuggingTools spriteDebugger;
         private ICollider _collider;
-        readonly SoundEffect _swordSlash;
+        private readonly SoundEffect _swordSlash;
         /* Get collider */
         public ICollider Collider { get { return _collider; } }
         /// <summary>

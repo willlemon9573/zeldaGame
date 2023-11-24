@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace SprintZero1.LevelFiles
 {
-    delegate void RemoveDelegate(IEntity entity);
+    internal delegate void RemoveDelegate(IEntity entity);
     /// <summary>
     /// A class that is used to hold the information for individual levels
     /// @author Aaron Heishman

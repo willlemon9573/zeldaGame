@@ -47,7 +47,7 @@ namespace SprintZero1.Controllers
         /// A function to allow multiple movement keys to be pressed at once while maintaining the most recent key command is executed
         /// </summary>
         /// <param name="movementKey">the current movement key that needs to be checked</param>
-        void HandleMovementKey(Keys movementKey)
+        private void HandleMovementKey(Keys movementKey)
         {
             /* 
              * Add key to stack if it's not in the stack already and execute that key

@@ -54,7 +54,7 @@ namespace SprintZero1.Managers
             GamePlayingState _startingState = (GamePlayingState)_gameStateMap[GameState.Playing];
             PlayerEntity player = new PlayerEntity(new Vector2(127, 194), 6, Direction.North);
             _startingState.AddPlayer(player);
-            const string CONTROLS_DOCUMENT_PATH = @"XMLFiles\PlayerXMLFiles\ControllerSettings.xml";
+            const string CONTROLS_DOCUMENT_PATH = @"XMLFiles/PlayerXMLFiles/ControllerSettings.xml";
             ControlsManager.CreateKeyboardControlsMap(CONTROLS_DOCUMENT_PATH, player, _game);
             KeyboardController controller = new KeyboardController();
             controller.LoadControls(player);

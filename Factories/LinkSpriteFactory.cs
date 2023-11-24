@@ -11,8 +11,8 @@ namespace SprintZero1.Factories
 {
     public class LinkSpriteFactory
     {
-        private const string MOVEMENT_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\LinkMovingSprites.xml";
-        private const string ATTACKING_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\LinkAttackingSprites.xml";
+        private const string MOVEMENT_DOCUMENT_PATH = @"XMLFiles/FactoryXMLFiles/LinkMovingSprites.xml";
+        private const string ATTACKING_DOCUMENT_PATH = @"XMLFiles/FactoryXMLFiles/LinkAttackingSprites.xml";
         private Texture2D LinkSpriteSheet;
         private readonly Dictionary<Direction, List<Rectangle>> movementSpriteDictionary;
         private readonly Dictionary<Direction, Rectangle> attackSpriteDictionary;

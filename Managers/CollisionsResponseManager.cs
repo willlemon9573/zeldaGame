@@ -25,6 +25,7 @@ namespace SprintZero1.Managers
             { new Tuple<Type, Type>(typeof(PlayerCollider), typeof(MovableBlockCollider)), (entity1, entity2) => new PushBlockCommand(entity1, entity2).Execute()},
             { new Tuple<Type, Type>(typeof(PlayerCollider), typeof(BreakableWallCollider)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute()},
             { new Tuple<Type, Type>(typeof(PlayerSwordCollider), typeof(EnemyCollider)), (entity1, entity2) => new SwordEnemyCollisionCommand(entity1, entity2).Execute()},
+            { new Tuple<Type, Type>(typeof(PlayerBoomerangCollider), typeof(EnemyCollider)), (entity1, entity2) => new PauseEnemyCommand(entity1, entity2).Execute()},
             {  new Tuple<Type, Type>(typeof(EnemyCollider), typeof(PushBackCollider)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() }
         };
 

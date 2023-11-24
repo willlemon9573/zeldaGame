@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Colliders.ItemColliders;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
@@ -93,6 +94,14 @@ namespace SprintZero1.Entities.BoomerangEntity
                 _isAccelerating = true;
                 _speedFactor = 0.1f;
             }
+        }
+
+        public void ReturnBoomerang() {
+            if (returning) { return; }
+            returning = true;
+            distanceMoved = 0;
+            _isAccelerating = true;
+            _speedFactor = 0.1f;
         }
 
         // Handles the behavior of the boomerang when returning.

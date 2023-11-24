@@ -12,7 +12,7 @@ namespace SprintZero1.DebuggingTools
         private readonly Rectangle _windowRegion;
         private readonly SpriteFont _font;
         private Vector2 _currentMousePosition;
-        string _mousePositionText;
+        private string _mousePositionText;
         private readonly Texture2D _pixels;
         private Vector2 _pixelPosition = Vector2.Zero;
         private Rectangle _positionRectangle = new Rectangle();

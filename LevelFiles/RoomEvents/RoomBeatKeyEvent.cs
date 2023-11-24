@@ -9,7 +9,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
 {
     internal class RoomBeatKeyEvent : EnemyDefeatEventBase
     {
-        Vector2 _dropPosition;
+        private Vector2 _dropPosition;
         public RoomBeatKeyEvent(DungeonRoom room, Vector2 dropPosition) : base(room)
         {
             this._roomWithEvent = room;

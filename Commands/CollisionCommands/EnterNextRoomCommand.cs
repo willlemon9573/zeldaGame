@@ -18,7 +18,6 @@ namespace SprintZero1.Commands.CollisionCommands
         private readonly GamePlayingState _playingState;
         private readonly IDoorEntity _door;
         private const string SecretRoom = "floorSecret";
-        private ICommand _pushBack;
 
         public Dictionary<Direction, Vector2> _directionMap = new Dictionary<Direction, Vector2>() {
                 { Direction.North, new Vector2(0, PositionOffsetOne) },

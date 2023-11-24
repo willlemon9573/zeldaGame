@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
+using SprintZero1.Entities.BoomerangEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
@@ -31,7 +32,6 @@ namespace SprintZero1.Entities
         private IWeaponEntity _playerEquipmentSlot;
         private readonly PlayerStateFactory _playerStateFactory;
         private IPlayerState _playerState;
-        private bool _attackingWithSword = false;
         private IWeaponEntity _currentWeapon;
         private readonly PlayerInventory _playerInventory;
         /* Public properties to modify the player's private members */
@@ -70,6 +70,9 @@ namespace SprintZero1.Entities
             itemState.AssignToPlayer(this);
             GamePausedState pausedState = GameStatesManager.GetGameState(GameState.Paused) as GamePausedState;
             pausedState.AssignToPlayer(this);
+
+            /* For testing */
+            _playerEquipmentSlot = new RegularBoomerangEntity("boomerang", this);
         }
 
         public void Move()
@@ -77,6 +80,7 @@ namespace SprintZero1.Entities
             if (_playerState is not PlayerMovingState) { TransitionToState(State.Moving); }
             _playerState.Request();
         }
+
         /// <summary>
         /// Transition player to the new state
         /// </summary>
