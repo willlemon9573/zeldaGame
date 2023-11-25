@@ -1,5 +1,6 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Entities.LootableItemEntity;
+using SprintZero1.Managers;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
@@ -18,6 +19,7 @@ namespace SprintZero1.Commands.CollisionCommands
         {
             _heart.Remove();
             _player.Health++;
+            HUDManager.IncreasePlayerHealth();
         }
     }
 }

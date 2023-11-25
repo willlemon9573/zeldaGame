@@ -25,7 +25,9 @@ namespace SprintZero1.Enums
         Paused,                 // Represents the state of being paused
         InteractingWithItem,    // represetns the state of interacting with an item
         KnockedBack,            // represents the state of being knocked back
-        Die                     // Represents the state of dying
+        Die,                    // Represents the state of dying
+        Vulnerable,
+        Invulnerable
     }
 
     public enum AttackType

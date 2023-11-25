@@ -39,7 +39,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _entitySprite.Draw(spriteBatch, _entityPosition, _spriteEffects, _spriteRotation, _layerDepth);
+            _entitySprite.Draw(spriteBatch, _entityPosition, Color.White, _spriteEffects, _spriteRotation, _layerDepth);
         }
     }
 }

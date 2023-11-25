@@ -2,12 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
-using SprintZero1.Entities.BoomerangEntity;
+using SprintZero1.Entities.BowAndMagicFireEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
+using SprintZero1.StatePatterns;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
@@ -32,6 +33,7 @@ namespace SprintZero1.Entities
         private IWeaponEntity _playerEquipmentSlot;
         private readonly PlayerStateFactory _playerStateFactory;
         private IPlayerState _playerState;
+        private IPlayerState _playerVulnerabilityState;
         private IWeaponEntity _currentWeapon;
         private readonly PlayerInventory _playerInventory;
         /* Public properties to modify the player's private members */
@@ -40,6 +42,7 @@ namespace SprintZero1.Entities
         public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
         public ISprite PlayerSprite { get { return _playerSprite; } set { _playerSprite = value; } }
         public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
+        public IPlayerState PlayerVulnerableState { get { return _playerVulnerabilityState; } set { _playerVulnerabilityState = value; } }
         public ICollider Collider { get { return _playerCollider; } }
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; Collider.Update(this); } }
         public IWeaponEntity SwordSlot { get { return _playerSwordSlot; } set { _playerSwordSlot = value; } }
@@ -63,6 +66,7 @@ namespace SprintZero1.Entities
             float scalefactor = 0.9f;
             _playerCollider = new PlayerCollider(position, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);
+            _playerVulnerabilityState = new PlayerVulnerableState(this);
             _playerInventory = new PlayerInventory(this);
             _playerStateFactory = new PlayerStateFactory(this);
             PlayerInventoryManager.AddPlayerInventory(this, _playerInventory);
@@ -72,7 +76,7 @@ namespace SprintZero1.Entities
             pausedState.AssignToPlayer(this);
 
             /* For testing */
-            _playerEquipmentSlot = new RegularBoomerangEntity("boomerang", this);
+            _playerEquipmentSlot = new RegularBowEntity("bow");
         }
 
         public void Move()
@@ -92,15 +96,24 @@ namespace SprintZero1.Entities
 
         public void Attack()
         {
+            /* return if the player previously shot a projectile and it hasn't finished its animation */
+            if (_currentWeapon is ProjectileEntity projectile && projectile.IsActive)
+            {
+                return;
+            }
             if (_playerState is not PlayerAttackingState) { TransitionToState(State.Attacking); }
             _playerState.Request();
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
-
+            if (_playerVulnerabilityState is PlayerInvulnerabilityState) { return; }
+            TransitionToState(State.TakingDamage);
             HUDManager.DecrementHealth(damage, (int)_playerHealth);
             _playerHealth -= damage;
+            _playerState.Request();
+            _playerVulnerabilityState = _playerStateFactory.GetPlayerState(State.Invulnerable);
+            _playerVulnerabilityState.Request();
         }
 
         public void Die()
@@ -115,14 +128,28 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
-
             _playerState.Update(gameTime);
+            if (_playerVulnerabilityState is PlayerInvulnerabilityState)
+            {
+                _playerVulnerabilityState.Update(gameTime); // update flashing if player is invulnerable
+            }
             _playerCollider.Update(this);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _playerState.Draw(spriteBatch);
+            if (_playerVulnerabilityState is PlayerInvulnerabilityState)
+            {
+                _playerVulnerabilityState.Draw(spriteBatch); // draw player as flashing when invulnerable
+                if (_playerState is PlayerAttackingState)
+                {
+                    _playerState.Draw(spriteBatch); // draw weapon if player is also invulnerable
+                }
+            }
+            else
+            {
+                _playerState.Draw(spriteBatch);
+            }
         }
     }
 }

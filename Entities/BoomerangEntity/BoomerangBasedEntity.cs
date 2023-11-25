@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Colliders.ItemColliders;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
@@ -43,7 +42,7 @@ namespace SprintZero1.Entities.BoomerangEntity
         public sealed override void Draw(SpriteBatch spriteBatch)
         {
             if (ProjectileSprite == null) return;
-            ProjectileSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, _rotation);
+            ProjectileSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, _rotation);
         }
 
         /// <summary>
@@ -96,7 +95,8 @@ namespace SprintZero1.Entities.BoomerangEntity
             }
         }
 
-        public void ReturnBoomerang() {
+        public void ReturnBoomerang()
+        {
             if (returning) { return; }
             returning = true;
             distanceMoved = 0;

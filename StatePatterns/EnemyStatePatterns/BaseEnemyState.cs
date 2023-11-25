@@ -70,7 +70,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
             SpriteEffects spriteEffects = _enemyEntity.Direction == Direction.West
                 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             // draw sprite
-            _enemyEntity.EnemySprite.Draw(spriteBatch, _enemyEntity.Position, spriteEffects, 0, 0.1f);
+            _enemyEntity.EnemySprite.Draw(spriteBatch, _enemyEntity.Position, Color.White, spriteEffects, 0, 0.1f);
         }
 
 

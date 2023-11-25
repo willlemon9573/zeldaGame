@@ -25,7 +25,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             if (_stateElapsedTime >= TimeToReset)
             {
                 _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(_playerEntity.Direction);
-                _blockTransition = false;
+                UnblockTranstion();
                 _playerEntity.TransitionToState(State.Idle);
             }
         }
@@ -42,13 +42,14 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         /// </summary>
         public override void Request()
         {
-            if (_blockTransition) { return; }
-            _blockTransition = true;
+            if (!_canTransition) { return; }
+            BlockTransition();
             _playerEntity.PlayerSprite = _linkSpriteFactory.GetAttackingSprite(_playerEntity.Direction);
             _stateElapsedTime = 0;
             _playerCurrentWeapon = _playerEntity.CurrentUsableWeapon;
             _playerCurrentWeapon.UseWeapon(_playerEntity.Direction, _playerEntity.Position);
         }
+
         /// <summary>
         /// Handles updating 
         /// </summary>
@@ -66,7 +67,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         /// <param name="newDirection">The new direction the player will face</param>
         public override void ChangeDirection(Direction newDirection)
         {
-            // Uses parent implementation - can use if we want to spin link when attacking 
+            base.ChangeDirection(newDirection);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -77,7 +78,9 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             SpriteEffects spriteEffects = _playerEntity.Direction == Direction.West
                 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             // draw sprite
-            _playerEntity.PlayerSprite.Draw(spriteBatch, _playerEntity.Position, spriteEffects, 0, 0.1f);
+            float rotation = 0f;
+            float layerDepth = 0.1f;
+            _playerEntity.PlayerSprite.Draw(spriteBatch, _playerEntity.Position, Color.White, spriteEffects, rotation, layerDepth);
             _playerCurrentWeapon.Draw(spriteBatch);
         }
     }

@@ -42,6 +42,7 @@ namespace SprintZero1.Managers
             Debug.Assert(_playerInventoryMap.ContainsKey(player), $"{player} does not have an inventory.");
             Debug.Assert(amount >= 0, $"{amount} must be a positive value");
             _playerInventoryMap[player].UsedItem(item, amount);
+            HUDManager.UpdateStackableItemCount(item, _playerInventoryMap[player].GetStackableItemCount(item));
         }
 
         /// <summary>
@@ -65,14 +66,8 @@ namespace SprintZero1.Managers
         public static void AddStackableItemToInventory(IEntity player, StackableItems item, int amount)
         {
             Debug.Assert(player != null, "Error: Player is null.");
-            int currentCount = _playerInventoryMap[player].GetStackableItemCount(item);
-            if (currentCount == 99) { return; }
-            if (currentCount + amount >= 99)
-            {
-                // adding to inventory
-            }
             _playerInventoryMap[player].AddItem(item, amount);
-
+            HUDManager.UpdateStackableItemCount(item, _playerInventoryMap[player].GetStackableItemCount(item));
         }
 
         /// <summary>
@@ -83,7 +78,6 @@ namespace SprintZero1.Managers
         {
             Debug.Assert(player != null, "Error: Player is null.");
             Debug.WriteLine(_playerInventoryMap[player].IsInInventory(item));
-
             _playerInventoryMap[player].AddDungeonUtilityItem(item);
         }
 

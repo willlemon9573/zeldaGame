@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 
 namespace SprintZero1.Entities.BowAndMagicFireEntity
@@ -16,7 +18,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         protected int _maxDistance; // Maximum distance the projectile can travel
         protected float distanceMoved; // Distance the projectile has moved
         protected Vector2 _spriteMovingAddition; // Movement vector for the projectile
-        protected bool IsActive; // Flag to indicate if the projectile is active
+        protected bool _drawImpactSprite = false;
 
         /// <summary>
         /// Initializes a new instance of the NonComingBackWeaponEntity class.
@@ -33,11 +35,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         /// <param name="spriteBatch">The sprite batch used for drawing.</param>
         public sealed override void Draw(SpriteBatch spriteBatch)
         {
-            if (ProjectileSprite == null)
-            {
-                return;
-            }
-            ProjectileSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, _rotation);
+            ProjectileSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, _rotation);
         }
 
         /// <summary>
@@ -46,12 +44,9 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public sealed override void Update(GameTime gameTime)
         {
-            if (ProjectileSprite == null)
-            {
-                return;
-            }
             ProjectileSprite.Update(gameTime);
             Animate(gameTime);
+            _projectileCollider.Update(this);
         }
 
         /// <summary>
@@ -60,26 +55,20 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         /// <param name="gameTime">Provides a snapshot of timing values for animation.</param>
         protected void Animate(GameTime gameTime)
         {
-            if (!IsActive)
-            {
-                ProjectileSprite = ImpactEffectSprite;
-                timer += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-                if (timer >= WaitingTime)
-                {
-                    ProjectileSprite = null;
-                    ImpactEffectSprite = null;
-                    timer = 0;
-                }
-                return;
-            }
-
             _weaponPosition += _spriteMovingAddition;
             distanceMoved += movingSpeed;
-
             if (distanceMoved >= _maxDistance)
             {
-                IsActive = false; // Deactivate the projectile when it reaches max distance
+                Stop();
+            }
+        }
+
+        public virtual void Stop()
+        {
+            if (_isActive && GameStatesManager.CurrentState is GamePlayingState gamePlayingState)
+            {
+                _isActive = false;
+                gamePlayingState.RemoveProjectile(this);
             }
         }
     }

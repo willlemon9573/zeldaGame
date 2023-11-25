@@ -1,5 +1,6 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Enums;
+using SprintZero1.StatePatterns;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System;
@@ -22,6 +23,8 @@ namespace SprintZero1.Factories
                 {State.Die, () => new PlayerDeathState(player)},
                 {State.KnockedBack, () => new PlayerKnockBackState(player)},
                 {State.Paused, () => new PlayerPauseState(player)},
+                {State.Vulnerable, () => new PlayerVulnerableState(player)},
+                {State.Invulnerable, () => new PlayerInvulnerabilityState(player) }
             };
         }
         /// <summary>

@@ -13,7 +13,7 @@ namespace SprintZero1.Commands.CollisionCommands
         }
         public void Execute()
         {
-            _enemy.TakeDamage(1);
+            _enemy.TakeDamage(1f);
         }
     }
 }

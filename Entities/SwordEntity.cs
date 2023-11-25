@@ -67,7 +67,7 @@ namespace SprintZero1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _weaponSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, Rotation, LayerDepth);
+            _weaponSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, Rotation, LayerDepth);
             spriteDebugger.DrawRectangle(_collider.Collider, Color.CornflowerBlue, spriteBatch);
         }
 

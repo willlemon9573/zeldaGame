@@ -1,7 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Colliders.ItemColliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
+using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 
 namespace SprintZero1.Entities.BowAndMagicFireEntity
@@ -14,7 +17,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
     internal class RegularBowEntity : NonComingBackWeaponEntity
     {
         private const int RegularBowMaxDistance = 40; // Maximum distance the projectile can travel before becoming inactive
-        private const float RegularBowMovingSpeed = 1;
+        private const float RegularBowMovingSpeed = 1.5f;
 
         /// <summary>
         /// Initializes a new instance of the RegularBowEntity class.
@@ -34,8 +37,9 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         /// <param name="position">The initial position of the weapon.</param>
         public override void UseWeapon(Direction direction, Vector2 position)
         {
+            if (IsActive) { return; }
             distanceMoved = 0;
-            IsActive = true;
+            _isActive = true;
             ProjectileSprite = WeaponSpriteFactory.Instance.CreateArrowSprite("", direction);
             ImpactEffectSprite = WeaponSpriteFactory.Instance.CreateEndSprite();
 
@@ -44,6 +48,11 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
             _spriteMovingAddition = _spriteMovingDictionary[direction] * movingSpeed;
             _currentSpriteEffect = SpriteAdditions.Item1;
             _weaponPosition = position + SpriteAdditions.Item2;
+            _projectileCollider = new PlayerProjectileCollider(_weaponPosition, new System.Drawing.Size(ProjectileSprite.Width, ProjectileSprite.Height));
+            if (GameStatesManager.CurrentState is GamePlayingState gameState)
+            {
+                gameState.AddProjectile(this);
+            }
         }
     }
 }

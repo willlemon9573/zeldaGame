@@ -81,7 +81,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
         /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            _doorSprite.Draw(spriteBatch, _doorPosition, SpriteEffect, rotation, layerDepth);
+            _doorSprite.Draw(spriteBatch, _doorPosition, Color.White, SpriteEffect, rotation, layerDepth);
         }
         /// <summary>
         /// Updates the entity collider

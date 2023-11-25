@@ -15,7 +15,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
     {
         protected PlayerEntity _playerEntity;
         protected LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
-        protected bool _blockTransition = false; // false by default
+        protected bool _canTransition = true; // false by default
 
         /// <summary>
         /// Abstract base player constructor.
@@ -33,13 +33,14 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         /// <param name="newDirection">the new direction the player will face</param>
         public virtual void ChangeDirection(Direction newDirection)
         {
+            if (!_canTransition) { return; }
             _playerEntity.Direction = newDirection;
             _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(newDirection);
         }
 
         public virtual void TransitionState(IPlayerState newState)
         {
-            if (_blockTransition) { return; }
+            if (!_canTransition) { return; }
             _playerEntity.PlayerState = newState;
         }
 
@@ -66,7 +67,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             SpriteEffects spriteEffects = _playerEntity.Direction == Direction.West
                 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             // draw sprite
-            _playerEntity.PlayerSprite.Draw(spriteBatch, _playerEntity.Position, spriteEffects, 0, 0.1f);
+            _playerEntity.PlayerSprite.Draw(spriteBatch, _playerEntity.Position, Color.White, spriteEffects, 0, 0.1f);
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         /// </summary>
         public virtual void BlockTransition()
         {
-            _blockTransition = true;
+            _canTransition = false;
         }
 
         /// <summary>
@@ -82,7 +83,12 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         /// </summary>
         public virtual void UnblockTranstion()
         {
-            _blockTransition = false;
+            _canTransition = true;
+        }
+
+        public virtual bool CanTransition()
+        {
+            return _canTransition;
         }
     }
 }

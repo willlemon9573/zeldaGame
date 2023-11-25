@@ -46,7 +46,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities
         /// <param name="spriteBatch">The sprite batch that the entity will be drawn in</param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            _entitySprite.Draw(spriteBatch, Position, _spriteEffects, _spriteRotation, _layerDepth);
+            _entitySprite.Draw(spriteBatch, Position, Color.White, _spriteEffects, _spriteRotation, _layerDepth);
         }
         /// <summary>
         /// Updates the entity's animation and collider

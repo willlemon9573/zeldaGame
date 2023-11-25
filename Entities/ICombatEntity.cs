@@ -16,7 +16,7 @@
         /// <summary>
         /// Applies damage to the combat entity
         /// </summary>
-        public void TakeDamage(int damage);
+        public void TakeDamage(float damage);
         /// <summary>
         /// Handles the death of the combat entity
         /// </summary>

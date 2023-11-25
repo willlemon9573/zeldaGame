@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
@@ -29,7 +30,7 @@ namespace SprintZero1.Managers
         private static Dictionary<String, Vector2> positionDictionary = new Dictionary<String, Vector2>();
         private const int LeftDigitIndex = 0; //array index 0
         private const int RightDigitIndex = 1; //array index 1
-
+        private static Dictionary<StackableItems, Action<int>> actionMap;
 
         /// <summary>
         /// Initialize lists and dictionaries needed for HUD by parsing
@@ -90,6 +91,11 @@ namespace SprintZero1.Managers
             keyDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
             bombDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
             bombDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
+            actionMap = new Dictionary<StackableItems, Action<int>>() {
+                { StackableItems.Rupee, (amount) => UpdateRupeeCount(amount)  },
+                { StackableItems.Bomb, (amount) => UpdateBombCount(amount) },
+                { StackableItems.DungeonKey, (amount) => UpdateKeyCount(amount) }
+            };
         }
 
         public static void CreateHealth(Vector2 startingPos)
@@ -285,6 +291,18 @@ namespace SprintZero1.Managers
             bombDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
+        /// <summary>
+        /// Updates the Stackable Item's count on the HUD to the given amount
+        /// </summary>
+        /// <param name="itemType">The specific type of item being updated</param>
+        /// <param name="amount">The amount the item is being updated to</param>
+        public static void UpdateStackableItemCount(StackableItems itemType, int amount)
+        {
+            if (actionMap.TryGetValue(itemType, out var action))
+            {
+                action(amount);
+            }
+        }
 
         //makes the map visible
         public static void AddMap()
@@ -338,18 +356,18 @@ namespace SprintZero1.Managers
         {
             foreach (var sprite in healthList)
             {
-                sprite.Item1.Draw(spriteBatch, sprite.Item2);
+                sprite.Item1.Draw(spriteBatch, sprite.Item2, Color.White);
             }
             foreach (var sprite in spriteAndPosList)
             {
-                sprite.Item1.Draw(spriteBatch, sprite.Item2);
+                sprite.Item1.Draw(spriteBatch, sprite.Item2, Color.White);
             }
 
             for (int i = 0; i < 2; i++)
             {
-                rupeeDigits[i].Draw(spriteBatch, positionDictionary[$"rupeePosition{i}"]);
-                keyDigits[i].Draw(spriteBatch, positionDictionary[$"keyPosition{i}"]);
-                bombDigits[i].Draw(spriteBatch, positionDictionary[$"bombPosition{i}"]);
+                rupeeDigits[i].Draw(spriteBatch, positionDictionary[$"rupeePosition{i}"], Color.White);
+                keyDigits[i].Draw(spriteBatch, positionDictionary[$"keyPosition{i}"], Color.White);
+                bombDigits[i].Draw(spriteBatch, positionDictionary[$"bombPosition{i}"], Color.White);
             }
         }
     }

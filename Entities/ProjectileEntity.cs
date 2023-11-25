@@ -22,6 +22,8 @@ namespace SprintZero1.Entities
         protected ISprite ProjectileSprite; // Current sprite representing the projectile
         protected ISprite ImpactEffectSprite; // Sprite for the projectile's impact effect
         protected float movingSpeed; // Moving speed of the projectile
+        protected bool _isActive; // Flag to indicate if the projectile is active
+        public bool IsActive { get { return _isActive; } set { _isActive = value; } }
 
         // Dictionaries to hold sprite effect and positioning based on direction
         protected readonly Dictionary<Direction, Tuple<SpriteEffects, Vector2>> _spriteEffectsDictionary;

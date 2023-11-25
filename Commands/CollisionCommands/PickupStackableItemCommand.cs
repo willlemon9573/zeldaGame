@@ -8,6 +8,7 @@ namespace SprintZero1.Commands.CollisionCommands
     {
         private readonly IEntity _player;
         private readonly ILootableEntity _item;
+        private readonly int DefaultPickupAmount = 1;
 
         /// <summary>
         /// Constructor for picking up stackable items

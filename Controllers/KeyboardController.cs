@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
+using SprintZero1.Commands.DebugCommands;
 using SprintZero1.Commands.PlayerCommands;
 using SprintZero1.Entities;
 using SprintZero1.Managers;
@@ -8,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 namespace SprintZero1.Controllers
 {
-    public delegate void PausedStateUpdater(Game1 game);
     internal class KeyboardController : IController
     {
         private Dictionary<Keys, ICommand> _keyboardMap;
@@ -72,6 +72,7 @@ namespace SprintZero1.Controllers
         {
             _keyboardMap = ControlsManager.GetKeyboardControls(player);
             _playerIdleCommand = new PlayerIdleCommand(player as PlayerEntity);
+            _keyboardMap.Add(Keys.P, new PlayerTakeDamangeCommand(player));
         }
 
         public void Update()

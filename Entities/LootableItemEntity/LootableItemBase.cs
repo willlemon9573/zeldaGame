@@ -79,7 +79,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         /// <param name="spriteBatch">The current sprite batch drawing entities</param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            this._entitySprite.Draw(spriteBatch, _entityPosition, EntitySpriteEffects, Rotation, LayerDepth);
+            this._entitySprite.Draw(spriteBatch, _entityPosition, Color.White, EntitySpriteEffects, Rotation, LayerDepth);
         }
 
         /// <summary>

@@ -38,6 +38,11 @@ namespace SprintZero1.StatePatterns.StatePatternInterfaces
         /// Unblock the player state transitioning
         /// </summary>
         void UnblockTranstion();
+        /// <summary>
+        /// Check if the player can transition
+        /// </summary>
+        /// <returns></returns>
+        bool CanTransition();
     }
 }
 

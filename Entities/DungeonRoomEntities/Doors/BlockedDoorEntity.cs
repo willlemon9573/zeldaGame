@@ -21,7 +21,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            this._doorSprite.Draw(spriteBatch, this._doorPosition, this.SpriteEffect, this.rotation, this.layerDepth);
+            this._doorSprite.Draw(spriteBatch, this._doorPosition, Color.White, this.SpriteEffect, this.rotation, this.layerDepth);
         }
 
         public override void OpenDoor()

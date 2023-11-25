@@ -69,7 +69,7 @@ namespace SprintZero1.Entities.BombEntityFolder
             {
                 return;
             }
-            _weaponSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, 0);
+            _weaponSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, 0);
         }
 
         /// <summary>

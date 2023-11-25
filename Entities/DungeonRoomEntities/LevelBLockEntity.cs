@@ -30,7 +30,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            this._sprite.Draw(spriteBatch, _position, SpriteEffects.None, 0, LAYER_DEPTH);
+            this._sprite.Draw(spriteBatch, _position, Color.White, SpriteEffects.None, 0, LAYER_DEPTH);
         }
 
         public virtual void Update(GameTime gameTime)

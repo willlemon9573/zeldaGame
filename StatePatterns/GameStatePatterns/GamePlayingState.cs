@@ -27,8 +27,9 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public DungeonRoom CurrentRoom { get { return _currentRoom; } }
 
         private readonly MouseTools _mouseController; /* for debugging */
-        private Song _dungeonMusic;
-        private SpriteDebuggingTools _spriteDebuggingTools;
+        private readonly Song _dungeonMusic;
+        private readonly SpriteDebuggingTools _spriteDebuggingTools;
+
         /// <summary>
         /// The state of the game when the game is running
         /// </summary>

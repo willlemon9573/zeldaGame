@@ -88,7 +88,7 @@ namespace SprintZero1.Entities
 
         public abstract void PerformAttack();
 
-        public virtual void TakeDamage(int damage)
+        public virtual void TakeDamage(float damage)
         {
             _enemyHealth -= damage;
         }
