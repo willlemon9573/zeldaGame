@@ -1,0 +1,18 @@
+﻿Author of code review: Aaron Heishman
+Date: 11/22/2023
+Sprint: 5
+Name of .cs file: ItemSelectionMenu.cs for readability
+Author of .cs file: Zihe Wang
+Time reviewed: 20 minutes
+
+
+
+TReading through this class there are some good naming conventions used for most of the functions and variables used within the functions. A large majority of the functions also include summaries that describe the use of each function. The class even include a summary for the class itself which is helpful when understanding the code. The class also contains descriptive names for variables to reduce the use of magic numbers as well. There are also comments included to help explain what's is going on in some functions
+There are a few things that could be worked on though
+
+	- There are a few naming conventions broken with the constants. Constants in C# use the naming convention where each word's first character is capitalized. So item_width should be ItemWidth and any other constants should follow this convention
+	- There are a few functions that are missing comments
+	- The length of the class itself is also pretty long which reduces how readable the code is. However, it may not be feasible to break this class up into individual classes for readability purposes alone.
+		- The only suggestion I could make here is maybe making a class that does the parsing for the information of the xml file to reduce the size of the class, but that doesn't ruin the class itself.
+
+
