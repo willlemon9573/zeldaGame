@@ -4,9 +4,11 @@ using Microsoft.Xna.Framework.Media;
 using SprintZero1.Colliders;
 using SprintZero1.DebuggingTools;
 using SprintZero1.Entities;
+using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Factories;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
+using SprintZero1.Sprites;
 using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
@@ -30,6 +32,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         private readonly Song _dungeonMusic;
         private readonly SpriteDebuggingTools _spriteDebuggingTools;
 
+        
         /// <summary>
         /// The state of the game when the game is running
         /// </summary>

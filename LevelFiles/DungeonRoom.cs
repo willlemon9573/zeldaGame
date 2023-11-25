@@ -5,9 +5,12 @@ using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.DebuggingTools;
 using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
+using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
+using SprintZero1.Factories;
 using SprintZero1.LevelFiles.RoomEvents;
 using SprintZero1.Managers;
+using SprintZero1.Sprites;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -49,6 +52,8 @@ namespace SprintZero1.LevelFiles
 
         public ColliderManager ColliderManager { set { _colliderManagerRef = value; } }
 
+        private readonly List<ILootableEntity> hearttest = new List<ILootableEntity>();
+
         /* --------------------------Public properties-------------------------- */
 
         /// <summary>
@@ -71,6 +76,18 @@ namespace SprintZero1.LevelFiles
             _itemCollector = new List<IEntity>();
             _spriteDebugger = new SpriteDebuggingTools(GameStatesManager.ThisGame);
             _roomEvents = new List<IRoomEvent>();
+
+            ISprite heart = ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite("heart");
+            Vector2 n = new Vector2(85, 136);
+            RemoveDelegate r = this.RemoveFromRoom;
+    
+            for (int i = 0; i < 5; i++)
+            {
+
+                ILootableEntity repleneshingHeart = new ReplenishingHeartEntity(heart, n, r);
+                n.X += 25;
+                _floorItems.Add(repleneshingHeart);
+            }
         }
 
         /// <summary>
@@ -259,6 +276,7 @@ namespace SprintZero1.LevelFiles
         public void Update(GameTime gameTime)
         {
             _font ??= Texture2DManager.GetSpriteFont("itemfont");
+            
             _architechtureList.ForEach(entity => entity.Update(gameTime));
             _liveEnemyList.ForEach(entity => entity.Update(gameTime));
             _architechtureList.ForEach(entity => entity.Update(gameTime));
@@ -280,6 +298,7 @@ namespace SprintZero1.LevelFiles
             _liveEnemyList.ForEach(entity => entity.Draw(spriteBatch));
             _architechtureList.ForEach(entity => entity.Draw(spriteBatch));
             _floorItems.ForEach(entity => entity.Draw(spriteBatch));
+            /* drawing entity colliders on screen */
             if (_font != null)
             {
                 spriteBatch.DrawString(_font, _roomName, new Vector2(100, 50), Color.White);
@@ -311,7 +330,7 @@ namespace SprintZero1.LevelFiles
                     _spriteDebugger.DrawRectangle(collider, c, spriteBatch);
                 }
             }
-
+            /* drawing a collider for any floor items */
             foreach (IEntity entity in _floorItems)
             {
                 if (entity is ICollidableEntity collidableEntity)
