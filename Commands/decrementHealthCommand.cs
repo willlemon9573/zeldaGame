@@ -7,9 +7,8 @@ namespace SprintZero1.Commands
         public DecrementHealthCommand() { }
         public void Execute()
         {
-            float h = 4f;
-            HUDManager.DecrementHealth(h, 4);
-
+            float h = 0.5f;
+            HUDManager.DecrementHealth(h);
         }
     }
 }

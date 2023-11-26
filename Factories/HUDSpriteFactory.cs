@@ -35,6 +35,7 @@ namespace SprintZero1.Factories
         {
             return HUDSpriteDictionary[name];
         }
+
         public ISprite CreateAnimatedItemSprite(string name)
         {
             return new AnimatedSprite(animatedHUDSpriteMap[name], hudSpriteSheet, 2);

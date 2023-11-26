@@ -8,6 +8,7 @@ namespace SprintZero1.Commands.CollisionCommands
     {
         private readonly PlayerEntity _player;
         private readonly ILootableEntity _heart;
+        private float defaultAmount = 1f;
 
         public PickupReplenishingHeartCommand(ICollidableEntity player, ICollidableEntity heart)
         {
@@ -18,8 +19,21 @@ namespace SprintZero1.Commands.CollisionCommands
         public void Execute()
         {
             _heart.Remove();
-            _player.Health++;
-            HUDManager.IncreasePlayerHealth();
+            float currentHealth = _player.Health;
+            float maxhealth = _player.MaxHealth;
+            if (currentHealth == maxhealth) { return; }
+
+            float newHealth = currentHealth + defaultAmount;
+            if (newHealth > maxhealth)
+            {
+                _player.Health = maxhealth;
+            }
+            else
+            {
+                _player.Health = newHealth;
+            }
+
+            HUDManager.IncrementHearts(defaultAmount);
         }
     }
 }

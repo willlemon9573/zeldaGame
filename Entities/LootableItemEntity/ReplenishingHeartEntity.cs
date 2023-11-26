@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using SprintZero1.Colliders.ItemColliders;
 using SprintZero1.LevelFiles;
 using SprintZero1.Sprites;
-using SprintZero1.Colliders.ItemColliders;
 
 namespace SprintZero1.Entities.LootableItemEntity
 {
