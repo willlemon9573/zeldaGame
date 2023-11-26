@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
@@ -57,7 +58,13 @@ namespace SprintZero1.Managers
                 /* Parse the Vector2 position Element */
                 Vector2 position = xDocTools.ParseVector2Element(positionElement);
                 /* Create Sprite */
-                ISprite HUDSprite = HUDSpriteFactoryInstance.CreateHUDSprite(name);
+                ISprite HUDSprite;
+                if (name == "triforce") {
+                    HUDSprite = HUDSpriteFactoryInstance.CreateAnimatedHUDSprite(name);
+                }
+                else { 
+                    HUDSprite = HUDSpriteFactoryInstance.CreateHUDSprite(name);
+                 }
 
                 if (!name.Contains("heart"))
                 {
@@ -298,7 +305,7 @@ namespace SprintZero1.Managers
         }
 
         //move the player marker depending on which room the player enters
-        public static void UpdateMarker(int direction)
+        public static void UpdateMarker(Direction direction)
         {
 
             Vector2 markerPos = new Vector2(0, 0);
@@ -312,7 +319,30 @@ namespace SprintZero1.Managers
             }
             Tuple<ISprite, Vector2> remover = new Tuple<ISprite, Vector2>(posMarker, markerPos);
             spriteAndPosList.Remove(remover);
-            markerPos.X = markerPos.X + 5f;
+            switch (direction) {
+                case Direction.North:
+                    markerPos.Y = markerPos.Y - 4f;
+
+                    break;
+                case Direction.East:
+                    markerPos.X = markerPos.X + 8f;
+                    break;
+                case Direction.South:
+                    markerPos.Y = markerPos.Y + 4f;
+
+                    break;
+                case Direction.West:
+                    markerPos.X = markerPos.X - 8f;
+
+                    break;
+                default:
+                    break;
+
+            
+            }
+            Tuple<ISprite, Vector2> adder = new Tuple<ISprite, Vector2>(posMarker, markerPos);
+            spriteAndPosList.Add(adder);
+
         }
 
         public static void Update(GameTime gameTime)

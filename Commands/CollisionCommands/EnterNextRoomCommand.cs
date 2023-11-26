@@ -4,6 +4,7 @@ using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
+using System;
 using System.Collections.Generic;
 
 namespace SprintZero1.Commands.CollisionCommands
@@ -41,6 +42,7 @@ namespace SprintZero1.Commands.CollisionCommands
             if (destination != SecretRoom)
             {
                 playerCurrentPosition += _directionMap[_openDoor.DoorDirection];
+                HUDManager.UpdateMarker(_openDoor.DoorDirection);
             }
             else
             {
