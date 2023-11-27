@@ -149,19 +149,15 @@ namespace SprintZero1.Managers.HUDHelpers
                 if (tempHealth != EmptyHeart)
                 {
                     /* update heart based on whether amount to remove is larger or smaller than the current amount */
-                    tempHealth = (tempHealth >= amount) ? EmptyHeart : (tempHealth - tempAmount);
+                    tempHealth = (tempHealth <= amount) ? EmptyHeart : (tempHealth - tempAmount);
                     /* update the current amount to be removed */
                     tempAmount -= currentNode.HealthRep;
                     /* update sprite and rep to reflect change */
                     currentNode.HealthRep = tempHealth;
                     currentNode.HeartSprite = _heartSpriteMap[currentNode.HealthRep];
-                }
-                currentNode = currentNode.Previous;
-                // tracking the current health node for damage/healing
-                if (currentNode != _head)
-                {
                     _healthPointer = currentNode;
                 }
+                currentNode = currentNode.Previous;
             }
         }
 
@@ -181,22 +177,16 @@ namespace SprintZero1.Managers.HUDHelpers
             {
                 float tempHealth = currentNode.HealthRep;
                 // move to next heart if current heart is full
-                if (tempHealth != FullHeart)
+                if (tempHealth < FullHeart)
                 {
-                    // check if current health + amount is greater than a full heart
-                    tempHealth = (tempHealth + amount) > FullHeart ? FullHeart : tempHealth + amount;
-                    // update sprite and rep to reflect health change
-                    currentNode.HealthRep = tempHealth;
-                    // update tempAmount to reflect change in health
-                    tempAmount -= currentNode.HealthRep;
+                    float newHealth = tempHealth + tempAmount;
+                    currentNode.HealthRep = newHealth >= FullHeart ? FullHeart : newHealth;
                     currentNode.HeartSprite = _heartSpriteMap[currentNode.HealthRep];
+                    tempAmount = (tempHealth == EmptyHeart) ? tempAmount -= FullHeart : tempAmount -= tempHealth;
+                    _healthPointer = currentNode;
                 }
                 // check next node
                 currentNode = currentNode.Next;
-                if (currentNode != _tail)
-                {
-                    _healthPointer = currentNode;
-                }
             }
         }
 

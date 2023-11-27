@@ -12,7 +12,7 @@ namespace SprintZero1.Commands.DebugCommands
 
         public void Execute()
         {
-            _player.TakeDamage(1f);
+            _player.TakeDamage(0.5f);
         }
     }
 }
