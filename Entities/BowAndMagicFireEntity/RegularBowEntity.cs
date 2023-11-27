@@ -53,6 +53,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
             {
                 gameState.AddProjectile(this);
             }
+            _weaponSoundEffect.Play();
         }
     }
 }

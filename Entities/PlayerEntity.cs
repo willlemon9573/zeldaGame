@@ -8,7 +8,6 @@ using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
-using SprintZero1.StatePatterns;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
@@ -76,7 +75,7 @@ namespace SprintZero1.Entities
             pausedState.AssignToPlayer(this);
 
             /* For testing */
-            _playerEquipmentSlot = new RegularBowEntity("bow");
+            _playerEquipmentSlot = new RegularBowEntity("regularbow");
         }
 
         public void Move()

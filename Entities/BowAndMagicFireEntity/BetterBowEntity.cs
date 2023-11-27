@@ -1,7 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Colliders.ItemColliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
+using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 
 namespace SprintZero1.Entities.BowAndMagicFireEntity
@@ -43,6 +46,12 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
             _spriteMovingAddition = _spriteMovingDictionary[direction] * movingSpeed;
             _currentSpriteEffect = SpriteAdditions.Item1;
             _weaponPosition = position + SpriteAdditions.Item2;
+            _projectileCollider = new PlayerProjectileCollider(_weaponPosition, new System.Drawing.Size(ProjectileSprite.Width, ProjectileSprite.Height));
+            if (GameStatesManager.CurrentState is GamePlayingState gameState)
+            {
+                gameState.AddProjectile(this);
+            }
+            _weaponSoundEffect.Play();
         }
     }
 }

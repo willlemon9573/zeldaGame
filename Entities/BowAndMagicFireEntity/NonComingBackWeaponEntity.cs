@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
@@ -19,6 +21,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         protected float distanceMoved; // Distance the projectile has moved
         protected Vector2 _spriteMovingAddition; // Movement vector for the projectile
         protected bool _drawImpactSprite = false;
+        protected SoundEffect _weaponSoundEffect;
 
         /// <summary>
         /// Initializes a new instance of the NonComingBackWeaponEntity class.
@@ -27,6 +30,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         public NonComingBackWeaponEntity(String weaponName) : base(weaponName)
         {
             _rotation = 0;
+            _weaponSoundEffect = SoundFactory.GetSound("arrow_boomerang");
         }
 
         /// <summary>

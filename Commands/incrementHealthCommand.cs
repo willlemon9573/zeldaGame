@@ -5,6 +5,7 @@ namespace SprintZero1.Commands
     internal class IncrementHealthCommand : ICommand
     {
         public IncrementHealthCommand() { }
+
         public void Execute()
         {
             float h = 1f;

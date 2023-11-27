@@ -80,7 +80,7 @@ namespace SprintZero1.LevelFiles
             ISprite heart = ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite("heart");
             Vector2 n = new Vector2(85, 136);
             RemoveDelegate r = this.RemoveFromRoom;
-    
+
             for (int i = 0; i < 5; i++)
             {
 
@@ -159,10 +159,7 @@ namespace SprintZero1.LevelFiles
         public void AddRoomItem(IEntity item)
         {
             _floorItems.Add(item);
-            if (_colliderManagerRef != null)
-            {
-                _colliderManagerRef.AddCollidableEntity(item);
-            }
+            _colliderManagerRef?.AddCollidableEntity(item);
         }
 
         /// <summary>
@@ -180,6 +177,11 @@ namespace SprintZero1.LevelFiles
             foreach (var entity in _liveEnemyList)
             {
                 (entity as EnemyBasedEntity).ResetEnemy();
+            }
+
+            foreach (var controller in _enemyControllerList)
+            {
+                controller.Start();
             }
         }
 
@@ -276,7 +278,7 @@ namespace SprintZero1.LevelFiles
         public void Update(GameTime gameTime)
         {
             _font ??= Texture2DManager.GetSpriteFont("itemfont");
-            
+
             _architechtureList.ForEach(entity => entity.Update(gameTime));
             _liveEnemyList.ForEach(entity => entity.Update(gameTime));
             _architechtureList.ForEach(entity => entity.Update(gameTime));

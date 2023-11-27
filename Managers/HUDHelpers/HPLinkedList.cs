@@ -145,17 +145,23 @@ namespace SprintZero1.Managers.HUDHelpers
             /* iterate towards head and decrement health as needed */
             while (currentNode != _head && tempAmount > 0)
             {
-                float temphealth = currentNode.HealthRep; // copy of temp health
-                /* update heart based on whether amount to remove is larger or smaller than the current amount */
-                temphealth = (temphealth >= amount) ? EmptyHeart : (temphealth - tempAmount);
-                /* update the current amount to be removed */
-                tempAmount -= currentNode.HealthRep;
-                /* update sprite and rep to reflect change */
-                currentNode.HealthRep = temphealth;
-                currentNode.HeartSprite = _heartSpriteMap[currentNode.HealthRep];
+                float tempHealth = currentNode.HealthRep; // copy of temp health
+                if (tempHealth != EmptyHeart)
+                {
+                    /* update heart based on whether amount to remove is larger or smaller than the current amount */
+                    tempHealth = (tempHealth >= amount) ? EmptyHeart : (tempHealth - tempAmount);
+                    /* update the current amount to be removed */
+                    tempAmount -= currentNode.HealthRep;
+                    /* update sprite and rep to reflect change */
+                    currentNode.HealthRep = tempHealth;
+                    currentNode.HeartSprite = _heartSpriteMap[currentNode.HealthRep];
+                }
                 currentNode = currentNode.Previous;
                 // tracking the current health node for damage/healing
-                _healthPointer = currentNode;
+                if (currentNode != _head)
+                {
+                    _healthPointer = currentNode;
+                }
             }
         }
 
@@ -168,24 +174,29 @@ namespace SprintZero1.Managers.HUDHelpers
             /* TODO: Fix bug here */
             /* using health pointer so we don't have to iterate over full hearts */
             Node currentNode = _healthPointer;
-            /* return if player has full hp */
-            if (currentNode.HealthRep == FullHeart && currentNode.Next == _tail) { return; }
             // copy of the amount to increment
             float tempAmount = amount;
             /* iterate towards head and decrement health as needed */
             while (currentNode != _tail && tempAmount > 0)
             {
                 float tempHealth = currentNode.HealthRep;
-                // check if current health + amount is greater than a full heart
-                tempHealth = (tempHealth + amount) > FullHeart ? FullHeart : tempHealth + amount;
-                // update tempAmount to reflect change in health
-                tempAmount -= currentNode.HealthRep;
-                // update sprite and rep to reflect health change
-                currentNode.HealthRep = tempHealth;
-                currentNode.HeartSprite = _heartSpriteMap[currentNode.HealthRep];
+                // move to next heart if current heart is full
+                if (tempHealth != FullHeart)
+                {
+                    // check if current health + amount is greater than a full heart
+                    tempHealth = (tempHealth + amount) > FullHeart ? FullHeart : tempHealth + amount;
+                    // update sprite and rep to reflect health change
+                    currentNode.HealthRep = tempHealth;
+                    // update tempAmount to reflect change in health
+                    tempAmount -= currentNode.HealthRep;
+                    currentNode.HeartSprite = _heartSpriteMap[currentNode.HealthRep];
+                }
                 // check next node
                 currentNode = currentNode.Next;
-                _healthPointer = currentNode;
+                if (currentNode != _tail)
+                {
+                    _healthPointer = currentNode;
+                }
             }
         }
 
