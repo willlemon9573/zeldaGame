@@ -41,7 +41,6 @@ namespace SprintZero1.Commands.CollisionCommands
             _item.Remove();
             StackableItemEntity item = _item as StackableItemEntity;
             handler[item.ItemType].Invoke();
-            _state.UpdateRoomEntities();
             SoundFactory.PlaySound(SoundFactory.GetSound("get_item"));
         }
     }

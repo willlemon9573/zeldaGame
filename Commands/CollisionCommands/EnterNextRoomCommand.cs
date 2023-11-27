@@ -42,8 +42,8 @@ namespace SprintZero1.Commands.CollisionCommands
             Vector2 playerCurrentPosition = _playerEntity.Position;
             if (destination != SecretRoom)
             {
-                playerCurrentPosition += _directionMap[_openDoor.DoorDirection];
-                HUDManager.UpdateMarker(_openDoor.DoorDirection);
+                playerCurrentPosition += _directionMap[_door.DoorDirection];
+                HUDManager.UpdateMarker(_door.DoorDirection);
             }
             else
             {
