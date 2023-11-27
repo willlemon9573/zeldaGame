@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
@@ -16,6 +17,9 @@ namespace SprintZero1.Managers
         const int MAX_ATTAINABLE_HEALTH = 8;
         private static float[] healthArray = new float[MAX_ATTAINABLE_HEALTH];
         private static Dictionary<String, Tuple<ISprite, Vector2>> specialCaseDict = new Dictionary<String, Tuple<ISprite, Vector2>>();
+        const float MapLayerDepth = 1f; // draw map on the layer depth that's considered "backgroud"
+        const float AboveMapLayerDepth = 0f; // draw any other markers on the layer depth that's considered 
+        const float Rotation = 0f; // because we need to add the layerdepth we also have to add rotation
         const float STARTING_HEALTH = 6f;
         const float FULL_HEART = 1f;
         const float HALF_HEART = 0.5f;
@@ -296,6 +300,7 @@ namespace SprintZero1.Managers
         {
             spriteAndPosList.Add(specialCaseDict["map"]);
 
+
         }
 
         //makes the triforce marker visible
@@ -342,16 +347,25 @@ namespace SprintZero1.Managers
             }
             Tuple<ISprite, Vector2> adder = new Tuple<ISprite, Vector2>(posMarker, markerPos);
             spriteAndPosList.Add(adder);
-
         }
 
         public static void Update(GameTime gameTime)
         {
-
+            
            
             foreach (var sprite in spriteAndPosList)
             {
-                sprite.Item1.Update(gameTime);
+                if (sprite.Equals(specialCaseDict["map"]))
+                {
+                    sprite.Item1.Update(gameTime);
+                }
+            }
+            foreach (var sprite in spriteAndPosList)
+            {
+                if (!sprite.Equals(specialCaseDict["map"]))
+                {
+                    sprite.Item1.Update(gameTime);
+                }
             }
         }
 
@@ -364,7 +378,17 @@ namespace SprintZero1.Managers
             
             foreach (var sprite in spriteAndPosList)
             {
-                sprite.Item1.Draw(spriteBatch, sprite.Item2);
+                if (sprite.Equals(specialCaseDict["map"]))
+                {
+                    sprite.Item1.Draw(spriteBatch, sprite.Item2, SpriteEffects.None, Rotation, MapLayerDepth);
+                }
+            }
+            foreach (var sprite in spriteAndPosList)
+            {
+                if (!sprite.Equals(specialCaseDict["map"]))
+                {
+                    sprite.Item1.Draw(spriteBatch, sprite.Item2, SpriteEffects.None, Rotation, AboveMapLayerDepth);
+                }
             }
 
             DrawHealth(spriteBatch);
