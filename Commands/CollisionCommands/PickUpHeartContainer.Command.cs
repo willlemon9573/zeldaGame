@@ -26,6 +26,7 @@ namespace SprintZero1.Commands.CollisionCommands
         {
             _player.MaxHealth++;
             _player.Health = _player.MaxHealth;
+            HUDManager.addNewHeart();
             _heart.Remove();
         }
     }

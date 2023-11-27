@@ -73,7 +73,10 @@ namespace SprintZero1.Commands.CollisionCommands
         public void Execute()
         {
 
-            if (TryUnlockDoor()) { return; }
+            if (TryUnlockDoor()) {
+
+                HUDManager.UpdateKeyCount(-1);
+                return; }
             PushBack();
         }
     }

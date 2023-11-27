@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Entities;
+using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
@@ -12,15 +14,23 @@ namespace SprintZero1.Managers
     internal static class HUDManager
     {
         private static List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
-        const int MAX_ATTAINABLE_HEALTH = 13;
-        private static List<Tuple<ISprite, Vector2>> healthList = new List<Tuple<ISprite, Vector2>>();
+        const int MAX_ATTAINABLE_HEALTH = 8;
+        private static float[] healthArray = new float[MAX_ATTAINABLE_HEALTH];
         private static Dictionary<String, Tuple<ISprite, Vector2>> specialCaseDict = new Dictionary<String, Tuple<ISprite, Vector2>>();
+        const float MapLayerDepth = 1f; // draw map on the layer depth that's considered "backgroud"
+        const float AboveMapLayerDepth = 0f; // draw any other markers on the layer depth that's considered 
+        const float Rotation = 0f; // because we need to add the layerdepth we also have to add rotation
         const float STARTING_HEALTH = 6f;
         const float FULL_HEART = 1f;
         const float HALF_HEART = 0.5f;
         const float EMPTY_HEART = 0f;
-
-
+        const float NO_HEART = -1f;
+        private static float currentHealth = 0;
+        private static float maxHealth = 0;
+        private static int keyCount = 0;
+        private static int bombCount = 0;
+        private static int rupeeCount = 0;
+        private static Vector2 startingHeartPos = new Vector2(180, 40);
         public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
         private const string Zero = "0";
         private static List<ISprite> rupeeDigits = new List<ISprite>();
@@ -37,7 +47,6 @@ namespace SprintZero1.Managers
         public static void Initialize()
         {
 
-            Vector2 startingPos = new Vector2(180, 40);
             float[] _hearts = new float[MAX_ATTAINABLE_HEALTH];
             string path = @"XMLFiles\HUDXMLFiles\HUDPositions.xml";
             XDocument document = XDocument.Load(path);
@@ -53,7 +62,13 @@ namespace SprintZero1.Managers
                 /* Parse the Vector2 position Element */
                 Vector2 position = xDocTools.ParseVector2Element(positionElement);
                 /* Create Sprite */
-                ISprite HUDSprite = HUDSpriteFactoryInstance.CreateHUDSprite(name);
+                ISprite HUDSprite;
+                if (name == "triforce") {
+                    HUDSprite = HUDSpriteFactoryInstance.CreateAnimatedHUDSprite(name);
+                }
+                else { 
+                    HUDSprite = HUDSpriteFactoryInstance.CreateHUDSprite(name);
+                 }
 
                 if (!name.Contains("heart"))
                 {
@@ -69,7 +84,7 @@ namespace SprintZero1.Managers
                 }
 
                 /*Initialize hearts*/
-                CreateHealth(startingPos);
+                CreateHealth();
 
             }
 
@@ -93,186 +108,188 @@ namespace SprintZero1.Managers
             bombDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
         }
 
-        public static void CreateHealth(Vector2 startingPos)
+        public static void CreateHealth()
         {
-            //creates the position for the first heart in the health bar
-            Vector2 pos = startingPos;
-            //creates the full heart sprites bbeing used
-            ISprite fullHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("full_heart");
-            //adds all the hearts to the list to late be updated and drawn
-            for (int i = 0; i < STARTING_HEALTH; i++)
-            {
-                healthList.Add(new Tuple<ISprite, Vector2>(fullHeartSprite, pos));
-                pos.X = pos.X + 9;
+            //initializes the healthArray
+            for (int i = 0; i < MAX_ATTAINABLE_HEALTH; i++) {
+                //puts a full heart at each index until there are enough hearts to represent the starting health
+                if (i < STARTING_HEALTH)
+                {
+                    healthArray[i] = FULL_HEART;
+                }
+                //puts a negative one for the rest of the indexes in the array
+                else
+                {
+                    //negative ones represent nothing there
+                    healthArray[i] = NO_HEART;
+                }
+            }
+            //sets the current values of maxHealth and currentHealth
+            currentHealth = 6;
+            maxHealth = 6;
+        }
+
+        public static void DrawHealth(SpriteBatch a) {
+            int count = 0;
+            Vector2 pos = startingHeartPos;
+            //finds the last index that will be drawn
+            while (healthArray[count] != NO_HEART) {
+                if (healthArray[count] == FULL_HEART)
+                {
+                    //draws full heart
+                    ISprite fullHeart = HUDSpriteFactory.Instance.CreateHUDSprite("full_heart");
+                    fullHeart.Draw(a, pos);
+                }
+                else if (healthArray[count] == HALF_HEART)
+                {
+                    //draws half heart
+                    ISprite halfHeart = HUDSpriteFactory.Instance.CreateHUDSprite("half_heart");
+                    halfHeart.Draw(a, pos);
+                }
+                else {
+                    //draw empty heart
+                    ISprite emptyHeart = HUDSpriteFactory.Instance.CreateHUDSprite("empty_heart");
+                    emptyHeart.Draw(a, pos);
+                }
+                pos.X += 9;
+                count++;
             }
         }
 
-        public static void DecrementHealth(float amount, int health)
+        //This function creates a new empty heart sprite and then heals the plaer by 1
+        public static void addNewHeart()
         {
-            //creates sprites for different hearts that will be used
-            ISprite halfHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("half_heart");
-            ISprite emptyHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("empty_heart");
-            //initializes things that will be used later
-            Vector2 prevTemp = new Vector2(0, 0);
-            Vector2 temp = new Vector2(0, 0);
-            ISprite prevTempSprite = halfHeartSprite;
-            ISprite tempSprite = halfHeartSprite;
-            float maxvalue = 0;
-            float fltHealth = (float)health;
-            if (fltHealth > 0f)
-            {
-                //finds the lats heart in heartlist that isnt an empty heart
-                foreach (var sprite in healthList)
-                {
-                    if (sprite.Item2.X > maxvalue && sprite.Item1 != emptyHeartSprite)
-                    {
-                        prevTemp = temp;
-                        prevTempSprite = tempSprite;
-                        temp = sprite.Item2;
-                        maxvalue = temp.X;
-                        tempSprite = sprite.Item1;
-                    }
-
-                }
-                //removes the last heart from the list
-                Tuple<ISprite, Vector2> removerTup = new Tuple<ISprite, Vector2>(tempSprite, temp);
-                Tuple<ISprite, Vector2> potentialRemoverTup = new Tuple<ISprite, Vector2>(prevTempSprite, prevTemp);
-                healthList.Remove(removerTup);
-
-                //adds a new heart depending on how much helath is being taken away
-                if (tempSprite == halfHeartSprite && amount % 1 == 0.5)
-                {
-
-                    Tuple<ISprite, Vector2> tempTup = new Tuple<ISprite, Vector2>(emptyHeartSprite, temp);
-                    healthList.Add(tempTup);
-
-                    amount -= 0.5f;
-                    //STARTING_HEALTH -= 0.5f;
-                }
-                else if (tempSprite == halfHeartSprite && amount % 1 != 0.5)
-                {
-                    healthList.Remove(potentialRemoverTup);
-
-                    Tuple<ISprite, Vector2> tempTup = new Tuple<ISprite, Vector2>(emptyHeartSprite, temp);
-                    Tuple<ISprite, Vector2> prevTempTup = new Tuple<ISprite, Vector2>(halfHeartSprite, prevTemp);
-                    healthList.Add(prevTempTup);
-                    healthList.Add(tempTup);
-                }
-                else
-                {
-                    if (amount % 1 == 0.5)
-                    {
-                        Tuple<ISprite, Vector2> tempTup = new Tuple<ISprite, Vector2>(halfHeartSprite, temp);
-                        healthList.Add(tempTup);
-
-                        amount -= 0.5f;
-                    }
-                    else
-                    {
-                        Tuple<ISprite, Vector2> tempTup = new Tuple<ISprite, Vector2>(emptyHeartSprite, temp);
-                        healthList.Add(tempTup);
-
-                        amount -= 1f;
-                    }
-                }
+            int count = 0;
+            float lastHealthValue = 0;
+            int lastHealthPosition = 0;
+            //finds the first index that is not a heart
+            while (healthArray[count] != NO_HEART) {
+               
+                lastHealthPosition = count;
+                lastHealthValue = healthArray[count];             
+                count++;
             }
+            //sets the no heart to an empty heart
+            healthArray[count] = EMPTY_HEART;
+            maxHealth++;
+            //heals player
+            IncrementHealth(1);
+            
         }
 
-        public static void IncrementHearts(float amount, int health)
+        public static void DecrementHealth(float amount)
         {
-            ISprite halfHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("half_heart");
-            ISprite emptyHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("empty_heart");
-            ISprite fullHeartSprite = HUDSpriteFactory.Instance.CreateHUDSprite("full_heart");
-            //initializes things that will be used later
-            Vector2 prevTemp = new Vector2(0, 0);
-            Vector2 temp = new Vector2(0, 0);
-            ISprite prevTempSprite = halfHeartSprite;
-            ISprite tempSprite = halfHeartSprite;
-
-            float fltHealth = (float)health;
-            float minvalue = 9999;
-
-
-            //finds the lats heart in heartlist that isnt a full heart
-            foreach (var sprite in healthList)
+            //reduces amount until decrementing will not result in negative health
+            while (currentHealth - amount < 0)
             {
-                if (sprite.Item2.X < minvalue && sprite.Item1 != fullHeartSprite)
+                amount -= 0.5f;
+            }
+
+            int count = 0;
+            //finds the last index of a half/full heart
+            while (healthArray[count] > EMPTY_HEART) {
+                count++;
+            }
+            count--;
+            //decrements the healthArray according on the amount and the last heart in the array
+            if (amount == 0.5f)
+            {
+                healthArray[count] -= 0.5f;
+            }
+            else {
+                if (healthArray[count] == HALF_HEART)
                 {
-                    prevTemp = temp;
-                    prevTempSprite = tempSprite;
-                    temp = sprite.Item2;
-                    minvalue = temp.X;
-                    tempSprite = sprite.Item1;
-                }
-
-            }
-            //removes the first non full heart from the list
-            Tuple<ISprite, Vector2> removerTup = new Tuple<ISprite, Vector2>(tempSprite, temp);
-            Tuple<ISprite, Vector2> potentialRemoverTup = new Tuple<ISprite, Vector2>(prevTempSprite, prevTemp);
-            healthList.Remove(removerTup);
-
-            if (tempSprite == halfHeartSprite && amount % 1 == 0.5)
-            {
-                Tuple<ISprite, Vector2> tempTup = new Tuple<ISprite, Vector2>(fullHeartSprite, temp);
-                healthList.Add(tempTup);
-            }
-            else if (tempSprite == halfHeartSprite && amount % 1 != 0.5)
-            {
-                Tuple<ISprite, Vector2> tempTup = new Tuple<ISprite, Vector2>(emptyHeartSprite, temp);
-                Tuple<ISprite, Vector2> prevTempTup = new Tuple<ISprite, Vector2>(halfHeartSprite, prevTemp);
-                healthList.Add(prevTempTup);
-                healthList.Add(tempTup);
-            }
-            else
-            {
-                if (amount % 1 == 0.5)
-                {
-                    Tuple<ISprite, Vector2> tempTup = new Tuple<ISprite, Vector2>(halfHeartSprite, temp);
-                    healthList.Add(tempTup);
-
+                    healthArray[count] = EMPTY_HEART;
+                    healthArray[count - 1] = HALF_HEART;
                 }
                 else
                 {
-                    Tuple<ISprite, Vector2> tempTup = new Tuple<ISprite, Vector2>(fullHeartSprite, temp);
-                    healthList.Add(tempTup);
-
+                    healthArray[count] = EMPTY_HEART;
                 }
             }
+            //decrements current health
+            currentHealth -= amount;
+        }
 
+        public static void IncrementHealth(float amount)
+        {
+            int count = 0;
+            //reduces amount until incrementing will not result in more than the max health
+            while (currentHealth + amount > maxHealth) {
+                amount -= 0.5f;
+            }
+            //finds the last index of a half/full heart
+            while (healthArray[count] > EMPTY_HEART)
+            {
+                count++;
+            }
+            count--;
+            //increments the healthArray according on the amount and the last heart in the array
+            if (amount == 0.5f)
+            {
+                if (healthArray[count] == HALF_HEART)
+                {
+                    healthArray[count] = FULL_HEART;
+                }
+                else
+                {
+                    healthArray[count + 1] = HALF_HEART;
+                }
+            }
+            else {
+                if (healthArray[count] == HALF_HEART)
+                {
+                    healthArray[count] = FULL_HEART;
+                    healthArray[count + 1] = HALF_HEART;
+
+                }
+                else {
+                    healthArray[count + 1] = FULL_HEART;
+                }
+            }
+            //increments the current health
+            currentHealth += amount;
         }
 
         /// <summary>
-        /// Updates Rupee count to "amount" in HUD
+        /// Updates Rupee count to count + "amount" in HUD
         /// </summary>
         /// <param name="amount">New amount of rupees</param>
         public static void UpdateRupeeCount(int amount)
         {
-            int leftDigit = amount / 10;
-            int rightDigit = amount % 10;
+            rupeeCount += amount;
+            int leftDigit = rupeeCount / 10;
+            int rightDigit = rupeeCount % 10;
+
             rupeeDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
             rupeeDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
         /// <summary>
-        /// Updates key count to "amount" in HUD
+        /// Updates key count to count + "amount" in HUD
         /// </summary>
         /// <param name="amount">New amount of keys</param>
         public static void UpdateKeyCount(int amount)
         {
-            int leftDigit = amount / 10;
-            int rightDigit = amount % 10;
+            keyCount += amount;
+            int leftDigit = keyCount / 10;
+            int rightDigit = keyCount % 10;
+           
+           
+           
             keyDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
             keyDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
         /// <summary>
-        /// Updates bomb count to "amount" in HUD
+        /// Updates bomb count to count + "amount" in HUD
         /// </summary>
         /// <param name="amount">New amount of bombs</param>
         public static void UpdateBombCount(int amount)
         {
-            int leftDigit = amount / 10;
-            int rightDigit = amount % 10;
+            bombCount += amount;
+            int leftDigit = bombCount / 10;
+            int rightDigit = bombCount % 10;
             bombDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
             bombDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
@@ -283,6 +300,7 @@ namespace SprintZero1.Managers
         {
             spriteAndPosList.Add(specialCaseDict["map"]);
 
+
         }
 
         //makes the triforce marker visible
@@ -292,7 +310,7 @@ namespace SprintZero1.Managers
         }
 
         //move the player marker depending on which room the player enters
-        public static void UpdateMarker(int direction)
+        public static void UpdateMarker(Direction direction)
         {
 
             Vector2 markerPos = new Vector2(0, 0);
@@ -306,19 +324,48 @@ namespace SprintZero1.Managers
             }
             Tuple<ISprite, Vector2> remover = new Tuple<ISprite, Vector2>(posMarker, markerPos);
             spriteAndPosList.Remove(remover);
-            markerPos.X = markerPos.X + 5f;
+            switch (direction) {
+                case Direction.North:
+                    markerPos.Y = markerPos.Y - 4f;
+
+                    break;
+                case Direction.East:
+                    markerPos.X = markerPos.X + 8f;
+                    break;
+                case Direction.South:
+                    markerPos.Y = markerPos.Y + 4f;
+
+                    break;
+                case Direction.West:
+                    markerPos.X = markerPos.X - 8f;
+
+                    break;
+                default:
+                    break;
+
+            
+            }
+            Tuple<ISprite, Vector2> adder = new Tuple<ISprite, Vector2>(posMarker, markerPos);
+            spriteAndPosList.Add(adder);
         }
 
         public static void Update(GameTime gameTime)
         {
-
-            foreach (var sprite in healthList)
+            
+           
+            foreach (var sprite in spriteAndPosList)
             {
-                sprite.Item1.Update(gameTime);
+                if (sprite.Equals(specialCaseDict["map"]))
+                {
+                    sprite.Item1.Update(gameTime);
+                }
             }
             foreach (var sprite in spriteAndPosList)
             {
-                sprite.Item1.Update(gameTime);
+                if (!sprite.Equals(specialCaseDict["map"]))
+                {
+                    sprite.Item1.Update(gameTime);
+                }
             }
         }
 
@@ -328,14 +375,23 @@ namespace SprintZero1.Managers
         /// <param name="spriteBatch">SpriteBatch spritebatch</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var sprite in healthList)
+            
+            foreach (var sprite in spriteAndPosList)
             {
-                sprite.Item1.Draw(spriteBatch, sprite.Item2);
+                if (sprite.Equals(specialCaseDict["map"]))
+                {
+                    sprite.Item1.Draw(spriteBatch, sprite.Item2, SpriteEffects.None, Rotation, MapLayerDepth);
+                }
             }
             foreach (var sprite in spriteAndPosList)
             {
-                sprite.Item1.Draw(spriteBatch, sprite.Item2);
+                if (!sprite.Equals(specialCaseDict["map"]))
+                {
+                    sprite.Item1.Draw(spriteBatch, sprite.Item2, SpriteEffects.None, Rotation, AboveMapLayerDepth);
+                }
             }
+
+            DrawHealth(spriteBatch);
 
             for (int i = 0; i < 2; i++)
             {
