@@ -15,7 +15,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         public override void Request()
         {
             Direction playerDirection = _playerEntity.Direction;
-            _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(playerDirection);
+            _playerEntity.PlayerSprite = _linkSpriteFactory.GetMovingSprite(playerDirection);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

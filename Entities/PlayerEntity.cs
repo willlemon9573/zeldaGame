@@ -21,12 +21,12 @@ namespace SprintZero1.Entities
     internal class PlayerEntity : ICombatEntity, ICollidableEntity
     {
         /* Player Components */
-        private float _playerMaxHealth = 3; /* Link starts with 3 hearts */
+        private float _playerMaxHealth; /* Link starts with 3 hearts */
         private float _playerHealth;
         private ISprite _playerSprite;
         private Direction _playerDirection;
         private Vector2 _playerPosition;
-        private PlayerCollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
+        private readonly PlayerCollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
         private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
         private IWeaponEntity _playerSwordSlot;
         private IWeaponEntity _playerEquipmentSlot;
@@ -35,9 +35,10 @@ namespace SprintZero1.Entities
         private IPlayerState _playerVulnerabilityState;
         private IWeaponEntity _currentWeapon;
         private readonly PlayerInventory _playerInventory;
+        private readonly string _characterName;
         /* Public properties to modify the player's private members */
         public float Health { get { return _playerHealth; } set { _playerHealth = value; } }
-        public float MaxHealth { get { return _playerMaxHealth; } set { _playerHealth = value; } }
+        public float MaxHealth { get { return _playerMaxHealth; } set { _playerMaxHealth = value; } }
         public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
         public ISprite PlayerSprite { get { return _playerSprite; } set { _playerSprite = value; } }
         public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
@@ -52,18 +53,19 @@ namespace SprintZero1.Entities
         /// <summary>
         /// Construct a new player entity
         /// </summary>
-        /// <param name="position">The position of the player entity</param>
+        /// <param name="startingPosition">The starting position of the player entity</param>
         /// <param name="startingHealth">The starting health of the player entity</param>
         /// <param name="startingDirection">The starting direction the player entity will be facing</param>
-        public PlayerEntity(Vector2 position, float startingHealth, Direction startingDirection)
+        public PlayerEntity(Vector2 startingPosition, string characterName, float startingHealth, Direction startingDirection)
         {
             /* Default values for player upon game start */
             _playerDirection = startingDirection;
             _playerHealth = startingHealth;
-            _playerPosition = position;
-            _playerSprite = _linkSpriteFactory.GetLinkSprite(startingDirection);
-            float scalefactor = 0.9f;
-            _playerCollider = new PlayerCollider(position, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
+            _playerMaxHealth = startingHealth;
+            _playerPosition = startingPosition;
+            _playerSprite = _linkSpriteFactory.GetMovingSprite(startingDirection);
+            float scalefactor = 0.9f; // scale factor for the collider
+            _playerCollider = new PlayerCollider(startingPosition, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);
             _playerVulnerabilityState = new PlayerVulnerableState(this);
             _playerInventory = new PlayerInventory(this);
@@ -73,6 +75,7 @@ namespace SprintZero1.Entities
             itemState.AssignToPlayer(this);
             GamePausedState pausedState = GameStatesManager.GetGameState(GameState.Paused) as GamePausedState;
             pausedState.AssignToPlayer(this);
+            _characterName = characterName;
 
             /* For testing */
             _playerEquipmentSlot = new RegularBowEntity("regularbow");

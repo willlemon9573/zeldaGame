@@ -35,7 +35,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         {
             if (!_canTransition) { return; }
             _playerEntity.Direction = newDirection;
-            _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(newDirection);
+            _playerEntity.PlayerSprite = _linkSpriteFactory.GetMovingSprite(newDirection);
         }
 
         public virtual void TransitionState(IPlayerState newState)

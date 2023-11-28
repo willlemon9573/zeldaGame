@@ -13,7 +13,6 @@ namespace SprintZero1.Managers
         private const string ROOT_NAME = "Controllers";
         private const string KEYBOARD_ELEMENT = "Keyboard";
         private const string GAMEPAD_ELEMENT = "GamePad";
-
         private static readonly Dictionary<IEntity, Dictionary<Keys, ICommand>> _playerKeyboardControlsMap = new Dictionary<IEntity, Dictionary<Keys, ICommand>>();
         private static readonly Dictionary<IEntity, Dictionary<Buttons, ICommand>> _playerGamePadControlsMap = new Dictionary<IEntity, Dictionary<Buttons, ICommand>>();
         private static readonly Dictionary<IEntity, Dictionary<Keys, ICommand>> _playerKeyboardControlsMapForItemSelection = new Dictionary<IEntity, Dictionary<Keys, ICommand>>();

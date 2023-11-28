@@ -1,6 +1,5 @@
 ﻿using SprintZero1.Entities;
 using SprintZero1.Enums;
-using SprintZero1.StatePatterns;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System;

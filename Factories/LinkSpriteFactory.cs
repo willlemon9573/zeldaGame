@@ -16,6 +16,8 @@ namespace SprintZero1.Factories
         private Texture2D LinkSpriteSheet;
         private readonly Dictionary<Direction, List<Rectangle>> movementSpriteDictionary;
         private readonly Dictionary<Direction, Rectangle> attackSpriteDictionary;
+        private readonly Dictionary<(string, Direction), List<Rectangle>> _movementMap;
+        private readonly Dictionary<(string, Direction), Rectangle> _attackingSpriteMap;
         private static readonly LinkSpriteFactory instance = new();
         /// <summary>
         /// Get the instance of the factory
@@ -46,7 +48,7 @@ namespace SprintZero1.Factories
         /// </summary>
         /// <param name="direction">The direction in which link will be facing</param>
         /// <returns></returns>
-        public ISprite GetLinkSprite(Direction direction)
+        public ISprite GetMovingSprite(Direction direction)
         {
             Debug.Assert(movementSpriteDictionary.ContainsKey(direction), $"{direction} not found in dictionary");
             return new AnimatedSprite(movementSpriteDictionary[direction], LinkSpriteSheet, 2);

@@ -24,7 +24,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             _stateElapsedTime += deltaTime;
             if (_stateElapsedTime >= TimeToReset)
             {
-                _playerEntity.PlayerSprite = _linkSpriteFactory.GetLinkSprite(_playerEntity.Direction);
+                _playerEntity.PlayerSprite = _linkSpriteFactory.GetMovingSprite(_playerEntity.Direction);
                 UnblockTranstion();
                 _playerEntity.TransitionToState(State.Idle);
             }
