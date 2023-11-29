@@ -24,7 +24,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
             _stateElapsedTime += deltaTime;
             if (_stateElapsedTime >= TimeToReset)
             {
-                _playerEntity.PlayerSprite = _linkSpriteFactory.GetMovingSprite(_playerEntity.Direction);
+                _playerEntity.PlayerSprite = _playerSpriteFactory.GetPlayerMovementSprite(_characterName, _playerEntity.Direction);
                 UnblockTranstion();
                 _playerEntity.TransitionToState(State.Idle);
             }
@@ -44,7 +44,8 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         {
             if (!_canTransition) { return; }
             BlockTransition();
-            _playerEntity.PlayerSprite = _linkSpriteFactory.GetAttackingSprite(_playerEntity.Direction);
+            Direction playerDirection = _playerEntity.Direction;
+            _playerEntity.PlayerSprite = _playerSpriteFactory.GetPlayerAttackingSprite(_characterName, playerDirection);
             _stateElapsedTime = 0;
             _playerCurrentWeapon = _playerEntity.CurrentUsableWeapon;
             _playerCurrentWeapon.UseWeapon(_playerEntity.Direction, _playerEntity.Position);

@@ -22,6 +22,7 @@ namespace SprintZero1.StatePatterns.StatePatternInterfaces
         /// <param name="playerNumber">The number representing which player to get</param>
         /// <returns>The desired player entity</returns>
         IEntity GetPlayer(int playerNumber);
+
         /// <summary>
         /// Change the state of the game
         /// </summary>

@@ -26,7 +26,7 @@ namespace SprintZero1.Entities
         private Direction _playerDirection;
         private Vector2 _playerPosition;
         private readonly PlayerCollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
-        private readonly LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
+        private readonly PlayerSpriteFactory _linkSpriteFactory = PlayerSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
         private IWeaponEntity _playerSwordSlot;
         private IWeaponEntity _playerEquipmentSlot;
         private readonly PlayerStateFactory _playerStateFactory;
@@ -47,6 +47,7 @@ namespace SprintZero1.Entities
         public IWeaponEntity SwordSlot { get { return _playerSwordSlot; } set { _playerSwordSlot = value; } }
         public IWeaponEntity EquipmentSlot { get { return _playerEquipmentSlot; } set { _playerEquipmentSlot = value; } }
         public IWeaponEntity CurrentUsableWeapon { get { return _currentWeapon; } set { _currentWeapon = value; } }
+        public string CharacterName { get { return _characterName; } }
 
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace SprintZero1.Entities
             _playerHealth = startingHealth;
             _playerMaxHealth = startingHealth;
             _playerPosition = startingPosition;
-            _playerSprite = _linkSpriteFactory.GetMovingSprite(startingDirection);
+            _playerSprite = _linkSpriteFactory.GetPlayerMovementSprite(characterName, startingDirection);
             float scalefactor = 0.9f; // scale factor for the collider
             _playerCollider = new PlayerCollider(startingPosition, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);

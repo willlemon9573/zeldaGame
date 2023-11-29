@@ -56,7 +56,7 @@ namespace SprintZero1
             Texture2DManager.LoadAllTextures(this.Content);
             Texture2DManager.LoadSpriteFonts(this.Content);
             EnemySpriteFactory.Instance.LoadTextures();
-            LinkSpriteFactory.Instance.LoadTextures();
+            PlayerSpriteFactory.Instance.LoadTextures();
             TileSpriteFactory.Instance.LoadTextures();
             WeaponSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();

@@ -14,8 +14,9 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
     internal abstract class BasePlayerState : IPlayerState
     {
         protected PlayerEntity _playerEntity;
-        protected LinkSpriteFactory _linkSpriteFactory = LinkSpriteFactory.Instance;
+        protected PlayerSpriteFactory _playerSpriteFactory = PlayerSpriteFactory.Instance;
         protected bool _canTransition = true; // false by default
+        protected string _characterName;
 
         /// <summary>
         /// Abstract base player constructor.
@@ -26,6 +27,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         public BasePlayerState(PlayerEntity playerEntity)
         {
             this._playerEntity = playerEntity;
+            _characterName = playerEntity.CharacterName;
         }
         /// <summary>
         /// Changes the direction of the player based on the current state
@@ -35,7 +37,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         {
             if (!_canTransition) { return; }
             _playerEntity.Direction = newDirection;
-            _playerEntity.PlayerSprite = _linkSpriteFactory.GetMovingSprite(newDirection);
+            _playerEntity.PlayerSprite = _playerSpriteFactory.GetPlayerMovementSprite(_characterName, newDirection);
         }
 
         public virtual void TransitionState(IPlayerState newState)

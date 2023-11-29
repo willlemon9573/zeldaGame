@@ -17,7 +17,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         private const float KnockbackSpeed = 200f; // the speed for knocking back
         private readonly Dictionary<Direction, Vector2> _velocityMap;
         private Vector2 _knockbackDirection;
-        private SoundEffect _damageSound;
+        private readonly SoundEffect _damageSound;
         public PlayerDamagedState(PlayerEntity playerEntity) : base(playerEntity)
         {
             _velocityMap = new Dictionary<Direction, Vector2>()

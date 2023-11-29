@@ -52,7 +52,7 @@ namespace SprintZero1.Managers
             string controllerPath = @"XMLFiles/PlayerXMLFiles/ControllerSettings.xml";
             string characterPath = @"XMLFiles/PlayerXMLFiles/CharacterInfo.xml";
             string playerOneCharacter = "Link";
-            string playerTwoCharacter = "Zelda";
+            string playerTwoCharacter = "Zelda"; // both link until we get zelda
             // create each player
             IPlayerBuilder playerBuilder = new PlayerBuilderManager(characterPath);
             Tuple<IEntity, IController> playerOne = playerBuilder.BuildPlayerWithKeyboard(controllerPath, _game, playerOneCharacter);
