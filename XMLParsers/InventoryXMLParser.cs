@@ -100,7 +100,6 @@ namespace SprintZero1.XMLParsers
                         directionElement => _parseTools.ParseAttributeAsDirection(directionElement, DIRECTION_ATTRIBUTE),
                         directionChildElement => CreateWeaponSpriteEffectsTuple(directionChildElement.Element(TUPLE_ELEMENT))
                 );
-
             return new SwordEntity(weaponName, weaponEffects);
         }
 

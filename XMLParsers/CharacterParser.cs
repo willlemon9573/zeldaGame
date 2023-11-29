@@ -2,5 +2,10 @@
 {
     internal class CharacterParser
     {
+
+        public CharacterParser()
+        {
+
+        }
     }
 }
