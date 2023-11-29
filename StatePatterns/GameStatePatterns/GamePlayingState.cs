@@ -4,11 +4,9 @@ using Microsoft.Xna.Framework.Media;
 using SprintZero1.Colliders;
 using SprintZero1.DebuggingTools;
 using SprintZero1.Entities;
-using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Factories;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
-using SprintZero1.Sprites;
 using System.Collections.Generic;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
@@ -17,11 +15,9 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
     internal class GamePlayingState : BaseGameState
     {
         private DungeonRoom _currentRoom;
-
         /// <summary>
-        /// List of players
+        /// List of projects that may be drawn on screen
         /// </summary>
-        private readonly List<IEntity> _players = new List<IEntity>();
         private readonly List<IEntity> _projectiles = new List<IEntity>();
 
         private readonly ColliderManager _colliderManager;
@@ -32,7 +28,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         private readonly Song _dungeonMusic;
         private readonly SpriteDebuggingTools _spriteDebuggingTools;
 
-        
+
         /// <summary>
         /// The state of the game when the game is running
         /// </summary>
@@ -49,14 +45,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Handle()
         {
-            _currentRoom.UpdateEnemyController(_players[0]);
+            _currentRoom.UpdateEnemyController(_playerMap[0].Item1);
             SoundFactory.AdjustMusicVolume(0.3f);
-        }
-
-        public void AddPlayer(PlayerEntity player)
-        {
-            _players.Add(player);
-            _colliderManager.AddCollidableEntity(player);
         }
 
         public void RemoveCollider(IEntity entity)
@@ -80,7 +70,10 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _colliderManager.ClearCollidableEntities();
             _currentRoom = LevelManager.GetDungeonRoom(nextRoomName);
             _colliderManager.AddCollidableEntities(_currentRoom.GetEntityList());
-            _colliderManager.AddCollidableEntities(_players);
+            foreach (var playerTuple in _playerMap.Values)
+            {
+                _colliderManager.AddCollidableEntity(playerTuple.Item1);
+            }
             _currentRoom.ColliderManager = _colliderManager;
         }
 
@@ -104,9 +97,14 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             _mouseController.UpdateCoordinates();
             HUDManager.Update(gameTime);
-            Controllers.ForEach(controller => controller.Update());
+            // update player and their respective controller
+            for (int i = 0; i < _playerMap.Count; i++)
+            {
+                _playerMap[i + 1].Item2.Update(); // controller updates player values so update controller first
+                _playerMap[i + 1].Item1.Update(gameTime);
+            }
             _currentRoom.Update(gameTime);
-            _players.ForEach(player => player.Update(gameTime));
+
             /* Updating projectiles as they will be modified when no longer drawn*/
             for (int i = 0; i < _projectiles.Count; i++)
             {
@@ -124,7 +122,11 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _mouseController.DrawCoordinates(spriteBatch);
             _mouseController.DrawClickedRectangleCoordinates(spriteBatch);
             HUDManager.Draw(spriteBatch);
-            _players.ForEach(player => player.Draw(spriteBatch));
+            // draw each player
+            foreach (var playerTuple in _playerMap.Values)
+            {
+                playerTuple.Item1.Draw(spriteBatch);
+            }
             for (int i = 0; i < _projectiles.Count; i++)
             {
                 _projectiles[i].Draw(spriteBatch);

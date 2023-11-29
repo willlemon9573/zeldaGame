@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
-using SprintZero1.Entities;
 using SprintZero1.GameStateMenu;
 using SprintZero1.Managers;
 
@@ -16,20 +15,10 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public GamePausedState(Game1 game) : base(game)
         {
             this.game = game;
-        }
-
-        public void AssignToPlayer(PlayerEntity player)
-        {
-            itemSelectionMenu = new ItemSelectionMenu(game, player);
+            /*itemSelectionMenu = new ItemSelectionMenu(game, player);
             pauseGame = new PauseMenu(game);
-            controllerForItemSelection = new KeyboardControllerForItemSelection(game, player, itemSelectionMenu);
+            controllerForItemSelection = new KeyboardControllerForItemSelection(game, player, itemSelectionMenu);*/
         }
-
-        public override void AddController(IController controller)
-        {
-            KeyboardController k = controller as KeyboardController;
-        }
-
 
         public override void Draw(SpriteBatch spriteBatch)
         {

@@ -7,15 +7,17 @@ namespace SprintZero1.Managers
     internal interface IPlayerBuilder
     {
         /// <summary>
-        /// Builds the desired player with keyboard controls after creation
+        /// Builds the desired character as a playerentity with a gamepad controller 
         /// </summary>
-        void BuildPlayerWithKeyboard();
+        /// <param name="characterName">The character the player controls (Link or Zelda)</param>
+        /// <returns>A tuple that contains both the player entity and the controller they use</returns>
+        Tuple<IEntity, IController> BuildPlayerWithKeyboard(string gamePadSettingsPath, Game1 game, string characterName);
 
         /// <summary>
-        /// Builds the desired player with a gamepad controller
+        /// Builds the desired character as a playerentity with a keyboard controller 
         /// </summary>
-        void BuildPlayerWithGamePad();
-
-        Tuple<IEntity, IController> GetPlayerAndController();
+        /// <param name="characterName">The character the player controls (Link or Zelda)</param>
+        /// <returns>A tuple that contains both the player entity and the controller they use</returns>
+        Tuple<IEntity, IController> BuildPlayerWithGamePad(string keyboardSettingsPath, Game1 game, string characterName);
     }
 }

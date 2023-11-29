@@ -8,7 +8,6 @@ using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
-using SprintZero1.StatePatterns.GameStatePatterns;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 
@@ -69,13 +68,10 @@ namespace SprintZero1.Entities
             _playerState = new PlayerIdleState(this);
             _playerVulnerabilityState = new PlayerVulnerableState(this);
             _playerInventory = new PlayerInventory(this);
+            _characterName = characterName;
             _playerStateFactory = new PlayerStateFactory(this);
             PlayerInventoryManager.AddPlayerInventory(this, _playerInventory);
-            GameItemSelectionState itemState = GameStatesManager.GetGameState(GameState.ItemSelectionScreen) as GameItemSelectionState;
-            itemState.AssignToPlayer(this);
-            GamePausedState pausedState = GameStatesManager.GetGameState(GameState.Paused) as GamePausedState;
-            pausedState.AssignToPlayer(this);
-            _characterName = characterName;
+
 
             /* For testing */
             _playerEquipmentSlot = new RegularBowEntity("regularbow");

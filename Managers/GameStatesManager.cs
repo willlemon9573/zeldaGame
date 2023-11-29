@@ -5,6 +5,7 @@ using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
+using System;
 using System.Collections.Generic;
 
 namespace SprintZero1.Managers
@@ -46,24 +47,32 @@ namespace SprintZero1.Managers
             };
         }
 
+        private static void CreatePlayers()
+        {
+            string controllerPath = @"XMLFiles/PlayerXMLFiles/ControllerSettings.xml";
+            string characterPath = @"XMLFiles/PlayerXMLFiles/CharacterInfo.xml";
+            string playerOneCharacter = "Link";
+            string playerTwoCharacter = "Zelda";
+            // create each player
+            IPlayerBuilder playerBuilder = new PlayerBuilderManager(characterPath);
+            Tuple<IEntity, IController> playerOne = playerBuilder.BuildPlayerWithKeyboard(controllerPath, _game, playerOneCharacter);
+            Tuple<IEntity, IController> playerTwo = playerBuilder.BuildPlayerWithGamePad(controllerPath, _game, playerTwoCharacter);
+            // add each player to each state as each state may need to modify the player in some way
+            foreach (IGameState gameState in _gameStateMap.Values)
+            {
+                gameState.AddPlayer(playerOne);
+                gameState.AddPlayer(playerTwo);
+            }
+        }
+
         /// <summary>
         /// Set logic for game start
         /// </summary>
         public static void Start()
         {
-            GamePlayingState _startingState = (GamePlayingState)_gameStateMap[GameState.Playing];
-            Vector2 startingPos = new Vector2(127, 194);
-            float startingHealth = 3f;
-            PlayerEntity player = new PlayerEntity(startingPos, "link", startingHealth, Direction.North);
-            _startingState.AddPlayer(player);
-            const string CONTROLS_DOCUMENT_PATH = @"XMLFiles/PlayerXMLFiles/ControllerSettings.xml";
-            ControlsManager.CreateKeyboardControlsMap(CONTROLS_DOCUMENT_PATH, player, _game);
-            KeyboardController controller = new KeyboardController();
-            controller.LoadControls(player);
-            _startingState.AddController(controller);
-            _gameStateMap[GameState.Paused].AddController(controller);
-            _startingState.LoadDungeonRoom("entrance");
-            _gameState = _startingState;
+            CreatePlayers();
+            _gameState = _gameStateMap[GameState.Playing];
+            (_gameState as GamePlayingState).LoadDungeonRoom("entrance");
         }
 
         /// <summary>
