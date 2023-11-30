@@ -82,6 +82,17 @@ namespace SprintZero1.Managers
         }
 
         /// <summary>
+        /// Check if a player contains a specific item in their inventory already
+        /// </summary>
+        /// <param name="player">The player to be checked</param>
+        /// <param name="equipment">The equipment item to look for</param>
+        /// <returns>True if the player contains the item, false otherwise</returns>
+        public static bool PlayerContainsEquipment(IEntity player, EquipmentItem equipment)
+        {
+            return _playerInventoryMap[player].IsInInventory(equipment);
+        }
+
+        /// <summary>
         /// Add an equipment item to the palyer's inventory
         /// </summary>
         /// <param name="player">the player receiving the equipment</param>
