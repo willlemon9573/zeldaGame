@@ -277,8 +277,6 @@ namespace SprintZero1.LevelFiles
         /// <param name="gameTime"> The current state of the game time</param>
         public void Update(GameTime gameTime)
         {
-            _font ??= Texture2DManager.GetSpriteFont("itemfont");
-
             _architechtureList.ForEach(entity => entity.Update(gameTime));
             _liveEnemyList.ForEach(entity => entity.Update(gameTime));
             _architechtureList.ForEach(entity => entity.Update(gameTime));
