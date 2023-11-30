@@ -227,7 +227,7 @@ namespace SprintZero1.XMLParsers
         {
             XAttribute command = element.Attribute(attributeName);
             CheckAttribute(command);
-            return (ICommand)Activator.CreateInstance(Type.GetType($"{nameSpace}.{command.Value}"), game);
+            return (ICommand)Activator.CreateInstance(Type.GetType($"{nameSpace}.{command.Value}"));
         }
     }
 }

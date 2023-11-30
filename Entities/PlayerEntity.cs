@@ -63,13 +63,14 @@ namespace SprintZero1.Entities
             _playerHealth = startingHealth;
             _playerMaxHealth = startingHealth;
             _playerPosition = startingPosition;
+            _characterName = characterName;
             _playerSprite = _linkSpriteFactory.GetPlayerMovementSprite(characterName, startingDirection);
             float scalefactor = 0.9f; // scale factor for the collider
             _playerCollider = new PlayerCollider(startingPosition, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);
             _playerVulnerabilityState = new PlayerVulnerableState(this);
             _playerInventory = new PlayerInventory(this);
-            _characterName = characterName;
+
             _playerStateFactory = new PlayerStateFactory(this);
             PlayerInventoryManager.AddPlayerInventory(this, _playerInventory);
 

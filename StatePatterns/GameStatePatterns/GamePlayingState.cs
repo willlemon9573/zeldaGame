@@ -45,7 +45,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Handle()
         {
-            _currentRoom.UpdateEnemyController(_playerMap[0].Item1);
+            _currentRoom.UpdateEnemyController(_playerMap[1].Item1);
             SoundFactory.AdjustMusicVolume(0.3f);
         }
 

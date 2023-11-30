@@ -5,12 +5,8 @@ namespace SprintZero1.Commands.PlayerCommands
 {
     internal class PauseGameCommand : BaseChangeGameStateCommand
     {
-        /// <summary>
-        /// Command for pausing the game
-        /// </summary>
-        /// <param name="gameChangeStateHandler">Delegate that points to the state changing function</param>
-        /// <param name="gameStateHandler">Delegate that points to the state handling function</param>
-        public PauseGameCommand(Game1 game) : base(game)
+
+        public PauseGameCommand() : base()
         {
         }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
+using SprintZero1.Commands.PlayerCommands;
 using SprintZero1.Entities;
 using SprintZero1.Managers;
 using System;
@@ -10,22 +11,24 @@ namespace SprintZero1.Controllers
 {
     internal class GamepadController : IController
     {
-        private Dictionary<Buttons, ICommand> gamepadMap;
+        private Dictionary<Buttons, ICommand> _gamepadMap;
         private readonly List<Buttons> _movementButtonList;
         private List<Buttons> _previousPressedButtons;
-        private readonly Stack<Buttons> movementButtonStack;
-        public readonly int index;
+        private readonly Stack<Buttons> _movementButtonStack;
+        private ICommand _playerIdleCommand;
+        private readonly int _gamepadIndex;
+
 
         /// <summary>
         /// Constructor an object to control the keyboard
         /// </summary>
         public GamepadController(int index)
         {
-            gamepadMap = new Dictionary<Buttons, ICommand>();
+            _gamepadMap = new Dictionary<Buttons, ICommand>();
             _previousPressedButtons = new List<Buttons>();
-            movementButtonStack = new Stack<Buttons>();
+            _movementButtonStack = new Stack<Buttons>();
             _movementButtonList = new List<Buttons>() { Buttons.DPadUp, Buttons.DPadDown, Buttons.DPadLeft, Buttons.DPadRight, Buttons.LeftThumbstickUp, Buttons.LeftThumbstickDown, Buttons.LeftThumbstickLeft, Buttons.LeftThumbstickRight };
-            this.index = index;
+            _gamepadIndex = index;
         }
 
         /// <summary>
@@ -34,13 +37,13 @@ namespace SprintZero1.Controllers
         /// <param name="pressedButtons">collection of currently pressed buttons</param>
         private void FlipAndClean(List<Buttons> pressedButtons)
         {
-            if (movementButtonStack.Count > 0)
+            if (_movementButtonStack.Count > 0)
             {
-                Buttons b = movementButtonStack.Pop();
+                Buttons b = _movementButtonStack.Pop();
                 FlipAndClean(pressedButtons);
                 if (pressedButtons.Contains(b))
                 {
-                    movementButtonStack.Push(b);
+                    _movementButtonStack.Push(b);
                 }
             }
         }
@@ -55,26 +58,48 @@ namespace SprintZero1.Controllers
              * Add button to stack if its not already in the stack
              * else execute the command
              */
-            if (!movementButtonStack.Contains(movementButton))
+            if (!_movementButtonStack.Contains(movementButton))
             {
-                movementButtonStack.Push(movementButton);
+                _movementButtonStack.Push(movementButton);
             }
-            else if (movementButton == movementButtonStack.Peek())
+            else if (movementButton == _movementButtonStack.Peek())
             {
-                Buttons buttonRef = movementButtonStack.Peek();
-                gamepadMap[buttonRef].Execute();
+                Buttons buttonRef = _movementButtonStack.Peek();
+                _gamepadMap[buttonRef].Execute();
             }
         }
 
         public void LoadControls(IEntity player)
         {
-            gamepadMap = ControlsManager.GetGamePadControls(player);
+            _gamepadMap = ControlsManager.GetGamePadControls(player);
+            _playerIdleCommand = new PlayerIdleCommand(player as PlayerEntity);
+        }
+
+
+        /// <summary>
+        /// Get a list of the currently pressed buttons
+        /// </summary>
+        /// <returns></returns>
+        private List<Buttons> GetPressedButtons()
+        {
+            List<Buttons> pressedButtons = new List<Buttons>();
+
+            foreach (Buttons btn in Enum.GetValues(typeof(Buttons)))
+            {
+                if (GamePad.GetState(_gamepadIndex).IsButtonDown(btn))
+                {
+                    pressedButtons.Add(btn);
+                }
+            }
+
+            return pressedButtons;
         }
 
         public void Update()
         {
-            List<Buttons> pressedButtons = GetPressedButtons(index);
+            List<Buttons> pressedButtons = GetPressedButtons();
             int totalButtonCount = 0;
+            if (pressedButtons.Count == 0 && _movementButtonStack.Count == 0 && _previousPressedButtons.Count == 0) { return; }
             /* iterate over pressed button collection executing only valid keys in the gamepad map 
                keeping track of the amount of movement button that are also currently being pressed
             */
@@ -84,39 +109,28 @@ namespace SprintZero1.Controllers
                 {
                     HandleMovementButtons(button);
                 }
-                else if (gamepadMap.ContainsKey(button) && !_previousPressedButtons.Contains(button))
+                else if (_gamepadMap.ContainsKey(button) && !_previousPressedButtons.Contains(button))
                 {
-                    gamepadMap[button].Execute();
+                    _gamepadMap[button].Execute();
                 }
             }
 
-            if (totalButtonCount < movementButtonStack.Count)
+            // clean movement stack when a button isn't pressed
+            if (totalButtonCount < _movementButtonStack.Count)
             {
                 FlipAndClean(pressedButtons);
             }
 
             _previousPressedButtons = pressedButtons.ToList<Buttons>();
-        }
-
-        /// <summary>
-        /// Return list of currently pressed buttons,
-        /// since GamePad doesnt have a "Get pressed buttons"
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public List<Buttons> GetPressedButtons(int index)
-        {
-            List<Buttons> pressedButtons = new List<Buttons>();
-
-            foreach (Buttons btn in Enum.GetValues(typeof(Buttons)))
+            // set player to idle if no buttons have been pressed
+            if (_previousPressedButtons.Count == 0)
             {
-                if (GamePad.GetState(index).IsButtonDown(btn))
-                {
-                    pressedButtons.Add(btn);
-                }
+                _playerIdleCommand.Execute();
             }
 
-            return pressedButtons;
+
         }
+
+
     }
 }

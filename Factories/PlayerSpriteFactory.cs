@@ -6,6 +6,7 @@ using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace SprintZero1.Factories
 {
@@ -31,7 +32,7 @@ namespace SprintZero1.Factories
             get { return instance; }
         }
 
-       
+
 
         /// <summary>
         /// Private constructor to prevent instation of a new block factory
@@ -41,8 +42,15 @@ namespace SprintZero1.Factories
             SpriteXMLParser spriteParser = new SpriteXMLParser();
             movementSpriteDictionary = spriteParser.ParseAnimatedSpriteWithDirectionXML(MovementXMLPath);
             attackSpriteDictionary = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath);
-            _playerMovementMap = spriteParser.ParseAnimatedSpriteWithDirectionXML(MovementXMLPath,Link);
+            /* Create dictionary that contains both Link and Zelda's movement sprites */
+            _playerMovementMap = spriteParser.ParseAnimatedSpriteWithDirectionXML(MovementXMLPath, Link);
+            _playerMovementMap = _playerMovementMap.Concat(spriteParser.ParseAnimatedSpriteWithDirectionXML(MovementXMLPath, Zelda))
+                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            /* Create Dictionary that contains both Link and Zelda's attacking animation sprites */
             _playerAttackingMap = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath, Link);
+            _playerAttackingMap = _playerAttackingMap.Concat(spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath, Zelda))
+                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
             _playerTextureMap = new Dictionary<string, Texture2D>();
         }
 
@@ -52,6 +60,7 @@ namespace SprintZero1.Factories
         public void LoadTextures()
         {
             _playerTextureMap.Add(Link, Texture2DManager.GetLinkSpriteSheet());
+            _playerTextureMap.Add(Zelda, Texture2DManager.GetLinkSpriteSheet()); // using link for testing until we get our 2nd player
             LinkSpriteSheet = Texture2DManager.GetLinkSpriteSheet();
         }
         /// <summary>
@@ -83,8 +92,9 @@ namespace SprintZero1.Factories
         /// <returns></returns>
         public ISprite GetPlayerMovementSprite(string characterName, Direction direction)
         {
-            Debug.Assert(_playerMovementMap.ContainsKey((characterName, direction)), $"Combined key {(characterName)},{direction} not found in dictionary");
             var key = (characterName, direction);
+            Debug.Assert(_playerMovementMap.ContainsKey(key), $"Combined key {characterName},{direction} not found in dictionary");
+
             List<Rectangle> spriteRectangles = _playerMovementMap[key];
             Texture2D characterTextureMap = _playerTextureMap[characterName];
             return new AnimatedSprite(spriteRectangles, characterTextureMap, AnimatedSpriteFrames);
