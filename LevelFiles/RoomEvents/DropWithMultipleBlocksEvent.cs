@@ -15,8 +15,8 @@ namespace SprintZero1.LevelFiles.RoomEvents
         private readonly List<IMovableEntity> _movableBlocks;
         private readonly List<Vector2> _triggerPositions;
         private readonly int _requiredBlocks;
-        private readonly TimeSpan _timeLimit;
-        private TimeSpan _elapsedTime;
+        private const float TimeLimit = 10f;
+        private float _elapsedTime;
         
         /// <summary>
         /// Initialize
@@ -24,15 +24,13 @@ namespace SprintZero1.LevelFiles.RoomEvents
         /// <param name="movableBlocks">List of movable blocks in level</param>
         /// <param name="triggerPositions">List of block destinations for event to trigger</param>
         /// <param name="requiredBlocks">Number of blocks needed to complete puzzle</param>
-        /// <param name="timeLimit">Time limit for how fast to complete puzzle before penalty</param>
-        public DropWithMultipleBlocksEvent(List<IMovableEntity> movableBlocks, List<Vector2> triggerPositions, int requiredBlocks, TimeSpan timeLimit)
+        public DropWithMultipleBlocksEvent(List<IMovableEntity> movableBlocks, List<Vector2> triggerPositions, int requiredBlocks)
         {
             _canTriggerEvent = true;
             _movableBlocks = movableBlocks;
             _triggerPositions = triggerPositions;
             _requiredBlocks = requiredBlocks;
-            _timeLimit = timeLimit;
-            _elapsedTime = TimeSpan.Zero;
+            _elapsedTime = 0f;
         }
         
         /// <summary>
@@ -62,6 +60,8 @@ namespace SprintZero1.LevelFiles.RoomEvents
             if(blocksInPosition >= _requiredBlocks)
             {
                 _canTriggerEvent = false;
+                ///drop minigun or open door or something
+                ///puzzle complete
                 
             }
         }
@@ -70,13 +70,16 @@ namespace SprintZero1.LevelFiles.RoomEvents
         /// Updating the timer for keeping track of time allotted
         /// </summary>
         /// <param name="gameTime">Time in game</param>
-        public void Update(TimeSpan gameTime)
+        public void Update(GameTime gameTime)
         {
-            _elapsedTime += gameTime;
+            //each update will update elapsed time with time since last update
+            _elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if(_elapsedTime > _timeLimit )
+            //check if time limit was reached
+            if(_elapsedTime > TimeLimit )
             {
-                Penalty();
+                Penalty(); //Call penalty function
+                _elapsedTime -= TimeLimit; //subtract time limit from elapsed time to accurately measure
             }
 
         }
@@ -87,6 +90,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
         private void Penalty()
         {
             //spawn boss or lose health or something
+            //not implemented yet
         }
     }
 }
