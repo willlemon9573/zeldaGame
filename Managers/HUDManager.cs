@@ -355,17 +355,9 @@ namespace SprintZero1.Managers
            
             foreach (var sprite in spriteAndPosList)
             {
-                if (sprite.Equals(specialCaseDict["map"]))
-                {
+               
                     sprite.Item1.Update(gameTime);
-                }
-            }
-            foreach (var sprite in spriteAndPosList)
-            {
-                if (!sprite.Equals(specialCaseDict["map"]))
-                {
-                    sprite.Item1.Update(gameTime);
-                }
+               
             }
         }
 
@@ -380,13 +372,11 @@ namespace SprintZero1.Managers
             {
                 if (sprite.Equals(specialCaseDict["map"]))
                 {
+                    //So Map is drawn below the other sprites
                     sprite.Item1.Draw(spriteBatch, sprite.Item2, SpriteEffects.None, Rotation, MapLayerDepth);
                 }
-            }
-            foreach (var sprite in spriteAndPosList)
-            {
-                if (!sprite.Equals(specialCaseDict["map"]))
-                {
+                else {
+                    //So player and triforce markers are not hidden by map
                     sprite.Item1.Draw(spriteBatch, sprite.Item2, SpriteEffects.None, Rotation, AboveMapLayerDepth);
                 }
             }
