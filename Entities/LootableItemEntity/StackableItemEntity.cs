@@ -10,8 +10,9 @@ namespace SprintZero1.Entities.LootableItemEntity
 {
     internal class StackableItemEntity : LootableItemBase
     {
-        readonly StackableItemHandler _pickupHandler;
-        readonly StackableItems _itemType;
+        private readonly StackableItemHandler _pickupHandler;
+        private readonly StackableItems _itemType;
+
         public StackableItems ItemType { get { return _itemType; } }
         /// <summary>
         /// Construct a new object that is a dungeon item entity

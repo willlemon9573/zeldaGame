@@ -1,6 +1,9 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using System;
+using SprintZero1.Factories;
+using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
 
 namespace SprintZero1.Entities.BoomerangEntity
 {
@@ -11,26 +14,31 @@ namespace SprintZero1.Entities.BoomerangEntity
     /// <author>Zihe Wang</author>
     internal abstract class BoomerangBasedEntity : ProjectileEntity
     {
+        protected readonly float TimeToUpdate = 1 / 6f;
+        protected float _elapsedTime;
         // Variables to control the boomerang's behavior and state.
         protected int _maxDistance;
         protected bool returning = false;
         protected float distanceMoved = 0;
         protected Vector2 _spriteMovingAddition;
-        protected bool IsActive = true;
         protected readonly float RotationIncrement = MathHelper.ToRadians(20);
         protected readonly IMovableEntity _player;
         protected float _speedFactor = 1.0f;
         protected bool _isAccelerating = false;
+        protected SoundEffect _boomerangSound;
 
         /// <summary>
         /// Initializes a new instance of the BoomerangBasedEntity class.
         /// </summary>
         /// <param name="weaponName">The name of the weapon.</param>
         /// <param name="player">The player entity.</param>
-        public BoomerangBasedEntity(String weaponName, IMovableEntity player) : base(weaponName)
+        public BoomerangBasedEntity(string weaponName, IMovableEntity player) : base(weaponName)
         {
             _rotation = 0;
             _player = player;
+            _boomerangSound = SoundFactory.GetSound("arrow_boomerang");
+            _elapsedTime = 0f;
+            this._weaponDamage = 0.5f; // default weapon damage for boomerang (only works on keese)
         }
 
         /// <summary>
@@ -40,7 +48,7 @@ namespace SprintZero1.Entities.BoomerangEntity
         public sealed override void Draw(SpriteBatch spriteBatch)
         {
             if (ProjectileSprite == null) return;
-            ProjectileSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, _rotation);
+            ProjectileSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, _rotation);
         }
 
         /// <summary>
@@ -51,14 +59,23 @@ namespace SprintZero1.Entities.BoomerangEntity
         {
             if (!IsActive || ProjectileSprite == null) return;
 
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _elapsedTime += deltaTime;
             // Update the sprite animation.
             ProjectileSprite.Update(gameTime);
+            _projectileCollider.Update(this);
 
             // Move the boomerang based on its current state.
             if (returning)
                 ReturnBoomerang(gameTime);
             else
                 ThrowBoomerang(gameTime);
+
+            if (_elapsedTime >= TimeToUpdate)
+            {
+                _elapsedTime -= TimeToUpdate;
+                _boomerangSound.Play();
+            }
         }
 
         // Helper method to update the boomerang's position.
@@ -92,9 +109,19 @@ namespace SprintZero1.Entities.BoomerangEntity
             }
         }
 
+        public void ReturnBoomerang()
+        {
+            if (returning) { return; }
+            returning = true;
+            distanceMoved = 0;
+            _isAccelerating = true;
+            _speedFactor = 0.1f;
+        }
+
         // Handles the behavior of the boomerang when returning.
         protected void ReturnBoomerang(GameTime gameTime)
         {
+
             // Rotate the boomerang.
             _rotation += RotationIncrement;
             if (_rotation > MathHelper.TwoPi) _rotation -= MathHelper.TwoPi;
@@ -119,6 +146,11 @@ namespace SprintZero1.Entities.BoomerangEntity
             {
                 ProjectileSprite = null;
                 IsActive = false;
+                if (GameStatesManager.CurrentState is GamePlayingState gameState)
+                {
+                    gameState.RemoveProjectile(this);
+                }
+                _elapsedTime = 0f;
             }
         }
     }

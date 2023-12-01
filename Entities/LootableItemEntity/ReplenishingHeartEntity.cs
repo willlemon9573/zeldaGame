@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SprintZero1.Colliders.ItemColliders;
 using SprintZero1.LevelFiles;
 using SprintZero1.Sprites;
 
@@ -14,6 +15,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         /// <param name="removeDelegate">The delegate for removing the entity</param>
         public ReplenishingHeartEntity(ISprite entitySprite, Vector2 position, RemoveDelegate removeDelegate) : base(entitySprite, position, removeDelegate)
         {
+            this._entityCollider = new ReplenishingHeartContainer(position, new System.Drawing.Size(entitySprite.Width, entitySprite.Height));
         }
 
         /// <summary>

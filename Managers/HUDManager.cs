@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
+using SprintZero1.Managers.HUDHelpers;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
 using System;
@@ -13,68 +14,73 @@ namespace SprintZero1.Managers
 {
     internal static class HUDManager
     {
-        private static List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
-        const int MAX_ATTAINABLE_HEALTH = 8;
-        private static float[] healthArray = new float[MAX_ATTAINABLE_HEALTH];
-        private static Dictionary<String, Tuple<ISprite, Vector2>> specialCaseDict = new Dictionary<String, Tuple<ISprite, Vector2>>();
-        const float MapLayerDepth = 1f; // draw map on the layer depth that's considered "backgroud"
-        const float AboveMapLayerDepth = 0f; // draw any other markers on the layer depth that's considered 
-        const float Rotation = 0f; // because we need to add the layerdepth we also have to add rotation
-        const float STARTING_HEALTH = 6f;
-        const float FULL_HEART = 1f;
-        const float HALF_HEART = 0.5f;
-        const float EMPTY_HEART = 0f;
-        const float NO_HEART = -1f;
-        private static float currentHealth = 0;
-        private static float maxHealth = 0;
-        private static int keyCount = 0;
-        private static int bombCount = 0;
-        private static int rupeeCount = 0;
-        private static Vector2 startingHeartPos = new Vector2(180, 40);
+        private const string Map = "map";
+        private const string Sprite = "Sprite";
+        private const string Vector2 = "Vector2";
+        private const string Triforce = "triforce";
+        private const string Heart = "heart";
+        private const string Name = "name";
+        private const string NumPosition = "NumPosition";
+        private const string Player = "player";
+        private const int ItemDigits = 2;
+        private static readonly List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
+
+        private static readonly Dictionary<string, Tuple<ISprite, Vector2>> _specialCaseDict = new Dictionary<string, Tuple<ISprite, Vector2>>();
+        private const float MapLayerDepth = 1f; // draw map on the layer depth that's considered "backgroud"
+        private const float AboveMapLayerDepth = 0f; // draw any other markers on the layer depth that's considered 
+        private const float Rotation = 0f; // because we need to add the layerdepth we also have to add rotation
+        private static readonly SpriteEffects _spriteEffects = SpriteEffects.None;
+        private static readonly Color DefaultColorMask = Color.White;
         public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
         private const string Zero = "0";
-        private static List<ISprite> rupeeDigits = new List<ISprite>();
-        private static List<ISprite> keyDigits = new List<ISprite>();
-        private static List<ISprite> bombDigits = new List<ISprite>();
-        private static Dictionary<String, Vector2> positionDictionary = new Dictionary<String, Vector2>();
+        private static readonly Dictionary<string, Vector2> positionDictionary = new Dictionary<string, Vector2>();
         private const int LeftDigitIndex = 0; //array index 0
         private const int RightDigitIndex = 1; //array index 1
 
+        /* Tracking for stackable items */
+        private static Dictionary<StackableItems, Action<int>> actionMap; // contains the actions for incrementing key, bomb and rupee count
+        private static Dictionary<Direction, Vector2> _playerMarkerOffsetMap; // contains the offsets required for moving the square that represents the player on the map
+        private static readonly List<ISprite> rupeeDigits = new List<ISprite>();
+        private static readonly List<ISprite> keyDigits = new List<ISprite>();
+        private static readonly List<ISprite> bombDigits = new List<ISprite>();
+
+
+        private static Dictionary<IEntity, HPLinkedList> _playerHealthMap = new Dictionary<IEntity, HPLinkedList>();
 
         /// <summary>
-        /// Initialize lists and dictionaries needed for HUD by parsing
+        /// Parses hud information to populate all the lists
         /// </summary>
-        public static void Initialize()
+        private static void ParseHUDXMLFile()
         {
-
-            float[] _hearts = new float[MAX_ATTAINABLE_HEALTH];
-            string path = @"XMLFiles\HUDXMLFiles\HUDPositions.xml";
+            string path = @"XMLFiles/HUDXMLFiles/HUDPositions.xml";
             XDocument document = XDocument.Load(path);
             XElement root = document.Root; /* get root */
             XDocTools xDocTools = new XDocTools();
 
-            foreach (XElement sprite in root.Elements("Sprite"))
+            foreach (XElement sprite in root.Elements(Sprite))
             {
                 /* Get the sprite name */
-                string name = xDocTools.ParseAttributeAsString(sprite.Attribute("name"));
+                string name = xDocTools.ParseAttributeAsString(sprite.Attribute(Name));
                 /* Get the position Element */
-                XElement positionElement = sprite.Element("Vector2");
+                XElement positionElement = sprite.Element(Vector2);
                 /* Parse the Vector2 position Element */
                 Vector2 position = xDocTools.ParseVector2Element(positionElement);
                 /* Create Sprite */
                 ISprite HUDSprite;
-                if (name == "triforce") {
+                if (name == Triforce)
+                {
                     HUDSprite = HUDSpriteFactoryInstance.CreateAnimatedHUDSprite(name);
                 }
-                else { 
-                    HUDSprite = HUDSpriteFactoryInstance.CreateHUDSprite(name);
-                 }
-
-                if (!name.Contains("heart"))
+                else
                 {
-                    if (name.Contains("map") || name.Contains("triforce"))
+                    HUDSprite = HUDSpriteFactoryInstance.CreateHUDSprite(name);
+                }
+
+                if (!name.Contains(Heart))
+                {
+                    if (name.Contains(Map) || name.Contains(Triforce))
                     {
-                        specialCaseDict.Add(name, new Tuple<ISprite, Vector2>(HUDSprite, position));
+                        _specialCaseDict.Add(name, new Tuple<ISprite, Vector2>(HUDSprite, position));
                     }
                     else
                     {
@@ -82,185 +88,113 @@ namespace SprintZero1.Managers
                         spriteAndPosList.Add(new Tuple<ISprite, Vector2>(HUDSprite, position));
                     }
                 }
-
-                /*Initialize hearts*/
-                CreateHealth();
-
             }
 
 
-            foreach (XElement numPosition in root.Elements("NumPosition"))
+            foreach (XElement numPosition in root.Elements(NumPosition))
             {
                 /* Get the name */
-                string name = xDocTools.ParseAttributeAsString(numPosition.Attribute("name"));
+                string name = xDocTools.ParseAttributeAsString(numPosition.Attribute(Name));
                 /* Get the position Element */
-                XElement positionElement = numPosition.Element("Vector2");
+                XElement positionElement = numPosition.Element(Vector2);
                 /* Parse the Vector2 position Element */
                 Vector2 position = xDocTools.ParseVector2Element(positionElement);
                 positionDictionary.Add(name, position);
             }
+        }
+
+        /// <summary>
+        /// Initialize lists and dictionaries needed for HUD by parsing
+        /// </summary>
+        public static void Initialize(List<IEntity> players)
+        {
+            /* parse the hud information */
+            ParseHUDXMLFile();
             //initialize the digits as 00 for HUD initialization
-            rupeeDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
-            rupeeDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
-            keyDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
-            keyDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
-            bombDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
-            bombDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
-        }
 
-        public static void CreateHealth()
-        {
-            //initializes the healthArray
-            for (int i = 0; i < MAX_ATTAINABLE_HEALTH; i++) {
-                //puts a full heart at each index until there are enough hearts to represent the starting health
-                if (i < STARTING_HEALTH)
-                {
-                    healthArray[i] = FULL_HEART;
-                }
-                //puts a negative one for the rest of the indexes in the array
-                else
-                {
-                    //negative ones represent nothing there
-                    healthArray[i] = NO_HEART;
-                }
-            }
-            //sets the current values of maxHealth and currentHealth
-            currentHealth = 6;
-            maxHealth = 6;
-        }
-
-        public static void DrawHealth(SpriteBatch a) {
-            int count = 0;
-            Vector2 pos = startingHeartPos;
-            //finds the last index that will be drawn
-            while (healthArray[count] != NO_HEART) {
-                if (healthArray[count] == FULL_HEART)
-                {
-                    //draws full heart
-                    ISprite fullHeart = HUDSpriteFactory.Instance.CreateHUDSprite("full_heart");
-                    fullHeart.Draw(a, pos);
-                }
-                else if (healthArray[count] == HALF_HEART)
-                {
-                    //draws half heart
-                    ISprite halfHeart = HUDSpriteFactory.Instance.CreateHUDSprite("half_heart");
-                    halfHeart.Draw(a, pos);
-                }
-                else {
-                    //draw empty heart
-                    ISprite emptyHeart = HUDSpriteFactory.Instance.CreateHUDSprite("empty_heart");
-                    emptyHeart.Draw(a, pos);
-                }
-                pos.X += 9;
-                count++;
-            }
-        }
-
-        //This function creates a new empty heart sprite and then heals the plaer by 1
-        public static void addNewHeart()
-        {
-            int count = 0;
-            float lastHealthValue = 0;
-            int lastHealthPosition = 0;
-            //finds the first index that is not a heart
-            while (healthArray[count] != NO_HEART) {
-               
-                lastHealthPosition = count;
-                lastHealthValue = healthArray[count];             
-                count++;
-            }
-            //sets the no heart to an empty heart
-            healthArray[count] = EMPTY_HEART;
-            maxHealth++;
-            //heals player
-            IncrementHealth(1);
-            
-        }
-
-        public static void DecrementHealth(float amount)
-        {
-            //reduces amount until decrementing will not result in negative health
-            while (currentHealth - amount < 0)
+            int numberOfDigits = 2;
+            for (int i = 0; i < numberOfDigits; i++)
             {
-                amount -= 0.5f;
+                rupeeDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
+                keyDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
+                bombDigits.Add(HUDSpriteFactoryInstance.CreateHUDSprite(Zero));
             }
 
-            int count = 0;
-            //finds the last index of a half/full heart
-            while (healthArray[count] > EMPTY_HEART) {
-                count++;
-            }
-            count--;
-            //decrements the healthArray according on the amount and the last heart in the array
-            if (amount == 0.5f)
+
+            /* Create action map for updating counts */
+            actionMap = new Dictionary<StackableItems, Action<int>>() {
+                { StackableItems.Rupee, UpdateRupeeCount  },
+                { StackableItems.Bomb, UpdateBombCount },
+                { StackableItems.DungeonKey, UpdateKeyCount }
+            };
+
+            /* setup for moving marker when player changes rooms */
+            Vector2 verticalOffset = new Vector2(4, 0);
+            Vector2 horizontalOffset = new Vector2(0, 8);
+            _playerMarkerOffsetMap = new Dictionary<Direction, Vector2>()
             {
-                healthArray[count] -= 0.5f;
+                { Direction.North, -verticalOffset },
+                { Direction.South, verticalOffset },
+                { Direction.West, -horizontalOffset },
+                { Direction.East, horizontalOffset },
+            };
+
+            /* set up linked list for hearts */
+            Vector2 playerHeartStartingPosition = new Vector2(180, 40);
+            int playerMaxStartingHealth = 3;
+            int xOffsets = 10;
+            foreach (IEntity player in players)
+            {
+                _playerHealthMap.Add(player,
+                    new HPLinkedList(playerMaxStartingHealth, playerHeartStartingPosition));
+                playerHeartStartingPosition.Y += xOffsets;
             }
-            else {
-                if (healthArray[count] == HALF_HEART)
-                {
-                    healthArray[count] = EMPTY_HEART;
-                    healthArray[count - 1] = HALF_HEART;
-                }
-                else
-                {
-                    healthArray[count] = EMPTY_HEART;
-                }
-            }
-            //decrements current health
-            currentHealth -= amount;
         }
 
-        public static void IncrementHealth(float amount)
+        /// <summary>
+        /// Increases onscreen health by one
+        /// </summary>
+        public static void IncreasePlayerHealth()
         {
-            int count = 0;
-            //reduces amount until incrementing will not result in more than the max health
-            while (currentHealth + amount > maxHealth) {
-                amount -= 0.5f;
-            }
-            //finds the last index of a half/full heart
-            while (healthArray[count] > EMPTY_HEART)
+            foreach (HPLinkedList playerHealth in _playerHealthMap.Values)
             {
-                count++;
+                playerHealth.IncreasePlayerHealth();
             }
-            count--;
-            //increments the healthArray according on the amount and the last heart in the array
-            if (amount == 0.5f)
-            {
-                if (healthArray[count] == HALF_HEART)
-                {
-                    healthArray[count] = FULL_HEART;
-                }
-                else
-                {
-                    healthArray[count + 1] = HALF_HEART;
-                }
-            }
-            else {
-                if (healthArray[count] == HALF_HEART)
-                {
-                    healthArray[count] = FULL_HEART;
-                    healthArray[count + 1] = HALF_HEART;
+        }
 
-                }
-                else {
-                    healthArray[count + 1] = FULL_HEART;
-                }
+        /// <summary>
+        /// Decrement the player health by the given amount
+        /// </summary>
+        /// <param name="amount">The amount to decrement player health</param>
+        public static void DecrementHealth(IEntity player, float amount)
+        {
+            if (_playerHealthMap.TryGetValue(player, out HPLinkedList playerHP))
+            {
+                playerHP.DecrementCurrentHealth(amount);
             }
-            //increments the current health
-            currentHealth += amount;
+        }
+
+        /// <summary>
+        /// Increment's the player's health
+        /// </summary>
+        /// <param name="amount"></param>
+        /// 
+        public static void IncrementHearts(IEntity player, float amount)
+        {
+            if (_playerHealthMap.TryGetValue(player, out HPLinkedList playerHP))
+            {
+                playerHP.IncrementCurrentHealth(amount);
+            }
         }
 
         /// <summary>
         /// Updates Rupee count to count + "amount" in HUD
         /// </summary>
         /// <param name="amount">New amount of rupees</param>
-        public static void UpdateRupeeCount(int amount)
+        private static void UpdateRupeeCount(int amount)
         {
-            rupeeCount += amount;
-            int leftDigit = rupeeCount / 10;
-            int rightDigit = rupeeCount % 10;
-
+            int leftDigit = amount / 10;
+            int rightDigit = amount % 10;
             rupeeDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
             rupeeDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
@@ -269,14 +203,10 @@ namespace SprintZero1.Managers
         /// Updates key count to count + "amount" in HUD
         /// </summary>
         /// <param name="amount">New amount of keys</param>
-        public static void UpdateKeyCount(int amount)
+        private static void UpdateKeyCount(int amount)
         {
-            keyCount += amount;
-            int leftDigit = keyCount / 10;
-            int rightDigit = keyCount % 10;
-           
-           
-           
+            int leftDigit = amount / 10;
+            int rightDigit = amount % 10;
             keyDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
             keyDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
@@ -285,28 +215,37 @@ namespace SprintZero1.Managers
         /// Updates bomb count to count + "amount" in HUD
         /// </summary>
         /// <param name="amount">New amount of bombs</param>
-        public static void UpdateBombCount(int amount)
+        private static void UpdateBombCount(int amount)
         {
-            bombCount += amount;
-            int leftDigit = bombCount / 10;
-            int rightDigit = bombCount % 10;
+            int leftDigit = amount / 10;
+            int rightDigit = amount % 10;
             bombDigits[LeftDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(leftDigit.ToString());
             bombDigits[RightDigitIndex] = HUDSpriteFactoryInstance.CreateHUDSprite(rightDigit.ToString());
         }
 
+        /// <summary>
+        /// Updates the Stackable Item's count on the HUD to the given amount
+        /// </summary>
+        /// <param name="itemType">The specific type of item being updated</param>
+        /// <param name="amount">The amount the item is being updated to</param>
+        public static void UpdateStackableItemCount(StackableItems itemType, int amount)
+        {
+            if (actionMap.TryGetValue(itemType, out var action))
+            {
+                action(amount);
+            }
+        }
 
         //makes the map visible
         public static void AddMap()
         {
-            spriteAndPosList.Add(specialCaseDict["map"]);
-
-
+            spriteAndPosList.Add(_specialCaseDict[Map]);
         }
 
         //makes the triforce marker visible
         public static void AddTriforceMarker()
         {
-            spriteAndPosList.Add(specialCaseDict["triforce"]);
+            spriteAndPosList.Add(_specialCaseDict[Triforce]);
         }
 
         //move the player marker depending on which room the player enters
@@ -314,7 +253,7 @@ namespace SprintZero1.Managers
         {
 
             Vector2 markerPos = new Vector2(0, 0);
-            ISprite posMarker = HUDSpriteFactory.Instance.CreateHUDSprite("player");
+            ISprite posMarker = HUDSpriteFactory.Instance.CreateHUDSprite(Player);
             foreach (var sprite in spriteAndPosList)
             {
                 if (sprite.Item1 == posMarker)
@@ -324,41 +263,14 @@ namespace SprintZero1.Managers
             }
             Tuple<ISprite, Vector2> remover = new Tuple<ISprite, Vector2>(posMarker, markerPos);
             spriteAndPosList.Remove(remover);
-            switch (direction) {
-                case Direction.North:
-                    markerPos.Y = markerPos.Y - 4f;
-
-                    break;
-                case Direction.East:
-                    markerPos.X = markerPos.X + 8f;
-                    break;
-                case Direction.South:
-                    markerPos.Y = markerPos.Y + 4f;
-
-                    break;
-                case Direction.West:
-                    markerPos.X = markerPos.X - 8f;
-
-                    break;
-                default:
-                    break;
-
-            
-            }
+            markerPos += _playerMarkerOffsetMap[direction];
             Tuple<ISprite, Vector2> adder = new Tuple<ISprite, Vector2>(posMarker, markerPos);
             spriteAndPosList.Add(adder);
         }
 
         public static void Update(GameTime gameTime)
         {
-            
-           
-            foreach (var sprite in spriteAndPosList)
-            {
-               
-                    sprite.Item1.Update(gameTime);
-               
-            }
+            spriteAndPosList.ForEach(sprite => sprite.Item1.Update(gameTime));
         }
 
         /// <summary>
@@ -367,27 +279,23 @@ namespace SprintZero1.Managers
         /// <param name="spriteBatch">SpriteBatch spritebatch</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
-            
+
+            foreach (HPLinkedList playerHealth in _playerHealthMap.Values)
+            {
+                playerHealth.Draw(spriteBatch);
+            }
+            float layerDepth = 0f;
             foreach (var sprite in spriteAndPosList)
             {
-                if (sprite.Equals(specialCaseDict["map"]))
-                {
-                    //So Map is drawn below the other sprites
-                    sprite.Item1.Draw(spriteBatch, sprite.Item2, SpriteEffects.None, Rotation, MapLayerDepth);
-                }
-                else {
-                    //So player and triforce markers are not hidden by map
-                    sprite.Item1.Draw(spriteBatch, sprite.Item2, SpriteEffects.None, Rotation, AboveMapLayerDepth);
-                }
+                layerDepth = (sprite.Equals(_specialCaseDict[Map])) ? MapLayerDepth : AboveMapLayerDepth;
+                sprite.Item1.Draw(spriteBatch, sprite.Item2, DefaultColorMask, _spriteEffects, Rotation, layerDepth);
             }
 
-            DrawHealth(spriteBatch);
-
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < ItemDigits; i++)
             {
-                rupeeDigits[i].Draw(spriteBatch, positionDictionary[$"rupeePosition{i}"]);
-                keyDigits[i].Draw(spriteBatch, positionDictionary[$"keyPosition{i}"]);
-                bombDigits[i].Draw(spriteBatch, positionDictionary[$"bombPosition{i}"]);
+                rupeeDigits[i].Draw(spriteBatch, positionDictionary[$"rupeePosition{i}"], DefaultColorMask);
+                keyDigits[i].Draw(spriteBatch, positionDictionary[$"keyPosition{i}"], DefaultColorMask);
+                bombDigits[i].Draw(spriteBatch, positionDictionary[$"bombPosition{i}"], DefaultColorMask);
             }
         }
     }

@@ -4,7 +4,7 @@ namespace SprintZero1.Commands.CollisionCommands
 {
     internal class DestroyEntity : ICommand
     {
-        IEntity deadEntityWalking;
+        private IEntity deadEntityWalking;
 
         public DestroyEntity(IEntity entityToLive, IEntity entityToDIE)
         {

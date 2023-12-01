@@ -9,16 +9,14 @@
         /// Get and set the combat entity's health
         /// </summary>
         float Health { get; set; }
-        /* need to give a combat entity weapons */
         /// <summary>
         /// Executes the attack action.
         /// </summary>
-        public void Attack(string weaponName);
+        public void Attack();
         /// <summary>
         /// Applies damage to the combat entity
         /// </summary>
-
-        public void TakeDamage(int damage);
+        public void TakeDamage(float damage);
         /// <summary>
         /// Handles the death of the combat entity
         /// </summary>

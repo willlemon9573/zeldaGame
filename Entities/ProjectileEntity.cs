@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Colliders;
 using SprintZero1.Enums;
 using SprintZero1.Sprites;
 using System;
@@ -12,7 +13,7 @@ namespace SprintZero1.Entities
     /// This class defines common properties and methods for different types of projectiles.
     /// </summary>
     /// <author>Aaron, Zihe Wang</author>
-    internal abstract class ProjectileEntity : IWeaponEntity
+    internal abstract class ProjectileEntity : IWeaponEntity, ICollidableEntity
     {
         // Variables to control projectile's behavior and appearance
         protected readonly string _weaponName; // Name of the weapon
@@ -21,6 +22,9 @@ namespace SprintZero1.Entities
         protected ISprite ProjectileSprite; // Current sprite representing the projectile
         protected ISprite ImpactEffectSprite; // Sprite for the projectile's impact effect
         protected float movingSpeed; // Moving speed of the projectile
+        protected bool _isActive; // Flag to indicate if the projectile is active
+        protected float _weaponDamage = 0f;
+        public bool IsActive { get { return _isActive; } set { _isActive = value; } }
 
         // Dictionaries to hold sprite effect and positioning based on direction
         protected readonly Dictionary<Direction, Tuple<SpriteEffects, Vector2>> _spriteEffectsDictionary;
@@ -30,11 +34,18 @@ namespace SprintZero1.Entities
         protected SpriteEffects _currentSpriteEffect = SpriteEffects.None;
         protected Vector2 _weaponPosition; // Position of the weapon
 
+        // Collider for the projectile
+        protected ICollider _projectileCollider;
+
         public Vector2 Position
         {
             get { return _weaponPosition; }
             set { _weaponPosition = value; }
         }
+
+        public ICollider Collider { get { return _projectileCollider; } }
+
+        public float WeaponDamage { get { return _weaponDamage; } }
 
         protected ProjectileEntity(String weaponName)
         {

@@ -1,7 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Colliders.ItemColliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
+using SprintZero1.Managers;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 
 namespace SprintZero1.Entities.BoomerangEntity
@@ -26,6 +29,7 @@ namespace SprintZero1.Entities.BoomerangEntity
         {
             _maxDistance = RegularBoomerangMaxDistance;
             movingSpeed = RegularBoomerangMovingSpeed;
+            IsActive = false;
         }
 
         /// <summary>
@@ -35,17 +39,22 @@ namespace SprintZero1.Entities.BoomerangEntity
         /// <param name="position">The initial position of the weapon.</param>
         public override void UseWeapon(Direction direction, Vector2 position)
         {
+            if (IsActive) { return; }
             _speedFactor = 1.0f;
             IsActive = true;
             returning = false;
-            ProjectileSprite = WeaponSpriteFactory.Instance.CreateBoomerangSprite("");
             ImpactEffectSprite = null;
-
+            ProjectileSprite = WeaponSpriteFactory.Instance.CreateBoomerangSprite("");
             // Adjusting position and sprite based on the direction.
             var spriteAdditions = _spriteEffectsDictionary[direction];
             _spriteMovingAddition = _spriteMovingDictionary[direction] * movingSpeed;
             _currentSpriteEffect = SpriteEffects.None;
             _weaponPosition = position + spriteAdditions.Item2;
+            _projectileCollider = new PlayerBoomerangCollider(_weaponPosition, new System.Drawing.Size(ProjectileSprite.Width, ProjectileSprite.Height));
+            if (GameStatesManager.CurrentState is GamePlayingState gameState)
+            {
+                gameState.AddProjectile(this);
+            }
         }
     }
 }

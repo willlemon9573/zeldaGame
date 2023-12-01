@@ -24,19 +24,19 @@ namespace SprintZero1.XMLParsers
     internal class InventoryXMLParser
     {
         /* ----------------------------- Attribute strings ----------------------------- */
-        const string NAME_ATTRIBUTE = "name";
-        const string X_ATTRIBUTE = "x";
-        const string Y_ATTRIBUTE = "y";
-        const string ITEMS_ENUM_ATTRIBUTE = "items";
-        const string KEY_VALUE_ATTRIBUTE = "kvp";
-        const string DIRECTION_ATTRIBUTE = "direction";
-        const string TUPLE_ELEMENT = "tuple";
-        const string STARTING_STOCK_ATTRIBUTE = "startingstock";
-        const string MAX_STOCK_ATTRIBUTE = "maxstock";
-        const string SPRITE_ATTRIBUTE = "sprite";
-        const string SPRITE_EFFECTS_ATTRIBUTE = "spriteeffect";
-        const string PARAM_ELEMENT = "params";
-        const string ITEM_ELEMENT = "item";
+        private const string NAME_ATTRIBUTE = "name";
+        private const string X_ATTRIBUTE = "x";
+        private const string Y_ATTRIBUTE = "y";
+        private const string ITEMS_ENUM_ATTRIBUTE = "items";
+        private const string KEY_VALUE_ATTRIBUTE = "kvp";
+        private const string DIRECTION_ATTRIBUTE = "direction";
+        private const string TUPLE_ELEMENT = "tuple";
+        private const string STARTING_STOCK_ATTRIBUTE = "startingstock";
+        private const string MAX_STOCK_ATTRIBUTE = "maxstock";
+        private const string SPRITE_ATTRIBUTE = "sprite";
+        private const string SPRITE_EFFECTS_ATTRIBUTE = "spriteeffect";
+        private const string PARAM_ELEMENT = "params";
+        private const string ITEM_ELEMENT = "item";
 
         /* ----------------------------- Private Members ----------------------------- */
         private readonly XDocument _inventoryDocument;
@@ -100,7 +100,6 @@ namespace SprintZero1.XMLParsers
                         directionElement => _parseTools.ParseAttributeAsDirection(directionElement, DIRECTION_ATTRIBUTE),
                         directionChildElement => CreateWeaponSpriteEffectsTuple(directionChildElement.Element(TUPLE_ELEMENT))
                 );
-
             return new SwordEntity(weaponName, weaponEffects);
         }
 

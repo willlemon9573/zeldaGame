@@ -126,6 +126,9 @@
     <None Update="XMLFiles\LevelXMLFiles\RoomSecret.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="XMLFiles\PlayerXMLFiles\CharacterInfo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="XMLFiles\PlayerXMLFiles\ControllerSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

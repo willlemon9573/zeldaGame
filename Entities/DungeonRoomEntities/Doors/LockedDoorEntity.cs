@@ -9,7 +9,6 @@ namespace SprintZero1.Entities.DungeonRoomEntities.Doors
 
     internal class LockedDoorEntity : BaseDoorEntity
     {
-        private const float ScaleFactor = 0.9f;
         public LockedDoorEntity(ISprite entitySprite, Vector2 position, string destination, Direction direction) : base(entitySprite, position, destination, direction)
         {
             _doorCollider = new LockedDoorCollider(position, new System.Drawing.Size(entitySprite.Width, entitySprite.Height));

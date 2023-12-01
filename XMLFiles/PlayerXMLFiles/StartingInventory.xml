@@ -16,13 +16,13 @@
 	</startingweapon>
 	<stackableitems>
 		<item items="Rupee">
-			<params startingstock="0" maxstock = "999" sprite="rupee"/>
+			<params startingstock="0" maxstock = "99" sprite="rupee"/>
 		</item>
 		<item items="Bomb">
 			<params startingstock="0" maxstock = "99" sprite="bomb"/>
 		</item>
 		<item items="DungeonKey">
-			<params startingstock="0" maxstock = "9" sprite="dungeonkey"/>
+			<params startingstock="0" maxstock = "99" sprite="dungeonkey"/>
 		</item>
 		<item items="Arrow">
 			<params startingstock="0" maxstock="99" sprite="arrow"></params>

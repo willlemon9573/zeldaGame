@@ -29,7 +29,8 @@ namespace SprintZero1.Controllers.EnemyControllers
         private const int BlockSize = 16;
         private readonly double _directionChangeCooldown = 0.5;
         private double _timeSinceLastDirectionChange = 0;
-        private RemoveDelegate _remove;
+        private readonly RemoveDelegate _remove;
+        private bool _running;
 
         public SmartEnemyMovementController(ICombatEntity enemyEntity, IEntity playerEntity, RemoveDelegate remover)
         {
@@ -39,6 +40,17 @@ namespace SprintZero1.Controllers.EnemyControllers
             currentPath = new Stack<Vector2>();
             isPathBeingCalculated = false;
             _remove = remover;
+            _running = true;
+        }
+
+        public void Start()
+        {
+            _running = true;
+        }
+
+        public void Stop()
+        {
+            _running = false;
         }
 
         private Direction CalculateDirection(Vector2 moveDirection)
@@ -56,6 +68,7 @@ namespace SprintZero1.Controllers.EnemyControllers
 
         public void Update(GameTime gameTime)
         {
+            if (_running == false) { return; }
             double elapsed = gameTime.ElapsedGameTime.TotalSeconds;
             _timeSinceLastPathCalculation += elapsed;
             _currentMoveTime += elapsed;
@@ -120,7 +133,9 @@ namespace SprintZero1.Controllers.EnemyControllers
 
             if (_enemyEntity.Health <= 0)
             {
+                _enemyEntity.Die();
                 _remove(_enemyEntity);
+                Stop();
             }
         }
     }

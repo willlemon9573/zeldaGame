@@ -27,18 +27,12 @@ namespace SprintZero1.Sprites
             //_spriteSheet = Texture2DManager.GetTileSheet();
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0.5f)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0.5f)
         {
             /* the center of origin for rotation */
             Vector2 origin = new(_sourceRectangle.Width / 2, _sourceRectangle.Height / 2);
-            /* 
-             * this overload of draw requires a color mask. Color.White maintains the original sprite color. This can be used to apply a 'tint' to the sprite if desired
-             * May want to add a functionality to interface to allow changing color of the sprite for things like entities taking damage 
-             */
-            Color colorMask = Color.White;
             Rectangle destinationRectangle = new((int)position.X, (int)position.Y, _spriteWidth, _spriteHeight);
-            spriteBatch.Draw(_spriteSheet, destinationRectangle, _sourceRectangle, colorMask, rotation, origin, spriteEffects, layerDepth);
-
+            spriteBatch.Draw(_spriteSheet, destinationRectangle, _sourceRectangle, color, rotation, origin, spriteEffects, layerDepth);
         }
 
         public void Update(GameTime gameTime)

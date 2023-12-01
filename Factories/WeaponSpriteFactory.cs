@@ -12,8 +12,8 @@ namespace SprintZero1.Factories
 {
     internal class WeaponSpriteFactory
     {
-        private const string WEAPON_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\ProjectileSprites.xml";
-        private const string SWORD_SPRITE_PATH = @"XMLFiles\FactoryXMLFiles\LinkSwordSprites.xml";
+        private const string WEAPON_DOCUMENT_PATH = @"XMLFiles/FactoryXMLFiles/ProjectileSprites.xml";
+        private const string SWORD_SPRITE_PATH = @"XMLFiles/FactoryXMLFiles/LinkSwordSprites.xml";
         /* Temporary class for sprint2 requirements. This along with other factories will be refractored for sprint 3 */
         private Texture2D spriteSheet;
         private Texture2D enemyProjectileSheet;

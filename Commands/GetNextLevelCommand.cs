@@ -10,7 +10,7 @@ namespace SprintZero1.Commands
         private readonly List<string> levelList;
         private readonly int totalRooms;
         private int index;
-        readonly GamePlayingState gameState;
+        private readonly GamePlayingState gameState;
 
         public GetNextLevelCommand()
         {

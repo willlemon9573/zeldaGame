@@ -15,57 +15,40 @@ namespace SprintZero1.Controllers
     /// and executes these commands based on player input.
     /// </summary>
     /// <author>Aren, Zihe Wang</author>
-    internal class KeyboardControllerForItemSelection : IController
+    internal class KeyboardItemMenuController : IController
     {
         // Maps keyboard keys to ICommand objects
-        private Dictionary<Keys, ICommand> _keyboardMap;
-
-        // List of keys used for item selection
-        private readonly List<Keys> _ItemSelectionKeyList;
+        private readonly Dictionary<Keys, ICommand> _keyboardMap;
 
         // List to track keys that were pressed in the previous frame
         private List<Keys> _previouslyPressedKeys;
 
         /*------------------------------------------------------------------------------------------------------------------*/
         //only for testing
-        private Game1 _game;
-        private IEntity _player;
-        private ItemSelectionMenu _itemSelectionMenu;
+        private readonly ItemSelectionMenu _itemSelectionMenu;
 
 
         /// <summary>
         /// Constructor for KeyboardControllerForItemSelection. Initializes key lists.
         /// </summary>
-        public KeyboardControllerForItemSelection(Game1 game, IEntity player, ItemSelectionMenu itemSelectionMenu)
+        public KeyboardItemMenuController(ItemSelectionMenu itemSelectionMenu)
         {
-            _game = game;
-            _player = player;
             _itemSelectionMenu = itemSelectionMenu;
-            _previouslyPressedKeys = new List<Keys>() { Keys.Escape, Keys.I };
-            _ItemSelectionKeyList = new List<Keys>() { Keys.Left, Keys.Right, Keys.Z, Keys.Escape };
+            _previouslyPressedKeys = new List<Keys>() { Keys.I };
             _keyboardMap = new Dictionary<Keys, ICommand>();
-            LoadControls(player);
         }
 
         /// <summary>
         /// Loads the control mappings for a specific player.
         /// </summary>
         /// <param name="player">The player entity for which controls are being set up.</param>
-        /// <param name="itemSelectionMenu">The item selection menu used in control mapping.</param>
         public void LoadControls(IEntity player)
         {
-            // Instantiate command objects for each key action
-            var getPreviousWeaponCommand = new GetPreviousWeaponCommand(_itemSelectionMenu);
-            var getNextWeaponCommand = new GetNextWeaponCommand(_itemSelectionMenu);
-            var unpauseGameCommand = new UnpauseGameCommand(_game);
-            var setCurrentWeaponToPlayerCommand = new SetCurrentWeaponToPlayerCommand(_player, _itemSelectionMenu);
-
             // Map keys to their respective commands
-            _keyboardMap[Keys.Left] = getPreviousWeaponCommand;
-            _keyboardMap[Keys.Right] = getNextWeaponCommand;
-            _keyboardMap[Keys.B] = setCurrentWeaponToPlayerCommand;
-            _keyboardMap[Keys.Escape] = unpauseGameCommand;
-            _keyboardMap[Keys.I] = unpauseGameCommand;
+            _keyboardMap[Keys.Left] = new GetPreviousWeaponCommand(_itemSelectionMenu);
+            _keyboardMap[Keys.Right] = new GetNextWeaponCommand(_itemSelectionMenu);
+            _keyboardMap[Keys.B] = new SetCurrentWeaponToPlayerCommand(player, _itemSelectionMenu);
+            _keyboardMap[Keys.I] = new UnpauseGameCommand();
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace SprintZero1.Commands
     internal class BowAttackCommand : ICommand
     {
         // Field for storing the reference to the combat entity
-        readonly ICombatEntity combatEntity;
+        private readonly ICombatEntity combatEntity;
 
         /// <summary>
         /// Initializes a new instance of the BowAttackCommand class.
@@ -30,7 +30,7 @@ namespace SprintZero1.Commands
         public void Execute()
         {
             // Triggers the attack method of the combat entity with a "Bow" parameter
-            combatEntity.Attack("Bow");
+            combatEntity.Attack();
         }
     }
 }

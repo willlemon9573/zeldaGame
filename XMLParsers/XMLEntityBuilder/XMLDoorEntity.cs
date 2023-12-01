@@ -11,9 +11,9 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
     internal class XMLDoorEntity : EntityBase
     {
         private const string NameSpace = "SprintZero1.Entities.DungeonRoomEntities.Doors";
-        string _destination;
-        string _facingDirection;
-        string _doorType;
+        private string _destination;
+        private string _facingDirection;
+        private string _doorType;
 
         public string Destination { set { _destination = value; } }
         public string DoorDirection { set { _facingDirection = value; } }

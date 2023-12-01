@@ -189,6 +189,46 @@ namespace SprintZero1.XMLParsers
         }
 
         /// <summary>
+        /// Overload function. Parse character specific animated sprites with direction from an xml file
+        /// </summary>
+        /// <returns>A new dictionary containing the sprite information</returns>
+        /// <param name="filePath">The file name of the XML file to be parsed. Must not be null. </param>
+        /// <param name="character"/>"The character that the sprites belong to</param>
+        /// Must be an existing and valid xml file</param>
+        public Dictionary<(string, Direction), List<Rectangle>> ParseAnimatedSpriteWithDirectionXML(string filePath, string character)
+        {
+            XDocument spriteXML = XDocument.Load(filePath);
+            XElement root = spriteXML.Root;
+            CheckIfNull(root, filePath, SpritesRoot);
+            XElement characterElement = root.Element(character);
+            CheckIfNull(characterElement, filePath, character);
+            return characterElement.Elements(SpriteElement).ToDictionary(
+                    spriteElement => (character, GetDirectionAttributeAsEnum(spriteElement, filePath)),
+                    spriteElement => CreateRectangleList(spriteElement.Elements(RectangleElement), filePath)
+           );
+        }
+
+        /// <summary>
+        /// Overload function. Parse character specific non-animated sprites with direction from an xml file
+        /// </summary>
+        /// <returns>A new dictionary containing the sprite information</returns>
+        /// <param name="filePath">The file name of the XML file to be parsed. Must not be null. </param>
+        /// <param name="character"/>"The character that the sprites belong to</param>
+        /// Must be an existing and valid xml file</param>
+        public Dictionary<(string, Direction), Rectangle> ParseNonAnimatedSpriteWithDirectionXML(string filePath, string character)
+        {
+            XDocument spriteXML = XDocument.Load(filePath);
+            XElement root = spriteXML.Root;
+            CheckIfNull(root, filePath, SpritesRoot);
+            XElement characterElement = root.Element(character);
+            CheckIfNull(characterElement, filePath, character);
+            return characterElement.Elements(SpriteElement).ToDictionary(
+                    spriteElement => (character, GetDirectionAttributeAsEnum(spriteElement, filePath)),
+                    spriteElement => CreateRectangle(spriteElement.Element(RectangleElement), filePath)
+                 );
+        }
+
+        /// <summary>
         /// Parses the given xml file located at {@param fileName} and returns a dictionary map of information on non animated sprites.
         /// </summary>
         /// <returns>A new dictionary containing the sprite information</returns>

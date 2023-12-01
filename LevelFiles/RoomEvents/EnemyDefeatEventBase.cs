@@ -22,6 +22,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
                 playingState.AddCollider(entity);
             }
         }
+
         protected EnemyDefeatEventBase(DungeonRoom room)
         {
             _roomWithEvent = room;

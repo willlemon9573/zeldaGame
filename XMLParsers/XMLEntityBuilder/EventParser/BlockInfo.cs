@@ -2,12 +2,12 @@
 {
     internal class BlockInfo
     {
-        string _blockName;
-        int _startingX;
-        int _startingY;
-        int _endingX;
-        int _endingY;
-        string movableDirection;
+        private string _blockName;
+        private int _startingX;
+        private int _startingY;
+        private int _endingX;
+        private int _endingY;
+        private string movableDirection;
         public string Name { get { return _blockName; } set { _blockName = value; } }
         public int StartX { get { return _startingX; } set { _startingX = value; } }
         public int StartY { get { return _startingY; } set { _startingY = value; } }

@@ -20,11 +20,12 @@ namespace SprintZero1.Entities
     /// </summary>
     internal class SwordEntity : IWeaponEntity, ICollidableEntity
     {
-        const float Rotation = 0f;
-        const float LayerDepth = 0.2f;
+        private const float Rotation = 0f;
+        private const float SwordDamage = 1f; // default sword damage is 1 heart
+        private const float LayerDepth = 0.2f;
         private readonly string _weaponName;
         private float _stateElapsedTime = 0f;
-        private readonly float _timeToResetState = 1;
+        private readonly float _timeToResetState = 1 / 7f;
         private Vector2 _weaponPosition;
         private ISprite _weaponSprite;
         /* Holds the specific values for properly flipping and placing sword in player's hands */
@@ -32,11 +33,15 @@ namespace SprintZero1.Entities
         /* Sprite effect for flipping the weapon */
         private SpriteEffects _currentSpriteEffect = SpriteEffects.None;
         public Vector2 Position { get { return _weaponPosition; } set { _weaponPosition = value; } }
-        SpriteDebuggingTools spriteDebugger;
+
+        private SpriteDebuggingTools spriteDebugger;
         private ICollider _collider;
-        readonly SoundEffect _swordSlash;
+        private readonly SoundEffect _swordSlash;
         /* Get collider */
         public ICollider Collider { get { return _collider; } }
+
+        public float WeaponDamage { get { return SwordDamage; } }
+
         /// <summary>
         /// TODO: Remove weapon name if my inventory implementation works
         /// </summary>
@@ -66,14 +71,19 @@ namespace SprintZero1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _weaponSprite.Draw(spriteBatch, _weaponPosition, _currentSpriteEffect, Rotation, LayerDepth);
+            _weaponSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, Rotation, LayerDepth);
             spriteDebugger.DrawRectangle(_collider.Collider, Color.CornflowerBlue, spriteBatch);
-
         }
 
         public void Update(GameTime gameTime)
         {
             _collider.Update(this);
+            _stateElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_stateElapsedTime >= _timeToResetState && GameStatesManager.CurrentState is GamePlayingState gameState)
+            {
+                _stateElapsedTime = 0f;
+                gameState.RemoveCollider(this);
+            }
         }
     }
 }

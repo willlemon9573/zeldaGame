@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
@@ -228,7 +227,7 @@ namespace SprintZero1.XMLParsers
         {
             XAttribute command = element.Attribute(attributeName);
             CheckAttribute(command);
-            return (ICommand)Activator.CreateInstance(Type.GetType($"{nameSpace}.{command.Value}"), game);
+            return (ICommand)Activator.CreateInstance(Type.GetType($"{nameSpace}.{command.Value}"));
         }
     }
 }

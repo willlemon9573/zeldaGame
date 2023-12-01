@@ -15,17 +15,20 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
     internal class GamePlayingState : BaseGameState
     {
         private DungeonRoom _currentRoom;
-
         /// <summary>
-        /// List of players
+        /// List of projects that may be drawn on screen
         /// </summary>
-        private readonly List<IEntity> _players = new List<IEntity>();
+        private readonly List<IEntity> _projectiles = new List<IEntity>();
 
         private readonly ColliderManager _colliderManager;
         // Note: Base variable is EntityManager
         public DungeonRoom CurrentRoom { get { return _currentRoom; } }
-        readonly MouseTools _mouseController; /* for debugging */
-        Song _dungeonMusic;
+
+        private readonly MouseTools _mouseController; /* for debugging */
+        private readonly Song _dungeonMusic;
+        private readonly SpriteDebuggingTools _spriteDebuggingTools;
+
+
         /// <summary>
         /// The state of the game when the game is running
         /// </summary>
@@ -37,18 +40,13 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _dungeonMusic = SoundFactory.GetMusic("DungeonMusic");
             SoundFactory.AdjustMusicVolume(.3f);
             SoundFactory.PlayMusic(_dungeonMusic);
+            _spriteDebuggingTools = new SpriteDebuggingTools(game);
         }
 
         public override void Handle()
         {
-            _currentRoom.UpdateEnemyController(_players[0]);
+            _currentRoom.UpdateEnemyController(_playerMap[1].Item1);
             SoundFactory.AdjustMusicVolume(0.3f);
-        }
-
-        public void AddPlayer(PlayerEntity player)
-        {
-            _players.Add(player);
-            _colliderManager.AddCollidableEntity(player);
         }
 
         public void RemoveCollider(IEntity entity)
@@ -72,8 +70,23 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _colliderManager.ClearCollidableEntities();
             _currentRoom = LevelManager.GetDungeonRoom(nextRoomName);
             _colliderManager.AddCollidableEntities(_currentRoom.GetEntityList());
-            _colliderManager.AddCollidableEntities(_players);
+            foreach (var playerTuple in _playerMap.Values)
+            {
+                _colliderManager.AddCollidableEntity(playerTuple.Item1);
+            }
             _currentRoom.ColliderManager = _colliderManager;
+        }
+
+        public void AddProjectile(IEntity projectile)
+        {
+            _projectiles.Add(projectile);
+            AddCollider(projectile);
+        }
+
+        public void RemoveProjectile(IEntity projectile)
+        {
+            _projectiles.Remove(projectile);
+            RemoveCollider(projectile);
         }
 
         /// <summary>
@@ -84,11 +97,19 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             _mouseController.UpdateCoordinates();
             HUDManager.Update(gameTime);
-            Controllers.ForEach(controller => controller.Update());
+            // update player and their respective controller
+            for (int i = 0; i < _playerMap.Count; i++)
+            {
+                _playerMap[i + 1].Item2.Update(); // controller updates player values so update controller first
+                _playerMap[i + 1].Item1.Update(gameTime);
+            }
             _currentRoom.Update(gameTime);
-            _players.ForEach(player => player.Update(gameTime));
-            List<IEntity> collidableEntities = _currentRoom.GetEntityList();
-            collidableEntities.AddRange(_players);
+
+            /* Updating projectiles as they will be modified when no longer drawn*/
+            for (int i = 0; i < _projectiles.Count; i++)
+            {
+                _projectiles[i].Update(gameTime);
+            }
             _colliderManager.CheckCollisions();
         }
 
@@ -101,7 +122,18 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _mouseController.DrawCoordinates(spriteBatch);
             _mouseController.DrawClickedRectangleCoordinates(spriteBatch);
             HUDManager.Draw(spriteBatch);
-            _players.ForEach(player => player.Draw(spriteBatch));
+            // draw each player
+            foreach (var playerTuple in _playerMap.Values)
+            {
+                playerTuple.Item1.Draw(spriteBatch);
+            }
+            for (int i = 0; i < _projectiles.Count; i++)
+            {
+                _projectiles[i].Draw(spriteBatch);
+                Rectangle r = (_projectiles[i] as ICollidableEntity).Collider.Collider;
+                _spriteDebuggingTools.DrawRectangle(r, Color.SandyBrown, spriteBatch);
+            }
+
             _currentRoom.Draw(spriteBatch);
         }
     }

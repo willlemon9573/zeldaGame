@@ -5,6 +5,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 {
     internal class GameRoomTransitionState : BaseGameState
     {
+        // room transition state can update players
         public GameRoomTransitionState(Game1 game) : base(game)
         {
         }

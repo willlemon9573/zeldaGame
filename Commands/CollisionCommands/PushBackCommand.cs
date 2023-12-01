@@ -1,37 +1,50 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
-using System.Collections.Generic;
+using System;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
     internal class PushBackCommand : ICommand
     {
-        ICollidableEntity e1;
-        ICollidableEntity e2;
-        public PushBackCommand(ICollidableEntity c1, ICollidableEntity c2)
+        /* Both collidable entities */
+        private readonly ICollidableEntity _entityOne;
+        private readonly ICollidableEntity _entityTwo;
+        /// <summary>
+        /// Construct an instance of the pushbackcommand using two collidable entities
+        /// </summary>
+        /// <param name="entityOne">The entity to be pushed back</param>
+        /// <param name="entityTwo">the entity that is pushing back</param>
+        public PushBackCommand(ICollidableEntity entityOne, ICollidableEntity entityTwo)
         {
-            e1 = c1;
-            e2 = c2;
+            _entityOne = entityOne;
+            _entityTwo = entityTwo;
         }
 
         public void Execute()
         {
-            /* calculates which side the player is colliding with the block to push the player back in the correct direction */
-            PriorityQueue<Vector2, float> colliderDistances = new PriorityQueue<Vector2, float>();
-            Rectangle intersection = Rectangle.Intersect(e1.Collider.Collider, e2.Collider.Collider);
-            if (intersection.Width > intersection.Height) // check top/bottom
+            // Calculate the intersection of the colliders
+            Rectangle intersection = Rectangle.Intersect(_entityOne.Collider.Collider, _entityTwo.Collider.Collider);
+
+            
+            Vector2 displacement;
+            if (intersection.Width > intersection.Height)
             {
-                colliderDistances.Enqueue(new Vector2(0, -1), System.Math.Abs(intersection.Center.Y - e2.Collider.Collider.Top));
-                colliderDistances.Enqueue(new Vector2(0, 1), System.Math.Abs(intersection.Center.Y - e2.Collider.Collider.Bottom));
+                /* top/bottom collision: Displace along the Y-Axis relative to the vertical 
+                 *  positions of the entities involved in the collision
+                 */
+                displacement = new Vector2(0, intersection.Height * Math.Sign(_entityOne.Position.Y - _entityTwo.Position.Y));
             }
-            else // check left/right
+            else
             {
-                colliderDistances.Enqueue(new Vector2(1, 0), System.Math.Abs(intersection.Center.X - e2.Collider.Collider.Right));
-                colliderDistances.Enqueue(new Vector2(-1, 0), System.Math.Abs(intersection.Center.X - e2.Collider.Collider.Left));
+                /* left/right collision: Displace along the X-Axis relative to the vertical positions
+                 * of the entities involved in the collision
+                 */
+                displacement = new Vector2(intersection.Width * Math.Sign(_entityOne.Position.X - _entityTwo.Position.X), 0);
             }
 
-            e1.Position += colliderDistances.Dequeue();
-            e1.Collider.Update(e1);
+            // Apply the displacement to the entity's position
+            _entityOne.Position += displacement;
+            _entityOne.Collider.Update(_entityOne);
         }
     }
 }

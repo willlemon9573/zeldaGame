@@ -35,7 +35,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         public override void UseWeapon(Direction direction, Vector2 position)
         {
             distanceMoved = 0;
-            IsActive = true;
+            _isActive = true;
             ProjectileSprite = WeaponSpriteFactory.Instance.CreateMagicFireSprite();
             ImpactEffectSprite = null;
 

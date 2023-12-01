@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
@@ -35,14 +36,19 @@ namespace SprintZero1.Entities
         protected string _enemyName;
         protected Vector2 _enemyPosition;
         protected IEnemyState _enemyState;
+        protected ICollider _collider;
+        protected SoundEffect _deathSound;
+        protected SoundEffect _damageSound;
         public ISprite EnemySprite { get { return _enemySprite; } set { _enemySprite = value; } }
         public string EnemyName { get { return _enemyName; } set { _enemyName = value; } }
         public Vector2 Position { get { return _enemyPosition; } set { _enemyPosition = value; _collider.Update(this); } }
         public float Health { get { return _enemyHealth; } set { _enemyHealth = value; } }
         public Direction Direction { get { return _enemyDirection; } set { _enemyDirection = value; } }
         public IEnemyState EnemyState { get { return _enemyState; } set { _enemyState = value; } }
-        protected ICollider _collider;
+
         public ICollider Collider { get { return _collider; } }
+
+
 
         /// <summary>
         /// Constructs a new enemy entity.
@@ -59,6 +65,8 @@ namespace SprintZero1.Entities
             _enemyState = new EnemyIdleState(this);
             _enemySprite = _EnemyFactory.CreateEnemySprite(enemyName, _enemyDirection);
             _collider = new EnemyCollider(position, new System.Drawing.Size(_enemySprite.Width, _enemySprite.Height));
+            _deathSound = SoundFactory.GetSound("enemy_death");
+            _damageSound = SoundFactory.GetSound("enemy_hit");
         }
 
         public void ResetEnemy()
@@ -78,21 +86,28 @@ namespace SprintZero1.Entities
             _enemyState.TransitionState(newState);
         }
 
-        public virtual void Attack(string weaponName)
+        public virtual void Attack()
         {
             PerformAttack();
         }
 
         public abstract void PerformAttack();
 
-        public virtual void TakeDamage(int damage)
+        public virtual void TakeDamage(float damage)
         {
             _enemyHealth -= damage;
+            _damageSound.Play();
+        }
+
+        public void PauseEnemy()
+        {
+            TransitionToState(State.Paused);
+            _enemyState.Request();
         }
 
         public virtual void Die()
         {
-            // not implemented yet
+            _deathSound.Play();
         }
 
         public virtual void ChangeDirection(Direction direction)
