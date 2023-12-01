@@ -57,12 +57,18 @@ namespace SprintZero1.Managers
             IPlayerBuilder playerBuilder = new PlayerBuilderManager(characterPath);
             Tuple<IEntity, IController> playerOne = playerBuilder.BuildPlayerWithKeyboard(controllerPath, _game, playerOneCharacter);
             Tuple<IEntity, IController> playerTwo = playerBuilder.BuildPlayerWithGamePad(controllerPath, _game, playerTwoCharacter);
+            List<IEntity> playerList = new List<IEntity>()
+            {
+                playerOne.Item1,
+                playerTwo.Item1
+            };
             // add each player to each state as each state may need to modify the player in some way
             foreach (IGameState gameState in _gameStateMap.Values)
             {
                 gameState.AddPlayer(playerOne);
                 gameState.AddPlayer(playerTwo);
             }
+            HUDManager.Initialize(playerList);
         }
 
         /// <summary>

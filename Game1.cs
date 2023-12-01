@@ -62,7 +62,6 @@ namespace SprintZero1
             ItemSpriteFactory.Instance.LoadTextures();
             HUDSpriteFactory.Instance.LoadTextures();
             ItemSpriteFactory.Instance.LoadTextures();
-            HUDManager.Initialize();
         }
 
         protected override void Update(GameTime gameTime)

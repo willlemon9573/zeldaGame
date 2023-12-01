@@ -1,14 +1,18 @@
-﻿using SprintZero1.Managers;
+﻿using SprintZero1.Entities;
+using SprintZero1.Managers;
 
 namespace SprintZero1.Commands
 {
     public class DecrementHealthCommand : ICommand
     {
-        public DecrementHealthCommand() { }
+        IEntity _player;
+        public DecrementHealthCommand(IEntity player) {
+            _player = player;
+        }
         public void Execute()
         {
             float h = 0.5f;
-            HUDManager.DecrementHealth(h);
+            HUDManager.DecrementHealth(_player, h);
         }
     }
 }
