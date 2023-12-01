@@ -8,7 +8,7 @@ namespace SprintZero1.Commands.CollisionCommands
     {
         private readonly IEntity _player;
         private readonly ILootableEntity _item;
-        private readonly int DefaultPickupAmount = 1;
+        private const int DefaultPickupAmount = 1;
 
         /// <summary>
         /// Constructor for picking up stackable items
@@ -23,7 +23,7 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
-            _item.Pickup(_player, 1);
+            _item.Pickup(_player, DefaultPickupAmount);
             _item.Remove();
             SoundFactory.PlaySound(SoundFactory.GetSound("get_item"));
         }

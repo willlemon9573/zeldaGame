@@ -27,7 +27,7 @@ namespace SprintZero1.Factories
             hudSpriteSheet = Texture2DManager.GetHUDSpriteSheet();
             SpriteXMLParser spriteParser = new SpriteXMLParser();
             HUDSpriteDictionary = spriteParser.ParseHUDSprites(HUD_SPRITE_PATH, hudSpriteSheet);
-            //animatedHUDSpriteMap = spriteParser.ParseAnimatedSpriteXML(ANIMATED_HUD_PATH);
+            animatedHUDSpriteMap = spriteParser.ParseAnimatedSpriteXML(ANIMATED_HUD_PATH);
         }
 
 
@@ -35,8 +35,7 @@ namespace SprintZero1.Factories
         {
             return HUDSpriteDictionary[name];
         }
-
-        public ISprite CreateAnimatedItemSprite(string name)
+        public ISprite CreateAnimatedHUDSprite(string name)
         {
             return new AnimatedSprite(animatedHUDSpriteMap[name], hudSpriteSheet, 2);
         }
