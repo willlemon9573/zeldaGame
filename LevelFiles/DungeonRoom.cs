@@ -238,11 +238,11 @@ namespace SprintZero1.LevelFiles
             _itemCollector.Clear();
         }
 
-        public void UpdateEnemyController(IEntity player)
+        public void UpdateEnemyController(IEntity playerEntity)
         {
-            if (_enemyControllerList.Count > 0 || _liveEnemyList.Count == enemyCount) { return; }
-            RemoveDelegate remover = this.RemoveDeadEnemies;
-            _liveEnemyList.ForEach(x => _enemyControllerList.Add(new SmartEnemyMovementController(x as ICombatEntity, player, remover)));
+            if (_enemyControllerList.Count > 0 && _liveEnemyList.Count == enemyCount) { return; }
+            RemoveDelegate remover = RemoveDeadEnemies;
+            _liveEnemyList.ForEach(enemy => _enemyControllerList.Add(new SmartEnemyMovementController(enemy as ICombatEntity, playerEntity, remover)));
         }
 
         /// <summary>

@@ -17,8 +17,6 @@ namespace SprintZero1.DebuggingTools
         private Vector2 _pixelPosition = Vector2.Zero;
         private Rectangle _positionRectangle = new Rectangle();
         private Color _positionRectangleColor = Color.White;
-        private readonly Vector2 originalResolution = new Vector2(800, 480); // replace with your original resolution
-        private readonly Vector2 newResolution = new Vector2(256, 240);
 
         /// <summary>
         /// Checks if the mouse is in the window or not
