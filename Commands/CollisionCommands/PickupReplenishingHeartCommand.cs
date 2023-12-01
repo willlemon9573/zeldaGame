@@ -29,7 +29,7 @@ namespace SprintZero1.Commands.CollisionCommands
             if (currentHealth == maxhealth) { return; } // return if player health is max
             float newHealth = currentHealth + defaultAmount;
             _player.Health = (newHealth >= maxhealth) ? newHealth : newHealth;
-            HUDManager.IncrementHearts(defaultAmount);
+            HUDManager.IncrementHearts(_player, defaultAmount);
         }
     }
 }

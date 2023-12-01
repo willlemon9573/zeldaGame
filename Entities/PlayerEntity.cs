@@ -109,7 +109,7 @@ namespace SprintZero1.Entities
         {
             if (_playerVulnerabilityState is PlayerInvulnerabilityState) { return; }
             TransitionToState(State.TakingDamage);
-            HUDManager.DecrementHealth(damage);
+            HUDManager.DecrementHealth(this, damage);
             _playerHealth -= damage;
             _playerState.Request();
             _playerVulnerabilityState = _playerStateFactory.GetPlayerState(State.Invulnerable);

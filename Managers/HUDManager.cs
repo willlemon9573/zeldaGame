@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers.HUDHelpers;
@@ -14,7 +15,7 @@ namespace SprintZero1.Managers
     internal static class HUDManager
     {
         // list for non-health related sprites and their positions
-        private static List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
+        private static readonly List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
         private static Color DefaultColorMask;
         private static readonly Dictionary<string, Tuple<ISprite, Vector2>> _specialCaseDict = new Dictionary<string, Tuple<ISprite, Vector2>>();
         public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
@@ -29,6 +30,8 @@ namespace SprintZero1.Managers
         private static readonly List<ISprite> keyDigits = new List<ISprite>();
         private static readonly List<ISprite> bombDigits = new List<ISprite>();
 
+
+        private static Dictionary<IEntity, HPLinkedList> _playerHealthMap = new Dictionary<IEntity, HPLinkedList>();
         private static HPLinkedList playerHealth;
 
         /// <summary>
@@ -82,7 +85,7 @@ namespace SprintZero1.Managers
         /// <summary>
         /// Initialize lists and dictionaries needed for HUD by parsing
         /// </summary>
-        public static void Initialize()
+        public static void Initialize(List<IEntity> players)
         {
             /* parse the hud information */
             ParseHUDXMLFile();
@@ -98,17 +101,24 @@ namespace SprintZero1.Managers
 
             /* Create action map for updating counts */
             actionMap = new Dictionary<StackableItems, Action<int>>() {
-                { StackableItems.Rupee, (amount) => UpdateRupeeCount(amount)  },
-                { StackableItems.Bomb, (amount) => UpdateBombCount(amount) },
-                { StackableItems.DungeonKey, (amount) => UpdateKeyCount(amount) }
+                { StackableItems.Rupee, UpdateRupeeCount  },
+                { StackableItems.Bomb, UpdateBombCount },
+                { StackableItems.DungeonKey, UpdateKeyCount }
             };
 
 
             /* set up linked list for hearts */
             Vector2 playerHeartStartingPosition = new Vector2(180, 40);
             int playerMaxStartingHealth = 3;
+            int xOffsets = 10;
             playerHealth = new HPLinkedList(playerMaxStartingHealth, playerHeartStartingPosition);
             DefaultColorMask = Color.White; // color mask for sprites (white means no mask)
+            foreach (IEntity player in players)
+            {
+                _playerHealthMap.Add(player,
+                    new HPLinkedList(playerMaxStartingHealth, playerHeartStartingPosition));
+                playerHeartStartingPosition.Y += xOffsets;
+            }
         }
 
         /// <summary>
@@ -116,16 +126,22 @@ namespace SprintZero1.Managers
         /// </summary>
         public static void IncreasePlayerHealth()
         {
-            playerHealth.IncreasePlayerHealth();
+            foreach (HPLinkedList playerHealth in _playerHealthMap.Values)
+            {
+                playerHealth.IncreasePlayerHealth();
+            }
         }
 
         /// <summary>
         /// Decrement the player health by the given amount
         /// </summary>
         /// <param name="amount">The amount to decrement player health</param>
-        public static void DecrementHealth(float amount)
+        public static void DecrementHealth(IEntity player, float amount)
         {
-            playerHealth.DecrementCurrentHealth(amount);
+            if (_playerHealthMap.TryGetValue(player, out HPLinkedList playerHP))
+            {
+                playerHP.DecrementCurrentHealth(amount);
+            }
         }
 
         /// <summary>
@@ -133,9 +149,12 @@ namespace SprintZero1.Managers
         /// </summary>
         /// <param name="amount"></param>
         /// 
-        public static void IncrementHearts(float amount)
+        public static void IncrementHearts(IEntity player, float amount)
         {
-            playerHealth.IncrementCurrentHealth(amount);
+            if (_playerHealthMap.TryGetValue(player, out HPLinkedList playerHP))
+            {
+                playerHP.IncrementCurrentHealth(amount);
+            }
         }
 
         /// <summary>
@@ -232,7 +251,10 @@ namespace SprintZero1.Managers
         public static void Draw(SpriteBatch spriteBatch)
         {
 
-            playerHealth.Draw(spriteBatch);
+            foreach (HPLinkedList playerHealth in _playerHealthMap.Values)
+            {
+                playerHealth.Draw(spriteBatch);
+            }
 
             foreach (var sprite in spriteAndPosList)
             {
