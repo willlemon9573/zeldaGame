@@ -25,20 +25,24 @@ namespace SprintZero1.Commands.CollisionCommands
             // Calculate the intersection of the colliders
             Rectangle intersection = Rectangle.Intersect(_entityOne.Collider.Collider, _entityTwo.Collider.Collider);
 
-            // Calculate the displacement needed to resolve the collision
+            
             Vector2 displacement;
             if (intersection.Width > intersection.Height)
             {
-                /* calculate displacement for top/bottom collision */
+                /* top/bottom collision: Displace along the Y-Axis relative to the vertical 
+                 *  positions of the entities involved in the collision
+                 */
                 displacement = new Vector2(0, intersection.Height * Math.Sign(_entityOne.Position.Y - _entityTwo.Position.Y));
             }
             else
             {
-                /*calculate displacement for left/right collision */
+                /* left/right collision: Displace along the X-Axis relative to the vertical positions
+                 * of the entities involved in the collision
+                 */
                 displacement = new Vector2(intersection.Width * Math.Sign(_entityOne.Position.X - _entityTwo.Position.X), 0);
             }
 
-            // Apply the displacement to the player's position
+            // Apply the displacement to the entity's position
             _entityOne.Position += displacement;
             _entityOne.Collider.Update(_entityOne);
         }
