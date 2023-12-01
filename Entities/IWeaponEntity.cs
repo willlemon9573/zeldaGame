@@ -5,6 +5,7 @@ namespace SprintZero1.Entities
 {
     internal interface IWeaponEntity : IEntity
     {
+        public float WeaponDamage { get; }
         /// <summary>
         /// ALlows the entity to use the weapon 
         /// </summary>

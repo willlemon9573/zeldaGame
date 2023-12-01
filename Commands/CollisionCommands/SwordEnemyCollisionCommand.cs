@@ -4,16 +4,16 @@ namespace SprintZero1.Commands.CollisionCommands
 {
     internal class SwordEnemyCollisionCommand : ICommand
     {
-        private IWeaponEntity _weapon;
-        private ICombatEntity _enemy;
+        private readonly float _weaponDamage;
+        private readonly ICombatEntity _enemy;
         public SwordEnemyCollisionCommand(ICollidableEntity sword, ICollidableEntity enemy)
         {
-            _weapon = sword as IWeaponEntity;
+            _weaponDamage = (sword as IWeaponEntity).WeaponDamage;
             _enemy = enemy as ICombatEntity;
         }
         public void Execute()
         {
-            _enemy.TakeDamage(1f);
+            _enemy.TakeDamage(_weaponDamage);
         }
     }
 }

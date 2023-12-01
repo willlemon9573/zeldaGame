@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
-using SprintZero1.Entities.BowAndMagicFireEntity;
+using SprintZero1.Entities.BoomerangEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
@@ -76,7 +76,7 @@ namespace SprintZero1.Entities
 
 
             /* For testing */
-            _playerEquipmentSlot = new RegularBowEntity("regularbow");
+            _playerEquipmentSlot = new RegularBoomerangEntity("regularboomerang", this);
         }
 
         public void Move()

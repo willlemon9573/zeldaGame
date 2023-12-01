@@ -21,6 +21,7 @@ namespace SprintZero1.Entities
     internal class SwordEntity : IWeaponEntity, ICollidableEntity
     {
         private const float Rotation = 0f;
+        private const float SwordDamage = 1f; // default sword damage is 1 heart
         private const float LayerDepth = 0.2f;
         private readonly string _weaponName;
         private float _stateElapsedTime = 0f;
@@ -38,6 +39,9 @@ namespace SprintZero1.Entities
         private readonly SoundEffect _swordSlash;
         /* Get collider */
         public ICollider Collider { get { return _collider; } }
+
+        public float WeaponDamage { get { return SwordDamage; } }
+
         /// <summary>
         /// TODO: Remove weapon name if my inventory implementation works
         /// </summary>

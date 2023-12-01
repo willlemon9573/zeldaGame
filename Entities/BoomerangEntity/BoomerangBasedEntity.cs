@@ -38,6 +38,7 @@ namespace SprintZero1.Entities.BoomerangEntity
             _player = player;
             _boomerangSound = SoundFactory.GetSound("arrow_boomerang");
             _elapsedTime = 0f;
+            this._weaponDamage = 0.5f; // default weapon damage for boomerang (only works on keese)
         }
 
         /// <summary>

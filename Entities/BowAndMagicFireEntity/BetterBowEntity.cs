@@ -27,7 +27,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         {
             _maxDistance = BetterBowMaxDistance;
             movingSpeed = BetterBowMovingSpeed;
-            // Constructor initializes specific attributes for the better bow
+            this._weaponDamage = 4f; // default weapon damage for silver arrow is 4 hearts
         }
 
         /// <summary>

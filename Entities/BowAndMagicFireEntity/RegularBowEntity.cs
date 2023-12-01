@@ -27,7 +27,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         {
             _maxDistance = RegularBowMaxDistance;
             movingSpeed = RegularBowMovingSpeed;
-            // Constructor initializes specific attributes for the regular bow
+            this._weaponDamage = 2f; // default weapon damage for arrows is 2f
         }
 
         /// <summary>

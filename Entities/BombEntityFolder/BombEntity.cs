@@ -17,6 +17,7 @@ namespace SprintZero1.Entities.BombEntityFolder
         private double timer; // Timer to track how long the bomb has been active
         private readonly double waitingTime = 600; // Time in milliseconds before the bomb explodes
         private readonly string _weaponName;
+        private const float BombDamage = 4f; // bomb deal 4 hearts
         private Vector2 _weaponPosition;
         private ISprite _weaponSprite; // Current sprite representing the bomb
         private ISprite ImpactEffectSprite; // Sprite for the bomb's impact effect
@@ -28,6 +29,8 @@ namespace SprintZero1.Entities.BombEntityFolder
             get { return _weaponPosition; }
             set { _weaponPosition = value; }
         }
+
+        public float WeaponDamage { get { return BombDamage; } }
 
         /// <summary>
         /// Initializes a new instance of the BombEntity with a specific weapon name.

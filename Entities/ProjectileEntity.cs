@@ -23,6 +23,7 @@ namespace SprintZero1.Entities
         protected ISprite ImpactEffectSprite; // Sprite for the projectile's impact effect
         protected float movingSpeed; // Moving speed of the projectile
         protected bool _isActive; // Flag to indicate if the projectile is active
+        protected float _weaponDamage = 0f;
         public bool IsActive { get { return _isActive; } set { _isActive = value; } }
 
         // Dictionaries to hold sprite effect and positioning based on direction
@@ -43,6 +44,8 @@ namespace SprintZero1.Entities
         }
 
         public ICollider Collider { get { return _projectileCollider; } }
+
+        public float WeaponDamage { get { return _weaponDamage; } }
 
         protected ProjectileEntity(String weaponName)
         {
