@@ -16,10 +16,10 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
         {
             _velocityMap = new Dictionary<Direction, Vector2>()
             {
-                {Direction.North, new Vector2(0, -0.5f) },
-                {Direction.South, new Vector2(0, 0.5f) },
-                {Direction.East, new Vector2(0.5f, 0) },
-                {Direction.West, new Vector2(-0.5f, 0) }
+                {Direction.North, new Vector2(0, -0.7f) },
+                {Direction.South, new Vector2(0, 0.7f) },
+                {Direction.East, new Vector2(0.7f, 0) },
+                {Direction.West, new Vector2(-0.7f, 0) }
             };
         }
 

@@ -1,4 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Commands;
+using SprintZero1.Entities.BoomerangEntity;
+using SprintZero1.StatePatterns.EnemyStatePatterns;
+using SprintZero1.Enums;
+using System.Diagnostics;
 //using SprintZero1.StatePatterns.CombatStatePatterns;
 //using SprintZero1.StatePatterns.MovingStatePatterns;
 //using SprintZero1.StatePatterns.StatePatternInterfaces;
@@ -6,38 +12,57 @@
 namespace SprintZero1.Entities
 {
     /// <summary>
-    /// Represents an enemy entity that has projectile attack capabilities.
+    /// Represents an enemy entity that does not have a projectile attack.
     /// </summary>
     /// <author>Zihe Wang</author>
     internal class EnemyEntityWithProjectile : EnemyBasedEntity
     {
         /// <summary>
-        /// Constructs a new enemy entity with projectile capabilities.
+        /// Constructs a new enemy entity without projectile capabilities.
         /// </summary>
         /// <param name="position">The position of the enemy entity.</param>
         /// <param name="startingHealth">The starting health of the enemy entity.</param>
         /// <param name="enemyName">The name of the enemy.</param>
+        IWeaponEntity _EnemyWeapon;
+        string weaponName = "Boomerang";
+        private float _timeSinceLastAttack = 0f;
+        private readonly float _attackCooldown = 3f; 
         public EnemyEntityWithProjectile(Vector2 position, int startingHealth, string enemyName)
-        : base(position, startingHealth, enemyName)
+            : base(position, startingHealth, enemyName)
         {
-            //no special constructor thing
+            _EnemyWeapon = new RegularBoomerangEntity("Boomerang", this);
+            // No specific construction logic required
         }
-
-
 
         public override void PerformAttack()
         {
-            /*if (_enemyName.Equals("dungeon_zol"))
+            if (_timeSinceLastAttack >= _attackCooldown)
             {
-                ICommand fireBoomerangCommand = new FireBoomerangCommand(this, projectileSprite);
-                fireBoomerangCommand.Execute();
-            }
-            else if (_enemyName.Equals("aquamentus"))
-            {
-                ICommand FireAquamentusWeaponCommand = new FireAquamentusWeaponCommand(this, projectileSprite);
-                FireAquamentusWeaponCommand.Execute();
-            }*/
-        }
+                if (_enemyState is not EnemyAttackingState)
+                {
+                    TransitionToState(State.Attacking);
+                }
 
+                if (weaponName == "Boomerang")
+                {
+                    _EnemyWeapon.UseWeapon(_enemyDirection, _enemyPosition);
+                }
+                _enemyState.Request();
+
+                _timeSinceLastAttack = 0f;
+            }
+        }
+        public override void Update(GameTime gameTime)
+        {
+            _timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _enemyState.Update(gameTime);
+            _EnemyWeapon.Update(gameTime);
+            _collider.Update(this);
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            _enemyState.Draw(spriteBatch);
+            _EnemyWeapon.Draw(spriteBatch);
+        }
     }
 }

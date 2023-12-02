@@ -189,9 +189,12 @@ namespace SprintZero1.GameStateMenu
         {
             Debug.WriteLine("SetNextWeapon");
             int currentIndex = _playerEquipment.IndexOf(currentWeapon);
-            int nextIndex = (currentIndex + 1) % _playerEquipment.Count;
-            EquipmentItem nextWeapon = _playerEquipment[nextIndex];
-            currentWeapon = nextWeapon;
+            if (_playerEquipment.Count != 0)
+            {
+                int nextIndex = (currentIndex + 1) % _playerEquipment.Count;
+                EquipmentItem nextWeapon = _playerEquipment[nextIndex];
+                currentWeapon = nextWeapon;
+            }
         }
 
         /// <summary>
@@ -200,9 +203,12 @@ namespace SprintZero1.GameStateMenu
         public void SetPreviousWeapon()
         {
             int currentIndex = _playerEquipment.IndexOf(currentWeapon);
-            int PreviousIndex = (currentIndex - 1 + _playerEquipment.Count) % _playerEquipment.Count;
-            EquipmentItem PreviousWeapon = _playerEquipment[PreviousIndex];
-            currentWeapon = PreviousWeapon;
+            if (_playerEquipment.Count != 0)
+            {
+                int PreviousIndex = (currentIndex - 1 + _playerEquipment.Count) % _playerEquipment.Count;
+                EquipmentItem PreviousWeapon = _playerEquipment[PreviousIndex];
+                currentWeapon = PreviousWeapon;
+            }
         }
 
         /// <summary>

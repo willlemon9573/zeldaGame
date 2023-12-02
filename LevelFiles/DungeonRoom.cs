@@ -223,7 +223,7 @@ namespace SprintZero1.LevelFiles
         {
             if (_enemyControllerList.Count > 0 && _liveEnemyList.Count == enemyCount) { return; }
             RemoveDelegate remover = this.RemoveDeadEnemies;
-            _liveEnemyList.ForEach(x => _enemyControllerList.Add(new SmartEnemyMovementController(x as ICombatEntity, player, remover)));
+            _liveEnemyList.ForEach(x => _enemyControllerList.Add(new SmartEnemyMovementController(x as ICombatEntity, player, remover, _architechtureList)));
         }
 
         /// <summary>

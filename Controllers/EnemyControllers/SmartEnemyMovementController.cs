@@ -4,6 +4,7 @@ using SprintZero1.Enums;
 using SprintZero1.LevelFiles;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SprintZero1.Controllers.EnemyControllers
 {
@@ -30,12 +31,16 @@ namespace SprintZero1.Controllers.EnemyControllers
         private readonly double _directionChangeCooldown = 0.5;
         private double _timeSinceLastDirectionChange = 0;
         private RemoveDelegate _remove;
+        private List<IEntity> _architechtureList;
+        private readonly Random _random = new Random();
 
-        public SmartEnemyMovementController(ICombatEntity enemyEntity, IEntity playerEntity, RemoveDelegate remover)
+
+        public SmartEnemyMovementController(ICombatEntity enemyEntity, IEntity playerEntity, RemoveDelegate remover, List<IEntity> ArchitechtureList)
         {
+            _architechtureList = ArchitechtureList;
             _enemyEntity = enemyEntity;
             _playerEntity = playerEntity;
-            pathfinder = new AStarPathfinder();
+            pathfinder = new AStarPathfinder(_architechtureList);
             currentPath = new Stack<Vector2>();
             isPathBeingCalculated = false;
             _remove = remover;
@@ -53,6 +58,14 @@ namespace SprintZero1.Controllers.EnemyControllers
                 return moveDirection.Y > 0 ? Direction.South : Direction.North;
             }
         }
+        private bool ShouldUseBoomerangAttack(Vector2 enemyPosition, Vector2 playerPosition)
+        {
+            float optimalBoomerangDistance = 100.0f; 
+
+            float distanceToPlayer = Vector2.Distance(enemyPosition, playerPosition);
+            return distanceToPlayer <= optimalBoomerangDistance;
+        }
+
 
         public void Update(GameTime gameTime)
         {
@@ -69,6 +82,14 @@ namespace SprintZero1.Controllers.EnemyControllers
                 _timeSinceLastPathCalculation = 0;
             }
 
+            if(_enemyEntity is EnemyBasedEntity enemyBasedEntity)
+            {
+                if (ShouldUseBoomerangAttack(_enemyEntity.Position, _playerEntity.Position))
+                {
+                    Debug.Print("enemyAttacked");
+                    enemyBasedEntity.Attack("Boomerang");
+                }
+            }
             // Update path once calculated
             if (isPathBeingCalculated && pathfinder.Update())
             {
@@ -87,7 +108,15 @@ namespace SprintZero1.Controllers.EnemyControllers
                 }
                 else if (currentPath != null && currentPath.Count > 0)
                 {
-                    Vector2 nextStep = currentPath.Peek();
+                    Vector2 nextStep;
+                    if (_random.NextDouble() > 0.3)
+                    {
+                        nextStep = currentPath.Peek();
+                    }
+                    else
+                    {
+                        nextStep = GenerateRandomDirection(_enemyEntity.Position);
+                    }
                     Vector2 moveDirection = nextStep - _enemyEntity.Position;
                     moveDirection.Normalize();
                     Direction newDirection = CalculateDirection(moveDirection);
@@ -123,5 +152,22 @@ namespace SprintZero1.Controllers.EnemyControllers
                 _remove(_enemyEntity);
             }
         }
+        private Vector2 GenerateRandomDirection(Vector2 currentPosition)
+        {
+            int stepSize = 5;
+
+            var directionOffsets = new Dictionary<Direction, Vector2>
+            {
+                { Direction.North, new Vector2(0, -stepSize) },
+                { Direction.South, new Vector2(0, stepSize) },
+                { Direction.East, new Vector2(stepSize, 0) },
+                { Direction.West, new Vector2(-stepSize, 0) }
+            };
+
+            Direction randomDirection = (Direction)_random.Next(0, 4);
+            Vector2 directionOffset = directionOffsets[randomDirection];
+            return currentPosition + directionOffset;
+        }
+
     }
 }

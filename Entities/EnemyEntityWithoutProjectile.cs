@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SprintZero1.Commands;
 //using SprintZero1.StatePatterns.CombatStatePatterns;
 //using SprintZero1.StatePatterns.MovingStatePatterns;
 //using SprintZero1.StatePatterns.StatePatternInterfaces;
@@ -6,26 +7,38 @@
 namespace SprintZero1.Entities
 {
     /// <summary>
-    /// Represents an enemy entity that does not have a projectile attack.
+    /// Represents an enemy entity that has projectile attack capabilities.
     /// </summary>
     /// <author>Zihe Wang</author>
     internal class EnemyEntityWithoutProjectile : EnemyBasedEntity
     {
         /// <summary>
-        /// Constructs a new enemy entity without projectile capabilities.
+        /// Constructs a new enemy entity with projectile capabilities.
         /// </summary>
         /// <param name="position">The position of the enemy entity.</param>
         /// <param name="startingHealth">The starting health of the enemy entity.</param>
         /// <param name="enemyName">The name of the enemy.</param>
         public EnemyEntityWithoutProjectile(Vector2 position, int startingHealth, string enemyName)
-            : base(position, startingHealth, enemyName)
+        : base(position, startingHealth, enemyName)
         {
-            // No specific construction logic required
+            //no special constructor thing
         }
+
+
 
         public override void PerformAttack()
         {
-            // Attack implementation will be added later
+            /*if (_enemyName.Equals("dungeon_zol"))
+            {
+                ICommand betterBoomerangAttack = new BetterBoomerangAttackCommand(this);
+                betterBoomerangAttack.Execute();
+            }*/
+            /*else if (_enemyName.Equals("aquamentus"))
+            {
+                ICommand FireAquamentusWeaponCommand = new FireAquamentusWeaponCommand(this, projectileSprite);
+                FireAquamentusWeaponCommand.Execute();
+            }*/
         }
+
     }
 }

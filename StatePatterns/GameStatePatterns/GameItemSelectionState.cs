@@ -32,8 +32,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <param name="player">Player to assign</param>
         public void AssignToPlayer(PlayerEntity player)
         {
-            IWeaponEntity weaponEntity = new RegularBoomerangEntity("Boomerang", player);
-            PlayerInventoryManager.AddEquipmentItemToInventory(player, EquipmentItem.Boomerang, weaponEntity);
             itemSelectionMenu = new ItemSelectionMenu(game, player);
             controllerForItemSelection = new KeyboardControllerForItemSelection(game, player, itemSelectionMenu);
         }
