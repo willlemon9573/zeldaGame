@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
-using System;
 
 namespace SprintZero1.Entities.BowAndMagicFireEntity
 {
@@ -27,10 +26,11 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         /// Initializes a new instance of the NonComingBackWeaponEntity class.
         /// </summary>
         /// <param name="weaponName">The name of the weapon.</param>
-        public NonComingBackWeaponEntity(String weaponName) : base(weaponName)
+        public NonComingBackWeaponEntity(string weaponName) : base(weaponName)
         {
             _rotation = 0;
             _weaponSoundEffect = SoundFactory.GetSound("arrow_boomerang");
+            _weaponSprite = ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite(weaponName.ToLower());
         }
 
         /// <summary>
@@ -39,6 +39,11 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         /// <param name="spriteBatch">The sprite batch used for drawing.</param>
         public sealed override void Draw(SpriteBatch spriteBatch)
         {
+            if (_isActive == false && _drawImpactSprite == true)
+            {
+                ImpactEffectSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, _rotation);
+                return;
+            }
             ProjectileSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, _rotation);
         }
 
@@ -48,6 +53,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public sealed override void Update(GameTime gameTime)
         {
+            if (_isActive == false) { return; }
             ProjectileSprite.Update(gameTime);
             Animate(gameTime);
             _projectileCollider.Update(this);
@@ -72,6 +78,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
             if (_isActive && GameStatesManager.CurrentState is GamePlayingState gamePlayingState)
             {
                 _isActive = false;
+                _drawImpactSprite = true;
                 gamePlayingState.RemoveProjectile(this);
             }
         }

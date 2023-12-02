@@ -39,8 +39,12 @@ namespace SprintZero1.Entities.BoomerangEntity
             _boomerangSound = SoundFactory.GetSound("arrow_boomerang");
             _elapsedTime = 0f;
             this._weaponDamage = 0.5f; // default weapon damage for boomerang (only works on keese)
+            _weaponSprite = WeaponSpriteFactory.Instance.CreateBoomerangSprite(weaponName);
         }
 
+        /// <summary>
+        /// Stops the projectile from being used
+        /// </summary>
         public void StopProjectile()
         {
             _isActive = false;

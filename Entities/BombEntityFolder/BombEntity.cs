@@ -32,6 +32,8 @@ namespace SprintZero1.Entities.BombEntityFolder
 
         public float WeaponDamage { get { return BombDamage; } }
 
+        public ISprite Sprite { get { return _weaponSprite; } }
+
         /// <summary>
         /// Initializes a new instance of the BombEntity with a specific weapon name.
         /// </summary>

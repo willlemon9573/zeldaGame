@@ -11,7 +11,6 @@ namespace SprintZero1.Commands.CollisionCommands
     {
         private readonly ICollidableEntity _projectile;
         private readonly ICollidableEntity _wall;
-        private readonly PushBackCommand _pushback;
 
         private bool IsInWall()
         {
@@ -37,8 +36,6 @@ namespace SprintZero1.Commands.CollisionCommands
         }
         public void Execute()
         {
-
-
             if (_projectile is BoomerangBasedEntity boomerang)
             {
                 if (IsInWall()) { return; }

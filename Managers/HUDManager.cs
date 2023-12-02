@@ -22,21 +22,23 @@ namespace SprintZero1.Managers
         private const string Name = "name";
         private const string NumPosition = "NumPosition";
         private const string Player = "player";
+        private const string Zero = "0";
+        private const int MaxBoxes = 2;
         private const int ItemDigits = 2;
-        private static readonly List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
-
-        private static readonly Dictionary<string, Tuple<ISprite, Vector2>> _specialCaseDict = new Dictionary<string, Tuple<ISprite, Vector2>>();
+        private const int LeftDigitIndex = 0; //array index 0
+        private const int RightDigitIndex = 1; //array index 1
         private const float MapLayerDepth = 1f; // draw map on the layer depth that's considered "backgroud"
         private const float AboveMapLayerDepth = 0f; // draw any other markers on the layer depth that's considered 
         private const float Rotation = 0f; // because we need to add the layerdepth we also have to add rotation
+
+        private static readonly List<Tuple<ISprite, Vector2>> spriteAndPosList = new List<Tuple<ISprite, Vector2>>();
+        private static readonly Dictionary<string, Tuple<ISprite, Vector2>> _specialCaseDict = new Dictionary<string, Tuple<ISprite, Vector2>>();
         private static readonly SpriteEffects _spriteEffects = SpriteEffects.None;
         private static readonly Color DefaultColorMask = Color.White;
-        public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
-        private const string Zero = "0";
         private static readonly Dictionary<string, Vector2> positionDictionary = new Dictionary<string, Vector2>();
-        private const int LeftDigitIndex = 0; //array index 0
-        private const int RightDigitIndex = 1; //array index 1
-
+        public static HUDSpriteFactory HUDSpriteFactoryInstance = HUDSpriteFactory.Instance;
+        private static readonly Dictionary<IEntity, (ISprite, Vector2)> _playerWeaponBox = new Dictionary<IEntity, (ISprite, Vector2)>();
+        private static readonly Dictionary<IEntity, HPLinkedList> _playerHealthMap = new Dictionary<IEntity, HPLinkedList>();
         /* Tracking for stackable items */
         private static Dictionary<StackableItems, Action<int>> actionMap; // contains the actions for incrementing key, bomb and rupee count
         private static Dictionary<Direction, Vector2> _playerMarkerOffsetMap; // contains the offsets required for moving the square that represents the player on the map
@@ -45,7 +47,7 @@ namespace SprintZero1.Managers
         private static readonly List<ISprite> bombDigits = new List<ISprite>();
 
 
-        private static Dictionary<IEntity, HPLinkedList> _playerHealthMap = new Dictionary<IEntity, HPLinkedList>();
+
 
         /// <summary>
         /// Parses hud information to populate all the lists
@@ -141,14 +143,29 @@ namespace SprintZero1.Managers
 
             /* set up linked list for hearts */
             Vector2 playerHeartStartingPosition = new Vector2(180, 40);
+            Vector2 playerEquipmentBoxPosition = new Vector2(132, 35);
             int playerMaxStartingHealth = 3;
-            int xOffsets = 10;
+            int yOffset = 10;
+            int xOffset = 25;
             foreach (IEntity player in players)
             {
                 _playerHealthMap.Add(player,
                     new HPLinkedList(playerMaxStartingHealth, playerHeartStartingPosition));
-                playerHeartStartingPosition.Y += xOffsets;
+                _playerWeaponBox.Add(player, (null, playerEquipmentBoxPosition));
+                playerHeartStartingPosition.Y += yOffset;
+                playerEquipmentBoxPosition.X += xOffset;
             }
+        }
+
+        /// <summary>
+        /// For updating the on screen player equipment that is displayed
+        /// </summary>
+        /// <param name="weaponSprite">The sprite to be displayed</param>
+        /// <param name="index">The index where the sprite is placed. 0 for left, 1 for right</param>
+        public static void UpdateOnScreenEquipment(IEntity player, ISprite weaponSprite)
+        {
+            Vector2 pos = _playerWeaponBox[player].Item2;
+            _playerWeaponBox[player] = (weaponSprite, pos);
         }
 
         /// <summary>
@@ -261,6 +278,7 @@ namespace SprintZero1.Managers
                     markerPos = sprite.Item2;
                 }
             }
+
             Tuple<ISprite, Vector2> remover = new Tuple<ISprite, Vector2>(posMarker, markerPos);
             spriteAndPosList.Remove(remover);
             markerPos += _playerMarkerOffsetMap[direction];
@@ -284,13 +302,22 @@ namespace SprintZero1.Managers
             {
                 playerHealth.Draw(spriteBatch);
             }
+
+            foreach (var spriteTuple in _playerWeaponBox.Values)
+            {
+                ISprite sprite = spriteTuple.Item1;
+                Vector2 position = spriteTuple.Item2;
+                if (sprite != null)
+                {
+                    sprite.Draw(spriteBatch, position, DefaultColorMask);
+                }
+            }
             float layerDepth = 0f;
             foreach (var sprite in spriteAndPosList)
             {
                 layerDepth = (sprite.Equals(_specialCaseDict[Map])) ? MapLayerDepth : AboveMapLayerDepth;
                 sprite.Item1.Draw(spriteBatch, sprite.Item2, DefaultColorMask, _spriteEffects, Rotation, layerDepth);
             }
-
             for (int i = 0; i < ItemDigits; i++)
             {
                 rupeeDigits[i].Draw(spriteBatch, positionDictionary[$"rupeePosition{i}"], DefaultColorMask);

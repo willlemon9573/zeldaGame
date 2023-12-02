@@ -1,11 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using SprintZero1.Enums;
+using SprintZero1.Sprites;
 
 namespace SprintZero1.Entities
 {
     internal interface IWeaponEntity : IEntity
     {
+        /// <summary>
+        /// Get the weapon damage
+        /// </summary>
         public float WeaponDamage { get; }
+
+        public ISprite Sprite { get; }
         /// <summary>
         /// ALlows the entity to use the weapon 
         /// </summary>

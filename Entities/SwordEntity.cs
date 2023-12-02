@@ -24,6 +24,7 @@ namespace SprintZero1.Entities
         private const float SwordDamage = 1f; // default sword damage is 1 heart
         private const float LayerDepth = 0.2f;
         private readonly string _weaponName;
+        private readonly ISprite _defaultSprite;
         private float _stateElapsedTime = 0f;
         private readonly float _timeToResetState = 1 / 7f;
         private Vector2 _weaponPosition;
@@ -42,16 +43,19 @@ namespace SprintZero1.Entities
 
         public float WeaponDamage { get { return SwordDamage; } }
 
+        public ISprite Sprite { get { return _defaultSprite; } }
+
         /// <summary>
         /// TODO: Remove weapon name if my inventory implementation works
         /// </summary>
         /// <param name="weaponName"></param>
-        public SwordEntity(String weaponName, Dictionary<Direction, Tuple<SpriteEffects, Vector2>> spriteEffectsMap)
+        public SwordEntity(string weaponName, Dictionary<Direction, Tuple<SpriteEffects, Vector2>> spriteEffectsMap)
         {
             _weaponName = weaponName;
             _spriteEffectsDictionary = spriteEffectsMap;
             spriteDebugger = new SpriteDebuggingTools(GameStatesManager.ThisGame);
             _swordSlash = SoundFactory.GetSound("sword_slash");
+            _defaultSprite = WeaponSpriteFactory.Instance.GetSwordSprite(Direction.North);
         }
 
         public void UseWeapon(Direction direction, Vector2 position)

@@ -62,7 +62,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
 
         private ISprite CreateSprite()
         {
-            return ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite(_entityName);
+            return ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite(_entityName.ToLower());
         }
 
         private Vector2 CreatePosition()
