@@ -41,13 +41,18 @@ namespace SprintZero1.Entities.BoomerangEntity
             this._weaponDamage = 0.5f; // default weapon damage for boomerang (only works on keese)
         }
 
+        public void StopProjectile()
+        {
+            _isActive = false;
+        }
+
         /// <summary>
         /// Draws the boomerang on the screen.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public sealed override void Draw(SpriteBatch spriteBatch)
         {
-            if (ProjectileSprite == null) return;
+            if (!IsActive || ProjectileSprite == null) return;
             ProjectileSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, _rotation);
         }
 
@@ -109,13 +114,13 @@ namespace SprintZero1.Entities.BoomerangEntity
             }
         }
 
-        public void ReturnBoomerang()
+        public void ReturnBoomerang(bool isAccelerating = true)
         {
             if (returning) { return; }
             returning = true;
             distanceMoved = 0;
-            _isAccelerating = true;
-            _speedFactor = 0.1f;
+            _isAccelerating = isAccelerating;
+            _speedFactor = 0;
         }
 
         // Handles the behavior of the boomerang when returning.

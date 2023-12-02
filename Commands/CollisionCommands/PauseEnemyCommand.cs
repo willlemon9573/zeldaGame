@@ -24,6 +24,7 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
+            _boomerang.ReturnBoomerang();
             if (weak_enemies.Contains(_enemy.EnemyName.ToLower()))
             {
                 _enemy.TakeDamage(_boomerang.WeaponDamage);
@@ -32,7 +33,7 @@ namespace SprintZero1.Commands.CollisionCommands
             {
                 _enemy.PauseEnemy();
             }
-            _boomerang.ReturnBoomerang();
+
         }
     }
 }
