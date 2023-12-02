@@ -23,7 +23,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
 
         public override void Request()
         {
-            if (_blockTransition) { return;}
+            if (_blockTransition) { return; }
             _elapsedPauseTime = 0f;
             BlockTransition();
         }
@@ -31,7 +31,8 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
         public override void Update(GameTime gameTime)
         {
             _elapsedPauseTime += (float)gameTime.TotalGameTime.TotalSeconds;
-            if (_elapsedPauseTime >= MaxPauseTime) {
+            if (_elapsedPauseTime >= MaxPauseTime)
+            {
                 UnblockTranstion();
                 TransitionState(State.Moving);
             }

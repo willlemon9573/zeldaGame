@@ -25,7 +25,7 @@ namespace SprintZero1.Commands.CollisionCommands
             // Calculate the intersection of the colliders
             Rectangle intersection = Rectangle.Intersect(_entityOne.Collider.Collider, _entityTwo.Collider.Collider);
 
-            
+
             Vector2 displacement;
             if (intersection.Width > intersection.Height)
             {

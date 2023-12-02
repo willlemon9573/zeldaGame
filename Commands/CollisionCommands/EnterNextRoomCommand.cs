@@ -4,9 +4,8 @@ using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
-using System;
-using System.Collections.Generic;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
+using System.Collections.Generic;
 namespace SprintZero1.Commands.CollisionCommands
 {
     internal class EnterNextRoomCommand : ICommand
@@ -44,9 +43,11 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
-            if (PlayerCanTransition() == false) {
+            if (PlayerCanTransition() == false)
+            {
                 pushBackCommand.Execute();
-                return; }
+                return;
+            }
             string destination = _door.DoorDestination;
             Vector2 playerCurrentPosition = _playerEntity.Position;
             if (destination != SecretRoom)
