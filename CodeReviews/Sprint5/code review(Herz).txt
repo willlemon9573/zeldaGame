@@ -1,0 +1,23 @@
+Author of code review: ZiheWang
+Date: 2/12/2023
+Sprint: 5
+Name of .cs file: DropWithMultipleBlocksEvent.cs for maintainability 
+Author of .cs file: Chih-Hsiang Jarek Tseng
+Time reviewed: 20 minutes
+
+
+1. Separation of Concerns
+Issue: The current code mixes game logic (such as puzzle solving) with game mechanics (like generating consequences).
+Improvement: Use events or callbacks to separate the puzzle logic from the game mechanics. For example, in the TriggerEvent method, when the puzzle conditions are met, an event could be triggered or a delegate called, allowing other classes to handle the game response. This approach clarifies the code, making it easier to modify and extend in the future.
+2. Code Documentation and Comments
+Issue: The existing comments and documentation might not be sufficient for other developers to understand the intent and functionality of the code.
+Improvement: Provide more detailed XML documentation comments for each method, explaining the purpose, usage, and logic behind it. Good documentation can significantly enhance the readability and maintainability of the code.
+3. Performance Considerations
+Issue: In the TriggerEvent method, it iterates over all blocks regardless of whether the required number of blocks is already met.
+Improvement: Exit the loop as soon as the required number of blocks is met. This enhances the efficiency of the method, especially when dealing with a large amount of data.
+4. Error Handling and Validation
+Issue: Input values (like the list of blocks and trigger positions) might not be properly validated.
+Improvement: Ensure that input values are validated, such as checking for null values or matching list lengths. This prevents runtime errors and ensures the robustness of the code.
+5. Naming Conventions
+Issue: Variable and method naming might not be intuitive or consistent.
+Improvement: Ensure that all method and variable names follow a consistent naming convention and that the names intuitively indicate their functionality. This makes the code more understandable and maintainable.
