@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.LevelFiles;
 using SprintZero1.Sprites;
 using Size = System.Drawing.Size;
@@ -79,7 +80,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         /// <param name="spriteBatch">The current sprite batch drawing entities</param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            this._entitySprite.Draw(spriteBatch, _entityPosition, EntitySpriteEffects, Rotation, LayerDepth);
+            this._entitySprite.Draw(spriteBatch, _entityPosition, Color.White, EntitySpriteEffects, Rotation, LayerDepth);
         }
 
         /// <summary>

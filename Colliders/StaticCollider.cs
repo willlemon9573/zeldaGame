@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using Size = System.Drawing.Size;
 
 namespace SprintZero1.Colliders
@@ -8,7 +8,7 @@ namespace SprintZero1.Colliders
     {
         private const float MinScaleFactor = 0.1f; // Prevents the collider from becoming too small
         private const float MaxScaleFactor = 2f; // prevents the collider from becoming too big
-        Rectangle _collider;
+        private Rectangle _collider;
 
         public int Delta { get { return _delta; } set { _delta = value; } }
         private int _delta;
@@ -16,7 +16,7 @@ namespace SprintZero1.Colliders
 
         private readonly int _offsetX;
         private readonly int _offsetY;
-        Size _colliderDimensions;
+        private Size _colliderDimensions;
 
         /// <summary>
         /// Create the entities collider

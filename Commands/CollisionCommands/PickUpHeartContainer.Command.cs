@@ -1,4 +1,5 @@
 ﻿using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Managers;
 
@@ -27,7 +28,7 @@ namespace SprintZero1.Commands.CollisionCommands
         {
             _player.MaxHealth++;
             _player.Health = _player.MaxHealth;
-            HUDManager.addNewHeart();
+            HUDManager.IncreasePlayerHealth();
             _heart.Remove();
         }
     }

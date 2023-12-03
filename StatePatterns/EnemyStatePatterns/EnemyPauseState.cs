@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Enums;
 
 namespace SprintZero1.StatePatterns.EnemyStatePatterns
@@ -9,9 +9,11 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
     /// </summary>
     internal class EnemyPauseState : BaseEnemyState
     {
+        private const float MaxPauseTime = 2f;
+        private float _elapsedPauseTime;
         public EnemyPauseState(EnemyBasedEntity enemyEntity) : base(enemyEntity)
         {
-            //TODO: Implement logic here
+            _elapsedPauseTime = 0f;
         }
 
         public override void ChangeDirection(Direction newDirection)
@@ -21,12 +23,19 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
 
         public override void Request()
         {
-            //TODO : Implement code to handle a request if paused
+            if (_blockTransition) { return; }
+            _elapsedPauseTime = 0f;
+            BlockTransition();
         }
 
         public override void Update(GameTime gameTime)
         {
-            // TODO: Implement logic here if anything is updated during player pause
+            _elapsedPauseTime += (float)gameTime.TotalGameTime.TotalSeconds;
+            if (_elapsedPauseTime >= MaxPauseTime)
+            {
+                UnblockTranstion();
+                TransitionState(State.Moving);
+            }
         }
     }
 }

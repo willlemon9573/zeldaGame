@@ -1,6 +1,7 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
+using SprintZero1.Managers;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
@@ -17,6 +18,7 @@ namespace SprintZero1.Commands.CollisionCommands
         public void Execute()
         {
             EquipmentItem equipment = (_equipment as EquipmentItemWithPlayerEntity).ItemType;
+            if (PlayerInventoryManager.PlayerContainsEquipment(_player, equipment)) { return; }
             IWeaponEntity weapon = WeaponEntityBuilder.CreateWeaponEntity(equipment, _player as IMovableEntity);
             _equipment.Pickup(_player, weapon);
             _equipment.Remove();

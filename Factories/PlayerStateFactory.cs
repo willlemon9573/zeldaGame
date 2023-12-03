@@ -22,6 +22,8 @@ namespace SprintZero1.Factories
                 {State.Die, () => new PlayerDeathState(player)},
                 {State.KnockedBack, () => new PlayerKnockBackState(player)},
                 {State.Paused, () => new PlayerPauseState(player)},
+                {State.Vulnerable, () => new PlayerVulnerableState(player)},
+                {State.Invulnerable, () => new PlayerInvulnerabilityState(player) }
             };
         }
         /// <summary>

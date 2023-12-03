@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Audio;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
 
@@ -22,6 +22,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
                 playingState.AddCollider(entity);
             }
         }
+
         protected EnemyDefeatEventBase(DungeonRoom room)
         {
             _roomWithEvent = room;

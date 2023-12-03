@@ -45,6 +45,9 @@
 	<Sound name="link_death">
 		<SoundEffect sound="LOZ_Link_Die"/>
 	</Sound>
+	<Sound name="link_hurt">
+		<SoundEffect sound="LOZ_Link_Hurt"></SoundEffect>
+	</Sound>
 	<Sound name="low_health">
 		<SoundEffect sound="LOZ_LowHealth"/>
 	</Sound>

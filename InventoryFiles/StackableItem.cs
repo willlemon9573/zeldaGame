@@ -1,4 +1,4 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Sprites;
 using System.Diagnostics;
 
@@ -9,8 +9,8 @@ namespace SprintZero1.InventoryFiles
         // TODO - Need to remove certain things like the ItemEntity itself
         private int _currentStock;
         private readonly int _maxStock;
-        private readonly IEntity _itemEntity;
         private readonly ISprite _itemsprite;
+        private readonly IEntity _itemEntity;
 
         public int CurrentStock { get { return _currentStock; } }
 
@@ -28,11 +28,10 @@ namespace SprintZero1.InventoryFiles
         /// <param name="maxStock">the max stock of the item</param>
         /// <param name="itemEntity">the entity object the item belongs to</param>
         /// <param name="itemsprite">The sprite of the item</param>
-        public StackableItem(int startingStock, int maxStock, IEntity itemEntity, ISprite itemsprite)
+        public StackableItem(int startingStock, int maxStock, ISprite itemsprite)
         {
             _currentStock = startingStock;
             _maxStock = maxStock;
-            _itemEntity = itemEntity;
             _itemsprite = itemsprite;
         }
 

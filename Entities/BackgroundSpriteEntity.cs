@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Sprites;
 
 namespace SprintZero1.Entities
@@ -29,7 +30,7 @@ namespace SprintZero1.Entities
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            _sprite.Draw(spriteBatch, _position, SpriteEffects.None, 0, 0.7f);
+            _sprite.Draw(spriteBatch, _position, Color.White, SpriteEffects.None, 0, 0.7f);
         }
 
         ~BackgroundSpriteEntity()

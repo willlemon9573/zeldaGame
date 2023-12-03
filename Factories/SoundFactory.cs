@@ -20,7 +20,7 @@ namespace SprintZero1.Factories
         /// <param name="content">Content Manager</param>
         public static void StartSoundFactory(ContentManager content)
         {
-            string path = @"XMLFiles\Sound.xml";
+            string path = @"XMLFiles/Sound.xml";
             XDocument document = XDocument.Load(path);
             XElement root = document.Root;
             XDocTools xDocTools = new XDocTools();

@@ -10,8 +10,8 @@ namespace SprintZero1.Factories
     public class HUDSpriteFactory
     {
 
-        private const string HUD_SPRITE_PATH = @"XMLFiles\HUDXMLFiles\HUDSprites.xml";
-        private const string ANIMATED_HUD_PATH = @"XMLFiles\HUDXMLFiles\HUDAnimatedSprites.xml";
+        private const string HUD_SPRITE_PATH = @"XMLFiles/HUDXMLFiles/HUDSprites.xml";
+        private const string ANIMATED_HUD_PATH = @"XMLFiles/HUDXMLFiles/HUDAnimatedSprites.xml";
         public Texture2D hudSpriteSheet;
         private Dictionary<string, ISprite> HUDSpriteDictionary;
         private Dictionary<string, List<Rectangle>> animatedHUDSpriteMap;

@@ -6,7 +6,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 {
     internal class GameBeatState : BaseGameState
     {
-        IGameStateMenu endingState;
+        private IGameStateMenu endingState;
         public GameBeatState(Game1 game) : base(game)
         {
             endingState = new GameBeatMenu(game);

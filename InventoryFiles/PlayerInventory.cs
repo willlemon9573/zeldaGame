@@ -1,5 +1,8 @@
 ﻿using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities;
 using SprintZero1.Enums;
+using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
 using System;
@@ -12,10 +15,10 @@ namespace SprintZero1.InventoryFiles
 {
     internal class PlayerInventory
     {
-        const string INVENTORY_DOCUMENT_PATH = @"XMLFiles\PlayerXMLFiles\StartingInventory.xml";
-        const string DOCUMENT_ROOT = "startinginventory";
-        const string STARTING_WEAPON_ELEMENT = "startingweapon";
-        const string STACKABLE_ITEMS_ELEMENT = "stackableitems";
+        private const string INVENTORY_DOCUMENT_PATH = @"XMLFiles/PlayerXMLFiles/StartingInventory.xml";
+        private const string DOCUMENT_ROOT = "startinginventory";
+        private const string STARTING_WEAPON_ELEMENT = "startingweapon";
+        private const string STACKABLE_ITEMS_ELEMENT = "stackableitems";
         /* ---------------------------------------- FIelds and properties ---------------------------------------- */
         private const int MAX_EQUIPMENT_SLOTS = 8;
         private const int MAX_UTILITY_SLOTS = 2; // set to two just because we only have 1 map and 1 compass to get
@@ -141,6 +144,7 @@ namespace SprintZero1.InventoryFiles
         {
             Debug.Assert(_equipmentSlots.ContainsKey(newEquipment), $"The player does not contain {newEquipment} in their inventory.");
             _inventoryOwner.EquipmentSlot = _equipmentSlots[newEquipment];
+            HUDManager.UpdateOnScreenEquipment(_inventoryOwner, _equipmentSlots[newEquipment].Sprite);
         }
 
         /// <summary>

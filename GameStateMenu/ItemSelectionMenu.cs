@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
 using SprintZero1.XMLParsers;
@@ -45,8 +45,8 @@ namespace SprintZero1.GameStateMenu
         private Rectangle botBackGround;
 
         // Textures
-        private Texture2D largeTexture;
-        private Texture2D itemChooseScreen;
+        private readonly Texture2D largeTexture;
+        private readonly Texture2D itemChooseScreen;
 
         // Equipment and selection data
         private Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>> equipmentData;
@@ -87,7 +87,7 @@ namespace SprintZero1.GameStateMenu
             ChooseRect = ChooseRectFir;
         }
 
-        private void createMapOrCompass(XElement itemDataElement, XDocTools _xDocTools)
+        private void CreateMapOrCompass(XElement itemDataElement, XDocTools _xDocTools)
         {
             foreach (XElement itemElement in itemDataElement.Elements("DungeonItems"))
             {
@@ -112,7 +112,7 @@ namespace SprintZero1.GameStateMenu
         {
             equipmentData = new Dictionary<EquipmentItem, Tuple<Rectangle, Vector2>>();
             _dungeonItemsData = new Dictionary<DungeonItems, Tuple<Rectangle, Vector2>>();
-            XDocument doc = XDocument.Load(@"GameStateMenu\ItemData.xml");
+            XDocument doc = XDocument.Load(@"GameStateMenu/ItemData.xml");
             var itemDataElement = doc.Element("ItemData");
             XDocTools _xDocTools = new XDocTools();
             XElement ChooseRecFirRectElement = itemDataElement.Element("ChooseRecFirSprite");
@@ -124,7 +124,7 @@ namespace SprintZero1.GameStateMenu
             XElement botBackGroundElement = itemDataElement.Element("BackGroundSecond");
             botBackGround = _xDocTools.CreateRectangle(botBackGroundElement);
 
-            createMapOrCompass(itemDataElement, _xDocTools);
+            CreateMapOrCompass(itemDataElement, _xDocTools);
             int boxX = 120;
             int boxY = 47;
             int boxWidth = 90;
@@ -177,7 +177,7 @@ namespace SprintZero1.GameStateMenu
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            updateChooseRecPosition();
+            UpdateChooseRecPosition();
             SetCurrentWeaponRec();
             AnimateChooseRec(gameTime);
         }
@@ -271,7 +271,7 @@ namespace SprintZero1.GameStateMenu
         /// <summary>
         /// Updates the position of the selection rectangle based on the current weapon.
         /// </summary>
-        private void updateChooseRecPosition()
+        private void UpdateChooseRecPosition()
         {
             if (currentWeapon == EquipmentItem.WoodenSword) return;
             if (equipmentData.TryGetValue(currentWeapon, out Tuple<Rectangle, Vector2> data))

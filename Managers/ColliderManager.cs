@@ -1,4 +1,4 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Managers;
 using System.Collections.Generic;
 
@@ -12,11 +12,13 @@ namespace SprintZero1.Colliders
     internal class ColliderManager
     {
         // Static list of Static colliders
-        readonly List<ICollidableEntity> staticColliderEntities;
+        private readonly List<ICollidableEntity> staticColliderEntities;
+
         // Static list of Dynamic colliders
-        readonly List<ICollidableEntity> dynamicColliderEntities;
+        private readonly List<ICollidableEntity> dynamicColliderEntities;
+
         // Handles the responses for collisions
-        readonly CollisionsResponseManager _collisionsResponseManager;
+        private readonly CollisionsResponseManager _collisionsResponseManager;
 
         /// <summary>
         /// Construct a new object of collision manager to handle collisions

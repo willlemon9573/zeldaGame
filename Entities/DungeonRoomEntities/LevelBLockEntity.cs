@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Sprites;
 
 namespace SprintZero1.Entities.DungeonRoomEntities
@@ -30,7 +31,7 @@ namespace SprintZero1.Entities.DungeonRoomEntities
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            this._sprite.Draw(spriteBatch, _position, SpriteEffects.None, 0, LAYER_DEPTH);
+            this._sprite.Draw(spriteBatch, _position, Color.White, SpriteEffects.None, 0, LAYER_DEPTH);
         }
 
         public virtual void Update(GameTime gameTime)

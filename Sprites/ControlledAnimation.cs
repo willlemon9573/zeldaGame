@@ -50,11 +50,11 @@ namespace SprintZero1.Sprites
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0f)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0f, float layerDepth = 0f)
         {
             if (!_shouldStop)
             {
-                _animatedSprite.Draw(spriteBatch, position);
+                _animatedSprite.Draw(spriteBatch, position, Color.White);
             }
         }
     }

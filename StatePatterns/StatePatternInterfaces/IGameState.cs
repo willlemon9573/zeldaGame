@@ -1,35 +1,33 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
-using SprintZero1.Managers;
-using System.Collections.Generic;
+using System;
 
 namespace SprintZero1.StatePatterns.StatePatternInterfaces
 {
     internal interface IGameState
     {
-        /// <summary>
-        /// Returns the EntityManager of the State
-        /// </summary>
-        public EntityManager EntityManager { get; }
 
         /// <summary>
-        /// List of all Controllers
+        /// Add the players to the given state
         /// </summary>
-        public List<IController> Controllers { get; }
+        /// <param name="player">The player controller tuple</param>
+        void AddPlayer(Tuple<IEntity, IController> player);
+
+        /// <summary>
+        /// Gets the desired player entity
+        /// </summary>
+        /// <param name="playerNumber">The number representing which player to get</param>
+        /// <returns>The desired player entity</returns>
+        IEntity GetPlayer(int playerNumber);
 
         /// <summary>
         /// Change the state of the game
         /// </summary>
         /// <param name="newState">The new state the game is changing to</param>
         void ChangeGameState(GameState newState);
-
-        /// <summary>
-        /// Add a controller to the GameState
-        /// </summary>
-        /// <param name="controller"></param>
-        public void AddController(IController controller);
 
         /// <summary>
         /// Handle the changes required when changing the state

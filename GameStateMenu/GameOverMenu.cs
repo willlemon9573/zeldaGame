@@ -31,7 +31,7 @@ namespace SprintZero1.GameStateMenu
             redOverlay = new Color(150, 0, 0, 150); // Red color with some transparency
 
             _overlay.SetData(new[] { redOverlay }); // Set the overlay data
-            _unPauseGame = new UnpauseGameCommand(game); // Initialize unpause command
+            _unPauseGame = new UnpauseGameCommand(); // Initialize unpause command
         }
 
         public override void Update(GameTime gameTime)

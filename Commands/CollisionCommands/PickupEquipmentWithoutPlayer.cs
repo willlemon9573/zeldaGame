@@ -1,4 +1,4 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
@@ -20,7 +20,10 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
+
             EquipmentItem equipment = (_equipment as EquipmentItemWithoutPlayerEntity).ItemType;
+            /* Dropping two of each item now for multiplayer, return if one player already has an item so the other player can take it*/
+            if (PlayerInventoryManager.PlayerContainsEquipment(_player, equipment)) { return; }
             IWeaponEntity weapon = WeaponEntityBuilder.CreateWeaponEntity(equipment);
             _equipment.Pickup(_player, weapon);
             _equipment.Remove();

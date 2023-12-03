@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
@@ -62,7 +62,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
 
         private ISprite CreateSprite()
         {
-            return ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite(_entityName);
+            return ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite(_entityName.ToLower());
         }
 
         private Vector2 CreatePosition()

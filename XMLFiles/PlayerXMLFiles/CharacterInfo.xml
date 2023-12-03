@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Character>
+	<Link>
+		<position x="100" y="200"></position>
+		<health hp="3"></health>
+		<direction dir="North"></direction>
+	</Link>
+	<Zelda>
+		<position x="150" y="200"></position>
+		<health hp="3"></health>
+		<direction dir="North"></direction>
+	</Zelda>
+</Character>

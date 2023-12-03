@@ -4,7 +4,6 @@ using SprintZero1.Enums;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -12,8 +11,8 @@ namespace SprintZero1.Factories
 {
     internal class WeaponSpriteFactory
     {
-        private const string WEAPON_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\ProjectileSprites.xml";
-        private const string SWORD_SPRITE_PATH = @"XMLFiles\FactoryXMLFiles\LinkSwordSprites.xml";
+        private const string WEAPON_DOCUMENT_PATH = @"XMLFiles/FactoryXMLFiles/ProjectileSprites.xml";
+        private const string SWORD_SPRITE_PATH = @"XMLFiles/FactoryXMLFiles/LinkSwordSprites.xml";
         /* Temporary class for sprint2 requirements. This along with other factories will be refractored for sprint 3 */
         private Texture2D spriteSheet;
         private Texture2D enemyProjectileSheet;
@@ -51,14 +50,13 @@ namespace SprintZero1.Factories
             return new NonAnimatedSprite(sourceRectangle[index], enemyProjectileSheet);
         }
 
-        public ISprite CreateBoomerangSprite(String weaponType)
+        public ISprite CreateBoomerangSprite(string weaponType)
         {
             List<Rectangle> sourceRectangle = projectileSourceRectangles["boomerang"];
-            if (weaponType.Equals("better"))
+            if (weaponType.Contains("better"))
             {
                 sourceRectangle = projectileSourceRectangles["betterboomerang"];
             }
-            /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
             return new NonAnimatedSprite(sourceRectangle[0], spriteSheet);
         }
         public ISprite CreateEndSprite()
@@ -66,7 +64,7 @@ namespace SprintZero1.Factories
             return new NonAnimatedSprite(new Rectangle(53, 190, 8, 8), spriteSheet);
         }
 
-        public ISprite CreateArrowSprite(String weaponType, Direction direction)
+        public ISprite CreateArrowSprite(string weaponType, Direction direction)
         {
             List<Rectangle> sourceRectangle = projectileSourceRectangles["arrow"];
             int index = 0;
