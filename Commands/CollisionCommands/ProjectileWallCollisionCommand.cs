@@ -1,6 +1,6 @@
-﻿using SprintZero1.Entities;
-using SprintZero1.Entities.BoomerangEntity;
-using SprintZero1.Entities.BowAndMagicFireEntity;
+﻿using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities.BoomerangEntity;
+using SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
@@ -19,7 +19,7 @@ namespace SprintZero1.Commands.CollisionCommands
             {
                 if (boomerang.CollidedWithObject) { return; }
                 boomerang.CollidedWithObject = true;
-                boomerang.ReturnBoomerang();
+                boomerang.ForceReturnBoomerang();
 
             }
             else if (_projectile is NonComingBackWeaponEntity projectile)

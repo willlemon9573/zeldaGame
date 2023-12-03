@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
 using SprintZero1.DebuggingTools;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
@@ -12,7 +13,7 @@ using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 using System.Collections.Generic;
 
-namespace SprintZero1.Entities
+namespace SprintZero1.Entities.WeaponEntities
 {
     /// <summary>
     /// Entity for the sword the player will use.

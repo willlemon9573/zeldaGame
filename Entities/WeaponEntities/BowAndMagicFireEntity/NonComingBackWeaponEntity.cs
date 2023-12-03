@@ -5,7 +5,7 @@ using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
 
-namespace SprintZero1.Entities.BowAndMagicFireEntity
+namespace SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity
 {
     /// <summary>
     /// Represents an abstract base class for non-returning projectile entities like arrows or magic fire.

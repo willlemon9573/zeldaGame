@@ -1,7 +1,14 @@
-﻿namespace SprintZero1.InventoryFiles
+﻿using SprintZero1.Sprites;
+
+namespace SprintZero1.InventoryFiles
 {
-    internal interface IStackableItems : IPlayerItem
+    internal interface IStackableItems
     {
+
+        /// <summary>
+        /// Get the item sprite
+        /// </summary>
+        ISprite ItemSprite { get; }
         /// <summary>
         /// Get the current amount of the item
         /// </summary>

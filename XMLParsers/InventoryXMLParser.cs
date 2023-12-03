@@ -2,7 +2,8 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities;
 using SprintZero1.Enums;
 using SprintZero1.InventoryFiles;
 using SprintZero1.Sprites;
@@ -57,7 +58,7 @@ namespace SprintZero1.XMLParsers
             return Tuple.Create(spriteEffects, new Vector2(x, y));
         }
         /// <summary>
-        /// Parses the given element for the attributes required to create a stack aitem object
+        /// Parses the given element for the attributes required to create a stack item object
         /// </summary>
         /// <param name="paramElement">the element to parse</param>
         /// <returns>the stackable item object</returns>
@@ -67,7 +68,7 @@ namespace SprintZero1.XMLParsers
             int startingStock = _parseTools.ParseAttributeAsInt(paramElement, STARTING_STOCK_ATTRIBUTE);
             int maxStock = _parseTools.ParseAttributeAsInt(paramElement, MAX_STOCK_ATTRIBUTE);
             ISprite itemSprite = _parseTools.ParseNonAnimatedItemSprite(paramElement, SPRITE_ATTRIBUTE);
-            return new StackableItem(startingStock, maxStock, new InventoryEntityTest(), itemSprite);
+            return new StackableItem(startingStock, maxStock, itemSprite);
         }
 
         /* ----------------------------- Public functions ----------------------------- */

@@ -1,4 +1,6 @@
 ﻿using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;

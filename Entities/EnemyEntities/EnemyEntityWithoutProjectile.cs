@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-//using SprintZero1.StatePatterns.CombatStatePatterns;
-//using SprintZero1.StatePatterns.MovingStatePatterns;
-//using SprintZero1.StatePatterns.StatePatternInterfaces;
 
-namespace SprintZero1.Entities
+namespace SprintZero1.Entities.EnemyEnetities
 {
     /// <summary>
     /// Represents an enemy entity that does not have a projectile attack.

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SprintZero1.Entities
+namespace SprintZero1.Entities.EntityInterfaces
 {
     public interface IEntity
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EnemyEnetities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.StatePatterns.StatePatternInterfaces;

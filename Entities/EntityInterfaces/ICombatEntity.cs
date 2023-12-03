@@ -1,4 +1,4 @@
-﻿namespace SprintZero1.Entities
+﻿namespace SprintZero1.Entities.EntityInterfaces
 {
     /// <summary>
     /// An interface for entities who engage in combat

@@ -1,13 +1,14 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders.ItemColliders;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 
-namespace SprintZero1.Entities.BoomerangEntity
+namespace SprintZero1.Entities.WeaponEntities.BoomerangEntity
 {
     /// <summary>
     /// Represents a regular boomerang weapon entity in the game.
@@ -25,7 +26,7 @@ namespace SprintZero1.Entities.BoomerangEntity
         /// </summary>
         /// <param name="weaponName">The name of the weapon.</param>
         /// <param name="player">The player entity using the boomerang.</param>
-        public RegularBoomerangEntity(String weaponName, IMovableEntity player) : base(weaponName, player)
+        public RegularBoomerangEntity(string weaponName, IMovableEntity player) : base(weaponName, player)
         {
             _maxDistance = RegularBoomerangMaxDistance;
             movingSpeed = RegularBoomerangMovingSpeed;

@@ -1,11 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
 
-namespace SprintZero1.Entities.BoomerangEntity
+namespace SprintZero1.Entities.WeaponEntities.BoomerangEntity
 {
     /// <summary>
     /// Represents the base functionality for boomerang-based entities.
@@ -40,18 +41,8 @@ namespace SprintZero1.Entities.BoomerangEntity
             _player = player;
             _boomerangSound = SoundFactory.GetSound("arrow_boomerang");
             _elapsedTime = 0f;
-            this._weaponDamage = 0.5f; // default weapon damage for boomerang (only works on keese)
+            _weaponDamage = 0.5f; // default weapon damage for boomerang (only works on keese)
             _weaponSprite = WeaponSpriteFactory.Instance.CreateBoomerangSprite(weaponName);
-        }
-
-        /// <summary>
-        /// Stops the projectile from being used
-        /// </summary>
-        public void StopProjectile()
-        {
-            _isActive = false;
-            _isAccelerating = false;
-
         }
 
         /// <summary>
@@ -122,7 +113,10 @@ namespace SprintZero1.Entities.BoomerangEntity
             }
         }
 
-        public void ReturnBoomerang()
+        /// <summary>
+        /// Force the boomerang to return after colliding with an object or for some other reason.
+        /// </summary>
+        public void ForceReturnBoomerang()
         {
             if (returning) { return; }
             returning = true;

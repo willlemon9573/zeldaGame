@@ -7,27 +7,27 @@ using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
 using System;
 
-namespace SprintZero1.Entities.BowAndMagicFireEntity
+namespace SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity
 {
     /// <summary>
-    /// Represents a regular bow weapon entity in the game.
-    /// This class extends NonComingBackWeaponEntity and provides specific behavior for a standard bow.
+    /// Represents an enhanced bow weapon entity in the game.
+    /// This class extends NonComingBackWeaponEntity to provide specific behavior for the better bow.
     /// </summary>
     /// <author>Zihe Wang</author>
-    internal class RegularBowEntity : NonComingBackWeaponEntity
+    internal class BetterBowEntity : NonComingBackWeaponEntity
     {
-        private const int RegularBowMaxDistance = 40; // Maximum distance the projectile can travel before becoming inactive
-        private const float RegularBowMovingSpeed = 1.5f;
+        private const int BetterBowMaxDistance = 60; // Maximum distance the projectile can travel before becoming inactive
+        private const float BetterBowMovingSpeed = 3;
 
         /// <summary>
-        /// Initializes a new instance of the RegularBowEntity class.
+        /// Initializes a new instance of the BetterBowEntity class.
         /// </summary>
         /// <param name="weaponName">The name of the weapon.</param>
-        public RegularBowEntity(String weaponName) : base(weaponName)
+        public BetterBowEntity(string weaponName) : base(weaponName)
         {
-            _maxDistance = RegularBowMaxDistance;
-            movingSpeed = RegularBowMovingSpeed;
-            this._weaponDamage = 2f; // default weapon damage for arrows is 2f
+            _maxDistance = BetterBowMaxDistance;
+            movingSpeed = BetterBowMovingSpeed;
+            _weaponDamage = 4f; // default weapon damage for silver arrow is 4 hearts
         }
 
         /// <summary>
@@ -37,10 +37,8 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         /// <param name="position">The initial position of the weapon.</param>
         public override void UseWeapon(Direction direction, Vector2 position)
         {
-            if (IsActive) { return; }
-            distanceMoved = 0;
-            _isActive = true;
-            ProjectileSprite = WeaponSpriteFactory.Instance.CreateArrowSprite("", direction);
+            // Setting up the projectile and impact effect sprites
+            ProjectileSprite = WeaponSpriteFactory.Instance.CreateArrowSprite("better", direction);
             ImpactEffectSprite = WeaponSpriteFactory.Instance.CreateEndSprite();
 
             // Adjusting position and sprite based on the direction

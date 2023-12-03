@@ -1,4 +1,5 @@
 ﻿using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
 using SprintZero1.Managers;

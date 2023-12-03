@@ -2,7 +2,7 @@
 using SprintZero1.Enums;
 using SprintZero1.Sprites;
 
-namespace SprintZero1.Entities
+namespace SprintZero1.Entities.EntityInterfaces
 {
     internal interface IWeaponEntity : IEntity
     {

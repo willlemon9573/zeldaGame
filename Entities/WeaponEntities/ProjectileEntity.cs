@@ -1,12 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.Sprites;
 using System;
 using System.Collections.Generic;
 
-namespace SprintZero1.Entities
+namespace SprintZero1.Entities.WeaponEntities
 {
     /// <summary>
     /// Represents an abstract base class for projectile entities used by the player.
@@ -51,7 +52,7 @@ namespace SprintZero1.Entities
 
         public ISprite Sprite { get { return _weaponSprite; } }
 
-        protected ProjectileEntity(String weaponName)
+        protected ProjectileEntity(string weaponName)
         {
             _rotation = 0;
             _weaponName = weaponName;

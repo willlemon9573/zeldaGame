@@ -3,7 +3,7 @@ using SprintZero1.Colliders.DoorColliders;
 using SprintZero1.Colliders.EntityColliders;
 using SprintZero1.Colliders.ItemColliders;
 using SprintZero1.Commands.CollisionCommands;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using System;
 using System.Collections.Generic;
 

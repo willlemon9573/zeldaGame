@@ -1,4 +1,4 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EntityInterfaces;
 
 namespace SprintZero1.Commands.DebugCommands
 {

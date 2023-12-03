@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
@@ -10,7 +11,7 @@ using SprintZero1.StatePatterns.EnemyStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 
 
-namespace SprintZero1.Entities
+namespace SprintZero1.Entities.EnemyEnetities
 {
     /// <summary>
     /// EnemyBasedEntity class: An abstract class used to control and update enemy entities.
@@ -23,12 +24,7 @@ namespace SprintZero1.Entities
         protected float _attackCooldown;
         protected int _enemyHealthMax;
         protected Vector2 _enemyDefaultPosition;
-        //protected EnemyCollider _enemyCollider;
-        //protected readonly EnemyStateMachine _enemyStateMachine;
-        protected readonly EnemySpriteFactory _EnemyFactory = EnemySpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
-        //controls the attacking state
-        //protected float _timeElapsed;
-        //protected readonly string _weapon;
+        protected readonly EnemySpriteFactory _EnemyFactory = EnemySpriteFactory.Instance;
         protected readonly float _timeToReset = 1f / 7;
         protected ISprite _enemySprite;
         protected Direction _enemyDirection = Direction.South;
@@ -45,10 +41,7 @@ namespace SprintZero1.Entities
         public float Health { get { return _enemyHealth; } set { _enemyHealth = value; } }
         public Direction Direction { get { return _enemyDirection; } set { _enemyDirection = value; } }
         public IEnemyState EnemyState { get { return _enemyState; } set { _enemyState = value; } }
-
         public ICollider Collider { get { return _collider; } }
-
-
 
         /// <summary>
         /// Constructs a new enemy entity.

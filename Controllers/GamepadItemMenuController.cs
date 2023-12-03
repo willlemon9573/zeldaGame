@@ -2,13 +2,13 @@
 using SprintZero1.Commands;
 using SprintZero1.Commands.MenuCommandsFolder;
 using SprintZero1.Commands.PlayerCommands;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.GameStateMenu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SprintZero1.Controllers.EnemyControllers
+namespace SprintZero1.Controllers
 {
     internal class GamepadItemMenuController : IController
     {

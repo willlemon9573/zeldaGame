@@ -17,7 +17,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Handle()
         {
-
         }
 
         public override void Update(GameTime gameTime)

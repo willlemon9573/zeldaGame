@@ -4,7 +4,7 @@ using SprintZero1.Enums;
 using SprintZero1.Factories;
 using System;
 
-namespace SprintZero1.Entities.BowAndMagicFireEntity
+namespace SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity
 {
     /// <summary>
     /// Represents a magic fire weapon entity in the game.
@@ -20,7 +20,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
         /// Initializes a new instance of the MagicFireEntity class.
         /// </summary>
         /// <param name="weaponName">The name of the weapon.</param>
-        public MagicFireEntity(String weaponName) : base(weaponName)
+        public MagicFireEntity(string weaponName) : base(weaponName)
         {
             _maxDistance = RegularBowMaxDistance;
             movingSpeed = RegularBowMovingSpeed;

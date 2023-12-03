@@ -1,6 +1,6 @@
 ﻿using SprintZero1.Enums;
 
-namespace SprintZero1.Entities
+namespace SprintZero1.Entities.EntityInterfaces
 {
     internal interface IMovableEntity : IEntity
     {

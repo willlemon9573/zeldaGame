@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Controllers;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
+using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 using System;
@@ -12,6 +13,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 {
     internal abstract class BaseGameState : IGameState
     {
+        protected DungeonRoom _currentRoom;
         protected readonly Game1 _game;
         /* Dictionary to contain each player with their specific controller. 
          * Indexed by the number that the player is. IE: Player One = 1, Player Two = 2, etc

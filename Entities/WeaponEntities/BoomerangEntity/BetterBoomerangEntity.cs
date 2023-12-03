@@ -1,13 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders.ItemColliders;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
-using System;
 
-namespace SprintZero1.Entities.BoomerangEntity
+namespace SprintZero1.Entities.WeaponEntities.BoomerangEntity
 {
     /// <summary>
     /// Represents a more advanced version of the boomerang weapon in the game.
@@ -25,7 +25,7 @@ namespace SprintZero1.Entities.BoomerangEntity
         /// </summary>
         /// <param name="weaponName">The name of the weapon.</param>
         /// <param name="player">The player entity using the boomerang.</param>
-        public BetterBoomerangEntity(String weaponName, IMovableEntity player) : base(weaponName, player)
+        public BetterBoomerangEntity(string weaponName, IMovableEntity player) : base(weaponName, player)
         {
             _maxDistance = BetterBoomerangMaxDistance;
             movingSpeed = BetterBoomerangMovingSpeed;
@@ -50,7 +50,6 @@ namespace SprintZero1.Entities.BoomerangEntity
             _spriteMovingAddition = _spriteMovingDictionary[direction] * movingSpeed;
             _currentSpriteEffect = SpriteEffects.None;
             _weaponPosition = position + spriteAdditions.Item2;
-
             _projectileCollider = new PlayerBoomerangCollider(_weaponPosition, new System.Drawing.Size(ProjectileSprite.Width, ProjectileSprite.Height));
             if (GameStatesManager.CurrentState is GamePlayingState gameState)
             {

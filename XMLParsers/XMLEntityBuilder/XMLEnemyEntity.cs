@@ -1,4 +1,5 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EnemyEnetities;
+using SprintZero1.Entities.EntityInterfaces;
 using System.Numerics;
 
 namespace SprintZero1.XMLParsers.XMLEntityBuilder
