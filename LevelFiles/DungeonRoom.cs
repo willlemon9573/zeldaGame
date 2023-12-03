@@ -309,11 +309,7 @@ namespace SprintZero1.LevelFiles
                 {
                     Rectangle collider = (entity as ICollidableEntity).Collider.Collider;
                     Color r = Color.White;
-                    if (entity is IDoorEntity)
-                    {
-                        r = Color.White;
-                    }
-                    else
+                    if (entity is BreakableWallEntity)
                     {
                         r = Color.Red;
                     }
@@ -330,6 +326,7 @@ namespace SprintZero1.LevelFiles
                     _spriteDebugger.DrawRectangle(collider, c, spriteBatch);
                 }
             }
+
             /* drawing a collider for any floor items */
             foreach (IEntity entity in _floorItems)
             {

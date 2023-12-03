@@ -38,12 +38,15 @@ namespace SprintZero1.Entities
         private SpriteDebuggingTools spriteDebugger;
         private ICollider _collider;
         private readonly SoundEffect _swordSlash;
+        private bool _isActive;
         /* Get collider */
         public ICollider Collider { get { return _collider; } }
 
         public float WeaponDamage { get { return SwordDamage; } }
 
         public ISprite Sprite { get { return _defaultSprite; } }
+
+        public bool IsActive { get { return _isActive; } }
 
         /// <summary>
         /// TODO: Remove weapon name if my inventory implementation works
@@ -60,6 +63,8 @@ namespace SprintZero1.Entities
 
         public void UseWeapon(Direction direction, Vector2 position)
         {
+            if (_isActive) return;
+            _isActive = true;
             _weaponSprite = WeaponSpriteFactory.Instance.GetSwordSprite(direction);
             Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];
             _currentSpriteEffect = SpriteAdditions.Item1;
@@ -87,6 +92,7 @@ namespace SprintZero1.Entities
             {
                 _stateElapsedTime = 0f;
                 gameState.RemoveCollider(this);
+                _isActive = false;
             }
         }
     }

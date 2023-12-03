@@ -7,13 +7,11 @@ namespace SprintZero1.Commands.CollisionCommands
     internal class ProjectileWallCollisionCommand : ICommand
     {
         private readonly ICollidableEntity _projectile;
-        private readonly ICollidableEntity _wall;
 
 
         public ProjectileWallCollisionCommand(ICollidableEntity projectile, ICollidableEntity wall)
         {
             _projectile = projectile;
-            _wall = wall;
         }
         public void Execute()
         {

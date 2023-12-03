@@ -11,6 +11,14 @@ namespace SprintZero1.Entities
         /// </summary>
         public float WeaponDamage { get; }
 
+        /// <summary>
+        /// Get the weapon activity
+        /// </summary>
+        public bool IsActive { get; }
+
+        /// <summary>
+        /// Returns the sprite of the weapon
+        /// </summary>
         public ISprite Sprite { get; }
         /// <summary>
         /// ALlows the entity to use the weapon 

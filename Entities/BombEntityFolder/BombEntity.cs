@@ -1,8 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Colliders;
+using SprintZero1.Colliders.ItemColliders;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
+using SprintZero1.Managers;
 using SprintZero1.Sprites;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using System.Collections.Generic;
 
 namespace SprintZero1.Entities.BombEntityFolder
@@ -12,10 +16,12 @@ namespace SprintZero1.Entities.BombEntityFolder
     /// This class handles the behavior and rendering of a bomb used by the player.
     /// </summary>
     /// <author>Zihe Wang</author>
-    internal class BombEntity : IWeaponEntity
+    internal class BombEntity : IWeaponEntity, ICollidableEntity
     {
         private double timer; // Timer to track how long the bomb has been active
         private readonly double waitingTime = 600; // Time in milliseconds before the bomb explodes
+        private readonly float explosionTime = 1 / 2f;
+        private float _explosionElapsedTime;
         private readonly string _weaponName;
         private const float BombDamage = 4f; // bomb deal 4 hearts
         private Vector2 _weaponPosition;
@@ -23,6 +29,11 @@ namespace SprintZero1.Entities.BombEntityFolder
         private ISprite ImpactEffectSprite; // Sprite for the bomb's impact effect
         private const SpriteEffects _currentSpriteEffect = SpriteEffects.None; // Sprite effect for rendering
         private readonly Dictionary<Direction, Vector2> _spriteEffectsDictionary; // Effects based on direction
+        private bool _isActive;
+        private bool _hasExploded;
+        private ICollider _bombCollider;
+
+        public bool HasExploded { get { return _hasExploded; } }
 
         public Vector2 Position
         {
@@ -33,6 +44,10 @@ namespace SprintZero1.Entities.BombEntityFolder
         public float WeaponDamage { get { return BombDamage; } }
 
         public ISprite Sprite { get { return _weaponSprite; } }
+
+        public ICollider Collider { get { return _bombCollider; } }
+
+        public bool IsActive { get { return _isActive; } }
 
         /// <summary>
         /// Initializes a new instance of the BombEntity with a specific weapon name.
@@ -50,6 +65,15 @@ namespace SprintZero1.Entities.BombEntityFolder
             };
         }
 
+        private void CreateCollider()
+        {
+            _bombCollider = new PlayerBombExplosionCollider(_weaponPosition, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
+            if (GameStatesManager.CurrentState is GamePlayingState gameplayState)
+            {
+                gameplayState.AddProjectile(this);
+            }
+        }
+
         /// <summary>
         /// Activates the bomb weapon with a specified direction and position.
         /// </summary>
@@ -57,11 +81,16 @@ namespace SprintZero1.Entities.BombEntityFolder
         /// <param name="position">The position where the bomb is used.</param>
         public void UseWeapon(Direction direction, Vector2 position)
         {
+            if (_isActive) { return; }
             timer = 0;
+            _explosionElapsedTime = 0;
             _weaponSprite = WeaponSpriteFactory.Instance.CreateBombSprite();
             ImpactEffectSprite = WeaponSpriteFactory.Instance.CreateBombSpriteExplodes();
             Vector2 SpriteAdditions = _spriteEffectsDictionary[direction];
             _weaponPosition = position + SpriteAdditions;
+            CreateCollider();
+            _hasExploded = false;
+            _isActive = true;
         }
 
         /// <summary>
@@ -70,10 +99,6 @@ namespace SprintZero1.Entities.BombEntityFolder
         /// <param name="spriteBatch">The sprite batch used for drawing.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (_weaponSprite == null)
-            {
-                return;
-            }
             _weaponSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, 0);
         }
 
@@ -83,12 +108,14 @@ namespace SprintZero1.Entities.BombEntityFolder
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public void Update(GameTime gameTime)
         {
-            if (_weaponSprite == null)
-            {
-                return;
-            }
             _weaponSprite.Update(gameTime);
             Animate(gameTime);
+            if (_hasExploded)
+            {
+                _bombCollider.Update(this);
+                _explosionElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+
         }
 
         /// <summary>
@@ -98,9 +125,16 @@ namespace SprintZero1.Entities.BombEntityFolder
         private void Animate(GameTime gameTime)
         {
             timer += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timer >= waitingTime)
+            if (timer >= waitingTime && !_hasExploded)
             {
                 _weaponSprite = ImpactEffectSprite; // Change to impact effect sprite after timer
+                _hasExploded = true;
+                CreateCollider();
+            }
+            else if (_hasExploded && _explosionElapsedTime >= explosionTime && GameStatesManager.CurrentState is GamePlayingState state)
+            {
+                state.RemoveProjectile(this);
+                _isActive = false;
             }
         }
     }
