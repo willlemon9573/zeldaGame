@@ -5,6 +5,7 @@ using SprintZero1.LevelFiles;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace SprintZero1.Controllers.EnemyControllers
 {
@@ -16,7 +17,6 @@ namespace SprintZero1.Controllers.EnemyControllers
     internal class SmartEnemyMovementController : IEnemyMovementController
     {
         private readonly ICombatEntity _enemyEntity;
-        private readonly IEntity _playerEntity;
         private readonly AStarPathfinder pathfinder;
         private Stack<Vector2> currentPath;
         private bool isPathBeingCalculated;
@@ -33,13 +33,14 @@ namespace SprintZero1.Controllers.EnemyControllers
         private RemoveDelegate _remove;
         private List<IEntity> _architechtureList;
         private readonly Random _random = new Random();
+        private readonly List<IEntity> _players;
 
 
-        public SmartEnemyMovementController(ICombatEntity enemyEntity, IEntity playerEntity, RemoveDelegate remover, List<IEntity> ArchitechtureList)
+        public SmartEnemyMovementController(ICombatEntity enemyEntity, List<IEntity> players, RemoveDelegate remover, List<IEntity> ArchitechtureList)
         {
             _architechtureList = ArchitechtureList;
             _enemyEntity = enemyEntity;
-            _playerEntity = playerEntity;
+            _players = players;
             pathfinder = new AStarPathfinder(_architechtureList);
             currentPath = new Stack<Vector2>();
             isPathBeingCalculated = false;
@@ -73,84 +74,91 @@ namespace SprintZero1.Controllers.EnemyControllers
             _timeSinceLastPathCalculation += elapsed;
             _currentMoveTime += elapsed;
             _timeSinceLastDirectionChange += elapsed;  // Track time since last direction change
-
-            // Trigger pathfinding at regular intervals
-            if (_timeSinceLastPathCalculation >= _pathCalculationInterval && !isPathBeingCalculated)
+            IEntity nearestPlayer = FindNearestPlayer(_enemyEntity.Position, _players);
+            if (nearestPlayer != null)
             {
-                pathfinder.StartFindingPath(_enemyEntity.Position, _playerEntity.Position);
-                isPathBeingCalculated = true;
-                _timeSinceLastPathCalculation = 0;
-            }
-
-            if(_enemyEntity is EnemyBasedEntity enemyBasedEntity)
-            {
-                if (ShouldUseBoomerangAttack(_enemyEntity.Position, _playerEntity.Position))
+                // Trigger pathfinding at regular intervals
+                if (_timeSinceLastPathCalculation >= _pathCalculationInterval && !isPathBeingCalculated)
                 {
-                    Debug.Print("enemyAttacked");
-                    enemyBasedEntity.Attack("Boomerang");
+                    pathfinder.StartFindingPath(_enemyEntity.Position, nearestPlayer.Position);
+                    isPathBeingCalculated = true;
+                    _timeSinceLastPathCalculation = 0;
                 }
-            }
-            // Update path once calculated
-            if (isPathBeingCalculated && pathfinder.Update())
-            {
-                currentPath = pathfinder.GetPath();
-                isPathBeingCalculated = false;
-            }
 
-            // Handle movement and stopping intervals
-            if (_isMoving)
-            {
-                if (_currentMoveTime >= _moveTime)
+                if (_enemyEntity is EnemyBasedEntity enemyBasedEntity)
                 {
-                    _isMoving = false;
-                    _currentMoveTime = 0;
-                    _currentStopTime = elapsed;
-                }
-                else if (currentPath != null && currentPath.Count > 0)
-                {
-                    Vector2 nextStep;
-                    if (_random.NextDouble() > 0.3)
+                    if (ShouldUseBoomerangAttack(_enemyEntity.Position, nearestPlayer.Position))
                     {
-                        nextStep = currentPath.Peek();
-                    }
-                    else
-                    {
-                        nextStep = GenerateRandomDirection(_enemyEntity.Position);
-                    }
-                    Vector2 moveDirection = nextStep - _enemyEntity.Position;
-                    moveDirection.Normalize();
-                    Direction newDirection = CalculateDirection(moveDirection);
-
-                    // Change direction after cooldown
-                    if (_timeSinceLastDirectionChange >= _directionChangeCooldown)
-                    {
-                        _enemyEntity.ChangeDirection(newDirection);
-                        _timeSinceLastDirectionChange = 0;
-                    }
-
-                    _enemyEntity.Move();
-
-                    // Pop the next step off the path once reached
-                    if (Vector2.Distance(_enemyEntity.Position, nextStep) < 1.0f)
-                    {
-                        currentPath.Pop();
+                        Debug.Print("enemyAttacked");
+                        enemyBasedEntity.Attack("Boomerang");
                     }
                 }
-            }
-            else
-            {
-                _currentStopTime += elapsed;
-                if (_currentStopTime >= _stopTime)
+                // Update path once calculated
+                if (isPathBeingCalculated && pathfinder.Update())
                 {
-                    _isMoving = true;
-                    _currentStopTime = 0;
+                    currentPath = pathfinder.GetPath();
+                    isPathBeingCalculated = false;
+                }
+
+                // Handle movement and stopping intervals
+                if (_isMoving)
+                {
+                    if (_currentMoveTime >= _moveTime)
+                    {
+                        _isMoving = false;
+                        _currentMoveTime = 0;
+                        _currentStopTime = elapsed;
+                    }
+                    else if (currentPath != null && currentPath.Count > 0)
+                    {
+                        Vector2 nextStep;
+                        if (_random.NextDouble() > 0.3)
+                        {
+                            nextStep = currentPath.Peek();
+                        }
+                        else
+                        {
+                            nextStep = GenerateRandomDirection(_enemyEntity.Position);
+                        }
+                        Vector2 moveDirection = nextStep - _enemyEntity.Position;
+                        moveDirection.Normalize();
+                        Direction newDirection = CalculateDirection(moveDirection);
+
+                        // Change direction after cooldown
+                        if (_timeSinceLastDirectionChange >= _directionChangeCooldown)
+                        {
+                            _enemyEntity.ChangeDirection(newDirection);
+                            _timeSinceLastDirectionChange = 0;
+                        }
+
+                        _enemyEntity.Move();
+
+                        // Pop the next step off the path once reached
+                        if (Vector2.Distance(_enemyEntity.Position, nextStep) < 1.0f)
+                        {
+                            currentPath.Pop();
+                        }
+                    }
+                }
+                else
+                {
+                    _currentStopTime += elapsed;
+                    if (_currentStopTime >= _stopTime)
+                    {
+                        _isMoving = true;
+                        _currentStopTime = 0;
+                    }
+                }
+
+                if (_enemyEntity.Health <= 0)
+                {
+                    _remove(_enemyEntity);
                 }
             }
-
-            if (_enemyEntity.Health <= 0)
-            {
-                _remove(_enemyEntity);
-            }
+        }
+        private IEntity FindNearestPlayer(Vector2 enemyPosition, List<IEntity> players)
+        {
+            return players.OrderBy(p => Vector2.Distance(enemyPosition, p.Position)).FirstOrDefault();
         }
         private Vector2 GenerateRandomDirection(Vector2 currentPosition)
         {
