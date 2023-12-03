@@ -24,10 +24,13 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
+            if (_boomerang.CollidedWithObject) { return; }
+            _boomerang.CollidedWithObject = true;
             _boomerang.ReturnBoomerang();
             if (weak_enemies.Contains(_enemy.EnemyName.ToLower()))
             {
                 _enemy.TakeDamage(_boomerang.WeaponDamage);
+
             }
             else
             {

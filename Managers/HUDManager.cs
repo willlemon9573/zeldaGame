@@ -23,7 +23,6 @@ namespace SprintZero1.Managers
         private const string NumPosition = "NumPosition";
         private const string Player = "player";
         private const string Zero = "0";
-        private const int MaxBoxes = 2;
         private const int ItemDigits = 2;
         private const int LeftDigitIndex = 0; //array index 0
         private const int RightDigitIndex = 1; //array index 1

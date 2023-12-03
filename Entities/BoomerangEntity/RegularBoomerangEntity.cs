@@ -41,8 +41,12 @@ namespace SprintZero1.Entities.BoomerangEntity
         {
             if (IsActive) { return; }
             _speedFactor = 1.0f;
+            _rotation = 0;
+            _elapsedTime = 0;
+            distanceMoved = 0;
             IsActive = true;
             returning = false;
+            _collidedWithObject = false;
             ImpactEffectSprite = null;
             ProjectileSprite = WeaponSpriteFactory.Instance.CreateBoomerangSprite("");
             // Adjusting position and sprite based on the direction.

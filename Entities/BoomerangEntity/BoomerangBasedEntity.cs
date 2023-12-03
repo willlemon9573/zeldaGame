@@ -26,6 +26,8 @@ namespace SprintZero1.Entities.BoomerangEntity
         protected float _speedFactor = 1.0f;
         protected bool _isAccelerating = false;
         protected SoundEffect _boomerangSound;
+        protected bool _collidedWithObject;
+        public bool CollidedWithObject { get { return _collidedWithObject; } set { _collidedWithObject = value; } }
 
         /// <summary>
         /// Initializes a new instance of the BoomerangBasedEntity class.
@@ -48,6 +50,8 @@ namespace SprintZero1.Entities.BoomerangEntity
         public void StopProjectile()
         {
             _isActive = false;
+            _isAccelerating = false;
+
         }
 
         /// <summary>
@@ -118,12 +122,12 @@ namespace SprintZero1.Entities.BoomerangEntity
             }
         }
 
-        public void ReturnBoomerang(bool isAccelerating = true)
+        public void ReturnBoomerang()
         {
             if (returning) { return; }
             returning = true;
             distanceMoved = 0;
-            _isAccelerating = isAccelerating;
+            _isAccelerating = true;
             _speedFactor = 0;
         }
 
@@ -151,9 +155,8 @@ namespace SprintZero1.Entities.BoomerangEntity
             MoveProjectile(moveDirection * movingSpeed * _speedFactor);
 
             // Deactivate the boomerang when it reaches the player.
-            if (Vector2.Distance(_weaponPosition, _player.Position) < 1.0f)
+            if (Vector2.Distance(_weaponPosition, _player.Position) <= 1.5f)
             {
-                ProjectileSprite = null;
                 IsActive = false;
                 if (GameStatesManager.CurrentState is GamePlayingState gameState)
                 {
