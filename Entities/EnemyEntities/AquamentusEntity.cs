@@ -15,7 +15,7 @@ namespace SprintZero1.Entities.EnemyEnetities
             // all other values inherited from the BaseBossEntity to prevent duplicate code
             _bossSprite = EnemySpriteFactory.Instance.CreateBossSprite(BossName);
             _bossCollider = new BossCollider(startingPosition, new System.Drawing.Size(_bossSprite.Width, _bossSprite.Height));
-            _bossState = new AquamentusMovingState(this);
+            _currentState = new AquamentusMovingState(this);
         }
 
         public override void Attack()

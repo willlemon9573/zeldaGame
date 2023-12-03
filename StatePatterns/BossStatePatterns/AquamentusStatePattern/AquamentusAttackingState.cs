@@ -1,4 +1,6 @@
-﻿using SprintZero1.Entities.EnemyEnetities;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Entities.EnemyEnetities;
 
 namespace SprintZero1.StatePatterns.BossStatePatterns.AquamentusStatePattern
 {
@@ -6,6 +8,21 @@ namespace SprintZero1.StatePatterns.BossStatePatterns.AquamentusStatePattern
     {
         public AquamentusAttackingState(BaseBossEntity boss) : base(boss)
         {
+        }
+
+        public override void Request()
+        {
+
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

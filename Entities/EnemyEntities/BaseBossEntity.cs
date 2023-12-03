@@ -12,18 +12,18 @@ namespace SprintZero1.Entities.EnemyEnetities
 {
     internal abstract class BaseBossEntity : ICombatEntity, ICollidableEntity
     {
-        private const string BossDeathSound = "boss_scream";
-        private const string BossDamageSound = "boss_hit";
+        private const string BossScreamSound = "boss_scream";
+
         protected const float DefaultTouchDamage = 1f;
         protected readonly float MaxHealth;
         protected readonly SoundEffect _bossDamageSound;
-        protected readonly SoundEffect _bossDeathSound;
+        protected readonly SoundEffect _bossScreamSound;
         protected float _currentHealth;
         protected ISprite _bossSprite;
         protected Direction _currentDirection;
         protected Vector2 _currentPosition;
         protected ICollider _bossCollider;
-        protected IEnemyState _bossState;
+        protected IEnemyState _currentState;
 
         public float Health { get { return _currentHealth; } set { _currentHealth = value; } }
         public Direction Direction { get { return _currentDirection; } set { _currentDirection = value; } }
@@ -33,14 +33,15 @@ namespace SprintZero1.Entities.EnemyEnetities
 
         public float TouchDamage { get { return DefaultTouchDamage; } }
 
+        public IEnemyState CurrentState { get { return _currentState; } set { _currentState = value; } }
+
         protected BaseBossEntity(float startingHealth, Direction startingDirection, Vector2 startingPosition)
         {
             MaxHealth = startingHealth;
             Direction = startingDirection;
             Position = startingPosition;
             _currentHealth = startingHealth;
-            _bossDeathSound = SoundFactory.GetSound(BossDeathSound);
-            _bossDamageSound = SoundFactory.GetSound(BossDamageSound);
+            _bossScreamSound = SoundFactory.GetSound(BossScreamSound);
         }
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace SprintZero1.Entities.EnemyEnetities
         /// <param name="newState">The new state to transition to</param>
         protected virtual void TransitionState(State newState)
         {
-            _bossState.TransitionState(newState);
+            _currentState.TransitionState(newState);
         }
 
         public abstract void Attack();
