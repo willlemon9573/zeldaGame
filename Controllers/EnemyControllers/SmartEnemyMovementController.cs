@@ -74,7 +74,7 @@ namespace SprintZero1.Controllers.EnemyControllers
         }
         private bool ShouldUseBoomerangAttack(Vector2 enemyPosition, Vector2 playerPosition)
         {
-            float optimalBoomerangDistance = 100.0f;
+            float optimalBoomerangDistance = 50f;
 
             float distanceToPlayer = Vector2.Distance(enemyPosition, playerPosition);
             return distanceToPlayer <= optimalBoomerangDistance;

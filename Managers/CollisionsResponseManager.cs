@@ -31,6 +31,7 @@ namespace SprintZero1.Managers
             { new Tuple<Type, Type>(typeof(EnemyCollider), typeof(EnemyCollider)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(EnemyCollider), typeof(OpenDoorCollider)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(EnemyCollider), typeof(LockedDoorCollider)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(EnemyCollider), typeof(WallCollider)), (entity1, entity2) => new PushBackCommand(entity1, entity2).Execute() },
             { new Tuple<Type, Type>(typeof(PlayerCollider), typeof(EnemyCollider)), (entity1, entity2) => new PlayerEnemyTouchDamageCommand(entity1, entity2).Execute()},
             { new Tuple<Type, Type>(typeof(PlayerBoomerangCollider), typeof(EnemyCollider)), (entity1, entity2) => new PauseEnemyCommand(entity1, entity2).Execute()},
             { new Tuple<Type, Type>(typeof(PlayerProjectileCollider), typeof(EnemyCollider)), (entity1, entity2) => new ProjectileDamageCommand(entity1, entity2).Execute() },
@@ -40,7 +41,13 @@ namespace SprintZero1.Managers
             { new Tuple<Type, Type>(typeof(PlayerBoomerangCollider), typeof(LockedDoorCollider)), (entity1, entity2) => new ProjectileWallCollisionCommand(entity1, entity2).Execute()},
             { new Tuple<Type, Type>(typeof(PlayerBoomerangCollider), typeof(BreakableWallCollider)), (entity1, entity2) => new ProjectileWallCollisionCommand(entity1, entity2).Execute()},
             { new Tuple<Type, Type>(typeof(PlayerProjectileCollider), typeof(WallCollider)), (entity1, entity2) => new ProjectileWallCollisionCommand(entity1, entity2).Execute() },
-            { new Tuple<Type, Type>(typeof(PlayerBombExplosionCollider), typeof(BreakableWallCollider)), (entity1, entity2) => new BreakWallCommand(entity1, entity2).Execute() }
+            { new Tuple<Type, Type>(typeof(PlayerBombExplosionCollider), typeof(BreakableWallCollider)), (entity1, entity2) => new BreakWallCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(EnemyProjectileCollider), typeof(PlayerCollider)), (entity1, entity2) => new ProjectileDamageCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(EnemyProjectileCollider), typeof(WallCollider)), (entity1, entity2) => new ProjectileWallCollisionCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(EnemyProjectileCollider), typeof(BlockedDoorCollider)), (entity1, entity2) => new ProjectileWallCollisionCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(EnemyProjectileCollider), typeof(OpenDoorCollider)), (entity1, entity2) => new ProjectileWallCollisionCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(EnemyProjectileCollider), typeof(BreakableWallCollider)), (entity1, entity2) => new ProjectileWallCollisionCommand(entity1, entity2).Execute() },
+            { new Tuple<Type, Type>(typeof(EnemyProjectileCollider), typeof(LockedDoorCollider)), (entity1, entity2) => new ProjectileWallCollisionCommand(entity1, entity2).Execute()}
         };
 
         /// <summary>
