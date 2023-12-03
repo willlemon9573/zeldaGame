@@ -6,7 +6,6 @@ using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
-using System;
 
 namespace SprintZero1.Entities.WeaponEntities.BoomerangEntity
 {
@@ -32,7 +31,10 @@ namespace SprintZero1.Entities.WeaponEntities.BoomerangEntity
             movingSpeed = RegularBoomerangMovingSpeed;
             IsActive = false;
         }
-
+        protected virtual void SetCollider()
+        {
+            _projectileCollider = new PlayerBoomerangCollider(_weaponPosition, new System.Drawing.Size(ProjectileSprite.Width, ProjectileSprite.Height));
+        }
         /// <summary>
         /// Prepares the weapon for use by setting its initial state and sprite.
         /// </summary>
@@ -55,7 +57,7 @@ namespace SprintZero1.Entities.WeaponEntities.BoomerangEntity
             _spriteMovingAddition = _spriteMovingDictionary[direction] * movingSpeed;
             _currentSpriteEffect = SpriteEffects.None;
             _weaponPosition = position + spriteAdditions.Item2;
-            _projectileCollider = new PlayerBoomerangCollider(_weaponPosition, new System.Drawing.Size(ProjectileSprite.Width, ProjectileSprite.Height));
+
             if (GameStatesManager.CurrentState is GamePlayingState gameState)
             {
                 gameState.AddProjectile(this);
