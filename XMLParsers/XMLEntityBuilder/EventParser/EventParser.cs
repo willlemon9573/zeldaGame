@@ -118,14 +118,17 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
         private List<BlockInfo> ParseBlockInfos(XmlReader reader)
         {
             List<BlockInfo> blockList = new List<BlockInfo>();
-
+            BlockInfo block = new BlockInfo();
             while (reader.Read())
             {
                 if (reader.NodeType == ElementType && _blockMap.TryGetValue(reader.Name, out var blockMap))
                 {
-                    BlockInfo block = new BlockInfo();
                     blockMap(reader, block);
+                }
+                else if (reader.NodeType == EndElementType && reader.Name == "EventBlock")
+                {
                     blockList.Add(block);
+                    block = new BlockInfo();
                 }
                 else if (reader.NodeType == EndElementType && reader.Name == EventBlockListElement)
                 {
@@ -247,7 +250,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
             List<Direction> doorDirectionsList = new List<Direction>();
             foreach (var direction in doorDirections)
             {
-                Direction doorDirection = (Direction)Enum.Parse(typeof(Direction), eventInfo.DoorDirectionToOpen, true);
+                Direction doorDirection = (Direction)Enum.Parse(typeof(Direction), direction, true);
                 doorDirectionsList.Add(doorDirection);
             }
             List<Tuple<int, int>> triggerList = eventInfo.TriggerLocations;

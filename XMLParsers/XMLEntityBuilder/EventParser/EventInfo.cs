@@ -26,6 +26,6 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
             doorDirections.Add(direction);
         }
 
-        public List<String> DoorDirections { get {  return doorDirections; } }
+        public List<string> DoorDirections { get {  return doorDirections; } }
     }
 }
