@@ -49,6 +49,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
         {
             if (_blockTransition) { return; }
             _enemyEntity.EnemyState = _stateTransitionMap[newState].Invoke();
+
         }
 
         /// <summary>
