@@ -289,14 +289,17 @@ namespace SprintZero1.XMLParsers
             string eventTwo = "RoomBeatKeyEvent";
             string eventThree = "RoomBeatBoomerangEvent";
             string eventFour = "RoomBeatOpenDoorEvent";
+            string puzzleEvent = "DropWithMultipleBlocksEvent";
             Dictionary<string, Action<XmlReader, DungeonRoom>> eventMap = new Dictionary<string, Action<XmlReader, DungeonRoom>>()
-            {
-                { eventOne, (reader, room) => parser.ParseOpenDoorWithBlockEvent(room, reader) },
-                { eventTwo, (reader, room) => parser.ParseRoomBeatKeyEvent(room, reader) },
-                { eventThree, (reader, room) => parser.ParseRoomBeatBoomerangEvent(room, reader) },
-                { eventFour, (reader, room) => parser.ParseRoomBeatOpenDoorEvent(room, reader) },
-                { eventFive, (reader, room) => parser.ParseOpenPathWithBlockEvent(room, reader) },
-            };
+{
+    { eventOne, (reader, room) => parser.ParseOpenDoorWithBlockEvent(room, reader) },
+    { eventTwo, (reader, room) => parser.ParseRoomBeatKeyEvent(room, reader) },
+    { eventThree, (reader, room) => parser.ParseRoomBeatBoomerangEvent(room, reader) },
+    { eventFour, (reader, room) => parser.ParseRoomBeatOpenDoorEvent(room, reader) },
+    { eventFive, (reader, room) => parser.ParseOpenPathWithBlockEvent(room, reader) },
+    { puzzleEvent, (reader, room) => parser.ParsePuzzleRoomEvent(room, reader) },
+};
+
 
             while (reader.Read())
             {

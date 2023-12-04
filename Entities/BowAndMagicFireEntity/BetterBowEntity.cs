@@ -17,7 +17,7 @@ namespace SprintZero1.Entities.BowAndMagicFireEntity
     internal class BetterBowEntity : NonComingBackWeaponEntity
     {
         private const int BetterBowMaxDistance = 60; // Maximum distance the projectile can travel before becoming inactive
-        private const float BetterBowMovingSpeed = 3;
+        private const float BetterBowMovingSpeed = 2f;
 
         /// <summary>
         /// Initializes a new instance of the BetterBowEntity class.

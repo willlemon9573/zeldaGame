@@ -24,6 +24,9 @@
 	<Sprite name="bow">
 		<Rectangle x="948" y="426" width="8" height="16" />
 	</Sprite>
+	<Sprite name="betterbow">
+		<Rectangle x="890" y="435" width="20" height="20" />
+	</Sprite>
 	<Sprite name="magicalrod">
 		<Rectangle x="332" y="587" width="4" height="16" />
 	</Sprite>

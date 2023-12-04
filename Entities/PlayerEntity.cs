@@ -76,7 +76,7 @@ namespace SprintZero1.Entities
 
 
             /* For testing */
-            _playerEquipmentSlot = new RegularBowEntity("regularbow");
+            _playerEquipmentSlot = new BetterBowEntity("better");
         }
 
         public void Move()

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <Room>
 	<Floor>
 		<Name>floorTwo</Name>
@@ -48,66 +48,66 @@
 		</Wall>
 	</Walls>
 	<Blocks>
-	<Block>
-		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>136</Y>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>136</Y>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>152</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>152</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>168</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>168</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>119</X>
+			<Y>136</Y>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>135</X>
+			<Y>136</Y>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>119</X>
+			<Y>152</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>135</X>
+			<Y>152</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>119</X>
+			<Y>168</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>135</X>
+			<Y>168</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
 	</Blocks>
 	<Enemies>
-	<Enemy>
-		<Name>dungeon_stalfos</Name>
-		<X>95</X>
-		<Y>165</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>0</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_stalfos</Name>
-		<X>104</X>
-		<Y>139</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>0</IsBoss>
-	</Enemy>
-	<Enemy>
-		<Name>dungeon_stalfos</Name>
-		<X>95</X>
-		<Y>101</Y>
-		<Health>1</Health>
-		<Frames>2</Frames>
-		<IsBoss>0</IsBoss>
-	</Enemy>
+		<Enemy>
+			<Name>dungeon_stalfos</Name>
+			<X>95</X>
+			<Y>165</Y>
+			<Health>1</Health>
+			<Frames>2</Frames>
+			<IsBoss>0</IsBoss>
+		</Enemy>
+		<Enemy>
+			<Name>dungeon_stalfos</Name>
+			<X>104</X>
+			<Y>139</Y>
+			<Health>1</Health>
+			<Frames>2</Frames>
+			<IsBoss>0</IsBoss>
+		</Enemy>
+		<Enemy>
+			<Name>dungeon_stalfos</Name>
+			<X>95</X>
+			<Y>101</Y>
+			<Health>1</Health>
+			<Frames>2</Frames>
+			<IsBoss>0</IsBoss>
+		</Enemy>
 	</Enemies>
 	<Doors>
 		<Door>
@@ -127,12 +127,12 @@
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>doorless_east</Name>
+			<Name>open_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<Destination>none</Destination>
+			<Destination>puzzleRoom</Destination>
 			<Direction>East</Direction>
-			<DoorType>DoorlessEntity</DoorType>
+			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>locked_south</Name>

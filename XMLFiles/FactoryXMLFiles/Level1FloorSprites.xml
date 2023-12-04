@@ -57,4 +57,7 @@
 	<Sprite name = "floorSecret">
 		<Rectangle x = "1" y = "1" width = "255" height = "159"/>
 	</Sprite>
+	<Sprite name ="puzzleRoom">
+		<Rectangle x="290" y="918" width="192" height="112"/>
+	</Sprite>
 </Sprites>
