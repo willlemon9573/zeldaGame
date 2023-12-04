@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.ItemColliders;
@@ -33,6 +34,7 @@ namespace SprintZero1.Entities.WeaponEntities.BombEntityFolder
         private bool _isActive;
         private bool _hasExploded;
         private ICollider _bombCollider;
+        private SoundEffect _explosionSound;
 
         public bool HasExploded { get { return _hasExploded; } }
 
@@ -64,11 +66,11 @@ namespace SprintZero1.Entities.WeaponEntities.BombEntityFolder
                 { Direction.East, new Vector2(11, 0) },
                 { Direction.West, new Vector2(-11, 0) }
             };
+            _explosionSound = SoundFactory.GetSound("bomb_blow");
         }
 
         private void UpdateCollider()
         {
-
             if (GameStatesManager.CurrentState is GamePlayingState gameplayState)
             {
                 gameplayState.AddProjectile(this);
@@ -117,7 +119,6 @@ namespace SprintZero1.Entities.WeaponEntities.BombEntityFolder
                 _bombCollider.Update(this);
                 _explosionElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-
         }
 
         /// <summary>
@@ -132,6 +133,7 @@ namespace SprintZero1.Entities.WeaponEntities.BombEntityFolder
                 _weaponSprite = ImpactEffectSprite; // Change to impact effect sprite after timer
                 _bombCollider = new PlayerBombExplosionCollider(_weaponPosition, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
                 _hasExploded = true;
+                _explosionSound.Play();
             }
             else if (_hasExploded && _explosionElapsedTime >= explosionTime && GameStatesManager.CurrentState is GamePlayingState state)
             {

@@ -10,6 +10,7 @@ using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 
@@ -127,6 +128,10 @@ namespace SprintZero1.Entities
         public void Die()
         {
             _isDead = true;
+            if (GameStatesManager.CurrentState is GamePlayingState gameState)
+            {
+                gameState.DecrementLivePlayers();
+            }
         }
 
         public void PickedupItem(ILootableEntity _equipment)

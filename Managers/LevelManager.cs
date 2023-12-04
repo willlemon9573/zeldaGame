@@ -15,8 +15,8 @@ namespace SprintZero1.Managers
         /// </summary>
         private static readonly Dictionary<string, DungeonRoom> _dungeonRoomMap = new Dictionary<string, DungeonRoom>();
 
-        private static Dictionary<string, bool> _whetherVisitedRoom = new Dictionary<string, bool>();
-        public static Dictionary<string, bool> WhetherVisitedRoom { get { return _whetherVisitedRoom; } }
+        private static Dictionary<string, bool> _visitedRooms = new Dictionary<string, bool>();
+        public static Dictionary<string, bool> WhetherVisitedRoom { get { return _visitedRooms; } }
         /* for mouse commands */
         private static int currentRoomIndex = 0;
         /// <summary>
@@ -37,7 +37,7 @@ namespace SprintZero1.Managers
             foreach (var filePath in Directory.EnumerateFiles(LevelFolderPath))
             {
                 DungeonRoom room = parser.Parse(filePath);
-                _whetherVisitedRoom.Add(room.RoomName, false);
+                _visitedRooms.Add(room.RoomName, false);
                 _dungeonRoomMap.Add(room.RoomName, room);
             }
         }
@@ -45,10 +45,8 @@ namespace SprintZero1.Managers
 
         public static Dictionary<string, bool> GetWhetherVisitedRoom()
         {
-            return _whetherVisitedRoom;
+            return _visitedRooms;
         }
-
-
 
         /// <summary>
         /// Returns the desired dungeon room that contains all the information about that room
@@ -59,7 +57,7 @@ namespace SprintZero1.Managers
         {
             Debug.Assert(roomName != null, "roomName cannot be null");
             Debug.Assert(_dungeonRoomMap.ContainsKey(roomName));
-            _whetherVisitedRoom[roomName] = true;
+            _visitedRooms[roomName] = true;
             _playerCurrentRoom = roomName;
             return _dungeonRoomMap[roomName];
         }
@@ -75,6 +73,12 @@ namespace SprintZero1.Managers
             {
                 room.UnlockDoor(doorDirection);
             }
+        }
+
+        public static void Reset()
+        {
+            _dungeonRoomMap.Clear();
+            _visitedRooms.Clear();
         }
     }
 }

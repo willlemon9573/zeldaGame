@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Controllers.EnemyControllers;
-using SprintZero1.DebuggingTools;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
 using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Entities.EntityInterfaces;
@@ -10,7 +9,6 @@ using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.LevelFiles.RoomEvents;
-using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -39,7 +37,6 @@ namespace SprintZero1.LevelFiles
         private readonly Dictionary<Direction, Vector2> _playerStartingPositionMap;
         private string _roomName; /* identification for the room */
         private int enemyCount;
-        private readonly SpriteDebuggingTools _spriteDebugger;
         private readonly List<IRoomEvent> _roomEvents;
         private ColliderManager _colliderManagerRef;
         private SpriteFont _font;
@@ -75,18 +72,20 @@ namespace SprintZero1.LevelFiles
             _playerStartingPositionMap = new Dictionary<Direction, Vector2>();
             _floorItems = new List<IEntity>();
             _itemCollector = new List<IEntity>();
-            _spriteDebugger = new SpriteDebuggingTools(GameStatesManager.ThisGame);
             _roomEvents = new List<IRoomEvent>();
 
             ISprite heart = ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite("heart");
-            Vector2 n = new Vector2(85, 136);
+            List<Vector2> heartPositions = new List<Vector2>() {
+                new Vector2(40, 105), // top left
+                new Vector2(40, 200), // bottom left
+                new Vector2(215, 105), // top right
+                new Vector2(215, 200) // bottom right
+            };
             RemoveDelegate r = this.RemoveFromRoom;
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < heartPositions.Count; i++)
             {
-
-                ILootableEntity repleneshingHeart = new ReplenishingHeartEntity(heart, n, r);
-                n.X += 25;
+                ILootableEntity repleneshingHeart = new ReplenishingHeartEntity(heart, heartPositions[i], r);
                 _floorItems.Add(repleneshingHeart);
             }
         }
@@ -308,49 +307,6 @@ namespace SprintZero1.LevelFiles
             _liveEnemyList.ForEach(entity => entity.Draw(spriteBatch));
             _architechtureList.ForEach(entity => entity.Draw(spriteBatch));
             _floorItems.ForEach(entity => entity.Draw(spriteBatch));
-            /* drawing entity colliders on screen */
-            if (_font != null)
-            {
-                spriteBatch.DrawString(_font, _roomName, new Vector2(100, 50), Color.White);
-            }
-            foreach (IEntity entity in _architechtureList)
-            {
-                if (entity is ICollidableEntity)
-                {
-                    Rectangle collider = (entity as ICollidableEntity).Collider.Collider;
-                    Color r = Color.White;
-                    if (entity is BreakableWallEntity)
-                    {
-                        r = Color.Red;
-                    }
-                    _spriteDebugger.DrawRectangle(collider, r, spriteBatch);
-                }
-            }
-
-            foreach (IEntity entity in _liveEnemyList)
-            {
-                if (entity is AquamentusEntity)
-                {
-                    Debug.WriteLine("k");
-                }
-                if (entity is ICollidableEntity collidableEntity)
-                {
-                    Rectangle collider = collidableEntity.Collider.Collider;
-                    Color c = Color.Red;
-                    _spriteDebugger.DrawRectangle(collider, c, spriteBatch);
-                }
-            }
-
-            /* drawing a collider for any floor items */
-            foreach (IEntity entity in _floorItems)
-            {
-                if (entity is ICollidableEntity collidableEntity)
-                {
-                    Rectangle collider = collidableEntity.Collider.Collider;
-                    Color c = Color.GreenYellow;
-                    _spriteDebugger.DrawRectangle(collider, c, spriteBatch);
-                }
-            }
         }
     }
 }

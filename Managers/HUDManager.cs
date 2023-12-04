@@ -324,5 +324,17 @@ namespace SprintZero1.Managers
                 bombDigits[i].Draw(spriteBatch, positionDictionary[$"bombPosition{i}"], DefaultColorMask);
             }
         }
+
+        public static void Reset()
+        {
+            rupeeDigits.Clear();
+            keyDigits.Clear();
+            bombDigits.Clear();
+            spriteAndPosList.Clear();
+            _playerHealthMap.Clear();
+            _playerMarkerOffsetMap.Clear();
+            _specialCaseDict.Clear();
+            positionDictionary.Clear();
+        }
     }
 }

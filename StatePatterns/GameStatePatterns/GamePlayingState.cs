@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using SprintZero1.Colliders;
-using SprintZero1.DebuggingTools;
 using SprintZero1.Entities;
 using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
@@ -25,10 +24,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         private readonly ColliderManager _colliderManager;
         // Note: Base variable is EntityManager
         public DungeonRoom CurrentRoom { get { return _currentRoom; } }
-
-        private readonly MouseTools _mouseController; /* for debugging */
         private readonly Song _dungeonMusic;
-        private readonly SpriteDebuggingTools _spriteDebuggingTools;
         private bool _pauseUpdate;
 
         public bool PauseUpdate { get { return _pauseUpdate; } set { _pauseUpdate = value; } }
@@ -40,11 +36,9 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public GamePlayingState(Game1 game) : base(game)
         {
             _colliderManager = new ColliderManager();
-            _mouseController = new MouseTools(game.GraphicsDevice);
             _dungeonMusic = SoundFactory.GetMusic("DungeonMusic");
             SoundFactory.AdjustMusicVolume(.3f);
             SoundFactory.PlayMusic(_dungeonMusic);
-            _spriteDebuggingTools = new SpriteDebuggingTools(game);
             _pauseUpdate = false;
         }
 
@@ -54,7 +48,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _livePlayerCount++;
         }
 
-        public void DecrementLivePlayerS()
+        public void DecrementLivePlayers()
         {
             _livePlayerCount--;
             if (_livePlayerCount == 0)
@@ -140,7 +134,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
                 return;
             }
 
-            _mouseController.UpdateCoordinates();
             HUDManager.Update(gameTime);
             // update player and their respective controller
             for (int i = 0; i < _livePlayerList.Count; i++)
@@ -164,14 +157,13 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            _mouseController.DrawCoordinates(spriteBatch);
-            _mouseController.DrawClickedRectangleCoordinates(spriteBatch);
             HUDManager.Draw(spriteBatch);
             // draw each player
             foreach (var playerTuple in _livePlayerList.Values)
             {
                 playerTuple.Item1.Draw(spriteBatch);
             }
+
             for (int i = 0; i < _projectiles.Count; i++)
             {
                 _projectiles[i].Draw(spriteBatch);

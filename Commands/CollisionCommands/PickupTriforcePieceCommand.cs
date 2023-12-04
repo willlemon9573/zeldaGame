@@ -30,7 +30,8 @@ namespace SprintZero1.Commands.CollisionCommands
             {
                 player.PickedupItem(_triforcePiece);
             }
-            _state.ChangeGameState(GameState.LevelCompleted);
+            GameStatesManager.ChangeGameState(GameState.LevelCompleted);
+            GameStatesManager.CurrentState.Handle();
         }
     }
 }
