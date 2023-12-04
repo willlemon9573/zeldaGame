@@ -8,7 +8,7 @@ using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 
-namespace SprintZero1.Entities.EnemyEnetities
+namespace SprintZero1.Entities.EnemyEntities
 {
     internal abstract class BaseBossEntity : ICombatEntity, ICollidableEntity
     {

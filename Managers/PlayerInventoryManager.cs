@@ -104,7 +104,6 @@ namespace SprintZero1.Managers
             Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Inventory manager could not find {player}");
             Debug.Assert(!_playerInventoryMap[player].IsInInventory(equipment), $"Error adding to innventory, {player} already contains {equipment}");
             _playerInventoryMap[player].AddNewEquipment(equipment, newEquipment);
-
         }
 
         /// <summary>

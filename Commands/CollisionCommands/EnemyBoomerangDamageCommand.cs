@@ -1,23 +1,24 @@
 ﻿using SprintZero1.Entities.EntityInterfaces;
-using SprintZero1.Entities.WeaponEntities.BoomerangEntity;
+using SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
-    internal class EnemyBoomerangDamageCommand : ICommand
+    internal class ProjectileDamageCommand : ICommand
     {
 
         private readonly ICollidableEntity _projectile;
         private readonly ICombatEntity _combatEntity;
-        public EnemyBoomerangDamageCommand(ICollidableEntity projectile, ICollidableEntity combatEntity)
+        public ProjectileDamageCommand(ICollidableEntity projectile, ICollidableEntity combatEntity)
         {
             _projectile = projectile;
             _combatEntity = combatEntity as ICombatEntity;
         }
         public void Execute()
         {
-            if (_projectile is BoomerangBasedEntity nonReturningProjectile)
+            if (_projectile is NonComingBackWeaponEntity nonReturningProjectile)
             {
                 _combatEntity.TakeDamage(nonReturningProjectile.WeaponDamage);
+                nonReturningProjectile.Stop();
             }
         }
     }

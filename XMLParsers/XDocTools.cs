@@ -104,6 +104,13 @@ namespace SprintZero1.XMLParsers
             CheckAttribute(key);
             return (EquipmentItem)Enum.Parse(typeof(EquipmentItem), key.Value, true);
         }
+
+        public DungeonItems ParseAttributeADungeonItemsData(XElement element, string attributeName)
+        {
+            XAttribute key = element.Attribute(attributeName);
+            CheckAttribute(key);
+            return (DungeonItems)Enum.Parse(typeof(DungeonItems), key.Value, true);
+        }
         /// <summary>
         /// Parses a Sprite Effect enum from the given element
         /// </summary>

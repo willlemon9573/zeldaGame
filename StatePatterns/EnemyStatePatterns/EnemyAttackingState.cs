@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities.EnemyEnetities;
+using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Enums;
 
 namespace SprintZero1.StatePatterns.EnemyStatePatterns

@@ -11,7 +11,7 @@ using SprintZero1.StatePatterns.EnemyStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 
 
-namespace SprintZero1.Entities.EnemyEnetities
+namespace SprintZero1.Entities.EnemyEntities
 {
     /// <summary>
     /// EnemyBasedEntity class: An abstract class used to control and update enemy entities.

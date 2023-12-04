@@ -10,4 +10,28 @@
 	<BetterItem name="betterboomerang" x="190" y="680" width="16"  height="16"/>
 	<BetterItem name="betterbow" x="208" y="680" width="16"  height="16"/>
 	<Item name="magicalrod" x="326" y="587" width="16"  height="16"/>
+	<DungeonItems name="Level1Map" x="601" y="156" width="8"  height="16"/>
+	<DungeonItems name="Level1Compass" x="612" y="156" width="16"  height="16"/>
+	<Cover x="484" y="98" width="8" height="8"/>
+	<currentPlayer x="537" y="126" width="8" height="8"/>
+	<Rooms>
+		<Room name="entrance" x="155" y="176" />
+		<Room name="entranceLeft" x="147" y="176" />
+		<Room name="entranceRight" x="163" y="176" />
+		<Room name="floorTwo" x="155" y="168" />
+		<Room name="floorThree" x="155" y="160" />
+		<Room name="floorThreeLeft" x="147" y="160" />
+		<Room name="floorThreeRight" x="163" y="160" />
+		<Room name="floorFour" x="155" y="152" />
+		<Room name="floorFourLeft" x="147" y="152" />
+		<Room name="floorFourLeftest" x="139" y="152" />
+		<Room name="floorFourRight" x="163" y="152" />
+		<Room name="floorFourRightest" x="171" y="152" />
+		<Room name="floorFive" x="155" y="144" />
+		<Room name="floorFiveRight" x="171" y="144" />
+		<Room name="floorFiveRightest" x="179" y="144" />
+		<Room name="floorSix" x="155" y="136" />
+		<Room name="floorSixLeft" x="147" y="136" />
+	</Rooms>
+
 </ItemData>

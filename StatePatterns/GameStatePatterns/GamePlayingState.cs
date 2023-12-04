@@ -8,6 +8,7 @@ using SprintZero1.Factories;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
@@ -45,7 +46,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Handle()
         {
-            _currentRoom.UpdateEnemyController(_playerMap[1].Item1);
+            List<IEntity> entityList = _playerMap.Values.Select(tuple => tuple.Item1).ToList();
+            _currentRoom.UpdateEnemyController(entityList);
             SoundFactory.AdjustMusicVolume(0.3f);
         }
 

@@ -4,7 +4,7 @@ using SprintZero1.Colliders;
 using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.DebuggingTools;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
-using SprintZero1.Entities.EnemyEnetities;
+using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
@@ -239,16 +239,15 @@ namespace SprintZero1.LevelFiles
             _itemCollector.Clear();
         }
 
-        public void UpdateEnemyController(IEntity playerEntity)
+        public void UpdateEnemyController(List<IEntity> players)
         {
             if (_enemyControllerList.Count > 0 && _liveEnemyList.Count == enemyCount) { return; }
             RemoveDelegate remover = RemoveDeadEnemies;
-
             foreach (ICombatEntity combatEntity in _liveEnemyList)
             {
                 if (combatEntity is not AquamentusEntity)
                 {
-                    _enemyControllerList.Add(new SmartEnemyMovementController(combatEntity, playerEntity, remover));
+                    _enemyControllerList.Add(new SmartEnemyMovementController(combatEntity, players, remover, _architechtureList));
                 }
             }
         }

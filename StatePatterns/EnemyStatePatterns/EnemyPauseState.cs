@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities.EnemyEnetities;
+using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Enums;
 
 namespace SprintZero1.StatePatterns.EnemyStatePatterns
@@ -31,6 +31,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
         public override void Update(GameTime gameTime)
         {
             _elapsedPauseTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             if (_elapsedPauseTime >= MaxPauseTime)
             {
                 UnblockTranstion();

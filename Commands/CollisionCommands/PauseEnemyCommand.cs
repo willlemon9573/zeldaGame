@@ -1,4 +1,4 @@
-using SprintZero1.Entities.EnemyEnetities;
+using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.WeaponEntities.BoomerangEntity;
 using System.Collections.Generic;

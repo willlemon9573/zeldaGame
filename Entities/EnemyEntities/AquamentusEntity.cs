@@ -7,7 +7,7 @@ using SprintZero1.Factories;
 using SprintZero1.LevelFiles;
 using SprintZero1.StatePatterns.BossStatePatterns.AquamentusStatePattern;
 
-namespace SprintZero1.Entities.EnemyEnetities
+namespace SprintZero1.Entities.EnemyEntities
 {
     internal class AquamentusEntity : BaseBossEntity
     {
