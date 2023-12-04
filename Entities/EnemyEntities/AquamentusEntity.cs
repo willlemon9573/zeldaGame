@@ -23,7 +23,7 @@ namespace SprintZero1.Entities.EnemyEnetities
             _currentState = new AquamentusMovingState(this);
             _vulnerabilityState = new AquamentusVulnerabilityState(this);
             _bossController = new AquamentusBossController(this, remover, boundary);
-            _currentDirection = Direction.North;
+            _currentDirection = Direction.East;
         }
 
         public override void Attack()

@@ -188,14 +188,14 @@
 	<Enemies>
 		<Boss>
 			<Name>aquamentus</Name>
-			<X>168</X>
+			<X>175</X>
 			<Y>145</Y>
 			<Health>1</Health>
 			<Frames>2</Frames>
 			<Boundary>
-				<X>143</X>
+				<X>160</X>
 				<Y>120</Y>
-				<Width>31</Width>
+				<Width>50</Width>
 				<Height>65</Height>
 			</Boundary>
 		</Boss>

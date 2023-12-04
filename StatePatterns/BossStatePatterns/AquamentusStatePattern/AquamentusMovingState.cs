@@ -10,7 +10,7 @@ namespace SprintZero1.StatePatterns.BossStatePatterns.AquamentusStatePattern
     internal class AquamentusMovingState : BaseBossState
     {
         private Vector2 _movingDirection;
-        private const float DefaultMoveSpeed = 25f;
+        private const float DefaultMoveSpeed = 15f;
         private readonly Dictionary<Direction, Vector2> _velocityMap;
         private readonly Color defaultColor;
 

@@ -60,7 +60,10 @@ namespace SprintZero1.StatePatterns.BossStatePatterns
             }
         }
 
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            _boss.Sprite.Draw(spriteBatch, _boss.Position, Color.White);
+        }
 
         public abstract void Request();
 

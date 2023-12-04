@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
 using SprintZero1.Entities.EntityInterfaces;
-using SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity;
+using SprintZero1.Entities.WeaponEntities.BombEntityFolder;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
@@ -77,7 +77,7 @@ namespace SprintZero1.Entities
 
 
             /* For testing */
-            _playerEquipmentSlot = new RegularBowEntity("bow");
+            _playerEquipmentSlot = new BombEntity("bomb");
         }
 
         public void Move()

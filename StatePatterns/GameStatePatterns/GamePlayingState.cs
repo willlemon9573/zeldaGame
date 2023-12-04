@@ -138,8 +138,6 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             for (int i = 0; i < _projectiles.Count; i++)
             {
                 _projectiles[i].Draw(spriteBatch);
-                Rectangle r = (_projectiles[i] as ICollidableEntity).Collider.Collider;
-                _spriteDebuggingTools.DrawRectangle(r, Color.SandyBrown, spriteBatch);
             }
 
             _currentRoom.Draw(spriteBatch);
