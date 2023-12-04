@@ -74,8 +74,6 @@ namespace SprintZero1.Entities
             _characterName = characterName;
             _playerSprite = PlayerSpriteFactory.Instance.GetPlayerMovementSprite(characterName, startingDirection);
             float scalefactor = 0.9f; // scale factor for the collider
-            linkHeight = _playerSprite.Height;
-            linkWidth = _playerSprite.Width;
             _changeColliders = false;
             _playerCollider = new PlayerCollider(startingPosition, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);
