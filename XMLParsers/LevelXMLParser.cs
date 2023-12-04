@@ -297,7 +297,7 @@ namespace SprintZero1.XMLParsers
                 { eventThree, (reader, room) => parser.ParseRoomBeatBoomerangEvent(room, reader) },
                 { eventFour, (reader, room) => parser.ParseRoomBeatOpenDoorEvent(room, reader) },
                 { eventFive, (reader, room) => parser.ParseOpenPathWithBlockEvent(room, reader) },
-                { puzzleEvent, (reader, room) => parser.ParseRoomBeatOpenDoorEvent(room, reader) },
+                { puzzleEvent, (reader, room) => parser.ParsePuzzleRoomEvent(room, reader) },
             };
 
             while (reader.Read())

@@ -69,6 +69,9 @@
     <None Update="XMLFiles\HUDXMLFiles\HUDSprites.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="XMLFiles\LevelXMLFiles\PuzzleRoom1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="XMLFiles\LevelXMLFiles\Room1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

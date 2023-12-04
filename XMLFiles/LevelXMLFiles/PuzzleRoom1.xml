@@ -28,7 +28,7 @@
 			</EventInfo>
 			<EventBlock type="MovableBlockEntity">
 				<Name>pyramid</Name>
-				<!-- Rpresents the starting position of the block -->
+				<!-- Represents the starting position of the block -->
 				<X>55</X>
 				<Y>104</Y>
 				<!-- Represents the max position the object can move -->
@@ -38,7 +38,7 @@
 			</EventBlock>
 			<EventBlock type="MovableBlockEntity">
 				<Name>pyramid</Name>
-				<!-- Rpresents the starting position of the block -->
+				<!-- Represents the starting position of the block -->
 				<X>55</X>
 				<Y>120</Y>
 				<!-- Represents the max position the object can move -->
@@ -48,7 +48,7 @@
 			</EventBlock>
 			<EventBlock type="MovableBlockEntity">
 				<Name>pyramid</Name>
-				<!-- Rpresents the starting position of the block -->
+				<!-- Represents the starting position of the block -->
 				<X>55</X>
 				<Y>136</Y>
 				<!-- Represents the max position the object can move -->
@@ -58,7 +58,7 @@
 			</EventBlock>
 			<EventBlock type="MovableBlockEntity">
 				<Name>pyramid</Name>
-				<!-- Rpresents the starting position of the block -->
+				<!-- Represents the starting position of the block -->
 				<X>55</X>
 				<Y>152</Y>
 				<!-- Represents the max position the object can move -->
@@ -68,7 +68,7 @@
 			</EventBlock>
 			<EventBlock type="MovableBlockEntity">
 				<Name>pyramid</Name>
-				<!-- Rpresents the starting position of the block -->
+				<!-- Represents the starting position of the block -->
 				<X>55</X>
 				<Y>168</Y>
 				<!-- Represents the max position the object can move -->
@@ -78,7 +78,7 @@
 			</EventBlock>
 			<EventBlock type="MovableBlockEntity">
 				<Name>pyramid</Name>
-				<!-- Rpresents the starting position of the block -->
+				<!-- Represents the starting position of the block -->
 				<X>55</X>
 				<Y>184</Y>
 				<!-- Represents the max position the object can move -->

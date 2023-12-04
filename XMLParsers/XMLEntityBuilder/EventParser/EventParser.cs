@@ -244,6 +244,12 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
                 movableBlocks.Add(movableBlock);
             }
             List<String> doorDirections = eventInfo.DoorDirections;
+            List<Direction> doorDirectionsList = new List<Direction>();
+            foreach (var direction in doorDirections)
+            {
+                Direction doorDirection = (Direction)Enum.Parse(typeof(Direction), eventInfo.DoorDirectionToOpen, true);
+                doorDirectionsList.Add(doorDirection);
+            }
             List<Tuple<int, int>> triggerList = eventInfo.TriggerLocations;
             //convert to List<Vector2>
             List<Vector2> triggerLocations = new List<Vector2>();
@@ -252,7 +258,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
                 Vector2 vector2 = new Vector2(tuple.Item1, tuple.Item2);
                 triggerLocations.Add(vector2);
             }
-            IRoomEvent roomEvent = new DropWithMultipleBlocksEvent(roomWithEvent, movableBlocks,triggerLocations, doorDirections);
+            IRoomEvent roomEvent = new DropWithMultipleBlocksEvent(roomWithEvent, movableBlocks,triggerLocations, doorDirectionsList);
             roomWithEvent.AddRoomEvent(roomEvent);
         }
     }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
+using SprintZero1.Enums;
 using SprintZero1.Factories;
 
 namespace SprintZero1.LevelFiles.RoomEvents
@@ -12,7 +13,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
     internal class DropWithMultipleBlocksEvent : IRoomEvent
     {
         private readonly DungeonRoom _room;
-        private List<String> _doorToOpenDirections = new List<String>();
+        List<Direction> _doorsToOpenDirections = new List<Direction>();
         private bool _canTriggerEvent;
         private readonly List<IMovableEntity> _movableBlocks;
         private readonly List<Vector2> _triggerPositions;
@@ -26,13 +27,13 @@ namespace SprintZero1.LevelFiles.RoomEvents
         /// <param name="movableBlocks">List of movable blocks in level</param>
         /// <param name="triggerPositions">List of block destinations for event to trigger</param>
         /// <param name="requiredBlocks">Number of blocks needed to complete puzzle</param>
-        public DropWithMultipleBlocksEvent(DungeonRoom room, List<IMovableEntity> movableBlocks, List<Vector2> triggerPositions, List<String> doorToOpenDirections)
+        public DropWithMultipleBlocksEvent(DungeonRoom room, List<IMovableEntity> movableBlocks, List<Vector2> triggerPositions, List<Direction> doorsToOpenDirections)
         {
             _room = room;
             _canTriggerEvent = true;
             _movableBlocks = movableBlocks;
             _triggerPositions = triggerPositions;
-            _doorToOpenDirections = doorToOpenDirections;
+            _doorsToOpenDirections = doorsToOpenDirections;
             _elapsedTime = 0f;
         }
         
