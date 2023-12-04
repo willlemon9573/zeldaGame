@@ -169,12 +169,12 @@
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>open_south</Name>
+			<Name>doorless_south</Name>
 			<X>127</X>
 			<Y>224</Y>
 			<Destination>puzzleRoom</Destination>
 			<Direction>South</Direction>
-			<DoorType>OpenDoorEntity</DoorType>
+			<DoorType>BreakableWallEntity</DoorType>
 		</Door>
 	</Doors>
 </Room>
