@@ -17,6 +17,7 @@ namespace SprintZero1.Commands.CollisionCommands
         private Vector2 _playerSecretRoomPosition = new Vector2(56, 95); /* temporary fix until we can update the XML files to contain the player positions */
         private readonly ICollidableEntity _playerEntity;
         private readonly GamePlayingState _playingState;
+        private GameRoomTransitionState _transitionState;
         private readonly IDoorEntity _door;
         private const string SecretRoom = "floorSecret";
         private readonly ICommand pushBackCommand;
@@ -62,6 +63,12 @@ namespace SprintZero1.Commands.CollisionCommands
             }
             _playerEntity.Position = playerCurrentPosition;
             _playerEntity.Collider.Update(_playerEntity);
+
+            GameStatesManager.ChangeGameState(GameState.RoomTransition);
+            _transitionState = GameStatesManager.CurrentState as GameRoomTransitionState;
+
+            _transitionState.StartTransition(destination, _door.DoorDirection);
+
             _playingState.LoadDungeonRoom(destination);
             _playingState.Handle();
 

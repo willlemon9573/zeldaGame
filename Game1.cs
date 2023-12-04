@@ -16,6 +16,7 @@ namespace SprintZero1
         private const int WINDOW_SCALE = 4;
         private RenderTarget2D _newRenderTarget;
         private Rectangle _actualScreenRectangle;
+        public Nullable<Matrix> Translation = null;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -77,7 +78,7 @@ namespace SprintZero1
             GraphicsDevice.SetRenderTarget(this._newRenderTarget);
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
+            _spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp, null, null, null, Translation);
             GameStatesManager.Draw(_spriteBatch);
             _spriteBatch.End();
 
