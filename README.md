@@ -1,38 +1,41 @@
-# Team Enter Game Legend of Zelda - Sprint 4
+# Team Enter Game Legend of Zelda - Sprint 5
 # Team Members: Aaron Heishman (heishman.5), Muhammed Gheith (gheith.11), Zihe Wang (wang.14629), Will Lemon (lemon.285), Chih-Hsiang Tseng (tseng.253)
 # Note: Code reviews will be under the CodeReviews folder in the project folder
   - Run SprintZero1.sln to play the game
 # Controls
+- PlayerOne
   - W, A, S, D, Up, Down, Left, Right - Link Movement Controls
-  - Z  - Attack
-  - Left Mouse Click: Move to previous room
-  - Right Mouse Click: Move to next room
+  - Z  - Sword Attack
+  - X  - Equiped Weapon Attack
+  - B  - Change weapon when in inventory screen
+  - R  - Reset the game
+  - I  - Open and Close inventory
+  - Esc - Pause and Unpause game
+    
+- PlayerTwo
+  - Dpad and joysticks to move
+  - X  - Sword Attack
+  - A  - Equiped Weapon Attack
+  - X  - Change weapon when in inventory screen
+  - Y  - Open Inventory
+  - B  - Close inventory
+  - Start - Pause game [have to use keyboard to unpause]
  
 
  # Unimplemented Features
-	Collisions between enemies and the player has not been implemented
 	Room screen transitions have not been implemented
-	Most game states did not get their implementations
-	Sound is not implemented
 	Item Selection Menu transitioning down has not been implemented
-	Heads up display has implementations, but unused as combat was not implemented
-	Room events were not implemented (pushing blocks to open door for example)
-	Link using secondary weapon not implemented
-	Most of Link's state transitions did not get implemented for the same reason as combat not being implemented
-	Hud doesn't display player weapons
-	Inventory doesn't draw map / compass and other items
+ 	Rupees are not in the game
+  	Enemies do not drop any loot
 
-# Known Bugs 
-	Pausing the game and opening the inventory can be accessed at the same time
-	Enemies cannot be attacked properly
-	No Collisions on sides of doors causing certain portions to be drawn above link
-
-
-Boomerang Projectile's return state does not return to the player, but where it is currently thrown
-Link is drawn on the layer below projectiles currently
-Link's not drawn above closed doors
-
-
+# Known Bugs and Features
+	Link experiences recoil when shooting the minigun
+ 	Enemies follow you when they are not supposed to
+  	Infinite items
+   	Health doesn't properly decrement sometimes
+    	A certain enemy may not take damage at times
+        Player2's position isn't updated properly when doing a room transition
+  
 # Code Metrics for Sprint 4 (DO NOT DELETE)
 Code Metrics ran 10/28/2023
 	Project: SprintZero1
@@ -60,13 +63,8 @@ Code Metrics ran 11/13/2023
 
 
 
-# Sprint 4 Reflection:
-	This sprint has been a journey of learning and growth for our team. Despite the hurdles we encountered, it brought us closer as a unit. The challenge of game development
-	in the absence of effective communication became evident during this sprint. We strived to meet each deadline, but regrettably, we fell short of fulfilling all the
-	prerequisites. We experimented with new task management strategies, which proved to be quite effective. However, as the sprint progressed, we discovered unanticipated
-	object interactions that necessitated the creation of additional components to ensure seamless integration. Sprint 4 served as a reality check for our team, humbling us
-	all. As we look forward to Sprint 5, our goal is to have all implementations functioning smoothly, in addition to incorporating the extra features we proposed.
-
+# Sprint 5 Reflection
+	This sprint has been a journey to say the least. Throughout all of these sprints and this project, we are always reminded that communication is the single most important factor to a teams success. 		Although there were noticible improvements to our communication as a whole, it still was not enough to meet the deadline at the end. This sprint went a little smoother since we had a twist on how our 	tasks needed to be implemented. Team members each had an important task/feature they needed/wanted to implement to the game, and there is less overlap in code there. But still, without constant 		communication, it was hard to tell how each member was doing on their part until the very last minute. 
 # Extra Notes regarding commits:
 - Just a note for the graders as suggested by Aaron Post. There's going to be a bunch of Commits from me (Aaron Heishman) that are going to include a bunch of changes made to the repo itself due to how I incorrectly uploaded my Sprint0 source
 - All the changes were made to prevent any future conflictions with all of the team members own visual studio settings or to remove my old code that won't be used during the merge with main
