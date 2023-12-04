@@ -3,11 +3,23 @@
 # Note: Code reviews will be under the CodeReviews folder in the project folder
   - Run SprintZero1.sln to play the game
 # Controls
+- PlayerOne
   - W, A, S, D, Up, Down, Left, Right - Link Movement Controls
   - Z  - Sword Attack
   - X  - Equiped Weapon Attack
-  - Left Mouse Click: Move to previous room
-  - Right Mouse Click: Move to next room
+  - B  - Change weapon when in inventory screen
+  - R  - Reset the game
+  - I  - Open and Close inventory
+  - Esc - Pause and Unpause game
+    
+- PlayerTwo
+  - Dpad and joysticks to move
+  - X  - Sword Attack
+  - A  - Equiped Weapon Attack
+  - X  - Change weapon when in inventory screen
+  - Y  - Open Inventory
+  - B  - Close inventory
+  - Start - Pause game [have to use keyboard to unpause]
  
 
  # Unimplemented Features
@@ -20,11 +32,10 @@
 	Link experiences recoil when shooting the minigun
  	Enemies follow you when they are not supposed to
   	Infinite items
+   	Health doesn't properly decrement sometimes
+    	A certain enemy may not take damage at times
+        Player2's position isn't updated properly when doing a room transition
   
-	
-
-
-
 # Code Metrics for Sprint 4 (DO NOT DELETE)
 Code Metrics ran 10/28/2023
 	Project: SprintZero1
