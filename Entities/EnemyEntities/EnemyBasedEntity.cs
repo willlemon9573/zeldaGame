@@ -9,6 +9,7 @@ using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.EnemyStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
+using System.Diagnostics;
 
 
 namespace SprintZero1.Entities.EnemyEntities
@@ -58,7 +59,7 @@ namespace SprintZero1.Entities.EnemyEntities
             _enemyDefaultPosition = position;
             ResetEnemy(); /* why? */
             _enemyName = enemyName;
-            _enemyState = new EnemyIdleState(this);
+            _enemyState = new EnemyMovingState(this);
             _enemySprite = _EnemyFactory.CreateEnemySprite(enemyName, _enemyDirection);
             _collider = new EnemyCollider(position, new System.Drawing.Size(_enemySprite.Width, _enemySprite.Height));
             _deathSound = SoundFactory.GetSound("enemy_death");
@@ -93,10 +94,10 @@ namespace SprintZero1.Entities.EnemyEntities
         {
             if (_takenDamage) { return; }
             if (_enemyState is not EnemyDamageState) { TransitionToState(State.TakingDamage); }
-            _enemyState.BlockTransition();
             _takenDamage = true;
             _enemyHealth -= damage;
             _damageSound.Play();
+            _enemyState.Request();
         }
 
         public void PauseEnemy()
@@ -117,6 +118,7 @@ namespace SprintZero1.Entities.EnemyEntities
 
         public virtual void Update(GameTime gameTime)
         {
+            Debug.WriteLine(_enemyState);
             _enemyState.Update(gameTime);
             _collider.Update(this);
         }

@@ -7,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using SprintZero1.StatePatterns.StatePatternInterfaces;
+using SprintZero1.StatePatterns.EnemyStatePatterns;
+
 
 namespace SprintZero1.Controllers.EnemyControllers
 {
@@ -114,6 +117,19 @@ namespace SprintZero1.Controllers.EnemyControllers
         public void Update(GameTime gameTime)
         {
             if (_running == false) { return; }
+            if (_enemyEntity.Health <= 0)
+            {
+                _enemyEntity.Die();
+                _remove(_enemyEntity);
+                Stop();
+            }
+            if (_enemyEntity is EnemyBasedEntity _enemyBasedEntity)
+            {
+                if (_enemyBasedEntity.EnemyState is not EnemyMovingState)
+                { 
+                    return;
+                }
+            }
             double elapsed = gameTime.ElapsedGameTime.TotalSeconds;
             _timeSinceLastPathCalculation += elapsed;
             _timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -197,14 +213,8 @@ namespace SprintZero1.Controllers.EnemyControllers
                         _currentStopTime = 0;
                     }
                 }
-
-                if (_enemyEntity.Health <= 0)
-                {
-                    _enemyEntity.Die();
-                    _remove(_enemyEntity);
-                    Stop();
-                }
             }
+
         }
 
         /// <summary>
