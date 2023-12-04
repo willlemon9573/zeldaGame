@@ -32,6 +32,7 @@ namespace SprintZero1.XMLParsers
         private const string InnerItemFramesElement = "ItemFrames";
         private const string InnerItemEnumElement = "Enum";
         private const string InnerItemTypeElement = "Type";
+        private const string InnerBossBoundaryElement = "Boundary";
         /* ------------------------------Public Functions--------------------------------- */
         /// <summary>
         /// Constructor for a new instance of LevelXmlParser
@@ -61,6 +62,7 @@ namespace SprintZero1.XMLParsers
             { InnerDoorDestinationElement, (door, data) => (data as XMLDoorEntity).Destination = door.ReadElementContentAsString() },
             { InnerDoorDirectionElement, (door, data) => (data as XMLDoorEntity).DoorDirection = door.ReadElementContentAsString() },
             { InnerDoorTypeElement,  (door, data) => (data as XMLDoorEntity).DoorType = door.ReadElementContentAsString() },
+              { InnerBossBoundaryElement, (enemy, data) => (data as XMLEnemyEntity).ParseBossBoundary(enemy)}
             };
         }
 
@@ -220,7 +222,7 @@ namespace SprintZero1.XMLParsers
                 {
                     if (element_name == innerBossElement)
                     {
-                        dungeonRoom.AddEnemy((enemy as XMLEnemyEntity).CreateBossEntity());
+                        dungeonRoom.AddEnemy((enemy as XMLEnemyEntity).CreateBossEntity(dungeonRoom.RemoveDeadEnemies));
                     }
                     else
                     {

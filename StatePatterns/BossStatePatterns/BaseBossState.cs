@@ -18,6 +18,9 @@ namespace SprintZero1.StatePatterns.BossStatePatterns
         protected readonly BaseBossEntity _boss;
         protected bool _canTransition;
         protected Dictionary<State, Func<IEnemyState>> _stateTransitionMap;
+
+        public bool CanTransition { get { return _canTransition; } }
+
         public BaseBossState(BaseBossEntity boss)
         {
             _boss = boss;
@@ -49,6 +52,8 @@ namespace SprintZero1.StatePatterns.BossStatePatterns
 
         public void TransitionState(State newState)
         {
+            if (!_canTransition) { return; }
+
             if (_stateTransitionMap.TryGetValue(newState, out Func<IEnemyState> action))
             {
                 _boss.CurrentState = action();

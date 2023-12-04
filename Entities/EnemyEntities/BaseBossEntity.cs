@@ -24,7 +24,7 @@ namespace SprintZero1.Entities.EnemyEnetities
         protected Vector2 _currentPosition;
         protected ICollider _bossCollider;
         protected IEnemyState _currentState;
-
+        protected IEnemyState _vulnerabilityState;
         public float Health { get { return _currentHealth; } set { _currentHealth = value; } }
         public Direction Direction { get { return _currentDirection; } set { _currentDirection = value; } }
         public Vector2 Position { get { return _currentPosition; } set { _currentPosition = value; } }
@@ -34,6 +34,8 @@ namespace SprintZero1.Entities.EnemyEnetities
         public float TouchDamage { get { return DefaultTouchDamage; } }
 
         public IEnemyState CurrentState { get { return _currentState; } set { _currentState = value; } }
+
+        public ISprite Sprite { get { return _bossSprite; } }
 
         protected BaseBossEntity(float startingHealth, Direction startingDirection, Vector2 startingPosition)
         {

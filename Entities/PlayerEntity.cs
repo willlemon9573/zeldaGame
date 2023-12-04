@@ -27,7 +27,7 @@ namespace SprintZero1.Entities
         private Direction _playerDirection;
         private Vector2 _playerPosition;
         private readonly PlayerCollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
-        private readonly PlayerSpriteFactory _linkSpriteFactory = PlayerSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
+        private readonly PlayerSpriteFactory PlayerSpriteFactory = PlayerSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
         private IWeaponEntity _playerSwordSlot;
         private IWeaponEntity _playerEquipmentSlot;
         private readonly PlayerStateFactory _playerStateFactory;
@@ -65,7 +65,7 @@ namespace SprintZero1.Entities
             _playerMaxHealth = startingHealth;
             _playerPosition = startingPosition;
             _characterName = characterName;
-            _playerSprite = _linkSpriteFactory.GetPlayerMovementSprite(characterName, startingDirection);
+            _playerSprite = PlayerSpriteFactory.GetPlayerMovementSprite(characterName, startingDirection);
             float scalefactor = 0.9f; // scale factor for the collider
             _playerCollider = new PlayerCollider(startingPosition, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);
@@ -94,8 +94,6 @@ namespace SprintZero1.Entities
         {
             _playerState.TransitionState(_playerStateFactory.GetPlayerState(newState));
         }
-
-
 
         public void Attack()
         {
