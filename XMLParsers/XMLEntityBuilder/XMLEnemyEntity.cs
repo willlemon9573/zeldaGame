@@ -17,7 +17,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
         private const string BoundaryElement = "Boundary";
 
 
-        private int _entityHealth;
+        private float _entityHealth;
         private Rectangle bossBoundary;
 
         public void ParseBossBoundary(XmlReader reader)
@@ -43,7 +43,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder
             bossBoundary = new Rectangle(x, y, width, height);
         }
 
-        public int EntityHealth { set => _entityHealth = value; }
+        public float EntityHealth { set => _entityHealth = value; }
         public override IEntity CreateEntity()
         {
             Vector2 position = new Vector2(_entityPositionX, _entityPositionY);

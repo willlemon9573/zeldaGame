@@ -14,7 +14,7 @@ namespace SprintZero1.Entities.EnemyEnetities
         /// <param name="position">The position of the enemy entity.</param>
         /// <param name="startingHealth">The starting health of the enemy entity.</param>
         /// <param name="enemyName">The name of the enemy.</param>
-        public EnemyEntityWithoutProjectile(Vector2 position, int startingHealth, string enemyName)
+        public EnemyEntityWithoutProjectile(Vector2 position, float startingHealth, string enemyName)
             : base(position, startingHealth, enemyName)
         {
             // No specific construction logic required

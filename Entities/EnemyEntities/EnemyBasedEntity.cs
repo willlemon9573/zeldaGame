@@ -22,7 +22,7 @@ namespace SprintZero1.Entities.EnemyEnetities
     {
         protected float _totalFrame;
         protected float _attackCooldown;
-        protected int _enemyHealthMax;
+        protected float _enemyHealthMax;
         protected Vector2 _enemyDefaultPosition;
         protected readonly EnemySpriteFactory _EnemyFactory = EnemySpriteFactory.Instance;
         protected readonly float _timeToReset = 1f / 7;
@@ -49,7 +49,7 @@ namespace SprintZero1.Entities.EnemyEnetities
         /// <param name="position">The position of the enemy entity.</param>
         /// <param name="startingHealth">The starting health of the enemy entity.</param>
         /// <param name="enemyName">The name of the enemy.</param>
-        protected EnemyBasedEntity(Vector2 position, int startingHealth, string enemyName)
+        protected EnemyBasedEntity(Vector2 position, float startingHealth, string enemyName)
         {
             _enemyHealthMax = startingHealth;
             _enemyDefaultPosition = position;
