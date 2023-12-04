@@ -10,8 +10,12 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
     {
         private bool _isVulnerable;
         private const float InvulnerabilityTime = 1 / 2f;
+        private float _elapsedKnockbackTime;
         private float _elapsedInvulnerabilityTime;
+        private const float KnockbackSpeed = 200f; // the speed for knocking back
         private readonly List<Color> _colorList;
+        private readonly Dictionary<Direction, Vector2> _velocityMap;
+        private Vector2 _knockbackDirection;
         private const float TimeToUpdate = 1 / 9f;
         private float _flashTime;
         private int _colorIndex;
@@ -19,6 +23,13 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
         {
             _isVulnerable = true;
             _colorList = new List<Color>() { Color.Red, Color.White };
+            _velocityMap = new Dictionary<Direction, Vector2>()
+           {
+                {Direction.North, new Vector2(0, KnockbackSpeed) },
+                {Direction.South, new Vector2(0, -KnockbackSpeed) },
+                {Direction.East, new Vector2(-KnockbackSpeed, 0) },
+                {Direction.West, new Vector2(KnockbackSpeed, 0) }
+           };
         }
 
         public override void ChangeDirection(Direction newDirection)
@@ -42,21 +53,23 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
             if (_isVulnerable == false || _enemyEntity.Health <= 0) { return; }
             _isVulnerable = false;
             _elapsedInvulnerabilityTime = 0f;
+            _knockbackDirection = _velocityMap[_enemyEntity.Direction];
             _colorIndex = 0;
         }
 
-        public override void Update(GameTime gameTime)
+        private void Flash(float deltaTime)
         {
-            if (_isVulnerable || _enemyEntity.Health <= 0) { return; }
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            _elapsedInvulnerabilityTime += deltaTime;
             _flashTime += deltaTime;
             if (_flashTime >= TimeToUpdate) // flash every update
             {
                 _flashTime -= TimeToUpdate;
                 _colorIndex = (_colorIndex + 1) % _colorList.Count;
             }
+        }
 
+        private void UpdateInvulnTime(float deltaTime)
+        {
+            _elapsedInvulnerabilityTime += deltaTime;
             if (_elapsedInvulnerabilityTime >= InvulnerabilityTime)
             {
                 _isVulnerable = true;
@@ -64,7 +77,32 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
                 {
                     enemy.BeenAttacked = false;
                 }
+                TransitionState(State.Moving);
             }
+        }
+
+        private void KnockBack(float deltaTime)
+        {
+            _elapsedKnockbackTime += deltaTime;
+            if (_elapsedKnockbackTime < InvulnerabilityTime)
+            {
+                _enemyEntity.Position += (_knockbackDirection * deltaTime);
+            }
+            else
+            {
+                UnblockTranstion();
+                _enemyEntity.TransitionToState(State.Moving);
+            }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            if (_isVulnerable || _enemyEntity.Health <= 0) { return; }
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Flash(deltaTime);
+            KnockBack(deltaTime);
+            UpdateInvulnTime(deltaTime);
+
         }
     }
 }
