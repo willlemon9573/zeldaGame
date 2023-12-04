@@ -125,7 +125,7 @@ namespace SprintZero1.Controllers.EnemyControllers
             }
             if (_enemyEntity is EnemyBasedEntity _enemyBasedEntity)
             {
-                if (_enemyBasedEntity.EnemyState is not EnemyMovingState)
+                if (_enemyBasedEntity.EnemyState is EnemyDamageState)
                 { 
                     return;
                 }

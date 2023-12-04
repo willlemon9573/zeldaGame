@@ -51,6 +51,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
         public override void Request()
         {
             if (_isVulnerable == false || _enemyEntity.Health <= 0) { return; }
+            BlockTransition();
             _isVulnerable = false;
             _elapsedInvulnerabilityTime = 0f;
             _knockbackDirection = _velocityMap[_enemyEntity.Direction];
@@ -77,7 +78,6 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
                 {
                     enemy.BeenAttacked = false;
                 }
-                TransitionState(State.Moving);
             }
         }
 
@@ -91,7 +91,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
             else
             {
                 UnblockTranstion();
-                _enemyEntity.TransitionToState(State.Moving);
+                TransitionState(State.Moving);
             }
         }
 
@@ -100,8 +100,9 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
             if (_isVulnerable || _enemyEntity.Health <= 0) { return; }
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Flash(deltaTime);
-            KnockBack(deltaTime);
             UpdateInvulnTime(deltaTime);
+            KnockBack(deltaTime);
+
 
         }
     }
