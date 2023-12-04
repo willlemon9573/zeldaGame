@@ -1,5 +1,4 @@
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Enums;
