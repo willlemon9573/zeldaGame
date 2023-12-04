@@ -154,8 +154,6 @@
 			<IsCollidable>true</IsCollidable>
 		</Block>
 	</Blocks>
-	<Enemies>
-	</Enemies>
 	<Doors>
 		<Door>
 			<Name>doorless_north</Name>

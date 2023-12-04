@@ -58,6 +58,6 @@
 		<Rectangle x = "1" y = "1" width = "255" height = "159"/>
 	</Sprite>
 	<Sprite name ="puzzleRoom">
-		<Rectangle x="278" y="906" width="216" height="135"/>
+		<Rectangle x="290" y="918" width="192" height="112"/>
 	</Sprite>
 </Sprites>
