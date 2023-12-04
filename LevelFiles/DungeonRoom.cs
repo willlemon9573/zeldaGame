@@ -244,6 +244,14 @@ namespace SprintZero1.LevelFiles
             if (_enemyControllerList.Count > 0 && _liveEnemyList.Count == enemyCount) { return; }
             RemoveDelegate remover = RemoveDeadEnemies;
             _liveEnemyList.ForEach(enemy => _enemyControllerList.Add(new SmartEnemyMovementController(enemy as ICombatEntity, playerEntity, remover)));
+
+            foreach (ICombatEntity combatEntity in _liveEnemyList)
+            {
+                if (combatEntity is not AquamentusEntity)
+                {
+                    _enemyControllerList.Add(new SmartEnemyMovementController(combatEntity as ICombatEntity, playerEntity, remover));
+                }
+            }
         }
 
         /// <summary>
