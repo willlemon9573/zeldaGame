@@ -1,0 +1,9 @@
+Author of the code review: Chih-Hsiang Tseng
+Date of the code review: 12/1/2023
+Sprint number: 5
+Name of the .cs file being reviewed: SmartEnemyMovementController.cs
+Author of the .cs file being reviewed: Zihe Wang
+Number of minutes spent on review: 10 minutes
+Specific comments on code quality: 
+First glance at the code, all private members which is good. I think some added documentation would be helpful for function definitions, parameters, etc. Code looks maintainable overall, the variables and functions have names that are very descriptive still so it is readable code. The code is also consistent with its whitespacing making it look very organized and understandable.
+A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change: Adding more different enemy entities to the game would still allow this controller to work since the functions are all data driven and it asks for what enemy entity is used. 
