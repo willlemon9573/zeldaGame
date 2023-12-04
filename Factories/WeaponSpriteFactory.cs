@@ -44,10 +44,10 @@ namespace SprintZero1.Factories
             _linkSwordSpriteDictionary = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(SWORD_SPRITE_PATH);
         }
 
-        public ISprite CreateAquamentusWeaponSprite(int index)
+        public ISprite CreateAquamentusWeaponSprite()
         {
-            List<Rectangle> sourceRectangle = projectileSourceRectangles["aquamentusWeapon"];
-            return new NonAnimatedSprite(sourceRectangle[index], enemyProjectileSheet);
+            List<Rectangle> projectileRectangleList = projectileSourceRectangles["aquamentusWeapon"];
+            return new AnimatedSprite(projectileRectangleList, enemyProjectileSheet, projectileRectangleList.Count);
         }
 
         public ISprite CreateBoomerangSprite(string weaponType)

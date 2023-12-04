@@ -162,15 +162,15 @@
 			<Name>dungeon_wallmaster</Name>
 			<X>39</X>
 			<Y>177</Y>
-			<Health>1</Health>
+			<Health>3</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
 		<Enemy>
 			<Name>dungeon_wallmaster</Name>
-			<X>39</X>
-			<Y>155</Y>
-			<Health>1</Health>
+			<X>70</X>
+			<Y>183</Y>
+			<Health>3</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -178,7 +178,7 @@
 			<Name>dungeon_wallmaster</Name>
 			<X>76</X>
 			<Y>99</Y>
-			<Health>1</Health>
+			<Health>3</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -186,7 +186,7 @@
 			<Name>dungeon_wallmaster</Name>
 			<X>189</X>
 			<Y>101</Y>
-			<Health>1</Health>
+			<Health>3</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -194,7 +194,7 @@
 			<Name>dungeon_wallmaster</Name>
 			<X>212</X>
 			<Y>101</Y>
-			<Health>1</Health>
+			<Health>3</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -202,7 +202,7 @@
 			<Name>dungeon_wallmaster</Name>
 			<X>218</X>
 			<Y>170</Y>
-			<Health>1</Health>
+			<Health>3</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>

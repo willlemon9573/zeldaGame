@@ -25,9 +25,8 @@
 		<Rectangle x='213' y='185' width='16' height='16'/>
 	</Sprite>
 	<Sprite name="aquamentusWeapon">
-		<Rectangle x='101' y='11' width='8' height='16'/>
-		<Rectangle x='109' y='11' width='8' height='16'/>
-		<Rectangle x='118' y='11' width='8' height='16'/>
-		<Rectangle x='127' y='11' width='8' height='16'/>
+		<Rectangle x='101' y='14' width='10' height='10'/>
+		<Rectangle x='118' y='14' width='10' height='10'/>
+		<Rectangle x='127' y='14' width='10' height='10'/>
 	</Sprite>
 </Sprites>

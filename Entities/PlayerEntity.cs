@@ -3,12 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
 using SprintZero1.Entities.EntityInterfaces;
-using SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity;
+using SprintZero1.Entities.LootableItemEntity;
+using SprintZero1.Entities.WeaponEntities.BombEntityFolder;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
+using SprintZero1.StatePatterns.GameStatePatterns;
 using SprintZero1.StatePatterns.PlayerStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
 
@@ -26,8 +28,8 @@ namespace SprintZero1.Entities
         private ISprite _playerSprite;
         private Direction _playerDirection;
         private Vector2 _playerPosition;
-        private readonly PlayerCollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
-        private readonly PlayerSpriteFactory _linkSpriteFactory = PlayerSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
+        private readonly ICollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
+        private readonly PlayerSpriteFactory PlayerSpriteFactory = PlayerSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
         private IWeaponEntity _playerSwordSlot;
         private IWeaponEntity _playerEquipmentSlot;
         private readonly PlayerStateFactory _playerStateFactory;
@@ -36,6 +38,8 @@ namespace SprintZero1.Entities
         private IWeaponEntity _currentWeapon;
         private readonly PlayerInventory _playerInventory;
         private readonly string _characterName;
+        private ILootableEntity _equipmentToDisplay;
+        private bool _isDead;
         /* Public properties to modify the player's private members */
         public float Health { get { return _playerHealth; } set { _playerHealth = value; } }
         public float MaxHealth { get { return _playerMaxHealth; } set { _playerMaxHealth = value; } }
@@ -49,6 +53,9 @@ namespace SprintZero1.Entities
         public IWeaponEntity EquipmentSlot { get { return _playerEquipmentSlot; } set { _playerEquipmentSlot = value; } }
         public IWeaponEntity CurrentUsableWeapon { get { return _currentWeapon; } set { _currentWeapon = value; } }
         public string CharacterName { get { return _characterName; } }
+
+        public ILootableEntity EquipmentToDisplay { get { return _equipmentToDisplay; } set { _equipmentToDisplay = value; } }
+
 
 
         /// <summary>
@@ -65,19 +72,19 @@ namespace SprintZero1.Entities
             _playerMaxHealth = startingHealth;
             _playerPosition = startingPosition;
             _characterName = characterName;
-            _playerSprite = _linkSpriteFactory.GetPlayerMovementSprite(characterName, startingDirection);
+            _playerSprite = PlayerSpriteFactory.GetPlayerMovementSprite(characterName, startingDirection);
             float scalefactor = 0.9f; // scale factor for the collider
             _playerCollider = new PlayerCollider(startingPosition, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);
             _playerVulnerabilityState = new PlayerVulnerableState(this);
             _playerInventory = new PlayerInventory(this);
-
+            _isDead = false;
             _playerStateFactory = new PlayerStateFactory(this);
             PlayerInventoryManager.AddPlayerInventory(this, _playerInventory);
 
 
             /* For testing */
-            _playerEquipmentSlot = new RegularBowEntity("bow");
+            _playerEquipmentSlot = new BombEntity("bomb");
         }
 
         public void Move()
@@ -94,8 +101,6 @@ namespace SprintZero1.Entities
         {
             _playerState.TransitionState(_playerStateFactory.GetPlayerState(newState));
         }
-
-
 
         public void Attack()
         {
@@ -114,11 +119,26 @@ namespace SprintZero1.Entities
             _playerState.Request();
             _playerVulnerabilityState = _playerStateFactory.GetPlayerState(State.Invulnerable);
             _playerVulnerabilityState.Request();
+            if (_playerHealth <= 0)
+            {
+                Die();
+            }
         }
 
         public void Die()
         {
-            // TODO: Implement in Sprint 4
+            _isDead = true;
+            if (GameStatesManager.CurrentState is GamePlayingState gameState)
+            {
+                gameState.DecrementLivePlayers();
+            }
+        }
+
+        public void PickedupItem(ILootableEntity _equipment)
+        {
+            if (_playerState is not PlayerInteractingWithItemState) { TransitionToState(State.InteractingWithItem); } else { return; }
+            EquipmentToDisplay = _equipment;
+            _playerState.Request();
         }
 
         public void ChangeDirection(Direction direction)
@@ -128,6 +148,14 @@ namespace SprintZero1.Entities
 
         public void Update(GameTime gameTime)
         {
+            if (_isDead)
+            {
+                if (_playerHealth > 1)
+                {
+                    _isDead = false;
+                }
+                return;
+            }
             _playerState.Update(gameTime);
             if (_playerVulnerabilityState is PlayerInvulnerabilityState)
             {
@@ -138,6 +166,11 @@ namespace SprintZero1.Entities
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (_isDead)
+            {
+                return;
+            }
+
             if (_playerVulnerabilityState is PlayerInvulnerabilityState)
             {
                 _playerVulnerabilityState.Draw(spriteBatch); // draw player as flashing when invulnerable

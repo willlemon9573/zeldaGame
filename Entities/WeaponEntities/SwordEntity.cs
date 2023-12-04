@@ -30,6 +30,8 @@ namespace SprintZero1.Entities.WeaponEntities
         private readonly float _timeToResetState = 1 / 7f;
         private Vector2 _weaponPosition;
         private ISprite _weaponSprite;
+        private Direction _direction;
+        public Direction Direction { get { return _direction; } }
         /* Holds the specific values for properly flipping and placing sword in player's hands */
         private readonly Dictionary<Direction, Tuple<SpriteEffects, Vector2>> _spriteEffectsDictionary;
         /* Sprite effect for flipping the weapon */
@@ -65,6 +67,7 @@ namespace SprintZero1.Entities.WeaponEntities
         public void UseWeapon(Direction direction, Vector2 position)
         {
             if (_isActive) return;
+            _direction = direction;
             _isActive = true;
             _weaponSprite = WeaponSpriteFactory.Instance.GetSwordSprite(direction);
             Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];

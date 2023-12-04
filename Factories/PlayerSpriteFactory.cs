@@ -18,9 +18,6 @@ namespace SprintZero1.Factories
         private const string Link = "Link";
         private const string Zelda = "Zelda";
         private readonly Dictionary<string, Texture2D> _playerTextureMap;
-        private Texture2D LinkSpriteSheet;
-        private readonly Dictionary<Direction, List<Rectangle>> movementSpriteDictionary;
-        private readonly Dictionary<Direction, Rectangle> attackSpriteDictionary;
         private readonly Dictionary<(string, Direction), List<Rectangle>> _playerMovementMap;
         private readonly Dictionary<(string, Direction), Rectangle> _playerAttackingMap;
         private static readonly PlayerSpriteFactory instance = new();
@@ -32,7 +29,18 @@ namespace SprintZero1.Factories
             get { return instance; }
         }
 
+        private void AddInteractingSprite()
+        {
+            // hardcoded as it's 3 AM and we still have too much to do
+            string key = "LinkInteracting";
+            List<Rectangle> sprites = new List<Rectangle>()
+            {
+                { new Rectangle(214, 11, 13, 16) },
+                { new Rectangle(231, 11,14, 16) }
+            };
 
+            _playerMovementMap.Add((key, Direction.South), sprites);
+        }
 
         /// <summary>
         /// Private constructor to prevent instation of a new block factory
@@ -40,8 +48,6 @@ namespace SprintZero1.Factories
         private PlayerSpriteFactory()
         {
             SpriteXMLParser spriteParser = new SpriteXMLParser();
-            movementSpriteDictionary = spriteParser.ParseAnimatedSpriteWithDirectionXML(MovementXMLPath);
-            attackSpriteDictionary = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath);
             /* Create dictionary that contains both Link and Zelda's movement sprites */
             _playerMovementMap = spriteParser.ParseAnimatedSpriteWithDirectionXML(MovementXMLPath, Link);
             _playerMovementMap = _playerMovementMap.Concat(spriteParser.ParseAnimatedSpriteWithDirectionXML(MovementXMLPath, Zelda))
@@ -50,7 +56,7 @@ namespace SprintZero1.Factories
             _playerAttackingMap = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath, Link);
             _playerAttackingMap = _playerAttackingMap.Concat(spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath, Zelda))
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
+            AddInteractingSprite();
             _playerTextureMap = new Dictionary<string, Texture2D>();
         }
 
@@ -61,27 +67,7 @@ namespace SprintZero1.Factories
         {
             _playerTextureMap.Add(Link, Texture2DManager.GetLinkSpriteSheet());
             _playerTextureMap.Add(Zelda, Texture2DManager.GetLinkSpriteSheet()); // using link for testing until we get our 2nd player
-            LinkSpriteSheet = Texture2DManager.GetLinkSpriteSheet();
-        }
-        /// <summary>
-        /// Create and return a new sprite for link moving
-        /// </summary>
-        /// <param name="direction">The direction in which link will be facing</param>
-        /// <returns></returns>
-        public ISprite GetMovingSprite(Direction direction)
-        {
-            Debug.Assert(movementSpriteDictionary.ContainsKey(direction), $"{direction} not found in dictionary");
-            return new AnimatedSprite(movementSpriteDictionary[direction], LinkSpriteSheet, 2);
-        }
-        /// <summary>
-        /// Create and return a new attacking sprite for link
-        /// </summary>
-        /// <param name="direction">The direction in which link will be facing</param>
-        /// <returns></returns>
-        public ISprite GetAttackingSprite(Direction direction)
-        {
-            Debug.Assert(attackSpriteDictionary.ContainsKey(direction), $"{direction} not found in dictionary");
-            return new NonAnimatedSprite(attackSpriteDictionary[direction], LinkSpriteSheet);
+            _playerTextureMap.Add("LinkInteracting", Texture2DManager.GetLinkSpriteSheet());
         }
 
         /// <summary>

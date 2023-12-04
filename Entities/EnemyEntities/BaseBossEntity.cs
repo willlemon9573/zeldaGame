@@ -12,19 +12,19 @@ namespace SprintZero1.Entities.EnemyEntities
 {
     internal abstract class BaseBossEntity : ICombatEntity, ICollidableEntity
     {
-        private const string BossDeathSound = "boss_scream";
-        private const string BossDamageSound = "boss_hit";
+        private const string BossScreamSound = "boss_scream";
+        private const string BossDamaged = "boss_hit";
         protected const float DefaultTouchDamage = 1f;
-        protected readonly float MaxHealth;
+        protected float MaxHealth;
         protected readonly SoundEffect _bossDamageSound;
-        protected readonly SoundEffect _bossDeathSound;
+        protected readonly SoundEffect _bossScreamSound;
         protected float _currentHealth;
         protected ISprite _bossSprite;
         protected Direction _currentDirection;
         protected Vector2 _currentPosition;
         protected ICollider _bossCollider;
-        protected IEnemyState _bossState;
-
+        protected IEnemyState _currentState;
+        protected IEnemyState _vulnerabilityState;
         public float Health { get { return _currentHealth; } set { _currentHealth = value; } }
         public Direction Direction { get { return _currentDirection; } set { _currentDirection = value; } }
         public Vector2 Position { get { return _currentPosition; } set { _currentPosition = value; } }
@@ -33,14 +33,18 @@ namespace SprintZero1.Entities.EnemyEntities
 
         public float TouchDamage { get { return DefaultTouchDamage; } }
 
+        public IEnemyState CurrentState { get { return _currentState; } set { _currentState = value; } }
+
+        public ISprite Sprite { get { return _bossSprite; } }
+
         protected BaseBossEntity(float startingHealth, Direction startingDirection, Vector2 startingPosition)
         {
             MaxHealth = startingHealth;
             Direction = startingDirection;
             Position = startingPosition;
             _currentHealth = startingHealth;
-            _bossDeathSound = SoundFactory.GetSound(BossDeathSound);
-            _bossDamageSound = SoundFactory.GetSound(BossDamageSound);
+            _bossScreamSound = SoundFactory.GetSound(BossScreamSound);
+            _bossDamageSound = SoundFactory.GetSound(BossDamaged);
         }
 
         /// <summary>
@@ -49,7 +53,7 @@ namespace SprintZero1.Entities.EnemyEntities
         /// <param name="newState">The new state to transition to</param>
         protected virtual void TransitionState(State newState)
         {
-            _bossState.TransitionState(newState);
+            _currentState.TransitionState(newState);
         }
 
         public abstract void Attack();

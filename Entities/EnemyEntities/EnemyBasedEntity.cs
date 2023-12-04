@@ -9,6 +9,7 @@ using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.EnemyStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
+using System.Diagnostics;
 
 
 namespace SprintZero1.Entities.EnemyEntities
@@ -22,7 +23,7 @@ namespace SprintZero1.Entities.EnemyEntities
     {
         protected float _totalFrame;
         protected float _attackCooldown;
-        protected int _enemyHealthMax;
+        protected float _enemyHealthMax;
         protected Vector2 _enemyDefaultPosition;
         protected readonly EnemySpriteFactory _EnemyFactory = EnemySpriteFactory.Instance;
         protected readonly float _timeToReset = 1f / 7;
@@ -35,6 +36,7 @@ namespace SprintZero1.Entities.EnemyEntities
         protected ICollider _collider;
         protected SoundEffect _deathSound;
         protected SoundEffect _damageSound;
+        protected bool _takenDamage;
         public ISprite EnemySprite { get { return _enemySprite; } set { _enemySprite = value; } }
         public string EnemyName { get { return _enemyName; } set { _enemyName = value; } }
         public Vector2 Position { get { return _enemyPosition; } set { _enemyPosition = value; _collider.Update(this); } }
@@ -43,19 +45,21 @@ namespace SprintZero1.Entities.EnemyEntities
         public IEnemyState EnemyState { get { return _enemyState; } set { _enemyState = value; } }
         public ICollider Collider { get { return _collider; } }
 
+        public bool BeenAttacked { get { return _takenDamage; } set { _takenDamage = value; } }
+
         /// <summary>
         /// Constructs a new enemy entity.
         /// </summary>
         /// <param name="position">The position of the enemy entity.</param>
         /// <param name="startingHealth">The starting health of the enemy entity.</param>
         /// <param name="enemyName">The name of the enemy.</param>
-        protected EnemyBasedEntity(Vector2 position, int startingHealth, string enemyName)
+        protected EnemyBasedEntity(Vector2 position, float startingHealth, string enemyName)
         {
             _enemyHealthMax = startingHealth;
             _enemyDefaultPosition = position;
             ResetEnemy(); /* why? */
             _enemyName = enemyName;
-            _enemyState = new EnemyIdleState(this);
+            _enemyState = new EnemyMovingState(this);
             _enemySprite = _EnemyFactory.CreateEnemySprite(enemyName, _enemyDirection);
             _collider = new EnemyCollider(position, new System.Drawing.Size(_enemySprite.Width, _enemySprite.Height));
             _deathSound = SoundFactory.GetSound("enemy_death");
@@ -88,14 +92,13 @@ namespace SprintZero1.Entities.EnemyEntities
 
         public virtual void TakeDamage(float damage)
         {
+            if (_takenDamage) { return; }
+            if (_enemyState is not EnemyDamageState) { TransitionToState(State.TakingDamage); }
+            _enemyState.Request();
+            _takenDamage = true;
             _enemyHealth -= damage;
             _damageSound.Play();
-        }
 
-        public void PauseEnemy()
-        {
-            TransitionToState(State.Paused);
-            _enemyState.Request();
         }
 
         public virtual void Die()
@@ -110,6 +113,7 @@ namespace SprintZero1.Entities.EnemyEntities
 
         public virtual void Update(GameTime gameTime)
         {
+            Debug.WriteLine(_enemyState);
             _enemyState.Update(gameTime);
             _collider.Update(this);
         }

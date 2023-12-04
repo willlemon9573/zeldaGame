@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.StatePatterns.GameStatePatterns;
@@ -28,6 +29,8 @@ namespace SprintZero1.Entities.WeaponEntities.BoomerangEntity
         protected bool _isAccelerating = false;
         protected SoundEffect _boomerangSound;
         protected bool _collidedWithObject;
+        protected Direction _movingDirection;
+        public Direction Direction { get { return _movingDirection; } }
         public bool CollidedWithObject { get { return _collidedWithObject; } set { _collidedWithObject = value; } }
 
         /// <summary>
