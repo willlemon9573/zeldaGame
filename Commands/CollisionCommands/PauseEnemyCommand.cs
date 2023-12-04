@@ -1,7 +1,7 @@
 using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.WeaponEntities.BoomerangEntity;
-using System.Collections.Generic;
+using SprintZero1.Enums;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
@@ -12,6 +12,17 @@ namespace SprintZero1.Commands.CollisionCommands
     {
         private readonly EnemyBasedEntity _enemy;
         private readonly BoomerangBasedEntity _boomerang;
+
+        private const int MaxDirections = 4;
+        private void ChangeEntityDirection()
+        {
+            if (_boomerang is BoomerangBasedEntity boomerang && _enemy is ICombatEntity enemy && enemy is not AquamentusEntity)
+            {
+                int dirIndex = ((int)boomerang.Direction + 2) % MaxDirections;
+                Direction newDirection = (Direction)dirIndex;
+                enemy.ChangeDirection(newDirection);
+            }
+        }
         public PauseEnemyCommand(ICollidableEntity boomerang, ICollidableEntity enemy)
         {
             _enemy = enemy as EnemyBasedEntity;
