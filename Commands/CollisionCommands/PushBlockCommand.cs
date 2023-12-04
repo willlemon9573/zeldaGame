@@ -1,4 +1,4 @@
-﻿using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 
 namespace SprintZero1.Commands.CollisionCommands
@@ -31,3 +31,4 @@ namespace SprintZero1.Commands.CollisionCommands
         }
     }
 }
+

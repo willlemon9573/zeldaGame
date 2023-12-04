@@ -25,6 +25,8 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
         private const string EventInfoElement = "EventInfo";
         private const string EventBlockElement = "EventBlock";
         private const string MovableDirection = "MovableDirection";
+        private const string EventBlockListElement = "EventBlocks";
+        private const string TriggerPositionsElement = "TriggerPosition";
 
         private readonly XmlNodeType EndElementType = XmlNodeType.EndElement;
         private readonly XmlNodeType ElementType = XmlNodeType.Element;
@@ -35,6 +37,21 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
             { TriggerYElement, (reader, evt) => evt.TriggerY = reader.ReadElementContentAsInt() },
             { DoorDirectionElement, (reader, evt) => evt.DoorDirectionToOpen = reader.ReadElementContentAsString() },
         };
+
+        private readonly Dictionary<string, Action<XmlReader, EventInfo>> _eventMapLists = new Dictionary<string, Action<XmlReader, EventInfo>>()
+        {
+            { TriggerPositionsElement , (reader, evt) => ParseTriggerPosition(reader, evt) },
+            { DoorDirectionElement, (reader, evt) => evt.AddDirection(reader.ReadElementContentAsString()) },
+        };
+
+        private static void ParseTriggerPosition(XmlReader reader, EventInfo evt)
+        {
+            // Assuming TriggerPositionElement contains x and y attributes
+            int x = int.Parse(reader.GetAttribute("x"));
+            int y = int.Parse(reader.GetAttribute("y"));
+
+            evt.AddToTriggerList(x, y);
+        }
 
         private readonly Dictionary<string, Action<XmlReader, BlockInfo>> _blockMap = new Dictionary<string, Action<XmlReader, BlockInfo>>()
         {
@@ -87,6 +104,47 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
                 }
             }
             return blockInfo;
+        }
+
+        private EventInfo ParseEventInfoLists(XmlReader reader)
+        {
+            EventInfo evt = new EventInfo();
+            while (reader.Read())
+            {
+                if (reader.NodeType == ElementType && _eventMapLists.TryGetValue(reader.Name, out var eventMap))
+                {
+                    eventMap(reader, evt);
+                }
+                else if (reader.NodeType == EndElementType && reader.Name == EventInfoElement)
+                {
+                    break;
+                }
+            }
+            return evt;
+        }
+
+        private List<BlockInfo> ParseBlockInfos(XmlReader reader)
+        {
+            List<BlockInfo> blockList = new List<BlockInfo>();
+            BlockInfo block = new BlockInfo();
+            while (reader.Read())
+            {
+                if (reader.NodeType == ElementType && _blockMap.TryGetValue(reader.Name, out var blockMap))
+                {
+                    blockMap(reader, block);
+                }
+                else if (reader.NodeType == EndElementType && reader.Name == EventBlockElement)
+                {
+                    blockList.Add(block);
+                    block = new BlockInfo();
+                }
+                else if (reader.NodeType == EndElementType && reader.Name == EventBlockListElement)
+                {
+                    break;
+                }
+            }
+
+            return blockList;
         }
 
         /// <summary>
@@ -183,6 +241,36 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
             EventInfo eventInfo = ParseEventInfo(reader);
             Direction doorDirection = (Direction)Enum.Parse(typeof(Direction), eventInfo.DoorDirectionToOpen, true);
             IRoomEvent roomEvent = new RoomBeatOpenDoorEvent(roomWithEvent, doorDirection);
+            roomWithEvent.AddRoomEvent(roomEvent);
+        }
+
+        public void ParsePuzzleRoomEvent(DungeonRoom roomWithEvent, XmlReader reader)
+        {
+            EventInfo eventInfo = ParseEventInfoLists(reader);
+            List<BlockInfo> blockList = ParseBlockInfos(reader);
+            List<IMovableEntity> movableBlocks = new List<IMovableEntity>();
+            foreach (var block in blockList)
+            {
+                IMovableEntity movableBlock = CreateMovableBlock(block);
+                roomWithEvent.AddArchitecturalEntity(movableBlock);
+                movableBlocks.Add(movableBlock);
+            }
+            List<String> doorDirections = eventInfo.DoorDirections;
+            List<Direction> doorDirectionsList = new List<Direction>();
+            foreach (var direction in doorDirections)
+            {
+                Direction doorDirection = (Direction)Enum.Parse(typeof(Direction), direction, true);
+                doorDirectionsList.Add(doorDirection);
+            }
+            List<Tuple<int, int>> triggerList = eventInfo.TriggerLocations;
+            //convert to List<Vector2>
+            List<Vector2> triggerLocations = new List<Vector2>();
+            foreach (var tuple in triggerList)
+            {
+                Vector2 vector2 = new Vector2(tuple.Item1, tuple.Item2);
+                triggerLocations.Add(vector2);
+            }
+            IRoomEvent roomEvent = new DropWithMultipleBlocksEvent(roomWithEvent, movableBlocks, triggerLocations, doorDirectionsList);
             roomWithEvent.AddRoomEvent(roomEvent);
         }
     }

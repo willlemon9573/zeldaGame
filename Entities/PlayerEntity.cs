@@ -27,8 +27,11 @@ namespace SprintZero1.Entities
         private ISprite _playerSprite;
         private Direction _playerDirection;
         private Vector2 _playerPosition;
-        private readonly ICollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
-        private readonly PlayerSpriteFactory PlayerSpriteFactory = PlayerSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
+        private string _characterName;
+        private int linkHeight;
+        private int linkWidth;
+        private ICollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
+        private readonly PlayerSpriteFactory _linkSpriteFactory = PlayerSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
         private IWeaponEntity _playerSwordSlot;
         private IWeaponEntity _playerEquipmentSlot;
         private readonly PlayerStateFactory _playerStateFactory;
@@ -36,23 +39,23 @@ namespace SprintZero1.Entities
         private IPlayerState _playerVulnerabilityState;
         private IWeaponEntity _currentWeapon;
         private readonly PlayerInventory _playerInventory;
-        private readonly string _characterName;
         private ILootableEntity _equipmentToDisplay;
         private bool _isDead;
+        private bool _changeColliders;
         /* Public properties to modify the player's private members */
+        public string name { get { return _characterName; } set { _characterName = value; } }
         public float Health { get { return _playerHealth; } set { _playerHealth = value; } }
         public float MaxHealth { get { return _playerMaxHealth; } set { _playerMaxHealth = value; } }
         public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
         public ISprite PlayerSprite { get { return _playerSprite; } set { _playerSprite = value; } }
         public IPlayerState PlayerState { get { return _playerState; } set { _playerState = value; } }
         public IPlayerState PlayerVulnerableState { get { return _playerVulnerabilityState; } set { _playerVulnerabilityState = value; } }
-        public ICollider Collider { get { return _playerCollider; } }
+        public ICollider Collider { get { return _playerCollider; } set { _playerCollider = value; } }
         public Vector2 Position { get { return _playerPosition; } set { _playerPosition = value; Collider.Update(this); } }
         public IWeaponEntity SwordSlot { get { return _playerSwordSlot; } set { _playerSwordSlot = value; } }
         public IWeaponEntity EquipmentSlot { get { return _playerEquipmentSlot; } set { _playerEquipmentSlot = value; } }
         public IWeaponEntity CurrentUsableWeapon { get { return _currentWeapon; } set { _currentWeapon = value; } }
         public string CharacterName { get { return _characterName; } }
-
         public ILootableEntity EquipmentToDisplay { get { return _equipmentToDisplay; } set { _equipmentToDisplay = value; } }
 
 
@@ -71,8 +74,11 @@ namespace SprintZero1.Entities
             _playerMaxHealth = startingHealth;
             _playerPosition = startingPosition;
             _characterName = characterName;
-            _playerSprite = PlayerSpriteFactory.GetPlayerMovementSprite(characterName, startingDirection);
+            _playerSprite = PlayerSpriteFactory.Instance.GetPlayerMovementSprite(characterName, startingDirection);
             float scalefactor = 0.9f; // scale factor for the collider
+            linkHeight = _playerSprite.Height;
+            linkWidth = _playerSprite.Width;
+            _changeColliders = false;
             _playerCollider = new PlayerCollider(startingPosition, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);
             _playerVulnerabilityState = new PlayerVulnerableState(this);
@@ -156,7 +162,9 @@ namespace SprintZero1.Entities
             {
                 _playerVulnerabilityState.Update(gameTime); // update flashing if player is invulnerable
             }
+
             _playerCollider.Update(this);
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

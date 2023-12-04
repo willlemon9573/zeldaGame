@@ -72,10 +72,12 @@ namespace SprintZero1.Factories
             {
                 index = 1;
             }
+            //if they have the gun
             if (weaponType.Equals("better"))
             {
-                sourceRectangle = projectileSourceRectangles["betterbowarrows"];
+                sourceRectangle = projectileSourceRectangles["bullet"];
             }
+            
             /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
             return new NonAnimatedSprite(sourceRectangle[index], spriteSheet);
         }

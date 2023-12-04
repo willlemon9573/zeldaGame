@@ -5,6 +5,15 @@
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
+	<Items>
+		<Item>
+			<Name>betterbow</Name>
+			<X>132</X>
+			<Y>143</Y>
+			<Type>EquipmentItemWithoutPlayerEntity</Type>
+			<Enum>betterbow</Enum>
+		</Item>
+	</Items>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>

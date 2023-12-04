@@ -17,7 +17,7 @@ namespace SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity
     internal class BetterBowEntity : NonComingBackWeaponEntity
     {
         private const int BetterBowMaxDistance = 60; // Maximum distance the projectile can travel before becoming inactive
-        private const float BetterBowMovingSpeed = 3;
+        private const float BetterBowMovingSpeed = 2f;
 
         /// <summary>
         /// Initializes a new instance of the BetterBowEntity class.
@@ -40,18 +40,21 @@ namespace SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity
             // Setting up the projectile and impact effect sprites
             ProjectileSprite = WeaponSpriteFactory.Instance.CreateArrowSprite("better", direction);
             ImpactEffectSprite = WeaponSpriteFactory.Instance.CreateEndSprite();
-
+            _isActive = true;
+            _drawImpactSprite = false;
             // Adjusting position and sprite based on the direction
             Tuple<SpriteEffects, Vector2> SpriteAdditions = _spriteEffectsDictionary[direction];
             _spriteMovingAddition = _spriteMovingDictionary[direction] * movingSpeed;
             _currentSpriteEffect = SpriteAdditions.Item1;
             _weaponPosition = position + SpriteAdditions.Item2;
+            distanceMoved = 0;
             _projectileCollider = new PlayerProjectileCollider(_weaponPosition, new System.Drawing.Size(ProjectileSprite.Width, ProjectileSprite.Height));
             if (GameStatesManager.CurrentState is GamePlayingState gameState)
             {
                 gameState.AddProjectile(this);
             }
             _weaponSoundEffect.Play();
+
         }
     }
 }
