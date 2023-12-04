@@ -43,6 +43,8 @@ namespace SprintZero1.GameStateMenu
         private Rectangle currentWeaponRec;
         private Rectangle topBackGround;
         private Rectangle botBackGround;
+        private Rectangle Cover;
+        private Rectangle currentPlayer;
 
         // Textures
         private readonly Texture2D largeTexture;
@@ -65,6 +67,10 @@ namespace SprintZero1.GameStateMenu
         // Property for current weapon
         public EquipmentItem CurrentWeapon { get { return currentWeapon; } }
 
+        private Dictionary<string, bool> _whetherVisitedRoom;
+        private Dictionary<string, (Vector2 Position, bool Visited)> _roomsInfo;
+        private string _playerCurrentRoom;
+
 
         /// <summary>
         /// Constructor for the ItemSelectionMenu. Initializes textures, fonts, and loads item data.
@@ -85,6 +91,27 @@ namespace SprintZero1.GameStateMenu
             _playerEquipment = PlayerInventoryManager.GetPlayerEquipmentList(_player);
             currentWeapon = _playerEquipment.FirstOrDefault();
             ChooseRect = ChooseRectFir;
+            _whetherVisitedRoom = LevelManager.WhetherVisitedRoom;
+            _roomsInfo = new Dictionary<string, (Vector2 Position, bool Visited)>();
+
+        }
+
+        public Vector2 GetRoomPositionFromXml(string roomName)
+        {
+            XDocument doc = XDocument.Load(@"GameStateMenu/ItemData.xml");
+            XDocTools _xDocTools = new XDocTools();
+            XElement roomElement = doc.Descendants("Room").FirstOrDefault(room => room.Attribute("name").Value == roomName);
+
+            if (roomElement != null)
+            {
+                Vector2 roomPosition = _xDocTools.ParseVector2Element(roomElement);
+                return roomPosition;
+            }
+            else
+            {
+                Debug.WriteLine(roomName);
+                return new Vector2(155, 140);
+            }
         }
 
         private void CreateMapOrCompass(XElement itemDataElement, XDocTools _xDocTools)
@@ -123,6 +150,10 @@ namespace SprintZero1.GameStateMenu
             topBackGround = _xDocTools.CreateRectangle(topBackGroundElement);
             XElement botBackGroundElement = itemDataElement.Element("BackGroundSecond");
             botBackGround = _xDocTools.CreateRectangle(botBackGroundElement);
+            XElement coverElement = itemDataElement.Element("Cover");
+            Cover = _xDocTools.CreateRectangle(coverElement);
+            XElement _currentPlayer = itemDataElement.Element("currentPlayer");
+            currentPlayer = _xDocTools.CreateRectangle(_currentPlayer);
 
             CreateMapOrCompass(itemDataElement, _xDocTools);
             int boxX = 120;
@@ -228,7 +259,16 @@ namespace SprintZero1.GameStateMenu
         /// Synchronizes the inventory with the player's current equipment.
         /// </summary>
         public void SynchronizeInventory()
-        {
+        { 
+            _whetherVisitedRoom = LevelManager.WhetherVisitedRoom;
+            foreach (var roomEntry in _whetherVisitedRoom)
+            {
+                string roomName = roomEntry.Key;
+                bool visited = roomEntry.Value;
+                Vector2 position = GetRoomPositionFromXml(roomName); 
+                _roomsInfo[roomName] = (position, visited);
+            }
+
             if (currentWeapon == EquipmentItem.WoodenSword)
             {
                 _playerEquipment = PlayerInventoryManager.GetPlayerEquipmentList(_player);
@@ -238,6 +278,7 @@ namespace SprintZero1.GameStateMenu
             {
                 _playerEquipment = PlayerInventoryManager.GetPlayerEquipmentList(_player);
             }
+            SynchronizeDungeonItems();
         }
 
         /// <summary>
@@ -246,6 +287,18 @@ namespace SprintZero1.GameStateMenu
         public void SynchronizeDungeonItems()
         {
             _dungeonItems = PlayerInventoryManager.GetPlayerDungeonItems(_player);
+            if (_dungeonItems.Contains(DungeonItems.Level1Map))
+            {
+                var keys = new List<string>(_roomsInfo.Keys);
+
+                foreach (var key in keys)
+                {
+                    var (position, _) = _roomsInfo[key];
+                    _roomsInfo[key] = (position, true);
+                }
+            }
+            _playerCurrentRoom = LevelManager.PlayerCurrentRoom;
+
         }
 
         /// <summary>
@@ -304,6 +357,8 @@ namespace SprintZero1.GameStateMenu
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_overlay, new Rectangle(0, 0, WIDTH, HEIGHT), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, OVER_LAYER_DEPTH);
+            DrawRoomCovers(spriteBatch);
+            DrawPlayerPosition(spriteBatch);
             DrawbackGround(spriteBatch);
             DrawDifferentItem(spriteBatch);
             DrawDifferentDungeonItems(spriteBatch);
@@ -387,6 +442,60 @@ namespace SprintZero1.GameStateMenu
 
                     // Draw the item using the retrieved source rectangle and position
                     spriteBatch.Draw(itemChooseScreen, position, sourceRect, Color.White, ROTATION, Vector2.Zero, SCALE, SpriteEffects.None, LAYER_DEPTH);
+                }
+            }
+        }
+        public void DrawPlayerPosition(SpriteBatch spriteBatch)
+        {
+            // Declare the variable to store the current player position
+            Vector2 currentPlayerPosition;
+
+            // Check if the _roomsInfo dictionary contains the key _playerCurrentRoom
+            if (_roomsInfo.ContainsKey(_playerCurrentRoom))
+            {
+                // Extract the Position part of the tuple from the _roomsInfo dictionary
+                currentPlayerPosition = _roomsInfo[_playerCurrentRoom].Position;
+            }
+            else
+            {
+                // Handle the case where _playerCurrentRoom is not a key in _roomsInfo
+                // For example, you might set currentPlayerPosition to a default value or throw an exception
+                currentPlayerPosition = new Vector2(0, 0); // or any default position
+            }
+            spriteBatch.Draw(
+                        itemChooseScreen,
+                        currentPlayerPosition,
+                        currentPlayer,
+                        Color.White,
+                        0,
+                        Vector2.Zero,
+                        SCALE,
+                        SpriteEffects.None,
+                        0
+                    );
+
+
+
+        }
+        public void DrawRoomCovers(SpriteBatch spriteBatch)
+        {
+            foreach (var roomInfo in _roomsInfo)
+            {
+                if (!roomInfo.Value.Visited)
+                {
+                    Vector2 position = roomInfo.Value.Position;
+                    Debug.WriteLine(position);
+                    spriteBatch.Draw(
+                        itemChooseScreen, 
+                        position, 
+                        Cover, 
+                        Color.White, 
+                        0, 
+                        Vector2.Zero, 
+                        SCALE, 
+                        SpriteEffects.None, 
+                        0 
+                    );
                 }
             }
         }

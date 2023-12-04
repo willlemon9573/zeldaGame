@@ -24,37 +24,29 @@ namespace SprintZero1.Entities.EnemyEntities
         /// <param name="enemyName">The name of the enemy.</param>
         IWeaponEntity _EnemyWeapon;
         string weaponName = "Boomerang";
-        private float _timeSinceLastAttack = 0f;
-        private const float AttackCooldownTime = 3f;
         public EnemyEntityWithProjectile(Vector2 position, int startingHealth, string enemyName)
             : base(position, startingHealth, enemyName)
         {
-            _EnemyWeapon = new RegularBoomerangEntity("Boomerang", this);
-            // No specific construction logic required
-            _attackCooldown = AttackCooldownTime;
+            _EnemyWeapon = new EnemyBoomerangEntity("Boomerang", this);
         }
 
         public override void PerformAttack()
         {
-            if (_timeSinceLastAttack >= _attackCooldown)
+            if (_enemyState is not EnemyAttackingState)
             {
-                if (_enemyState is not EnemyAttackingState)
-                {
-                    TransitionToState(State.Attacking);
-                }
-
-                if (weaponName == "Boomerang")
-                {
-                    _EnemyWeapon.UseWeapon(_enemyDirection, _enemyPosition);
-                }
-                _enemyState.Request();
-
-                _timeSinceLastAttack = 0f;
+                TransitionToState(State.Attacking);
             }
+
+            if (weaponName == "Boomerang")
+            {
+                _EnemyWeapon.UseWeapon(_enemyDirection, _enemyPosition);
+            }
+            _enemyState.Request();
+
+
         }
         public override void Update(GameTime gameTime)
         {
-            _timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             _enemyState.Update(gameTime);
             _EnemyWeapon.Update(gameTime);
             _collider.Update(this);

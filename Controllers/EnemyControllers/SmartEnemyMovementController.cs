@@ -36,6 +36,8 @@ namespace SprintZero1.Controllers.EnemyControllers
         private readonly Random _random = new Random();
         private readonly List<IEntity> _players;
         private bool _running;
+        private double _timeSinceLastAttack;
+        private double _attackCooldown = 2.0;
 
 
         public SmartEnemyMovementController(ICombatEntity enemyEntity, List<IEntity> players, RemoveDelegate remover, List<IEntity> ArchitechtureList)
@@ -48,6 +50,7 @@ namespace SprintZero1.Controllers.EnemyControllers
             isPathBeingCalculated = false;
             _remove = remover;
             _running = true;
+            _timeSinceLastAttack = 0;
         }
 
         public void Start()
@@ -86,6 +89,7 @@ namespace SprintZero1.Controllers.EnemyControllers
             if (_running == false) { return; }
             double elapsed = gameTime.ElapsedGameTime.TotalSeconds;
             _timeSinceLastPathCalculation += elapsed;
+            _timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             _currentMoveTime += elapsed;
             _timeSinceLastDirectionChange += elapsed;  // Track time since last direction change
             IEntity nearestPlayer = FindNearestPlayer(_enemyEntity.Position, _players);
@@ -98,14 +102,17 @@ namespace SprintZero1.Controllers.EnemyControllers
                     isPathBeingCalculated = true;
                     _timeSinceLastPathCalculation = 0;
                 }
-
-                if (_enemyEntity is EnemyBasedEntity enemyBasedEntity)
+                if (_timeSinceLastAttack >= _attackCooldown)
                 {
-                    if (ShouldUseBoomerangAttack(_enemyEntity.Position, nearestPlayer.Position))
+                    if (_enemyEntity is EnemyBasedEntity enemyBasedEntity)
                     {
-                        Debug.Print("enemyAttacked");
-                        enemyBasedEntity.Attack();
+                        if (ShouldUseBoomerangAttack(_enemyEntity.Position, nearestPlayer.Position))
+                        {
+                            Debug.Print("enemyAttacked");
+                            enemyBasedEntity.Attack();
+                        }
                     }
+                    _timeSinceLastAttack = 0;
                 }
                 // Update path once calculated
                 if (isPathBeingCalculated && pathfinder.Update())
