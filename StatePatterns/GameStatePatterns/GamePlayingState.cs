@@ -126,6 +126,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             foreach (var playerTuple in _playerMap.Values)
             {
                 playerTuple.Item1.Draw(spriteBatch);
+                Rectangle r = (playerTuple.Item1 as ICollidableEntity).Collider.Collider;
+                _spriteDebuggingTools.DrawRectangle(r, Color.SandyBrown, spriteBatch);
             }
             for (int i = 0; i < _projectiles.Count; i++)
             {
