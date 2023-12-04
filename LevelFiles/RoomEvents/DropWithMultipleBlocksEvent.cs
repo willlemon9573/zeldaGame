@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
@@ -23,8 +24,10 @@ namespace SprintZero1.LevelFiles.RoomEvents
         private readonly List<IMovableEntity> _movableBlocks;
         private readonly List<Vector2> _triggerPositions;
         private const string _direction = "East";
-        private const int X = 167;
+        private const int X = 183;
         private const int Y = 120;
+        private const int x1 = 131;
+        private const int y1 = 108;
 
         /// <summary>
         /// Initialize
@@ -56,6 +59,16 @@ namespace SprintZero1.LevelFiles.RoomEvents
             return new EquipmentItemWithoutPlayerEntity(gunSprite, dropPosition, itemRemover, itemHandler, EquipmentItem.BetterBow);
         }
 
+        private ILootableEntity CreateRupees(int offset)
+        {
+            string spriteName = "rupee";
+            ISprite sprite= ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite(spriteName);
+            RemoveDelegate remover = _room.RemoveAndSaveItem;
+            StackableItemHandler itemHandler = PlayerInventoryManager.AddStackableItemToInventory;
+            Vector2 dropPosition = new Vector2(x1 + offset, y1 + offset);
+            return new StackableItemEntity(sprite, dropPosition, remover, itemHandler, StackableItems.Rupee);
+        }
+
         /// <summary>
         /// On/Off for if the event can be triggered or not, if already triggered then false
         /// </summary>
@@ -85,6 +98,12 @@ namespace SprintZero1.LevelFiles.RoomEvents
             {
                 _room.AddRoomItem(CreateGun(offset: 0));
                 _room.AddRoomItem(CreateGun(offset: 25));
+
+                for(int i = 0; i < 88; i = i + 8)
+                {
+                    _room.AddRoomItem(CreateRupees(offset: i));
+                }
+
                 foreach (var direction in _doorsToOpenDirections)
                 {
                     _room.UnlockDoor(direction);
