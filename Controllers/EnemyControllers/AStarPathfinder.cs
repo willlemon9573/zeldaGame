@@ -188,10 +188,16 @@ namespace SprintZero1.Controllers.EnemyControllers
             return neighbors;
         }
 
+        /// <summary>
+        /// Determines if the specified position is blocked by any block entity.
+        /// </summary>
+        /// <param name="position">The position to check, in terms of grid coordinates.</param>
+        /// <returns>True if the position is blocked; otherwise, false.</returns>
         private bool IsPositionBlocked(Vector2 position)
         {
             return _blockEntities.Any(block => block.Position == position * BlockSize);
         }
+
         /// <summary>
         /// Calculates the distance between two nodes.
         /// </summary>

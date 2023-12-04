@@ -15,9 +15,9 @@ namespace SprintZero1.Commands.CollisionCommands
         }
         public void Execute()
         {
-            if (_projectile is BoomerangBasedEntity nonReturningProjectile)
+            if (_projectile is BoomerangBasedEntity ReturningProjectile)
             {
-                _combatEntity.TakeDamage(nonReturningProjectile.WeaponDamage);
+                _combatEntity.TakeDamage(ReturningProjectile.WeaponDamage);
             }
         }
     }

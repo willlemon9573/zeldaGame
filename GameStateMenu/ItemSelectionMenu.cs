@@ -95,7 +95,10 @@ namespace SprintZero1.GameStateMenu
             _roomsInfo = new Dictionary<string, (Vector2 Position, bool Visited)>();
 
         }
-
+        /// <summary>
+        /// Get which place the cover should be drawn
+        /// </summary>
+        /// <param name="roomName">Which room we are trying to get our Room Position</param>
         public Vector2 GetRoomPositionFromXml(string roomName)
         {
             XDocument doc = XDocument.Load(@"GameStateMenu/ItemData.xml");
@@ -109,11 +112,17 @@ namespace SprintZero1.GameStateMenu
             }
             else
             {
+                //just set to an unsable and unrelated place
                 Debug.WriteLine(roomName);
                 return new Vector2(110, 140);
             }
         }
 
+        /// <summary>
+        /// Creates map and compass items for a dungeon level and updates their positions.
+        /// </summary>
+        /// <param name="itemDataElement">XML element containing dungeon item data.</param>
+        /// <param name="_xDocTools">Toolset for XML document parsing and manipulation.</param>
         private void CreateMapOrCompass(XElement itemDataElement, XDocTools _xDocTools)
         {
             foreach (XElement itemElement in itemDataElement.Elements("DungeonItems"))
@@ -445,6 +454,11 @@ namespace SprintZero1.GameStateMenu
                 }
             }
         }
+
+        /// <summary>
+        /// Draws the player's current position on the screen using the sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used to draw the player's position.</param>
         public void DrawPlayerPosition(SpriteBatch spriteBatch)
         {
             // Declare the variable to store the current player position
@@ -472,11 +486,13 @@ namespace SprintZero1.GameStateMenu
                         SCALE,
                         SpriteEffects.None,
                         0
-                    );
-
-
-
+                        );
         }
+
+        /// <summary>
+        /// Draws covers over rooms that have not been visited yet, using the sprite batch.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used for drawing room covers.</param>
         public void DrawRoomCovers(SpriteBatch spriteBatch)
         {
             foreach (var roomInfo in _roomsInfo)
