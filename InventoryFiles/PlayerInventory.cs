@@ -1,5 +1,8 @@
 ﻿using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities;
 using SprintZero1.Enums;
+using SprintZero1.Managers;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
 using System;
@@ -141,6 +144,7 @@ namespace SprintZero1.InventoryFiles
         {
             Debug.Assert(_equipmentSlots.ContainsKey(newEquipment), $"The player does not contain {newEquipment} in their inventory.");
             _inventoryOwner.EquipmentSlot = _equipmentSlots[newEquipment];
+            HUDManager.UpdateOnScreenEquipment(_inventoryOwner, _equipmentSlots[newEquipment].Sprite);
         }
 
         /// <summary>

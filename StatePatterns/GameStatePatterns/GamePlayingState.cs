@@ -3,18 +3,19 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using SprintZero1.Colliders;
 using SprintZero1.DebuggingTools;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Factories;
 using SprintZero1.LevelFiles;
 using SprintZero1.Managers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SprintZero1.StatePatterns.GameStatePatterns
 {
 
     internal class GamePlayingState : BaseGameState
     {
-        private DungeonRoom _currentRoom;
+
         /// <summary>
         /// List of projects that may be drawn on screen
         /// </summary>
@@ -45,15 +46,24 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Handle()
         {
-            _currentRoom.UpdateEnemyController(_playerMap[1].Item1);
+            List<IEntity> entityList = _playerMap.Values.Select(tuple => tuple.Item1).ToList();
+            _currentRoom.UpdateEnemyController(entityList);
             SoundFactory.AdjustMusicVolume(0.3f);
         }
 
+        /// <summary>
+        /// Remove a collider from the list of collidable entities
+        /// </summary>
+        /// <param name="entity">The entity with the collider being removed</param>
         public void RemoveCollider(IEntity entity)
         {
             _colliderManager.RemoveCollidableEntity(entity);
         }
 
+        /// <summary>
+        /// Add a collider from the list of collidable entities
+        /// </summary>
+        /// <param name="entity">the entity with the collider being added</param>
         public void AddCollider(IEntity entity)
         {
             _colliderManager.AddCollidableEntity(entity);

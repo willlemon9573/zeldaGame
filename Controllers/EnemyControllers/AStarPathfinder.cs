@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using SprintZero1.Entities.EntityInterfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,9 +19,11 @@ namespace SprintZero1.Controllers.EnemyControllers
         private Stack<Vector2> pathResult; // Resulting path from start to end
         private bool isPathfindingDone; // Flag to indicate if pathfinding is complete
         private const int BlockSize = 16; // Size of each grid block
+        private List<IEntity> _blockEntities;
 
-        public AStarPathfinder()
+        public AStarPathfinder(List<IEntity> blockEntities)
         {
+            _blockEntities = blockEntities;
             OpenList = new PriorityQueue<Node, float>();
             ClosedList = new List<Node>();
             isPathfindingDone = false;
@@ -79,7 +82,7 @@ namespace SprintZero1.Controllers.EnemyControllers
 
                     foreach (var neighbor in neighbors)
                     {
-                        if (ClosedList.Any(n => n.Position == neighbor.Position))
+                        if (ClosedList.Any(n => n.Position == neighbor.Position) || IsPositionBlocked(neighbor.Position))
                             continue;
 
                         float newMovementCostToNeighbor = currentNode.G + GetDistance(currentNode, neighbor);
@@ -164,22 +167,31 @@ namespace SprintZero1.Controllers.EnemyControllers
         private List<Node> GetNeighbors(Node node)
         {
             var neighbors = new List<Node>();
-            Vector2 topPosition = new Vector2(node.Position.X, node.Position.Y - 1) * BlockSize;
-            neighbors.Add(new Node(topPosition));
+            // Define neighbor positions
+            var potentialNeighbors = new List<Vector2>
+            {
+                new Vector2(node.Position.X, node.Position.Y - 1),
+                new Vector2(node.Position.X, node.Position.Y + 1),
+                new Vector2(node.Position.X - 1, node.Position.Y),
+                new Vector2(node.Position.X + 1, node.Position.Y)
+            };
 
-            Vector2 bottomPosition = new Vector2(node.Position.X, node.Position.Y + 1) * BlockSize;
-            neighbors.Add(new Node(bottomPosition));
-
-            Vector2 leftPosition = new Vector2(node.Position.X - 1, node.Position.Y) * BlockSize;
-            neighbors.Add(new Node(leftPosition));
-
-            Vector2 rightPosition = new Vector2(node.Position.X + 1, node.Position.Y) * BlockSize;
-            neighbors.Add(new Node(rightPosition));
+            foreach (var pos in potentialNeighbors)
+            {
+                var worldPosition = pos * BlockSize;
+                if (!_blockEntities.Any(block => block.Position == worldPosition))
+                {
+                    neighbors.Add(new Node(worldPosition));
+                }
+            }
 
             return neighbors;
         }
 
-
+        private bool IsPositionBlocked(Vector2 position)
+        {
+            return _blockEntities.Any(block => block.Position == position * BlockSize);
+        }
         /// <summary>
         /// Calculates the distance between two nodes.
         /// </summary>

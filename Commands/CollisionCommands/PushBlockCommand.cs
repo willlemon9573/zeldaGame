@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using System.Collections.Generic;
 
 namespace SprintZero1.Commands.CollisionCommands

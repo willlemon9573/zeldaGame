@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using System;
 
 namespace SprintZero1.Commands.CollisionCommands
@@ -25,7 +25,7 @@ namespace SprintZero1.Commands.CollisionCommands
             // Calculate the intersection of the colliders
             Rectangle intersection = Rectangle.Intersect(_entityOne.Collider.Collider, _entityTwo.Collider.Collider);
 
-            
+
             Vector2 displacement;
             if (intersection.Width > intersection.Height)
             {

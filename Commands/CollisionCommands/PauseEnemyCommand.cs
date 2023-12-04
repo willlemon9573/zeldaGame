@@ -1,5 +1,6 @@
-using SprintZero1.Entities;
-using SprintZero1.Entities.BoomerangEntity;
+using SprintZero1.Entities.EnemyEntities;
+using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities.BoomerangEntity;
 using System.Collections.Generic;
 
 namespace SprintZero1.Commands.CollisionCommands
@@ -24,15 +25,19 @@ namespace SprintZero1.Commands.CollisionCommands
 
         public void Execute()
         {
+            if (_boomerang.CollidedWithObject) { return; }
+            _boomerang.CollidedWithObject = true;
+            _boomerang.ForceReturnBoomerang();
             if (weak_enemies.Contains(_enemy.EnemyName.ToLower()))
             {
                 _enemy.TakeDamage(_boomerang.WeaponDamage);
+
             }
             else
             {
                 _enemy.PauseEnemy();
             }
-            _boomerang.ReturnBoomerang();
+
         }
     }
 }

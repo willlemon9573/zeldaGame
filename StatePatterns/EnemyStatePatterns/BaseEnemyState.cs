@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
@@ -37,7 +37,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
                 // Add more states as needed
             };
         }
-        
+
         /// <summary>
         /// Changes the direction of the enemy based on the current state
         /// </summary>

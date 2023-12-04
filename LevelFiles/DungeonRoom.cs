@@ -3,8 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Controllers.EnemyControllers;
 using SprintZero1.DebuggingTools;
-using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities.Doors;
+using SprintZero1.Entities.EnemyEntities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
@@ -238,11 +239,11 @@ namespace SprintZero1.LevelFiles
             _itemCollector.Clear();
         }
 
-        public void UpdateEnemyController(IEntity playerEntity)
+        public void UpdateEnemyController(List<IEntity> players)
         {
             if (_enemyControllerList.Count > 0 && _liveEnemyList.Count == enemyCount) { return; }
             RemoveDelegate remover = RemoveDeadEnemies;
-            _liveEnemyList.ForEach(enemy => _enemyControllerList.Add(new SmartEnemyMovementController(enemy as ICombatEntity, playerEntity, remover)));
+            _liveEnemyList.ForEach(enemy => _enemyControllerList.Add(new SmartEnemyMovementController(enemy as ICombatEntity, players, remover, _architechtureList)));
         }
 
         /// <summary>
@@ -309,11 +310,7 @@ namespace SprintZero1.LevelFiles
                 {
                     Rectangle collider = (entity as ICollidableEntity).Collider.Collider;
                     Color r = Color.White;
-                    if (entity is IDoorEntity)
-                    {
-                        r = Color.White;
-                    }
-                    else
+                    if (entity is BreakableWallEntity)
                     {
                         r = Color.Red;
                     }
@@ -330,6 +327,7 @@ namespace SprintZero1.LevelFiles
                     _spriteDebugger.DrawRectangle(collider, c, spriteBatch);
                 }
             }
+
             /* drawing a collider for any floor items */
             foreach (IEntity entity in _floorItems)
             {

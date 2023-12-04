@@ -1,4 +1,4 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.InventoryFiles;
 using System.Collections.Generic;
@@ -104,7 +104,6 @@ namespace SprintZero1.Managers
             Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Inventory manager could not find {player}");
             Debug.Assert(!_playerInventoryMap[player].IsInInventory(equipment), $"Error adding to innventory, {player} already contains {equipment}");
             _playerInventoryMap[player].AddNewEquipment(equipment, newEquipment);
-
         }
 
         /// <summary>

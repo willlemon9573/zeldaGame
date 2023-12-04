@@ -3,6 +3,7 @@ using SprintZero1.Commands;
 using SprintZero1.Commands.DebugCommands;
 using SprintZero1.Commands.PlayerCommands;
 using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Managers;
 using System;
 using System.Collections.Generic;

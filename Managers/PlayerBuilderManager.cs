@@ -1,5 +1,5 @@
 ﻿using SprintZero1.Controllers;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.XMLParsers;
 using System;
 using System.Xml.Linq;

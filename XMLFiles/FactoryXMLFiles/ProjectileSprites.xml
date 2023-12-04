@@ -15,7 +15,7 @@
 		<Rectangle x='36' y='190' width='16' height='5'/>
 	</Sprite>
 	<Sprite name="bomb">
-		<Rectangle x='126' y='185' width='16' height='16'/>
+		<Rectangle x='129' y='185' width='8' height='16'/>
 		<Rectangle x='142' y='185' width='16' height='16'/>
 		<Rectangle x='160' y='185' width='16' height='16'/>
 		<Rectangle x='178' y='185' width='16' height='16'/>

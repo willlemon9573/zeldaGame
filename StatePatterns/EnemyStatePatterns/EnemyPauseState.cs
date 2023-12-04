@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Enums;
 
 namespace SprintZero1.StatePatterns.EnemyStatePatterns
@@ -23,15 +23,17 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
 
         public override void Request()
         {
-            if (_blockTransition) { return;}
+            if (_blockTransition) { return; }
             _elapsedPauseTime = 0f;
             BlockTransition();
         }
 
         public override void Update(GameTime gameTime)
         {
-            _elapsedPauseTime += (float)gameTime.TotalGameTime.TotalSeconds;
-            if (_elapsedPauseTime >= MaxPauseTime) {
+            _elapsedPauseTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (_elapsedPauseTime >= MaxPauseTime)
+            {
                 UnblockTranstion();
                 TransitionState(State.Moving);
             }

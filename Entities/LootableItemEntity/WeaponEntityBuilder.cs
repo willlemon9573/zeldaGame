@@ -1,6 +1,8 @@
-﻿using SprintZero1.Entities.BombEntityFolder;
-using SprintZero1.Entities.BoomerangEntity;
-using SprintZero1.Entities.BowAndMagicFireEntity;
+﻿
+using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities.BombEntityFolder;
+using SprintZero1.Entities.WeaponEntities.BoomerangEntity;
+using SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity;
 using SprintZero1.Enums;
 using System;
 using System.Collections.Generic;

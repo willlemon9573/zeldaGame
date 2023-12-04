@@ -203,27 +203,27 @@
 		</Block>
 	</Blocks>
 	<Enemies>
-		<Enemy>
+		<EnemyWithProjectile>
 			<Name>dungeon_goriya</Name>
 			<X>143</X>
 			<Y>135</Y>
 			<Health>1</Health>
 			<IsBoss>false</IsBoss>
-		</Enemy>
-		<Enemy>
+		</EnemyWithProjectile>
+		<EnemyWithProjectile>
 			<Name>dungeon_goriya</Name>
 			<X>177</X>
 			<Y>167</Y>
 			<Health>1</Health>
 			<IsBoss>false</IsBoss>
-		</Enemy>
-		<Enemy>
+		</EnemyWithProjectile>
+		<EnemyWithProjectile>
 			<Name>dungeon_goriya</Name>
 			<X>159</X>
 			<Y>103</Y>
 			<Health>1</Health>
 			<IsBoss>false</IsBoss>
-		</Enemy>
+		</EnemyWithProjectile>
 	</Enemies>
 	<Doors>
 		<Door>

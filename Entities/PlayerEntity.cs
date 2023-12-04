@@ -2,7 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
-using SprintZero1.Entities.BoomerangEntity;
+using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.InventoryFiles;
@@ -76,7 +77,7 @@ namespace SprintZero1.Entities
 
 
             /* For testing */
-            _playerEquipmentSlot = new RegularBoomerangEntity("regularboomerang", this);
+            _playerEquipmentSlot = new RegularBowEntity("bow");
         }
 
         public void Move()
@@ -94,13 +95,12 @@ namespace SprintZero1.Entities
             _playerState.TransitionState(_playerStateFactory.GetPlayerState(newState));
         }
 
+
+
         public void Attack()
         {
             /* return if the player previously shot a projectile and it hasn't finished its animation */
-            if (_currentWeapon is ProjectileEntity projectile && projectile.IsActive)
-            {
-                return;
-            }
+            if (_currentWeapon.IsActive) { return; }
             if (_playerState is not PlayerAttackingState) { TransitionToState(State.Attacking); }
             _playerState.Request();
         }
