@@ -12,7 +12,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
         private const float InvulnerabilityTime = 1 / 2f;
         private float _elapsedKnockbackTime;
         private float _elapsedInvulnerabilityTime;
-        private const float KnockbackSpeed = 100f; // the speed for knocking back
+        private const float KnockbackSpeed = 175f; // the speed for knocking back
         private readonly List<Color> _colorList;
         private readonly Dictionary<Direction, Vector2> _velocityMap;
         private Vector2 _knockbackDirection;
