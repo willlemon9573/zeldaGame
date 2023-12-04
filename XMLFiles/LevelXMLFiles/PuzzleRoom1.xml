@@ -9,93 +9,94 @@
 		<Event>
 			<Name>DropWithMultipleBlocksEvent</Name>
 			<EventInfo>
-				<TriggerX>215</TriggerX>
+				<TriggerX>87</TriggerX>
 				<TriggerY>104</TriggerY>
-				<TriggerX>135</TriggerX>
+				<TriggerX>103</TriggerX>
 				<TriggerY>120</TriggerY>
 				<TriggerX>119</TriggerX>
 				<TriggerY>136</TriggerY>
-				<TriggerX>103</TriggerX>
-				<TriggerY>152</TriggerY>
-				<TriggerX>119</TriggerX>
-				<TriggerY>168</TriggerY>
 				<TriggerX>135</TriggerX>
+				<TriggerY>152</TriggerY>
+				<TriggerX>151</TriggerX>
+				<TriggerY>168</TriggerY>
+				<TriggerX>167</TriggerX>
 				<TriggerY>184</TriggerY>
-				<TriggerX>215</TriggerX>
+				<TriggerX>183</TriggerX>
 				<TriggerY>200</TriggerY>
-				<DoorDirection>East</DoorDirection>
 				<DoorDirection>West</DoorDirection>
 			</EventInfo>
-			<EventBlock type="MovableBlockEntity">
-				<Name>pyramid</Name>
-				<!-- Represents the starting position of the block -->
-				<X>55</X>
-				<Y>104</Y>
-				<!-- Represents the max position the object can move -->
-				<X2>215</X2>
-				<Y2>104</Y2>
-				<MovableDirection>East</MovableDirection>
-			</EventBlock>
-			<EventBlock type="MovableBlockEntity">
-				<Name>pyramid</Name>
-				<!-- Represents the starting position of the block -->
-				<X>55</X>
-				<Y>120</Y>
-				<!-- Represents the max position the object can move -->
-				<X2>135</X2>
-				<Y2>120</Y2>
-				<MovableDirection>East</MovableDirection>
-			</EventBlock>
-			<EventBlock type="MovableBlockEntity">
-				<Name>pyramid</Name>
-				<!-- Represents the starting position of the block -->
-				<X>55</X>
-				<Y>136</Y>
-				<!-- Represents the max position the object can move -->
-				<X2>119</X2>
-				<Y2>136</Y2>
-				<MovableDirection>East</MovableDirection>
-			</EventBlock>
-			<EventBlock type="MovableBlockEntity">
-				<Name>pyramid</Name>
-				<!-- Represents the starting position of the block -->
-				<X>55</X>
-				<Y>152</Y>
-				<!-- Represents the max position the object can move -->
-				<X2>103</X2>
-				<Y2>152</Y2>
-				<MovableDirection>East</MovableDirection>
-			</EventBlock>
-			<EventBlock type="MovableBlockEntity">
-				<Name>pyramid</Name>
-				<!-- Represents the starting position of the block -->
-				<X>55</X>
-				<Y>168</Y>
-				<!-- Represents the max position the object can move -->
-				<X2>119</X2>
-				<Y2>168</Y2>
-				<MovableDirection>East</MovableDirection>
-			</EventBlock>
-			<EventBlock type="MovableBlockEntity">
-				<Name>pyramid</Name>
-				<!-- Represents the starting position of the block -->
-				<X>55</X>
-				<Y>184</Y>
-				<!-- Represents the max position the object can move -->
-				<X2>135</X2>
-				<Y2>184</Y2>
-				<MovableDirection>East</MovableDirection>
-			</EventBlock>
-			<EventBlock type="MovableBlockEntity">
-				<Name>pyramid</Name>
-				<!-- Rpresents the starting position of the block -->
-				<X>55</X>
-				<Y>200</Y>
-				<!-- Represents the max position the object can move -->
-				<X2>215</X2>
-				<Y2>200</Y2>
-				<MovableDirection>East</MovableDirection>
-			</EventBlock>
+			<EventBlocks>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>104</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>87</X2>
+					<Y2>104</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>120</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>103</X2>
+					<Y2>120</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>136</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>119</X2>
+					<Y2>136</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>152</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>135</X2>
+					<Y2>152</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>168</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>151</X2>
+					<Y2>168</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>184</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>167</X2>
+					<Y2>184</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Rpresents the starting position of the block -->
+					<X>55</X>
+					<Y>200</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>183</X2>
+					<Y2>200</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+			</EventBlocks>
 		</Event>
 	</Events>
 	<Walls>
@@ -140,44 +141,30 @@
 			<Y>224</Y>
 		</Wall>
 	</Walls>
-	<Blocks>
-		<Block>
-			<Name>pyramid</Name>
-			<X>151</X>
-			<Y>136</Y>
-			<IsCollidable>true</IsCollidable>
-		</Block>
-		<Block>
-			<Name>pyramid</Name>
-			<X>151</X>
-			<Y>168</Y>
-			<IsCollidable>true</IsCollidable>
-		</Block>
-	</Blocks>
 	<Doors>
 		<Door>
-			<Name>doorless_north</Name>
+			<Name>open_north</Name>
 			<X>127</X>
 			<Y>80</Y>
-			<Destination>none</Destination>
+			<Destination>floorThreeRight</Destination>
 			<Direction>North</Direction>
-			<DoorType>DoorlessEntity</DoorType>
+			<DoorType>OpenDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>blocked_west</Name>
 			<X>15</X>
 			<Y>152</Y>
-			<Destination>floorFive</Destination>
+			<Destination>floorTwo</Destination>
 			<Direction>West</Direction>
 			<DoorType>BlockedDoorEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>blocked_east</Name>
+			<Name>doorless_east</Name>
 			<X>239</X>
 			<Y>152</Y>
 			<Destination>floorFiveRight</Destination>
 			<Direction>East</Direction>
-			<DoorType>BlockedDoorEntity</DoorType>
+			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>doorless_south</Name>

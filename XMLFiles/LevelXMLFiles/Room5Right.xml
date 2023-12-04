@@ -205,12 +205,12 @@
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>open_west</Name>
+			<Name>doorless_west</Name>
 			<X>15</X>
 			<Y>152</Y>
-			<Destination>puzzleRoom</Destination>
+			<Destination>none</Destination>
 			<Direction>West</Direction>
-			<DoorType>OpenDoorEntity</DoorType>
+			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>blocked_east</Name>

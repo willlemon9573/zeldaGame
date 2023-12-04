@@ -408,12 +408,12 @@
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>open_east</Name>
+			<Name>doorless_east</Name>
 			<X>239</X>
 			<Y>152</Y>
-			<Destination>puzzleRoom</Destination>
+			<Destination>none</Destination>
 			<Direction>East</Direction>
-			<DoorType>OpenDoorEntity</DoorType>
+			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>open_south</Name>

@@ -3,6 +3,7 @@ using SprintZero1.XMLParsers.XMLEntityBuilder;
 using SprintZero1.XMLParsers.XMLEntityBuilder.EventParser;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml;
 
 namespace SprintZero1.XMLParsers

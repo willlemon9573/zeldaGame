@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SprintZero1.Entities;
+using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
+using SprintZero1.Sprites;
 
 namespace SprintZero1.LevelFiles.RoomEvents
 {
@@ -18,7 +20,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
         private readonly List<IMovableEntity> _movableBlocks;
         private readonly List<Vector2> _triggerPositions;
         private const int _requiredBlocks = 7;
-        private const float TimeLimit = 30f;
+        private const float TimeLimit = 10f;
         private float _elapsedTime;
 
         /// <summary>
@@ -35,6 +37,11 @@ namespace SprintZero1.LevelFiles.RoomEvents
             _triggerPositions = triggerPositions;
             _doorsToOpenDirections = doorsToOpenDirections;
             _elapsedTime = 0f;
+        }
+
+        private ILootableEntity CreateGun(int offset)
+        {
+            return null;
         }
         
         /// <summary>
@@ -63,6 +70,11 @@ namespace SprintZero1.LevelFiles.RoomEvents
 
             if(blocksInPosition >= _requiredBlocks)
             {
+                foreach(var direction in _doorsToOpenDirections)
+                {
+                    _room.UnlockDoor(direction);
+                }
+                SoundFactory.PlaySound(SoundFactory.GetSound("secret"));
                 _canTriggerEvent = false;
                 ///drop minigun or open door or something
                 ///puzzle complete
@@ -82,7 +94,9 @@ namespace SprintZero1.LevelFiles.RoomEvents
             //check if time limit was reached
             if(_elapsedTime > TimeLimit )
             {
+                
                 Penalty(); //Call penalty function
+                
                 _elapsedTime -= TimeLimit; //subtract time limit from elapsed time to accurately measure
             }
 
@@ -93,6 +107,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
         /// </summary>
         private void Penalty()
         {
+            SoundFactory.PlaySound(SoundFactory.GetSound("bomb"));
             //spawn boss or lose health or something
             //not implemented yet
         }

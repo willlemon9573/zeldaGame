@@ -25,7 +25,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
         private const string EventInfoElement = "EventInfo";
         private const string EventBlockElement = "EventBlock";
         private const string MovableDirection = "MovableDirection";
-        private const string EventBlockListElement = "Event";
+        private const string EventBlockListElement = "EventBlocks";
 
         private readonly XmlNodeType EndElementType = XmlNodeType.EndElement;
         private readonly XmlNodeType ElementType = XmlNodeType.Element;
@@ -244,6 +244,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
             foreach(var block in blockList)
             {
                 IMovableEntity movableBlock = CreateMovableBlock(block);
+                roomWithEvent.AddArchitecturalEntity(movableBlock);
                 movableBlocks.Add(movableBlock);
             }
             List<String> doorDirections = eventInfo.DoorDirections;
