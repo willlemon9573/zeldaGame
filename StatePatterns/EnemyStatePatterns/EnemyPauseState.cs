@@ -30,7 +30,8 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
 
         public override void Update(GameTime gameTime)
         {
-            _elapsedPauseTime += (float)gameTime.TotalGameTime.TotalSeconds;
+            _elapsedPauseTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             if (_elapsedPauseTime >= MaxPauseTime)
             {
                 UnblockTranstion();

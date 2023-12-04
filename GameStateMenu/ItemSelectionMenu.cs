@@ -110,7 +110,7 @@ namespace SprintZero1.GameStateMenu
             else
             {
                 Debug.WriteLine(roomName);
-                return new Vector2(155, 140);
+                return new Vector2(110, 140);
             }
         }
 

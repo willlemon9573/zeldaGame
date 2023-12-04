@@ -37,7 +37,7 @@ namespace SprintZero1.Controllers.EnemyControllers
         private readonly List<IEntity> _players;
         private bool _running;
         private double _timeSinceLastAttack;
-        private double _attackCooldown = 2.0;
+        private double _attackCooldown = 1.0f;
 
 
         public SmartEnemyMovementController(ICombatEntity enemyEntity, List<IEntity> players, RemoveDelegate remover, List<IEntity> ArchitechtureList)
