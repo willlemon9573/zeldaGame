@@ -9,20 +9,13 @@
 		<Event>
 			<Name>DropWithMultipleBlocksEvent</Name>
 			<EventInfo>
-				<TriggerX>87</TriggerX>
-				<TriggerY>104</TriggerY>
-				<TriggerX>103</TriggerX>
-				<TriggerY>120</TriggerY>
-				<TriggerX>119</TriggerX>
-				<TriggerY>136</TriggerY>
-				<TriggerX>135</TriggerX>
-				<TriggerY>152</TriggerY>
-				<TriggerX>151</TriggerX>
-				<TriggerY>168</TriggerY>
-				<TriggerX>167</TriggerX>
-				<TriggerY>184</TriggerY>
-				<TriggerX>183</TriggerX>
-				<TriggerY>200</TriggerY>
+				<TriggerPosition x="87" y="104"/>
+				<TriggerPosition x="103" y="120"/>
+				<TriggerPosition x="119" y="136"/>
+				<TriggerPosition x="135" y="152"/>
+				<TriggerPosition x="151" y="168"/>
+				<TriggerPosition x="167" y="184"/>
+				<TriggerPosition x="183" y="200"/>
 				<DoorDirection>West</DoorDirection>
 			</EventInfo>
 			<EventBlocks>
@@ -143,12 +136,12 @@
 	</Walls>
 	<Doors>
 		<Door>
-			<Name>open_north</Name>
+			<Name>doorless_north</Name>
 			<X>127</X>
 			<Y>80</Y>
 			<Destination>floorThreeRight</Destination>
 			<Direction>North</Direction>
-			<DoorType>OpenDoorEntity</DoorType>
+			<DoorType>BreakableWallEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>blocked_west</Name>

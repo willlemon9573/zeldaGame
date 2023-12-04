@@ -26,6 +26,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
         private const string EventBlockElement = "EventBlock";
         private const string MovableDirection = "MovableDirection";
         private const string EventBlockListElement = "EventBlocks";
+        private const string TriggerPositionsElement = "TriggerPosition";
 
         private readonly XmlNodeType EndElementType = XmlNodeType.EndElement;
         private readonly XmlNodeType ElementType = XmlNodeType.Element;
@@ -39,11 +40,18 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
 
         private readonly Dictionary<string, Action<XmlReader, EventInfo>> _eventMapLists = new Dictionary<string, Action<XmlReader, EventInfo>>()
         {
-            { TriggerXElement, (reader, evt) => evt.AddToTriggerList(reader.ReadElementContentAsInt(), evt.TriggerY) },
-            { TriggerYElement, (reader, evt) => evt.AddToTriggerList(evt.TriggerX, reader.ReadElementContentAsInt()) },
+            { TriggerPositionsElement , (reader, evt) => ParseTriggerPosition(reader, evt) },
             { DoorDirectionElement, (reader, evt) => evt.AddDirection(reader.ReadElementContentAsString()) },
         };
 
+        private static void ParseTriggerPosition(XmlReader reader, EventInfo evt)
+        {
+            // Assuming TriggerPositionElement contains x and y attributes
+            int x = int.Parse(reader.GetAttribute("x"));
+            int y = int.Parse(reader.GetAttribute("y"));
+
+            evt.AddToTriggerList(x, y);
+        }
 
         private readonly Dictionary<string, Action<XmlReader, BlockInfo>> _blockMap = new Dictionary<string, Action<XmlReader, BlockInfo>>()
         {
