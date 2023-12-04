@@ -7,7 +7,9 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
     {
         private int x;
         private int y;
+
         private List<Tuple<int, int>> triggerLocations = new List<Tuple<int, int>>();
+
         private string doorDirection;
         private List<string> doorDirections = new List<string>();
         public int TriggerX { get { return x; } set { x = value; } }

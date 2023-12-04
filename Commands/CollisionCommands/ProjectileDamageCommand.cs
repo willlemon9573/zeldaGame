@@ -1,12 +1,11 @@
-﻿using SprintZero1.Entities;
-using SprintZero1.Entities.BoomerangEntity;
-using SprintZero1.Entities.BowAndMagicFireEntity;
+﻿using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity;
 
 namespace SprintZero1.Commands.CollisionCommands
 {
     internal class ProjectileDamageCommand : ICommand
     {
-        private const float temp_damage = 1f;
+
         private readonly ICollidableEntity _projectile;
         private readonly ICombatEntity _combatEntity;
         public ProjectileDamageCommand(ICollidableEntity projectile, ICollidableEntity combatEntity)
@@ -16,14 +15,13 @@ namespace SprintZero1.Commands.CollisionCommands
         }
         public void Execute()
         {
-            _combatEntity.TakeDamage(temp_damage);
-            if (_projectile is NonComingBackWeaponEntity nonReturningProjectile)
+            if (_projectile is IWeaponEntity projectile)
             {
-                nonReturningProjectile.Stop();
+                _combatEntity.TakeDamage(projectile.WeaponDamage);
             }
-            else if (_projectile is BoomerangBasedEntity returningProjectile)
+            if (_projectile is NonComingBackWeaponEntity nonComingBackWeaponEntity)
             {
-                returningProjectile.ReturnBoomerang();
+                nonComingBackWeaponEntity.Stop();
             }
         }
     }

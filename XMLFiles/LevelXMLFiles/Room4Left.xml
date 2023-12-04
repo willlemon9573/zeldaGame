@@ -70,9 +70,9 @@
 	<Enemies>
 		<Enemy>
 			<Name>dungeon_gel</Name>
-			<X>120</X>
+			<X>100</X>
 			<Y>120</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -80,15 +80,15 @@
 			<Name>dungeon_gel</Name>
 			<X>88</X>
 			<Y>151</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
 		<Enemy>
 			<Name>dungeon_gel</Name>
-			<X>120</X>
+			<X>100</X>
 			<Y>182</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>

@@ -32,6 +32,7 @@ namespace SprintZero1.XMLParsers
         private const string InnerItemFramesElement = "ItemFrames";
         private const string InnerItemEnumElement = "Enum";
         private const string InnerItemTypeElement = "Type";
+        private const string InnerBossBoundaryElement = "Boundary";
         /* ------------------------------Public Functions--------------------------------- */
         /// <summary>
         /// Constructor for a new instance of LevelXmlParser
@@ -57,10 +58,11 @@ namespace SprintZero1.XMLParsers
             { InnerItemFramesElement, (item, data) => (data as XMLItemEntity).ItemFrames = item.ReadElementContentAsInt() },
             { InnerItemTypeElement, (item, data) => (data as XMLItemEntity).ItemType = item.ReadElementContentAsString() },
             { InnerItemEnumElement, (item, data) => (data as XMLItemEntity).EnumName = item.ReadElementContentAsString() },
-            { InnerElementHealthElement, (enemy, data) =>  (data as XMLEnemyEntity).EntityHealth = enemy.ReadElementContentAsInt() },
+            { InnerElementHealthElement, (enemy, data) =>  (data as XMLEnemyEntity).EntityHealth = enemy.ReadElementContentAsFloat() },
             { InnerDoorDestinationElement, (door, data) => (data as XMLDoorEntity).Destination = door.ReadElementContentAsString() },
             { InnerDoorDirectionElement, (door, data) => (data as XMLDoorEntity).DoorDirection = door.ReadElementContentAsString() },
             { InnerDoorTypeElement,  (door, data) => (data as XMLDoorEntity).DoorType = door.ReadElementContentAsString() },
+              { InnerBossBoundaryElement, (enemy, data) => (data as XMLEnemyEntity).ParseBossBoundary(enemy)}
             };
         }
 
@@ -206,6 +208,7 @@ namespace SprintZero1.XMLParsers
         {
             IEntityParsingBuilder enemy = new XMLEnemyEntity();
             string innerEnemyElement = "Enemy";
+            string innerEnemyElementWithProjectile = "EnemyWithProjectile";
             string innerBossElement = "Boss";
             while (reader.Read())
             {
@@ -216,11 +219,15 @@ namespace SprintZero1.XMLParsers
                 {
                     parsedValue(reader, enemy);
                 }
-                else if (reader_type == EndElementType && (element_name == innerEnemyElement || element_name == innerBossElement))
+                else if (reader_type == EndElementType && (element_name == innerEnemyElement || element_name == innerBossElement || element_name == innerEnemyElementWithProjectile))
                 {
                     if (element_name == innerBossElement)
                     {
-                        dungeonRoom.AddEnemy((enemy as XMLEnemyEntity).CreateBossEntity());
+                        dungeonRoom.AddEnemy((enemy as XMLEnemyEntity).CreateBossEntity(dungeonRoom.RemoveDeadEnemies));
+                    }
+                    else if (element_name == innerEnemyElementWithProjectile)
+                    {
+                        dungeonRoom.AddEnemy((enemy as XMLEnemyEntity).CreateEntityWithprojectile());
                     }
                     else
                     {

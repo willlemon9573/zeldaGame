@@ -1,4 +1,5 @@
 ﻿using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
@@ -25,7 +26,12 @@ namespace SprintZero1.Commands.CollisionCommands
             _triforcePiece.Remove();
             /* don't know if this is implemented */
             _player.TransitionToState(State.InteractingWithItem);
-            _state.ChangeGameState(GameState.LevelCompleted);
+            if (_player is PlayerEntity player)
+            {
+                player.PickedupItem(_triforcePiece);
+            }
+            GameStatesManager.ChangeGameState(GameState.LevelCompleted);
+            GameStatesManager.CurrentState.Handle();
         }
     }
 }

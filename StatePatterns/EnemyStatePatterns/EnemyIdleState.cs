@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Enums;
 
 namespace SprintZero1.StatePatterns.EnemyStatePatterns
 {
     internal class EnemyIdleState : BaseEnemyState
     {
-        public EnemyIdleState(EnemyBasedEntity enemyEntity) : base(enemyEntity) { }
+        public EnemyIdleState(EnemyBasedEntity enemyEntity) : base(enemyEntity)
+        {
+        }
 
         public override void ChangeDirection(Direction newDirection)
         {

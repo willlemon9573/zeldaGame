@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using SprintZero1.Entities;
 using SprintZero1.Entities.DungeonRoomEntities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.LevelFiles;

@@ -1,4 +1,4 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EntityInterfaces;
 
 namespace SprintZero1.Commands.DebugCommands
 {
@@ -12,7 +12,7 @@ namespace SprintZero1.Commands.DebugCommands
 
         public void Execute()
         {
-            _player.TakeDamage(0.5f);
+            _player.TakeDamage(3f);
         }
     }
 }

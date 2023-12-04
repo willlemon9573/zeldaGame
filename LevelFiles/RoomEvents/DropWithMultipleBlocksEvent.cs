@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using SprintZero1.Colliders.DoorColliders;
-using SprintZero1.Entities;
+﻿using Microsoft.Xna.Framework;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
+using System;
+using System.Collections.Generic;
 
 namespace SprintZero1.LevelFiles.RoomEvents
 {
@@ -62,7 +56,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
         private ILootableEntity CreateRupees(int offset)
         {
             string spriteName = "rupee";
-            ISprite sprite= ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite(spriteName);
+            ISprite sprite = ItemSpriteFactory.Instance.CreateNonAnimatedItemSprite(spriteName);
             RemoveDelegate remover = _room.RemoveAndSaveItem;
             StackableItemHandler itemHandler = PlayerInventoryManager.AddStackableItemToInventory;
             Vector2 dropPosition = new Vector2(x1 + offset, y1 + offset);
@@ -82,7 +76,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
         /// Trigger the event if everything is satisfied, in this case the blocks are moved in place
         /// </summary>
         public void TriggerEvent()
-        { 
+        {
             for (int i = _movableBlocks.Count - 1; i >= 0; i--)
             {
                 //Debug.WriteLine($"Number {i}: {_movableBlocks[i].Position} = ${_triggerPositions[i]}");
@@ -99,7 +93,7 @@ namespace SprintZero1.LevelFiles.RoomEvents
                 _room.AddRoomItem(CreateGun(offset: 0));
                 _room.AddRoomItem(CreateGun(offset: 25));
 
-                for(int i = 0; i < 88; i = i + 8)
+                for (int i = 0; i < 88; i = i + 8)
                 {
                     _room.AddRoomItem(CreateRupees(offset: i));
                 }

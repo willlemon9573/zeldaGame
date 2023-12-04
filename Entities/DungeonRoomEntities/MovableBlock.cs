@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
-using SprintZero1.LevelFiles;
 using SprintZero1.Sprites;
 using System.Collections.Generic;
 
@@ -16,8 +16,6 @@ namespace SprintZero1.Entities.DungeonRoomEntities
         private Direction _movementDirection;
         private Vector2 _maxPosition;
         public Direction Direction { get { return _movementDirection; } set { _movementDirection = value; } }
-
-        private readonly DungeonRoom _room;
 
 
         /// <summary>

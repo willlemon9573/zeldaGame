@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;

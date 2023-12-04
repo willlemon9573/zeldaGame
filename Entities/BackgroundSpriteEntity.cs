@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Sprites;
 
 namespace SprintZero1.Entities

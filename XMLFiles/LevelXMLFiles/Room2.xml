@@ -84,30 +84,30 @@
 		</Block>
 	</Blocks>
 	<Enemies>
-		<Enemy>
-			<Name>dungeon_stalfos</Name>
-			<X>95</X>
-			<Y>165</Y>
-			<Health>1</Health>
-			<Frames>2</Frames>
-			<IsBoss>0</IsBoss>
-		</Enemy>
-		<Enemy>
-			<Name>dungeon_stalfos</Name>
-			<X>104</X>
-			<Y>139</Y>
-			<Health>1</Health>
-			<Frames>2</Frames>
-			<IsBoss>0</IsBoss>
-		</Enemy>
-		<Enemy>
-			<Name>dungeon_stalfos</Name>
-			<X>95</X>
-			<Y>101</Y>
-			<Health>1</Health>
-			<Frames>2</Frames>
-			<IsBoss>0</IsBoss>
-		</Enemy>
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>95</X>
+		<Y>165</Y>
+		<Health>2</Health>
+		<Frames>2</Frames>
+		<IsBoss>0</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>104</X>
+		<Y>139</Y>
+		<Health>2</Health>
+		<Frames>2</Frames>
+		<IsBoss>0</IsBoss>
+	</Enemy>
+	<Enemy>
+		<Name>dungeon_stalfos</Name>
+		<X>95</X>
+		<Y>101</Y>
+		<Health>2</Health>
+		<Frames>2</Frames>
+		<IsBoss>0</IsBoss>
+	</Enemy>
 	</Enemies>
 	<Doors>
 		<Door>

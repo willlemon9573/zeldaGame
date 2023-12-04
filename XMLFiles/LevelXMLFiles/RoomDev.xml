@@ -108,7 +108,7 @@
 			<Name>dungeon_keese</Name>
 			<X>155</X>
 			<Y>110</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -116,7 +116,7 @@
 			<Name>dungeon_zol</Name>
 			<X>135</X>
 			<Y>130</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -124,7 +124,7 @@
 			<Name>dungeon_wallmaster</Name>
 			<X>135</X>
 			<Y>170</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -132,7 +132,7 @@
 			<Name>aquamentus</Name>
 			<X>168</X>
 			<Y>145</Y>
-			<Health>1</Health>
+			<Health>6</Health>
 			<Frames>2</Frames>
 			<IsBoss>true</IsBoss>
 		</Boss>
@@ -140,7 +140,7 @@
 			<Name>dungeon_goriya</Name>
 			<X>129</X>
 			<Y>103</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
