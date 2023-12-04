@@ -1,4 +1,4 @@
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.GameStateMenu;
 using SprintZero1.Managers;
@@ -14,8 +14,8 @@ namespace SprintZero1.Commands.MenuCommandsFolder
     internal class SetCurrentWeaponToPlayerCommand : ICommand
     {
         // Fields to store references to the item selection menu and player entity
-        private ItemSelectionMenu _itemSelectionMenu;
-        private IEntity _player;
+        private readonly ItemSelectionMenu _itemSelectionMenu;
+        private readonly IEntity _player;
 
         /// <summary>
         /// Initializes a new instance of the setCurrentWeaponToPlayer class.
@@ -35,6 +35,7 @@ namespace SprintZero1.Commands.MenuCommandsFolder
         {
             // Retrieve the current weapon from the item selection menu and set it to the player
             EquipmentItem currentWeapon = _itemSelectionMenu.CurrentWeapon;
+            if (currentWeapon is EquipmentItem.WoodenSword) { return; };
             PlayerInventoryManager.ChangeEquipment(_player, currentWeapon);
         }
     }

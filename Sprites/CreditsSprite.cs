@@ -6,7 +6,11 @@ namespace SprintZero1.Sprites
 {
     public class CreditsSprite : ISprite
     {
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0, float layerDepth = 0f)
+        public int Width => throw new System.NotImplementedException();
+
+        public int Height => throw new System.NotImplementedException();
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color, SpriteEffects spriteEffects = SpriteEffects.None, float rotation = 0, float layerDepth = 0f)
         {
             throw new System.NotImplementedException();
         }

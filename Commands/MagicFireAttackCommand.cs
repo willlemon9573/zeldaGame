@@ -1,4 +1,4 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EntityInterfaces;
 
 namespace SprintZero1.Commands
 {
@@ -12,7 +12,7 @@ namespace SprintZero1.Commands
     internal class MagicFireAttackCommand : ICommand
     {
         // Field for storing the reference to the combat entity
-        readonly ICombatEntity combatEntity;
+        private readonly ICombatEntity combatEntity;
 
         /// <summary>
         /// Initializes a new instance of the MagicFireAttackCommand class.
@@ -30,7 +30,7 @@ namespace SprintZero1.Commands
         public void Execute()
         {
             // Triggers the attack method of the combat entity with a "MagicFire" parameter
-            combatEntity.Attack("MagicFire");
+            combatEntity.Attack();
         }
     }
 }

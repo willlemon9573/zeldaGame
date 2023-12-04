@@ -5,6 +5,26 @@
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
+	<Events>
+		<Event>
+			<Name>OpenDoorWithMovableBlock</Name>
+			<EventInfo>
+				<TriggerX>119</TriggerX>
+				<TriggerY>136</TriggerY>
+				<DoorDirection>West</DoorDirection>
+			</EventInfo>
+			<EventBlock type="MovableBlockEntity">
+				<Name>pyramid</Name>
+				<!-- Rpresents the starting position of the block -->
+				<X>119</X>
+				<Y>152</Y>
+				<!-- Represents the max position the object can move -->
+				<X2>119</X2>
+				<Y2>136</Y2>
+				<MovableDirection>North</MovableDirection>
+			</EventBlock>
+		</Event>
+	</Events>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>
@@ -47,20 +67,12 @@
 			<Y>224</Y>
 		</Wall>
 	</Walls>
-	<Blocks>
-		<Block>
-			<Name>pyramid</Name>
-			<X>119</X>
-			<Y>152</Y>
-			<IsCollidable>true</IsCollidable>
-		</Block>
-	</Blocks>
 	<Enemies>
 		<Enemy>
 			<Name>dungeon_gel</Name>
-			<X>120</X>
+			<X>100</X>
 			<Y>120</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -68,15 +80,15 @@
 			<Name>dungeon_gel</Name>
 			<X>88</X>
 			<Y>151</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
 		<Enemy>
 			<Name>dungeon_gel</Name>
-			<X>120</X>
+			<X>100</X>
 			<Y>182</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>

@@ -60,6 +60,20 @@
 			<Y>135</Y>
 			<ItemFrames>2</ItemFrames>
 		</AnimatedItem>
+		<Item>
+			<Name>bomb</Name>
+			<X>113</X>
+			<Y>136</Y>
+			<Type>EquipmentItemWithoutPlayerEntity</Type>
+			<Enum>Bomb</Enum>
+		</Item>
+		<Item>
+			<Name>bomb</Name>
+			<X>133</X>
+			<Y>136</Y>
+			<Type>EquipmentItemWithoutPlayerEntity</Type>
+			<Enum>Bomb</Enum>
+		</Item>
 	</Items>
 	<Doors>
 		<Door>

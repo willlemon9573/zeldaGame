@@ -1,52 +1,106 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Managers;
 using System.Collections.Generic;
 
+/*
+ * Refactored Colliders to be a single instance and have improved functionality.
+ * - Aaron - 11/15/2023
+ */
 namespace SprintZero1.Colliders
 {
-    internal static class ColliderManager
+
+    internal class ColliderManager
     {
         // Static list of Static colliders
-        static List<ICollidableEntity> staticColliderEntities = new List<ICollidableEntity>();
+        private readonly List<ICollidableEntity> staticColliderEntities;
+
         // Static list of Dynamic colliders
-        static List<ICollidableEntity> dynamicColliderEntities = new List<ICollidableEntity>();
+        private readonly List<ICollidableEntity> dynamicColliderEntities;
 
-        public static void Reset()
-        {
-            staticColliderEntities.Clear();
-            dynamicColliderEntities.Clear();
-        }
+        // Handles the responses for collisions
+        private readonly CollisionsResponseManager _collisionsResponseManager;
 
-        // Add Static Collider to List
-        public static void AddStaticCollider(ICollidableEntity entity)
+        /// <summary>
+        /// Construct a new object of collision manager to handle collisions
+        /// </summary>
+        public ColliderManager()
         {
-            staticColliderEntities.Add(entity);
-        }
-
-        public static void AddDynamicCollider(ICollidableEntity entity)
-        {
-            dynamicColliderEntities.Add(entity);
-        }
-
-        public static void RemoveAllExcept(ICollidableEntity entity)
-        {
-            staticColliderEntities.Clear();
-            dynamicColliderEntities.Clear();
-            dynamicColliderEntities.Add(entity);
-        }
-
-        public static void RemoveCollider(ICollidableEntity entity)
-        {
-            staticColliderEntities.Remove(entity);
-            dynamicColliderEntities.Remove(entity);
+            staticColliderEntities = new List<ICollidableEntity>();
+            dynamicColliderEntities = new List<ICollidableEntity>();
+            _collisionsResponseManager = new CollisionsResponseManager();
         }
 
         /// <summary>
-        /// Check each static collider against each dynamic collider and vice versa
+        /// Add a List of Collidable Entities to check for collisions
         /// </summary>
-        public static void CheckStaticAgainstDynamicCollisions()
+        /// <param name="entities">The list of entities to add to the list</param>
+        public void AddCollidableEntities(List<IEntity> entities)
         {
-            /* Compare each static collider against each dynamic collider */
+            foreach (var entity in entities)
+            {
+                if (entity is ICollidableEntity collidableEntity)
+                {
+                    if (collidableEntity.Collider is DynamicCollider)
+                    {
+                        dynamicColliderEntities.Add(collidableEntity);
+                    }
+                    else
+                    {
+                        staticColliderEntities.Add(collidableEntity);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Add a single entity to the list of collidable entities
+        /// </summary>
+        /// <param name="entity">The entity to add to the list</param>
+        public void AddCollidableEntity(IEntity entity)
+        {
+            var collidableEntity = entity as ICollidableEntity;
+            if (collidableEntity == null) { return; }
+
+            if (collidableEntity.Collider is DynamicCollider)
+            {
+                dynamicColliderEntities.Add(collidableEntity);
+            }
+            else
+            {
+                staticColliderEntities.Add(collidableEntity);
+            }
+        }
+
+        /// <summary>
+        /// Clears the list of collidable entities.
+        /// </summary>
+        public void ClearCollidableEntities()
+        {
+            dynamicColliderEntities.Clear();
+            staticColliderEntities.Clear();
+        }
+
+        public void RemoveCollidableEntity(IEntity entity)
+        {
+            var collidableEntity = entity as ICollidableEntity;
+            if (collidableEntity == null) { return; }
+
+            if (collidableEntity.Collider is DynamicCollider)
+            {
+                dynamicColliderEntities.Remove(collidableEntity);
+            }
+            else
+            {
+                staticColliderEntities.Remove(collidableEntity);
+            }
+        }
+
+        /// <summary>
+        /// Check each  collider against each dynamic collider and vice versa
+        /// </summary>
+        public void CheckStaticAgainstDynamicCollisions()
+        {
+            /* Compare each  collider against each dynamic collider */
             for (int i = 0; i < staticColliderEntities.Count; i++)
             {
                 ICollidableEntity staticColliderEntity = staticColliderEntities[i];
@@ -55,8 +109,8 @@ namespace SprintZero1.Colliders
                     ICollidableEntity dynamicColliderEntity = dynamicColliderEntities[j];
                     if (dynamicColliderEntity.Collider.Collider.Intersects(staticColliderEntity.Collider.Collider))
                     {
-                        CollisionsResponseManager.CollisionResponse(staticColliderEntity, dynamicColliderEntity);
-                        CollisionsResponseManager.CollisionResponse(dynamicColliderEntity, staticColliderEntity);
+                        _collisionsResponseManager.CollisionResponse(staticColliderEntity, dynamicColliderEntity);
+                        _collisionsResponseManager.CollisionResponse(dynamicColliderEntity, staticColliderEntity);
                     }
                 }
             }
@@ -65,20 +119,19 @@ namespace SprintZero1.Colliders
         /// <summary>
         /// Compare each dynamic collider against every other dynamic collider and vice versa
         /// </summary>
-        public static void CheckDynamicAgainstDynamicCollisions()
+        public void CheckDynamicAgainstDynamicCollisions()
         {
-            // Compare each dynamic collider against each static collider */
+            // Compare each dynamic collider against each  collider */
             for (int i = 0; i < dynamicColliderEntities.Count; i++)
             {
                 ICollidableEntity dynamicCollider1 = dynamicColliderEntities[i];
                 for (int j = i + 1; j < dynamicColliderEntities.Count; j++)
                 {
-
                     ICollidableEntity dynamicCollider2 = dynamicColliderEntities[j];
                     if (dynamicCollider1.Collider.Collider.Intersects(dynamicCollider2.Collider.Collider))
                     {
-                        CollisionsResponseManager.CollisionResponse(dynamicCollider1, dynamicCollider2);
-                        CollisionsResponseManager.CollisionResponse(dynamicCollider2, dynamicCollider1);
+                        _collisionsResponseManager.CollisionResponse(dynamicCollider1, dynamicCollider2);
+                        _collisionsResponseManager.CollisionResponse(dynamicCollider2, dynamicCollider1);
                     }
                 }
             }
@@ -87,34 +140,10 @@ namespace SprintZero1.Colliders
         /// <summary>
         /// Checks Collisions on all types and fires collisions from Collisions Response
         /// </summary>
-        /// <param name="entities"> List of ICollidableEntities</param>
-        public static void CheckCollisions(List<ICollidableEntity> entities)
+        public void CheckCollisions()
         {
-            ParseColliders(entities);
             CheckStaticAgainstDynamicCollisions();
             CheckDynamicAgainstDynamicCollisions();
-            staticColliderEntities.Clear();
-            dynamicColliderEntities.Clear();
-        }
-
-        /// <summary>
-        /// Private method. Used to parse Collider type
-        /// </summary>
-        /// <param name="entities">List of ICollidbleEntity's</param>
-        private static void ParseColliders(List<ICollidableEntity> entities)
-        {
-            foreach (ICollidableEntity entity in entities)
-            {
-                switch (entity.Collider)
-                {
-                    case StaticCollider:
-                        staticColliderEntities.Add(entity);
-                        break;
-                    case DynamicCollider:
-                        dynamicColliderEntities.Add(entity);
-                        break;
-                }
-            }
         }
     }
 }

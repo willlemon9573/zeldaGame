@@ -1,4 +1,4 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.InventoryFiles;
 using System.Collections.Generic;
@@ -6,9 +6,11 @@ using System.Diagnostics;
 
 namespace SprintZero1.Managers
 {
-    delegate void StackableItemHandler(IEntity player, StackableItems item, int amount);
-    delegate void EquipmentItemHandler(IEntity player, EquipmentItem equipment, IWeaponEntity newEquipment);
-    delegate void UtilityItemHandler(IEntity player, DungeonItems item);
+    internal delegate void StackableItemHandler(IEntity player, StackableItems item, int amount);
+
+    internal delegate void EquipmentItemHandler(IEntity player, EquipmentItem equipment, IWeaponEntity newEquipment);
+
+    internal delegate void UtilityItemHandler(IEntity player, DungeonItems item);
     /// <summary>
     /// A manager to handle all the players inventory management needs.
     /// </summary>
@@ -40,6 +42,7 @@ namespace SprintZero1.Managers
             Debug.Assert(_playerInventoryMap.ContainsKey(player), $"{player} does not have an inventory.");
             Debug.Assert(amount >= 0, $"{amount} must be a positive value");
             _playerInventoryMap[player].UsedItem(item, amount);
+            HUDManager.UpdateStackableItemCount(item, _playerInventoryMap[player].GetStackableItemCount(item));
         }
 
         /// <summary>
@@ -64,7 +67,7 @@ namespace SprintZero1.Managers
         {
             Debug.Assert(player != null, "Error: Player is null.");
             _playerInventoryMap[player].AddItem(item, amount);
-            int count = GetStackableItemCount(player, item);
+            HUDManager.UpdateStackableItemCount(item, _playerInventoryMap[player].GetStackableItemCount(item));
         }
 
         /// <summary>
@@ -74,8 +77,18 @@ namespace SprintZero1.Managers
         public static void AddUtilityItemToInventory(IEntity player, DungeonItems item)
         {
             Debug.Assert(player != null, "Error: Player is null.");
-            Debug.Assert(!_playerInventoryMap[player].IsInInventory(item), $"Error player already contains {item}");
             _playerInventoryMap[player].AddDungeonUtilityItem(item);
+        }
+
+        /// <summary>
+        /// Check if a player contains a specific item in their inventory already
+        /// </summary>
+        /// <param name="player">The player to be checked</param>
+        /// <param name="equipment">The equipment item to look for</param>
+        /// <returns>True if the player contains the item, false otherwise</returns>
+        public static bool PlayerContainsEquipment(IEntity player, EquipmentItem equipment)
+        {
+            return _playerInventoryMap[player].IsInInventory(equipment);
         }
 
         /// <summary>
@@ -90,7 +103,6 @@ namespace SprintZero1.Managers
             Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Inventory manager could not find {player}");
             Debug.Assert(!_playerInventoryMap[player].IsInInventory(equipment), $"Error adding to innventory, {player} already contains {equipment}");
             _playerInventoryMap[player].AddNewEquipment(equipment, newEquipment);
-
         }
 
         /// <summary>
@@ -106,7 +118,7 @@ namespace SprintZero1.Managers
             Debug.Assert(player != null || upgradedEquipmentEntity != null, "Error: Player or upgradedEquipmentEntity cannot be null.");
             Debug.Assert(_playerInventoryMap.ContainsKey(player), $"Error Upgrading equipment. {player} not found in inventory manager.");
             Debug.Assert(_playerInventoryMap[player].IsInInventory(oldEquipment), $"Error upgrading equipment. {player} does not contain {oldEquipment} in their inventory.");
-            Debug.Assert(!_playerInventoryMap[player].IsInInventory(upgradedEquipment), $"Error adding to invnetory, {player} already contains {upgradedEquipment}");
+            Debug.Assert(!_playerInventoryMap[player].IsInInventory(upgradedEquipment), $"Error adding to inventory, {player} already contains {upgradedEquipment}");
             _playerInventoryMap[player].UpgradeEquipment(oldEquipment, upgradedEquipment, upgradedEquipmentEntity);
         }
 

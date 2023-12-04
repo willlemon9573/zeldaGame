@@ -5,6 +5,14 @@
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
+	<Events>
+		<Event>
+			<Name>RoomBeatOpenDoorEvent</Name>
+			<EventInfo>
+				<DoorDirection>East</DoorDirection>
+			</EventInfo>
+		</Event>
+	</Events>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>
@@ -48,26 +56,49 @@
 		</Wall>
 	</Walls>
 	<Blocks>
-	<Block>
-		<Name>pyramid</Name>
-		<X>119</X>
-		<Y>136</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
-	<Block>
-		<Name>pyramid</Name>
-		<X>135</X>
-		<Y>168</Y>
-		<IsCollidable>true</IsCollidable>
-	</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>119</X>
+			<Y>136</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>119</X>
+			<Y>152</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>119</X>
+			<Y>168</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>135</X>
+			<Y>136</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>135</X>
+			<Y>152</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
+		<Block>
+			<Name>pyramid</Name>
+			<X>135</X>
+			<Y>168</Y>
+			<IsCollidable>true</IsCollidable>
+		</Block>
 	</Blocks>
-
 	<Enemies>
 	<Enemy>
 		<Name>dungeon_keese</Name>
 		<X>56</X>
 		<Y>186</Y>
-		<Health>1</Health>
+		<Health>0.5</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
@@ -75,7 +106,7 @@
 		<Name>dungeon_keese</Name>
 		<X>88</X>
 		<Y>164</Y>
-		<Health>1</Health>
+		<Health>0.5</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
@@ -83,7 +114,7 @@
 		<Name>dungeon_keese</Name>
 		<X>91</X>
 		<Y>132</Y>
-		<Health>1</Health>
+		<Health>0.5</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
@@ -91,7 +122,7 @@
 		<Name>dungeon_keese</Name>
 		<X>167</X>
 		<Y>198</Y>
-		<Health>1</Health>
+		<Health>0.5</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
@@ -99,7 +130,7 @@
 		<Name>dungeon_keese</Name>
 		<X>171</X>
 		<Y>106</Y>
-		<Health>1</Health>
+		<Health>0.5</Health>
 		<Frames>2</Frames>
 		<IsBoss>false</IsBoss>
 	</Enemy>
@@ -122,12 +153,12 @@
 		<DoorType>DoorlessEntity</DoorType>
 	</Door>
 	<Door>
-		<Name>open_east</Name>
+		<Name>blocked_east</Name>
 		<X>239</X>
 		<Y>152</Y>
 		<Destination>floorThree</Destination>
 		<Direction>East</Direction>
-		<DoorType>OpenDoorEntity</DoorType>
+		<DoorType>BlockedDoorEntity</DoorType>
 	</Door>
 	<Door>
 		<Name>doorless_south</Name>

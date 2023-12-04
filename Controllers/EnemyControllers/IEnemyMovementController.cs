@@ -15,5 +15,13 @@ namespace SprintZero1.Controllers.EnemyControllers
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         void Update(GameTime gameTime);
+        /// <summary>
+        /// Start the controller
+        /// </summary>
+        void Start();
+        /// <summary>
+        /// Stop the controller
+        /// </summary>
+        void Stop();
     }
 }

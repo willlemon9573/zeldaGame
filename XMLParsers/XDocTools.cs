@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
@@ -103,6 +103,13 @@ namespace SprintZero1.XMLParsers
             XAttribute key = element.Attribute(attributeName);
             CheckAttribute(key);
             return (EquipmentItem)Enum.Parse(typeof(EquipmentItem), key.Value, true);
+        }
+
+        public DungeonItems ParseAttributeADungeonItemsData(XElement element, string attributeName)
+        {
+            XAttribute key = element.Attribute(attributeName);
+            CheckAttribute(key);
+            return (DungeonItems)Enum.Parse(typeof(DungeonItems), key.Value, true);
         }
         /// <summary>
         /// Parses a Sprite Effect enum from the given element
@@ -227,7 +234,7 @@ namespace SprintZero1.XMLParsers
         {
             XAttribute command = element.Attribute(attributeName);
             CheckAttribute(command);
-            return (ICommand)Activator.CreateInstance(Type.GetType($"{nameSpace}.{command.Value}"), game);
+            return (ICommand)Activator.CreateInstance(Type.GetType($"{nameSpace}.{command.Value}"));
         }
     }
 }

@@ -1,19 +1,23 @@
 using Microsoft.Xna.Framework.Input;
 using SprintZero1.Commands;
+using SprintZero1.Commands.DebugCommands;
+using SprintZero1.Commands.PlayerCommands;
 using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace SprintZero1.Controllers
 {
-    public delegate void PausedStateUpdater(Game1 game);
     internal class KeyboardController : IController
     {
         private Dictionary<Keys, ICommand> _keyboardMap;
         private readonly List<Keys> _movementKeyList;
         private List<Keys> _previouslyPressedKeys;
         private readonly Stack<Keys> _movementKeyStack;
+        private ICommand _playerIdleCommand;
+        private PlayerEntity _player;
         /// <summary>
         /// Construct an object to control the keyboard
         /// </summary>
@@ -45,7 +49,7 @@ namespace SprintZero1.Controllers
         /// A function to allow multiple movement keys to be pressed at once while maintaining the most recent key command is executed
         /// </summary>
         /// <param name="movementKey">the current movement key that needs to be checked</param>
-        void HandleMovementKey(Keys movementKey)
+        private void HandleMovementKey(Keys movementKey)
         {
             /* 
              * Add key to stack if it's not in the stack already and execute that key
@@ -61,6 +65,7 @@ namespace SprintZero1.Controllers
                 _keyboardMap[keyRef].Execute();
             }
         }
+
         /// <summary>
         /// Load the controls for the specific player.
         /// </summary>
@@ -68,21 +73,9 @@ namespace SprintZero1.Controllers
         public void LoadControls(IEntity player)
         {
             _keyboardMap = ControlsManager.GetKeyboardControls(player);
-        }
-
-        public void PausedStateUpdate(Game1 game)
-        {
-            KeyboardState currentKeyboardState = Keyboard.GetState();
-            Keys[] pressedKeys = currentKeyboardState.GetPressedKeys();
-
-            foreach (Keys key in pressedKeys)
-            {
-                if (key == Keys.Escape && !_previouslyPressedKeys.Contains(key))
-                {
-                    GameStatesManager.ChangeGameState(Enums.GameState.Playing);
-                }
-            }
-            _previouslyPressedKeys = pressedKeys.ToList();
+            _playerIdleCommand = new PlayerIdleCommand(player as PlayerEntity);
+            _keyboardMap.Add(Keys.P, new PlayerTakeDamangeCommand(player));
+            _player = player as PlayerEntity;
         }
 
         public void Update()
@@ -107,6 +100,14 @@ namespace SprintZero1.Controllers
                 {
                     _keyboardMap[key].Execute();
                 }
+                else
+                {
+                    if (key == Keys.X && _keyboardMap.ContainsKey(Keys.X) && _player.CharacterName == "LinkGun")
+                    {
+                        _keyboardMap[key].Execute();
+
+                    }
+                }
             }
 
             /* Clean up movement key stack and/or set player to idle when 
@@ -120,6 +121,11 @@ namespace SprintZero1.Controllers
 
             /* store pressed keys as previously pressed keys */
             _previouslyPressedKeys = pressedKeys.ToList<Keys>();
+            /* Change player to idle state when there aren't any keys pressed */
+            if (_previouslyPressedKeys.Count == 0 && pressedKeys.Length == 0)
+            {
+                _playerIdleCommand.Execute();
+            }
         }
     }
 }

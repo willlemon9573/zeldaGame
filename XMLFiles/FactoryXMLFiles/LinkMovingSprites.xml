@@ -1,19 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sprites>
-	<Sprite direction="South">
-		<Rectangle x="1" y="11" width="16" height="16" />
-		<Rectangle x="18" y="11" width="16" height="16" />
-	</Sprite>
-	<Sprite direction="East">
-		<Rectangle x="35" y="11" width="16" height="16" />
-		<Rectangle x="52" y="11" width="16" height="16" />
-	</Sprite>
-	<Sprite direction="West">
-		<Rectangle x="35" y="11" width="16" height="16" />
-		<Rectangle x="52" y="11" width="16" height="16" />
-	</Sprite>
-	<Sprite direction="North">
-		<Rectangle x="69" y="11" width="16" height="16" />
-		<Rectangle x="86" y="11" width="16" height="16" />
-	</Sprite>
+	<Link type="moving">
+		<Sprite direction="South">
+			<Rectangle x="1" y="11" width="16" height="16" />
+			<Rectangle x="18" y="11" width="16" height="16" />
+		</Sprite>
+		<Sprite direction="East">
+			<Rectangle x="35" y="11" width="16" height="16" />
+			<Rectangle x="52" y="11" width="16" height="16" />
+		</Sprite>
+		<Sprite direction="West">
+			<Rectangle x="35" y="11" width="16" height="16" />
+			<Rectangle x="52" y="11" width="16" height="16" />
+		</Sprite>
+		<Sprite direction="North">
+			<Rectangle x="69" y="11" width="16" height="16" />
+			<Rectangle x="86" y="11" width="16" height="16" />
+		</Sprite>
+	</Link>
+	<LinkGun type="moving">
+		<Sprite direction="South">
+			<Rectangle x="311" y="239" width="16" height="26" />
+			<Rectangle x="328" y="239" width="16" height="26" />
+		</Sprite>
+		<Sprite direction="East">
+			<Rectangle x="277" y="220" width="27" height="16" />
+			<Rectangle x="316" y="220" width="27" height="16" />
+		</Sprite>
+		<Sprite direction="West">
+			<Rectangle x="277" y="220" width="27" height="16" />
+			<Rectangle x="316" y="220" width="27" height="16" />
+		</Sprite>
+		<Sprite direction="North">
+			<Rectangle x="271" y="239" width="16" height="26" />
+			<Rectangle x="288" y="239" width="16" height="26" />
+		</Sprite>
+	</LinkGun>
+	<Zelda type="moving">
+		<Sprite direction="South">
+			<Rectangle x="1" y="11" width="16" height="16" />
+			<Rectangle x="18" y="11" width="16" height="16" />
+		</Sprite>
+		<Sprite direction="East">
+			<Rectangle x="35" y="11" width="16" height="16" />
+			<Rectangle x="52" y="11" width="16" height="16" />
+		</Sprite>
+		<Sprite direction="West">
+			<Rectangle x="35" y="11" width="16" height="16" />
+			<Rectangle x="52" y="11" width="16" height="16" />
+		</Sprite>
+		<Sprite direction="North">
+			<Rectangle x="69" y="11" width="16" height="16" />
+			<Rectangle x="86" y="11" width="16" height="16" />
+		</Sprite>
+	</Zelda>
 </Sprites>

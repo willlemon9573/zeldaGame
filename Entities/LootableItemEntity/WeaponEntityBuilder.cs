@@ -1,6 +1,8 @@
-﻿using SprintZero1.Entities.BombEntityFolder;
-using SprintZero1.Entities.BoomerangEntity;
-using SprintZero1.Entities.BowAndMagicFireEntity;
+﻿
+using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities.BombEntityFolder;
+using SprintZero1.Entities.WeaponEntities.BoomerangEntity;
+using SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity;
 using SprintZero1.Enums;
 using System;
 using System.Collections.Generic;
@@ -46,7 +48,7 @@ namespace SprintZero1.Entities.LootableItemEntity
         /// <returns>a new instance of the desired weapon entity</returns>
         public static IWeaponEntity CreateWeaponEntity(EquipmentItem equipment, IMovableEntity player)
         {
-            Debug.Assert(equipmentWithoutPlayerMap.ContainsKey(equipment), $"Dictionary does not contain {equipment} as a key");
+            Debug.Assert(equipmentWithPlayerMap.ContainsKey(equipment), $"Dictionary does not contain {equipment} as a key");
             return equipmentWithPlayerMap[equipment].Invoke($"{equipment}", player);
         }
     }

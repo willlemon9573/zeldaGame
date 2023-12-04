@@ -1,0 +1,8 @@
+Author of the code review: Chih-Hsiang Jarek Tseng
+Date of the code review: 11/22/2023
+Sprint number: 5
+Name of the .cs file being reviewed: HUDManager.cs
+Author of the .cs file being reviewed: Will Lemon
+Number of minutes taken to complete the review: 15 minutes
+Specific comments on what is readable and what is not:
+Overall, I see a lot of documentatation in the class which is great. There can be more documentation to keep everything consistent throughout the class, and make it easier for others to understand what the logic is for and some of what the variables are for. The logic especially, like the if else statements, it can be very helpful to understand the reasoning behind it. I would also use the same format to document each method, using the summary option (just type /// right the line before the method and it will auto amek the summary and parameter documentation for you). Consistency is key for maximum readability and organization. There also seems to be random white spaces in the code which can be deleted, mostly talking about the double, triple lines of white spaces. Single line should be fine to keep organization between different variables and tasks. The variable names are very descriptive so that is good. 

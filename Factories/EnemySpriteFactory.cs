@@ -12,8 +12,8 @@ namespace SprintZero1.Factories
 
     public class EnemySpriteFactory
     {
-        private const string ENEMY_SPRITE_PATH = @"XMLFiles\FactoryXMLFiles\EnemySprites.xml";
-        private const string BOSS_SPRITE_PATH = @"XMLFiles\FactoryXMLFiles\BossSprites.xml";
+        private const string ENEMY_SPRITE_PATH = @"XMLFiles/FactoryXMLFiles/EnemySprites.xml";
+        private const string BOSS_SPRITE_PATH = @"XMLFiles/FactoryXMLFiles/BossSprites.xml";
         private Texture2D dungeonEnemySpriteSheet, bossSpriteSheet;
         private readonly Dictionary<string, List<Rectangle>> enemySpriteWithoutDirectionDictionary;
         private readonly Dictionary<string, Dictionary<Direction, List<Rectangle>>> enemySpriteWithDirectionDictionary;

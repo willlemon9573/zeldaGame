@@ -10,12 +10,12 @@
 		<Rectangle x='3' y='185' width='5' height='16'/>
 		<Rectangle x='10' y='190' width='16' height='5'/>
 	</Sprite>
-	<Sprite name="betterbowarrows">
-		<Rectangle x='29' y='182' width='5' height='16'/>
-		<Rectangle x='36' y='190' width='16' height='5'/>
+	<Sprite name="bullet">
+		<Rectangle x='273' y='277' width='5' height='5'/>
+		<Rectangle x='273' y='277' width='5' height='5'/>
 	</Sprite>
 	<Sprite name="bomb">
-		<Rectangle x='126' y='185' width='16' height='16'/>
+		<Rectangle x='129' y='185' width='8' height='16'/>
 		<Rectangle x='142' y='185' width='16' height='16'/>
 		<Rectangle x='160' y='185' width='16' height='16'/>
 		<Rectangle x='178' y='185' width='16' height='16'/>
@@ -25,9 +25,9 @@
 		<Rectangle x='213' y='185' width='16' height='16'/>
 	</Sprite>
 	<Sprite name="aquamentusWeapon">
-		<Rectangle x='101' y='11' width='8' height='16'/>
-		<Rectangle x='109' y='11' width='8' height='16'/>
-		<Rectangle x='118' y='11' width='8' height='16'/>
-		<Rectangle x='127' y='11' width='8' height='16'/>
+		<Rectangle x='101' y='14' width='10' height='10'/>
+		<Rectangle x='118' y='14' width='10' height='10'/>
+		<Rectangle x='127' y='14' width='10' height='10'/>
 	</Sprite>
+	
 </Sprites>

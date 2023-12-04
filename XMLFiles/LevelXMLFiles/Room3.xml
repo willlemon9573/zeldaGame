@@ -5,6 +5,15 @@
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
+	<Events>
+		<Event>
+			<Name>RoomBeatKeyEvent</Name>
+			<EventInfo>
+				<TriggerX>134</TriggerX>
+				<TriggerY>119</TriggerY>
+			</EventInfo>
+		</Event>
+	</Events>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>
@@ -78,7 +87,7 @@
 			<Name>dungeon_stalfos</Name>
 			<X>88</X>
 			<Y>174</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>0</IsBoss>
 		</Enemy>
@@ -86,7 +95,7 @@
 			<Name>dungeon_stalfos</Name>
 			<X>136</X>
 			<Y>157</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>0</IsBoss>
 		</Enemy>
@@ -94,7 +103,7 @@
 			<Name>dungeon_stalfos</Name>
 			<X>111</X>
 			<Y>134</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>0</IsBoss>
 		</Enemy>
@@ -102,7 +111,7 @@
 			<Name>dungeon_stalfos</Name>
 			<X>152</X>
 			<Y>140</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>0</IsBoss>
 		</Enemy>
@@ -110,21 +119,11 @@
 			<Name>dungeon_stalfos</Name>
 			<X>162</X>
 			<Y>102</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>0</IsBoss>
 	</Enemy>
 	</Enemies>
-	<Items>
-	<Item>
-		<Name>key</Name>
-		<X>134</X>
-		<Y>119</Y>
-		<Type>StackableItemEntity</Type>
-		<!-- Unfortunately the item name in these files are different than the item names I used for enums -->
-		<Enum>DungeonKey</Enum>
-	</Item>
-	</Items>
 	<Doors>
 		<Door>
 			<Name>doorless_north</Name>

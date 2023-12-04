@@ -11,8 +11,8 @@ namespace SprintZero1.Factories
 {
     public class TileSpriteFactory
     {
-        private const string DOOR_TILE_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\ArchitecturalSprites.xml";
-        private const string LEVEL_ONE_DOCUMENT_PATH = @"XMLFiles\FactoryXMLFiles\Level1FloorSprites.xml";
+        private const string DOOR_TILE_DOCUMENT_PATH = @"XMLFiles/FactoryXMLFiles/ArchitecturalSprites.xml";
+        private const string LEVEL_ONE_DOCUMENT_PATH = @"XMLFiles/FactoryXMLFiles/Level1FloorSprites.xml";
         private Texture2D tileSpriteSheet;
         private Texture2D levelOneSpriteSheet;
         private readonly Dictionary<string, Rectangle> _tileSourceRectangles;
@@ -66,16 +66,6 @@ namespace SprintZero1.Factories
         public ISprite CreateFloorSprite(string floor)
         {
             return new NonAnimatedSprite(_levelOneSourceRectangles[floor], levelOneSpriteSheet);
-        }
-
-        /// <summary>
-        /// Get the dimensions of a specific sprite for colliders
-        /// </summary>
-        /// <param name="tileName">The specific tile that the dimensions are for</param>
-        /// <returns>A rectanle that contains the dimensions of the sprite</returns>
-        public Rectangle GetSpriteDimensions(string tileName)
-        {
-            return _tileSourceRectangles[tileName];
         }
     }
 }

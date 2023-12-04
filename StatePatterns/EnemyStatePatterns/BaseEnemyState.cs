@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Entities;
+using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
@@ -15,7 +15,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
     internal abstract class BaseEnemyState : IEnemyState
     {
         protected EnemyBasedEntity _enemyEntity;
-        private readonly Dictionary<State, Func<IEnemyState>> _stateTransitionMap;
+        protected readonly Dictionary<State, Func<IEnemyState>> _stateTransitionMap;
         protected EnemySpriteFactory _enemySpriteFactory = EnemySpriteFactory.Instance;
         protected bool _blockTransition = false; // false by default
 
@@ -32,11 +32,12 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
             {
                 {State.Moving, () => new EnemyMovingState(_enemyEntity) },
                 {State.Attacking, () => new EnemyAttackingState(_enemyEntity) },
-                {State.Idle, () => new EnemyIdleState(_enemyEntity) }
+                {State.Idle, () => new EnemyIdleState(_enemyEntity) },
+                {State.Paused, () => new EnemyPauseState(_enemyEntity)},
+                {State.TakingDamage, () => new EnemyDamageState(_enemyEntity)}
                 // Add more states as needed
             };
         }
-
 
         /// <summary>
         /// Changes the direction of the enemy based on the current state
@@ -48,6 +49,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
         {
             if (_blockTransition) { return; }
             _enemyEntity.EnemyState = _stateTransitionMap[newState].Invoke();
+
         }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
             SpriteEffects spriteEffects = _enemyEntity.Direction == Direction.West
                 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             // draw sprite
-            _enemyEntity.EnemySprite.Draw(spriteBatch, _enemyEntity.Position, spriteEffects, 0, 0.1f);
+            _enemyEntity.EnemySprite.Draw(spriteBatch, _enemyEntity.Position, Color.White, spriteEffects, 0, 0.1f);
         }
 
 

@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Colliders;
-using SprintZero1.Enums;
 using SprintZero1.Managers;
 using System;
 using System.Collections.Generic;
@@ -16,11 +14,11 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         {
             _resetList = new List<Action>()
             {
-                { () => ColliderManager.Reset() },
-                { () => ProgramManager.Reset() },
                 { () => PlayerInventoryManager.Reset() },
                 { () => ControlsManager.Reset() },
                 { () => GameStatesManager.Reset() },
+                { () => LevelManager.Reset() },
+                { () => HUDManager.Reset() },
             };
         }
 
@@ -34,9 +32,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             {
                 action();
             }
-            LevelManager.Load();
-            GameStatesManager.InitializeGameStateMap(_game);
-            GameStatesManager.ChangeGameState(GameState.Playing);
+
+            _game.Reset();
         }
 
         public override void Update(GameTime gameTime)

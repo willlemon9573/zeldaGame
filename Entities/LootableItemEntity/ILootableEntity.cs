@@ -1,4 +1,6 @@
-﻿namespace SprintZero1.Entities.LootableItemEntity
+﻿using SprintZero1.Entities.EntityInterfaces;
+
+namespace SprintZero1.Entities.LootableItemEntity
 {
     internal interface ILootableEntity : ICollidableEntity
     {

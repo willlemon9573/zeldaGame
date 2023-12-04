@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.LevelFiles;
 using SprintZero1.Sprites;
 using Size = System.Drawing.Size;
@@ -43,8 +44,7 @@ namespace SprintZero1.Entities.LootableItemEntity
             _entitySprite = entitySprite;
             _entityPosition = position;
             _removeFromRoom = removeDelegate;
-            Rectangle colliderDimensions = new Rectangle((int)position.X, (int)position.Y, _entityDimensions.Width, _entityDimensions.Height);
-            _entityCollider = new StaticCollider(colliderDimensions);
+            _entityCollider = new StaticCollider(_entityPosition, new Size(entitySprite.Width, entitySprite.Height));
         }
 
         /// <summary>
@@ -80,17 +80,14 @@ namespace SprintZero1.Entities.LootableItemEntity
         /// <param name="spriteBatch">The current sprite batch drawing entities</param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            this._entitySprite.Draw(spriteBatch, _entityPosition, EntitySpriteEffects, Rotation, LayerDepth);
+            this._entitySprite.Draw(spriteBatch, _entityPosition, Color.White, EntitySpriteEffects, Rotation, LayerDepth);
         }
 
         /// <summary>
         /// Update this item if it needs to be updated
         /// </summary>
         /// <param name="gameTime"></param>
-        public virtual void Update(GameTime gameTime)
-        {
-            _entityCollider.Update(this);
-        }
+        public abstract void Update(GameTime gameTime);
 
 
     }

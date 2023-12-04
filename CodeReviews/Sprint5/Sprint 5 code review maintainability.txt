@@ -1,0 +1,9 @@
+﻿Author of review: Will Lemon
+Date of review: 12/3/2023
+Sprint #: 5
+File being review: AquamentusEntity.cs
+Author of AquamentusEntity.cs: Aaron
+Time taken to review: 15 minutes
+
+
+Aaron did a great job writing this file. No magic numbers were used in the file and the only string used was the boss name. This file is extremely concise and is very maintainable. There truly is not too much to criticize here because of how well Aaron coding has gotten throughout the semester.

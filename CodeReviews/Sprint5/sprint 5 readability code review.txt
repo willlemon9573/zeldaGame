@@ -1,0 +1,9 @@
+﻿Author of code review: Will Lemon
+Date: 11/22/2023
+Sprint: 5
+Name of .cs file: SoundFactory.cs:
+Author of .cs file: Jerek
+Time reviewed: 20 minutes
+
+
+        The readability of Jerek’s file has greatly improved from the last sprint. He is doing a lot better on commenting on all of the methods as well as the global variables at the top. THis file is very easy to read and understand with just a quick glance at each method.

@@ -1,4 +1,5 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Entities.EntityInterfaces;
+
 namespace SprintZero1.Commands
 {
     /// <summary>
@@ -10,7 +11,7 @@ namespace SprintZero1.Commands
     internal class RegularBoomerangAttackCommand : ICommand
     {
         // Field for storing the reference to the combat entity
-        readonly ICombatEntity combatEntity;
+        private readonly ICombatEntity combatEntity;
 
         /// <summary>
         /// Initializes a new instance of the RegularBoomerangAttackCommand class.
@@ -28,7 +29,7 @@ namespace SprintZero1.Commands
         public void Execute()
         {
             // Triggers the attack method of the combat entity with a "boomerang" parameter
-            combatEntity.Attack("BetterBoomerang");
+            combatEntity.Attack();
         }
     }
 }

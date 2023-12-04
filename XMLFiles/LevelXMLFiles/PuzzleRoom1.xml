@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Room>
+	<Floor>
+		<Name>puzzleRoom</Name>
+		<X>127</X>
+		<Y>151</Y>
+	</Floor>
+	<Events>
+		<Event>
+			<Name>DropWithMultipleBlocksEvent</Name>
+			<EventInfo>
+				<TriggerPosition x="87" y="104"/>
+				<TriggerPosition x="103" y="120"/>
+				<TriggerPosition x="119" y="136"/>
+				<TriggerPosition x="135" y="152"/>
+				<TriggerPosition x="151" y="168"/>
+				<TriggerPosition x="167" y="184"/>
+				<TriggerPosition x="183" y="200"/>
+				<DoorDirection>West</DoorDirection>
+			</EventInfo>
+			<EventBlocks>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>104</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>87</X2>
+					<Y2>104</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>120</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>103</X2>
+					<Y2>120</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>136</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>119</X2>
+					<Y2>136</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>152</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>135</X2>
+					<Y2>152</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>168</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>151</X2>
+					<Y2>168</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Represents the starting position of the block -->
+					<X>55</X>
+					<Y>184</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>167</X2>
+					<Y2>184</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+				<EventBlock type="MovableBlockEntity">
+					<Name>pyramid</Name>
+					<!-- Rpresents the starting position of the block -->
+					<X>55</X>
+					<Y>200</Y>
+					<!-- Represents the max position the object can move -->
+					<X2>183</X2>
+					<Y2>200</Y2>
+					<MovableDirection>East</MovableDirection>
+				</EventBlock>
+			</EventBlocks>
+		</Event>
+	</Events>
+	<Walls>
+		<Wall>
+			<Name>tl_vertical_wall</Name>
+			<X>15</X>
+			<Y>100</Y>
+		</Wall>
+		<Wall>
+			<Name>bl_vertical_wall</Name>
+			<X>15</X>
+			<Y>204</Y>
+		</Wall>
+		<Wall>
+			<Name>tr_vertical_wall</Name>
+			<X>239</X>
+			<Y>100</Y>
+		</Wall>
+		<Wall>
+			<Name>br_vertical_wall</Name>
+			<X>239</X>
+			<Y>204</Y>
+		</Wall>
+		<Wall>
+			<Name>tl_horizontal_wall</Name>
+			<X>71</X>
+			<Y>80</Y>
+		</Wall>
+		<Wall>
+			<Name>bl_horizontal_wall</Name>
+			<X>71</X>
+			<Y>224</Y>
+		</Wall>
+		<Wall>
+			<Name>tr_horizontal_wall</Name>
+			<X>183</X>
+			<Y>80</Y>
+		</Wall>
+		<Wall>
+			<Name>br_horizontal_wall</Name>
+			<X>183</X>
+			<Y>224</Y>
+		</Wall>
+	</Walls>
+	<Doors>
+		<Door>
+			<Name>doorless_north</Name>
+			<X>127</X>
+			<Y>80</Y>
+			<Destination>floorThreeRight</Destination>
+			<Direction>North</Direction>
+			<DoorType>BreakableWallEntity</DoorType>
+		</Door>
+		<Door>
+			<Name>blocked_west</Name>
+			<X>15</X>
+			<Y>152</Y>
+			<Destination>floorTwo</Destination>
+			<Direction>West</Direction>
+			<DoorType>BlockedDoorEntity</DoorType>
+		</Door>
+		<Door>
+			<Name>doorless_east</Name>
+			<X>239</X>
+			<Y>152</Y>
+			<Destination>floorFiveRight</Destination>
+			<Direction>East</Direction>
+			<DoorType>DoorlessEntity</DoorType>
+		</Door>
+		<Door>
+			<Name>doorless_south</Name>
+			<X>127</X>
+			<Y>224</Y>
+			<Destination>none</Destination>
+			<Direction>South</Direction>
+			<DoorType>DoorlessEntity</DoorType>
+		</Door>
+	</Doors>
+</Room>

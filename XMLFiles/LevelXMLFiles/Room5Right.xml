@@ -5,6 +5,14 @@
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
+	<Events>
+		<Event>
+			<Name>RoomBeatOpenDoorEvent</Name>
+			<EventInfo>
+				<DoorDirection>East</DoorDirection>
+			</EventInfo>
+		</Event>
+	</Events>
 	<Walls>
 		<Wall>
 			<Name>tl_vertical_wall</Name>
@@ -180,11 +188,16 @@
 	<Enemies>
 		<Boss>
 			<Name>aquamentus</Name>
-			<X>168</X>
+			<X>175</X>
 			<Y>145</Y>
-			<Health>1</Health>
+			<Health>6</Health>
 			<Frames>2</Frames>
-			<IsBoss>true</IsBoss>
+			<Boundary>
+				<X>160</X>
+				<Y>120</Y>
+				<Width>50</Width>
+				<Height>65</Height>
+			</Boundary>
 		</Boss>
 	</Enemies>
 	<Doors>
@@ -205,12 +218,12 @@
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>open_east</Name>
+			<Name>blocked_east</Name>
 			<X>239</X>
 			<Y>152</Y>
 			<Destination>floorFiveRightest</Destination>
 			<Direction>East</Direction>
-			<DoorType>OpenDoorEntity</DoorType>
+			<DoorType>BlockedDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>locked_south</Name>

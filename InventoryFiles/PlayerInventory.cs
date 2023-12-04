@@ -1,4 +1,7 @@
-﻿using SprintZero1.Entities;
+using SprintZero1.Colliders.EntityColliders;
+using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
 using SprintZero1.Sprites;
@@ -13,10 +16,10 @@ namespace SprintZero1.InventoryFiles
 {
     internal class PlayerInventory
     {
-        const string INVENTORY_DOCUMENT_PATH = @"XMLFiles\PlayerXMLFiles\StartingInventory.xml";
-        const string DOCUMENT_ROOT = "startinginventory";
-        const string STARTING_WEAPON_ELEMENT = "startingweapon";
-        const string STACKABLE_ITEMS_ELEMENT = "stackableitems";
+        private const string INVENTORY_DOCUMENT_PATH = @"XMLFiles/PlayerXMLFiles/StartingInventory.xml";
+        private const string DOCUMENT_ROOT = "startinginventory";
+        private const string STARTING_WEAPON_ELEMENT = "startingweapon";
+        private const string STACKABLE_ITEMS_ELEMENT = "stackableitems";
         /* ---------------------------------------- FIelds and properties ---------------------------------------- */
         private const int MAX_EQUIPMENT_SLOTS = 8;
         private const int MAX_UTILITY_SLOTS = 2; // set to two just because we only have 1 map and 1 compass to get
@@ -73,21 +76,6 @@ namespace SprintZero1.InventoryFiles
         {
             Debug.Assert(!_DungeonUtilityItemSlots.Contains(dungeonItem), $"Player already contains {dungeonItem} in their inventory.");
             Debug.Assert(_DungeonUtilityItemSlots.Count < MAX_UTILITY_SLOTS, "Player Utility Item Slots are full.");
-
-            //checking if compass or map to add to screen
-            String name = dungeonItem.ToString();
-            if (name.Contains("Map"))
-            {
-                HUDManager.AddMap();
-            }
-            else if (name.Contains("Compass"))
-            {
-
-                HUDManager.AddTriforceMarker();
-            }
-
-
-
             _DungeonUtilityItemSlots.Add(dungeonItem);
         }
 
@@ -156,7 +144,18 @@ namespace SprintZero1.InventoryFiles
         public void ChangeEquipmentItem(EquipmentItem newEquipment)
         {
             Debug.Assert(_equipmentSlots.ContainsKey(newEquipment), $"The player does not contain {newEquipment} in their inventory.");
+            if (newEquipment.Equals(EquipmentItem.BetterBow))
+            {
+                _inventoryOwner.name = "LinkGun";
+                _inventoryOwner.ChangeDirection(_inventoryOwner.Direction);
+            }
+            else
+            {
+                _inventoryOwner.name = "Link";
+                _inventoryOwner.Collider = new PlayerCollider(_inventoryOwner.Position, new System.Drawing.Size(_inventoryOwner.PlayerSprite.Width, _inventoryOwner.PlayerSprite.Height));
+            }
             _inventoryOwner.EquipmentSlot = _equipmentSlots[newEquipment];
+            HUDManager.UpdateOnScreenEquipment(_inventoryOwner, _equipmentSlots[newEquipment].Sprite);
         }
 
         /// <summary>
