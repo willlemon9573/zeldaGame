@@ -55,7 +55,6 @@ namespace SprintZero1.Entities.EnemyEnetities
             _currentHealth -= damage;
             if (_currentHealth <= 0)
             {
-                _bossController.Stop();
                 Die();
                 return;
             }

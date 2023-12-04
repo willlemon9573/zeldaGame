@@ -243,13 +243,12 @@ namespace SprintZero1.LevelFiles
         {
             if (_enemyControllerList.Count > 0 && _liveEnemyList.Count == enemyCount) { return; }
             RemoveDelegate remover = RemoveDeadEnemies;
-            _liveEnemyList.ForEach(enemy => _enemyControllerList.Add(new SmartEnemyMovementController(enemy as ICombatEntity, playerEntity, remover)));
 
             foreach (ICombatEntity combatEntity in _liveEnemyList)
             {
                 if (combatEntity is not AquamentusEntity)
                 {
-                    _enemyControllerList.Add(new SmartEnemyMovementController(combatEntity as ICombatEntity, playerEntity, remover));
+                    _enemyControllerList.Add(new SmartEnemyMovementController(combatEntity, playerEntity, remover));
                 }
             }
         }
@@ -287,7 +286,10 @@ namespace SprintZero1.LevelFiles
         public void Update(GameTime gameTime)
         {
             _architechtureList.ForEach(entity => entity.Update(gameTime));
-            _liveEnemyList.ForEach(entity => entity.Update(gameTime));
+            for (int i = 0; i < LiveEnemyList.Count; i++)
+            {
+                LiveEnemyList[i].Update(gameTime);
+            }
             _architechtureList.ForEach(entity => entity.Update(gameTime));
             _enemyControllerList.ForEach(entity => entity.Update(gameTime));
             _floorItems.ForEach(entity => entity.Update(gameTime));

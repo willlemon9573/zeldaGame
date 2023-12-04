@@ -23,7 +23,7 @@ namespace SprintZero1.StatePatterns.BossStatePatterns.AquamentusStatePattern
 
         public override void Update(GameTime gameTime)
         {
-            throw new System.NotImplementedException();
+
         }
     }
 }
