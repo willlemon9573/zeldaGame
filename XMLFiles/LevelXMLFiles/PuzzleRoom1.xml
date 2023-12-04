@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Room>
 	<Floor>
-		<Name>floorFivePuzzleRight</Name>
+		<Name>puzzleRoom</Name>
 		<X>127</X>
 		<Y>151</Y>
 	</Floor>
@@ -9,8 +9,22 @@
 		<Event>
 			<Name>DropWithMultipleBlocksEvent</Name>
 			<EventInfo>
-				<TriggerX>134</TriggerX>
-				<TriggerY>119</TriggerY>
+				<TriggerX>215</TriggerX>
+				<TriggerY>104</TriggerY>
+				<TriggerX>135</TriggerX>
+				<TriggerY>120</TriggerY>
+				<TriggerX>119</TriggerX>
+				<TriggerY>136</TriggerY>
+				<TriggerX>103</TriggerX>
+				<TriggerY>152</TriggerY>
+				<TriggerX>119</TriggerX>
+				<TriggerY>168</TriggerY>
+				<TriggerX>135</TriggerX>
+				<TriggerY>184</TriggerY>
+				<TriggerX>215</TriggerX>
+				<TriggerY>200</TriggerY>
+				<DoorDirection>East</DoorDirection>
+				<DoorDirection>West</DoorDirection>
 			</EventInfo>
 			<EventBlock type="MovableBlockEntity">
 				<Name>pyramid</Name>
@@ -152,20 +166,20 @@
 			<DoorType>DoorlessEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>open_west</Name>
+			<Name>blocked_west</Name>
 			<X>15</X>
 			<Y>152</Y>
 			<Destination>floorFive</Destination>
 			<Direction>West</Direction>
-			<DoorType>OpenDoorEntity</DoorType>
+			<DoorType>BlockedDoorEntity</DoorType>
 		</Door>
 		<Door>
-			<Name>locked_east</Name>
+			<Name>blocked_east</Name>
 			<X>239</X>
 			<Y>152</Y>
 			<Destination>floorFiveRight</Destination>
 			<Direction>East</Direction>
-			<DoorType>LockedDoorEntity</DoorType>
+			<DoorType>BlockedDoorEntity</DoorType>
 		</Door>
 		<Door>
 			<Name>doorless_south</Name>

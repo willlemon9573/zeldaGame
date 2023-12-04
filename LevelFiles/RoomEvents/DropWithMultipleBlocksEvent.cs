@@ -11,25 +11,28 @@ namespace SprintZero1.LevelFiles.RoomEvents
 {
     internal class DropWithMultipleBlocksEvent : IRoomEvent
     {
+        private readonly DungeonRoom _room;
+        private List<String> _doorToOpenDirections = new List<String>();
         private bool _canTriggerEvent;
         private readonly List<IMovableEntity> _movableBlocks;
         private readonly List<Vector2> _triggerPositions;
-        private readonly int _requiredBlocks;
-        private const float TimeLimit = 10f;
+        private const int _requiredBlocks = 7;
+        private const float TimeLimit = 30f;
         private float _elapsedTime;
-        
+
         /// <summary>
         /// Initialize
         /// </summary>
         /// <param name="movableBlocks">List of movable blocks in level</param>
         /// <param name="triggerPositions">List of block destinations for event to trigger</param>
         /// <param name="requiredBlocks">Number of blocks needed to complete puzzle</param>
-        public DropWithMultipleBlocksEvent(List<IMovableEntity> movableBlocks, List<Vector2> triggerPositions, int requiredBlocks)
+        public DropWithMultipleBlocksEvent(DungeonRoom room, List<IMovableEntity> movableBlocks, List<Vector2> triggerPositions, List<String> doorToOpenDirections)
         {
+            _room = room;
             _canTriggerEvent = true;
             _movableBlocks = movableBlocks;
             _triggerPositions = triggerPositions;
-            _requiredBlocks = requiredBlocks;
+            _doorToOpenDirections = doorToOpenDirections;
             _elapsedTime = 0f;
         }
         

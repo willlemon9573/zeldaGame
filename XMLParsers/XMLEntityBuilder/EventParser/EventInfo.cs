@@ -19,11 +19,13 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
             triggerLocations.Add(new Tuple<int, int>(x, y));
         }
 
-        public List<Tuple<int, int>> EventTriggers { get { return triggerLocations; } }
+        public List<Tuple<int, int>> TriggerLocations { get { return triggerLocations; } }
 
         public void AddDirection(string direction)
         {
             doorDirections.Add(direction);
         }
+
+        public List<String> DoorDirections { get {  return doorDirections; } }
     }
 }
