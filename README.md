@@ -14,11 +14,12 @@
 	Room screen transitions have not been implemented
 	Item Selection Menu transitioning down has not been implemented
  	Rupees are not in the game
+  	Enemies do not drop any loot
 
 # Known Bugs and Features
 	Link experiences recoil when shooting the minigun
  	Enemies follow you when they are not supposed to
-  	Unlimited bombs
+  	Infinite items
   
 	
 
