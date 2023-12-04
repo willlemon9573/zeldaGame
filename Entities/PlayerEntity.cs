@@ -28,8 +28,6 @@ namespace SprintZero1.Entities
         private Direction _playerDirection;
         private Vector2 _playerPosition;
         private string _characterName;
-        private int linkHeight;
-        private int linkWidth;
         private ICollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
         private readonly PlayerSpriteFactory _linkSpriteFactory = PlayerSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
         private IWeaponEntity _playerSwordSlot;

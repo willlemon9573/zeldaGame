@@ -100,8 +100,10 @@ namespace SprintZero1.Controllers
                 {
                     _keyboardMap[key].Execute();
                 }
-                else {
-                    if (key == Keys.X && _keyboardMap.ContainsKey(Keys.X) && _player.CharacterName == "LinkGun") {
+                else
+                {
+                    if (key == Keys.X && _keyboardMap.ContainsKey(Keys.X) && _player.CharacterName == "LinkGun")
+                    {
                         _keyboardMap[key].Execute();
 
                     }

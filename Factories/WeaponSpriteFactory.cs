@@ -77,7 +77,7 @@ namespace SprintZero1.Factories
             {
                 sourceRectangle = projectileSourceRectangles["bullet"];
             }
-            
+
             /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
             return new NonAnimatedSprite(sourceRectangle[index], spriteSheet);
         }
