@@ -16,18 +16,18 @@ namespace SprintZero1.Entities.EnemyEntities
     /// <author>Zihe Wang</author>
     internal class EnemyEntityWithProjectile : EnemyBasedEntity
     {
+
+        private IWeaponEntity _EnemyWeapon;
         /// <summary>
         /// Constructs a new enemy entity without projectile capabilities.
         /// </summary>
         /// <param name="position">The position of the enemy entity.</param>
         /// <param name="startingHealth">The starting health of the enemy entity.</param>
         /// <param name="enemyName">The name of the enemy.</param>
-        IWeaponEntity _EnemyWeapon;
-        string weaponName = "Boomerang";
-        public EnemyEntityWithProjectile(Vector2 position, int startingHealth, string enemyName)
-            : base(position, startingHealth, enemyName)
+        public EnemyEntityWithProjectile(Vector2 position, float startingHealth, string enemyName)
+        : base(position, startingHealth, enemyName)
         {
-            _EnemyWeapon = new EnemyBoomerangEntity("Boomerang", this);
+            _EnemyWeapon = new EnemyBoomerangEntity("boomerang", this);
         }
 
         public override void PerformAttack()
@@ -36,14 +36,8 @@ namespace SprintZero1.Entities.EnemyEntities
             {
                 TransitionToState(State.Attacking);
             }
-
-            if (weaponName == "Boomerang")
-            {
-                _EnemyWeapon.UseWeapon(_enemyDirection, _enemyPosition);
-            }
+            _EnemyWeapon.UseWeapon(_enemyDirection, _enemyPosition);
             _enemyState.Request();
-
-
         }
         public override void Update(GameTime gameTime)
         {

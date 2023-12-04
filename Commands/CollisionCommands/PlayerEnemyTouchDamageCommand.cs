@@ -5,16 +5,15 @@ namespace SprintZero1.Commands.CollisionCommands
     internal class PlayerEnemyTouchDamageCommand : ICommand
     {
         ICombatEntity _player;
-        ICombatEntity _enemy;
-        public PlayerEnemyTouchDamageCommand(IEntity player, IEntity enemy)
+        private const float DefaultDamage = 0.5f;
+        public PlayerEnemyTouchDamageCommand(IEntity player)
         {
             _player = player as ICombatEntity;
-            _enemy = enemy as ICombatEntity;
         }
         public void Execute()
         {
-            float temporaryDamage = 1f;
-            _player.TakeDamage(temporaryDamage);
+
+            _player.TakeDamage(DefaultDamage);
         }
     }
 }

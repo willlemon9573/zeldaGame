@@ -26,7 +26,12 @@ namespace SprintZero1.Commands.CollisionCommands
             _triforcePiece.Remove();
             /* don't know if this is implemented */
             _player.TransitionToState(State.InteractingWithItem);
-            _state.ChangeGameState(GameState.LevelCompleted);
+            if (_player is PlayerEntity player)
+            {
+                player.PickedupItem(_triforcePiece);
+            }
+            GameStatesManager.ChangeGameState(GameState.LevelCompleted);
+            GameStatesManager.CurrentState.Handle();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace SprintZero1.Entities.WeaponEntities.BoomerangEntity
 
         protected override void SetCollider()
         {
-            _projectileCollider = new EnemyProjectileCollider(_weaponPosition, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
+            _projectileCollider = new EnemyBoomerangCollider(_weaponPosition, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
         }
     }
 }

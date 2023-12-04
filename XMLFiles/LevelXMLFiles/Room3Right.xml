@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <Room>
 	<Floor>
 		<Name>floorThreeRight</Name>
@@ -72,7 +72,7 @@
 			<Name>dungeon_keese</Name>
 			<X>88</X>
 			<Y>101</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -80,7 +80,7 @@
 			<Name>dungeon_keese</Name>
 			<X>135</X>
 			<Y>166</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -88,7 +88,7 @@
 			<Name>dungeon_keese</Name>
 			<X>135</X>
 			<Y>133</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -96,7 +96,7 @@
 			<Name>dungeon_keese</Name>
 			<X>167</X>
 			<Y>167</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -104,7 +104,7 @@
 			<Name>dungeon_keese</Name>
 			<X>168</X>
 			<Y>133</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -112,7 +112,7 @@
 			<Name>dungeon_keese</Name>
 			<X>199</X>
 			<Y>181</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -120,7 +120,7 @@
 			<Name>dungeon_keese</Name>
 			<X>200</X>
 			<Y>119</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -128,7 +128,7 @@
 			<Name>dungeon_keese</Name>
 			<X>215</X>
 			<Y>150</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<Frames>2</Frames>
 			<IsBoss>false</IsBoss>
 		</Enemy>
@@ -172,9 +172,9 @@
 			<Name>doorless_south</Name>
 			<X>127</X>
 			<Y>224</Y>
-			<Destination>none</Destination>
+			<Destination>puzzleRoom</Destination>
 			<Direction>South</Direction>
-			<DoorType>DoorlessEntity</DoorType>
+			<DoorType>BreakableWallEntity</DoorType>
 		</Door>
 	</Doors>
 </Room>

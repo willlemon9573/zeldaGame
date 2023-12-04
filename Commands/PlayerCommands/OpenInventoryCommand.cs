@@ -18,6 +18,10 @@ namespace SprintZero1.Commands.PlayerCommands
         /// </summary>
         public override void Execute()
         {
+            if (_player is ICombatEntity player && player.Health <= 0)
+            {
+                return;
+            }
             GameStatesManager.ChangeGameState(GameState.ItemSelectionScreen);
             (GameStatesManager.CurrentState as GameItemSelectionState).CurrentPlayer = _player;
             GameStatesManager.CurrentState.Handle();

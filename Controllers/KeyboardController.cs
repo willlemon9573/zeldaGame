@@ -17,6 +17,7 @@ namespace SprintZero1.Controllers
         private List<Keys> _previouslyPressedKeys;
         private readonly Stack<Keys> _movementKeyStack;
         private ICommand _playerIdleCommand;
+        private PlayerEntity _player;
         /// <summary>
         /// Construct an object to control the keyboard
         /// </summary>
@@ -74,6 +75,7 @@ namespace SprintZero1.Controllers
             _keyboardMap = ControlsManager.GetKeyboardControls(player);
             _playerIdleCommand = new PlayerIdleCommand(player as PlayerEntity);
             _keyboardMap.Add(Keys.P, new PlayerTakeDamangeCommand(player));
+            _player = player as PlayerEntity;
         }
 
         public void Update()
@@ -92,10 +94,19 @@ namespace SprintZero1.Controllers
                 {
                     HandleMovementKey(key);
                     totalKeyCount++;
+
                 }
                 else if (_keyboardMap.ContainsKey(key) && !_previouslyPressedKeys.Contains(key))
                 {
                     _keyboardMap[key].Execute();
+                }
+                else
+                {
+                    if (key == Keys.X && _keyboardMap.ContainsKey(Keys.X) && _player.CharacterName == "LinkGun")
+                    {
+                        _keyboardMap[key].Execute();
+
+                    }
                 }
             }
 

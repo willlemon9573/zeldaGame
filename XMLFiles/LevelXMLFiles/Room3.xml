@@ -87,7 +87,7 @@
 			<Name>dungeon_stalfos</Name>
 			<X>88</X>
 			<Y>174</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>0</IsBoss>
 		</Enemy>
@@ -95,7 +95,7 @@
 			<Name>dungeon_stalfos</Name>
 			<X>136</X>
 			<Y>157</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>0</IsBoss>
 		</Enemy>
@@ -103,7 +103,7 @@
 			<Name>dungeon_stalfos</Name>
 			<X>111</X>
 			<Y>134</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>0</IsBoss>
 		</Enemy>
@@ -111,7 +111,7 @@
 			<Name>dungeon_stalfos</Name>
 			<X>152</X>
 			<Y>140</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>0</IsBoss>
 		</Enemy>
@@ -119,7 +119,7 @@
 			<Name>dungeon_stalfos</Name>
 			<X>162</X>
 			<Y>102</Y>
-			<Health>1</Health>
+			<Health>2</Health>
 			<Frames>2</Frames>
 			<IsBoss>0</IsBoss>
 	</Enemy>

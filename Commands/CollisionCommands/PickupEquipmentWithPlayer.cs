@@ -1,4 +1,5 @@
-﻿using SprintZero1.Entities.EntityInterfaces;
+﻿using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Entities.LootableItemEntity;
 using SprintZero1.Enums;
 using SprintZero1.Managers;
@@ -21,6 +22,10 @@ namespace SprintZero1.Commands.CollisionCommands
             if (PlayerInventoryManager.PlayerContainsEquipment(_player, equipment)) { return; }
             IWeaponEntity weapon = WeaponEntityBuilder.CreateWeaponEntity(equipment, _player as IMovableEntity);
             _equipment.Pickup(_player, weapon);
+            if (_player is PlayerEntity player)
+            {
+                player.PickedupItem(_equipment);
+            }
             _equipment.Remove();
         }
     }

@@ -32,6 +32,7 @@ namespace SprintZero1.XMLParsers
         private const string InnerItemFramesElement = "ItemFrames";
         private const string InnerItemEnumElement = "Enum";
         private const string InnerItemTypeElement = "Type";
+        private const string InnerBossBoundaryElement = "Boundary";
         /* ------------------------------Public Functions--------------------------------- */
         /// <summary>
         /// Constructor for a new instance of LevelXmlParser
@@ -57,10 +58,11 @@ namespace SprintZero1.XMLParsers
             { InnerItemFramesElement, (item, data) => (data as XMLItemEntity).ItemFrames = item.ReadElementContentAsInt() },
             { InnerItemTypeElement, (item, data) => (data as XMLItemEntity).ItemType = item.ReadElementContentAsString() },
             { InnerItemEnumElement, (item, data) => (data as XMLItemEntity).EnumName = item.ReadElementContentAsString() },
-            { InnerElementHealthElement, (enemy, data) =>  (data as XMLEnemyEntity).EntityHealth = enemy.ReadElementContentAsInt() },
+            { InnerElementHealthElement, (enemy, data) =>  (data as XMLEnemyEntity).EntityHealth = enemy.ReadElementContentAsFloat() },
             { InnerDoorDestinationElement, (door, data) => (data as XMLDoorEntity).Destination = door.ReadElementContentAsString() },
             { InnerDoorDirectionElement, (door, data) => (data as XMLDoorEntity).DoorDirection = door.ReadElementContentAsString() },
             { InnerDoorTypeElement,  (door, data) => (data as XMLDoorEntity).DoorType = door.ReadElementContentAsString() },
+              { InnerBossBoundaryElement, (enemy, data) => (data as XMLEnemyEntity).ParseBossBoundary(enemy)}
             };
         }
 
@@ -217,12 +219,13 @@ namespace SprintZero1.XMLParsers
                 {
                     parsedValue(reader, enemy);
                 }
-                else if (reader_type == EndElementType && (element_name == innerEnemyElement || element_name == innerBossElement|| element_name == innerEnemyElementWithProjectile))
+                else if (reader_type == EndElementType && (element_name == innerEnemyElement || element_name == innerBossElement || element_name == innerEnemyElementWithProjectile))
                 {
                     if (element_name == innerBossElement)
                     {
-                        dungeonRoom.AddEnemy((enemy as XMLEnemyEntity).CreateBossEntity());
-                    }else if(element_name == innerEnemyElementWithProjectile)
+                        dungeonRoom.AddEnemy((enemy as XMLEnemyEntity).CreateBossEntity(dungeonRoom.RemoveDeadEnemies));
+                    }
+                    else if (element_name == innerEnemyElementWithProjectile)
                     {
                         dungeonRoom.AddEnemy((enemy as XMLEnemyEntity).CreateEntityWithprojectile());
                     }
@@ -293,14 +296,17 @@ namespace SprintZero1.XMLParsers
             string eventTwo = "RoomBeatKeyEvent";
             string eventThree = "RoomBeatBoomerangEvent";
             string eventFour = "RoomBeatOpenDoorEvent";
+            string puzzleEvent = "DropWithMultipleBlocksEvent";
             Dictionary<string, Action<XmlReader, DungeonRoom>> eventMap = new Dictionary<string, Action<XmlReader, DungeonRoom>>()
-            {
-                { eventOne, (reader, room) => parser.ParseOpenDoorWithBlockEvent(room, reader) },
-                { eventTwo, (reader, room) => parser.ParseRoomBeatKeyEvent(room, reader) },
-                { eventThree, (reader, room) => parser.ParseRoomBeatBoomerangEvent(room, reader) },
-                { eventFour, (reader, room) => parser.ParseRoomBeatOpenDoorEvent(room, reader) },
-                { eventFive, (reader, room) => parser.ParseOpenPathWithBlockEvent(room, reader) },
-            };
+{
+    { eventOne, (reader, room) => parser.ParseOpenDoorWithBlockEvent(room, reader) },
+    { eventTwo, (reader, room) => parser.ParseRoomBeatKeyEvent(room, reader) },
+    { eventThree, (reader, room) => parser.ParseRoomBeatBoomerangEvent(room, reader) },
+    { eventFour, (reader, room) => parser.ParseRoomBeatOpenDoorEvent(room, reader) },
+    { eventFive, (reader, room) => parser.ParseOpenPathWithBlockEvent(room, reader) },
+    { puzzleEvent, (reader, room) => parser.ParsePuzzleRoomEvent(room, reader) },
+};
+
 
             while (reader.Read())
             {

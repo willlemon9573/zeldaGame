@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SprintZero1.Controllers;
 using SprintZero1.Factories;
 using SprintZero1.Managers;
 using System;
@@ -10,7 +9,6 @@ namespace SprintZero1
     public class Game1 : Game
     {
         public GraphicsDeviceManager _graphics;
-        private MouseController _mouseController;
         private SpriteBatch _spriteBatch;
         /* Variables for window rescaling */
         private const int WINDOW_SCALE = 4;
@@ -40,6 +38,12 @@ namespace SprintZero1
             base.Initialize();
         }
 
+        public void Reset()
+        {
+            GameStatesManager.InitializeGameStateMap(this);
+            LevelManager.Load();
+            GameStatesManager.Start();
+        }
 
         protected override void LoadContent()
         {
@@ -49,7 +53,6 @@ namespace SprintZero1
             GameStatesManager.InitializeGameStateMap(this);
             LevelManager.Load();
             GameStatesManager.Start();
-            _mouseController = new MouseController(this);
         }
 
         private void LoadTextures()
@@ -68,7 +71,6 @@ namespace SprintZero1
         protected override void Update(GameTime gameTime)
         {
             GameStatesManager.Update(gameTime);
-            _mouseController.Update();
             base.Update(gameTime);
         }
 

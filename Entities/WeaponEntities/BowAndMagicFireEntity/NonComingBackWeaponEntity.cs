@@ -42,6 +42,7 @@ namespace SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity
             if (_isActive == false && _drawImpactSprite == true)
             {
                 ImpactEffectSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, _rotation);
+                _drawImpactSprite = false;
                 return;
             }
             ProjectileSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, _rotation);

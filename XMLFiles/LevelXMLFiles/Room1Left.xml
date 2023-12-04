@@ -61,20 +61,20 @@
 			<Name>dungeon_keese</Name>
 			<X>54</X>
 			<Y>185</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 		</Enemy>
 		<Enemy>
 			<Name>dungeon_keese</Name>
 			<X>56</X>
 			<Y>121</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 			<IsBoss>0</IsBoss>
 		</Enemy>
 		<Enemy>
 			<Name>dungeon_keese</Name>
 			<X>88</X>
 			<Y>137</Y>
-			<Health>1</Health>
+			<Health>0.5</Health>
 		</Enemy>
 	</Enemies>
 	<Doors>

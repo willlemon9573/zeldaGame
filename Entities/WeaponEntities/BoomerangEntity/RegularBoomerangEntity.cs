@@ -57,6 +57,7 @@ namespace SprintZero1.Entities.WeaponEntities.BoomerangEntity
             _spriteMovingAddition = _spriteMovingDictionary[direction] * movingSpeed;
             _currentSpriteEffect = SpriteEffects.None;
             _weaponPosition = position + spriteAdditions.Item2;
+            _movingDirection = direction;
             SetCollider();
 
             if (GameStatesManager.CurrentState is GamePlayingState gameState)

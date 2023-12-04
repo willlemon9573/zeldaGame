@@ -44,10 +44,10 @@ namespace SprintZero1.Factories
             _linkSwordSpriteDictionary = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(SWORD_SPRITE_PATH);
         }
 
-        public ISprite CreateAquamentusWeaponSprite(int index)
+        public ISprite CreateAquamentusWeaponSprite()
         {
-            List<Rectangle> sourceRectangle = projectileSourceRectangles["aquamentusWeapon"];
-            return new NonAnimatedSprite(sourceRectangle[index], enemyProjectileSheet);
+            List<Rectangle> projectileRectangleList = projectileSourceRectangles["aquamentusWeapon"];
+            return new AnimatedSprite(projectileRectangleList, enemyProjectileSheet, projectileRectangleList.Count);
         }
 
         public ISprite CreateBoomerangSprite(string weaponType)
@@ -72,10 +72,12 @@ namespace SprintZero1.Factories
             {
                 index = 1;
             }
+            //if they have the gun
             if (weaponType.Equals("better"))
             {
-                sourceRectangle = projectileSourceRectangles["betterbowarrows"];
+                sourceRectangle = projectileSourceRectangles["bullet"];
             }
+
             /*  return new WeaponSprite(location, sourceRectangle, this.spriteSheet, maxFrames, direction);*/
             return new NonAnimatedSprite(sourceRectangle[index], spriteSheet);
         }

@@ -77,7 +77,6 @@ namespace SprintZero1.Managers
         public static void AddUtilityItemToInventory(IEntity player, DungeonItems item)
         {
             Debug.Assert(player != null, "Error: Player is null.");
-            Debug.WriteLine(_playerInventoryMap[player].IsInInventory(item));
             _playerInventoryMap[player].AddDungeonUtilityItem(item);
         }
 
