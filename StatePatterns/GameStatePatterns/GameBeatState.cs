@@ -14,6 +14,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            // Link should still be drawn
             endingState.Draw(spriteBatch);
         }
 

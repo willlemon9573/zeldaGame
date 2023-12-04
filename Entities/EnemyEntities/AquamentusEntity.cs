@@ -17,7 +17,9 @@ namespace SprintZero1.Entities.EnemyEnetities
         {
             // all other values inherited from the BaseBossEntity to prevent duplicate code
             _bossSprite = EnemySpriteFactory.Instance.CreateBossSprite(BossName);
-            _bossCollider = new BossCollider(startingPosition, new System.Drawing.Size(_bossSprite.Width, _bossSprite.Height));
+            int bossColliderOffSetX = -5;
+            int bossColliderOffSetY = -5;
+            _bossCollider = new BossCollider(startingPosition, new System.Drawing.Size(_bossSprite.Width, _bossSprite.Height), bossColliderOffSetX, bossColliderOffSetY);
             _currentState = new AquamentusMovingState(this);
             _vulnerabilityState = new AquamentusVulnerabilityState(this);
             _bossController = new AquamentusBossController(this, remover, boundary);
