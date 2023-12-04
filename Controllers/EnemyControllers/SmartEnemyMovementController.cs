@@ -39,7 +39,13 @@ namespace SprintZero1.Controllers.EnemyControllers
         private double _timeSinceLastAttack;
         private double _attackCooldown = 1.0f;
 
-
+        /// <summary>
+        /// Initializes a new instance of the SmartEnemyMovementController class.
+        /// </summary>
+        /// <param name="enemyEntity">The enemy entity to be controlled.</param>
+        /// <param name="players">List of player entities to interact with.</param>
+        /// <param name="remover">Delegate for removing the enemy entity from the game.</param>
+        /// <param name="ArchitechtureList">List of architecture entities in the game environment.</param>
         public SmartEnemyMovementController(ICombatEntity enemyEntity, List<IEntity> players, RemoveDelegate remover, List<IEntity> ArchitechtureList)
         {
             _architechtureList = ArchitechtureList;
@@ -53,16 +59,27 @@ namespace SprintZero1.Controllers.EnemyControllers
             _timeSinceLastAttack = 0;
         }
 
+        /// <summary>
+        /// Starts the enemy movement control routine.
+        /// </summary>
         public void Start()
         {
             _running = true;
         }
 
+        /// <summary>
+        /// Stops the enemy movement control routine.
+        /// </summary>
         public void Stop()
         {
             _running = false;
         }
 
+        /// <summary>
+        /// Calculates the direction of movement based on the given vector.
+        /// </summary>
+        /// <param name="moveDirection">The vector indicating the direction of movement.</param>
+        /// <returns>The calculated direction.</returns>
         private Direction CalculateDirection(Vector2 moveDirection)
         {
             // Determines the direction based on the vector to the next step
@@ -75,6 +92,13 @@ namespace SprintZero1.Controllers.EnemyControllers
                 return moveDirection.Y > 0 ? Direction.South : Direction.North;
             }
         }
+
+        /// <summary>
+        /// Determines whether a boomerang attack should be used based on the positions of the enemy and the player.
+        /// </summary>
+        /// <param name="enemyPosition">The position of the enemy.</param>
+        /// <param name="playerPosition">The position of the player.</param>
+        /// <returns>True if a boomerang attack should be used; otherwise, false.</returns>
         private bool ShouldUseBoomerangAttack(Vector2 enemyPosition, Vector2 playerPosition)
         {
             float optimalBoomerangDistance = 50f;
@@ -83,7 +107,10 @@ namespace SprintZero1.Controllers.EnemyControllers
             return distanceToPlayer <= optimalBoomerangDistance;
         }
 
-
+        /// <summary>
+        /// Updates the state and behavior of the enemy entity based on the game time.
+        /// </summary>
+        /// <param name="gameTime">The game's current time state.</param>
         public void Update(GameTime gameTime)
         {
             if (_running == false) { return; }
@@ -180,11 +207,22 @@ namespace SprintZero1.Controllers.EnemyControllers
             }
         }
 
+        /// <summary>
+        /// Finds the nearest player to the enemy.
+        /// </summary>
+        /// <param name="enemyPosition">The current position of the enemy.</param>
+        /// <param name="players">The list of players in the game.</param>
+        /// <returns>The nearest player entity.</returns>
         private IEntity FindNearestPlayer(Vector2 enemyPosition, List<IEntity> players)
         {
             return players.OrderBy(p => Vector2.Distance(enemyPosition, p.Position)).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Generates a random direction for the enemy to move in.
+        /// </summary>
+        /// <param name="currentPosition">The current position of the enemy.</param>
+        /// <returns>The new position based on the random direction.</returns>
         private Vector2 GenerateRandomDirection(Vector2 currentPosition)
         {
             int stepSize = 5;
