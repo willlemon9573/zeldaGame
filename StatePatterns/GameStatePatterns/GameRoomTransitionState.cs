@@ -36,8 +36,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         };
         Dictionary<Direction, Vector2> cameraDirectionsDictionary = new Dictionary<Direction, Vector2>
         {
-            { Direction.North, new Vector2(0, -1) },
-            { Direction.South, new Vector2(0, 1) },
+            { Direction.North, new Vector2(0, 1) },
+            { Direction.South, new Vector2(0, -1) },
             { Direction.East, new Vector2(-1, 0) },
             { Direction.West, new Vector2(1, 0) }
         };
@@ -55,8 +55,8 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public void InchCamera()
         {
             transitionProgress++;
-            var dx = (_game.GraphicsDevice.Viewport.Width / 2) + cameraMovementDirection.X;
-            var dy = (_game.GraphicsDevice.Viewport.Height / 2) + cameraMovementDirection.Y;
+            var dx = cameraMovementDirection.X * transitionProgress * 2;
+            var dy = cameraMovementDirection.Y * transitionProgress * 2;
             translation = Matrix.CreateTranslation(dx, dy, 0);
         }
 
