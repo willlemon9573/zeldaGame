@@ -1,4 +1,4 @@
-# Team Enter Game Legend of Zelda - Sprint 4
+# Team Enter Game Legend of Zelda - Sprint 5
 # Team Members: Aaron Heishman (heishman.5), Muhammed Gheith (gheith.11), Zihe Wang (wang.14629), Will Lemon (lemon.285), Chih-Hsiang Tseng (tseng.253)
 # Note: Code reviews will be under the CodeReviews folder in the project folder
   - Run SprintZero1.sln to play the game
