@@ -1,4 +1,5 @@
-﻿using SprintZero1.Entities;
+﻿using SprintZero1.Colliders.EntityColliders;
+using SprintZero1.Entities;
 using SprintZero1.Enums;
 using SprintZero1.Sprites;
 using SprintZero1.XMLParsers;
@@ -140,6 +141,15 @@ namespace SprintZero1.InventoryFiles
         public void ChangeEquipmentItem(EquipmentItem newEquipment)
         {
             Debug.Assert(_equipmentSlots.ContainsKey(newEquipment), $"The player does not contain {newEquipment} in their inventory.");
+            if (newEquipment.Equals(EquipmentItem.BetterBow))
+            {
+                _inventoryOwner.name = "LinkGun";
+                _inventoryOwner.ChangeDirection(_inventoryOwner.Direction);
+            }
+            else {
+                _inventoryOwner.name = "Link";
+                _inventoryOwner.Collider = new PlayerCollider(_inventoryOwner.Position, new System.Drawing.Size(_inventoryOwner.PlayerSprite.Width, _inventoryOwner.PlayerSprite.Height));
+            }
             _inventoryOwner.EquipmentSlot = _equipmentSlots[newEquipment];
         }
 

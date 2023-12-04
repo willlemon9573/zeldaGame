@@ -16,6 +16,7 @@ namespace SprintZero1.Factories
         private const string AttackingXMLPath = @"XMLFiles/FactoryXMLFiles/LinkAttackingSprites.xml";
         private const int AnimatedSpriteFrames = 2;
         private const string Link = "Link";
+        private const string LinkGun = "LinkGun";
         private const string Zelda = "Zelda";
         private readonly Dictionary<string, Texture2D> _playerTextureMap;
         private Texture2D LinkSpriteSheet;
@@ -46,10 +47,15 @@ namespace SprintZero1.Factories
             _playerMovementMap = spriteParser.ParseAnimatedSpriteWithDirectionXML(MovementXMLPath, Link);
             _playerMovementMap = _playerMovementMap.Concat(spriteParser.ParseAnimatedSpriteWithDirectionXML(MovementXMLPath, Zelda))
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            _playerMovementMap = _playerMovementMap.Concat(spriteParser.ParseAnimatedSpriteWithDirectionXML(MovementXMLPath, LinkGun))
+               .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             /* Create Dictionary that contains both Link and Zelda's attacking animation sprites */
             _playerAttackingMap = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath, Link);
             _playerAttackingMap = _playerAttackingMap.Concat(spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath, Zelda))
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            _playerAttackingMap = _playerAttackingMap.Concat(spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath, LinkGun))
+                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
 
             _playerTextureMap = new Dictionary<string, Texture2D>();
         }
@@ -60,6 +66,7 @@ namespace SprintZero1.Factories
         public void LoadTextures()
         {
             _playerTextureMap.Add(Link, Texture2DManager.GetLinkSpriteSheet());
+            _playerTextureMap.Add(LinkGun, Texture2DManager.GetLinkSpriteSheet());
             _playerTextureMap.Add(Zelda, Texture2DManager.GetLinkSpriteSheet()); // using link for testing until we get our 2nd player
             LinkSpriteSheet = Texture2DManager.GetLinkSpriteSheet();
         }
