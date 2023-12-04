@@ -92,6 +92,8 @@ namespace SprintZero1.Entities.EnemyEntities
         public virtual void TakeDamage(float damage)
         {
             if (_takenDamage) { return; }
+            if (_enemyState is not EnemyDamageState) { TransitionToState(State.TakingDamage); }
+            _enemyState.BlockTransition();
             _takenDamage = true;
             _enemyHealth -= damage;
             _damageSound.Play();

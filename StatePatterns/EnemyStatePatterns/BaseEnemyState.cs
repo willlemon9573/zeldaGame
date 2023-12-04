@@ -33,7 +33,8 @@ namespace SprintZero1.StatePatterns.EnemyStatePatterns
                 {State.Moving, () => new EnemyMovingState(_enemyEntity) },
                 {State.Attacking, () => new EnemyAttackingState(_enemyEntity) },
                 {State.Idle, () => new EnemyIdleState(_enemyEntity) },
-                {State.Paused, () => new EnemyPauseState(_enemyEntity)}
+                {State.Paused, () => new EnemyPauseState(_enemyEntity)},
+                {State.TakingDamage, () => new EnemyDamageState(_enemyEntity)}
                 // Add more states as needed
             };
         }
