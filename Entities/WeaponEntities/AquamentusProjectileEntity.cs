@@ -14,18 +14,18 @@ namespace SprintZero1.Entities.WeaponEntities
 {
     internal class AquamentusProjectileEntity : IWeaponEntity, ICollidableEntity
     {
+        private const float DefaultDamage = 1f;
         private const float MoveSpeed = 1.5f;
         private const float TimeToRemove = 2f;
         private float _elapsedTime;
-        private readonly float _damage;
         private readonly ISprite _projectileSprite;
         private bool _isActive;
         private Vector2 _position;
         private Vector2 _directionToMove;
         private ICollider _projectileCollider;
-        private float _angle;
+        private readonly float _angle;
 
-        public float WeaponDamage { get { return _damage; } }
+        public float WeaponDamage { get { return DefaultDamage; } }
 
         public bool IsActive { get { return _isActive; } }
 

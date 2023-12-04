@@ -35,6 +35,7 @@ namespace SprintZero1.Entities.EnemyEntities
         protected ICollider _collider;
         protected SoundEffect _deathSound;
         protected SoundEffect _damageSound;
+        protected bool _takenDamage;
         public ISprite EnemySprite { get { return _enemySprite; } set { _enemySprite = value; } }
         public string EnemyName { get { return _enemyName; } set { _enemyName = value; } }
         public Vector2 Position { get { return _enemyPosition; } set { _enemyPosition = value; _collider.Update(this); } }
@@ -42,6 +43,8 @@ namespace SprintZero1.Entities.EnemyEntities
         public Direction Direction { get { return _enemyDirection; } set { _enemyDirection = value; } }
         public IEnemyState EnemyState { get { return _enemyState; } set { _enemyState = value; } }
         public ICollider Collider { get { return _collider; } }
+
+        public bool BeenAttacked { get { return _takenDamage; } set { _takenDamage = value; } }
 
         /// <summary>
         /// Constructs a new enemy entity.
@@ -88,6 +91,8 @@ namespace SprintZero1.Entities.EnemyEntities
 
         public virtual void TakeDamage(float damage)
         {
+            if (_takenDamage) { return; }
+            _takenDamage = true;
             _enemyHealth -= damage;
             _damageSound.Play();
         }

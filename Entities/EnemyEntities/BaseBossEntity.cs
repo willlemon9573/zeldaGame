@@ -13,9 +13,9 @@ namespace SprintZero1.Entities.EnemyEntities
     internal abstract class BaseBossEntity : ICombatEntity, ICollidableEntity
     {
         private const string BossScreamSound = "boss_scream";
-
+        private const string BossDamaged = "boss_hit";
         protected const float DefaultTouchDamage = 1f;
-        protected readonly float MaxHealth;
+        protected float MaxHealth;
         protected readonly SoundEffect _bossDamageSound;
         protected readonly SoundEffect _bossScreamSound;
         protected float _currentHealth;
@@ -44,6 +44,7 @@ namespace SprintZero1.Entities.EnemyEntities
             Position = startingPosition;
             _currentHealth = startingHealth;
             _bossScreamSound = SoundFactory.GetSound(BossScreamSound);
+            _bossDamageSound = SoundFactory.GetSound(BossDamaged);
         }
 
         /// <summary>

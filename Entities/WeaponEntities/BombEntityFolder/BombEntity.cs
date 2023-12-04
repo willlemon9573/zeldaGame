@@ -66,9 +66,9 @@ namespace SprintZero1.Entities.WeaponEntities.BombEntityFolder
             };
         }
 
-        private void CreateCollider()
+        private void UpdateCollider()
         {
-            _bombCollider = new PlayerBombExplosionCollider(_weaponPosition, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
+
             if (GameStatesManager.CurrentState is GamePlayingState gameplayState)
             {
                 gameplayState.AddProjectile(this);
@@ -89,7 +89,8 @@ namespace SprintZero1.Entities.WeaponEntities.BombEntityFolder
             ImpactEffectSprite = WeaponSpriteFactory.Instance.CreateBombSpriteExplodes();
             Vector2 SpriteAdditions = _spriteEffectsDictionary[direction];
             _weaponPosition = position + SpriteAdditions;
-            CreateCollider();
+            _bombCollider = new PlayerBombCollider(position, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
+            UpdateCollider();
             _hasExploded = false;
             _isActive = true;
         }
@@ -129,8 +130,8 @@ namespace SprintZero1.Entities.WeaponEntities.BombEntityFolder
             if (timer >= waitingTime && !_hasExploded)
             {
                 _weaponSprite = ImpactEffectSprite; // Change to impact effect sprite after timer
+                _bombCollider = new PlayerBombExplosionCollider(_weaponPosition, new System.Drawing.Size(_weaponSprite.Width, _weaponSprite.Height));
                 _hasExploded = true;
-                CreateCollider();
             }
             else if (_hasExploded && _explosionElapsedTime >= explosionTime && GameStatesManager.CurrentState is GamePlayingState state)
             {

@@ -190,7 +190,7 @@
 			<Name>aquamentus</Name>
 			<X>175</X>
 			<Y>145</Y>
-			<Health>1</Health>
+			<Health>6</Health>
 			<Frames>2</Frames>
 			<Boundary>
 				<X>160</X>

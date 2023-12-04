@@ -329,10 +329,14 @@ namespace SprintZero1.LevelFiles
 
             foreach (IEntity entity in _liveEnemyList)
             {
+                if (entity is AquamentusEntity)
+                {
+                    Debug.WriteLine("k");
+                }
                 if (entity is ICollidableEntity collidableEntity)
                 {
                     Rectangle collider = collidableEntity.Collider.Collider;
-                    Color c = Color.Yellow;
+                    Color c = Color.Red;
                     _spriteDebugger.DrawRectangle(collider, c, spriteBatch);
                 }
             }

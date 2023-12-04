@@ -26,7 +26,7 @@ namespace SprintZero1.Entities
         private ISprite _playerSprite;
         private Direction _playerDirection;
         private Vector2 _playerPosition;
-        private readonly PlayerCollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
+        private readonly ICollider _playerCollider; // Not adding readonly modifier as colider may be an updatable in the future
         private readonly PlayerSpriteFactory PlayerSpriteFactory = PlayerSpriteFactory.Instance; // will be removed to give player a sprite on instantiation 
         private IWeaponEntity _playerSwordSlot;
         private IWeaponEntity _playerEquipmentSlot;

@@ -9,19 +9,21 @@ namespace SprintZero1.StatePatterns.BossStatePatterns.AquamentusStatePattern
         {
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            throw new System.NotImplementedException();
-        }
+
 
         public override void Request()
         {
-            throw new System.NotImplementedException();
+
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new System.NotImplementedException();
+
         }
     }
 }
