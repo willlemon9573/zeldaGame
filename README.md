@@ -4,33 +4,24 @@
   - Run SprintZero1.sln to play the game
 # Controls
   - W, A, S, D, Up, Down, Left, Right - Link Movement Controls
-  - Z  - Attack
+  - Z  - Sword Attack
+  - X  - Equiped Weapon Attack
   - Left Mouse Click: Move to previous room
   - Right Mouse Click: Move to next room
  
 
  # Unimplemented Features
-	Collisions between enemies and the player has not been implemented
 	Room screen transitions have not been implemented
-	Most game states did not get their implementations
-	Sound is not implemented
 	Item Selection Menu transitioning down has not been implemented
-	Heads up display has implementations, but unused as combat was not implemented
-	Room events were not implemented (pushing blocks to open door for example)
-	Link using secondary weapon not implemented
-	Most of Link's state transitions did not get implemented for the same reason as combat not being implemented
-	Hud doesn't display player weapons
-	Inventory doesn't draw map / compass and other items
+ 	Rupees are not in the game
 
-# Known Bugs 
-	Pausing the game and opening the inventory can be accessed at the same time
-	Enemies cannot be attacked properly
-	No Collisions on sides of doors causing certain portions to be drawn above link
+# Known Bugs and Features
+	Link experiences recoil when shooting the minigun
+ 	Enemies follow you when they are not supposed to
+  	Unlimited bombs
+  
+	
 
-
-Boomerang Projectile's return state does not return to the player, but where it is currently thrown
-Link is drawn on the layer below projectiles currently
-Link's not drawn above closed doors
 
 
 # Code Metrics for Sprint 4 (DO NOT DELETE)
