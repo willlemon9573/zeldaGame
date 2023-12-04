@@ -125,7 +125,7 @@ namespace SprintZero1.XMLParsers.XMLEntityBuilder.EventParser
                 {
                     blockMap(reader, block);
                 }
-                else if (reader.NodeType == EndElementType && reader.Name == "EventBlock")
+                else if (reader.NodeType == EndElementType && reader.Name == EventBlockElement)
                 {
                     blockList.Add(block);
                     block = new BlockInfo();
