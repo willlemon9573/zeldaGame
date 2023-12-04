@@ -6,7 +6,6 @@ using SprintZero1.Managers;
 using SprintZero1.XMLParsers;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -112,8 +111,6 @@ namespace SprintZero1.GameStateMenu
             }
             else
             {
-                //just set to an unsable and unrelated place
-                Debug.WriteLine(roomName);
                 return new Vector2(110, 140);
             }
         }
@@ -129,7 +126,6 @@ namespace SprintZero1.GameStateMenu
             {
                 Rectangle itemRec = _xDocTools.CreateRectangle(itemElement);
                 DungeonItems dungeonItems = _xDocTools.ParseAttributeADungeonItemsData(itemElement, "name");
-                Debug.WriteLine(dungeonItems);
                 Vector2 position = new Vector2(0, 0);
                 _dungeonItemsData.Add(dungeonItems, new Tuple<Rectangle, Vector2>(itemRec, position));
             }
@@ -227,7 +223,6 @@ namespace SprintZero1.GameStateMenu
         /// </summary>
         public void SetNextWeapon()
         {
-            Debug.WriteLine("SetNextWeapon");
             int currentIndex = _playerEquipment.IndexOf(currentWeapon);
             if (_playerEquipment.Count != 0)
             {
@@ -268,13 +263,13 @@ namespace SprintZero1.GameStateMenu
         /// Synchronizes the inventory with the player's current equipment.
         /// </summary>
         public void SynchronizeInventory()
-        { 
+        {
             _whetherVisitedRoom = LevelManager.WhetherVisitedRoom;
             foreach (var roomEntry in _whetherVisitedRoom)
             {
                 string roomName = roomEntry.Key;
                 bool visited = roomEntry.Value;
-                Vector2 position = GetRoomPositionFromXml(roomName); 
+                Vector2 position = GetRoomPositionFromXml(roomName);
                 _roomsInfo[roomName] = (position, visited);
             }
 
@@ -353,8 +348,6 @@ namespace SprintZero1.GameStateMenu
             else
             {
                 var availableKeys = string.Join(", ", equipmentData.Keys.Select(k => k.ToString()));
-                System.Diagnostics.Debug.WriteLine($"Available keys: {availableKeys}");
-                System.Diagnostics.Debug.WriteLine($"Current weapon: {currentWeapon}");
                 throw new KeyNotFoundException($"The currentWeapon '{currentWeapon}' does not exist in the equipment data. Available keys: {availableKeys}");
             }
         }
@@ -500,17 +493,16 @@ namespace SprintZero1.GameStateMenu
                 if (!roomInfo.Value.Visited)
                 {
                     Vector2 position = roomInfo.Value.Position;
-                    Debug.WriteLine(position);
                     spriteBatch.Draw(
-                        itemChooseScreen, 
-                        position, 
-                        Cover, 
-                        Color.White, 
-                        0, 
-                        Vector2.Zero, 
-                        SCALE, 
-                        SpriteEffects.None, 
-                        0 
+                        itemChooseScreen,
+                        position,
+                        Cover,
+                        Color.White,
+                        0,
+                        Vector2.Zero,
+                        SCALE,
+                        SpriteEffects.None,
+                        0
                     );
                 }
             }

@@ -9,7 +9,6 @@ using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using SprintZero1.StatePatterns.EnemyStatePatterns;
 using SprintZero1.StatePatterns.StatePatternInterfaces;
-using System.Diagnostics;
 
 
 namespace SprintZero1.Entities.EnemyEntities
@@ -113,7 +112,7 @@ namespace SprintZero1.Entities.EnemyEntities
 
         public virtual void Update(GameTime gameTime)
         {
-            Debug.WriteLine(_enemyState);
+
             _enemyState.Update(gameTime);
             _collider.Update(this);
         }

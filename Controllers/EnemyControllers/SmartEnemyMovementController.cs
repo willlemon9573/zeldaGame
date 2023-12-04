@@ -3,12 +3,10 @@ using SprintZero1.Entities.EnemyEntities;
 using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.LevelFiles;
+using SprintZero1.StatePatterns.EnemyStatePatterns;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using SprintZero1.StatePatterns.StatePatternInterfaces;
-using SprintZero1.StatePatterns.EnemyStatePatterns;
 
 
 namespace SprintZero1.Controllers.EnemyControllers
@@ -126,7 +124,7 @@ namespace SprintZero1.Controllers.EnemyControllers
             if (_enemyEntity is EnemyBasedEntity _enemyBasedEntity)
             {
                 if (_enemyBasedEntity.EnemyState is EnemyDamageState)
-                { 
+                {
                     return;
                 }
             }
@@ -151,7 +149,6 @@ namespace SprintZero1.Controllers.EnemyControllers
                     {
                         if (ShouldUseBoomerangAttack(_enemyEntity.Position, nearestPlayer.Position))
                         {
-                            Debug.Print("enemyAttacked");
                             enemyBasedEntity.Attack();
                         }
                     }

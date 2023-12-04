@@ -34,8 +34,8 @@ namespace SprintZero1.Controllers
         {
             _gamepadMap = new Dictionary<Buttons, ICommand>()
             {
-                {Buttons.LeftStick, new GetPreviousWeaponCommand(_itemSelectionMenu) },
-                {Buttons.RightStick, new GetNextWeaponCommand(_itemSelectionMenu) },
+                {Buttons.DPadLeft, new GetPreviousWeaponCommand(_itemSelectionMenu) },
+                {Buttons.DPadRight, new GetNextWeaponCommand(_itemSelectionMenu) },
                 {Buttons.X, new SetCurrentWeaponToPlayerCommand(playerEntity, _itemSelectionMenu) },
                 {Buttons.B, new UnpauseGameCommand() }
             };
