@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
 
 namespace SprintZero1.Managers
 {
@@ -11,6 +12,7 @@ namespace SprintZero1.Managers
     public static class Texture2DManager
     {
         private static Texture2D _linkSpriteSheet;
+        private static Texture2D _zeldaSpriteSheet;
         private static Texture2D _tileSpriteSheet;
         private static Texture2D _enemySpriteSheet;
         private static Texture2D _bossSpriteSheet;
@@ -37,6 +39,7 @@ namespace SprintZero1.Managers
             _itemSpriteSheet = contentManager.Load<Texture2D>("itemSpriteSheet1");
             _PauseScreenSheet = contentManager.Load<Texture2D>("NES_-_The_Legend_of_Zelda_-_HUD__Pause_Screen1");
             _HUDSpriteSheet = contentManager.Load<Texture2D>("HUDSpritesheet");
+            _zeldaSpriteSheet = contentManager.Load<Texture2D>("ZeldaSheet");
         }
 
         public static void LoadSpriteFonts(ContentManager contentManager)
@@ -48,6 +51,11 @@ namespace SprintZero1.Managers
         public static Texture2D GetLinkSpriteSheet()
         {
             return _linkSpriteSheet;
+        }
+
+        public static Texture2D GetZeldaSpriteSheet()
+        {
+            return _zeldaSpriteSheet;
         }
 
         /// <summary>

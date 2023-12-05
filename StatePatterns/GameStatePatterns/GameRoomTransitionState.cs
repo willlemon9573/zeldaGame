@@ -90,6 +90,7 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            HUDManager.Draw(spriteBatch);
             foreach(IEntity entity in onScreenEntities)
             {
                 entity.Draw(spriteBatch);
