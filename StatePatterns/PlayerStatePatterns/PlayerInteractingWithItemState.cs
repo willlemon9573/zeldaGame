@@ -12,7 +12,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
     /// </summary>
     internal class PlayerInteractingWithItemState : BasePlayerState
     {
-        private const string SpriteName = "LinkInteracting";
+        private string SpriteName = "LinkInteracting";
         private const float TotalTime = 1 / 2f;
         private float _elapsedTime;
         private ILootableEntity _weaponToDisplay;
@@ -20,6 +20,7 @@ namespace SprintZero1.StatePatterns.PlayerStatePatterns
         public PlayerInteractingWithItemState(PlayerEntity playerEntity) : base(playerEntity)
         {
             offset = new Vector2(0, -15);
+            SpriteName = _characterName + "Interacting";
         }
 
         public override void Request()

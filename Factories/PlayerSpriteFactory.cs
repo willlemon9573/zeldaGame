@@ -34,14 +34,20 @@ namespace SprintZero1.Factories
         private void AddInteractingSprite()
         {
             // hardcoded as it's 3 AM and we still have too much to do
-            string key = "LinkInteracting";
-            List<Rectangle> sprites = new List<Rectangle>()
+            string linkKey = "LinkInteracting";
+            string zeldaKey = "ZeldaInteracting";
+            List<Rectangle> linkSprites = new List<Rectangle>()
             {
                 { new Rectangle(214, 11, 13, 16) },
                 { new Rectangle(231, 11,14, 16) }
             };
-
-            _playerMovementMap.Add((key, Direction.South), sprites);
+            List<Rectangle> zeldaSprites = new List<Rectangle>()
+            {
+                { new Rectangle(155, 151, 16, 16) },
+                {new Rectangle(172, 151, 16, 16) }
+            };
+            _playerMovementMap.Add((linkKey, Direction.South), linkSprites);
+            _playerMovementMap.Add((zeldaKey, Direction.South), zeldaSprites);
         }
 
         /// <summary>
@@ -79,6 +85,7 @@ namespace SprintZero1.Factories
             _playerTextureMap.Add(Zelda, Texture2DManager.GetZeldaSpriteSheet()); // using link for testing until we get our 2nd player
             _playerTextureMap.Add(ZeldaGun, Texture2DManager.GetLinkSpriteSheet());
             _playerTextureMap.Add("LinkInteracting", Texture2DManager.GetLinkSpriteSheet());
+            _playerTextureMap.Add("ZeldaInteracting", Texture2DManager.GetZeldaSpriteSheet());
         }
 
         /// <summary>
