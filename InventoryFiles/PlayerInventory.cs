@@ -144,14 +144,32 @@ namespace SprintZero1.InventoryFiles
         public void ChangeEquipmentItem(EquipmentItem newEquipment)
         {
             Debug.Assert(_equipmentSlots.ContainsKey(newEquipment), $"The player does not contain {newEquipment} in their inventory.");
+            string ownerName = _inventoryOwner.Name;
+            string link = "Link";
+            string zelda = "Zelda";
+            string gun = "Gun";
             if (newEquipment.Equals(EquipmentItem.BetterBow))
             {
-                _inventoryOwner.Name = "LinkGun";
+                if (ownerName.Contains(link))
+                {
+                    _inventoryOwner.Name = link + gun;
+                }
+                else
+                {
+                    _inventoryOwner.Name = zelda + gun;
+                }
                 _inventoryOwner.ChangeDirection(_inventoryOwner.Direction);
             }
             else
             {
-                _inventoryOwner.Name = "Link";
+                if (ownerName.Contains(link))
+                {
+                    _inventoryOwner.Name = link;
+                }
+                else
+                {
+                    _inventoryOwner.Name = zelda;
+                }
                 _inventoryOwner.Collider = new PlayerCollider(_inventoryOwner.Position, new System.Drawing.Size(_inventoryOwner.PlayerSprite.Width, _inventoryOwner.PlayerSprite.Height));
             }
             _inventoryOwner.EquipmentSlot = _equipmentSlots[newEquipment];

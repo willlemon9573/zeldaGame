@@ -101,6 +101,7 @@ namespace SprintZero1.Entities
         {
             /* return if the player previously shot a projectile and it hasn't finished its animation */
             if (_currentWeapon.IsActive) { return; }
+
             if (_playerState is not PlayerAttackingState) { TransitionToState(State.Attacking); }
             _playerState.Request();
         }
