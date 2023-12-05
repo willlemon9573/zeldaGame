@@ -130,8 +130,8 @@ namespace SprintZero1.Managers
             };
 
             /* setup for moving marker when player changes rooms */
-            Vector2 verticalOffset = new Vector2(4, 0);
-            Vector2 horizontalOffset = new Vector2(0, 8);
+            Vector2 verticalOffset = new Vector2(0, 4);
+            Vector2 horizontalOffset = new Vector2(8, 0);
             _playerMarkerOffsetMap = new Dictionary<Direction, Vector2>()
             {
                 { Direction.North, -verticalOffset },

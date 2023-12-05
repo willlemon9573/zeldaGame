@@ -71,7 +71,6 @@ namespace SprintZero1.Commands.CollisionCommands
 
             _playingState.LoadDungeonRoom(destination);
             _playingState.Handle();
-
         }
     }
 }
