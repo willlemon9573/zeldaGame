@@ -11,7 +11,6 @@ namespace SprintZero1.Commands.CollisionCommands
 {
     internal class EnterNextRoomCommand : ICommand
     {
-        private const int MaxDirections = 4;
         private const int PositionOffsetOne = 110;
         private const int PositionOffsetTwo = 190;
         private Vector2 _playerSecretRoomPosition = new Vector2(56, 95); /* temporary fix until we can update the XML files to contain the player positions */
@@ -23,10 +22,10 @@ namespace SprintZero1.Commands.CollisionCommands
         private readonly ICommand pushBackCommand;
 
         public Dictionary<Direction, Vector2> _directionMap = new Dictionary<Direction, Vector2>() {
-                { Direction.North, new Vector2(0, PositionOffsetOne) },
-                { Direction.South, new Vector2(0, -PositionOffsetOne) },
-                { Direction.East, new Vector2(-PositionOffsetTwo, 0) },
-                { Direction.West, new Vector2(PositionOffsetTwo, 0) },
+                { Direction.North, new Vector2(127, 204) },
+                { Direction.South, new Vector2(127, 100) },
+                { Direction.East, new Vector2(40, 152) },
+                { Direction.West, new Vector2(215, 152) },
             };
 
         private bool PlayerCanTransition()
@@ -51,23 +50,21 @@ namespace SprintZero1.Commands.CollisionCommands
                 return;
             }
             string destination = _door.DoorDestination;
-            Vector2 playerCurrentPosition = _playerEntity.Position;
+            Vector2 playerNewPosition;
             if (destination != SecretRoom)
             {
-                playerCurrentPosition += _directionMap[_door.DoorDirection];
+                playerNewPosition = _directionMap[_door.DoorDirection];
                 HUDManager.UpdateMarker(_door.DoorDirection);
             }
             else
             {
-                playerCurrentPosition = _playerSecretRoomPosition;
+                playerNewPosition = _playerSecretRoomPosition;
             }
-            _playerEntity.Position = playerCurrentPosition;
-            _playerEntity.Collider.Update(_playerEntity);
 
             GameStatesManager.ChangeGameState(GameState.RoomTransition);
             _transitionState = GameStatesManager.CurrentState as GameRoomTransitionState;
 
-            _transitionState.StartTransition(destination, _door.DoorDirection);
+            _transitionState.StartTransition(destination, _door.DoorDirection, playerNewPosition);
 
             _playingState.LoadDungeonRoom(destination);
             _playingState.Handle();
