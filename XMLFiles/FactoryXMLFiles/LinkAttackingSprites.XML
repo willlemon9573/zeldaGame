@@ -30,16 +30,30 @@
 	</LinkGun>
 	<Zelda type="attacking">
 		<Sprite direction="South">
-			<Rectangle x="107" y="11" width="16" height="16" />
+			<Rectangle x="137" y="168" width="16" height="16" />
 		</Sprite>
 		<Sprite direction="East">
-			<Rectangle x="124" y="11" width="16" height="16" />
+			<Rectangle x="137" y="151" width="16" height="16" />
 		</Sprite>
 		<Sprite direction="West">
-			<Rectangle x="124" y="11" width="16" height="16" />
+			<Rectangle x="137" y="151" width="16" height="16" />
 		</Sprite>
 		<Sprite direction="North">
-			<Rectangle x="141" y="11" width="16" height="16" />
+			<Rectangle x="154" y="168" width="16" height="16" />
 		</Sprite>
 	</Zelda>
+	<ZeldaGun type="attacking">
+		<Sprite direction="South">
+			<Rectangle x="311" y="239" width="16" height="26" />
+		</Sprite>
+		<Sprite direction="East">
+			<Rectangle x="277" y="220" width="27" height="16" />
+		</Sprite>
+		<Sprite direction="West">
+			<Rectangle x="277" y="220" width="27" height="16" />
+		</Sprite>
+		<Sprite direction="North">
+			<Rectangle x="271" y="239" width="16" height="26" />
+		</Sprite>
+	</ZeldaGun>
 </Sprites>

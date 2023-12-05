@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using SprintZero1.Colliders;
 using SprintZero1.Colliders.EntityColliders;
-using SprintZero1.DebuggingTools;
 using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
@@ -37,8 +36,6 @@ namespace SprintZero1.Entities.WeaponEntities
         /* Sprite effect for flipping the weapon */
         private SpriteEffects _currentSpriteEffect = SpriteEffects.None;
         public Vector2 Position { get { return _weaponPosition; } set { _weaponPosition = value; } }
-
-        private SpriteDebuggingTools spriteDebugger;
         private ICollider _collider;
         private readonly SoundEffect _swordSlash;
         private bool _isActive;
@@ -59,7 +56,6 @@ namespace SprintZero1.Entities.WeaponEntities
         {
             _weaponName = weaponName;
             _spriteEffectsDictionary = spriteEffectsMap;
-            spriteDebugger = new SpriteDebuggingTools(GameStatesManager.ThisGame);
             _swordSlash = SoundFactory.GetSound("sword_slash");
             _defaultSprite = WeaponSpriteFactory.Instance.GetSwordSprite(Direction.North);
         }
@@ -85,7 +81,6 @@ namespace SprintZero1.Entities.WeaponEntities
         public void Draw(SpriteBatch spriteBatch)
         {
             _weaponSprite.Draw(spriteBatch, _weaponPosition, Color.White, _currentSpriteEffect, Rotation, LayerDepth);
-            spriteDebugger.DrawRectangle(_collider.Collider, Color.CornflowerBlue, spriteBatch);
         }
 
         public void Update(GameTime gameTime)

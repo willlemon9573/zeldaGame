@@ -18,6 +18,7 @@ namespace SprintZero1.Factories
         private const string Link = "Link";
         private const string LinkGun = "LinkGun";
         private const string Zelda = "Zelda";
+        private const string ZeldaGun = "ZeldaGun";
         private readonly Dictionary<string, Texture2D> _playerTextureMap;
         private readonly Dictionary<(string, Direction), List<Rectangle>> _playerMovementMap;
         private readonly Dictionary<(string, Direction), Rectangle> _playerAttackingMap;
@@ -55,12 +56,15 @@ namespace SprintZero1.Factories
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             _playerMovementMap = _playerMovementMap.Concat(spriteParser.ParseAnimatedSpriteWithDirectionXML(MovementXMLPath, LinkGun))
                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
             /* Create Dictionary that contains both Link and Zelda's attacking animation sprites */
             _playerAttackingMap = spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath, Link);
             _playerAttackingMap = _playerAttackingMap.Concat(spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath, Zelda))
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             AddInteractingSprite();
             _playerAttackingMap = _playerAttackingMap.Concat(spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath, LinkGun))
+                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            _playerAttackingMap = _playerAttackingMap.Concat(spriteParser.ParseNonAnimatedSpriteWithDirectionXML(AttackingXMLPath, ZeldaGun))
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             _playerTextureMap = new Dictionary<string, Texture2D>();
         }
@@ -72,12 +76,13 @@ namespace SprintZero1.Factories
         {
             _playerTextureMap.Add(Link, Texture2DManager.GetLinkSpriteSheet());
             _playerTextureMap.Add(LinkGun, Texture2DManager.GetLinkSpriteSheet());
-            _playerTextureMap.Add(Zelda, Texture2DManager.GetLinkSpriteSheet()); // using link for testing until we get our 2nd player
+            _playerTextureMap.Add(Zelda, Texture2DManager.GetZeldaSpriteSheet()); // using link for testing until we get our 2nd player
+            _playerTextureMap.Add(ZeldaGun, Texture2DManager.GetLinkSpriteSheet());
             _playerTextureMap.Add("LinkInteracting", Texture2DManager.GetLinkSpriteSheet());
         }
 
         /// <summary>
-        /// 
+        /// Develops AnimatedSprite class for Link
         /// </summary>
         /// <param name="characterName"></param>
         /// <param name="direction"></param>
@@ -92,6 +97,12 @@ namespace SprintZero1.Factories
             return new AnimatedSprite(spriteRectangles, characterTextureMap, AnimatedSpriteFrames);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="characterName"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
         public ISprite GetPlayerAttackingSprite(string characterName, Direction direction)
         {
             Debug.Assert(_playerAttackingMap.ContainsKey((characterName, direction)), $"Combined key {(characterName)},{direction} not found in dictionary");
