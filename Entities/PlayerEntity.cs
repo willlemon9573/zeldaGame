@@ -39,9 +39,8 @@ namespace SprintZero1.Entities
         private readonly PlayerInventory _playerInventory;
         private ILootableEntity _equipmentToDisplay;
         private bool _isDead;
-        private bool _changeColliders;
         /* Public properties to modify the player's private members */
-        public string name { get { return _characterName; } set { _characterName = value; } }
+        public string Name { get { return _characterName; } set { _characterName = value; } }
         public float Health { get { return _playerHealth; } set { _playerHealth = value; } }
         public float MaxHealth { get { return _playerMaxHealth; } set { _playerMaxHealth = value; } }
         public Direction Direction { get { return _playerDirection; } set { _playerDirection = value; } }
@@ -74,7 +73,6 @@ namespace SprintZero1.Entities
             _characterName = characterName;
             _playerSprite = PlayerSpriteFactory.Instance.GetPlayerMovementSprite(characterName, startingDirection);
             float scalefactor = 0.9f; // scale factor for the collider
-            _changeColliders = false;
             _playerCollider = new PlayerCollider(startingPosition, new System.Drawing.Size(_playerSprite.Width, _playerSprite.Height), scalefactor);
             _playerState = new PlayerIdleState(this);
             _playerVulnerabilityState = new PlayerVulnerableState(this);
@@ -147,7 +145,7 @@ namespace SprintZero1.Entities
         {
             if (_isDead)
             {
-                if (_playerHealth > 1)
+                if (_playerHealth >= 1)
                 {
                     _isDead = false;
                 }

@@ -146,12 +146,12 @@ namespace SprintZero1.InventoryFiles
             Debug.Assert(_equipmentSlots.ContainsKey(newEquipment), $"The player does not contain {newEquipment} in their inventory.");
             if (newEquipment.Equals(EquipmentItem.BetterBow))
             {
-                _inventoryOwner.name = "LinkGun";
+                _inventoryOwner.Name = "LinkGun";
                 _inventoryOwner.ChangeDirection(_inventoryOwner.Direction);
             }
             else
             {
-                _inventoryOwner.name = "Link";
+                _inventoryOwner.Name = "Link";
                 _inventoryOwner.Collider = new PlayerCollider(_inventoryOwner.Position, new System.Drawing.Size(_inventoryOwner.PlayerSprite.Width, _inventoryOwner.PlayerSprite.Height));
             }
             _inventoryOwner.EquipmentSlot = _equipmentSlots[newEquipment];

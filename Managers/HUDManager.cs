@@ -149,7 +149,7 @@ namespace SprintZero1.Managers
             foreach (IEntity player in players)
             {
                 _playerHealthMap.Add(player,
-                    new HPLinkedList(playerMaxStartingHealth, playerHeartStartingPosition));
+                    new HPLinkedList(playerMaxStartingHealth, playerHeartStartingPosition, player));
                 _playerWeaponBox.Add(player, (null, playerEquipmentBoxPosition));
                 playerHeartStartingPosition.Y += yOffset;
                 playerEquipmentBoxPosition.X += xOffset;
@@ -296,7 +296,6 @@ namespace SprintZero1.Managers
         /// <param name="spriteBatch">SpriteBatch spritebatch</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
-
             foreach (HPLinkedList playerHealth in _playerHealthMap.Values)
             {
                 playerHealth.Draw(spriteBatch);

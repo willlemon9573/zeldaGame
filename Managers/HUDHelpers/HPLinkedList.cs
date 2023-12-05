@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SprintZero1.Entities;
+using SprintZero1.Entities.EntityInterfaces;
 using SprintZero1.Factories;
 using SprintZero1.Sprites;
 using System.Collections.Generic;
@@ -33,6 +35,7 @@ namespace SprintZero1.Managers.HUDHelpers
         private readonly int _horizontalOffset;
         private int _maxHealth;
         private static Dictionary<float, ISprite> _heartSpriteMap;
+        private static IEntity _player;
 
         /// <summary>
         /// Initializes the linked list
@@ -68,7 +71,7 @@ namespace SprintZero1.Managers.HUDHelpers
         /// <param name="maxHealth">The total max health the player starts with</param>
         /// <param name="startingPosition">The position to start drawing the player's health at</param>
         /// <param name="horizontalOffset">The horizontal offset for adding new hearts [default param = 9]</param>
-        public HPLinkedList(int maxHealth, Vector2 startingPosition, int horizontalOffset = 9)
+        public HPLinkedList(int maxHealth, Vector2 startingPosition, IEntity player, int horizontalOffset = 9)
         {
             /* Sprite map that contains an easy way to access sprites */
             _heartSpriteMap = new Dictionary<float, ISprite>()
@@ -128,6 +131,11 @@ namespace SprintZero1.Managers.HUDHelpers
             currentNode.Next = newNode;
             _tail.Previous = newNode;
             _maxHealth++; /* represents the length of the list */
+            if (_player is PlayerEntity player)
+            {
+                player.MaxHealth++;
+                player.Health = player.MaxHealth;
+            }
             _healthPointer = newNode; /* update health pointer to the new node */
         }
 
