@@ -34,7 +34,8 @@ namespace SprintZero1.Entities.WeaponEntities.BombEntityFolder
         private bool _isActive;
         private bool _hasExploded;
         private ICollider _bombCollider;
-        private SoundEffect _explosionSound;
+        private readonly SoundEffect _explosionSound;
+        private readonly ISprite _onScreenSprite;
 
         public bool HasExploded { get { return _hasExploded; } }
 
@@ -46,7 +47,7 @@ namespace SprintZero1.Entities.WeaponEntities.BombEntityFolder
 
         public float WeaponDamage { get { return BombDamage; } }
 
-        public ISprite Sprite { get { return _weaponSprite; } }
+        public ISprite Sprite { get { return _onScreenSprite; } }
 
         public ICollider Collider { get { return _bombCollider; } }
 
@@ -67,6 +68,7 @@ namespace SprintZero1.Entities.WeaponEntities.BombEntityFolder
                 { Direction.West, new Vector2(-11, 0) }
             };
             _explosionSound = SoundFactory.GetSound("bomb_blow");
+            _onScreenSprite = WeaponSpriteFactory.Instance.CreateBombSprite();
         }
 
         private void UpdateCollider()

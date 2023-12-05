@@ -23,6 +23,7 @@ namespace SprintZero1.Commands.CollisionCommands
             if (playerDir == blockDir)
             {
                 (_movableBlock as IMovableEntity).Move();
+                _pushBack.Execute();
             }
             else
             {
