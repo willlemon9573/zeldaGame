@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Media;
 using SprintZero1.Colliders;
 using SprintZero1.Entities;
 using SprintZero1.Entities.EntityInterfaces;
+using SprintZero1.Entities.WeaponEntities.BoomerangEntity;
+using SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.LevelFiles;
@@ -91,6 +93,21 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
         public void LoadDungeonRoom(string nextRoomName)
         {
             _colliderManager.ClearCollidableEntities();
+            if (_projectiles.Count > 0)
+            {
+                foreach (IEntity projectile in _projectiles)
+                {
+                    if (projectile is BoomerangBasedEntity boomerang)
+                    {
+                        boomerang.IsActive = false;
+                    }
+                    else if (projectile is NonComingBackWeaponEntity nonComingBackWeapon)
+                    {
+                        nonComingBackWeapon.IsActive = false;
+                    }
+                }
+                _projectiles.Clear();
+            }
             _currentRoom = LevelManager.GetDungeonRoom(nextRoomName);
             _colliderManager.AddCollidableEntities(_currentRoom.GetEntityList());
             foreach (var playerTuple in _livePlayerList.Values)
