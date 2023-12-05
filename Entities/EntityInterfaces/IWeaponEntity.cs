@@ -14,7 +14,7 @@ namespace SprintZero1.Entities.EntityInterfaces
         /// <summary>
         /// Get the weapon activity
         /// </summary>
-        public bool IsActive { get; }
+        public bool IsActive { get; set; }
 
         /// <summary>
         /// Returns the sprite of the weapon

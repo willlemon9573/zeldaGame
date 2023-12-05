@@ -27,7 +27,7 @@ namespace SprintZero1.Entities.WeaponEntities
 
         public float WeaponDamage { get { return DefaultDamage; } }
 
-        public bool IsActive { get { return _isActive; } }
+        public bool IsActive { get { return _isActive; } set { _isActive = false; } }
 
         public ISprite Sprite { get { return _projectileSprite; } }
 

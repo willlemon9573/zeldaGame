@@ -49,7 +49,7 @@ namespace SprintZero1.Entities.WeaponEntities
 
         public ISprite Sprite { get { return _defaultSprite; } }
 
-        public bool IsActive { get { return _isActive; } }
+        public bool IsActive { get { return _isActive; } set { _isActive = false; } }
 
         /// <summary>
         /// TODO: Remove weapon name if my inventory implementation works

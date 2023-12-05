@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework.Media;
 using SprintZero1.Colliders;
 using SprintZero1.Entities;
 using SprintZero1.Entities.EntityInterfaces;
-using SprintZero1.Entities.WeaponEntities.BoomerangEntity;
-using SprintZero1.Entities.WeaponEntities.BowAndMagicFireEntity;
 using SprintZero1.Enums;
 using SprintZero1.Factories;
 using SprintZero1.LevelFiles;
@@ -95,15 +93,12 @@ namespace SprintZero1.StatePatterns.GameStatePatterns
             _colliderManager.ClearCollidableEntities();
             if (_projectiles.Count > 0)
             {
+                // updates each projecilte to their innactive state to be used again if a transition happens.
                 foreach (IEntity projectile in _projectiles)
                 {
-                    if (projectile is BoomerangBasedEntity boomerang)
+                    if (projectile is IWeaponEntity weapon)
                     {
-                        boomerang.IsActive = false;
-                    }
-                    else if (projectile is NonComingBackWeaponEntity nonComingBackWeapon)
-                    {
-                        nonComingBackWeapon.IsActive = false;
+                        weapon.IsActive = false;
                     }
                 }
                 _projectiles.Clear();

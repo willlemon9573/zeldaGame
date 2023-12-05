@@ -51,7 +51,7 @@ namespace SprintZero1.Entities.WeaponEntities.BombEntityFolder
 
         public ICollider Collider { get { return _bombCollider; } }
 
-        public bool IsActive { get { return _isActive; } }
+        public bool IsActive { get { return _isActive; } set { _isActive = false; } }
 
         /// <summary>
         /// Initializes a new instance of the BombEntity with a specific weapon name.
